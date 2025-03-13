@@ -42,8 +42,8 @@ const HeroSection = () => {
   const isAdmin = userEmail === adminEmail;
 
   return (
-    <div className="bg-[#090e1a] min-h-screen flex items-center justify-center px-4 md:px-8 lg:px-16 relative">
-      <div className="max-w-4xl w-full text-center">
+    <div className="bg-[#090e1a] min-h-screen flex flex-col justify-start pt-12 md:pt-24 lg:pt-32 px-4 md:px-8 lg:px-16 relative">
+      <div className="max-w-4xl w-full mx-auto text-center">
         {/* Title */}
         <motion.h1
           className="text-4xl md:text-6xl font-extrabold bg-gradient-to-r from-purple-400 to-blue-500 bg-clip-text text-transparent leading-tight"
