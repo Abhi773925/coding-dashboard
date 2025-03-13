@@ -42,7 +42,7 @@ const Navbar = () => {
       }
       
       // Then verify with server
-      const res = await fetch("http://localhost:5000/api/auth/user", {
+      const res = await fetch("https://zidio-kiun.onrender.com/api/auth/user", {
         credentials: "include",
       });
       
@@ -67,11 +67,11 @@ const Navbar = () => {
   };
   
   const handleGoogleLogin = () => {
-    window.open("http://localhost:5000/api/auth/google", "_self");
+    window.open("https://zidio-kiun.onrender.com/api/auth/google", "_self");
   };
 
   const handleLogout = () => {
-    window.open("http://localhost:5000/api/auth/logout", "_self"); // Logs out
+    window.open("https://zidio-kiun.onrender.com/api/auth/logout", "_self"); // Logs out
     localStorage.removeItem("user"); // Remove from localStorage
     setUser(null);
     setIsLoggedIn(false);

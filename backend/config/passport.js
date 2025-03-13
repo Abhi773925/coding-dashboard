@@ -8,7 +8,7 @@ passport.use(
     {
       clientID: process.env.GOOGLE_CLIENT_ID,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-      callbackURL: process.env.GOOGLE_REDIRECT_URI || "http://localhost:5000/api/auth/google/callback", // ✅ Make sure this matches Google Cloud Console
+      callbackURL: process.env.GOOGLE_REDIRECT_URI || "https://zidio-kiun.onrender.com/api/auth/google/callback", // ✅ Make sure this matches Google Cloud Console
     },
     async (accessToken, refreshToken, profile, done) => {
       try {

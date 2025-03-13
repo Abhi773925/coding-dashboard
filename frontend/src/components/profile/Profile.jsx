@@ -15,7 +15,7 @@ const Profile = () => {
   const fetchTasks = useCallback(async (email) => {
     try {
       setLoading(true);
-      const response = await axios.get(`http://localhost:5000/api/Zidio/tasks?email=${encodeURIComponent(email)}`);
+      const response = await axios.get(`https://zidio-kiun.onrender.com/api/Zidio/tasks?email=${encodeURIComponent(email)}`);
       if (response.status === 200) {
         setTasks(response.data || []);
       } else {

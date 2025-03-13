@@ -51,7 +51,7 @@ const TaskTable = () => {
       console.log("Is admin:", isAdmin);
       
       // Send email as query parameter
-      const response = await axios.get(`http://localhost:5000/api/Zidio/tasks?email=${encodeURIComponent(userEmail)}`);
+      const response = await axios.get(`https://zidio-kiun.onrender.com/api/Zidio/tasks?email=${encodeURIComponent(userEmail)}`);
       
       console.log("Tasks received:", response.data.length);
       setTasks(response.data);
@@ -73,7 +73,7 @@ const TaskTable = () => {
     }
 
     try {
-      const response = await axios.get(`http://localhost:5000/api/Zidio/tasks/${taskId}?email=${encodeURIComponent(userEmail)}`);
+      const response = await axios.get(`https://zidio-kiun.onrender.com/api/Zidio/tasks/${taskId}?email=${encodeURIComponent(userEmail)}`);
       setSelectedTask(response.data);
       setStatus(response.data.status || "Pending");
       setError(null);
@@ -185,7 +185,7 @@ const TaskTable = () => {
     try {
       setError(null);
       const response = await axios.post(
-        `http://localhost:5000/api/Zidio/tasks/${selectedTask._id}/comment?email=${encodeURIComponent(userEmail)}`, 
+        `https://zidio-kiun.onrender.com/api/Zidio/tasks/${selectedTask._id}/comment?email=${encodeURIComponent(userEmail)}`, 
         { 
           comment: comment.trim(),
           userEmail: userEmail
@@ -213,7 +213,7 @@ const TaskTable = () => {
     try {
       setError(null);
       const response = await axios.post(
-        `http://localhost:5000/api/Zidio/tasks/${selectedTask._id}/upload?email=${encodeURIComponent(userEmail)}`, 
+        `https://zidio-kiun.onrender.com/api/Zidio/tasks/${selectedTask._id}/upload?email=${encodeURIComponent(userEmail)}`, 
         formData, 
         {
           headers: {
@@ -238,7 +238,7 @@ const TaskTable = () => {
     try {
       setError(null);
       const response = await axios.patch(
-        `http://localhost:5000/api/Zidio/tasks/${selectedTask._id}?email=${encodeURIComponent(userEmail)}`, 
+        `https://zidio-kiun.onrender.com/api/Zidio/tasks/${selectedTask._id}?email=${encodeURIComponent(userEmail)}`, 
         { status }
       );
       

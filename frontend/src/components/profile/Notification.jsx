@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Bell, Check, Trash2, Star } from "lucide-react";
 
-const API_URL = "http://localhost:5000/api/Zidio/notifications";
+const API_URL = "https://zidio-kiun.onrender.com/api/Zidio/notifications";
 
 const Notification = () => {
   const [notifications, setNotifications] = useState([]);
