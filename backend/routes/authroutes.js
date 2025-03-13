@@ -43,7 +43,6 @@ router.get("/user", (req, res) => {
       name: req.user.name || req.user.displayName,
       email: req.user.email,
       profilePicture: req.user.profilePicture || req.user.photos?.[0]?.value,
-      // Add any other fields you need
     };
     
     res.json({
