@@ -17,10 +17,11 @@ router.get(
 router.get(
   "/google/callback",
   passport.authenticate("google", {
-    failureRedirect: "http://localhost:5173/login",
+    failureRedirect: "https://zidio-manager.vercel.app/login",
   }),
   (req, res) => {
-    res.redirect("http://localhost:5173"); // ✅ Ensure frontend matches this
+    // res.redirect("http://localhost:5173"); // ✅ Ensure frontend matches this
+    res.redirect("https://zidio-manager.vercel.app/"); 
   }
 );
 
@@ -30,7 +31,8 @@ router.get("/logout", (req, res, next) => {
     if (err) return next(err);
     req.session.destroy(() => {
       res.clearCookie("connect.sid"); // ✅ Clears session cookie
-      res.redirect("http://localhost:5173/");
+      // res.redirect("http://localhost:5173/");
+      res.redirect("https://zidio-manager.vercel.app/");
     });
   });
 });
