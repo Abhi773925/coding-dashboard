@@ -7,7 +7,7 @@ router.get(
   "/google",
   passport.authenticate("google", {
     scope: ["profile", "email"],
-    prompt: "consent", // 🔹 Forces Google to ask every time
+    prompt: "consent", // Forces Google to ask every time
   })
 );
 
@@ -16,6 +16,7 @@ router.get(
   "/google/callback",
   passport.authenticate("google", {
     failureRedirect: "https://zidio-manager.vercel.app/login",
+    failureMessage: true // Enable failure messages
   }),
   (req, res) => {
     // Add loginSuccess flag to help client detect successful login
@@ -23,12 +24,12 @@ router.get(
   }
 );
 
-// Logout route (✅ Fix for Express 4.0+)
+// Logout route
 router.get("/logout", (req, res, next) => {
   req.logout(function (err) {
     if (err) return next(err);
     req.session.destroy(() => {
-      res.clearCookie("connect.sid"); // ✅ Clears session cookie
+      res.clearCookie("connect.sid"); // Clears session cookie
       res.redirect("https://zidio-manager.vercel.app/login?loggedOut=true");
     });
   });
@@ -36,7 +37,7 @@ router.get("/logout", (req, res, next) => {
 
 // Get current user session with standardized response
 router.get("/user", (req, res) => {
-  if (req.user) {
+  if (req.isAuthenticated() && req.user) {
     // Format user data consistently
     const userData = {
       id: req.user._id || req.user.id,
