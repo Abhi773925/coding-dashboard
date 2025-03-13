@@ -1,0 +1,42 @@
+
+# Node.js
+node_modules/
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+
+# Environment files
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Build output
+build/
+dist/
+
+# Dependency directories
+jspm_packages/
+
+# IDE/Editor settings
+.vscode/
+
+# OS-generated files
+.DS_Store
+Thumbs.db
+
+# npm package lock file
+package-lock.json
+
+# Coverage directory for testing
+coverage/
+
+# Express server-specific
+*.pid
+*.seed
+
+# Other
+*.tgz

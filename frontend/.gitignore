@@ -1,0 +1,41 @@
+# Node.js
+node_modules/
+
+# Vite
+.vite/
+dist/
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+
+# Environment files
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# OS-generated files
+.DS_Store
+Thumbs.db
+
+# npm package lock file
+package-lock.json
+
+# Coverage directory for testing
+coverage/
+
+# Vite development server cache
+.vite/
+
+# Dependency directories
+jspm_packages/
+
+# IDE/Editor settings
+.vscode/
+
+# MacOS
+ehthumbs.db
+Icon?
