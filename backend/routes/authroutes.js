@@ -1,10 +1,8 @@
 const express = require("express");
 const passport = require("passport");
-
 const router = express.Router();
 
 // Start Google OAuth login flow
-
 router.get(
   "/google",
   passport.authenticate("google", {
@@ -13,15 +11,15 @@ router.get(
   })
 );
 
-// Google OAuth callback
+// Google OAuth callback router with loginSuccess flag
 router.get(
   "/google/callback",
   passport.authenticate("google", {
     failureRedirect: "https://zidio-manager.vercel.app/login",
   }),
   (req, res) => {
-    // res.redirect("http://localhost:5173"); // ✅ Ensure frontend matches this
-    res.redirect("https://zidio-manager.vercel.app/"); 
+    // Add loginSuccess flag to help client detect successful login
+    res.redirect("https://zidio-manager.vercel.app/?loginSuccess=true");
   }
 );
 
@@ -31,22 +29,29 @@ router.get("/logout", (req, res, next) => {
     if (err) return next(err);
     req.session.destroy(() => {
       res.clearCookie("connect.sid"); // ✅ Clears session cookie
-      // res.redirect("http://localhost:5173/");
-      res.redirect("https://zidio-manager.vercel.app/");
+      res.redirect("https://zidio-manager.vercel.app/login?loggedOut=true");
     });
   });
 });
 
-// Get current user session
-// Get current user session and send user details
+// Get current user session with standardized response
 router.get("/user", (req, res) => {
   if (req.user) {
+    // Format user data consistently
+    const userData = {
+      id: req.user._id || req.user.id,
+      name: req.user.name || req.user.displayName,
+      email: req.user.email,
+      profilePicture: req.user.profilePicture || req.user.photos?.[0]?.value,
+      // Add any other fields you need
+    };
+    
     res.json({
       success: true,
-      user: req.user, // ✅ Send user details
+      user: userData,
     });
   } else {
-    res.json({ success: false, user: null });
+    res.status(401).json({ success: false, user: null });
   }
 });
 
