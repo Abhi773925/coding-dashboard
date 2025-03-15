@@ -269,25 +269,49 @@ const TaskTable = () => {
       setError(`Failed to upload file: ${err.response?.data?.message || err.message}`);
     }
   };
-
   const updateTaskStatus = async () => {
     if (!userEmail) return;
     
     try {
       setError(null);
+      console.log("Updating task status:", selectedTask._id, status);
+      console.log("User email:", userEmail);
+      console.log("User role:", userRole);
+      
       const response = await axios.patch(
         `https://zidio-kiun.onrender.com/api/Zidio/tasks/${selectedTask._id}?email=${encodeURIComponent(userEmail)}&role=${userRole}`, 
-        { status }
+        { status: status }
       );
       
+      console.log("Server response:", response.data);
       setSelectedTask(response.data.task);
       showNotification(`Status updated to ${status}`);
       fetchTasks();
     } catch (err) {
       console.error("Error updating task status:", err);
-      setError(`Failed to update status: ${err.response?.data?.message || err.message}`);
+      const errorMessage = err.response?.data?.message || err.message;
+      console.error("Error message:", errorMessage);
+      setError(`Failed to update status: ${errorMessage}`);
     }
   };
+  // const updateTaskStatus = async () => {
+  //   if (!userEmail) return;
+    
+  //   try {
+  //     setError(null);
+  //     const response = await axios.patch(
+  //       `https://zidio-kiun.onrender.com/api/Zidio/tasks/${selectedTask._id}?email=${encodeURIComponent(userEmail)}&role=${userRole}`, 
+  //       { status }
+  //     );
+      
+  //     setSelectedTask(response.data.task);
+  //     showNotification(`Status updated to ${status}`);
+  //     fetchTasks();
+  //   } catch (err) {
+  //     console.error("Error updating task status:", err);
+  //     setError(`Failed to update status: ${err.response?.data?.message || err.message}`);
+  //   }
+  // };
 
   // Get title based on user role
   const getPageTitle = () => {
