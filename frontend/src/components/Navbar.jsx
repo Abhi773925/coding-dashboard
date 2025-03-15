@@ -361,10 +361,9 @@ const handleLogout = () => {
                         <div
                           className={`p-2 rounded-full bg-gradient-to-r ${theme.gradientBg} mb-2`}
                         >
-                          <div className="bg-[#090e1a]  rounded-full p-1">
-                            <User size={24} className="text-white" />
-                            {/* <img src={user?.profilePicture} alt="Profile" className="w-16 h-16 rounded-full mx-auto mb-2" /> */}
-                          </div>
+                          
+                            <img src={user?.profilePicture} alt="Profile" className="w-16 h-16 rounded-full mx-auto mb-2" />
+                          
                         </div>
                         <h4 className="font-medium text-white">
                           {user?.name || user?.displayName || "User"}
