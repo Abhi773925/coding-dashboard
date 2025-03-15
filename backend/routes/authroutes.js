@@ -21,8 +21,8 @@ router.get(
   (req, res) => {
     // Generate JWT token
     const token = jwt.sign(
-      { id: req.user.id, name:req.user.name, profilePicture:req.user.profilePicture, email: req.user.email },
-      process.env.JWT_SECRET||'fkdjfkdhfkdhfidkhfkdhfdkfhdkfhieuhckbckdjchfodh',
+      { id: req.user.id, name: req.user.name, profilePicture: req.user.profilePicture, email: req.user.email },
+      process.env.JWT_SECRET || 'fkdjfkdhfkdhfidkhfkdhfdkfhdkfhieuhckbckdjchfodh',
       { expiresIn: "7d" } // Token expires in 7 days
     );
     
@@ -53,13 +53,21 @@ router.get("/logout", (req, res, next) => {
 // Get current user session and send user details
 router.get("/user", (req, res) => {
   if (req.user) {
+    // Return user details and the token in the response
+    // The token will be stored in localStorage by the frontend
+    const token = jwt.sign(
+      { id: req.user.id, name: req.user.name, profilePicture: req.user.profilePicture, email: req.user.email },
+      process.env.JWT_SECRET || 'fkdjfkdhfkdhfidkhfkdhfdkfhdkfhieuhckbckdjchfodh',
+      { expiresIn: "7d" }
+    );
+    
     res.json({
       success: true,
-      user: req.user, // ✅ Send user details
+      user: req.user,
+      token: token // Include the token in the response
     });
-    localStorage.setItem(user);
   } else {
-    res.json({ success: false, user: null });
+    res.status(401).json({ success: false, user: null });
   }
 });
 

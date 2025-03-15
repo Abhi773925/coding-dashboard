@@ -28,43 +28,49 @@ const Navbar = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [user, setUser] = useState(null);
   // Function to check user session
-const fetchUser = async () => {
-  try {
-    // First check localStorage
-    const savedUser = localStorage.getItem("user");
-
-    if (savedUser) {
-      // Use localStorage data first
-      const userData = JSON.parse(savedUser);
-      setUser(userData);
-      setIsLoggedIn(true);
+  const fetchUser = async () => {
+    try {
+      // First check localStorage
+      const savedUser = localStorage.getItem("user");
+  
+      if (savedUser) {
+        // Use localStorage data first
+        const userData = JSON.parse(savedUser);
+        setUser(userData);
+        setIsLoggedIn(true);
+      }
+  
+      // Then verify with server
+      const res = await fetch("https://zidio-kiun.onrender.com/api/auth/user", {
+        credentials: "include",
+      });
+  
+      const data = await res.json();
+  
+      if (data.success) {
+        setUser(data.user);
+        setIsLoggedIn(true);
+        
+        // Store user data in localStorage
+        localStorage.setItem("user", JSON.stringify(data.user));
+        
+        // Store the token in localStorage if it's included in the response
+        if (data.token) {
+          localStorage.setItem("auth_token", data.token);
+          console.log("Authentication token stored in localStorage");
+        }
+      } else if (res.status === 401) {
+        // Only clear if we get a specific unauthorized response
+        setUser(null);
+        setIsLoggedIn(false);
+        localStorage.removeItem("user");
+        localStorage.removeItem("auth_token");
+      }
+    } catch (err) {
+      console.error("Error fetching user:", err);
+      // Don't clear localStorage on network errors
     }
-
-    // Then verify with server
-    const res = await fetch("https://zidio-kiun.onrender.com/api/auth/user", {
-      credentials: "include",
-    });
-
-    const data = await res.json();
-
-    if (data.success) {
-      setUser(data.user);
-      setIsLoggedIn(true);
-      localStorage.setItem("user", JSON.stringify(data.user));
-    } else if (res.status === 401) {
-      // Only clear if we get a specific unauthorized response
-      setUser(null);
-      setIsLoggedIn(false);
-      localStorage.removeItem("user");
-    }
-    // For network errors or other statuses, keep existing user
-
-  } catch (err) {
-    console.error("Error fetching user:", err);
-    // Don't clear localStorage on network errors
-  }
-};
-
+  };
 const handleGoogleLogin = () => {
   window.open("https://zidio-kiun.onrender.com/api/auth/google", "_self");
 };
