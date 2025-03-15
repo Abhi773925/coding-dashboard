@@ -4,7 +4,8 @@ const cors = require("cors");
 const path = require("path");
 const session = require("express-session");
 const passport = require("passport");
-require("./config/passport"); // ✅ Ensure Passport config is loaded
+const cookieParser = require('cookie-parser'); // Add this import
+require("./config/passport");
 const userRoutes = require("./routes/userroutes");
 
 const connectDB = require("./config/db");
@@ -17,26 +18,33 @@ const app = express();
 // Connect to MongoDB
 connectDB();
 
-// Middleware
-app.use(
-  cors({
-    origin: process.env.CLIENT_URL || "http://localhost:5173",
-    credentials: true, // ✅ Required for authentication
-  })
-);
+// CORS setup - make sure this comes before routes
+app.use(cors({
+  origin: "https://zidio-manager.vercel.app",
+  credentials: true,
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'] // Explicitly allow methods
+}));
+
+// Cookie parser middleware - add this before session
+app.use(cookieParser());
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// Session Middleware (Required for Google OAuth)
-app.use(
-  session({
-    secret: process.env.SESSION_SECRET || "your-secret-key",
-    resave: false,
-    saveUninitialized: false,
-    cookie: { secure: false, httpOnly: true, sameSite: "lax" },
-  })
-);
+// Session configuration
+app.use(session({
+  secret: process.env.SESSION_SECRET || 'your-session-secret',
+  resave: false,
+  saveUninitialized: false,
+  cookie: {
+    secure: process.env.NODE_ENV === "production",
+    httpOnly: true,
+    sameSite: "none", // For cross-origin requests
+    maxAge: 7 * 24 * 60 * 60 * 1000 // 7 days
+  }
+}));
+
+// Passport initialization
 app.use(passport.initialize());
 app.use(passport.session());
 
@@ -48,7 +56,7 @@ app.use("/api/Zidio/", taskRoutes);
 app.use("/api/Zidio", loginRoutes);
 app.use("/api/auth", authRoutes);
 app.use("/api/Zidio/users", userRoutes);
-// app.js or routes.js
 app.use('/api/Zidio', notificationRoutes);
+
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`🚀 Server running on port ${PORT}`));

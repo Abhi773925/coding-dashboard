@@ -8,70 +8,47 @@ const Login = () => {
     try {
       // Check if user exists in localStorage first
       const storedUser = localStorage.getItem("user");
-      const authToken = localStorage.getItem("authToken");
-      
-      if (storedUser && authToken) {
+      if (storedUser) {
         setUser(JSON.parse(storedUser));
       }
       
-      // Then verify with server using Authorization header instead of credentials
+      // Then verify with server
       const res = await fetch("https://zidio-kiun.onrender.com/api/auth/user", {
+        credentials: "include", // Already correct
         headers: {
-          "Authorization": `Bearer ${authToken || ""}`
+          "Accept": "application/json",
+          "Content-Type": "application/json"
         }
       });
+      
+      if (!res.ok) {
+        throw new Error(`Server responded with status: ${res.status}`);
+      }
       
       const data = await res.json();
       
       if (data.success) {
-        // Store complete user data in localStorage and state
         localStorage.setItem("user", JSON.stringify(data.user));
         setUser(data.user);
       } else {
         localStorage.removeItem("user");
-        localStorage.removeItem("authToken");
         setUser(null);
       }
     } catch (err) {
       console.error("Error fetching user:", err);
+      localStorage.removeItem("user"); // Clear on error too
+      setUser(null);
     }
   };
 
   const handleGoogleLogin = () => {
-    // Open in a new window and handle the token return
-    const googleWindow = window.open("https://zidio-kiun.onrender.com/api/auth/google", "_blank", "width=500,height=600");
-    
-    // Listen for messages from the popup window
-    window.addEventListener("message", (event) => {
-      if (event.origin === "https://zidio-kiun.onrender.com" && event.data.authToken) {
-        localStorage.setItem("authToken", event.data.authToken);
-        if (event.data.user) {
-          localStorage.setItem("user", JSON.stringify(event.data.user));
-          setUser(event.data.user);
-        }
-        googleWindow.close();
-        fetchUser();
-      }
-    });
+    window.open("https://zidio-kiun.onrender.com/api/auth/google", "_self");
   };
 
-  const handleLogout = async () => {
-    try {
-      const authToken = localStorage.getItem("authToken");
-      
-      await fetch("https://zidio-kiun.onrender.com/api/auth/logout", {
-        method: "POST",
-        headers: {
-          "Authorization": `Bearer ${authToken || ""}`
-        }
-      });
-    } catch (err) {
-      console.error("Error during logout:", err);
-    } finally {
-      localStorage.removeItem("user");
-      localStorage.removeItem("authToken");
-      setUser(null);
-    }
+  const handleLogout = () => {
+    window.open("https://zidio-kiun.onrender.com/api/auth/logout", "_self");
+    localStorage.removeItem("user"); // Remove from localStorage
+    setUser(null);
   };
 
   useEffect(() => {
