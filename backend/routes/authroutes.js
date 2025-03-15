@@ -43,15 +43,22 @@ router.get("/logout", (req, res, next) => {
 });
 
 // Get current user session and send user details
+// Get current user session and send user details
 router.get("/user", (req, res) => {
   if (req.user) {
     res.json({
       success: true,
-      user: req.user, // ✅ Send user details
+      user: {
+        _id: req.user._id,
+        name: req.user.name,
+        email: req.user.email,
+        profilePicture: req.user.profilePicture,
+        role: req.user.role || "viewer",
+        // Add any other fields you need
+      },
     });
   } else {
     res.json({ success: false, user: null });
   }
 });
-
 module.exports = router;
