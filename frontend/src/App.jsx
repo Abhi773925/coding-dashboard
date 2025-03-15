@@ -2,9 +2,9 @@ import React from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { AuthProvider, useAuth } from './context/AuthContext';
 import Navbar from './components/Navbar';
-import AuthCallback from './components/AuthCallback';
-import Home from './pages/Home';
-import Dashboard from './pages/Dashboard';
+import AuthCallback from './context/AuthCallback';
+
+import Dashboard from './components/Dashboard';
 import TaskForm from './components/TaskForm';
 import Testimonial from './components/Testimonial';
 import TaskTable from './components/userdata/TaskTable';
