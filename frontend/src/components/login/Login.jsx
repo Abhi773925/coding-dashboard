@@ -20,6 +20,7 @@ const Login = () => {
       
       if (data.success) {
         // Store complete user data in localStorage and state
+        console.log("djd");
         localStorage.setItem("user", JSON.stringify(data.user));
         setUser(data.user);
       } else {
