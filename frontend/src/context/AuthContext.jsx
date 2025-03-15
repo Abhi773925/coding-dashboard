@@ -1,53 +1,59 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 
-// Create auth context
 const AuthContext = createContext();
 
-// Auth provider component
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [loading, setLoading] = useState(true);
+  const [authError, setAuthError] = useState(null);
 
-  // Check if user is already logged in when app loads
+  // Check for existing token on app load
   useEffect(() => {
     const checkAuth = async () => {
       try {
         const token = localStorage.getItem('auth_token');
+        console.log("Checking existing auth token:", token ? "Found token" : "No token"); // Debugging
         
         if (!token) {
           setLoading(false);
           return;
         }
         
-        // Validate token and get user info
-        // You can make an API call here to validate the token on your server
-        // For now, we'll just parse the JWT
-        const tokenParts = token.split('.');
-        if (tokenParts.length === 3) {
-          const payload = JSON.parse(atob(tokenParts[1]));
-          
-          // Check if token is expired
-          const currentTime = Date.now() / 1000;
-          if (payload.exp && payload.exp < currentTime) {
-            // Token expired, clear it
+        try {
+          const tokenParts = token.split('.');
+          if (tokenParts.length === 3) {
+            const payload = JSON.parse(atob(tokenParts[1]));
+            
+            // Check token expiration
+            const currentTime = Date.now() / 1000;
+            if (payload.exp && payload.exp < currentTime) {
+              console.log("Token expired"); // Debugging
+              localStorage.removeItem('auth_token');
+              setLoading(false);
+              return;
+            }
+            
+            console.log("Valid token found, setting user"); // Debugging
+            setUser({
+              id: payload.id,
+              name: payload.name,
+              email: payload.email,
+              profilePicture: payload.profilePicture
+            });
+            setIsAuthenticated(true);
+          } else {
+            console.log("Invalid token format"); // Debugging
             localStorage.removeItem('auth_token');
-            setLoading(false);
-            return;
           }
-          
-          // Token valid, set user
-          setUser({
-            id: payload.id,
-            name: payload.name,
-            email: payload.email,
-            profilePicture: payload.profilePicture
-          });
-          setIsAuthenticated(true);
+        } catch (parseError) {
+          console.error("Token parsing error:", parseError);
+          localStorage.removeItem('auth_token');
         }
       } catch (error) {
         console.error('Auth check error:', error);
         localStorage.removeItem('auth_token');
+        setAuthError("Authentication verification failed");
       }
       
       setLoading(false);
@@ -59,30 +65,39 @@ export const AuthProvider = ({ children }) => {
   // Login function
   const login = async (userData, token) => {
     try {
+      console.log("Login called with user data:", userData); // Debugging
       setUser(userData);
       setIsAuthenticated(true);
       localStorage.setItem('auth_token', token);
       return true;
     } catch (error) {
       console.error('Login error:', error);
+      setAuthError("Login failed");
       return false;
     }
   };
 
   // Logout function
   const logout = () => {
+    console.log("Logging out"); // Debugging
     setUser(null);
     setIsAuthenticated(false);
     localStorage.removeItem('auth_token');
   };
 
-  // Auth context value
+  // Get auth token for API calls
+  const getAuthToken = () => {
+    return localStorage.getItem('auth_token');
+  };
+
   const authContextValue = {
     user,
     isAuthenticated,
     loading,
+    authError,
     login,
-    logout
+    logout,
+    getAuthToken
   };
 
   return (
