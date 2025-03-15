@@ -66,15 +66,70 @@ const Navbar = () => {
   //   }
   // };
   
+  // const fetchUser = async () => {
+  //   try {
+  //     console.log("Fetching user from server...");
+  //     const res = await fetch("https://zidio-kiun.onrender.com/api/auth/user", {
+  //       credentials: "include",
+  //       headers: {
+  //         'Cache-Control': 'no-cache, no-store, must-revalidate',
+  //         'Pragma': 'no-cache'
+  //         // Removed 'Expires' header which was causing the CORS issue
+  //       }
+  //     });
+      
+  //     console.log("Server response status:", res.status);
+      
+  //     if (!res.ok) {
+  //       console.error("Error response from server:", res.status);
+  //       setUser(null);
+  //       setIsLoggedIn(false);
+  //       localStorage.removeItem("user");
+  //       return;
+  //     }
+      
+  //     const data = await res.json();
+  //     console.log("Auth response:", data);
+      
+  //     if (data.success && data.user) {
+  //       console.log("Authentication successful, user data:", data.user);
+  //       setUser(data.user);
+  //       setIsLoggedIn(true);
+  //       localStorage.setItem("user", JSON.stringify(data.user));
+  //     } else {
+  //       console.log("Not authenticated or missing user data");
+  //       setUser(null);
+  //       setIsLoggedIn(false);
+  //       localStorage.removeItem("user");
+  //     }
+  //   } catch (err) {
+  //     console.error("Error fetching user:", err);
+  //   }
+  // };
+ 
+  // const handleGoogleLogin = () => {
+  //   // Store the current page URL so we can return here after auth
+  //   localStorage.setItem("authRedirectUrl", window.location.href);
+  //   window.open("https://zidio-kiun.onrender.com/api/auth/google", "_self");
+  // };
+
+  // const handleLogout = () => {
+  //   window.open("https://zidio-kiun.onrender.com/api/auth/logout", "_self"); // Logs out
+  //   localStorage.removeItem("user"); // Remove from localStorage
+  //   setUser(null);
+  //   setIsLoggedIn(false);
+  //   setActiveDropdown(null);
+  // };
+
   const fetchUser = async () => {
     try {
       console.log("Fetching user from server...");
       const res = await fetch("https://zidio-kiun.onrender.com/api/auth/user", {
-        credentials: "include",
+        method: 'GET',
+        credentials: 'include',
         headers: {
           'Cache-Control': 'no-cache, no-store, must-revalidate',
           'Pragma': 'no-cache'
-          // Removed 'Expires' header which was causing the CORS issue
         }
       });
       
@@ -82,6 +137,16 @@ const Navbar = () => {
       
       if (!res.ok) {
         console.error("Error response from server:", res.status);
+        // Try to use cached data first
+        const savedUser = localStorage.getItem("user");
+        if (savedUser) {
+          const userData = JSON.parse(savedUser);
+          setUser(userData);
+          setIsLoggedIn(true);
+          // Make a secondary attempt to re-authenticate
+          setTimeout(fetchUser, 5000);
+          return;
+        }
         setUser(null);
         setIsLoggedIn(false);
         localStorage.removeItem("user");
@@ -98,29 +163,57 @@ const Navbar = () => {
         localStorage.setItem("user", JSON.stringify(data.user));
       } else {
         console.log("Not authenticated or missing user data");
+        // Try to use cached data
+        const savedUser = localStorage.getItem("user");
+        if (savedUser) {
+          const userData = JSON.parse(savedUser);
+          setUser(userData);
+          setIsLoggedIn(true);
+          return;
+        }
         setUser(null);
         setIsLoggedIn(false);
         localStorage.removeItem("user");
       }
     } catch (err) {
       console.error("Error fetching user:", err);
+      // On network errors, use cached data
+      const savedUser = localStorage.getItem("user");
+      if (savedUser) {
+        const userData = JSON.parse(savedUser);
+        setUser(userData);
+        setIsLoggedIn(true);
+      }
     }
   };
- 
+  
   const handleGoogleLogin = () => {
-    // Store the current page URL so we can return here after auth
+    // Store the current page URL
     localStorage.setItem("authRedirectUrl", window.location.href);
+    // Add a timestamp to track login attempts
+    localStorage.setItem("authAttemptTime", Date.now());
     window.open("https://zidio-kiun.onrender.com/api/auth/google", "_self");
   };
-
-  const handleLogout = () => {
-    window.open("https://zidio-kiun.onrender.com/api/auth/logout", "_self"); // Logs out
-    localStorage.removeItem("user"); // Remove from localStorage
-    setUser(null);
-    setIsLoggedIn(false);
-    setActiveDropdown(null);
+  
+  const handleLogout = async () => {
+    try {
+      await fetch("https://zidio-kiun.onrender.com/api/auth/logout", {
+        method: 'GET',
+        credentials: 'include',
+      });
+      localStorage.removeItem("user");
+      setUser(null);
+      setIsLoggedIn(false);
+      setActiveDropdown(null);
+    } catch (err) {
+      console.error("Logout error:", err);
+      // Force logout on client side even if server fails
+      localStorage.removeItem("user");
+      setUser(null);
+      setIsLoggedIn(false);
+      setActiveDropdown(null);
+    }
   };
-
   useEffect(() => {
     fetchUser(); // Check session on load
   }, []);

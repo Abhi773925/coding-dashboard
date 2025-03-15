@@ -3,15 +3,15 @@ const passport = require("passport");
 const router = express.Router();
 
 // Frontend and backend URLs
-const FRONTEND_URL = "https://zidio-manager.vercel.app";
-const BACKEND_URL = "https://zidio-kiun.onrender.com";
+const FRONTEND_URL = process.env.CLIENT_URL || "https://zidio-manager.vercel.app";
+const BACKEND_URL = process.env.BACKEND_URL || "https://zidio-kiun.onrender.com";
 
 // Start Google OAuth login flow
 router.get(
   "/google",
   passport.authenticate("google", {
     scope: ["profile", "email"],
-    prompt: "consent", // 🔹 Forces Google to ask every time
+    prompt: "consent", // Forces Google to ask every time
   })
 );
 
@@ -27,25 +27,56 @@ router.get(
       req.user.role = "viewer"; // Default role
       req.user.save();
     }
-    res.redirect(FRONTEND_URL); // ✅ Redirects to production frontend
+    
+    // Redirect with fall-back
+    try {
+      const redirectUrl = req.session.returnTo || FRONTEND_URL;
+      delete req.session.returnTo;
+      res.redirect(redirectUrl);
+    } catch (err) {
+      console.error("Redirect error:", err);
+      res.redirect(FRONTEND_URL);
+    }
   }
 );
 
-// Logout route (✅ Fix for Express 4.0+)
+// Improved logout route
 router.get("/logout", (req, res, next) => {
-  req.logout(function (err) {
-    if (err) return next(err);
-    req.session.destroy(() => {
-      res.clearCookie("connect.sid"); // ✅ Clears session cookie
-      res.redirect(`${FRONTEND_URL}/`);
+  try {
+    req.logout(function (err) {
+      if (err) {
+        console.error("Logout error:", err);
+        return next(err);
+      }
+      
+      req.session.destroy((sessionErr) => {
+        if (sessionErr) {
+          console.error("Session destruction error:", sessionErr);
+        }
+        
+        res.clearCookie("connect.sid", {
+          httpOnly: true,
+          secure: process.env.NODE_ENV === "production",
+          sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
+          path: "/"
+        });
+        
+        res.redirect(`${FRONTEND_URL}/`);
+      });
     });
-  });
+  } catch (err) {
+    console.error("Major logout error:", err);
+    res.redirect(`${FRONTEND_URL}/`);
+  }
 });
 
-// Get current user session and send user details
-// Get current user session and send user details
+// Get current user session with enhanced logging
 router.get("/user", (req, res) => {
-  if (req.user) {
+  console.log("User session check:", req.isAuthenticated());
+  console.log("Session data:", req.session);
+  
+  if (req.isAuthenticated() && req.user) {
+    console.log("User authenticated:", req.user._id);
     res.json({
       success: true,
       user: {
@@ -54,11 +85,12 @@ router.get("/user", (req, res) => {
         email: req.user.email,
         profilePicture: req.user.profilePicture,
         role: req.user.role || "viewer",
-        // Add any other fields you need
       },
     });
   } else {
+    console.log("No authenticated user found");
     res.json({ success: false, user: null });
   }
 });
+
 module.exports = router;
