@@ -28,12 +28,11 @@ app.options("*", cors());
 
 // Improved CORS configuration
 app.use(cors({
-  origin: process.env.CLIENT_URL || 'https://zidio-manager.vercel.app',
+  origin: 'https://zidio-manager.vercel.app', // Your exact frontend URL
   credentials: true,
-  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-  allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With', 'Cache-Control', 'Pragma', 'Expires']
+  methods: ['GET', 'POST', 'PUT', 'DELETE'],
+  allowedHeaders: ['Content-Type', 'Authorization']
 }));
-
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser(process.env.SESSION_SECRET));
@@ -47,21 +46,17 @@ const mongoStore = MongoStore.create({
 });
 
 // Improved session configuration with MongoDB store
-app.use(
-  session({
-    secret: process.env.SESSION_SECRET || "your-secret-key",
-    resave: false,
-    saveUninitialized: false,
-    store: mongoStore,
-    cookie: {
-      secure: process.env.NODE_ENV === 'production', // Use secure cookies in production
-      httpOnly: true,
-      sameSite: process.env.NODE_ENV === 'production' ? "none" : "lax", // Required for cross-site cookies in production
-      maxAge: 24 * 60 * 60 * 1000 // 24 hours
-    },
-  })
-);
-
+app.use(session({
+  secret: process.env.SESSION_SECRET || 'your-secret-key',
+  resave: false,
+  saveUninitialized: false,
+  cookie: {
+    httpOnly: true,
+    secure: process.env.NODE_ENV === 'production', // true in production
+    sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'lax',
+    maxAge: 24 * 60 * 60 * 1000 // 24 hours
+  }
+}));
 // Initialize Passport and session
 app.use(passport.initialize());
 app.use(passport.session());

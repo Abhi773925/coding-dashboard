@@ -14,7 +14,12 @@ router.get(
     prompt: "consent", // Forces Google to ask every time
   })
 );
-
+router.use((req, res, next) => {
+  res.header('Access-Control-Allow-Origin', 'https://zidio-manager.vercel.app');
+  res.header('Access-Control-Allow-Credentials', 'true');
+  res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization');
+  next();
+});
 // Google OAuth callback
 router.get(
   "/google/callback",
