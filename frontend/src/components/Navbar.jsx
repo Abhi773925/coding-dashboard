@@ -73,8 +73,8 @@ const Navbar = () => {
         credentials: "include",
         headers: {
           'Cache-Control': 'no-cache, no-store, must-revalidate',
-          'Pragma': 'no-cache',
-          'Expires': '0'
+          'Pragma': 'no-cache'
+          // Removed 'Expires' header which was causing the CORS issue
         }
       });
       
