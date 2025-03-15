@@ -108,7 +108,7 @@ router.get("/user", (req, res) => {
         name: req.user.name,
         profilePicture: req.user.profilePicture,
         email: req.user.email,
-        role: req.user.role || "viewer", // Add role field with default
+        role: req.user.role || "subadmin", // Add role field with default
         // You can add other fields you need here
       },
       token: token
