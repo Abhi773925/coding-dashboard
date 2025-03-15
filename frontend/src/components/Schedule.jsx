@@ -377,10 +377,10 @@ const Schedule = () => {
      <div className="text-left">
        <h4 className="text-xl font-semibold text-blue-300 mb-4">Quick Links</h4>
        <ul className="space-y-2">
-         <li><a href="#" className="text-gray-400 hover:text-blue-400 transition-colors">Home</a></li>
-         <li><a href="#" className="text-gray-400 hover:text-blue-400 transition-colors">About Us</a></li>
-         <li><a href="#" className="text-gray-400 hover:text-blue-400 transition-colors">Services</a></li>
-         <li><a href="#" className="text-gray-400 hover:text-blue-400 transition-colors">Blog</a></li>
+         <li><Link to="/" className="text-gray-400 hover:text-blue-400 transition-colors">Home</Link></li>
+         <li><Link to="/" className="text-gray-400 hover:text-blue-400 transition-colors">About Us</Link></li>
+         <li><Link to="/" className="text-gray-400 hover:text-blue-400 transition-colors">Services</Link></li>
+         <li><Link to="/" className="text-gray-400 hover:text-blue-400 transition-colors">Blog</Link></li>
        </ul>
      </div>
      
@@ -396,30 +396,30 @@ const Schedule = () => {
      <div className="text-left">
        <h4 className="text-xl font-semibold text-blue-300 mb-4">Follow Us</h4>
        <div className="flex space-x-4">
-         <a href="#" className="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-blue-900 transition-colors">
+         <Link href="#" className="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-blue-900 transition-colors">
            <span className="text-blue-400">FB</span>
-         </a>
-         <a href="#" className="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-blue-900 transition-colors">
+        </Link>
+         <Link href="#" className="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-blue-900 transition-colors">
            <span className="text-blue-400">TW</span>
-         </a>
-         <a href="#" className="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-blue-900 transition-colors">
+        </Link>
+         <Link href="#" className="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-blue-900 transition-colors">
            <span className="text-blue-400">IN</span>
-         </a>
-         <a href="#" className="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-blue-900 transition-colors">
+        </Link>
+         <Link href="#" className="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-blue-900 transition-colors">
                 <span className="text-blue-400">IN</span>
-              </a>
-              <a href="#" className="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-blue-900 transition-colors">
+             </Link>
+              <Link href="#" className="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-blue-900 transition-colors">
                 <span className="text-blue-400">IG</span>
-              </a>
+             </Link>
             </div>
           </div>
         </div>
         
         <p className="text-gray-400">© 2025 All rights reserved</p>
         <div className="flex justify-center space-x-6 mt-4">
-          <a href="#" className="text-gray-400 hover:text-blue-400 transition-colors">Privacy Policy</a>
-          <a href="#" className="text-gray-400 hover:text-blue-400 transition-colors">Terms of Service</a>
-          <a href="#" className="text-gray-400 hover:text-blue-400 transition-colors">Support</a>
+          <Link to="/" className="text-gray-400 hover:text-blue-400 transition-colors">Privacy Policy</Link>
+          <Link to="/" className="text-gray-400 hover:text-blue-400 transition-colors">Terms of Service</Link>
+          <Link to="/" className="text-gray-400 hover:text-blue-400 transition-colors">Support</Link>
         </div>
       </div>
     </div>

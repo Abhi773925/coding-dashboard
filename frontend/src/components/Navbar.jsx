@@ -17,6 +17,7 @@ import {
   List,
 } from "lucide-react";
 import Notification from "./profile/Notification";
+import { Link } from "lucide-react";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -190,7 +191,7 @@ const Navbar = () => {
             <h1
               className={`text-xl font-bold bg-gradient-to-r ${theme.gradientText} bg-clip-text text-transparent`}
             >
-             <a href="/"> Zidio</a>
+             <Link to="/"> Zidio</Link>
             </h1>
           </div>
 
@@ -214,7 +215,7 @@ const Navbar = () => {
               </button>
               {activeDropdown === "features" && (
                 <div className="absolute left-0 mt-2 w-64 bg-[#090e1a]  rounded-md shadow-lg p-2 space-y-1 border border-gray-900 transform transition-all duration-200 origin-top-left">
-                  <a
+                  <Link
                     href="/dashboard"
                     className="flex items-center gap-2 px-4 py-3 text-sm rounded-md text-gray-400 hover:text-white hover:bg-gray-900"
                   >
@@ -229,9 +230,9 @@ const Navbar = () => {
                         View your analytics
                       </div>
                     </div>
-                  </a>
-                  <a
-                    href="#"
+                 </Link>
+                  <Link
+                    to="/"
                     className="flex items-center gap-2 px-4 py-3 text-sm rounded-md text-gray-400 hover:text-white hover:bg-gray-900"
                   >
                     <div
@@ -245,9 +246,9 @@ const Navbar = () => {
                         Track your performance
                       </div>
                     </div>
-                  </a>
-                  <a
-                    href="#"
+                 </Link>
+                  <Link
+                    to='/'
                     className="flex items-center gap-2 px-4 py-3 text-sm rounded-md text-gray-400 hover:text-white hover:bg-gray-900"
                   >
                     <div
@@ -261,31 +262,31 @@ const Navbar = () => {
                         Download your data
                       </div>
                     </div>
-                  </a>
+                 </Link>
                 </div>
               )}
             </div>
-            <a
+            <Link
               href="/tasks"
               className="px-3 py-2 rounded-md text-gray-400 hover:text-white hover:bg-gray-900 flex items-center"
             >
               <CheckSquare size={16} className="mr-1" />
               Tasks
-            </a>
-            <a
+           </Link>
+            <Link
               href="/schedule"
               className="px-3 py-2 rounded-md text-gray-400 hover:text-white hover:bg-gray-900 flex items-center"
             >
               <Calendar size={16} className="mr-1" />
               Schedule
-            </a>
-            <a
-              href="/pricing"
+           </Link>
+            <Link
+              to="/pricing"
               className="px-3 py-2 rounded-md text-gray-400 hover:text-white hover:bg-gray-900 flex items-center"
             >
               <Settings size={16} className="mr-1" />
               Pricing
-            </a>
+           </Link>
           </div>
 
           {/* Right Menu */}
@@ -369,13 +370,13 @@ const Navbar = () => {
                       </div>
 
                       <div className="space-y-1">
-                        <a
+                        <Link
                           href="/profile"
                           className="flex items-center gap-2 p-2 rounded-md text-gray-400 hover:text-white hover:bg-gray-900"
                         >
                           <User size={16} />
                           <span>Your Profile</span>
-                        </a>
+                       </Link>
                         
                         <button
                           onClick={handleLogout}
@@ -497,13 +498,13 @@ const Navbar = () => {
                 </div>
 
                 <div className="space-y-1">
-                  <a
+                  <Link
                     href="/profile"
                     className="flex items-center gap-2 p-2 rounded-md text-gray-400 hover:text-white hover:bg-gray-900"
                   >
                     <User size={16} />
                     <span>Your Profile</span>
-                  </a>
+                 </Link>
                   
                   <button
                     onClick={handleLogout}
@@ -598,7 +599,7 @@ const Navbar = () => {
               </button>
               {activeDropdown === "mobileFeatures" && (
                 <div className="pl-4 mt-1 space-y-1">
-                  <a
+                  <Link
                     href="/dashboard"
                     className="flex items-center gap-2 px-4 py-3 rounded-lg text-gray-400 hover:text-white hover:bg-gray-900"
                   >
@@ -608,13 +609,13 @@ const Navbar = () => {
                       <Settings size={14} className="text-white" />
                     </div>
                     <div>
-                      <div className="font-medium text-white"><a href="/dashboard">Dashboard</a></div>
+                      <div className="font-medium text-white"><Link to="/dashboard">Dashboard</Link></div>
                       <div className="text-xs text-gray-500">
                         View your analytics
                       </div>
                     </div>
-                  </a>
-                  <a
+                 </Link>
+                  <Link
                     href="#"
                     className="flex items-center gap-2 px-4 py-3 rounded-lg text-gray-400 hover:text-white hover:bg-gray-900"
                   >
@@ -629,8 +630,8 @@ const Navbar = () => {
                         Track your performance
                       </div>
                     </div>
-                  </a>
-                  <a
+                 </Link>
+                  <Link
                     href="#"
                     className="flex items-center gap-2 px-4 py-3 rounded-lg text-gray-400 hover:text-white hover:bg-gray-900"
                   >
@@ -645,31 +646,31 @@ const Navbar = () => {
                         Download your data
                       </div>
                     </div>
-                  </a>
+                 </Link>
                 </div>
               )}
             </div>
-            <a
+            <Link
               href="/tasks"
               className="flex items-center px-4 py-3 rounded-lg text-gray-400 hover:text-white hover:bg-gray-900"
             >
               <CheckSquare size={16} className="mr-2" />
               Tasks
-            </a>
-            <a
+           </Link>
+            <Link
               href="/schedule"
               className="flex items-center px-4 py-3 rounded-lg text-gray-400 hover:text-white hover:bg-gray-900"
             >
               <Calendar size={16} className="mr-2" />
               Schedule
-            </a>
-            <a
+           </Link>
+            <Link
               href="/pricing"
               className="flex items-center px-4 py-3 rounded-lg text-gray-400 hover:text-white hover:bg-gray-900"
             >
               <Settings size={16} className="mr-2" />
               Pricing
-            </a>
+           </Link>
           </nav>
 
           {/* Mobile Login/Logout */}

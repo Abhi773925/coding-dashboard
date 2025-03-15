@@ -1,5 +1,5 @@
 import { FaFacebook, FaTwitter, FaLinkedin, FaGithub } from "react-icons/fa";
-
+import { Link } from "react-router-dom";
 const Footer = () => {
   return (
     <footer className="bg-[#090e1a]  text-white py-10">
@@ -61,18 +61,18 @@ const Footer = () => {
       <div className="mt-10 border-t border-gray-700 pt-5 flex flex-col md:flex-row items-center justify-between px-6 lg:px-20 animate-fadeIn">
         {/* Social Media Icons */}
         <div className="flex space-x-4">
-          <a href="#" className="text-gray-400 hover:text-blue-500 transition transform hover:scale-110">
+          <Link to="/" className="text-gray-400 hover:text-blue-500 transition transform hover:scale-110">
             <FaFacebook size={20} />
-          </a>
-          <a href="#" className="text-gray-400 hover:text-sky-400 transition transform hover:scale-110">
+          </Link>
+          <Link to="/" className="text-gray-400 hover:text-sky-400 transition transform hover:scale-110">
             <FaTwitter size={20} />
-          </a>
-          <a href="#" className="text-gray-400 hover:text-blue-600 transition transform hover:scale-110">
+          </Link>
+          <Link to="/" className="text-gray-400 hover:text-blue-600 transition transform hover:scale-110">
             <FaLinkedin size={20} />
-          </a>
-          <a href="#" className="text-gray-400 hover:text-gray-300 transition transform hover:scale-110">
+          </Link>
+          <Link to="/" className="text-gray-400 hover:text-gray-300 transition transform hover:scale-110">
             <FaGithub size={20} />
-          </a>
+          </Link>
         </div>
 
         {/* Quick Links */}

@@ -307,12 +307,9 @@ const Pricing = () => {
               </div>
               
               <button className={`px-6 py-3 rounded-lg font-medium bg-gradient-to-r ${theme.gradientBg} text-white hover:opacity-90 transition-opacity whitespace-nowrap`}>
-               <a
-  href="mailto:rockabhisheksingh778189@gmail.com"
-  className={`px-6 py-3 rounded-lg font-medium bg-gradient-to-r ${theme.gradientBg} text-white hover:opacity-90 transition-opacity whitespace-nowrap`}
->
+            
   Contact Our Sales Team
-</a>
+
 
               </button>
             </div>
