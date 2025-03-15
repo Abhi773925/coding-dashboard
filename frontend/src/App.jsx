@@ -30,6 +30,7 @@ function App() {
             <Route path="/pricing" element={<Pricing />} />
             <Route path="/faqbot" element={<ZudioFAQBot />} />
             <Route path="/schedule" element={<Schedule/>}/>
+            <Route path="/auth-callback" element={<AuthCallback />} />
             <Route 
               path="/" 
               element={
@@ -47,7 +48,7 @@ function App() {
               } 
             />
             <Route path="/taskdetail" element={<TaskTable />} />
-            <Route path="/auth-callback" element={<AuthCallback />} />
+          
             {/* Catch-All Route for 404 Page */}
             <Route path="*" element={<LostPage />} />
           </Routes>
