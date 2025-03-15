@@ -1,115 +1,104 @@
-// src/context/AuthContext.jsx
-import React, { createContext, useState, useEffect, useContext } from 'react';
+import React, { createContext, useContext, useState, useEffect } from 'react';
 
+// Create auth context
 const AuthContext = createContext();
 
+// Auth provider component
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
 
-  // Check for existing auth on mount
+  // Check if user is already logged in when app loads
   useEffect(() => {
-    checkAuthStatus();
+    const checkAuth = async () => {
+      try {
+        const token = localStorage.getItem('auth_token');
+        
+        if (!token) {
+          setLoading(false);
+          return;
+        }
+        
+        // Validate token and get user info
+        // You can make an API call here to validate the token on your server
+        // For now, we'll just parse the JWT
+        const tokenParts = token.split('.');
+        if (tokenParts.length === 3) {
+          const payload = JSON.parse(atob(tokenParts[1]));
+          
+          // Check if token is expired
+          const currentTime = Date.now() / 1000;
+          if (payload.exp && payload.exp < currentTime) {
+            // Token expired, clear it
+            localStorage.removeItem('auth_token');
+            setLoading(false);
+            return;
+          }
+          
+          // Token valid, set user
+          setUser({
+            id: payload.id,
+            name: payload.name,
+            email: payload.email,
+            profilePicture: payload.profilePicture
+          });
+          setIsAuthenticated(true);
+        }
+      } catch (error) {
+        console.error('Auth check error:', error);
+        localStorage.removeItem('auth_token');
+      }
+      
+      setLoading(false);
+    };
+    
+    checkAuth();
   }, []);
 
-  // Function to check if user is authenticated
-  const checkAuthStatus = async () => {
+  // Login function
+  const login = async (userData, token) => {
     try {
-      setLoading(true);
-      
-      // First check local storage
-      const storedUser = localStorage.getItem('user');
-      const token = localStorage.getItem('auth_token');
-      
-      if (storedUser && token) {
-        // Verify the token is still valid
-        const response = await fetch('https://zidio-kiun.onrender.com/api/auth/verify-token', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${token}`
-          },
-          credentials: 'include',
-          body: JSON.stringify({ token })
-        });
-        
-        const data = await response.json();
-        
-        if (data.success) {
-          setUser(data.user);
-        } else {
-          // Token invalid, clear storage
-          localStorage.removeItem('user');
-          localStorage.removeItem('auth_token');
-          setUser(null);
-        }
-      } else {
-        // Try to get user from cookie-based auth
-        const response = await fetch('https://zidio-kiun.onrender.com/api/auth/user', {
-          credentials: 'include'
-        });
-        
-        const data = await response.json();
-        
-        if (data.success && data.user) {
-          setUser(data.user);
-          localStorage.setItem('user', JSON.stringify(data.user));
-        } else {
-          setUser(null);
-        }
-      }
-    } catch (err) {
-      console.error('Auth check error:', err);
-      setError('Authentication check failed');
-      setUser(null);
-    } finally {
-      setLoading(false);
+      setUser(userData);
+      setIsAuthenticated(true);
+      localStorage.setItem('auth_token', token);
+      return true;
+    } catch (error) {
+      console.error('Login error:', error);
+      return false;
     }
-  };
-
-  // Login function - redirect to Google OAuth
-  const login = () => {
-    window.location.href = 'https://zidio-kiun.onrender.com/api/auth/google';
   };
 
   // Logout function
-  const logout = async () => {
-    try {
-      // Call logout endpoint
-      await fetch('https://zidio-kiun.onrender.com/api/auth/logout', {
-        credentials: 'include'
-      });
-      
-      // Clear local storage
-      localStorage.removeItem('user');
-      localStorage.removeItem('auth_token');
-      
-      // Update state
-      setUser(null);
-    } catch (err) {
-      console.error('Logout error:', err);
-    }
+  const logout = () => {
+    setUser(null);
+    setIsAuthenticated(false);
+    localStorage.removeItem('auth_token');
+  };
+
+  // Auth context value
+  const authContextValue = {
+    user,
+    isAuthenticated,
+    loading,
+    login,
+    logout
   };
 
   return (
-    <AuthContext.Provider 
-      value={{ 
-        user, 
-        loading, 
-        error, 
-        isAuthenticated: !!user, 
-        login, 
-        logout,
-        checkAuthStatus
-      }}
-    >
+    <AuthContext.Provider value={authContextValue}>
       {children}
     </AuthContext.Provider>
   );
 };
 
 // Custom hook to use auth context
-export const useAuth = () => useContext(AuthContext);
+export const useAuth = () => {
+  const context = useContext(AuthContext);
+  if (context === undefined) {
+    throw new Error('useAuth must be used within an AuthProvider');
+  }
+  return context;
+};
 
-export default AuthProvider;
+export default AuthContext;
