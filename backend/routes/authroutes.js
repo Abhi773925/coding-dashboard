@@ -2,7 +2,7 @@ const express = require("express");
 const passport = require("passport");
 const jwt = require('jsonwebtoken');
 const router = express.Router();
-
+const JWT_SECRET = process.env.JWT_SECRET || 'your-secure-jwt-secret-key';
 // Start Google OAuth login flow
 
 router.get(
