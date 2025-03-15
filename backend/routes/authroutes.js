@@ -5,7 +5,7 @@ const session = require("express-session");
 // Frontend and backend URLs
 const FRONTEND_URL = process.env.CLIENT_URL || "https://zidio-manager.vercel.app";
 const BACKEND_URL = process.env.BACKEND_URL || "https://zidio-kiun.onrender.com";
-
+const jwt = require('jsonwebtoken');
 // Start Google OAuth login flow
 router.get(
   "/google",
