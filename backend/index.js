@@ -17,14 +17,21 @@ const app = express();
 // Connect to MongoDB
 connectDB();
 
-// Middleware
-app.use(
-  cors({
-    origin: process.env.CLIENT_URL || "http://localhost:5173",
-    credentials: true, // ✅ Required for authentication
-  })
-);
+// // Middleware
+// app.use(
+//   cors({
+//     origin: process.env.CLIENT_URL || "http://localhost:5173",
+//     credentials: true, // ✅ Required for authentication
+//   })
+// );
+// In your backend server.js or app.js file
 
+app.use(cors({
+  origin: 'https://zidio-manager.vercel.app', // Remove the trailing slash
+  credentials: true,
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization']
+}));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
