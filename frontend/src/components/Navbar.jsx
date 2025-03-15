@@ -28,6 +28,7 @@ const Navbar = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [user, setUser] = useState(null);
   // Function to check user session
+// In your Navbar.jsx, modify the fetchUser function
 const fetchUser = async () => {
   try {
     // First check localStorage
@@ -45,11 +46,16 @@ const fetchUser = async () => {
       credentials: "include",
     });
 
+    if (!res.ok) {
+      throw new Error(`HTTP error! status: ${res.status}`);
+    }
+
     const data = await res.json();
 
-    if (data.success) {
+    if (data.success && data.user) {
       setUser(data.user);
       setIsLoggedIn(true);
+      // Update localStorage with latest user data
       localStorage.setItem("user", JSON.stringify(data.user));
     } else if (res.status === 401) {
       // Only clear if we get a specific unauthorized response
@@ -57,17 +63,17 @@ const fetchUser = async () => {
       setIsLoggedIn(false);
       localStorage.removeItem("user");
     }
-    // For network errors or other statuses, keep existing user
-
   } catch (err) {
     console.error("Error fetching user:", err);
     // Don't clear localStorage on network errors
   }
 };
 
+// In your Navbar.jsx
 const handleGoogleLogin = () => {
+  // Before redirecting, clear any existing user data
+  localStorage.removeItem("user");
   window.open("https://zidio-kiun.onrender.com/api/auth/google", "_self");
-  console.log("data is begin set to local stoerga");
 };
 
 const handleLogout = () => {
@@ -77,7 +83,30 @@ const handleLogout = () => {
   setIsLoggedIn(false);
   setActiveDropdown(null);
 };
-
+// Add this to your app's main component or home page
+useEffect(() => {
+  // Check if redirected from successful login
+  const urlParams = new URLSearchParams(window.location.search);
+  const loginSuccess = urlParams.get('login');
+  
+  if (loginSuccess === 'success') {
+    // Clean up the URL
+    window.history.replaceState({}, document.title, window.location.pathname);
+    
+    // Fetch user data and store in localStorage
+    fetch("https://zidio-kiun.onrender.com/api/auth/user", {
+      credentials: "include",
+    })
+      .then(res => res.json())
+      .then(data => {
+        if (data.success) {
+          localStorage.setItem("user", JSON.stringify(data.user));
+          // Update your app state as needed
+        }
+      })
+      .catch(err => console.error("Error fetching user:", err));
+  }
+}, []);
 
   useEffect(() => {
     fetchUser(); // Check session on load
