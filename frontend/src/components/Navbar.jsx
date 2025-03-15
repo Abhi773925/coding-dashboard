@@ -12,7 +12,7 @@ const Navbar = () => {
       setError(null);
       
       // Redirect to your backend auth endpoint
-      window.location.href = 'https://zidio-manager.vercel.app/api/auth/google';
+      window.location.href = 'https://zidio-kiun.onrender.com/api/auth/google';
       // Note: The page will reload as it's redirecting to Google OAuth
       
     } catch (error) {
