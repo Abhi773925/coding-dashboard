@@ -17,7 +17,7 @@ import {
   List,
 } from "lucide-react";
 import Notification from "./profile/Notification";
-import Link from "react-router-dom";
+import { Link } from "react-router-dom";
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
