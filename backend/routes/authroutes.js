@@ -21,11 +21,11 @@ router.get(
   (req, res) => {
     // Generate JWT token
     const token = jwt.sign(
-      { id: req.user.id, email: req.user.email },
+      { id: req.user.id, name:req.user.name, profilePicture:req.user.profilePicture, email: req.user.email },
       process.env.JWT_SECRET||'fkdjfkdhfkdhfidkhfkdhfdkfhdkfhieuhckbckdjchfodh',
       { expiresIn: "7d" } // Token expires in 7 days
     );
-
+    
     // Set token in secure HTTP-only cookie
     res.cookie("auth_token", token, {
       httpOnly: true,
@@ -57,6 +57,7 @@ router.get("/user", (req, res) => {
       success: true,
       user: req.user, // ✅ Send user details
     });
+    localStorage.setItem(user);
   } else {
     res.json({ success: false, user: null });
   }
