@@ -449,9 +449,8 @@ const handleLogout = () => {
                 onClick={() => toggleDropdown("mobileProfile")}
                 className={`p-1 rounded-full bg-gradient-to-r ${theme.gradientBg} hover:opacity-90`}
               >
-                <div className="bg-[#090e1a]  rounded-full p-1">
-                  <User size={16} className="text-gray-300" />
-                </div>
+              <img src={user?.profilePicture} alt="Profile" className="w-8 h-8 rounded-full mx-auto " />
+
               </button>
             )}
             
@@ -481,13 +480,8 @@ const handleLogout = () => {
             {activeDropdown === "mobileProfile" && (
               <div className="absolute top-16 right-4 w-64 bg-[#090e1a]  rounded-md shadow-lg p-3 border border-gray-900 z-50">
                 <div className="flex flex-col items-center mb-3 pb-3 border-b border-gray-800">
-                  <div
-                    className={`p-2 rounded-full bg-gradient-to-r ${theme.gradientBg} mb-2`}
-                  >
-                    <div className="bg-[#090e1a]  rounded-full p-1">
-                      <User size={24} className="text-white" />
-                    </div>
-                  </div>
+                <img src={user?.profilePicture} alt="Profile" className="w-8 h-8 rounded-full mx-auto " />
+
                   <h4 className="font-medium text-white">
                     {user?.name || user?.displayName || "User"}
                   </h4>
