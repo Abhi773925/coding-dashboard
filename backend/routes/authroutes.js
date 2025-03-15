@@ -2,56 +2,55 @@ const express = require("express");
 const passport = require("passport");
 const router = express.Router();
 
+// Frontend and backend URLs
+const FRONTEND_URL = "https://zidio-manager.vercel.app";
+const BACKEND_URL = "https://zidio-kiun.onrender.com";
+
 // Start Google OAuth login flow
 router.get(
   "/google",
   passport.authenticate("google", {
     scope: ["profile", "email"],
-    prompt: "consent", // Forces Google to ask every time
+    prompt: "consent", // 🔹 Forces Google to ask every time
   })
 );
 
-// Google OAuth callback router with loginSuccess flag
+// Google OAuth callback
 router.get(
   "/google/callback",
   passport.authenticate("google", {
-    failureRedirect: "https://zidio-manager.vercel.app/login",
-    failureMessage: true // Enable failure messages
+    failureRedirect: `${FRONTEND_URL}/login`,
   }),
   (req, res) => {
-    // Add loginSuccess flag to help client detect successful login
-    res.redirect("https://zidio-manager.vercel.app/?loginSuccess=true");
+    // Set default role if this is a new user registration
+    if (req.user && req.user.isNew) {
+      req.user.role = "viewer"; // Default role
+      req.user.save();
+    }
+    res.redirect(FRONTEND_URL); // ✅ Redirects to production frontend
   }
 );
 
-// Logout route
+// Logout route (✅ Fix for Express 4.0+)
 router.get("/logout", (req, res, next) => {
   req.logout(function (err) {
     if (err) return next(err);
     req.session.destroy(() => {
-      res.clearCookie("connect.sid"); // Clears session cookie
-      res.redirect("https://zidio-manager.vercel.app/login?loggedOut=true");
+      res.clearCookie("connect.sid"); // ✅ Clears session cookie
+      res.redirect(`${FRONTEND_URL}/`);
     });
   });
 });
 
-// Get current user session with standardized response
+// Get current user session and send user details
 router.get("/user", (req, res) => {
-  if (req.isAuthenticated() && req.user) {
-    // Format user data consistently
-    const userData = {
-      id: req.user._id || req.user.id,
-      name: req.user.name || req.user.displayName,
-      email: req.user.email,
-      profilePicture: req.user.profilePicture || req.user.photos?.[0]?.value,
-    };
-    
+  if (req.user) {
     res.json({
       success: true,
-      user: userData,
+      user: req.user, // ✅ Send user details
     });
   } else {
-    res.status(401).json({ success: false, user: null });
+    res.json({ success: false, user: null });
   }
 });
 

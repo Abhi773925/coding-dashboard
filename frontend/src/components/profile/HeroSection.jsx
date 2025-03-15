@@ -5,11 +5,12 @@ import { useState, useEffect } from "react";
 const HeroSection = () => {
   const adminEmail = "rockabhisheksingh778189@gmail.com";
   const [userEmail, setUserEmail] = useState("");
+  const [userRole, setUserRole] = useState("");
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [showPopup, setShowPopup] = useState(false);
   
   useEffect(() => {
-    // Get user email from localStorage on component mount
+    // Get user data from localStorage on component mount
     const fetchUserFromStorage = () => {
       try {
         const savedUser = localStorage.getItem("user");
@@ -17,11 +18,14 @@ const HeroSection = () => {
         if (savedUser) {
           const userData = JSON.parse(savedUser);
           setUserEmail(userData.email || "");
+          setUserRole(userData.role || "");
           setIsLoggedIn(true);
+          console.log("User data loaded:", { email: userData.email, role: userData.role });
         }
       } catch (err) {
         console.error("Error fetching user from localStorage:", err);
         setUserEmail("");
+        setUserRole("");
         setIsLoggedIn(false);
       }
     };
@@ -30,7 +34,7 @@ const HeroSection = () => {
   }, []);
   
   const handleAdminClick = () => {
-    if (userEmail !== adminEmail) {
+    if (!hasAdminAccess()) {
       setShowPopup(true);
     }
   };
@@ -39,7 +43,10 @@ const HeroSection = () => {
     setShowPopup(false);
   };
 
-  const isAdmin = userEmail === adminEmail;
+  // Check if user has admin access (either by email or role)
+  const hasAdminAccess = () => {
+    return userEmail === adminEmail || ["admin", "subadmin"].includes(userRole);
+  };
 
   return (
     <div className="bg-[#090e1a] min-h-screen flex flex-col justify-start pt-12 md:pt-24 lg:pt-32 px-4 md:px-8 lg:px-16 relative">
@@ -78,7 +85,7 @@ const HeroSection = () => {
           </Link>
           
           {/* Dashboard Button */}
-          {isAdmin ? (
+          {hasAdminAccess() ? (
             <Link to="/dashboard">
               <motion.button
                 className="px-6 py-3 rounded-lg font-medium bg-gradient-to-r from-purple-500 to-indigo-600 text-white hover:opacity-90 transition-opacity"
@@ -91,14 +98,13 @@ const HeroSection = () => {
             <motion.button
               className="px-6 py-3 rounded-lg font-medium bg-gray-600 text-gray-400 cursor-not-allowed"
               onClick={handleAdminClick}
-              disabled
             >
               Dashboard (Restricted)
             </motion.button>
           )}
           
           {/* Admin Button */}
-          {isAdmin ? (
+          {hasAdminAccess() ? (
             <Link to="/tasks">
               <motion.button
                 className="px-6 py-3 rounded-lg font-medium bg-gradient-to-r from-green-500 to-teal-600 text-white hover:opacity-90 transition-opacity"
@@ -117,6 +123,20 @@ const HeroSection = () => {
             </motion.button>
           )}
         </div>
+        
+        {/* Role Indicator (for debugging and clarity) */}
+        {isLoggedIn && (
+          <motion.div
+            className="mt-4 inline-block px-3 py-1 rounded-full text-sm"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 0.7 }}
+            transition={{ delay: 1 }}
+          >
+            <span className="text-gray-400">
+              Logged in as: {userRole ? userRole.charAt(0).toUpperCase() + userRole.slice(1) : "User"}
+            </span>
+          </motion.div>
+        )}
       </div>
       
       {/* Floating Elements for Aesthetic Appeal */}

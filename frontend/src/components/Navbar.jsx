@@ -357,6 +357,7 @@ const Navbar = () => {
                         >
                           <div className="bg-[#090e1a]  rounded-full p-1">
                             <User size={24} className="text-white" />
+                            {/* <img src={user?.profilePicture} alt="Profile" className="w-16 h-16 rounded-full mx-auto mb-2" /> */}
                           </div>
                         </div>
                         <h4 className="font-medium text-white">

@@ -1,7 +1,6 @@
 const Task = require("../models/taskformmodels");
 const User = require("../models/User");
 const { createNotification } = require("./notificationcontroller");
-
 exports.getAllTasks = async (req, res) => {
   try {
     // Get email from query parameter
@@ -12,11 +11,25 @@ exports.getAllTasks = async (req, res) => {
       return res.status(400).json({ message: "❌ User email is required" });
     }
 
+    // Get user role information from the database
+    const user = await User.findOne({ email: userEmail });
+    if (!user) {
+      return res.status(404).json({ message: "❌ User not found" });
+    }
+
     let tasks;
-    // Check if user is admin
-    if (userEmail === "rockabhisheksingh778189@gmail.com") {
-      // Admin user sees all tasks
-      tasks = await Task.find().sort({ deadline: 1 }); // Sort by deadline ascending
+    // Check user role
+    if (user.role=="admin") {
+      // Super admin sees all tasks
+      tasks = await Task.find().sort({ deadline: 1 });
+    } else if (user.role === "subadmin") {
+      // Sub-admin sees tasks they assigned plus their own tasks
+      tasks = await Task.find({
+        $or: [
+          { assignedBy: userEmail },  // Tasks this user assigned to others
+          { assignedTo: userEmail }   // Tasks assigned to this user
+        ]
+      }).sort({ deadline: 1 });
     } else {
       // Normal users see only their assigned tasks
       tasks = await Task.find({ assignedTo: userEmail }).sort({ deadline: 1 });
@@ -28,7 +41,6 @@ exports.getAllTasks = async (req, res) => {
     res.status(500).json({ message: "Failed to load tasks", error: error.message });
   }
 };
-
 exports.getTaskById = async (req, res) => {
   try {
     const task = await Task.findById(req.params.id);
@@ -53,10 +65,16 @@ exports.getTaskById = async (req, res) => {
   }
 };
 
+   
+      
 exports.createTask = async (req, res) => {
   try {
     const { title, description, deadline, role, comments, priority } = req.body;
     const userEmail = req.query.email || req.body.email;
+    
+    if (!userEmail) {
+      return res.status(400).json({ message: "❌ User email is required" });
+    }
     
     // Parse assignedTo as JSON if it's a string array
     let assignedTo = req.body.assignedTo;
@@ -104,12 +122,13 @@ exports.createTask = async (req, res) => {
         title,
         description,
         assignedTo: email,
+        assignedBy: userEmail, // Store who assigned the task
         deadline,
         file: req.file ? req.file.filename : null,
         role,
         priority,
         status: "Pending",
-        createdBy: userEmail || assignedTo[0], // If no creator email provided, use first assignee
+        createdBy: userEmail, // The person who created the task
         createdAt: new Date(),
         teamTask: true, // Flag indicating this is part of a team task
         teamMembers: assignedTo, // Store all team members for reference
@@ -120,7 +139,7 @@ exports.createTask = async (req, res) => {
       if (comments && comments.trim()) {
         const commentObj = {
           text: comments.trim(),
-          user: userEmail || assignedTo[0],
+          user: userEmail,
           date: new Date()
         };
         task.comments.push(commentObj);
@@ -137,7 +156,7 @@ exports.createTask = async (req, res) => {
           `New task assigned: ${title}`,
           task._id,
           'task_assigned',
-          userEmail || assignedTo[0] // creator
+          userEmail // creator
         );
         console.log(`Notification created successfully for: ${email}`);
       } catch (notificationError) {

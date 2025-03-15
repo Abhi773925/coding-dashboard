@@ -138,61 +138,129 @@ const TaskForm = ({ onTaskCreated = () => {} }) => {
   };
 
   // Submit form
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+  // const handleSubmit = async (e) => {
+  //   e.preventDefault();
     
-    if (isSubmitting) return;
+  //   if (isSubmitting) return;
     
-    // Final validation before submission
-    if (task.assignedTo.length === 0) {
-      setError("Please assign the task to at least one team member");
-      return;
+  //   // Final validation before submission
+  //   if (task.assignedTo.length === 0) {
+  //     setError("Please assign the task to at least one team member");
+  //     return;
+  //   }
+    
+  //   setIsSubmitting(true);
+  //   setError(null);
+    
+  //   const formData = new FormData();
+    
+  //   // Append all normal fields
+  //   Object.keys(task).forEach((key) => {
+  //     if (key !== "assignedTo" && task[key] !== null) {
+  //       formData.append(key, task[key]);
+  //     }
+  //   });
+    
+  //   // Append assignedTo as a JSON string
+  //   formData.append("assignedTo", JSON.stringify(task.assignedTo));
+
+  //   try {
+  //     const response = await axios.post(API_URL, formData, {
+  //       headers: { "Content-Type": "multipart/form-data" }
+  //     });
+    
+  //     // Safely call onTaskCreated if it's a function
+  //     if (typeof onTaskCreated === 'function') {
+  //       onTaskCreated(response.data.task);
+  //     }
+      
+  //     resetForm();
+      
+  //     // Update stats
+  //     setStats({
+  //       ...stats,
+  //       pendingTasks: stats.pendingTasks + 1
+  //     });
+      
+  //     // Show success message
+  //     setShowSuccessMessage(true);
+  //     setTimeout(() => setShowSuccessMessage(false), 3000);
+  //   } catch (err) {
+  //     setError(err.response?.data?.message || "Error creating task. Please try again.");
+  //     console.error("Error adding task:", err);
+  //   } finally {
+  //     setIsSubmitting(false);
+  //   }
+  // };
+
+  // In the TaskForm component, modify the handleSubmit function
+const handleSubmit = async (e) => {
+  e.preventDefault();
+  
+  if (isSubmitting) return;
+  
+  // Final validation before submission
+  if (task.assignedTo.length === 0) {
+    setError("Please assign the task to at least one team member");
+    return;
+  }
+  
+  setIsSubmitting(true);
+  setError(null);
+  
+  const formData = new FormData();
+  
+  // Get current user from localStorage
+  const currentUser = JSON.parse(localStorage.getItem('user'));
+  const userEmail = currentUser?.email;
+  
+  if (!userEmail) {
+    setError("User session not found. Please log in again.");
+    setIsSubmitting(false);
+    return;
+  }
+  
+  // Append all normal fields
+  Object.keys(task).forEach((key) => {
+    if (key !== "assignedTo" && task[key] !== null) {
+      formData.append(key, task[key]);
+    }
+  });
+  
+  // Append the current user's email (the assigner)
+  formData.append("email", userEmail);
+  
+  // Append assignedTo as a JSON string
+  formData.append("assignedTo", JSON.stringify(task.assignedTo));
+
+  try {
+    const response = await axios.post(API_URL, formData, {
+      headers: { "Content-Type": "multipart/form-data" }
+    });
+  
+    // Safely call onTaskCreated if it's a function
+    if (typeof onTaskCreated === 'function') {
+      onTaskCreated(response.data.task);
     }
     
-    setIsSubmitting(true);
-    setError(null);
+    resetForm();
     
-    const formData = new FormData();
-    
-    // Append all normal fields
-    Object.keys(task).forEach((key) => {
-      if (key !== "assignedTo" && task[key] !== null) {
-        formData.append(key, task[key]);
-      }
+    // Update stats
+    setStats({
+      ...stats,
+      pendingTasks: stats.pendingTasks + 1
     });
     
-    // Append assignedTo as a JSON string
-    formData.append("assignedTo", JSON.stringify(task.assignedTo));
-
-    try {
-      const response = await axios.post(API_URL, formData, {
-        headers: { "Content-Type": "multipart/form-data" }
-      });
-    
-      // Safely call onTaskCreated if it's a function
-      if (typeof onTaskCreated === 'function') {
-        onTaskCreated(response.data.task);
-      }
-      
-      resetForm();
-      
-      // Update stats
-      setStats({
-        ...stats,
-        pendingTasks: stats.pendingTasks + 1
-      });
-      
-      // Show success message
-      setShowSuccessMessage(true);
-      setTimeout(() => setShowSuccessMessage(false), 3000);
-    } catch (err) {
-      setError(err.response?.data?.message || "Error creating task. Please try again.");
-      console.error("Error adding task:", err);
-    } finally {
-      setIsSubmitting(false);
-    }
-  };
-
+    // Show success message
+    setShowSuccessMessage(true);
+    setTimeout(() => setShowSuccessMessage(false), 3000);
+  } catch (err) {
+    setError(err.response?.data?.message || "Error creating task. Please try again.");
+    console.error("Error adding task:", err);
+  } finally {
+    setIsSubmitting(false);
+  }
+};
   // Reset form
   const resetForm = () => {
     setTask({
