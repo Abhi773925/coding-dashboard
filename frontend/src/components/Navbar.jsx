@@ -69,25 +69,44 @@ const fetchUser = async () => {
 
 // Update logout function
 const handleLogout = () => {
-  localStorage.removeItem("user");
-  localStorage.removeItem("auth_token");
+  localStorage.removeItem('user');
+  localStorage.removeItem('auth_token');
   setUser(null);
   setIsLoggedIn(false);
   setActiveDropdown(null);
   
-  // Still call the server logout endpoint to clean up server-side session
+  // Optional: Notify the server about logout
   fetch("https://zidio-kiun.onrender.com/api/auth/logout", {
     credentials: "include"
   }).catch(err => console.error("Logout error:", err));
 };
-
 // In your Navbar.jsx
 const handleGoogleLogin = () => {
   // Before redirecting, clear any existing user data
   localStorage.removeItem("user");
   window.open("https://zidio-kiun.onrender.com/api/auth/google", "_self");
 };
-
+// In your Navbar.jsx
+useEffect(() => {
+  const checkAuthStatus = () => {
+    const token = localStorage.getItem('auth_token');
+    const savedUser = localStorage.getItem('user');
+    
+    if (token && savedUser) {
+      try {
+        const userData = JSON.parse(savedUser);
+        setUser(userData);
+        setIsLoggedIn(true);
+      } catch (err) {
+        console.error('Error parsing user data:', err);
+        localStorage.removeItem('user');
+        localStorage.removeItem('auth_token');
+      }
+    }
+  };
+  
+  checkAuthStatus();
+}, []);
 
 // Add this to your app's main component or home page
 useEffect(() => {

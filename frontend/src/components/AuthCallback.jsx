@@ -1,4 +1,4 @@
-// Create a new component/page: AuthCallback.jsx
+// src/components/AuthCallback.jsx
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
@@ -13,26 +13,21 @@ const AuthCallback = () => {
       // Store token in localStorage
       localStorage.setItem('auth_token', token);
       
-      // Decode the token to get user info (you can use jwt-decode library or do it on the server)
-      fetch('https://zidio-kiun.onrender.com/api/auth/verify-token', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({ token })
-      })
-      .then(res => res.json())
-      .then(data => {
-        if (data.success) {
-          localStorage.setItem('user', JSON.stringify(data.user));
-        }
-        // Redirect to home page
-        navigate('/');
-      })
-      .catch(err => {
-        console.error('Error verifying token:', err);
-        navigate('/');
-      });
+      // Parse the token to get user info
+      // JWT tokens are base64 encoded in three parts: header.payload.signature
+      try {
+        const payload = token.split('.')[1];
+        const decodedPayload = JSON.parse(atob(payload));
+        localStorage.setItem('user', JSON.stringify(decodedPayload));
+        
+        // Update application state if needed
+        console.log('User logged in successfully');
+      } catch (err) {
+        console.error('Error parsing token:', err);
+      }
+      
+      // Redirect to home page
+      navigate('/');
     } else {
       navigate('/');
     }
