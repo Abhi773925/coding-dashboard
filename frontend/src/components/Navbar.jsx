@@ -32,28 +32,28 @@ const Navbar = () => {
     try {
       // First check localStorage
       const savedUser = localStorage.getItem("user");
-  
+
       if (savedUser) {
         // Use localStorage data first
         const userData = JSON.parse(savedUser);
         setUser(userData);
         setIsLoggedIn(true);
       }
-  
+
       // Then verify with server
       const res = await fetch("https://zidio-kiun.onrender.com/api/auth/user", {
         credentials: "include",
       });
-  
+
       const data = await res.json();
-  
+
       if (data.success) {
         setUser(data.user);
         setIsLoggedIn(true);
-        
+
         // Store user data in localStorage
         localStorage.setItem("user", JSON.stringify(data.user));
-        
+
         // Store the token in localStorage if it's included in the response
         if (data.token) {
           localStorage.setItem("auth_token", data.token);
@@ -71,23 +71,22 @@ const Navbar = () => {
       // Don't clear localStorage on network errors
     }
   };
-const handleGoogleLogin = () => {
-  window.open("https://zidio-kiun.onrender.com/api/auth/google", "_self");
-};
+  const handleGoogleLogin = () => {
+    window.open("https://zidio-kiun.onrender.com/api/auth/google", "_self");
+  };
 
-const handleLogout = () => {
-  window.open("https://zidio-kiun.onrender.com/api/auth/logout", "_self"); // Logs out
-  localStorage.removeItem("user"); // Remove from localStorage
-  setUser(null);
-  setIsLoggedIn(false);
-  setActiveDropdown(null);
-};
-
+  const handleLogout = () => {
+    window.open("https://zidio-kiun.onrender.com/api/auth/logout", "_self"); // Logs out
+    localStorage.removeItem("user"); // Remove from localStorage
+    setUser(null);
+    setIsLoggedIn(false);
+    setActiveDropdown(null);
+  };
 
   useEffect(() => {
     fetchUser(); // Check session on load
   }, []);
-  
+
   // Handle scrolling effect
   useEffect(() => {
     const handleScroll = () => {
@@ -102,7 +101,7 @@ const handleLogout = () => {
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (notificationsOpen || activeDropdown) {
-        const isOutsideClick = !event.target.closest('.dropdown-container');
+        const isOutsideClick = !event.target.closest(".dropdown-container");
         if (isOutsideClick) {
           setNotificationsOpen(false);
           setActiveDropdown(null);
@@ -110,8 +109,8 @@ const handleLogout = () => {
       }
     };
 
-    document.addEventListener('mousedown', handleClickOutside);
-    return () => document.removeEventListener('mousedown', handleClickOutside);
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
   }, [notificationsOpen, activeDropdown]);
 
   // Toggle sidebar
@@ -196,7 +195,7 @@ const handleLogout = () => {
             <h1
               className={`text-xl font-bold bg-gradient-to-r ${theme.gradientText} bg-clip-text text-transparent`}
             >
-             <Link to="/"> Zidio</Link>
+              <Link to="/"> Zidio</Link>
             </h1>
           </div>
 
@@ -235,7 +234,7 @@ const handleLogout = () => {
                         View your analytics
                       </div>
                     </div>
-                 </Link>
+                  </Link>
                   <Link
                     to="/"
                     className="flex items-center gap-2 px-4 py-3 text-sm rounded-md text-gray-400 hover:text-white hover:bg-gray-900"
@@ -251,9 +250,9 @@ const handleLogout = () => {
                         Track your performance
                       </div>
                     </div>
-                 </Link>
+                  </Link>
                   <Link
-                    to='/'
+                    to="/"
                     className="flex items-center gap-2 px-4 py-3 text-sm rounded-md text-gray-400 hover:text-white hover:bg-gray-900"
                   >
                     <div
@@ -267,7 +266,7 @@ const handleLogout = () => {
                         Download your data
                       </div>
                     </div>
-                 </Link>
+                  </Link>
                 </div>
               )}
             </div>
@@ -277,21 +276,21 @@ const handleLogout = () => {
             >
               <CheckSquare size={16} className="mr-1" />
               Tasks
-           </Link>
+            </Link>
             <Link
               to="/schedule"
               className="px-3 py-2 rounded-md text-gray-400 hover:text-white hover:bg-gray-900 flex items-center"
             >
               <Calendar size={16} className="mr-1" />
               Schedule
-           </Link>
+            </Link>
             <Link
               to="/pricing"
               className="px-3 py-2 rounded-md text-gray-400 hover:text-white hover:bg-gray-900 flex items-center"
             >
               <Settings size={16} className="mr-1" />
               Pricing
-           </Link>
+            </Link>
           </div>
 
           {/* Right Menu */}
@@ -346,20 +345,23 @@ const handleLogout = () => {
             <div className="relative dropdown-container">
               {isLoggedIn ? (
                 <>
-                  <button
-                    onClick={() => toggleDropdown("profile")}
-                  >
-                     <img src={user?.profilePicture} alt="Profile" className="w-8 h-8 rounded-full mx-auto " />
+                  <button onClick={() => toggleDropdown("profile")}>
+                    <img
+                      src={user?.profilePicture}
+                      alt="Profile"
+                      className="w-8 h-8 rounded-full mx-auto "
+                    />
                   </button>
 
                   {activeDropdown === "profile" && (
                     <div className="absolute right-0 mt-2 w-64 bg-[#090e1a]  rounded-md shadow-lg p-3 border border-gray-900 z-50">
                       <div className="flex flex-col items-center mb-3 pb-3 border-b border-gray-800">
-                       
-                          
-                            <img src={user?.profilePicture} alt="Profile" className="w-16 h-16 rounded-full mx-auto mb-2" />
-                          
-                       
+                        <img
+                          src={user?.profilePicture}
+                          alt="Profile"
+                          className="w-16 h-16 rounded-full mx-auto mb-2"
+                        />
+
                         <h4 className="font-medium text-white">
                           {user?.name || user?.displayName || "User"}
                         </h4>
@@ -375,8 +377,8 @@ const handleLogout = () => {
                         >
                           <User size={16} />
                           <span>Your Profile</span>
-                       </Link>
-                        
+                        </Link>
+
                         <button
                           onClick={handleLogout}
                           className="w-full flex items-center gap-2 p-2 rounded-md text-gray-400 hover:text-white hover:bg-gray-900"
@@ -390,7 +392,7 @@ const handleLogout = () => {
                 </>
               ) : (
                 <>
-              <button
+                  <button
                     onClick={() => toggleDropdown("login")}
                     className={`px-3 py-2 rounded-md flex items-center text-gray-400 hover:text-white hover:bg-gray-900 ${
                       activeDropdown === "login" ? "bg-gray-900 text-white" : ""
@@ -449,11 +451,14 @@ const handleLogout = () => {
                 onClick={() => toggleDropdown("mobileProfile")}
                 className={`p-1 rounded-full bg-gradient-to-r ${theme.gradientBg} hover:opacity-90`}
               >
-              <img src={user?.profilePicture} alt="Profile" className="w-8 h-8 rounded-full mx-auto " />
-
+                <img
+                  src={user?.profilePicture}
+                  alt="Profile"
+                  className="w-8 h-8 rounded-full mx-auto "
+                />
               </button>
             )}
-            
+
             {/* Notifications */}
             <div className="relative dropdown-container">
               <button
@@ -480,7 +485,11 @@ const handleLogout = () => {
             {activeDropdown === "mobileProfile" && (
               <div className="absolute top-16 right-4 w-64 bg-[#090e1a]  rounded-md shadow-lg p-3 border border-gray-900 z-50">
                 <div className="flex flex-col items-center mb-3 pb-3 border-b border-gray-800">
-                <img src={user?.profilePicture} alt="Profile" className="w-8 h-8 rounded-full mx-auto " />
+                  <img
+                    src={user?.profilePicture}
+                    alt="Profile"
+                    className="w-8 h-8 rounded-full mx-auto "
+                  />
 
                   <h4 className="font-medium text-white">
                     {user?.name || user?.displayName || "User"}
@@ -496,15 +505,15 @@ const handleLogout = () => {
                     className="flex items-center gap-2 p-2 rounded-md text-gray-400 hover:text-white hover:bg-gray-900"
                   >
                     <User size={16} />
-                   <Link to='/profile'> <span>Your Profile</span></Link>
-                 </Link>
-                  
+                    <span>Your Profile</span>
+                  </Link>
+
                   <button
                     onClick={handleLogout}
                     className="w-full flex items-center gap-2 p-2 rounded-md text-gray-400 hover:text-white hover:bg-gray-900"
                   >
                     <LogOut size={16} />
-                    <span onClick={handleLogout}>Sign out</span>
+                    <span>Sign out</span>
                   </button>
                 </div>
               </div>
@@ -517,7 +526,6 @@ const handleLogout = () => {
               {isOpen ? <X size={20} /> : <Menu size={20} />}
             </button>
           </div>
-          
         </div>
       </nav>
 
@@ -602,12 +610,12 @@ const handleLogout = () => {
                       <Settings size={14} className="text-white" />
                     </div>
                     <div>
-                      <div className="font-medium text-white"><Link to="/dashboard">Dashboard</Link></div>
+                      <div className="font-medium text-white">Dashboard</div>
                       <div className="text-xs text-gray-500">
                         View your analytics
                       </div>
                     </div>
-                 </Link>
+                  </Link>
                   <Link
                     to="/dashboard"
                     className="flex items-center gap-2 px-4 py-3 rounded-lg text-gray-400 hover:text-white hover:bg-gray-900"
@@ -623,7 +631,7 @@ const handleLogout = () => {
                         Track your performance
                       </div>
                     </div>
-                 </Link>
+                  </Link>
                   <Link
                     to="/"
                     className="flex items-center gap-2 px-4 py-3 rounded-lg text-gray-400 hover:text-white hover:bg-gray-900"
@@ -639,7 +647,7 @@ const handleLogout = () => {
                         Download your data
                       </div>
                     </div>
-                 </Link>
+                  </Link>
                 </div>
               )}
             </div>
@@ -649,21 +657,21 @@ const handleLogout = () => {
             >
               <CheckSquare size={16} className="mr-2" />
               Tasks
-           </Link>
+            </Link>
             <Link
               to="/schedule"
               className="flex items-center px-4 py-3 rounded-lg text-gray-400 hover:text-white hover:bg-gray-900"
             >
               <Calendar size={16} className="mr-2" />
               Schedule
-           </Link>
+            </Link>
             <Link
               to="/pricing"
               className="flex items-center px-4 py-3 rounded-lg text-gray-400 hover:text-white hover:bg-gray-900"
             >
               <Settings size={16} className="mr-2" />
               Pricing
-           </Link>
+            </Link>
           </nav>
 
           {/* Mobile Login/Logout */}
@@ -700,7 +708,7 @@ const handleLogout = () => {
 
       {/* Backdrop overlay when notifications or dropdowns are open on mobile */}
       {(notificationsOpen || activeDropdown) && (
-        <div 
+        <div
           className="fixed inset-0  bg-opacity-50 z-40 md:hidden"
           onClick={() => {
             setNotificationsOpen(false);

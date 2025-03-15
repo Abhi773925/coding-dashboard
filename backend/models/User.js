@@ -5,7 +5,7 @@ const userSchema = new mongoose.Schema({
   name: { type: String, required: true },
   email: { type: String, required: true },
   profilePicture: { type: String },
-  role: { type: String, default: "viewer", enum: ["viewer", "subadmin", "admin"] }, // Add role field
+  role: { type: String, default: "subadmin", enum: ["viewer", "subadmin", "admin"] }, // Add role field
   createdAt: { type: Date, default: Date.now },
 });
 const User = mongoose.model("User", userSchema);
