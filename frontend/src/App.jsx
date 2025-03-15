@@ -33,7 +33,7 @@ function App() {
               path="/" 
               element={
                 <div className="p-6 flex flex-col gap-6">
-                  <Login/>
+                  {/* <Login/> */}
                   <HeroSection/>
                   {/* <Dashboard /> */}
                   {/* <TaskTable /> */}
