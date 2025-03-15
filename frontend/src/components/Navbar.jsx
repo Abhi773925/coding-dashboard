@@ -17,8 +17,7 @@ import {
   List,
 } from "lucide-react";
 import Notification from "./profile/Notification";
-import { Link } from "lucide-react";
-
+import { Link } from "react-router-dom";
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
@@ -216,7 +215,7 @@ const Navbar = () => {
               {activeDropdown === "features" && (
                 <div className="absolute left-0 mt-2 w-64 bg-[#090e1a]  rounded-md shadow-lg p-2 space-y-1 border border-gray-900 transform transition-all duration-200 origin-top-left">
                   <Link
-                    href="/dashboard"
+                    to="/dashboard"
                     className="flex items-center gap-2 px-4 py-3 text-sm rounded-md text-gray-400 hover:text-white hover:bg-gray-900"
                   >
                     <div
@@ -267,14 +266,14 @@ const Navbar = () => {
               )}
             </div>
             <Link
-              href="/tasks"
+              to="/tasks"
               className="px-3 py-2 rounded-md text-gray-400 hover:text-white hover:bg-gray-900 flex items-center"
             >
               <CheckSquare size={16} className="mr-1" />
               Tasks
            </Link>
             <Link
-              href="/schedule"
+              to="/schedule"
               className="px-3 py-2 rounded-md text-gray-400 hover:text-white hover:bg-gray-900 flex items-center"
             >
               <Calendar size={16} className="mr-1" />
@@ -371,7 +370,7 @@ const Navbar = () => {
 
                       <div className="space-y-1">
                         <Link
-                          href="/profile"
+                          to="/profile"
                           className="flex items-center gap-2 p-2 rounded-md text-gray-400 hover:text-white hover:bg-gray-900"
                         >
                           <User size={16} />
@@ -428,7 +427,7 @@ const Navbar = () => {
                         </div>
 
                         <button
-                          onClick={() => (window.location.href = "/signup")}
+                          onClick={() => (window.location.to = "/signup")}
                           className="w-full flex items-center justify-center gap-2 py-2 rounded-md bg-gray-900 text-white hover:bg-gray-800 transition-colors"
                         >
                           <UserPlus size={16} />
@@ -499,7 +498,7 @@ const Navbar = () => {
 
                 <div className="space-y-1">
                   <Link
-                    href="/profile"
+                    to="/profile"
                     className="flex items-center gap-2 p-2 rounded-md text-gray-400 hover:text-white hover:bg-gray-900"
                   >
                     <User size={16} />
@@ -600,7 +599,7 @@ const Navbar = () => {
               {activeDropdown === "mobileFeatures" && (
                 <div className="pl-4 mt-1 space-y-1">
                   <Link
-                    href="/dashboard"
+                    to="/dashboard"
                     className="flex items-center gap-2 px-4 py-3 rounded-lg text-gray-400 hover:text-white hover:bg-gray-900"
                   >
                     <div
@@ -616,7 +615,7 @@ const Navbar = () => {
                     </div>
                  </Link>
                   <Link
-                    href="#"
+                    to="#"
                     className="flex items-center gap-2 px-4 py-3 rounded-lg text-gray-400 hover:text-white hover:bg-gray-900"
                   >
                     <div
@@ -632,7 +631,7 @@ const Navbar = () => {
                     </div>
                  </Link>
                   <Link
-                    href="#"
+                    to="#"
                     className="flex items-center gap-2 px-4 py-3 rounded-lg text-gray-400 hover:text-white hover:bg-gray-900"
                   >
                     <div
@@ -651,21 +650,21 @@ const Navbar = () => {
               )}
             </div>
             <Link
-              href="/tasks"
+              to="/tasks"
               className="flex items-center px-4 py-3 rounded-lg text-gray-400 hover:text-white hover:bg-gray-900"
             >
               <CheckSquare size={16} className="mr-2" />
               Tasks
            </Link>
             <Link
-              href="/schedule"
+              to="/schedule"
               className="flex items-center px-4 py-3 rounded-lg text-gray-400 hover:text-white hover:bg-gray-900"
             >
               <Calendar size={16} className="mr-2" />
               Schedule
            </Link>
             <Link
-              href="/pricing"
+              to="/pricing"
               className="flex items-center px-4 py-3 rounded-lg text-gray-400 hover:text-white hover:bg-gray-900"
             >
               <Settings size={16} className="mr-2" />
@@ -693,7 +692,7 @@ const Navbar = () => {
                   <span>Login with Google</span>
                 </button>
                 <button
-                  onClick={() => (window.location.href = "/signup")}
+                  onClick={() => (window.location.to = "/signup")}
                   className="w-full flex items-center justify-center gap-2 py-2 rounded-md bg-gray-900 text-white hover:bg-gray-800 transition-colors"
                 >
                   <UserPlus size={16} />

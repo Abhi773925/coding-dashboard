@@ -1,11 +1,11 @@
 import { useState, useEffect, useRef } from "react";
-
+import { Link } from "react-router-dom";
 const Schedule = () => {
   // Function to open email client with pre-filled subject & body
   const openEmailClient = (subject, body) => {
     const email = "rockabhisheksingh778189@gmail.com";
     const mailtoLink = `mailto:${email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-    window.location.href = mailtoLink; // Redirects to email client
+    window.location.to = mailtoLink; // Redirects to email client
   };
 
   // Refs for scroll animations
@@ -396,19 +396,19 @@ const Schedule = () => {
      <div className="text-left">
        <h4 className="text-xl font-semibold text-blue-300 mb-4">Follow Us</h4>
        <div className="flex space-x-4">
-         <Link href="#" className="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-blue-900 transition-colors">
+         <Link to="#" className="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-blue-900 transition-colors">
            <span className="text-blue-400">FB</span>
         </Link>
-         <Link href="#" className="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-blue-900 transition-colors">
+         <Link to="#" className="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-blue-900 transition-colors">
            <span className="text-blue-400">TW</span>
         </Link>
-         <Link href="#" className="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-blue-900 transition-colors">
+         <Link to="#" className="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-blue-900 transition-colors">
            <span className="text-blue-400">IN</span>
         </Link>
-         <Link href="#" className="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-blue-900 transition-colors">
+         <Link to="#" className="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-blue-900 transition-colors">
                 <span className="text-blue-400">IN</span>
              </Link>
-              <Link href="#" className="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-blue-900 transition-colors">
+              <Link to="#" className="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-blue-900 transition-colors">
                 <span className="text-blue-400">IG</span>
              </Link>
             </div>
