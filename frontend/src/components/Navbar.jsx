@@ -500,18 +500,15 @@ const Navbar = () => {
                 </div>
 
                 <div className="space-y-1">
-                // Replace line 713-716 with:
-<Link
-  to="/profile"
-  className="flex items-center gap-2 p-2 rounded-md text-gray-400 hover:text-white hover:bg-gray-900"
+<div
+  className="flex items-center gap-2 p-2 rounded-md text-gray-400 hover:text-white hover:bg-gray-900 cursor-pointer"
   onClick={() => {
-    setActiveDropdown(null);
-    setIsOpen(false);
+    window.location.href = "/profile";
   }}
 >
   <User size={16} />
   <span>Your Profile</span>
-</Link>
+</div>
 
                   <button
                     onClick={handleLogout}
