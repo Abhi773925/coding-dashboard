@@ -3,7 +3,6 @@ import Dashboard from "./components/Dashboard";
 import Navbar from "./components/Navbar";
 import TaskForm from "./components/TaskForm";
 import Testimonial from "./components/Testimonial";
-import AuthCallback from "./components/AuthContext";
 // import Login from './components/login/Login';
 import TaskTable from "./components/userdata/TaskTable";
 import Profile from "./components/profile/Profile";
@@ -30,7 +29,6 @@ function App() {
             <Route path="/pricing" element={<Pricing />} />
             <Route path="/faqbot" element={<ZudioFAQBot />} />
             <Route path="/schedule" element={<Schedule/>}/>
-            <Route path="/auth-callback" element={<AuthCallback />} />
             <Route 
               path="/" 
               element={
