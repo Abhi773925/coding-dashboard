@@ -17,7 +17,7 @@ router.get(
 router.get(
   "/google/callback",
   passport.authenticate("google", {
-    failureRedirect: "https://zidio-manager.vercel.app/login",
+    failureRedirect: "https://zidio-manager.vercel.app",
   }),
   (req, res) => {
     res.redirect("https://zidio-manager.vercel.app"); // ✅ Ensure frontend matches this
@@ -30,7 +30,7 @@ router.get("/logout", (req, res, next) => {
     if (err) return next(err);
     req.session.destroy(() => {
       res.clearCookie("connect.sid"); // ✅ Clears session cookie
-      res.redirect("https://zidio-manager.vercel.app/");
+      res.redirect("https://zidio-manager.vercel.app");
     });
   });
 });

@@ -27,193 +27,58 @@ const Navbar = () => {
   const [currentTheme, setCurrentTheme] = useState("purple");
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [user, setUser] = useState(null);
-  
   // Function to check user session
-  // const fetchUser = async () => {
-  //   try {
-  //     // First check localStorage
-  //     const savedUser = localStorage.getItem("user");
-      
-  //     if (savedUser) {
-  //       // Use localStorage data first
-  //       const userData = JSON.parse(savedUser);
-  //       setUser(userData);
-  //       setIsLoggedIn(true);
-  //     }
-      
-  //     // Then verify with server
-  //     const res = await fetch("https://zidio-kiun.onrender.com/api/auth/user", {
-  //       credentials: "include",
-  //     });
-      
-  //     const data = await res.json();
-      
-  //     if (data.success) {
-  //       setUser(data.user);
-  //       setIsLoggedIn(true);
-  //       localStorage.setItem("user", JSON.stringify(data.user));
-  //     } else if (res.status === 401) {
-  //       // Only clear if we get a specific unauthorized response
-  //       setUser(null);
-  //       setIsLoggedIn(false);
-  //       localStorage.removeItem("user");
-  //     }
-  //     // For network errors or other statuses, keep existing user
-      
-  //   } catch (err) {
-  //     console.error("Error fetching user:", err);
-  //     // Don't clear localStorage on network errors
-  //   }
-  // };
-  
-  // const fetchUser = async () => {
-  //   try {
-  //     console.log("Fetching user from server...");
-  //     const res = await fetch("https://zidio-kiun.onrender.com/api/auth/user", {
-  //       credentials: "include",
-  //       headers: {
-  //         'Cache-Control': 'no-cache, no-store, must-revalidate',
-  //         'Pragma': 'no-cache'
-  //         // Removed 'Expires' header which was causing the CORS issue
-  //       }
-  //     });
-      
-  //     console.log("Server response status:", res.status);
-      
-  //     if (!res.ok) {
-  //       console.error("Error response from server:", res.status);
-  //       setUser(null);
-  //       setIsLoggedIn(false);
-  //       localStorage.removeItem("user");
-  //       return;
-  //     }
-      
-  //     const data = await res.json();
-  //     console.log("Auth response:", data);
-      
-  //     if (data.success && data.user) {
-  //       console.log("Authentication successful, user data:", data.user);
-  //       setUser(data.user);
-  //       setIsLoggedIn(true);
-  //       localStorage.setItem("user", JSON.stringify(data.user));
-  //     } else {
-  //       console.log("Not authenticated or missing user data");
-  //       setUser(null);
-  //       setIsLoggedIn(false);
-  //       localStorage.removeItem("user");
-  //     }
-  //   } catch (err) {
-  //     console.error("Error fetching user:", err);
-  //   }
-  // };
- 
-  // const handleGoogleLogin = () => {
-  //   // Store the current page URL so we can return here after auth
-  //   localStorage.setItem("authRedirectUrl", window.location.href);
-  //   window.open("https://zidio-kiun.onrender.com/api/auth/google", "_self");
-  // };
+const fetchUser = async () => {
+  try {
+    // First check localStorage
+    const savedUser = localStorage.getItem("user");
 
-  // const handleLogout = () => {
-  //   window.open("https://zidio-kiun.onrender.com/api/auth/logout", "_self"); // Logs out
-  //   localStorage.removeItem("user"); // Remove from localStorage
-  //   setUser(null);
-  //   setIsLoggedIn(false);
-  //   setActiveDropdown(null);
-  // };
-
-  const fetchUser = async () => {
-    try {
-      console.log("Fetching user from server...");
-      const res = await fetch("https://zidio-kiun.onrender.com/api/auth/user", {
-        method: 'GET',
-        credentials: 'include',
-        headers: {
-          'Cache-Control': 'no-cache, no-store, must-revalidate',
-          'Pragma': 'no-cache'
-        }
-      });
-      
-      console.log("Server response status:", res.status);
-      
-      if (!res.ok) {
-        console.error("Error response from server:", res.status);
-        // Try to use cached data first
-        const savedUser = localStorage.getItem("user");
-        if (savedUser) {
-          const userData = JSON.parse(savedUser);
-          setUser(userData);
-          setIsLoggedIn(true);
-          // Make a secondary attempt to re-authenticate
-          setTimeout(fetchUser, 5000);
-          return;
-        }
-        setUser(null);
-        setIsLoggedIn(false);
-        localStorage.removeItem("user");
-        return;
-      }
-      
-      const data = await res.json();
-      console.log("Auth response:", data);
-      
-      if (data.success && data.user) {
-        console.log("Authentication successful, user data:", data.user);
-        setUser(data.user);
-        setIsLoggedIn(true);
-        localStorage.setItem("user", JSON.stringify(data.user));
-      } else {
-        console.log("Not authenticated or missing user data");
-        // Try to use cached data
-        const savedUser = localStorage.getItem("user");
-        if (savedUser) {
-          const userData = JSON.parse(savedUser);
-          setUser(userData);
-          setIsLoggedIn(true);
-          return;
-        }
-        setUser(null);
-        setIsLoggedIn(false);
-        localStorage.removeItem("user");
-      }
-    } catch (err) {
-      console.error("Error fetching user:", err);
-      // On network errors, use cached data
-      const savedUser = localStorage.getItem("user");
-      if (savedUser) {
-        const userData = JSON.parse(savedUser);
-        setUser(userData);
-        setIsLoggedIn(true);
-      }
+    if (savedUser) {
+      // Use localStorage data first
+      const userData = JSON.parse(savedUser);
+      setUser(userData);
+      setIsLoggedIn(true);
     }
-  };
-  
-  const handleGoogleLogin = () => {
-    // Store the current page URL
-    localStorage.setItem("authRedirectUrl", window.location.href);
-    // Add a timestamp to track login attempts
-    localStorage.setItem("authAttemptTime", Date.now());
-    window.open("https://zidio-kiun.onrender.com/api/auth/google", "_self");
-  };
-  
-  const handleLogout = async () => {
-    try {
-      await fetch("https://zidio-kiun.onrender.com/api/auth/logout", {
-        method: 'GET',
-        credentials: 'include',
-      });
-      localStorage.removeItem("user");
+
+    // Then verify with server
+    const res = await fetch("https://zidio-kiun.onrender.com/api/auth/user", {
+      credentials: "include",
+    });
+
+    const data = await res.json();
+
+    if (data.success) {
+      setUser(data.user);
+      setIsLoggedIn(true);
+      localStorage.setItem("user", JSON.stringify(data.user));
+    } else if (res.status === 401) {
+      // Only clear if we get a specific unauthorized response
       setUser(null);
       setIsLoggedIn(false);
-      setActiveDropdown(null);
-    } catch (err) {
-      console.error("Logout error:", err);
-      // Force logout on client side even if server fails
       localStorage.removeItem("user");
-      setUser(null);
-      setIsLoggedIn(false);
-      setActiveDropdown(null);
     }
-  };
+    // For network errors or other statuses, keep existing user
+
+  } catch (err) {
+    console.error("Error fetching user:", err);
+    // Don't clear localStorage on network errors
+  }
+};
+
+const handleGoogleLogin = () => {
+  window.open("https://zidio-kiun.onrender.com/api/auth/google", "_self");
+  console.log("data is begin set to local stoerga");
+};
+
+const handleLogout = () => {
+  window.open("https://zidio-kiun.onrender.com/api/auth/logout", "_self"); // Logs out
+  localStorage.removeItem("user"); // Remove from localStorage
+  setUser(null);
+  setIsLoggedIn(false);
+  setActiveDropdown(null);
+};
+
+
   useEffect(() => {
     fetchUser(); // Check session on load
   }, []);
@@ -751,7 +616,7 @@ const Navbar = () => {
                     </div>
                  </Link>
                   <Link
-                    to="#"
+                    to="/"
                     className="flex items-center gap-2 px-4 py-3 rounded-lg text-gray-400 hover:text-white hover:bg-gray-900"
                   >
                     <div
@@ -767,7 +632,7 @@ const Navbar = () => {
                     </div>
                  </Link>
                   <Link
-                    to="#"
+                    to="/"
                     className="flex items-center gap-2 px-4 py-3 rounded-lg text-gray-400 hover:text-white hover:bg-gray-900"
                   >
                     <div
