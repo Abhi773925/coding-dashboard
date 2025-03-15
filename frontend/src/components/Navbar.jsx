@@ -358,13 +358,11 @@ const handleLogout = () => {
                   {activeDropdown === "profile" && (
                     <div className="absolute right-0 mt-2 w-64 bg-[#090e1a]  rounded-md shadow-lg p-3 border border-gray-900 z-50">
                       <div className="flex flex-col items-center mb-3 pb-3 border-b border-gray-800">
-                        <div
-                          className={`p-2 rounded-full bg-gradient-to-r ${theme.gradientBg} mb-2`}
-                        >
+                       
                           
                             <img src={user?.profilePicture} alt="Profile" className="w-16 h-16 rounded-full mx-auto mb-2" />
                           
-                        </div>
+                       
                         <h4 className="font-medium text-white">
                           {user?.name || user?.displayName || "User"}
                         </h4>
