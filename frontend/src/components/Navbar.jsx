@@ -349,7 +349,7 @@ const handleLogout = () => {
                   <button
                     onClick={() => toggleDropdown("profile")}
                   >
-                     <img src={user?.profilePicture} alt="Profile" className="w-16 h-16 rounded-full mx-auto mb-2" />
+                     <img src={user?.profilePicture} alt="Profile" className="w-8 h-8 rounded-full mx-auto " />
                   </button>
 
                   {activeDropdown === "profile" && (
