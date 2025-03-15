@@ -28,31 +28,25 @@ function App() {
             <Route path="/tasks" element={<TaskTable />} />
             <Route path="/pricing" element={<Pricing />} />
             <Route path="/faqbot" element={<ZudioFAQBot />} />
-            <Route path="/schedule" element={<Schedule/>}/>
-            <Route 
-              path="/" 
+            <Route path="/schedule" element={<Schedule />} />
+            <Route
+              path="/"
               element={
                 <div className="p-6 flex flex-col gap-6">
-                  {/* <Login/> */}
-                  <HeroSection/>
-                  {/* <Dashboard /> */}
-                  {/* <TaskTable /> */}
-                  <TaskLifecycleFlow/>
+                  <HeroSection />
+                  <TaskLifecycleFlow />
                   <Testimonial />
-                  
-        <ZudioFAQBot />
-        <Footer />
+                  <ZudioFAQBot />
+                  <Footer />
                 </div>
-              } 
+              }
             />
             <Route path="/taskdetail" element={<TaskTable />} />
-          
+
             {/* Catch-All Route for 404 Page */}
             <Route path="*" element={<LostPage />} />
           </Routes>
         </div>
-
-       
       </div>
     </Router>
   );

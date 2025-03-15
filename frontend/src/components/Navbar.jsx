@@ -496,7 +496,7 @@ const handleLogout = () => {
                     className="flex items-center gap-2 p-2 rounded-md text-gray-400 hover:text-white hover:bg-gray-900"
                   >
                     <User size={16} />
-                    <span>Your Profile</span>
+                   <Link to='/profile'> <span>Your Profile</span></Link>
                  </Link>
                   
                   <button
@@ -504,7 +504,7 @@ const handleLogout = () => {
                     className="w-full flex items-center gap-2 p-2 rounded-md text-gray-400 hover:text-white hover:bg-gray-900"
                   >
                     <LogOut size={16} />
-                    <span>Sign out</span>
+                    <span onClick={handleLogout}>Sign out</span>
                   </button>
                 </div>
               </div>
@@ -609,7 +609,7 @@ const handleLogout = () => {
                     </div>
                  </Link>
                   <Link
-                    to="/"
+                    to="/dashboard"
                     className="flex items-center gap-2 px-4 py-3 rounded-lg text-gray-400 hover:text-white hover:bg-gray-900"
                   >
                     <div
