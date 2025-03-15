@@ -21,7 +21,13 @@ router.get(
   (req, res) => {
     // Generate JWT token
     const token = jwt.sign(
-      { id: req.user.id, name: req.user.name, profilePicture: req.user.profilePicture, email: req.user.email },
+      { 
+        id: req.user.id, 
+        name: req.user.name, 
+        profilePicture: req.user.profilePicture, 
+        email: req.user.email,
+        role: req.user.role || "viewer" // Add role field with default
+      },
       process.env.JWT_SECRET || 'fkdjfkdhfkdhfidkhfkdhfdkfhdkfhieuhckbckdjchfodh',
       { expiresIn: "7d" } // Token expires in 7 days
     );
@@ -44,7 +50,7 @@ router.get("/logout", (req, res, next) => {
     if (err) return next(err);
     req.session.destroy(() => {
       // Updated cookie clearing to match the same settings
-      res.clearCookie("connect.sid", { 
+      res.clearCookie("connect.sid", {
         httpOnly: true,
         secure: true,
         sameSite: "none"
@@ -73,7 +79,7 @@ router.get("/user", (req, res) => {
           name: decoded.name,
           profilePicture: decoded.profilePicture,
           email: decoded.email,
-         
+          role: decoded.role || "viewer" // Add role field with default
         }
       });
     }
@@ -84,14 +90,27 @@ router.get("/user", (req, res) => {
   // Fall back to passport session if JWT fails
   if (req.user) {
     const token = jwt.sign(
-      { id: req.user.id, name: req.user.name, profilePicture: req.user.profilePicture, email: req.user.email },
+      { 
+        id: req.user.id, 
+        name: req.user.name, 
+        profilePicture: req.user.profilePicture, 
+        email: req.user.email,
+        role: req.user.role || "viewer" // Add role field with default
+      },
       process.env.JWT_SECRET || 'fkdjfkdhfkdhfidkhfkdhfdkfhdkfhieuhckbckdjchfodh',
       { expiresIn: "7d" }
     );
     
     res.json({
       success: true,
-      user: req.user,
+      user: {
+        id: req.user.id,
+        name: req.user.name,
+        profilePicture: req.user.profilePicture,
+        email: req.user.email,
+        role: req.user.role || "viewer", // Add role field with default
+        // You can add other fields you need here
+      },
       token: token
     });
   } else {
