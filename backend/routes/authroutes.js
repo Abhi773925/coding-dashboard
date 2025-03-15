@@ -72,8 +72,8 @@ router.get("/user", (req, res) => {
           id: decoded.id,
           name: decoded.name,
           profilePicture: decoded.profilePicture,
-          email: decoded.email
-          
+          email: decoded.email,
+         
         }
       });
     }
