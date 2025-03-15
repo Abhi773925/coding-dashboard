@@ -500,15 +500,17 @@ const Navbar = () => {
                 </div>
 
                 <div className="space-y-1">
-<div
-  className="flex items-center gap-2 p-2 rounded-md text-gray-400 hover:text-white hover:bg-gray-900 cursor-pointer"
+<a
+  href="/profile"
+  className="flex items-center gap-2 p-2 rounded-md text-gray-400 hover:text-white hover:bg-gray-900"
   onClick={() => {
-    window.location.href = "/profile";
+    setActiveDropdown(null);
+    setIsOpen(false);
   }}
 >
   <User size={16} />
   <span>Your Profile</span>
-</div>
+</a>
 
                   <button
                     onClick={handleLogout}
