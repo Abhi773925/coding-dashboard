@@ -20,6 +20,7 @@ passport.use(
             name: profile.displayName,
             email: profile.emails[0].value,
             profilePicture: profile.photos[0].value,
+            
           });
         }
 

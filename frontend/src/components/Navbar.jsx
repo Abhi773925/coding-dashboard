@@ -348,7 +348,6 @@ const handleLogout = () => {
                 <>
                   <button
                     onClick={() => toggleDropdown("profile")}
-                    className={`p-1 rounded-full bg-gradient-to-r ${theme.gradientBg} hover:opacity-90`}
                   >
                      <img src={user?.profilePicture} alt="Profile" className="w-16 h-16 rounded-full mx-auto mb-2" />
                   </button>

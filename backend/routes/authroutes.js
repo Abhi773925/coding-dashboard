@@ -73,6 +73,7 @@ router.get("/user", (req, res) => {
           name: decoded.name,
           profilePicture: decoded.profilePicture,
           email: decoded.email
+          
         }
       });
     }
