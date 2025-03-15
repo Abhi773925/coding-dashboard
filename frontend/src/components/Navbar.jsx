@@ -80,6 +80,15 @@ const handleLogout = () => {
     credentials: "include"
   }).catch(err => console.error("Logout error:", err));
 };
+
+// In your Navbar.jsx
+const handleGoogleLogin = () => {
+  // Before redirecting, clear any existing user data
+  localStorage.removeItem("user");
+  window.open("https://zidio-kiun.onrender.com/api/auth/google", "_self");
+};
+
+
 // Add this to your app's main component or home page
 useEffect(() => {
   // Check if redirected from successful login
