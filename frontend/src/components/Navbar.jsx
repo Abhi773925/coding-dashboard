@@ -65,67 +65,51 @@ const Navbar = () => {
   //     // Don't clear localStorage on network errors
   //   }
   // };
+  
   const fetchUser = async () => {
     try {
-      // First check localStorage
-      const savedUser = localStorage.getItem("user");
-      
-      if (savedUser) {
-        console.log("Found user in localStorage:", JSON.parse(savedUser));
-        const userData = JSON.parse(savedUser);
-        setUser(userData);
-        setIsLoggedIn(true);
-      } else {
-        console.log("No user found in localStorage");
-      }
-      
       console.log("Fetching user from server...");
       const res = await fetch("https://zidio-kiun.onrender.com/api/auth/user", {
         credentials: "include",
+        headers: {
+          'Cache-Control': 'no-cache, no-store, must-revalidate',
+          'Pragma': 'no-cache',
+          'Expires': '0'
+        }
       });
       
       console.log("Server response status:", res.status);
-      console.log("Response headers:", [...res.headers.entries()]);
       
       if (!res.ok) {
         console.error("Error response from server:", res.status);
-        if (res.status === 401) {
-          console.log("Unauthorized - clearing user data");
-          setUser(null);
-          setIsLoggedIn(false);
-          localStorage.removeItem("user");
-        }
+        setUser(null);
+        setIsLoggedIn(false);
+        localStorage.removeItem("user");
         return;
       }
       
-      const responseText = await res.text();
-      console.log("Raw response:", responseText);
+      const data = await res.json();
+      console.log("Auth response:", data);
       
-      let data;
-      try {
-        data = JSON.parse(responseText);
-        console.log("Parsed response data:", data);
-      } catch (e) {
-        console.error("Failed to parse JSON response:", e);
-        return;
-      }
-      
-      if (data.success) {
+      if (data.success && data.user) {
         console.log("Authentication successful, user data:", data.user);
         setUser(data.user);
         setIsLoggedIn(true);
         localStorage.setItem("user", JSON.stringify(data.user));
       } else {
-        console.log("Authentication not successful:", data);
+        console.log("Not authenticated or missing user data");
+        setUser(null);
+        setIsLoggedIn(false);
+        localStorage.removeItem("user");
       }
-      
     } catch (err) {
       console.error("Error fetching user:", err);
-      console.error("Error details:", err.message);
-      // Don't clear localStorage on network errors
     }
   };
+ 
   const handleGoogleLogin = () => {
+    // Store the current page URL so we can return here after auth
+    localStorage.setItem("authRedirectUrl", window.location.href);
     window.open("https://zidio-kiun.onrender.com/api/auth/google", "_self");
   };
 
