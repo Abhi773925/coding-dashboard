@@ -46,9 +46,7 @@ const mongoStore = MongoStore.create({
 });
 
 
-// Initialize Passport and session
-app.use(passport.initialize());
-app.use(passport.session());
+
 
 // Add session debugging middleware in development
 if (process.env.NODE_ENV !== 'production') {
@@ -70,6 +68,10 @@ app.use(session({
     maxAge: 24 * 60 * 60 * 1000 // 24 hours
   }
 }));
+
+// Initialize Passport and session
+app.use(passport.initialize());
+app.use(passport.session());
 // Static file serving
 app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 
