@@ -13,22 +13,41 @@ router.get(
   })
 );
 
-// In your authroutes.js
 router.get(
   "/google/callback",
-  passport.authenticate("google", {
-    failureRedirect: "https://zidio-manager.vercel.app",
-  }),
+  passport.authenticate("google", { failureRedirect: "/" }),
   (req, res) => {
-    // User is authenticated, send user data in the response
-    if (req.user) {
-      // Set a param to indicate successful login
-      res.redirect("https://zidio-manager.vercel.app?login=success");
-    } else {
-      res.redirect("https://zidio-manager.vercel.app");
-    }
+    // Create a JWT token with user data
+    const token = jwt.sign(
+      { 
+        id: req.user._id,
+        name: req.user.name,
+        email: req.user.email,
+        profilePicture: req.user.profilePicture 
+      }, 
+      JWT_SECRET,
+      { expiresIn: '24h' }
+    );
+    
+    // Redirect with token in query parameter
+    res.redirect(`https://zidio-manager.vercel.app/auth-callback?token=${token}`);
   }
 );
+
+router.post("/verify-token", (req, res) => {
+  const { token } = req.body;
+  
+  if (!token) {
+    return res.status(401).json({ success: false, message: "No token provided" });
+  }
+  
+  try {
+    const decoded = jwt.verify(token, JWT_SECRET);
+    return res.json({ success: true, user: decoded });
+  } catch (err) {
+    return res.status(401).json({ success: false, message: "Invalid token" });
+  }
+});
 // Logout route (✅ Fix for Express 4.0+)
 router.get("/logout", (req, res, next) => {
   req.logout(function (err) {

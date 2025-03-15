@@ -3,6 +3,7 @@ import Dashboard from "./components/Dashboard";
 import Navbar from "./components/Navbar";
 import TaskForm from "./components/TaskForm";
 import Testimonial from "./components/Testimonial";
+import AuthCallback from "./components/AuthCallback";
 // import Login from './components/login/Login';
 import TaskTable from "./components/userdata/TaskTable";
 import Profile from "./components/profile/Profile";
@@ -46,7 +47,7 @@ function App() {
               } 
             />
             <Route path="/taskdetail" element={<TaskTable />} />
-
+            <Route path="/auth-callback" element={<AuthCallback />} />
             {/* Catch-All Route for 404 Page */}
             <Route path="*" element={<LostPage />} />
           </Routes>

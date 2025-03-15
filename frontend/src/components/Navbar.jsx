@@ -29,59 +29,56 @@ const Navbar = () => {
   const [user, setUser] = useState(null);
   // Function to check user session
 // In your Navbar.jsx, modify the fetchUser function
+// In your Navbar.jsx
 const fetchUser = async () => {
   try {
-    // First check localStorage
+    // First check localStorage for user
     const savedUser = localStorage.getItem("user");
-
+    const token = localStorage.getItem("auth_token");
+    
     if (savedUser) {
-      // Use localStorage data first
       const userData = JSON.parse(savedUser);
       setUser(userData);
       setIsLoggedIn(true);
-    }
-
-    // Then verify with server
-    const res = await fetch("https://zidio-kiun.onrender.com/api/auth/user", {
-      credentials: "include",
-    });
-
-    if (!res.ok) {
-      throw new Error(`HTTP error! status: ${res.status}`);
-    }
-
-    const data = await res.json();
-
-    if (data.success && data.user) {
-      setUser(data.user);
-      setIsLoggedIn(true);
-      // Update localStorage with latest user data
-      localStorage.setItem("user", JSON.stringify(data.user));
-    } else if (res.status === 401) {
-      // Only clear if we get a specific unauthorized response
-      setUser(null);
-      setIsLoggedIn(false);
-      localStorage.removeItem("user");
+    } else if (token) {
+      // If we have a token but no user, verify the token
+      const res = await fetch("https://zidio-kiun.onrender.com/api/auth/verify-token", {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ token })
+      });
+      
+      const data = await res.json();
+      
+      if (data.success) {
+        setUser(data.user);
+        setIsLoggedIn(true);
+        localStorage.setItem("user", JSON.stringify(data.user));
+      } else {
+        // Token is invalid
+        localStorage.removeItem("auth_token");
+      }
     }
   } catch (err) {
     console.error("Error fetching user:", err);
-    // Don't clear localStorage on network errors
+    // On error, don't change state
   }
 };
 
-// In your Navbar.jsx
-const handleGoogleLogin = () => {
-  // Before redirecting, clear any existing user data
-  localStorage.removeItem("user");
-  window.open("https://zidio-kiun.onrender.com/api/auth/google", "_self");
-};
-
+// Update logout function
 const handleLogout = () => {
-  window.open("https://zidio-kiun.onrender.com/api/auth/logout", "_self"); // Logs out
-  localStorage.removeItem("user"); // Remove from localStorage
+  localStorage.removeItem("user");
+  localStorage.removeItem("auth_token");
   setUser(null);
   setIsLoggedIn(false);
   setActiveDropdown(null);
+  
+  // Still call the server logout endpoint to clean up server-side session
+  fetch("https://zidio-kiun.onrender.com/api/auth/logout", {
+    credentials: "include"
+  }).catch(err => console.error("Logout error:", err));
 };
 // Add this to your app's main component or home page
 useEffect(() => {

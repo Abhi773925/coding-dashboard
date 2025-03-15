@@ -18,23 +18,33 @@ const app = express();
 connectDB();
 
 // Middleware
-app.use(
-  cors({
-    origin: process.env.CLIENT_URL || "https://zidio-manager.vercel.app",
-    credentials: true, // ✅ Required for authentication
-  })
-);
+
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// Session Middleware (Required for Google OAuth)
+// In your server.js or app.js
+app.use(
+  cors({
+    origin: process.env.CLIENT_URL || "https://zidio-manager.vercel.app",
+    credentials: true,
+    methods: ["GET", "POST", "PUT", "DELETE"],
+    allowedHeaders: ["Content-Type", "Authorization"],
+  })
+);
+
+// Update session configuration
 app.use(
   session({
     secret: process.env.SESSION_SECRET || "your-secret-key",
     resave: false,
     saveUninitialized: false,
-    cookie: { secure: false, httpOnly: true, sameSite: "lax" },
+    cookie: {
+      secure: process.env.NODE_ENV === "production", // Only use secure in production
+      httpOnly: true,
+      maxAge: 24 * 60 * 60 * 1000, // 24 hours
+      sameSite: process.env.NODE_ENV === "production" ? "none" : "lax" // Important for cross-site requests
+    },
   })
 );
 app.use(passport.initialize());
