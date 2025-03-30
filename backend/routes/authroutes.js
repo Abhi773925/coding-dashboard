@@ -1,121 +1,33 @@
-const express = require("express");
-const passport = require("passport");
-const jwt = require("jsonwebtoken");
+const express = require('express');
+const passport = require('passport');
 const router = express.Router();
 
-// Start Google OAuth login flow
-router.get(
-  "/google",
-  passport.authenticate("google", {
-    scope: ["profile", "email"],
-    prompt: "consent", // 🔹 Forces Google to ask every time
-  })
-);
+// Google OAuth Routes 
+router.get('/google', passport.authenticate('google', { scope: ['profile', 'email'], prompt: 'consent' }));
 
-// Google OAuth callback
-router.get(
-  "/google/callback",
-  passport.authenticate("google", {
-    failureRedirect: "https://zidio-manager.vercel.app/login",
-  }),
+router.get('/google/callback', 
+  passport.authenticate('google', { failureRedirect: `${process.env.FRONTEND_URL}/login` }),
   (req, res) => {
-    // Generate JWT token
-    const token = jwt.sign(
-      { 
-        id: req.user.id, 
-        name: req.user.name, 
-        profilePicture: req.user.profilePicture, 
-        email: req.user.email,
-        role: req.user.role || "viewer" // Add role field with default
-      },
-      process.env.JWT_SECRET || 'fkdjfkdhfkdhfidkhfkdhfdkfhdkfhieuhckbckdjchfodh',
-      { expiresIn: "7d" } // Token expires in 7 days
-    );
-    
-    // Set token in secure HTTP-only cookie - UPDATED sameSite to "none" for cross-domain
-    res.cookie("auth_token", token, {
-      httpOnly: true,
-      secure: true, // Always use secure for cross-domain cookies
-      sameSite: "none", // Changed from "strict" to "none" to allow cross-origin
-      maxAge: 7 * 24 * 60 * 60 * 1000 // 7 days
-    });
-    
-    res.redirect("https://zidio-manager.vercel.app/");
+    // Successful authentication, redirect to frontend root
+    res.redirect(`${process.env.FRONTEND_URL}/?token=${req.sessionID}`);
   }
 );
 
-// Logout route
-router.get("/logout", (req, res, next) => {
-  req.logout(function (err) {
-    if (err) return next(err);
-    req.session.destroy(() => {
-      // Updated cookie clearing to match the same settings
-      res.clearCookie("connect.sid", {
-        httpOnly: true,
-        secure: true,
-        sameSite: "none"
-      });
-      res.clearCookie("auth_token", {
-        httpOnly: true,
-        secure: true,
-        sameSite: "none"
-      });
-      res.redirect("https://zidio-manager.vercel.app/");
-    });
-  });
+router.get('/current-user', (req, res) => {
+  if (req.isAuthenticated()) {
+    res.json(req.user);
+  } else {
+    res.status(401).json({ message: 'Not authenticated' });
+  }
 });
 
-// Get current user session and send user details
-router.get("/user", (req, res) => {
-  // First, try to get user from JWT token in cookie
-  try {
-    const token = req.cookies.auth_token;
-    if (token) {
-      const decoded = jwt.verify(token, process.env.JWT_SECRET || 'fkdjfkdhfkdhfidkhfkdhfdkfhdkfhieuhckbckdjchfodh');
-      return res.json({
-        success: true,
-        user: {
-          id: decoded.id,
-          name: decoded.name,
-          profilePicture: decoded.profilePicture,
-          email: decoded.email,
-          role: decoded.role || "viewer" // Add role field with default
-        }
-      });
+router.post('/logout', (req, res) => {
+  req.logout((err) => {
+    if (err) {
+      return res.status(500).json({ message: 'Logout failed' });
     }
-  } catch (err) {
-    console.error("JWT verification error:", err);
-  }
-
-  // Fall back to passport session if JWT fails
-  if (req.user) {
-    const token = jwt.sign(
-      { 
-        id: req.user.id, 
-        name: req.user.name, 
-        profilePicture: req.user.profilePicture, 
-        email: req.user.email,
-        role: req.user.role || "viewer" // Add role field with default
-      },
-      process.env.JWT_SECRET || 'fkdjfkdhfkdhfidkhfkdhfdkfhdkfhieuhckbckdjchfodh',
-      { expiresIn: "7d" }
-    );
-    
-    res.json({
-      success: true,
-      user: {
-        id: req.user.id,
-        name: req.user.name,
-        profilePicture: req.user.profilePicture,
-        email: req.user.email,
-        role: req.user.role || "subadmin", // Add role field with default
-        // You can add other fields you need here
-      },
-      token: token
-    });
-  } else {
-    res.status(401).json({ success: false, user: null });
-  }
+    res.json({ message: 'Logged out successfully' });
+  });
 });
 
 module.exports = router;

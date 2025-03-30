@@ -1,12 +1,35 @@
-const mongoose = require("mongoose");
+const mongoose = require('mongoose');
 
-const userSchema = new mongoose.Schema({
-  googleId: { type: String, required: true },
-  name: { type: String, required: true },
-  email: { type: String, required: true },
-  profilePicture: { type: String },
-  role: { type: String, default: "subadmin", enum: ["viewer", "subadmin", "admin"] }, // Add role field
-  createdAt: { type: Date, default: Date.now },
-});
-const User = mongoose.model("User", userSchema);
-module.exports = User;
+const UserSchema = new mongoose.Schema(
+  {
+    email: {
+      type: String,
+      required: true,
+      unique: true,
+      lowercase: true,
+      trim: true
+    },
+    name: {
+      type: String,
+      required: true
+    },
+    leetcode: {
+      type: String,
+      default: null
+    },
+    github: {
+      type: String,
+      default: null
+    }
+    ,
+    geeksforgeeks:{
+      type: String,
+      default: null
+    }
+  },
+  {
+    timestamps: true
+  }
+);
+
+module.exports = mongoose.model('User', UserSchema);

@@ -1,0 +1,434 @@
+[{
+  "_id": {
+    "$oid": "67e3d0e245cd6d47c00f6ab9"
+  },
+  "name": "DSA Placement Preparation",
+  "totalQuestions": 30,
+  "days": [
+    {
+      "dayNumber": 1,
+      "dayTitle": "Arrays",
+      "totalQuestions": 6,
+      "questions": [
+        {
+          "id": "set-matrix-zeros",
+          "title": "Set Matrix Zeros",
+          "difficulty": "Medium",
+          "links": {
+            "article": "https://www.geeksforgeeks.org/set-matrix-zeros/",
+            "youtube": "https://www.youtube.com/watch?v=M65xBxkfETY",
+            "practice": "https://leetcode.com/problems/set-matrix-zeroes/"
+          },
+          "status": false,
+          "notes": "",
+          "forRevision": false
+        },
+        {
+          "id": "pascals-triangle",
+          "title": "Pascal's Triangle",
+          "difficulty": "Medium",
+          "links": {
+            "article": "https://www.geeksforgeeks.org/pascal-triangle/",
+            "youtube": "https://www.youtube.com/watch?v=6qXTsIAzz5M",
+            "practice": "https://leetcode.com/problems/pascals-triangle/"
+          },
+          "status": false,
+          "notes": "",
+          "forRevision": false
+        },
+        {
+          "id": "next-permutation",
+          "title": "Next Permutation",
+          "difficulty": "Medium",
+          "links": {
+            "article": "https://www.geeksforgeeks.org/next-permutation/",
+            "youtube": "https://www.youtube.com/watch?v=LuLCLgMElus",
+            "practice": "https://leetcode.com/problems/next-permutation/"
+          },
+          "status": false,
+          "notes": "",
+          "forRevision": false
+        },
+        {
+          "id": "kadanes-algorithm",
+          "title": "Kadane's Algorithm",
+          "difficulty": "Easy",
+          "links": {
+            "article": "https://www.geeksforgeeks.org/kadanes-algorithm-maximum-sum-subarray/",
+            "youtube": "https://www.youtube.com/watch?v=w_KEWfU7LRQ",
+            "practice": "https://leetcode.com/problems/maximum-subarray/"
+          },
+          "status": false,
+          "notes": "",
+          "forRevision": false
+        },
+        {
+          "id": "sort-colors",
+          "title": "Sort an array of 0's, 1's and 2's",
+          "difficulty": "Medium",
+          "links": {
+            "article": "https://www.geeksforgeeks.org/sort-an-array-of-0s-1s-and-2s/",
+            "youtube": "https://www.youtube.com/watch?v=oaVa-axb9gg",
+            "practice": "https://leetcode.com/problems/sort-colors/"
+          },
+          "status": false,
+          "notes": "",
+          "forRevision": false
+        },
+        {
+          "id": "stock-buy-sell",
+          "title": "Stock Buy and Sell",
+          "difficulty": "Easy",
+          "links": {
+            "article": "https://www.geeksforgeeks.org/stock-buy-sell/",
+            "youtube": "https://www.youtube.com/watch?v=34WE6kwbwbk",
+            "practice": "https://leetcode.com/problems/best-time-to-buy-and-sell-stock/"
+          },
+          "status": false,
+          "notes": "",
+          "forRevision": false
+        }
+      ]
+    },
+    {
+      "dayNumber": 2,
+      "dayTitle": "Arrays Part-II",
+      "totalQuestions": 6,
+      "questions": [
+        {
+          "id": "rotate-matrix",
+          "title": "Rotate Matrix",
+          "difficulty": "Medium",
+          "links": {
+            "article": "https://www.geeksforgeeks.org/rotate-a-matrix-by-90-degree-in-clockwise-direction/",
+            "youtube": "https://www.youtube.com/watch?v=Y72QN0ygpFE",
+            "practice": "https://leetcode.com/problems/rotate-image/"
+          },
+          "status": false,
+          "notes": "",
+          "forRevision": false
+        },
+        {
+          "id": "merge-intervals",
+          "title": "Merge Intervals",
+          "difficulty": "Medium",
+          "links": {
+            "article": "https://www.geeksforgeeks.org/merge-intervals/",
+            "youtube": "https://www.youtube.com/watch?v=2JzRjPsfa60",
+            "practice": "https://leetcode.com/problems/merge-intervals/"
+          },
+          "status": false,
+          "notes": "",
+          "forRevision": false
+        },
+        {
+          "id": "duplicate-in-array",
+          "title": "Find the Duplicate Number",
+          "difficulty": "Medium",
+          "links": {
+            "article": "https://www.geeksforgeeks.org/find-the-duplicate-number/",
+            "youtube": "https://www.youtube.com/watch?v=32Ll7mhv-kc",
+            "practice": "https://leetcode.com/problems/find-the-duplicate-number/"
+          },
+          "status": false,
+          "notes": "",
+          "forRevision": false
+        },
+        {
+          "id": "repeat-and-missing",
+          "title": "Repeat and Missing Number",
+          "difficulty": "Medium",
+          "links": {
+            "article": "https://www.geeksforgeeks.org/find-a-repeating-and-a-missing-number/",
+            "youtube": "https://www.youtube.com/watch?v=5nMGY4VHoaM",
+            "practice": "https://www.interviewbit.com/problems/repeat-and-missing-number-array/"
+          },
+          "status": false,
+          "notes": "",
+          "forRevision": false
+        },
+        {
+          "id": "inversion-count",
+          "title": "Count Inversions",
+          "difficulty": "Hard",
+          "links": {
+            "article": "https://www.geeksforgeeks.org/counting-inversions/",
+            "youtube": "https://www.youtube.com/watch?v=kQ1mJlwW-c0",
+            "practice": "https://practice.geeksforgeeks.org/problems/inversion-of-array-1587115620/1"
+          },
+          "status": false,
+          "notes": "",
+          "forRevision": false
+        },
+        {
+          "id": "search-2d-matrix",
+          "title": "Search in a 2D Matrix",
+          "difficulty": "Medium",
+          "links": {
+            "article": "https://www.geeksforgeeks.org/search-a-2d-matrix/",
+            "youtube": "https://www.youtube.com/watch?v=Jw-Nru-Rwso",
+            "practice": "https://leetcode.com/problems/search-a-2d-matrix/"
+          },
+          "status": false,
+          "notes": "",
+          "forRevision": false
+        }
+      ]
+    },
+    {
+      "dayNumber": 3,
+      "dayTitle": "Arrays Part-III",
+      "totalQuestions": 6,
+      "questions": [
+        {
+          "id": "majority-element",
+          "title": "Majority Element",
+          "difficulty": "Easy",
+          "links": {
+            "article": "https://www.geeksforgeeks.org/majority-element/",
+            "youtube": "https://www.youtube.com/watch?v=AoX3BPWNnoE",
+            "practice": "https://leetcode.com/problems/majority-element/"
+          },
+          "status": false,
+          "notes": "",
+          "forRevision": false
+        },
+        {
+          "id": "majority-element-ii",
+          "title": "Majority Element II",
+          "difficulty": "Medium",
+          "links": {
+            "article": "https://www.geeksforgeeks.org/majority-element-in-an-array/",
+            "youtube": "https://www.youtube.com/watch?v=yDbkQd9t2ig",
+            "practice": "https://leetcode.com/problems/majority-element-ii/"
+          },
+          "status": false,
+          "notes": "",
+          "forRevision": false
+        },
+        {
+          "id": "unique-paths",
+          "title": "Unique Paths",
+          "difficulty": "Medium",
+          "links": {
+            "article": "https://www.geeksforgeeks.org/unique-paths-in-a-grid-using-dynamic-programming/",
+            "youtube": "https://www.youtube.com/watch?v=sdE0gTBFNKA",
+            "practice": "https://leetcode.com/problems/unique-paths/"
+          },
+          "status": false,
+          "notes": "",
+          "forRevision": false
+        },
+        {
+          "id": "reverse-pairs",
+          "title": "Reverse Pairs",
+          "difficulty": "Hard",
+          "links": {
+            "article": "https://www.geeksforgeeks.org/count-reverse-pairs/",
+            "youtube": "https://www.youtube.com/watch?v=S6rsAlj_iB4",
+            "practice": "https://leetcode.com/problems/reverse-pairs/"
+          },
+          "status": false,
+          "notes": "",
+          "forRevision": false
+        },
+        {
+          "id": "pow-x-n",
+          "title": "Pow(x, n)",
+          "difficulty": "Medium",
+          "links": {
+            "article": "https://www.geeksforgeeks.org/write-a-c-program-to-calculate-powxn/",
+            "youtube": "https://www.youtube.com/watch?v=l0YC3876qxg",
+            "practice": "https://leetcode.com/problems/powx-n/"
+          },
+          "status": false,
+          "notes": "",
+          "forRevision": false
+        },
+        {
+          "id": "majority-element-more-than-nk",
+          "title": "Majority Element More Than N/K Times",
+          "difficulty": "Medium",
+          "links": {
+            "article": "https://www.geeksforgeeks.org/n-by-k-times-repeated-element-in-an-array/",
+            "youtube": "https://www.youtube.com/watch?v=nP_ns2-Sk4Q",
+            "practice": "https://practice.geeksforgeeks.org/problems/n-by-k-times-repeated-element-in-an-array/1"
+          },
+          "status": false,
+          "notes": "",
+          "forRevision": false
+        }
+      ]
+    },
+    {
+      "dayNumber": 4,
+      "dayTitle": "Linked List",
+      "totalQuestions": 6,
+      "questions": [
+        {
+          "id": "reverse-linked-list",
+          "title": "Reverse a Linked List",
+          "difficulty": "Easy",
+          "links": {
+            "article": "https://www.geeksforgeeks.org/reverse-a-linked-list/",
+            "youtube": "https://www.youtube.com/watch?v=iRR0gRvQdHY",
+            "practice": "https://leetcode.com/problems/reverse-linked-list/"
+          },
+          "status": false,
+          "notes": "",
+          "forRevision": false
+        },
+        {
+          "id": "middle-of-linked-list",
+          "title": "Middle of the Linked List",
+          "difficulty": "Easy",
+          "links": {
+            "article": "https://www.geeksforgeeks.org/find-middle-singly-linked-list-using-slow-fast-pointer/",
+            "youtube": "https://www.youtube.com/watch?v=_5dPRdx3Ybg",
+            "practice": "https://leetcode.com/problems/middle-of-the-linked-list/"
+          },
+          "status": false,
+          "notes": "",
+          "forRevision": false
+        },
+        {
+          "id": "merge-two-sorted-lists",
+          "title": "Merge Two Sorted Lists",
+          "difficulty": "Easy",
+          "links": {
+            "article": "https://www.geeksforgeeks.org/merge-two-sorted-linked-lists/",
+            "youtube": "https://www.youtube.com/watch?v=Xb4slcp1U38",
+            "practice": "https://leetcode.com/problems/merge-two-sorted-lists/"
+          },
+          "status": false,
+          "notes": "",
+          "forRevision": false
+        },
+        {
+          "id": "remove-nth-node",
+          "title": "Remove Nth Node From End",
+          "difficulty": "Medium",
+          "links": {
+            "article": "https://www.geeksforgeeks.org/delete-nth-node-from-the-end-of-a-linked-list/",
+            "youtube": "https://www.youtube.com/watch?v=XVuQxVej6y8",
+            "practice": "https://leetcode.com/problems/remove-nth-node-from-end-of-list/"
+          },
+          "status": false,
+          "notes": "",
+          "forRevision": false
+        },
+        {
+          "id": "delete-node",
+          "title": "Delete Node in a Linked List",
+          "difficulty": "Easy",
+          "links": {
+            "article": "https://www.geeksforgeeks.org/delete-a-node-from-linked-list-when-node-to-be-deleted-is-given/",
+            "youtube": "https://www.youtube.com/watch?v=icnp4FD-LE0",
+            "practice": "https://leetcode.com/problems/delete-node-in-a-linked-list/"
+          },
+          "status": false,
+          "notes": "",
+          "forRevision": false
+        },
+        {
+          "id": "intersection-of-linked-lists",
+          "title": "Intersection of Two Linked Lists",
+          "difficulty": "Easy",
+          "links": {
+            "article": "https://www.geeksforgeeks.org/write-a-program-to-get-the-intersection-point-of-two-linked-lists/",
+            "youtube": "https://www.youtube.com/watch?v=u4FWXfgS8jw",
+            "practice": "https://leetcode.com/problems/intersection-of-two-linked-lists/"
+          },
+          "status": false,
+          "notes": "",
+          "forRevision": false
+        }
+      ]
+    },
+    {
+      "dayNumber": 5,
+      "dayTitle": "Linked List Part-II",
+      "totalQuestions": 6,
+      "questions": [
+        {
+          "id": "detect-cycle",
+          "title": "Detect Cycle in Linked List",
+          "difficulty": "Medium",
+          "links": {
+            "article": "https://www.geeksforgeeks.org/detect-loop-in-linked-list/",
+            "youtube": "https://www.youtube.com/watch?v=wiOo4DC5GGA",
+            "practice": "https://leetcode.com/problems/linked-list-cycle/"
+          },
+          "status": false,
+          "notes": "",
+          "forRevision": false
+        },
+        {
+          "id": "reverse-linked-list-in-k-groups",
+          "title": "Reverse Linked List in K-Groups",
+          "difficulty": "Hard",
+          "links": {
+            "article": "https://www.geeksforgeeks.org/reverse-a-list-in-groups-of-given-size/",
+            "youtube": "https://www.youtube.com/watch?v=Of0hp2ZjJSk",
+            "practice": "https://leetcode.com/problems/reverse-nodes-in-k-group/"
+          },
+          "status": false,
+          "notes": "",
+          "forRevision": false
+        },
+        {
+          "id": "palindrome-linked-list",
+          "title": "Palindrome Linked List",
+          "difficulty": "Medium",
+          "links": {
+            "article": "https://www.geeksforgeeks.org/check-if-linked-list-is-palindrome/",
+            "youtube": "https://www.youtube.com/watch?v=-DyxUbMjT_E",
+            "practice": "https://leetcode.com/problems/palindrome-linked-list/"
+          },
+          "status": false,
+          "notes": "",
+          "forRevision": false
+        },
+        {
+          "id": "find-starting-point-of-loop",
+          "title": "Find Starting Point of Loop",
+          "difficulty": "Medium",
+          "links": {
+            "article": "https://www.geeksforgeeks.org/find-first-node-of-loop-in-a-linked-list/",
+            "youtube": "https://www.youtube.com/watch?v=QfbOhn0WZ5o",
+            "practice": "https://leetcode.com/problems/linked-list-cycle-ii/"
+          },
+          "status": false,
+          "notes": "",
+          "forRevision": false
+        },
+        {
+          "id": "flatten-multilevel-linked-list",
+          "title": "Flatten a Multilevel Linked List",
+          "difficulty": "Medium",
+          "links": {
+            "article": "https://www.geeksforgeeks.org/flatten-a-linked-list-with-next-and-child-pointers/",
+            "youtube": "https://www.youtube.com/watch?v=8MQ3KmQS9Aw",
+            "practice": "https://leetcode.com/problems/flatten-a-multilevel-doubly-linked-list/"
+          },
+          "status": false,
+          "notes": "",
+          "forRevision": false
+        },
+        {
+          "id": "rotate-linked-list",
+          "title": "Rotate Linked List",
+          "difficulty": "Medium",
+          "links": {
+            "article": "https://www.geeksforgeeks.org/rotate-a-linked-list/",
+            "youtube": "https://www.youtube.com/watch?v=9VPm6nEbVPA",
+            "practice": "https://leetcode.com/problems/rotate-list/"
+          },
+          "status": false,
+          "notes": "",
+          "forRevision": false
+        }
+      ]
+    }
+  ]
+}]

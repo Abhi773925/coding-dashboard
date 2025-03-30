@@ -1,9 +1,9 @@
-// routes/userRoutes.js
-const express = require("express");
-const { checkUserEmail } = require("../controllers/usercontrollers");
-
+const express = require('express');
 const router = express.Router();
+const { getUserProfile, updateUserProfile } = require('../controllers/userController');
 
-router.post("/check", checkUserEmail);
+// Note the :email parameter in the route
+router.get('/:email', getUserProfile);
+router.put('/:email', updateUserProfile);
 
 module.exports = router;

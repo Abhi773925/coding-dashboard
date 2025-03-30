@@ -1,54 +1,53 @@
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import Dashboard from "./components/Dashboard";
-import Navbar from "./components/Navbar";
-import TaskForm from "./components/TaskForm";
-import Testimonial from "./components/Testimonial";
-//  import Login from './components/login/Login';
-import TaskTable from "./components/userdata/TaskTable";
-import Profile from "./components/profile/Profile";
-import Notification from "./components/profile/Notification";
-import Pricing from "./components/Pricing";
-import ZudioFAQBot from "./components/bot/ZudioFAQBot";
-import Footer from "./components/Footer";
-import LostPage from "./components/LostPage"; // Import LostPage
-import HeroSection from "./components/profile/HeroSection";
-import Schedule from "./components/Schedule";
-import TaskLifecycleFlow from "./components/TaskLifecycleFlow";
+import React from 'react';
+import { ThemeProvider } from './components/context/ThemeContext';
+import HeroSection from './components/navigation/HeroSection';
+import Navigation from './components/navigation/Navigation';
+import Dsacard from './components/Card/Dsacard';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { AuthProvider } from './components/navigation/Navigation';
+import CourseProgress from './components/Course/CourseProgress';
+import Profile from './components/Dashboard/Profile';
+import Default from './components/Card/Default';
+import Testimonials from './components/Dashboard/Testimonials';
+import Footer from './components/Dashboard/Footer';
+import ContestTracker from './components/contest/ContestTracker';
+import Learning from './components/Card/Learning';
+import KnowledgePathGame from './components/Card/KnowledgePathGame';
+import { Import } from 'lucide-react';
+import IdeaStormGame from './components/Card/IdeaStorm';
+import UserProfile from "./components/Dashboard/UserProfile";
 function App() {
   return (
-    <Router>
-      <div className="bg-[#090e1a]  min-h-screen w-full overflow-x-hidden">
-        <Navbar />
-        {/* <Login/> */}
-        <div className="pt-16 w-full">
+    <AuthProvider>
+      <ThemeProvider>
+        <Router>
+          <Navigation /> {/* Always show the Navbar */}
           <Routes>
-            <Route path="/taskform" element={<TaskForm />} />
-            <Route path="/profile" element={<Profile />} />
-            <Route path="/dashboard" element={<Dashboard />} />
-            <Route path="/tasks" element={<TaskTable />} />
-            <Route path="/pricing" element={<Pricing />} />
-            <Route path="/faqbot" element={<ZudioFAQBot />} />
-            <Route path="/schedule" element={<Schedule />} />
-            <Route
-              path="/"
-              element={
-                <div className="p-6 flex flex-col gap-6">
-                  <HeroSection />
-                  <TaskLifecycleFlow />
-                  <Testimonial />
-                  <ZudioFAQBot />
-                  <Footer />
-                </div>
-              }
-            />
-            <Route path="/taskdetail" element={<TaskTable />} />
-
-            {/* Catch-All Route for 404 Page */}
-            <Route path="*" element={<LostPage />} />
+          <Route
+          path="/"
+          element={
+            <>
+              <HeroSection/>
+              <Dsacard/>
+             <Testimonials/>
+          
+             <Footer/>
+            </>
+          }
+        />
+            <Route path="/allcourse" element={<Dsacard />} /> {/* Show Dsacard on /allcourse route */}
+            <Route path="/profile" element={<><UserProfile/><Profile /></>} /> {/* Profile page */}
+            <Route path="/courses/data-structures" element={<CourseProgress />} /> {/* Specific course progress */}
+            <Route path='/contest' element={<ContestTracker/>}/>
+            {/* Default route to catch undefined paths */}
+            <Route path="*" element={<Default/>} />
+            <Route path='/explore/challenges' element={<><KnowledgePathGame/><IdeaStormGame/></>}/>
+            <Route path='/explore/learning-paths' element={<Learning/>}/>
           </Routes>
-        </div>
-      </div>
-    </Router>
+        </Router>
+      
+      </ThemeProvider>
+    </AuthProvider>
   );
 }
 
