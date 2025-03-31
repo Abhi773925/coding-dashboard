@@ -41,7 +41,13 @@ function App() {
             <Route path='/contest' element={<ContestTracker/>}/>
             {/* Default route to catch undefined paths */}
             <Route path="*" element={<Default/>} />
-            <Route path='/explore/challenges' element={<><KnowledgePathGame/><IdeaStormGame/></>}/>
+            <Route path='/explore/challenges' element={
+  <>
+    <KnowledgePathGame />
+    <IdeaStormGame />
+  </>
+} />
+
             <Route path='/explore/learning-paths' element={<Learning/>}/>
           </Routes>
         </Router>
