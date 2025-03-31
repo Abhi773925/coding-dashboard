@@ -49,7 +49,7 @@ const StreakTracker = ({ isDarkMode }) => {
   const [showAnimation, setShowAnimation] = useState(false);
 
   // Configure axios base URL for backend
-  axios.defaults.baseURL = 'http://localhost:5000/api';
+  axios.defaults.baseURL = 'https://coding-dashboard-ngwi.onrender.com/api';
 
   useEffect(() => {
     const fetchStreak = async () => {

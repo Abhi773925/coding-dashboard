@@ -58,8 +58,10 @@ const connectDB = async () => {
 app.use(express.json());
 app.use(cookieParser());
 app.use(cors({
-  origin: process.env.FRONTEND_URL,
-  credentials: true
+  origin: "*", // Allows all origins
+  credentials: true, // Allows cookies and authorization headers
+  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"], // Allows specific methods
+  allowedHeaders: ["Content-Type", "Authorization"] // Allows specific headers
 }));
 
 // Initialize session function - only called after successful DB connection
