@@ -18,7 +18,7 @@ const Streak = require('./models/Streak');
 
 // Routes
 const contestRoutes = require("./routes/contestRoutes");
-const authRoutes = require('./routes/Authroutes');
+const authRoutes = require("./routes/Authroutes");
 const questionRoutes = require('./routes/questionRoutes');
 const courseRoutes = require('./routes/courseRoutes');
 const profileRoutes = require("./routes/profileroutes");
