@@ -24,7 +24,7 @@ const profileRoutes = require("./routes/profileroutes");
 const streakRoutes = require("./routes/streakRoutes");
 const userRoutes = require('./routes/userRoutes');
 const path = require('path');
-const authRoutes = require(path.join(__dirname, 'routes', 'authRoutes'));
+
 // Controllers
 const fetchSolutions = require("./controllers/youtubeScraper");
 const fetchContests = require("./controllers/fetchContests");
@@ -254,10 +254,38 @@ app.get('/api/health', (req, res) => {
   });
 });
 
+// Auth routes directly merged into server.js
+// Google OAuth Routes 
+app.get('/api/auth/google', passport.authenticate('google', { scope: ['profile', 'email'], prompt: 'consent' }));
+
+app.get('/api/auth/google/callback', 
+  passport.authenticate('google', { failureRedirect: `${process.env.FRONTEND_URL}/login` }),
+  (req, res) => {
+    // Successful authentication, redirect to frontend root
+    res.redirect(`${process.env.FRONTEND_URL}/?token=${req.sessionID}`);
+  }
+);
+
+app.get('/api/auth/current-user', (req, res) => {
+  if (req.isAuthenticated()) {
+    res.json(req.user);
+  } else {
+    res.status(401).json({ message: 'Not authenticated' });
+  }
+});
+
+app.post('/api/auth/logout', (req, res) => {
+  req.logout((err) => {
+    if (err) {
+      return res.status(500).json({ message: 'Logout failed' });
+    }
+    res.json({ message: 'Logged out successfully' });
+  });
+});
+
 // API Routes - set up after session initialization
 const setupRoutes = () => {
   app.use("/api/codingkaro/contests", contestRoutes);
-  app.use('/api/auth', authRoutes);
   app.use('/api/codingkaro/questions', questionRoutes);
   app.use("/api/codingkaro/users", profileRoutes);
   app.use('/api/codingkaro/courses', courseRoutes);
