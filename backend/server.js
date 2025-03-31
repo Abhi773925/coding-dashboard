@@ -18,13 +18,13 @@ const Streak = require('./models/Streak');
 
 // Routes
 const contestRoutes = require("./routes/contestRoutes");
-const authRoutes = require("./routes/authRoutes");
 const questionRoutes = require('./routes/questionRoutes');
 const courseRoutes = require('./routes/courseRoutes');
 const profileRoutes = require("./routes/profileroutes");
 const streakRoutes = require("./routes/streakRoutes");
 const userRoutes = require('./routes/userRoutes');
-
+const path = require('path');
+const authRoutes = require(path.join(__dirname, 'routes', 'authRoutes'));
 // Controllers
 const fetchSolutions = require("./controllers/youtubeScraper");
 const fetchContests = require("./controllers/fetchContests");
