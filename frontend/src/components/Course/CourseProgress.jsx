@@ -18,7 +18,7 @@ import { useTheme } from "../context/ThemeContext";
 import { useAuth } from "../navigation/Navigation";
 
 // Backend URL Configuration
-const BACKEND_URL = 'https://coding-dashboard-ngwi.onrender.com/api';
+const BACKEND_URL = 'http://localhost:5000/api';
 
 const CourseProgress = () => {
   // Theme and Authentication Hooks

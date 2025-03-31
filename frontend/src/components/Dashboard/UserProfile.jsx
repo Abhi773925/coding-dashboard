@@ -19,7 +19,7 @@ const UserProfile = () => {
     const fetchUserProfile = async () => {
       try {
         const userEmail = localStorage.getItem('userEmail');
-        const response = await axios.get(`https://coding-dashboard-ngwi.onrender.com/api/users/${userEmail}`);
+        const response = await axios.get(`http://localhost:5000/api/users/${userEmail}`);
         setProfile(response.data);
       } catch (error) {
         console.error("Error fetching profile", error);
@@ -41,7 +41,7 @@ const UserProfile = () => {
     e.preventDefault();
     try {
       const userEmail = localStorage.getItem('userEmail');
-      const response = await axios.put(`https://coding-dashboard-ngwi.onrender.com/api/users/${userEmail}`, {
+      const response = await axios.put(`http://localhost:5000/api/users/${userEmail}`, {
         name: profile.name,
         leetcode: profile.leetcode,
         github: profile.github,

@@ -10,7 +10,7 @@ const Streak = () => {
   const [error, setError] = useState(null);
 
   // Configure axios base URL for backend
-  axios.defaults.baseURL = 'https://coding-dashboard-ngwi.onrender.com/api';
+  axios.defaults.baseURL = 'http://localhost:5000/api';
 
   useEffect(() => {
     const fetchStreak = async () => {

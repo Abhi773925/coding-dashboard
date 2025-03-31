@@ -27,7 +27,7 @@ const Profile = () => {
         }
 
         // Fetch profile data
-        const profileResponse = await fetch(`https://coding-dashboard-ngwi.onrender.com/api/codingkaro/users?email=${email}`);
+        const profileResponse = await fetch(`http://localhost:5000/api/codingkaro/users?email=${email}`);
         if (!profileResponse.ok) {
           throw new Error('Failed to fetch profile data');
         }
@@ -35,7 +35,7 @@ const Profile = () => {
         setUserProfile(profileData);
 
         // Fetch developer score
-        const scoreResponse = await fetch(`https://coding-dashboard-ngwi.onrender.com/api/codingkaro/users/score?email=${email}`);
+        const scoreResponse = await fetch(`http://localhost:5000/api/codingkaro/users/score?email=${email}`);
         if (scoreResponse.ok) {
           const scoreData = await scoreResponse.json();
           setDeveloperScore(scoreData);

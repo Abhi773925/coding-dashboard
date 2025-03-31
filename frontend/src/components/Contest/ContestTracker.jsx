@@ -41,7 +41,7 @@ const ContestTracker = () => {
   // Fetch Contests
   const fetchContests = async () => {
     try {
-      const response = await axios.get('https://coding-dashboard-ngwi.onrender.com/api/codingkaro/contests');
+      const response = await axios.get('http://localhost:5000/api/codingkaro/contests');
   
       setContestData({
         contests: response.data,
