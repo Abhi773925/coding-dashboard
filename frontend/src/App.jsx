@@ -10,7 +10,7 @@ import Profile from './components/Dashboard/Profile';
 import Default from './components/Card/Default';
 import Testimonials from './components/Dashboard/Testimonials';
 import Footer from './components/Dashboard/Footer';
-import ContestTracker from './components/contest/ContestTracker';
+import ContestTracker from "./components/Contest/ContestTracker";
 import Learning from './components/Card/Learning';
 import KnowledgePathGame from './components/Card/KnowledgePathGame';
 import { Import } from 'lucide-react';
