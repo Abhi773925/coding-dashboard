@@ -78,6 +78,9 @@ const navigationSections = [
   }
 ];
 
+
+
+
 // Create an AuthContext to manage authentication state
 const AuthContext = React.createContext({
   isLoggedIn: false,
@@ -92,43 +95,42 @@ export const AuthProvider = ({ children }) => {
 
   useEffect(() => {
     // Check if user is already logged in
-   // In AuthProvider.js or where checkAuthStatus is defined
-const checkAuthStatus = async () => {
-  try {
-    const sessionToken = localStorage.getItem('sessionToken');
-    if (sessionToken) {
-      // Send token as both cookie and Authorization header
-      const response = await axios.get(`${BACKEND_URL}/auth/current-user`, { 
-        withCredentials: true,  // Important for sending cookies
-        headers: {
-          'Authorization': `Bearer ${sessionToken}`
+    const checkAuthStatus = async () => {
+      try {
+        const sessionToken = localStorage.getItem('sessionToken');
+        if (sessionToken) {
+          // Send token as both cookie and Authorization header
+          const response = await axios.get(`${BACKEND_URL}/api/auth/current-user`, { 
+            withCredentials: true,  // Important for sending cookies
+            headers: {
+              'Authorization': `Bearer ${sessionToken}`
+            }
+          });
+          
+          if (response.data) {
+            setIsLoggedIn(true);
+            setUser(response.data);
+          }
         }
-      });
-      
-      if (response.data) {
-        setIsLoggedIn(true);
-        setUser(response.data);
+      } catch (error) {
+        console.error('Auth check failed:', error);
+        setIsLoggedIn(false);
+        setUser(null);
+        // Clear token if invalid
+        localStorage.removeItem('sessionToken');
       }
-    }
-  } catch (error) {
-    console.error('Auth check failed:', error);
-    setIsLoggedIn(false);
-    setUser(null);
-    // Clear token if invalid
-    localStorage.removeItem('sessionToken');
-  }
-};
+    };
     checkAuthStatus();
   }, []);
 
   const login = () => {
     // Redirect to Google OAuth login
-    window.location.href = `${BACKEND_URL}/auth/google`;
+    window.location.href = `${BACKEND_URL}/api/auth/google`;
   };
 
   const logout = async () => {
     try {
-      await axios.post(`${BACKEND_URL}/auth/logout`, {}, { 
+      await axios.post(`${BACKEND_URL}/api/auth/logout`, {}, { 
         withCredentials: true 
       });
       setIsLoggedIn(false);
