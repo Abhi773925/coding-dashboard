@@ -33,7 +33,7 @@ import {
 import { motion, AnimatePresence } from 'framer-motion';
 
 // Backend URL Configuration
-const BACKEND_URL = 'https://coding-dashboard-ngwi.onrender.com/api';
+const BACKEND_URL = 'https://coding-dashboard-ngwi.onrender.com';
 
 const navigationSections = [
   {
