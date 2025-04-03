@@ -254,10 +254,13 @@ app.get('/api/health', (req, res) => {
   });
 });
 
-// API Routes - set up after session initialization
+// setupRoutes function in your server.js or app.js
 const setupRoutes = () => {
-  // Auth routes - NOW moved inside setupRoutes
-  app.get('/api/auth/google', passport.authenticate('google', { scope: ['profile', 'email'], prompt: 'consent' }));
+  // Auth routes
+  app.get('/api/auth/google', passport.authenticate('google', { 
+    scope: ['profile', 'email'], 
+    prompt: 'consent' 
+  }));
 
   app.get('/api/auth/google/callback', 
     passport.authenticate('google', { failureRedirect: `${process.env.FRONTEND_URL}/login` }),
@@ -271,7 +274,33 @@ const setupRoutes = () => {
     if (req.isAuthenticated()) {
       res.json(req.user);
     } else {
-      res.status(401).json({ message: 'Not authenticated' });
+      // Check for Authorization header as fallback
+      const authHeader = req.headers.authorization;
+      if (authHeader && authHeader.startsWith('Bearer ')) {
+        const token = authHeader.substring(7); // Remove 'Bearer ' from header
+        // Verify the token (you would need to implement this based on your token mechanism)
+        // For session tokens, you'd need to look up the session in your store
+        req.sessionStore.get(token, (err, session) => {
+          if (err || !session || !session.passport || !session.passport.user) {
+            return res.status(401).json({ message: 'Not authenticated' });
+          }
+          
+          // Look up the user
+          User.findById(session.passport.user)
+            .then(user => {
+              if (!user) {
+                return res.status(401).json({ message: 'User not found' });
+              }
+              res.json(user);
+            })
+            .catch(err => {
+              console.error('Error finding user:', err);
+              res.status(500).json({ message: 'Server error' });
+            });
+        });
+      } else {
+        res.status(401).json({ message: 'Not authenticated' });
+      }
     }
   });
 
@@ -292,7 +321,6 @@ const setupRoutes = () => {
   app.use('/api', streakRoutes);
   app.use('/api/users', userRoutes);
 };
-
 // Enhanced Error Handling Middleware
 app.use((err, req, res, next) => {
   // Log the full error in development
