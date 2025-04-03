@@ -92,31 +92,32 @@ export const AuthProvider = ({ children }) => {
 
   useEffect(() => {
     // Check if user is already logged in
-    const checkAuthStatus = async () => {
-      try {
-        const sessionToken = localStorage.getItem('sessionToken');
-        if (sessionToken) {
-          const response = await axios.get(`${BACKEND_URL}/auth/current-user`, { 
-            withCredentials: true,
-            headers: {
-              'Authorization': `Bearer ${sessionToken}`
-            }
-          });
-          
-          if (response.data) {
-            setIsLoggedIn(true);
-            setUser(response.data);
-          }
-          if (response.data.email) {
-            localStorage.setItem('userEmail', response.data.email);
-          }
+   // In AuthProvider.js or where checkAuthStatus is defined
+const checkAuthStatus = async () => {
+  try {
+    const sessionToken = localStorage.getItem('sessionToken');
+    if (sessionToken) {
+      // Send token as both cookie and Authorization header
+      const response = await axios.get(`${BACKEND_URL}/auth/current-user`, { 
+        withCredentials: true,  // Important for sending cookies
+        headers: {
+          'Authorization': `Bearer ${sessionToken}`
         }
-      } catch (error) {
-        setIsLoggedIn(false);
-        setUser(null);
+      });
+      
+      if (response.data) {
+        setIsLoggedIn(true);
+        setUser(response.data);
       }
-    };
-
+    }
+  } catch (error) {
+    console.error('Auth check failed:', error);
+    setIsLoggedIn(false);
+    setUser(null);
+    // Clear token if invalid
+    localStorage.removeItem('sessionToken');
+  }
+};
     checkAuthStatus();
   }, []);
 
