@@ -111,6 +111,10 @@ export const AuthProvider = ({ children }) => {
             setIsLoggedIn(true);
             setUser(response.data);
           }
+          if (response.data.email) {
+            localStorage.setItem('userEmail', response.data.email);
+          }
+
         }
       } catch (error) {
         console.error('Auth check failed:', error);
