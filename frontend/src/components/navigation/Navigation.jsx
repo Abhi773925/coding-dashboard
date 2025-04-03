@@ -179,7 +179,7 @@ const StreakDisplay = () => {
           return;
         }
 
-        const response = await axios.get(`${BACKEND_URL}/streak`, {
+        const response = await axios.get(`${BACKEND_URL}/api/streak`, {
           params: { email: userEmail }
         });
 
