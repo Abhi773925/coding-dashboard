@@ -7,6 +7,7 @@ const GoogleStrategy = require('passport-google-oauth20').Strategy;
 const session = require('express-session');
 const MongoStore = require('connect-mongo');
 const cookieParser = require('cookie-parser');
+const http = require('http');
 
 // Models
 const User = require('./models/User');
@@ -31,25 +32,45 @@ const fetchContests = require("./controllers/fetchContests");
 
 const app = express();
 
-// Enhanced Database Connection Function
+// Enhanced Database Connection Function with keep-alive functionality
 const connectDB = async () => {
   try {
     console.log("Attempting to connect to MongoDB...");
     
-    // Configure connection options
+    // Configure connection options with keep-alive settings
     const connectionOptions = {
       useNewUrlParser: true,
       useUnifiedTopology: true,
       serverSelectionTimeoutMS: 10000, // Timeout after 10s instead of default 30s
-      socketTimeoutMS: 45000, // Close sockets after 45s of inactivity
+      socketTimeoutMS: 0, // Setting this to 0 prevents inactivity timeouts (keep alive forever)
+      keepAlive: true, // Enables keep-alive feature
+      keepAliveInitialDelay: 300000, // Send keep-alive every 5 minutes (300,000ms)
+      heartbeatFrequencyMS: 10000, // Check server health every 10 seconds
+      autoReconnect: true, // Auto reconnect if connection is lost
+      poolSize: 10, // Maintain up to 10 socket connections
     };
 
     const conn = await mongoose.connect(process.env.MONGODB_URI, connectionOptions);
     console.log(`📦 MongoDB Connected: ${conn.connection.host}`);
+    
+    // Set up MongoDB connection event listeners
+    mongoose.connection.on('disconnected', () => {
+      console.log('MongoDB disconnected! Attempting to reconnect...');
+      setTimeout(connectDB, 5000); // Try to reconnect after 5 seconds
+    });
+    
+    mongoose.connection.on('error', (err) => {
+      console.error('MongoDB connection error:', err);
+      console.log('Attempting to reconnect to MongoDB...');
+      setTimeout(connectDB, 5000); // Try to reconnect after 5 seconds
+    });
+    
     return true;
   } catch (error) {
     console.error(`❌ MongoDB Connection Error: ${error.message}`);
     console.error(error);
+    console.log('Retrying connection in 5 seconds...');
+    setTimeout(connectDB, 5000); // Try to reconnect after 5 seconds
     return false;
   }
 };
@@ -62,6 +83,12 @@ app.use(cors({
   credentials: true,
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'] // Explicitly allow methods
 }));
+
+// Implement a health check ping route that DB can use to stay active
+app.get('/api/internal/ping', (req, res) => {
+  res.status(200).send('pong');
+});
+
 // Initialize session function - only called after successful DB connection
 const initializeSession = () => {
   // Session configuration
@@ -167,6 +194,30 @@ const initializeSession = () => {
   });
 };
 
+// Setup keep-alive mechanism to prevent idling
+const setupKeepAlive = (server) => {
+  // Self-ping every 14 minutes to prevent Heroku/render from idling
+  // Most free tier services idle after 15-30 minutes of inactivity
+  const interval = 14 * 60 * 1000; // 14 minutes in ms
+  
+  console.log(`🔄 Setting up keep-alive ping every ${interval/60000} minutes`);
+  
+  // Setup interval for DB keep-alive ping
+  setInterval(() => {
+    // Ping the database with a simple query to keep connection alive
+    mongoose.connection.db.admin().ping()
+      .then(() => console.log('📶 Keep-alive ping sent to MongoDB'))
+      .catch(err => console.error('MongoDB ping failed:', err));
+      
+    // Self-ping HTTP endpoint to keep server active
+    http.get(`http://localhost:${process.env.PORT || 5000}/api/internal/ping`, (res) => {
+      console.log(`📶 Self-ping status: ${res.statusCode}`);
+    }).on('error', (err) => {
+      console.error('Self-ping error:', err);
+    });
+  }, interval);
+};
+
 // Contest Fetching Function
 const fetchAndStoreContests = async () => {
   try {
@@ -250,6 +301,7 @@ app.get('/api/health', (req, res) => {
     message: 'CodingKaro Backend is running',
     timestamp: new Date().toISOString(),
     dbStatus: mongoose.connection.readyState === 1 ? 'connected' : 'disconnected',
+    uptime: process.uptime(), // Add server uptime in seconds
     authProvider: 'Google OAuth 2.0'
   });
 });
@@ -321,6 +373,7 @@ const setupRoutes = () => {
   app.use('/api', streakRoutes);
   app.use('/api/users', userRoutes);
 };
+
 // Enhanced Error Handling Middleware
 app.use((err, req, res, next) => {
   // Log the full error in development
@@ -377,6 +430,9 @@ const startServer = async () => {
     console.log(`🌐 Environment: ${process.env.NODE_ENV}`);
     console.log(`🔐 Authentication: Google OAuth configured`);
   });
+  
+  // Setup keep-alive mechanism to prevent server and DB from idling
+  setupKeepAlive(server);
 
   // Graceful Shutdown
   process.on('SIGTERM', () => {
