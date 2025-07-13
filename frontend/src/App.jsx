@@ -16,6 +16,7 @@ import KnowledgePathGame from './components/Card/KnowledgePathGame';
 import { Import } from 'lucide-react';
 import IdeaStormGame from './components/Card/IdeaStorm';
 import UserProfile from "./components/Dashboard/UserProfile";
+import Dashboard from './components/Dashboard/Dashboard';
 function App() {
   return (
     <AuthProvider>
@@ -28,6 +29,7 @@ function App() {
           element={
             <>
               <HeroSection/>
+                {/* <Dashboard/> */}
               <Dsacard/>
              <Testimonials/>
           
@@ -35,6 +37,7 @@ function App() {
             </>
           }
         />
+      
             <Route path="/allcourse" element={<Dsacard />} /> {/* Show Dsacard on /allcourse route */}
             <Route path="/profile" element={<><UserProfile/><Profile /></>} /> {/* Profile page */}
             <Route path="/courses/data-structures" element={<CourseProgress />} /> {/* Specific course progress */}
