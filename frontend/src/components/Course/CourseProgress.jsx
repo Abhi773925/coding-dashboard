@@ -8,7 +8,7 @@ import { Edit, Trash2, FileText, PlayCircle, Star, LinkIcon, Filter, BookOpen, C
 import { useTheme } from "../context/ThemeContext"
 import { useAuth } from "../navigation/Navigation"
 import { motion, AnimatePresence } from "framer-motion"
-import FilterForm from "../filter-form" // Import the new FilterForm
+import FilterForm from "./FilterForm" // Import the new FilterForm
 
 // Backend URL Configuration
 const BACKEND_URL = "https://coding-dashboard-ngwi.onrender.com/api"
