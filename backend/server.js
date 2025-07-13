@@ -32,48 +32,47 @@ const fetchContests = require("./controllers/fetchContests");
 
 const app = express();
 
-// Enhanced Database Connection Function with keep-alive functionality
+// Enhanced and corrected MongoDB Connection Function
 const connectDB = async () => {
   try {
-    console.log("Attempting to connect to MongoDB...");
-    
-    // Configure connection options with keep-alive settings
+    console.log("🚀 Attempting to connect to MongoDB...");
+
+    // ✅ Only supported and modern connection options
     const connectionOptions = {
       useNewUrlParser: true,
       useUnifiedTopology: true,
-      serverSelectionTimeoutMS: 10000, // Timeout after 10s instead of default 30s
-      socketTimeoutMS: 0, // Setting this to 0 prevents inactivity timeouts (keep alive forever)
-      keepAlive: true, // Enables keep-alive feature
-      keepAliveInitialDelay: 300000, // Send keep-alive every 5 minutes (300,000ms)
-      heartbeatFrequencyMS: 10000, // Check server health every 10 seconds
-      autoReconnect: true, // Auto reconnect if connection is lost
-      poolSize: 10, // Maintain up to 10 socket connections
+      serverSelectionTimeoutMS: 10000, // Fail if can't connect in 10s
+      socketTimeoutMS: 0,              // No socket timeout
+      maxPoolSize: 10                  // Maintain up to 10 socket connections
     };
 
+    // Attempt connection
     const conn = await mongoose.connect(process.env.MONGODB_URI, connectionOptions);
+
     console.log(`📦 MongoDB Connected: ${conn.connection.host}`);
-    
-    // Set up MongoDB connection event listeners
+
+    // Setup MongoDB disconnect and error events
     mongoose.connection.on('disconnected', () => {
-      console.log('MongoDB disconnected! Attempting to reconnect...');
-      setTimeout(connectDB, 5000); // Try to reconnect after 5 seconds
+      console.warn('⚠️ MongoDB disconnected! Retrying in 5 seconds...');
+      setTimeout(connectDB, 5000);
     });
-    
+
     mongoose.connection.on('error', (err) => {
-      console.error('MongoDB connection error:', err);
-      console.log('Attempting to reconnect to MongoDB...');
-      setTimeout(connectDB, 5000); // Try to reconnect after 5 seconds
+      console.error('❌ MongoDB connection error:', err.message);
+      console.warn('Retrying MongoDB connection in 5 seconds...');
+      setTimeout(connectDB, 5000);
     });
-    
+
     return true;
   } catch (error) {
-    console.error(`❌ MongoDB Connection Error: ${error.message}`);
+    console.error(`❌ Initial MongoDB Connection Failed: ${error.message}`);
     console.error(error);
-    console.log('Retrying connection in 5 seconds...');
-    setTimeout(connectDB, 5000); // Try to reconnect after 5 seconds
+    console.warn('Retrying initial MongoDB connection in 5 seconds...');
+    setTimeout(connectDB, 5000);
     return false;
   }
 };
+
 
 // Middleware Configuration - Apply before session setup
 app.use(express.json());
