@@ -1,125 +1,97 @@
-import React from 'react';
-import { Linkedin, Instagram, X } from 'lucide-react';
-import { useTheme } from '../context/ThemeContext';
+"use client"
+import { Linkedin, Instagram, X } from "lucide-react"
+import { useTheme } from "../context/ThemeContext"
+import { motion } from "framer-motion" // Import motion for animations
 
 const Footer = () => {
-  const { isDarkMode } = useTheme();
+  const { isDarkMode } = useTheme()
 
   return (
-    <footer 
+    <footer
       className={`
-        ${isDarkMode 
-          ? 'bg-zinc-950 text-gray-100' 
-          : 'bg-white text-gray-900'}
-        py-6 transition-colors duration-300
+        ${isDarkMode ? "bg-slate-950 text-gray-100" : "bg-white text-gray-900"}
+        py-12 transition-colors duration-500 relative z-10
       `}
     >
-      <div className="container mx-auto px-4">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex flex-col items-center">
           {/* Navigation Links */}
-          <nav className="mb-4 space-x-4">
-            {['FAQ', 'Support', 'Privacy', 'Timeline', 'Terms'].map((link) => (
-              <a 
-                key={link} 
-                href="#" 
+          <nav className="mb-8 flex flex-wrap justify-center gap-x-6 gap-y-3">
+            {["FAQ", "Support", "Privacy", "Timeline", "Terms"].map((link) => (
+              <motion.a
+                key={link}
+                href="#"
+                whileHover={{ scale: 1.05, y: -2 }}
+                whileTap={{ scale: 0.95 }}
                 className={`
-                  ${isDarkMode 
-                    ? 'text-zinc-300 hover:text-indigo-400' 
-                    : 'text-gray-600 hover:text-indigo-600'}
-                  transition duration-300
+                  text-base font-medium transition-all duration-300
+                  ${isDarkMode ? "text-slate-400 hover:text-purple-400" : "text-gray-600 hover:text-purple-600"}
                 `}
               >
                 {link}
-              </a>
+              </motion.a>
             ))}
           </nav>
 
           {/* Social Icons */}
-          <div className="flex space-x-4 mb-4">
-            <a 
-              href="#" 
+          <div className="flex space-x-6 mb-8">
+            <motion.a
+              href="#"
+              whileHover={{ scale: 1.1, rotate: 5 }}
+              whileTap={{ scale: 0.9 }}
               className={`
-                flex items-center
-                ${isDarkMode 
-                  ? 'text-blue-400 hover:text-blue-300' 
-                  : 'text-blue-600 hover:text-blue-700'}
-                transition duration-300
+                p-3 rounded-full flex items-center justify-center
+                ${isDarkMode ? "bg-slate-800/70 text-blue-400 hover:bg-blue-900/50" : "bg-blue-50/70 text-blue-600 hover:bg-blue-100/70"}
+                transition-all duration-300 shadow-md hover:shadow-lg
               `}
+              aria-label="LinkedIn"
             >
-              <Linkedin size={24} className="mr-2" />
-              <span 
-                className={`
-                  ${isDarkMode 
-                    ? 'text-zinc-300 hover:text-blue-300' 
-                    : 'text-gray-700 hover:text-blue-700'}
-                `}
-              >
-                LinkedIn
-              </span>
-            </a>
-            <a 
-              href="#" 
+              <Linkedin size={24} />
+            </motion.a>
+            <motion.a
+              href="#"
+              whileHover={{ scale: 1.1, rotate: -5 }}
+              whileTap={{ scale: 0.9 }}
               className={`
-                flex items-center
-                ${isDarkMode 
-                  ? 'text-gray-200 hover:text-white' 
-                  : 'text-gray-800 hover:text-black'}
-                transition duration-300
+                p-3 rounded-full flex items-center justify-center
+                ${isDarkMode ? "bg-slate-800/70 text-gray-200 hover:bg-gray-700/50" : "bg-gray-100/70 text-gray-800 hover:bg-gray-200/70"}
+                transition-all duration-300 shadow-md hover:shadow-lg
               `}
+              aria-label="X (Twitter)"
             >
-              <X size={24} className="mr-2" />
-              <span 
-                className={`
-                  ${isDarkMode 
-                    ? 'text-zinc-300 hover:text-white' 
-                    : 'text-gray-700 hover:text-black'}
-                `}
-              >
-                X
-              </span>
-            </a>
-            <a 
-              href="#" 
+              <X size={24} />
+            </motion.a>
+            <motion.a
+              href="#"
+              whileHover={{ scale: 1.1, rotate: 5 }}
+              whileTap={{ scale: 0.9 }}
               className={`
-                flex items-center
-                ${isDarkMode 
-                  ? 'text-pink-400 hover:text-pink-300' 
-                  : 'text-pink-600 hover:text-pink-700'}
-                transition duration-300
+                p-3 rounded-full flex items-center justify-center
+                ${isDarkMode ? "bg-slate-800/70 text-pink-400 hover:bg-pink-900/50" : "bg-pink-50/70 text-pink-600 hover:bg-pink-100/70"}
+                transition-all duration-300 shadow-md hover:shadow-lg
               `}
+              aria-label="Instagram"
             >
-              <Instagram size={24} className="mr-2" />
-              <span 
-                className={`
-                  ${isDarkMode 
-                    ? 'text-zinc-300 hover:text-pink-300' 
-                    : 'text-gray-700 hover:text-pink-700'}
-                `}
-              >
-                Instagram
-              </span>
-            </a>
+              <Instagram size={24} />
+            </motion.a>
           </div>
 
           {/* Copyright with Gradient Text */}
           <div className="text-center">
-            <p 
+            <p
               className={`
-                text-sm font-medium mb-1
-                ${isDarkMode 
-                  ? 'text-indigo-400 hover:text-indigo-300' 
-                  : 'text-indigo-600 hover:text-indigo-700'}
-                transition duration-300
+                text-sm sm:text-base font-medium
+                bg-clip-text text-transparent
+                ${isDarkMode ? "bg-gradient-to-r from-purple-400 to-blue-400" : "bg-gradient-to-r from-purple-600 to-blue-600"}
               `}
             >
-              © 2024 CodingKaro, Inc. All rights reserved.
+              © {new Date().getFullYear()} CodingKaro, Inc. All rights reserved.
             </p>
-          
           </div>
         </div>
       </div>
     </footer>
-  );
-};
+  )
+}
 
-export default Footer;
+export default Footer
