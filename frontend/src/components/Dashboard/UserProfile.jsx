@@ -1,8 +1,6 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
-import { motion } from 'framer-motion';
-import { useTheme } from '../context/ThemeContext';
-import { User, Mail, Github, Code, BookOpen, Edit2, Save, X, Check } from 'lucide-react';
+import React, { useState, useEffect, useRef } from 'react';
+import { motion, AnimatePresence, useScroll, useTransform } from 'framer-motion';
+import { User, Mail, Github, Code, BookOpen, Edit2, Save, X, Check, Star, Award, TrendingUp, Activity, Calendar, MapPin, Settings, Shield, Zap, Sparkles, ChevronRight, ExternalLink, Loader2 } from 'lucide-react';
 
 const UserProfile = () => {
   const [profile, setProfile] = useState({
@@ -10,30 +8,65 @@ const UserProfile = () => {
     email: '',
     leetcode: '',
     github: '',
-    geeksforgeeks: ''
+    geeksforgeeks: '',
+    bio: '',
+    location: '',
+    joinDate: '',
+    avatar: null
   });
 
   const [isEditing, setIsEditing] = useState(false);
-  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
-  const { isDarkMode } = useTheme();
+  const [activeTab, setActiveTab] = useState('profile');
+  const [loading, setLoading] = useState(true);
+  const [saving, setSaving] = useState(false);
+  const [error, setError] = useState('');
+  const [success, setSuccess] = useState('');
+  const containerRef = useRef(null);
+  const [isDarkMode, setIsDarkMode] = useState(true);
 
-  useEffect(() => {
-    const handleMouseMove = (e) => {
-      setMousePosition({ x: e.clientX, y: e.clientY });
-    };
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ["start end", "end start"]
+  });
 
-    window.addEventListener("mousemove", handleMouseMove);
-    return () => window.removeEventListener("mousemove", handleMouseMove);
-  }, []);
+  const y = useTransform(scrollYProgress, [0, 1], [0, -50]);
+  const opacity = useTransform(scrollYProgress, [0, 0.5, 1], [0, 1, 0]);
 
+  // Fetch user profile data
   useEffect(() => {
     const fetchUserProfile = async () => {
       try {
+        setLoading(true);
         const userEmail = localStorage.getItem('userEmail');
-        const response = await axios.get(`https://coding-dashboard-ngwi.onrender.com/api/users/${userEmail}`);
-        setProfile(response.data);
+        
+        if (!userEmail) {
+          setError('No user email found. Please log in again.');
+          return;
+        }
+
+        const response = await fetch(`https://coding-dashboard-ngwi.onrender.com/api/users/${userEmail}`);
+        
+        if (!response.ok) {
+          throw new Error('Failed to fetch profile data');
+        }
+
+        const data = await response.json();
+        setProfile({
+          name: data.name || '',
+          email: data.email || userEmail,
+          leetcode: data.leetcode || '',
+          github: data.github || '',
+          geeksforgeeks: data.geeksforgeeks || '',
+          bio: data.bio || '',
+          location: data.location || '',
+          joinDate: data.createdAt || data.joinDate || new Date().toISOString(),
+          avatar: data.avatar || null
+        });
       } catch (error) {
-        console.error("Error fetching profile", error);
+        console.error("Error fetching profile:", error);
+        setError('Failed to load profile data. Please try again.');
+      } finally {
+        setLoading(false);
       }
     };
 
@@ -50,84 +83,103 @@ const UserProfile = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setSaving(true);
+    setError('');
+    setSuccess('');
+
     try {
       const userEmail = localStorage.getItem('userEmail');
-      const response = await axios.put(`https://coding-dashboard-ngwi.onrender.com/api/users/${userEmail}`, {
-        name: profile.name,
-        leetcode: profile.leetcode,
-        github: profile.github,
-        geeksforgeeks: profile.geeksforgeeks
+      
+      if (!userEmail) {
+        setError('No user email found. Please log in again.');
+        return;
+      }
+
+      const response = await fetch(`https://coding-dashboard-ngwi.onrender.com/api/users/${userEmail}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          name: profile.name,
+          leetcode: profile.leetcode,
+          github: profile.github,
+          geeksforgeeks: profile.geeksforgeeks,
+          bio: profile.bio,
+          location: profile.location
+        })
       });
 
-      alert(response.data.message);
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.message || 'Failed to update profile');
+      }
+
+      setSuccess('Profile updated successfully!');
       setIsEditing(false);
+      
+      // Auto-hide success message after 3 seconds
+      setTimeout(() => setSuccess(''), 3000);
     } catch (error) {
-      console.error("Error updating profile", error);
+      console.error("Error updating profile:", error);
+      setError(error.message || 'Failed to update profile. Please try again.');
+    } finally {
+      setSaving(false);
     }
-  };
-
-  // Floating Element Component
-  const FloatingElement = ({ delay, duration, children, className }) => (
-    <div
-      className={`absolute opacity-60 ${className}`}
-      style={{
-        animationDelay: `${delay}s`,
-        animationDuration: `${duration}s`,
-        animation: `float ${duration}s ease-in-out infinite`,
-      }}
-    >
-      {children}
-    </div>
-  );
-
-  // Enhanced Icons with better styling
-  const Icons = {
-    email: <Mail className="w-5 h-5 text-gray-400" />,
-    name: <User className="w-5 h-5 text-gray-400" />,
-    leetcode: <Code className="w-5 h-5 text-gray-400" />,
-    github: <Github className="w-5 h-5 text-gray-400" />,
-    geeksforgeeks: <BookOpen className="w-5 h-5 text-gray-400" />
   };
 
   // Enhanced platform configurations
   const platforms = [
     { 
       name: 'LeetCode', 
-      icon: Icons.leetcode, 
-      fieldName: 'leetcode', 
-      gradient: 'from-yellow-400 via-orange-400 to-red-500',
-      hoverGradient: 'from-yellow-300 via-orange-300 to-red-400'
+      icon: Code, 
+      fieldName: 'leetcode',
+      color: 'from-yellow-400 to-orange-500',
+      baseUrl: 'https://leetcode.com/',
+      bgGradient: 'from-yellow-50 to-orange-50',
+      darkBgGradient: 'from-yellow-900/10 to-orange-900/10'
     },
     { 
       name: 'GitHub', 
-      icon: Icons.github, 
-      fieldName: 'github', 
-      gradient: 'from-gray-700 via-gray-600 to-gray-800',
-      hoverGradient: 'from-gray-600 via-gray-500 to-gray-700'
+      icon: Github, 
+      fieldName: 'github',
+      color: 'from-gray-600 to-gray-800',
+      baseUrl: 'https://github.com/',
+      bgGradient: 'from-gray-50 to-slate-50',
+      darkBgGradient: 'from-gray-900/10 to-slate-900/10'
     },
     { 
       name: 'GeeksforGeeks', 
-      icon: Icons.geeksforgeeks, 
-      fieldName: 'geeksforgeeks', 
-      gradient: 'from-green-400 via-emerald-400 to-teal-500',
-      hoverGradient: 'from-green-300 via-emerald-300 to-teal-400'
+      icon: BookOpen, 
+      fieldName: 'geeksforgeeks',
+      color: 'from-green-400 to-emerald-500',
+      baseUrl: 'https://auth.geeksforgeeks.org/user/',
+      bgGradient: 'from-green-50 to-emerald-50',
+      darkBgGradient: 'from-green-900/10 to-emerald-900/10'
     }
   ];
 
-  // Enhanced animation variants
+  const tabs = [
+    { id: 'profile', label: 'Profile', icon: User },
+    { id: 'platforms', label: 'Platforms', icon: Code },
+    { id: 'settings', label: 'Settings', icon: Settings }
+  ];
+
+  // Animation variants
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
       transition: {
-        staggerChildren: 0.15,
-        delayChildren: 0.3
+        staggerChildren: 0.1,
+        delayChildren: 0.2
       }
     }
   };
 
   const itemVariants = {
-    hidden: { y: 30, opacity: 0 },
+    hidden: { y: 20, opacity: 0 },
     visible: {
       y: 0,
       opacity: 1,
@@ -139,109 +191,128 @@ const UserProfile = () => {
     }
   };
 
-  // Enhanced Profile Field Component
-  const ProfileField = ({ 
-    label, 
-    name, 
-    value, 
-    onChange, 
-    disabled, 
-    placeholder,
-    icon,
-    isImportant = false
-  }) => (
+  const TabButton = ({ tab, isActive, onClick }) => (
+    <motion.button
+      onClick={onClick}
+      className={`
+        relative flex items-center px-6 py-3 rounded-xl font-medium transition-all duration-300
+        ${isActive 
+          ? isDarkMode 
+            ? 'text-white bg-gradient-to-r from-purple-600 to-blue-600' 
+            : 'text-white bg-gradient-to-r from-purple-600 to-blue-600'
+          : isDarkMode 
+            ? 'text-slate-400 hover:text-white hover:bg-slate-700/50' 
+            : 'text-gray-600 hover:text-gray-900 hover:bg-gray-100'
+        }
+      `}
+      whileHover={{ scale: 1.05 }}
+      whileTap={{ scale: 0.95 }}
+    >
+      <tab.icon className="w-4 h-4 mr-2" />
+      {tab.label}
+      {isActive && (
+        <motion.div
+          className="absolute -bottom-1 left-1/2 w-1 h-1 rounded-full bg-white"
+          layoutId="activeTab"
+          initial={{ scale: 0 }}
+          animate={{ scale: 1 }}
+        />
+      )}
+    </motion.button>
+  );
+
+  const ProfileField = ({ label, name, value, onChange, disabled, placeholder, icon: Icon, type = "text" }) => (
     <motion.div 
-      className={`mb-6 ${isImportant ? 'col-span-2' : ''}`}
+      className="space-y-2"
       variants={itemVariants}
       whileHover={{ y: -2 }}
     >
-      <label className={`block text-sm font-semibold mb-3 ${isDarkMode ? 'text-slate-200' : 'text-gray-800'}`}>
+      <label className={`block text-sm font-semibold ${isDarkMode ? 'text-slate-200' : 'text-gray-700'}`}>
         {label}
       </label>
-      <div className="relative group">
-        <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none z-10">
-          {icon}
+      <div className="relative">
+        <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+          <Icon className="w-4 h-4 text-gray-400" />
         </div>
-        <input 
-          type="text"
-          name={name}
-          value={value}
-          onChange={onChange}
-          disabled={disabled}
-          placeholder={placeholder}
-          className={`
-            w-full pl-12 pr-4 py-4 rounded-2xl transition-all duration-300 backdrop-blur-sm
-            focus:ring-2 focus:outline-none border-2 font-medium
-            ${isDarkMode 
-              ? 'bg-slate-800/60 text-slate-100 border-slate-700/60 focus:ring-purple-400/50 focus:border-purple-400/50' 
-              : 'bg-white/80 text-gray-900 border-gray-200/60 focus:ring-purple-500/50 focus:border-purple-500/50'}
-            ${disabled 
-              ? 'cursor-not-allowed opacity-70' 
-              : 'cursor-text hover:border-purple-400/40 group-hover:shadow-lg'}
-          `}
-        />
+        {type === 'textarea' ? (
+          <textarea
+            name={name}
+            value={value}
+            onChange={onChange}
+            disabled={disabled}
+            placeholder={placeholder}
+            rows={3}
+            className={`
+              w-full pl-10 pr-4 py-3 rounded-xl transition-all duration-300 resize-none
+              ${isDarkMode 
+                ? 'bg-slate-800/50 text-slate-100 border border-slate-700/50 focus:border-purple-500/50' 
+                : 'bg-white border border-gray-200 text-gray-900 focus:border-purple-500/50'}
+              ${disabled ? 'cursor-not-allowed opacity-70' : 'focus:ring-2 focus:ring-purple-500/20'}
+            `}
+          />
+        ) : (
+          <input
+            type={type}
+            name={name}
+            value={value}
+            onChange={onChange}
+            disabled={disabled}
+            placeholder={placeholder}
+            className={`
+              w-full pl-10 pr-4 py-3 rounded-xl transition-all duration-300
+              ${isDarkMode 
+                ? 'bg-slate-800/50 text-slate-100 border border-slate-700/50 focus:border-purple-500/50' 
+                : 'bg-white border border-gray-200 text-gray-900 focus:border-purple-500/50'}
+              ${disabled ? 'cursor-not-allowed opacity-70' : 'focus:ring-2 focus:ring-purple-500/20'}
+            `}
+          />
+        )}
       </div>
     </motion.div>
   );
 
-  // Enhanced Platform Card Component
   const PlatformCard = ({ platform, profileValue, isEditing, onChange }) => (
     <motion.div 
       variants={itemVariants}
-      className="col-span-1"
       whileHover={{ y: -8, scale: 1.02 }}
-      transition={{ type: "spring", stiffness: 300, damping: 20 }}
-    >
-      <div className={`
-        relative rounded-3xl overflow-hidden shadow-xl h-40 group cursor-pointer
-        transition-all duration-500 backdrop-blur-sm border-2
+      className={`
+        relative group rounded-2xl overflow-hidden transition-all duration-500
         ${isDarkMode 
-          ? 'bg-slate-800/60 border-slate-700/60 hover:border-purple-400/50' 
-          : 'bg-white/80 border-gray-200/60 hover:border-purple-500/50'}
-      `}>
-        {/* Enhanced gradient overlay */}
-        <div className={`
-          absolute inset-0 bg-gradient-to-br ${platform.gradient} opacity-10
-          group-hover:opacity-20 transition-opacity duration-500
-        `} />
-        
-        {/* Floating dots inside card */}
-        <div className="absolute inset-0 overflow-hidden">
-          {[...Array(3)].map((_, i) => (
-            <div
-              key={i}
-              className={`absolute w-2 h-2 rounded-full bg-gradient-to-r ${platform.gradient} opacity-30
-                animate-pulse`}
-              style={{
-                top: `${20 + i * 25}%`,
-                right: `${10 + i * 15}%`,
-                animationDelay: `${i * 0.5}s`,
-                animationDuration: `${3 + i}s`
-              }}
-            />
-          ))}
-        </div>
-        
-        <div className="relative z-10 p-6 h-full flex flex-col justify-between">
+          ? `bg-gradient-to-br ${platform.darkBgGradient} border border-slate-700/50` 
+          : `bg-gradient-to-br ${platform.bgGradient} border border-gray-200`}
+      `}
+    >
+      <div className={`absolute inset-0 bg-gradient-to-br ${platform.color} opacity-5 group-hover:opacity-10 transition-opacity duration-300`} />
+      
+      <div className="relative p-6">
+        <div className="flex items-center justify-between mb-4">
           <div className="flex items-center space-x-3">
-            <div className={`
-              w-12 h-12 rounded-2xl flex items-center justify-center transition-all duration-300
-              group-hover:scale-110 bg-gradient-to-br ${platform.gradient}
-            `}>
-              <div className="text-white">
-                {platform.icon}
-              </div>
+            <div className={`p-3 rounded-xl bg-gradient-to-r ${platform.color} shadow-lg`}>
+              <platform.icon className="w-5 h-5 text-white" />
             </div>
             <div>
-              <h3 className={`font-bold text-lg ${isDarkMode ? 'text-slate-100' : 'text-gray-900'}`}>
+              <h3 className={`font-bold ${isDarkMode ? 'text-white' : 'text-gray-900'}`}>
                 {platform.name}
               </h3>
-              <div className={`text-sm ${isDarkMode ? 'text-slate-400' : 'text-gray-500'}`}>
+              <p className={`text-sm ${isDarkMode ? 'text-slate-400' : 'text-gray-500'}`}>
                 Connect your profile
-              </div>
+              </p>
             </div>
           </div>
-          
+          {profileValue && (
+            <motion.a
+              href={`${platform.baseUrl}${profileValue}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              whileHover={{ scale: 1.1 }}
+              className="opacity-0 group-hover:opacity-100 transition-opacity"
+            >
+              <ExternalLink className="w-4 h-4 text-gray-400 hover:text-purple-500" />
+            </motion.a>
+          )}
+        </div>
+
+        <div className="space-y-3">
           {isEditing ? (
             <input
               type="text"
@@ -250,28 +321,24 @@ const UserProfile = () => {
               onChange={onChange}
               placeholder={`${platform.name} username`}
               className={`
-                w-full py-3 px-4 rounded-xl transition-all duration-300 border-2
+                w-full py-2 px-3 rounded-lg text-sm transition-all duration-300
                 ${isDarkMode 
-                  ? 'bg-slate-800/80 text-slate-100 border-slate-600/60 focus:border-purple-400/50' 
-                  : 'bg-white/90 text-gray-900 border-gray-300/60 focus:border-purple-500/50'}
-                focus:outline-none focus:ring-2 focus:ring-purple-400/30
+                  ? 'bg-slate-800/50 text-slate-100 border border-slate-700/50 focus:border-purple-500/50' 
+                  : 'bg-white border border-gray-200 text-gray-900 focus:border-purple-500/50'}
               `}
             />
           ) : (
             <div className={`
-              text-sm font-medium truncate px-3 py-2 rounded-xl
-              ${isDarkMode ? 'text-slate-300 bg-slate-700/40' : 'text-gray-600 bg-gray-100/60'}
+              flex items-center justify-between p-3 rounded-lg text-sm
+              ${isDarkMode ? 'bg-slate-800/30' : 'bg-white/50'}
             `}>
+              <span className={`font-medium ${isDarkMode ? 'text-slate-200' : 'text-gray-700'}`}>
+                {profileValue || 'Not connected'}
+              </span>
               {profileValue ? (
-                <span className="flex items-center">
-                  <Check className="w-4 h-4 mr-2 text-green-500" />
-                  {profileValue}
-                </span>
+                <Check className="w-4 h-4 text-green-500" />
               ) : (
-                <span className="text-gray-400 italic flex items-center">
-                  <X className="w-4 h-4 mr-2" />
-                  Not connected
-                </span>
+                <X className="w-4 h-4 text-gray-400" />
               )}
             </div>
           )}
@@ -280,324 +347,344 @@ const UserProfile = () => {
     </motion.div>
   );
 
+  const NotificationBanner = ({ type, message, onClose }) => (
+    <AnimatePresence>
+      {message && (
+        <motion.div
+          initial={{ opacity: 0, y: -50 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: -50 }}
+          className={`
+            fixed top-4 right-4 z-50 p-4 rounded-lg shadow-lg max-w-md
+            ${type === 'error' 
+              ? 'bg-red-500 text-white' 
+              : 'bg-green-500 text-white'}
+          `}
+        >
+          <div className="flex items-center justify-between">
+            <span>{message}</span>
+            <button
+              onClick={onClose}
+              className="ml-4 hover:opacity-70"
+            >
+              <X className="w-4 h-4" />
+            </button>
+          </div>
+        </motion.div>
+      )}
+    </AnimatePresence>
+  );
+
+  const renderTabContent = () => {
+    if (loading) {
+      return (
+        <div className="flex items-center justify-center py-12">
+          <Loader2 className="w-8 h-8 animate-spin text-purple-500" />
+          <span className={`ml-3 ${isDarkMode ? 'text-slate-300' : 'text-gray-600'}`}>
+            Loading profile...
+          </span>
+        </div>
+      );
+    }
+
+    switch (activeTab) {
+      case 'profile':
+        return (
+          <div className="space-y-6">
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+              <ProfileField
+                label="Full Name"
+                name="name"
+                value={profile.name}
+                onChange={handleInputChange}
+                disabled={!isEditing}
+                placeholder="Enter your full name"
+                icon={User}
+              />
+              <ProfileField
+                label="Email Address"
+                name="email"
+                value={profile.email}
+                onChange={handleInputChange}
+                disabled={true}
+                icon={Mail}
+              />
+              <ProfileField
+                label="Location"
+                name="location"
+                value={profile.location}
+                onChange={handleInputChange}
+                disabled={!isEditing}
+                placeholder="Your location"
+                icon={MapPin}
+              />
+            </div>
+            <ProfileField
+              label="Bio"
+              name="bio"
+              value={profile.bio}
+              onChange={handleInputChange}
+              disabled={!isEditing}
+              placeholder="Tell us about yourself"
+              icon={User}
+              type="textarea"
+            />
+            {profile.joinDate && (
+              <div className={`flex items-center text-sm ${isDarkMode ? 'text-slate-400' : 'text-gray-500'}`}>
+                <Calendar className="w-4 h-4 mr-2" />
+                Member since {new Date(profile.joinDate).toLocaleDateString()}
+              </div>
+            )}
+          </div>
+        );
+      case 'platforms':
+        return (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {platforms.map((platform) => (
+              <PlatformCard
+                key={platform.fieldName}
+                platform={platform}
+                profileValue={profile[platform.fieldName]}
+                isEditing={isEditing}
+                onChange={handleInputChange}
+              />
+            ))}
+          </div>
+        );
+      case 'settings':
+        return (
+          <div className="space-y-6">
+            <div className={`p-6 rounded-2xl border ${isDarkMode ? 'bg-slate-800/50 border-slate-700/50' : 'bg-white border-gray-200'}`}>
+              <h3 className={`text-lg font-semibold mb-4 ${isDarkMode ? 'text-white' : 'text-gray-900'}`}>
+                Account Settings
+              </h3>
+              <div className="space-y-4">
+                <div className="flex items-center justify-between py-3">
+                  <div>
+                    <span className={`font-medium ${isDarkMode ? 'text-slate-200' : 'text-gray-700'}`}>
+                      Dark Mode
+                    </span>
+                    <p className={`text-sm ${isDarkMode ? 'text-slate-400' : 'text-gray-500'}`}>
+                      Toggle between light and dark themes
+                    </p>
+                  </div>
+                  <motion.button
+                    whileTap={{ scale: 0.95 }}
+                    onClick={() => setIsDarkMode(!isDarkMode)}
+                    className={`
+                      relative w-12 h-6 rounded-full transition-colors duration-300
+                      ${isDarkMode ? 'bg-purple-600' : 'bg-gray-300'}
+                    `}
+                  >
+                    <motion.div
+                      className="w-5 h-5 bg-white rounded-full shadow-md absolute top-0.5"
+                      animate={{ x: isDarkMode ? 26 : 2 }}
+                      transition={{ type: "spring", stiffness: 300, damping: 20 }}
+                    />
+                  </motion.button>
+                </div>
+              </div>
+            </div>
+          </div>
+        );
+      default:
+        return null;
+    }
+  };
+
   return (
     <div 
+      ref={containerRef}
       className={`
-        min-h-screen flex items-center justify-center p-4 pt-24 pb-12 
-        transition-all duration-700 ease-in-out overflow-hidden
+        min-h-screen transition-all duration-700 overflow-hidden
         ${isDarkMode 
-          ? 'bg-slate-900' 
-          : 'bg-gray-50'}
+          ? 'bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900' 
+          : 'bg-gradient-to-br from-gray-50 via-white to-gray-50'}
       `}
     >
-      {/* Enhanced Flowing Background Pattern */}
-      <div className="absolute inset-0 overflow-hidden">
-        <svg
-          className="absolute inset-0 w-full h-full"
-          viewBox="0 0 1440 900"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
+      {/* Notification Banners */}
+      <NotificationBanner
+        type="error"
+        message={error}
+        onClose={() => setError('')}
+      />
+      <NotificationBanner
+        type="success"
+        message={success}
+        onClose={() => setSuccess('')}
+      />
+
+      {/* Animated Background */}
+      <div className="fixed inset-0 overflow-hidden pointer-events-none">
+        <motion.div
+          className="absolute inset-0"
+          style={{ y, opacity }}
         >
-          <defs>
-            <linearGradient id="profileGradient1" x1="0%" y1="0%" x2="100%" y2="100%">
-              <stop offset="0%" stopColor={isDarkMode ? "rgba(99, 102, 241, 0.1)" : "rgba(139, 92, 246, 0.08)"} />
-              <stop offset="100%" stopColor={isDarkMode ? "rgba(139, 92, 246, 0.05)" : "rgba(99, 102, 241, 0.05)"} />
-            </linearGradient>
-            <linearGradient id="profileGradient2" x1="0%" y1="0%" x2="100%" y2="100%">
-              <stop offset="0%" stopColor={isDarkMode ? "rgba(139, 92, 246, 0.08)" : "rgba(59, 130, 246, 0.06)"} />
-              <stop offset="100%" stopColor={isDarkMode ? "rgba(59, 130, 246, 0.04)" : "rgba(139, 92, 246, 0.04)"} />
-            </linearGradient>
-          </defs>
-
-          <path
-            d="M0,450 Q360,250 720,400 T1440,350 L1440,900 L0,900 Z"
-            fill="url(#profileGradient1)"
-            className="animate-pulse"
-            style={{ animationDuration: "8s" }}
-          />
-          <path
-            d="M0,550 Q360,350 720,500 T1440,450 L1440,900 L0,900 Z"
-            fill="url(#profileGradient2)"
-            className="animate-pulse"
-            style={{ animationDuration: "12s", animationDelay: "2s" }}
-          />
-        </svg>
-
-        {/* Enhanced floating elements */}
-        <FloatingElement delay={0} duration={6} className="top-24 left-20">
-          <div className={`w-4 h-4 rounded-full bg-gradient-to-r from-purple-400 to-blue-400`}
-            style={{
-              boxShadow: isDarkMode ? "0 0 25px rgba(139, 92, 246, 0.6)" : "0 0 20px rgba(139, 92, 246, 0.4)",
-            }}
-          />
-        </FloatingElement>
-
-        <FloatingElement delay={2} duration={8} className="top-32 right-24">
-          <div className={`w-3 h-3 rounded-full bg-gradient-to-r from-blue-400 to-cyan-400`}
-            style={{
-              boxShadow: isDarkMode ? "0 0 20px rgba(59, 130, 246, 0.7)" : "0 0 15px rgba(59, 130, 246, 0.5)",
-            }}
-          />
-        </FloatingElement>
-
-        <FloatingElement delay={4} duration={10} className="bottom-40 left-32">
-          <div className={`w-5 h-5 rounded-full bg-gradient-to-r from-emerald-400 to-teal-400`}
-            style={{
-              boxShadow: isDarkMode ? "0 0 30px rgba(52, 211, 153, 0.5)" : "0 0 25px rgba(52, 211, 153, 0.3)",
-            }}
-          />
-        </FloatingElement>
-
-        {/* Additional floating elements */}
-        {[...Array(8)].map((_, i) => (
-          <FloatingElement
-            key={i}
-            delay={i * 0.8}
-            duration={6 + i * 0.5}
-            className={`opacity-40`}
-            style={{
-              top: `${15 + i * 8}%`,
-              left: `${8 + i * 10}%`,
-            }}
-          >
-            <div
-              className={`w-2 h-2 rounded-full bg-gradient-to-r from-purple-400 to-blue-400`}
+          {[...Array(20)].map((_, i) => (
+            <motion.div
+              key={i}
+              className={`absolute w-2 h-2 rounded-full ${isDarkMode ? 'bg-purple-500/20' : 'bg-purple-500/10'}`}
               style={{
-                boxShadow: isDarkMode ? "0 0 15px rgba(139, 92, 246, 0.4)" : "0 0 10px rgba(139, 92, 246, 0.3)",
+                left: `${Math.random() * 100}%`,
+                top: `${Math.random() * 100}%`,
+              }}
+              animate={{
+                y: [0, -30, 0],
+                opacity: [0.3, 0.8, 0.3],
+              }}
+              transition={{
+                duration: 3 + Math.random() * 2,
+                repeat: Infinity,
+                delay: Math.random() * 2,
               }}
             />
-          </FloatingElement>
-        ))}
+          ))}
+        </motion.div>
       </div>
 
-      <motion.div 
-        className={`
-          w-full max-w-6xl rounded-3xl shadow-2xl p-8 relative overflow-hidden backdrop-blur-sm border-2
-          ${isDarkMode 
-            ? 'bg-slate-800/60 border-slate-700/60' 
-            : 'bg-white/80 border-gray-200/60'}
-        `}
-        initial={{ scale: 0.95, opacity: 0, y: 20 }}
-        animate={{ scale: 1, opacity: 1, y: 0 }}
-        transition={{ type: "spring", stiffness: 100, damping: 15, delay: 0.1 }}
-      >
-        {/* Enhanced background effects */}
-        <div className={`absolute -top-32 -right-32 w-80 h-80 rounded-full bg-gradient-to-br from-purple-500 to-blue-500 opacity-5 blur-3xl`} />
-        <div className={`absolute -bottom-40 -left-40 w-96 h-96 rounded-full bg-gradient-to-br from-emerald-500 to-teal-500 opacity-5 blur-3xl`} />
-        
-        <div className="relative z-10">
-          {/* Enhanced Profile Header */}
-          <motion.div 
-            className="text-center mb-12"
-            initial={{ opacity: 0, y: -30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.2 }}
-          >
-            <div className={`inline-flex items-center px-6 py-3 rounded-full text-sm font-medium mb-6 
-              backdrop-blur-sm border transition-all duration-300
-              ${isDarkMode
-                ? "bg-slate-800/70 border-slate-700/60 text-purple-300"
-                : "bg-white/90 border-purple-200/60 text-purple-700"
-              }`}
+      <div className="relative z-10 max-w-7xl mx-auto px-4 py-8">
+        {/* Header */}
+        <motion.div 
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="text-center mb-8"
+        >
+          <div className="relative inline-block">
+            <motion.div
+              className="w-24 h-24 rounded-full bg-gradient-to-r from-purple-600 to-blue-600 flex items-center justify-center text-3xl font-bold text-white mb-4 mx-auto shadow-2xl"
+              whileHover={{ scale: 1.1, rotate: 5 }}
             >
-              <div className={`w-2.5 h-2.5 rounded-full mr-3 ${isDarkMode ? "bg-purple-400" : "bg-purple-500"}`} />
-              <span className="font-semibold">Profile Settings</span>
-            </div>
-            
-            <h1 className={`text-4xl md:text-5xl font-bold mb-4 ${isDarkMode ? 'text-white' : 'text-gray-900'}`}>
-              Developer
-              <span className={`
-                ml-3 bg-gradient-to-r bg-clip-text text-transparent
-                ${isDarkMode ? "from-purple-400 via-blue-400 to-cyan-400" : "from-purple-600 via-blue-600 to-indigo-600"}
-              `}>
-                Profile
-              </span>
-            </h1>
-            <p className={`text-lg ${isDarkMode ? 'text-slate-300' : 'text-gray-600'}`}>
-              Manage your personal information and connected platforms
-            </p>
-          </motion.div>
+              {profile.name ? profile.name.charAt(0).toUpperCase() : '👤'}
+            </motion.div>
+            <motion.div
+              className="absolute -top-2 -right-2 w-6 h-6 bg-green-500 rounded-full border-2 border-white"
+              animate={{ scale: [1, 1.2, 1] }}
+              transition={{ duration: 2, repeat: Infinity }}
+            />
+          </div>
+          <h1 className={`text-3xl font-bold mb-2 ${isDarkMode ? 'text-white' : 'text-gray-900'}`}>
+            {profile.name || 'Your Name'}
+          </h1>
+          <p className={`text-lg ${isDarkMode ? 'text-slate-400' : 'text-gray-600'}`}>
+            {profile.bio || 'Add a bio to tell others about yourself'}
+          </p>
+        </motion.div>
 
-          <motion.div 
-            variants={containerVariants}
-            initial="hidden"
-            animate="visible"
-          >
-            {/* Enhanced User Info Card */}
-            <motion.div 
-              className={`
-                rounded-3xl overflow-hidden mb-8 shadow-xl backdrop-blur-sm border-2
-                ${isDarkMode ? 'bg-slate-800/60 border-slate-700/60' : 'bg-white/80 border-gray-200/60'}
-              `}
-              variants={itemVariants}
-              whileHover={{ y: -4 }}
+        {/* Navigation Tabs */}
+        <motion.div 
+          className="flex justify-center mb-8"
+          variants={containerVariants}
+          initial="hidden"
+          animate="visible"
+        >
+          <div className={`
+            flex space-x-1 p-1 rounded-2xl backdrop-blur-sm
+            ${isDarkMode ? 'bg-slate-800/50 border border-slate-700/50' : 'bg-white/50 border border-gray-200'}
+          `}>
+            {tabs.map((tab) => (
+              <TabButton
+                key={tab.id}
+                tab={tab}
+                isActive={activeTab === tab.id}
+                onClick={() => setActiveTab(tab.id)}
+              />
+            ))}
+          </div>
+        </motion.div>
+
+        {/* Content Area */}
+        <motion.div 
+          className={`
+            rounded-3xl p-8 backdrop-blur-sm border
+            ${isDarkMode ? 'bg-slate-800/30 border-slate-700/50' : 'bg-white/50 border-gray-200'}
+          `}
+          variants={containerVariants}
+          initial="hidden"
+          animate="visible"
+        >
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={activeTab}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -20 }}
+              transition={{ duration: 0.3 }}
             >
-              <div className={`
-                h-32 bg-gradient-to-r from-purple-600 via-blue-600 to-indigo-600 relative overflow-hidden
-              `}>
-                {/* Animated background pattern */}
-                <div className="absolute inset-0 opacity-20">
-                  {[...Array(6)].map((_, i) => (
-                    <div
-                      key={i}
-                      className="absolute w-4 h-4 rounded-full bg-white animate-pulse"
-                      style={{
-                        top: `${20 + i * 15}%`,
-                        left: `${10 + i * 15}%`,
-                        animationDelay: `${i * 0.3}s`,
-                        animationDuration: `${2 + i * 0.5}s`
-                      }}
-                    />
-                  ))}
-                </div>
-                
-                <div className="absolute -bottom-12 left-8">
-                  <motion.div 
-                    className={`
-                      w-24 h-24 rounded-3xl border-4 shadow-2xl flex items-center justify-center text-3xl font-bold
-                      ${isDarkMode 
-                        ? 'bg-slate-800 border-slate-800' 
-                        : 'bg-white border-white'}
-                    `}
-                    whileHover={{ scale: 1.1, rotate: 5 }}
-                    transition={{ type: "spring", stiffness: 300, damping: 20 }}
+              {renderTabContent()}
+            </motion.div>
+          </AnimatePresence>
+
+          {/* Action Buttons */}
+          {(activeTab === 'profile' || activeTab === 'platforms') && !loading && (
+            <motion.div 
+              className="flex justify-center mt-8 space-x-4"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.5 }}
+            >
+              <AnimatePresence mode="wait">
+                {!isEditing ? (
+                  <motion.button
+                    key="edit"
+                    initial={{ scale: 0.9, opacity: 0 }}
+                    animate={{ scale: 1, opacity: 1 }}
+                    exit={{ scale: 0.9, opacity: 0 }}
+                    onClick={() => setIsEditing(true)}
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                    className="flex items-center px-8 py-3 bg-gradient-to-r from-purple-600 to-blue-600 text-white rounded-xl font-semibold shadow-lg hover:shadow-xl transition-all duration-300"
                   >
-                    {profile.name ? profile.name.charAt(0).toUpperCase() : '👤'}
+                    <Edit2 className="w-4 h-4 mr-2" />
+                    Edit Profile
+                  </motion.button>
+                ) : (
+                  <motion.div
+                    key="save-cancel"
+                    initial={{ scale: 0.9, opacity: 0 }}
+                    animate={{ scale: 1, opacity: 1 }}
+                    exit={{ scale: 0.9, opacity: 0 }}
+                    className="flex space-x-4"
+                  >
+                    <motion.button
+                      onClick={() => setIsEditing(false)}
+                      whileHover={{ scale: 1.05 }}
+                      whileTap={{ scale: 0.95 }}
+                      disabled={saving}
+                      className={`
+                        flex items-center px-6 py-3 rounded-xl font-semibold transition-all duration-300
+                        ${isDarkMode 
+                          ? 'bg-slate-700 text-slate-300 hover:bg-slate-600' 
+                          : 'bg-gray-200 text-gray-700 hover:bg-gray-300'}
+                        ${saving ? 'opacity-50 cursor-not-allowed' : ''}
+                      `}
+                    >
+                      <X className="w-4 h-4 mr-2" />
+                      Cancel
+                    </motion.button>
+                    <motion.button
+                      onClick={handleSubmit}
+                      whileHover={{ scale: 1.05 }}
+                      whileTap={{ scale: 0.95 }}
+                      disabled={saving}
+                      className={`
+                        flex items-center px-6 py-3 bg-gradient-to-r from-emerald-600 to-teal-600 text-white rounded-xl font-semibold shadow-lg hover:shadow-xl transition-all duration-300
+                        ${saving ? 'opacity-50 cursor-not-allowed' : ''}
+                      `}
+                    >
+                      {saving ? (
+                        <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+                      ) : (
+                        <Save className="w-4 h-4 mr-2" />
+                      )}
+                      {saving ? 'Saving...' : 'Save Changes'}
+                    </motion.button>
                   </motion.div>
-                </div>
-              </div>
-              
-              <div className="p-8 pt-16">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  <ProfileField 
-                    label="Full Name"
-                    name="name"
-                    value={profile.name}
-                    onChange={handleInputChange}
-                    disabled={!isEditing}
-                    placeholder="Enter your full name"
-                    icon={Icons.name}
-                    isImportant={true}
-                  />
-                  
-                  <ProfileField 
-                    label="Email Address (Cannot be changed)"
-                    name="email"
-                    value={profile.email}
-                    onChange={handleInputChange}
-                    disabled={true}
-                    icon={Icons.email}
-                    isImportant={true}
-                  />
-                </div>
-              </div>
+                )}
+              </AnimatePresence>
             </motion.div>
-
-            {/* Enhanced Connected Platforms Section */}
-            <motion.div variants={itemVariants} className="mb-8">
-              <h2 className={`text-2xl font-bold mb-6 ${isDarkMode ? 'text-white' : 'text-gray-900'}`}>
-                Connected Platforms
-              </h2>
-            </motion.div>
-            
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
-              {platforms.map((platform) => (
-                <PlatformCard
-                  key={platform.fieldName}
-                  platform={platform}
-                  profileValue={profile[platform.fieldName]}
-                  isEditing={isEditing}
-                  onChange={handleInputChange}
-                />
-              ))}
-            </div>
-
-            {/* Enhanced Action Buttons */}
-            <motion.div 
-              className="flex justify-center gap-4"
-              variants={itemVariants}
-            >
-              {!isEditing ? (
-                <motion.button 
-                  type="button"
-                  onClick={() => setIsEditing(true)}
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                  className={`
-                    flex items-center px-8 py-4 rounded-2xl font-semibold text-lg
-                    transition-all duration-300 shadow-xl backdrop-blur-sm
-                    ${isDarkMode 
-                      ? 'bg-gradient-to-r from-purple-600 to-blue-600 text-white hover:from-purple-500 hover:to-blue-500' 
-                      : 'bg-gradient-to-r from-purple-600 to-blue-600 text-white hover:from-purple-700 hover:to-blue-700'}
-                  `}
-                  style={{
-                    boxShadow: isDarkMode ? "0 10px 40px rgba(139, 92, 246, 0.3)" : "0 10px 40px rgba(139, 92, 246, 0.2)",
-                  }}
-                >
-                  <Edit2 className="w-5 h-5 mr-3" />
-                  Edit Profile
-                </motion.button>
-              ) : (
-                <div className="flex gap-4">
-                  <motion.button 
-                    type="button"
-                    onClick={() => setIsEditing(false)}
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
-                    className={`
-                      flex items-center px-8 py-4 rounded-2xl font-semibold text-lg
-                      transition-all duration-300 shadow-lg backdrop-blur-sm border-2
-                      ${isDarkMode 
-                        ? 'bg-slate-800/60 text-slate-300 border-slate-700/60 hover:bg-slate-800' 
-                        : 'bg-white/80 text-gray-600 border-gray-300/60 hover:bg-gray-50'}
-                    `}
-                  >
-                    <X className="w-5 h-5 mr-3" />
-                    Cancel
-                  </motion.button>
-                  <motion.button 
-                    type="button"
-                    onClick={handleSubmit}
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
-                    className={`
-                      flex items-center px-8 py-4 rounded-2xl font-semibold text-lg
-                      transition-all duration-300 shadow-xl backdrop-blur-sm
-                      ${isDarkMode 
-                        ? 'bg-gradient-to-r from-emerald-600 to-teal-600 text-white hover:from-emerald-500 hover:to-teal-500' 
-                        : 'bg-gradient-to-r from-emerald-600 to-teal-600 text-white hover:from-emerald-700 hover:to-teal-700'}
-                    `}
-                    style={{
-                      boxShadow: isDarkMode ? "0 10px 40px rgba(52, 211, 153, 0.3)" : "0 10px 40px rgba(52, 211, 153, 0.2)",
-                    }}
-                  >
-                    <Save className="w-5 h-5 mr-3" />
-                    Save Changes
-                  </motion.button>
-                </div>
-              )}
-            </motion.div>
-          </motion.div>
-        </div>
-      </motion.div>
-
-      {/* Enhanced Custom CSS for animations */}
-      <style jsx>{`
-        @keyframes float {
-          0%, 100% {
-            transform: translateY(0px) translateX(0px) scale(1);
-          }
-          25% {
-            transform: translateY(-15px) translateX(8px) scale(1.05);
-          }
-          50% {
-            transform: translateY(-8px) translateX(-8px) scale(0.95);
-          }
-          75% {
-            transform: translateY(-20px) translateX(5px) scale(1.02);
-          }
-        }
-      `}</style>
+          )}
+        </motion.div>
+      </div>
     </div>
   );
 };
