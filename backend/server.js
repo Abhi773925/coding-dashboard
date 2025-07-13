@@ -78,7 +78,7 @@ const connectDB = async () => {
 app.use(express.json());
 app.use(cookieParser());
 app.use(cors({
-  origin: "https://coding-dashboard-6lgy.vercel.app",
+  origin: "https://www.prepmate.site",
   credentials: true,
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'] // Explicitly allow methods
 }));
