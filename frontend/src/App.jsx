@@ -31,7 +31,7 @@ function App() {
               <HeroSection/>
                 {/* <Dashboard/> */}
               <Dsacard/>
-             <Testimonials/>
+             {/* <Testimonials/> */}
           
              <Footer/>
             </>

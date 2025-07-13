@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { motion } from 'framer-motion';
-import { useTheme } from '../context/ThemeContext'; // Import ThemeContext
+import { useTheme } from '../context/ThemeContext';
+import { User, Mail, Github, Code, BookOpen, Edit2, Save, X, Check } from 'lucide-react';
 
 const UserProfile = () => {
   const [profile, setProfile] = useState({
@@ -13,7 +14,17 @@ const UserProfile = () => {
   });
 
   const [isEditing, setIsEditing] = useState(false);
-  const { isDarkMode } = useTheme(); // Use the ThemeContext instead of local state
+  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+  const { isDarkMode } = useTheme();
+
+  useEffect(() => {
+    const handleMouseMove = (e) => {
+      setMousePosition({ x: e.clientX, y: e.clientY });
+    };
+
+    window.addEventListener("mousemove", handleMouseMove);
+    return () => window.removeEventListener("mousemove", handleMouseMove);
+  }, []);
 
   useEffect(() => {
     const fetchUserProfile = async () => {
@@ -55,69 +66,80 @@ const UserProfile = () => {
     }
   };
 
-  // Icons for different fields
+  // Floating Element Component
+  const FloatingElement = ({ delay, duration, children, className }) => (
+    <div
+      className={`absolute opacity-60 ${className}`}
+      style={{
+        animationDelay: `${delay}s`,
+        animationDuration: `${duration}s`,
+        animation: `float ${duration}s ease-in-out infinite`,
+      }}
+    >
+      {children}
+    </div>
+  );
+
+  // Enhanced Icons with better styling
   const Icons = {
-    email: (
-      <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-gray-400" viewBox="0 0 20 20" fill="currentColor">
-        <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z" />
-        <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z" />
-      </svg>
-    ),
-    name: (
-      <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-gray-400" viewBox="0 0 20 20" fill="currentColor">
-        <path fillRule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clipRule="evenodd" />
-      </svg>
-    ),
-    leetcode: (
-      <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-gray-400" viewBox="0 0 24 24" fill="currentColor">
-        <path d="M13.483 0a1.374 1.374 0 0 0-.961.438L7.116 6.226l-4.535.81a1.382 1.382 0 0 0-.845 2.34L5.484 12 .193 16.646a1.384 1.384 0 0 0 .414 2.231l4.815 2.247 2.231 4.815a1.382 1.382 0 0 0 2.231.414L12 17.485l4.354 5.291a1.383 1.383 0 0 0 2.34-.845l.81-4.535 5.788-5.406a1.374 1.374 0 0 0 .438-.961 1.392 1.392 0 0 0-.438-.961L13.483 0z"/>
-      </svg>
-    ),
-    github: (
-      <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-gray-400" viewBox="0 0 24 24" fill="currentColor">
-        <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
-      </svg>
-    ),
-    geeksforgeeks: (
-      <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-gray-400" viewBox="0 0 24 24" fill="currentColor">
-        <path d="M11.445 21.832a1.034 1.034 0 0 1-.765-.352L.411 10.101a1.035 1.035 0 0 1 0-1.414l9.85-9.85a1.04 1.04 0 0 1 1.414 0l9.85 9.85a1.035 1.035 0 0 1 0 1.414l-9.85 9.85a1.034 1.034 0 0 1-.765.352l-1.465-.001z"/>
-      </svg>
-    )
+    email: <Mail className="w-5 h-5 text-gray-400" />,
+    name: <User className="w-5 h-5 text-gray-400" />,
+    leetcode: <Code className="w-5 h-5 text-gray-400" />,
+    github: <Github className="w-5 h-5 text-gray-400" />,
+    geeksforgeeks: <BookOpen className="w-5 h-5 text-gray-400" />
   };
 
-  // Platform logos and colors
+  // Enhanced platform configurations
   const platforms = [
-    { name: 'LeetCode', icon: Icons.leetcode, fieldName: 'leetcode', color: 'from-yellow-400 to-orange-500' },
-    { name: 'GitHub', icon: Icons.github, fieldName: 'github', color: 'from-indigo-400 to-indigo-600' },
-    { name: 'GeeksforGeeks', icon: Icons.geeksforgeeks, fieldName: 'geeksforgeeks', color: 'from-emerald-400 to-emerald-600' }
+    { 
+      name: 'LeetCode', 
+      icon: Icons.leetcode, 
+      fieldName: 'leetcode', 
+      gradient: 'from-yellow-400 via-orange-400 to-red-500',
+      hoverGradient: 'from-yellow-300 via-orange-300 to-red-400'
+    },
+    { 
+      name: 'GitHub', 
+      icon: Icons.github, 
+      fieldName: 'github', 
+      gradient: 'from-gray-700 via-gray-600 to-gray-800',
+      hoverGradient: 'from-gray-600 via-gray-500 to-gray-700'
+    },
+    { 
+      name: 'GeeksforGeeks', 
+      icon: Icons.geeksforgeeks, 
+      fieldName: 'geeksforgeeks', 
+      gradient: 'from-green-400 via-emerald-400 to-teal-500',
+      hoverGradient: 'from-green-300 via-emerald-300 to-teal-400'
+    }
   ];
 
-  // Animation variants
+  // Enhanced animation variants
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
       transition: {
-        staggerChildren: 0.1,
-        delayChildren: 0.2
+        staggerChildren: 0.15,
+        delayChildren: 0.3
       }
     }
   };
 
   const itemVariants = {
-    hidden: { y: 20, opacity: 0 },
+    hidden: { y: 30, opacity: 0 },
     visible: {
       y: 0,
       opacity: 1,
       transition: {
         type: "spring",
-        stiffness: 260,
-        damping: 20
+        stiffness: 100,
+        damping: 15
       }
     }
   };
 
-  // Reusable input field component
+  // Enhanced Profile Field Component
   const ProfileField = ({ 
     label, 
     name, 
@@ -129,14 +151,15 @@ const UserProfile = () => {
     isImportant = false
   }) => (
     <motion.div 
-      className={`mb-4 ${isImportant ? 'col-span-2' : ''}`}
+      className={`mb-6 ${isImportant ? 'col-span-2' : ''}`}
       variants={itemVariants}
+      whileHover={{ y: -2 }}
     >
-      <label className={`block text-sm font-medium mb-2 ${isDarkMode ? 'text-gray-100' : 'text-gray-900'}`}>
+      <label className={`block text-sm font-semibold mb-3 ${isDarkMode ? 'text-slate-200' : 'text-gray-800'}`}>
         {label}
       </label>
-      <div className="relative">
-        <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+      <div className="relative group">
+        <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none z-10">
           {icon}
         </div>
         <input 
@@ -147,45 +170,76 @@ const UserProfile = () => {
           disabled={disabled}
           placeholder={placeholder}
           className={`
-            w-full pl-10 pr-3 py-3 rounded-lg transition-all duration-300
-            focus:ring-2 focus:outline-none
+            w-full pl-12 pr-4 py-4 rounded-2xl transition-all duration-300 backdrop-blur-sm
+            focus:ring-2 focus:outline-none border-2 font-medium
             ${isDarkMode 
-              ? 'bg-zinc-800 text-gray-100 border-zinc-700 focus:ring-indigo-400' 
-              : 'bg-white text-gray-900 border border-gray-300 focus:ring-indigo-600'}
+              ? 'bg-slate-800/60 text-slate-100 border-slate-700/60 focus:ring-purple-400/50 focus:border-purple-400/50' 
+              : 'bg-white/80 text-gray-900 border-gray-200/60 focus:ring-purple-500/50 focus:border-purple-500/50'}
             ${disabled 
               ? 'cursor-not-allowed opacity-70' 
-              : 'cursor-text'}
+              : 'cursor-text hover:border-purple-400/40 group-hover:shadow-lg'}
           `}
         />
       </div>
     </motion.div>
   );
 
-  // Platform link card component
+  // Enhanced Platform Card Component
   const PlatformCard = ({ platform, profileValue, isEditing, onChange }) => (
     <motion.div 
       variants={itemVariants}
       className="col-span-1"
+      whileHover={{ y: -8, scale: 1.02 }}
+      transition={{ type: "spring", stiffness: 300, damping: 20 }}
     >
       <div className={`
-        relative rounded-xl overflow-hidden shadow-lg h-32
-        ${isDarkMode ? 'bg-zinc-800' : 'bg-white'}
+        relative rounded-3xl overflow-hidden shadow-xl h-40 group cursor-pointer
+        transition-all duration-500 backdrop-blur-sm border-2
+        ${isDarkMode 
+          ? 'bg-slate-800/60 border-slate-700/60 hover:border-purple-400/50' 
+          : 'bg-white/80 border-gray-200/60 hover:border-purple-500/50'}
       `}>
+        {/* Enhanced gradient overlay */}
         <div className={`
-          absolute top-0 left-0 w-full h-full opacity-40 bg-gradient-to-br ${platform.color}
-        `}></div>
+          absolute inset-0 bg-gradient-to-br ${platform.gradient} opacity-10
+          group-hover:opacity-20 transition-opacity duration-500
+        `} />
         
-        <div className="absolute top-0 left-0 w-full h-full p-4 flex flex-col justify-between">
-          <div className="flex items-center space-x-2">
+        {/* Floating dots inside card */}
+        <div className="absolute inset-0 overflow-hidden">
+          {[...Array(3)].map((_, i) => (
+            <div
+              key={i}
+              className={`absolute w-2 h-2 rounded-full bg-gradient-to-r ${platform.gradient} opacity-30
+                animate-pulse`}
+              style={{
+                top: `${20 + i * 25}%`,
+                right: `${10 + i * 15}%`,
+                animationDelay: `${i * 0.5}s`,
+                animationDuration: `${3 + i}s`
+              }}
+            />
+          ))}
+        </div>
+        
+        <div className="relative z-10 p-6 h-full flex flex-col justify-between">
+          <div className="flex items-center space-x-3">
             <div className={`
-              w-8 h-8 rounded-full flex items-center justify-center
-              ${isDarkMode ? 'bg-zinc-700' : 'bg-gray-100'}
+              w-12 h-12 rounded-2xl flex items-center justify-center transition-all duration-300
+              group-hover:scale-110 bg-gradient-to-br ${platform.gradient}
             `}>
-              {platform.icon}
+              <div className="text-white">
+                {platform.icon}
+              </div>
             </div>
-            <h3 className={`font-bold ${isDarkMode ? 'text-gray-100' : 'text-gray-900'}`}>
-              {platform.name}
-            </h3>
+            <div>
+              <h3 className={`font-bold text-lg ${isDarkMode ? 'text-slate-100' : 'text-gray-900'}`}>
+                {platform.name}
+              </h3>
+              <div className={`text-sm ${isDarkMode ? 'text-slate-400' : 'text-gray-500'}`}>
+                Connect your profile
+              </div>
+            </div>
           </div>
           
           {isEditing ? (
@@ -196,22 +250,28 @@ const UserProfile = () => {
               onChange={onChange}
               placeholder={`${platform.name} username`}
               className={`
-                w-full py-2 px-3 rounded-lg
+                w-full py-3 px-4 rounded-xl transition-all duration-300 border-2
                 ${isDarkMode 
-                  ? 'bg-zinc-800 text-gray-100 border-zinc-700' 
-                  : 'bg-white text-gray-900 border-gray-300'}
-                border transition-colors duration-300
+                  ? 'bg-slate-800/80 text-slate-100 border-slate-600/60 focus:border-purple-400/50' 
+                  : 'bg-white/90 text-gray-900 border-gray-300/60 focus:border-purple-500/50'}
+                focus:outline-none focus:ring-2 focus:ring-purple-400/30
               `}
             />
           ) : (
             <div className={`
-              ${isDarkMode ? 'text-zinc-300' : 'text-gray-600'}
-              truncate
+              text-sm font-medium truncate px-3 py-2 rounded-xl
+              ${isDarkMode ? 'text-slate-300 bg-slate-700/40' : 'text-gray-600 bg-gray-100/60'}
             `}>
               {profileValue ? (
-                <span>{profileValue}</span>
+                <span className="flex items-center">
+                  <Check className="w-4 h-4 mr-2 text-green-500" />
+                  {profileValue}
+                </span>
               ) : (
-                <span className="text-gray-400 italic">Not set</span>
+                <span className="text-gray-400 italic flex items-center">
+                  <X className="w-4 h-4 mr-2" />
+                  Not connected
+                </span>
               )}
             </div>
           )}
@@ -222,76 +282,193 @@ const UserProfile = () => {
 
   return (
     <div 
-      className={`pt-32
-        min-h-screen flex items-center justify-center p-4 transition-colors duration-300
+      className={`
+        min-h-screen flex items-center justify-center p-4 pt-24 pb-12 
+        transition-all duration-700 ease-in-out overflow-hidden
         ${isDarkMode 
-          ? 'bg-black text-gray-100' 
-          : 'bg-white text-gray-900'}
+          ? 'bg-slate-900' 
+          : 'bg-gray-50'}
       `}
     >
+      {/* Enhanced Flowing Background Pattern */}
+      <div className="absolute inset-0 overflow-hidden">
+        <svg
+          className="absolute inset-0 w-full h-full"
+          viewBox="0 0 1440 900"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <defs>
+            <linearGradient id="profileGradient1" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stopColor={isDarkMode ? "rgba(99, 102, 241, 0.1)" : "rgba(139, 92, 246, 0.08)"} />
+              <stop offset="100%" stopColor={isDarkMode ? "rgba(139, 92, 246, 0.05)" : "rgba(99, 102, 241, 0.05)"} />
+            </linearGradient>
+            <linearGradient id="profileGradient2" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stopColor={isDarkMode ? "rgba(139, 92, 246, 0.08)" : "rgba(59, 130, 246, 0.06)"} />
+              <stop offset="100%" stopColor={isDarkMode ? "rgba(59, 130, 246, 0.04)" : "rgba(139, 92, 246, 0.04)"} />
+            </linearGradient>
+          </defs>
+
+          <path
+            d="M0,450 Q360,250 720,400 T1440,350 L1440,900 L0,900 Z"
+            fill="url(#profileGradient1)"
+            className="animate-pulse"
+            style={{ animationDuration: "8s" }}
+          />
+          <path
+            d="M0,550 Q360,350 720,500 T1440,450 L1440,900 L0,900 Z"
+            fill="url(#profileGradient2)"
+            className="animate-pulse"
+            style={{ animationDuration: "12s", animationDelay: "2s" }}
+          />
+        </svg>
+
+        {/* Enhanced floating elements */}
+        <FloatingElement delay={0} duration={6} className="top-24 left-20">
+          <div className={`w-4 h-4 rounded-full bg-gradient-to-r from-purple-400 to-blue-400`}
+            style={{
+              boxShadow: isDarkMode ? "0 0 25px rgba(139, 92, 246, 0.6)" : "0 0 20px rgba(139, 92, 246, 0.4)",
+            }}
+          />
+        </FloatingElement>
+
+        <FloatingElement delay={2} duration={8} className="top-32 right-24">
+          <div className={`w-3 h-3 rounded-full bg-gradient-to-r from-blue-400 to-cyan-400`}
+            style={{
+              boxShadow: isDarkMode ? "0 0 20px rgba(59, 130, 246, 0.7)" : "0 0 15px rgba(59, 130, 246, 0.5)",
+            }}
+          />
+        </FloatingElement>
+
+        <FloatingElement delay={4} duration={10} className="bottom-40 left-32">
+          <div className={`w-5 h-5 rounded-full bg-gradient-to-r from-emerald-400 to-teal-400`}
+            style={{
+              boxShadow: isDarkMode ? "0 0 30px rgba(52, 211, 153, 0.5)" : "0 0 25px rgba(52, 211, 153, 0.3)",
+            }}
+          />
+        </FloatingElement>
+
+        {/* Additional floating elements */}
+        {[...Array(8)].map((_, i) => (
+          <FloatingElement
+            key={i}
+            delay={i * 0.8}
+            duration={6 + i * 0.5}
+            className={`opacity-40`}
+            style={{
+              top: `${15 + i * 8}%`,
+              left: `${8 + i * 10}%`,
+            }}
+          >
+            <div
+              className={`w-2 h-2 rounded-full bg-gradient-to-r from-purple-400 to-blue-400`}
+              style={{
+                boxShadow: isDarkMode ? "0 0 15px rgba(139, 92, 246, 0.4)" : "0 0 10px rgba(139, 92, 246, 0.3)",
+              }}
+            />
+          </FloatingElement>
+        ))}
+      </div>
+
       <motion.div 
         className={`
-          w-full max-w-4xl rounded-2xl shadow-2xl p-6 relative overflow-hidden
+          w-full max-w-6xl rounded-3xl shadow-2xl p-8 relative overflow-hidden backdrop-blur-sm border-2
           ${isDarkMode 
-            ? 'bg-zinc-900' 
-            : 'bg-white'}
+            ? 'bg-slate-800/60 border-slate-700/60' 
+            : 'bg-white/80 border-gray-200/60'}
         `}
-        initial={{ scale: 0.95, opacity: 0 }}
-        animate={{ scale: 1, opacity: 1 }}
-        transition={{ type: "spring", stiffness: 260, damping: 20 }}
+        initial={{ scale: 0.95, opacity: 0, y: 20 }}
+        animate={{ scale: 1, opacity: 1, y: 0 }}
+        transition={{ type: "spring", stiffness: 100, damping: 15, delay: 0.1 }}
       >
-        {/* Background gradient effect */}
-        <div className={`absolute -top-24 -right-24 w-64 h-64 rounded-full ${isDarkMode ? 'bg-indigo-500' : 'bg-indigo-600'} opacity-20 blur-3xl`}></div>
-        <div className={`absolute -bottom-32 -left-32 w-80 h-80 rounded-full ${isDarkMode ? 'bg-emerald-500' : 'bg-emerald-600'} opacity-10 blur-3xl`}></div>
+        {/* Enhanced background effects */}
+        <div className={`absolute -top-32 -right-32 w-80 h-80 rounded-full bg-gradient-to-br from-purple-500 to-blue-500 opacity-5 blur-3xl`} />
+        <div className={`absolute -bottom-40 -left-40 w-96 h-96 rounded-full bg-gradient-to-br from-emerald-500 to-teal-500 opacity-5 blur-3xl`} />
         
-        {/* Theme Toggle Button removed as it's now managed by ThemeContext */}
-        
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 relative z-10">
-          {/* Profile Header */}
+        <div className="relative z-10">
+          {/* Enhanced Profile Header */}
           <motion.div 
-            className="md:col-span-3 text-center mb-2"
-            initial={{ opacity: 0, y: -20 }}
+            className="text-center mb-12"
+            initial={{ opacity: 0, y: -30 }}
             animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.2 }}
           >
-            <h2 className={`text-3xl font-extrabold ${isDarkMode ? 'text-gray-100' : 'text-gray-900'}`}>
-              Developer Profile
-            </h2>
-            <p className={`mt-2 ${isDarkMode ? 'text-zinc-300' : 'text-gray-700'}`}>
+            <div className={`inline-flex items-center px-6 py-3 rounded-full text-sm font-medium mb-6 
+              backdrop-blur-sm border transition-all duration-300
+              ${isDarkMode
+                ? "bg-slate-800/70 border-slate-700/60 text-purple-300"
+                : "bg-white/90 border-purple-200/60 text-purple-700"
+              }`}
+            >
+              <div className={`w-2.5 h-2.5 rounded-full mr-3 ${isDarkMode ? "bg-purple-400" : "bg-purple-500"}`} />
+              <span className="font-semibold">Profile Settings</span>
+            </div>
+            
+            <h1 className={`text-4xl md:text-5xl font-bold mb-4 ${isDarkMode ? 'text-white' : 'text-gray-900'}`}>
+              Developer
+              <span className={`
+                ml-3 bg-gradient-to-r bg-clip-text text-transparent
+                ${isDarkMode ? "from-purple-400 via-blue-400 to-cyan-400" : "from-purple-600 via-blue-600 to-indigo-600"}
+              `}>
+                Profile
+              </span>
+            </h1>
+            <p className={`text-lg ${isDarkMode ? 'text-slate-300' : 'text-gray-600'}`}>
               Manage your personal information and connected platforms
             </p>
           </motion.div>
 
           <motion.div 
-            className="md:col-span-3"
             variants={containerVariants}
             initial="hidden"
             animate="visible"
           >
-            {/* User Info Card */}
+            {/* Enhanced User Info Card */}
             <motion.div 
               className={`
-                rounded-xl overflow-hidden mb-6 shadow-lg
-                ${isDarkMode ? 'bg-zinc-800' : 'bg-white'}
+                rounded-3xl overflow-hidden mb-8 shadow-xl backdrop-blur-sm border-2
+                ${isDarkMode ? 'bg-slate-800/60 border-slate-700/60' : 'bg-white/80 border-gray-200/60'}
               `}
               variants={itemVariants}
+              whileHover={{ y: -4 }}
             >
               <div className={`
-                h-24 bg-gradient-to-r from-indigo-400 to-indigo-600 relative
+                h-32 bg-gradient-to-r from-purple-600 via-blue-600 to-indigo-600 relative overflow-hidden
               `}>
-                <div className="absolute -bottom-10 left-6">
-                  <div className={`
-                    w-20 h-20 rounded-full border-4 shadow-lg flex items-center justify-center text-2xl
-                    ${isDarkMode 
-                      ? 'bg-zinc-800 border-zinc-800' 
-                      : 'bg-white border-white'}
-                  `}>
+                {/* Animated background pattern */}
+                <div className="absolute inset-0 opacity-20">
+                  {[...Array(6)].map((_, i) => (
+                    <div
+                      key={i}
+                      className="absolute w-4 h-4 rounded-full bg-white animate-pulse"
+                      style={{
+                        top: `${20 + i * 15}%`,
+                        left: `${10 + i * 15}%`,
+                        animationDelay: `${i * 0.3}s`,
+                        animationDuration: `${2 + i * 0.5}s`
+                      }}
+                    />
+                  ))}
+                </div>
+                
+                <div className="absolute -bottom-12 left-8">
+                  <motion.div 
+                    className={`
+                      w-24 h-24 rounded-3xl border-4 shadow-2xl flex items-center justify-center text-3xl font-bold
+                      ${isDarkMode 
+                        ? 'bg-slate-800 border-slate-800' 
+                        : 'bg-white border-white'}
+                    `}
+                    whileHover={{ scale: 1.1, rotate: 5 }}
+                    transition={{ type: "spring", stiffness: 300, damping: 20 }}
+                  >
                     {profile.name ? profile.name.charAt(0).toUpperCase() : '👤'}
-                  </div>
+                  </motion.div>
                 </div>
               </div>
               
-              <div className="p-6 pt-12">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div className="p-8 pt-16">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <ProfileField 
                     label="Full Name"
                     name="name"
@@ -304,7 +481,7 @@ const UserProfile = () => {
                   />
                   
                   <ProfileField 
-                    label="Email (Cannot be changed)"
+                    label="Email Address (Cannot be changed)"
                     name="email"
                     value={profile.email}
                     onChange={handleInputChange}
@@ -316,14 +493,14 @@ const UserProfile = () => {
               </div>
             </motion.div>
 
-            {/* Connected Platforms Section */}
-            <motion.div variants={itemVariants}>
-              <h3 className={`text-xl font-bold mb-4 ${isDarkMode ? 'text-gray-100' : 'text-gray-900'}`}>
+            {/* Enhanced Connected Platforms Section */}
+            <motion.div variants={itemVariants} className="mb-8">
+              <h2 className={`text-2xl font-bold mb-6 ${isDarkMode ? 'text-white' : 'text-gray-900'}`}>
                 Connected Platforms
-              </h3>
+              </h2>
             </motion.div>
             
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
               {platforms.map((platform) => (
                 <PlatformCard
                   key={platform.fieldName}
@@ -335,9 +512,9 @@ const UserProfile = () => {
               ))}
             </div>
 
-            {/* Action Buttons */}
+            {/* Enhanced Action Buttons */}
             <motion.div 
-              className="flex justify-end mt-8"
+              className="flex justify-center gap-4"
               variants={itemVariants}
             >
               {!isEditing ? (
@@ -347,30 +524,35 @@ const UserProfile = () => {
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
                   className={`
-                    px-6 py-3 rounded-full font-medium transition-all duration-300
+                    flex items-center px-8 py-4 rounded-2xl font-semibold text-lg
+                    transition-all duration-300 shadow-xl backdrop-blur-sm
                     ${isDarkMode 
-                      ? 'bg-zinc-800/50 text-indigo-300 hover:bg-zinc-800' 
-                      : 'bg-indigo-600 text-white hover:bg-indigo-700'}
-                    shadow-lg
+                      ? 'bg-gradient-to-r from-purple-600 to-blue-600 text-white hover:from-purple-500 hover:to-blue-500' 
+                      : 'bg-gradient-to-r from-purple-600 to-blue-600 text-white hover:from-purple-700 hover:to-blue-700'}
                   `}
+                  style={{
+                    boxShadow: isDarkMode ? "0 10px 40px rgba(139, 92, 246, 0.3)" : "0 10px 40px rgba(139, 92, 246, 0.2)",
+                  }}
                 >
+                  <Edit2 className="w-5 h-5 mr-3" />
                   Edit Profile
                 </motion.button>
               ) : (
-                <div className="flex space-x-3">
+                <div className="flex gap-4">
                   <motion.button 
                     type="button"
                     onClick={() => setIsEditing(false)}
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
                     className={`
-                      px-6 py-3 rounded-full font-medium transition-all duration-300
+                      flex items-center px-8 py-4 rounded-2xl font-semibold text-lg
+                      transition-all duration-300 shadow-lg backdrop-blur-sm border-2
                       ${isDarkMode 
-                        ? 'bg-zinc-800/30 text-zinc-300 border border-zinc-700 hover:bg-zinc-800' 
-                        : 'bg-white text-indigo-600 border border-indigo-600 hover:bg-gray-50'}
-                      shadow-md
+                        ? 'bg-slate-800/60 text-slate-300 border-slate-700/60 hover:bg-slate-800' 
+                        : 'bg-white/80 text-gray-600 border-gray-300/60 hover:bg-gray-50'}
                     `}
                   >
+                    <X className="w-5 h-5 mr-3" />
                     Cancel
                   </motion.button>
                   <motion.button 
@@ -379,13 +561,17 @@ const UserProfile = () => {
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
                     className={`
-                      px-6 py-3 rounded-full font-medium transition-all duration-300
+                      flex items-center px-8 py-4 rounded-2xl font-semibold text-lg
+                      transition-all duration-300 shadow-xl backdrop-blur-sm
                       ${isDarkMode 
-                        ? 'bg-zinc-800/50 text-emerald-300 hover:bg-zinc-800' 
-                        : 'bg-emerald-600 text-white hover:bg-emerald-700'}
-                      shadow-lg
+                        ? 'bg-gradient-to-r from-emerald-600 to-teal-600 text-white hover:from-emerald-500 hover:to-teal-500' 
+                        : 'bg-gradient-to-r from-emerald-600 to-teal-600 text-white hover:from-emerald-700 hover:to-teal-700'}
                     `}
+                    style={{
+                      boxShadow: isDarkMode ? "0 10px 40px rgba(52, 211, 153, 0.3)" : "0 10px 40px rgba(52, 211, 153, 0.2)",
+                    }}
                   >
+                    <Save className="w-5 h-5 mr-3" />
                     Save Changes
                   </motion.button>
                 </div>
@@ -394,6 +580,24 @@ const UserProfile = () => {
           </motion.div>
         </div>
       </motion.div>
+
+      {/* Enhanced Custom CSS for animations */}
+      <style jsx>{`
+        @keyframes float {
+          0%, 100% {
+            transform: translateY(0px) translateX(0px) scale(1);
+          }
+          25% {
+            transform: translateY(-15px) translateX(8px) scale(1.05);
+          }
+          50% {
+            transform: translateY(-8px) translateX(-8px) scale(0.95);
+          }
+          75% {
+            transform: translateY(-20px) translateX(5px) scale(1.02);
+          }
+        }
+      `}</style>
     </div>
   );
 };

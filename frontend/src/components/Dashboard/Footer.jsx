@@ -8,9 +8,10 @@ const Footer = () => {
 
   return (
     <footer
-      className={`
-        ${isDarkMode ? "bg-slate-950 text-gray-100" : "bg-white text-gray-900"}
-        py-12 transition-colors duration-500 relative z-10
+       className={`
+        max-h-fit py-6 px-2 sm:px-6 lg:px-8
+        ${isDarkMode ? "bg-slate-900 text-gray-100" : "bg-gray-50 text-gray-900"}
+        transition-colors duration-300
       `}
     >
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">

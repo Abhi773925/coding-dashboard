@@ -1,107 +1,191 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+"use client"
+
+import { useState, useEffect } from "react"
+import axios from "axios"
+import { useTheme } from "../context/ThemeContext"
+import { Zap, Award, AlertTriangle, Loader2 } from "lucide-react" // Using Lucide React icons
+import { motion } from "framer-motion" // Import motion for animations
 
 const Streak = () => {
+  const { isDarkMode } = useTheme()
   const [streak, setStreak] = useState({
     currentStreak: 0,
-    longestStreak: 0
-  });
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+    longestStreak: 0,
+  })
+  const [loading, setLoading] = useState(true)
+  const [error, setError] = useState(null)
 
   // Configure axios base URL for backend
-  axios.defaults.baseURL = 'https://coding-dashboard-ngwi.onrender.com/api';
+  axios.defaults.baseURL = "https://coding-dashboard-ngwi.onrender.com/api"
 
   useEffect(() => {
     const fetchStreak = async () => {
       try {
-        const userEmail = localStorage.getItem('userEmail');
+        const userEmail = localStorage.getItem("userEmail")
         if (!userEmail) {
-          throw new Error('No user email found');
+          throw new Error("No user email found. Please log in.")
         }
-
-        const response = await axios.get('/streak', {
-          params: { email: userEmail }
-        });
-
-        setStreak(response.data);
-        setLoading(false);
+        const response = await axios.get("/streak", {
+          params: { email: userEmail },
+        })
+        setStreak(response.data)
+        setLoading(false)
       } catch (err) {
-        setError(err.message);
-        setLoading(false);
+        setError(err.message)
+        setLoading(false)
       }
-    };
-
-    fetchStreak();
-  }, []);
+    }
+    fetchStreak()
+  }, [])
 
   const handleUpdateStreak = async () => {
     try {
-      const userEmail = localStorage.getItem('userEmail');
+      const userEmail = localStorage.getItem("userEmail")
       if (!userEmail) {
-        throw new Error('No user email found');
+        throw new Error("No user email found. Please log in.")
       }
-
-      const response = await axios.post('/streak/update', { 
-        email: userEmail 
-      });
-
-      setStreak(response.data);
+      // Optimistic update
+      setStreak((prev) => ({
+        ...prev,
+        currentStreak: prev.currentStreak + 1, // Assume success for immediate feedback
+      }))
+      const response = await axios.post("/streak/update", {
+        email: userEmail,
+      })
+      setStreak(response.data) // Update with actual data from server
     } catch (err) {
-      setError(err.message);
+      setError(err.message)
+      // Revert optimistic update if error occurs
+      setStreak((prev) => ({
+        ...prev,
+        currentStreak: prev.currentStreak > 0 ? prev.currentStreak - 1 : 0,
+      }))
+      setError(err.message)
     }
-  };
+  }
 
-  if (loading) return (
-    <div className="w-full max-w-md mx-auto p-4 bg-gray-100 rounded-lg animate-pulse">
-      Loading streak...
-    </div>
-  );
+  // Framer Motion Variants
+  const cardVariants = {
+    hidden: { opacity: 0, y: 50, scale: 0.9 },
+    visible: { opacity: 1, y: 0, scale: 1, transition: { duration: 0.6, ease: "easeOut" } },
+  }
 
-  if (error) return (
-    <div className="w-full max-w-md mx-auto p-4 bg-red-100 text-red-800 rounded-lg">
-      Error: {error}
-    </div>
-  );
+  const itemVariants = {
+    hidden: { opacity: 0, x: -20 },
+    visible: { opacity: 1, x: 0, transition: { duration: 0.4, ease: "easeOut", delay: 0.3 } },
+  }
+
+  if (loading)
+    return (
+      <div
+        className={`w-full max-w-md mx-auto p-6 rounded-2xl shadow-lg flex items-center justify-center h-48
+          ${isDarkMode ? "bg-slate-800/70 text-slate-300" : "bg-white/80 text-gray-700"}
+          transition-colors duration-500 border ${isDarkMode ? "border-slate-700" : "border-gray-200"}`}
+      >
+        <Loader2 className="animate-spin mr-3 text-purple-500" size={24} />
+        <span className="font-medium">Loading streak...</span>
+      </div>
+    )
+
+  if (error)
+    return (
+      <div
+        className={`w-full max-w-md mx-auto p-6 rounded-2xl shadow-lg flex flex-col items-center justify-center h-48 text-center
+          ${isDarkMode ? "bg-red-900/50 border border-red-700/50 text-red-300" : "bg-red-50/80 border border-red-200/50 text-red-700"}
+          transition-colors duration-500`}
+      >
+        <AlertTriangle className="mb-3 text-red-500" size={32} />
+        <p className="font-semibold mb-2">Error loading streak:</p>
+        <p className="text-sm">{error}</p>
+      </div>
+    )
 
   return (
-    <div className="w-full max-w-md mx-auto bg-white shadow-md rounded-lg overflow-hidden">
-      <div className="px-6 py-4 bg-gray-50 border-b border-gray-200 flex items-center justify-between">
-        <h2 className="text-xl font-bold text-gray-800">Coding Streak</h2>
-        <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-orange-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
-        </svg>
+    <motion.div
+      className={`w-full max-w-md mx-auto rounded-2xl shadow-xl overflow-hidden
+        ${isDarkMode ? "bg-slate-800/70 border border-slate-700/50" : "bg-white/80 border border-gray-200/50"}
+        transition-colors duration-500`}
+      variants={cardVariants}
+      initial="hidden"
+      animate="visible"
+      whileHover={{
+        scale: 1.01,
+        boxShadow: isDarkMode ? "0 20px 40px rgba(0,0,0,0.4)" : "0 20px 40px rgba(0,0,0,0.15)",
+      }}
+      transition={{ type: "spring", stiffness: 300, damping: 20 }}
+      style={{
+        boxShadow: isDarkMode ? "0 15px 40px rgba(0,0,0,0.4)" : "0 15px 40px rgba(0,0,0,0.1)",
+      }}
+    >
+      <div
+        className={`px-6 py-4 flex items-center justify-between
+          ${isDarkMode ? "bg-slate-700/50 border-b border-slate-600/50" : "bg-gray-100/50 border-b border-gray-200/50"}`}
+      >
+        <h2
+          className={`text-2xl font-bold
+            bg-clip-text text-transparent
+            ${isDarkMode ? "bg-gradient-to-r from-orange-400 to-yellow-400" : "bg-gradient-to-r from-orange-600 to-yellow-600"}`}
+        >
+          Coding Streak
+        </h2>
+        <Zap className="text-orange-500" size={28} />
       </div>
-      <div className="p-6">
-        <div className="flex justify-between items-center mb-4">
-          <div>
-            <p className="text-sm text-gray-600 mb-2">Current Streak</p>
-            <div className="flex items-center">
-              <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2 text-orange-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
-              </svg>
-              <span className="text-2xl font-bold text-gray-800">{streak.currentStreak} days</span>
+
+      <div className="p-6 space-y-6">
+        <div className="grid grid-cols-2 gap-4">
+          <motion.div
+            variants={itemVariants}
+            className={`p-4 rounded-lg text-center
+              ${isDarkMode ? "bg-slate-700" : "bg-gray-100"}`}
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+          >
+            <p className={`text-sm font-medium mb-2 ${isDarkMode ? "text-slate-300" : "text-gray-600"}`}>
+              Current Streak
+            </p>
+            <div className="flex flex-col items-center">
+              <Zap className="text-orange-500 mb-2" size={32} />
+              <span className={`text-4xl font-extrabold ${isDarkMode ? "text-white" : "text-gray-900"}`}>
+                {streak.currentStreak}
+              </span>
+              <span className={`text-sm ${isDarkMode ? "text-slate-400" : "text-gray-500"}`}>days</span>
             </div>
-          </div>
-          <div>
-            <p className="text-sm text-gray-600 mb-2">Longest Streak</p>
-            <div className="flex items-center">
-              <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2 text-yellow-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
-              </svg>
-              <span className="text-2xl font-bold text-gray-800">{streak.longestStreak} days</span>
+          </motion.div>
+
+          <motion.div
+            variants={itemVariants}
+            className={`p-4 rounded-lg text-center
+              ${isDarkMode ? "bg-slate-700" : "bg-gray-100"}`}
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+          >
+            <p className={`text-sm font-medium mb-2 ${isDarkMode ? "text-slate-300" : "text-gray-600"}`}>
+              Longest Streak
+            </p>
+            <div className="flex flex-col items-center">
+              <Award className="text-yellow-500 mb-2" size={32} />
+              <span className={`text-4xl font-extrabold ${isDarkMode ? "text-white" : "text-gray-900"}`}>
+                {streak.longestStreak}
+              </span>
+              <span className={`text-sm ${isDarkMode ? "text-slate-400" : "text-gray-500"}`}>days</span>
             </div>
-          </div>
+          </motion.div>
         </div>
-        <button 
+
+        <motion.button
           onClick={handleUpdateStreak}
-          className="w-full bg-blue-500 text-white py-2 rounded-md hover:bg-blue-600 transition-colors duration-300 ease-in-out focus:outline-none focus:ring-2 focus:ring-blue-400"
+          className={`w-full py-3 rounded-xl text-white font-semibold text-lg
+            transition-all duration-300 transform hover:scale-[1.02]
+            ${isDarkMode ? "bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700" : "bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700"}
+            shadow-lg ${isDarkMode ? "shadow-purple-900/30" : "shadow-purple-600/30"}`}
+          whileHover={{ y: -2 }}
+          whileTap={{ scale: 0.98 }}
         >
           Log Today's Coding
-        </button>
+        </motion.button>
       </div>
-    </div>
-  );
-};
+    </motion.div>
+  )
+}
 
-export default Streak;
+export default Streak
