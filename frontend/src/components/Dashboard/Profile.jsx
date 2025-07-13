@@ -913,8 +913,15 @@ const Profile = () => {
   if (loading)
     return (
       <div
-        className={`relative min-h-screen flex justify-center items-center pt-24
-          ${isDarkMode ? "bg-slate-950" : "bg-gray-50"} transition-colors duration-500`}
+        className={`flex justify-center items-center
+        min-h-screen transition-all duration-700
+        ${
+          isDarkMode
+          
+            ? "bg-gradient-to-br from-slate-800 via-slate-900 to-slate-800"
+            : "bg-gradient-to-br from-gray-50 via-white to-gray-50"
+        }
+      `}
       >
         <div
           className={`animate-spin rounded-full h-16 w-16 border-t-4 border-b-4
