@@ -5,9 +5,54 @@ import axios from "axios"
 import { Filter, Search, Calendar, Clock, LinkIcon, Youtube, Loader2 } from "lucide-react" // Using Lucide React icons
 import { useTheme } from "../context/ThemeContext"
 
+// New Grid Background Component with subtle animations and gradient
+const GridBackground = ({ isDarkMode }) => {
+  const gridColor = isDarkMode ? "rgba(255, 255, 255, 0.03)" : "rgba(0, 0, 0, 0.03)"
+  const gradientStart = isDarkMode ? "rgba(139, 92, 246, 0.05)" : "rgba(99, 102, 241, 0.05)" // Purple/Indigo
+  const gradientEnd = isDarkMode ? "rgba(59, 130, 246, 0.03)" : "rgba(59, 130, 246, 0.03)" // Blue
+
+  return (
+    <div className="absolute inset-0 overflow-hidden z-0">
+      <svg className="w-full h-full" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <pattern id="grid" width="100" height="100" patternUnits="userSpaceOnUse">
+            <path d="M 100 0 L 0 0 0 100" fill="none" stroke={gridColor} strokeWidth="1" />
+          </pattern>
+          <radialGradient id="radialGradient" cx="50%" cy="50%" r="50%" fx="50%" fy="50%">
+            <stop offset="0%" stopColor={gradientStart} />
+            <stop offset="100%" stopColor={gradientEnd} />
+          </radialGradient>
+        </defs>
+        <rect width="100%" height="100%" fill="url(#grid)" />
+        {/* Subtle radial gradient overlay */}
+        <rect width="100%" height="100%" fill="url(#radialGradient)" opacity="0.5" />
+      </svg>
+      {/* Optional: Add a subtle animation to the grid itself via CSS */}
+      <style jsx>{`
+        @keyframes grid-pan {
+          0% {
+            background-position: 0% 0%;
+          }
+          100% {
+            background-position: 100% 100%;
+          }
+        }
+        .animated-grid {
+          animation: grid-pan 60s linear infinite; /* Slower animation */
+        }
+      `}</style>
+      <div
+        className="absolute inset-0 animated-grid"
+        style={{
+          backgroundImage: `url('data:image/svg+xml;utf8,<svg width="100" height="100" xmlns="http://www.w3.org/2000/svg"><path d="M 100 0 L 0 0 0 100" fill="none" stroke="${encodeURIComponent(gridColor)}" strokeWidth="1"/></svg>')`,
+        }}
+      ></div>
+    </div>
+  )
+}
+
 const ContestTracker = () => {
   const { isDarkMode } = useTheme()
-
   // State Management
   const [contestData, setContestData] = useState({
     contests: [],
@@ -17,26 +62,22 @@ const ContestTracker = () => {
     loading: true,
     error: null,
   })
-
   // Filters State
   const [filters, setFilters] = useState({
     platform: "",
     type: "all",
     search: "",
   })
-
   // Pagination State
   const [pagination, setPagination] = useState({
     currentPage: 1,
     contestsPerPage: 10,
   })
-
   // Fetch Contests
   const fetchContests = async () => {
     setContestData((prev) => ({ ...prev, loading: true, error: null }))
     try {
       const response = await axios.get("https://coding-dashboard-ngwi.onrender.com/api/codingkaro/contests")
-
       setContestData({
         contests: response.data,
         totalContests: response.data.length,
@@ -47,11 +88,9 @@ const ContestTracker = () => {
       })
     } catch (error) {
       console.error("Fetch Error:", error)
-
       const errorMessage = error.response
         ? `Server Error: ${error.response.status}`
         : error.message || "Unknown error occurred"
-
       setContestData((prev) => ({
         ...prev,
         loading: false,
@@ -59,12 +98,10 @@ const ContestTracker = () => {
       }))
     }
   }
-
   // Fetch contests on component mount
   useEffect(() => {
     fetchContests()
   }, [])
-
   // Processed Contests with Memoization
   const processedContests = useMemo(() => {
     return contestData.contests
@@ -81,140 +118,6 @@ const ContestTracker = () => {
       .sort((a, b) => new Date(b.start_time) - new Date(a.start_time))
   }, [contestData.contests, filters])
 
-  // Animated Background Components (copied from HeroSection/Learning)
-  const FloatingElement = ({ delay, duration, children, className }) => (
-    <div
-      className={`absolute opacity-80 ${className}`}
-      style={{
-        animationDelay: `${delay}s`,
-        animationDuration: `${duration}s`,
-        animation: `float ${duration}s ease-in-out infinite`,
-      }}
-    >
-      {children}
-    </div>
-  )
-
-  const FlowingBackground = () => {
-    return (
-      <div className="absolute inset-0 overflow-hidden">
-        <svg
-          className="absolute inset-0 w-full h-full"
-          viewBox="0 0 1440 900"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <defs>
-            <linearGradient id="gradient1" x1="0%" y1="0%" x2="100%" y2="100%">
-              <stop offset="0%" stopColor={isDarkMode ? "rgba(99, 102, 241, 0.15)" : "rgba(139, 92, 246, 0.12)"} />
-              <stop offset="100%" stopColor={isDarkMode ? "rgba(139, 92, 246, 0.08)" : "rgba(99, 102, 241, 0.08)"} />
-            </linearGradient>
-            <linearGradient id="gradient2" x1="0%" y1="0%" x2="100%" y2="100%">
-              <stop offset="0%" stopColor={isDarkMode ? "rgba(139, 92, 246, 0.12)" : "rgba(59, 130, 246, 0.1)"} />
-              <stop offset="100%" stopColor={isDarkMode ? "rgba(59, 130, 246, 0.06)" : "rgba(139, 92, 246, 0.06)"} />
-            </linearGradient>
-            <linearGradient id="gradient3" x1="0%" y1="0%" x2="100%" y2="100%">
-              <stop offset="0%" stopColor={isDarkMode ? "rgba(59, 130, 246, 0.1)" : "rgba(168, 85, 247, 0.08)"} />
-              <stop offset="100%" stopColor={isDarkMode ? "rgba(168, 85, 247, 0.05)" : "rgba(59, 130, 246, 0.05)"} />
-            </linearGradient>
-          </defs>
-
-          {/* Multiple flowing curves for depth */}
-          <path
-            d="M0,450 Q360,250 720,400 T1440,350 L1440,900 L0,900 Z"
-            fill="url(#gradient1)"
-            className="animate-pulse"
-            style={{ animationDuration: "8s" }}
-          />
-          <path
-            d="M0,550 Q360,350 720,500 T1440,450 L1440,900 L0,900 Z"
-            fill="url(#gradient2)"
-            className="animate-pulse"
-            style={{ animationDuration: "12s", animationDelay: "2s" }}
-          />
-          <path
-            d="M0,650 Q360,450 720,600 T1440,550 L1440,900 L0,900 Z"
-            fill="url(#gradient3)"
-            className="animate-pulse"
-            style={{ animationDuration: "10s", animationDelay: "4s" }}
-          />
-        </svg>
-
-        {/* Enhanced floating geometric elements */}
-        <FloatingElement delay={0} duration={6} className="top-24 left-20">
-          <div
-            className={`w-3 h-3 rounded-full ${isDarkMode ? "bg-blue-400" : "bg-purple-400"}`}
-            style={{
-              boxShadow: isDarkMode ? "0 0 25px rgba(59, 130, 246, 0.6)" : "0 0 20px rgba(139, 92, 246, 0.5)",
-            }}
-          />
-        </FloatingElement>
-
-        <FloatingElement delay={2} duration={8} className="top-32 right-24">
-          <div
-            className={`w-2 h-2 rounded-full ${isDarkMode ? "bg-purple-400" : "bg-blue-400"}`}
-            style={{
-              boxShadow: isDarkMode ? "0 0 20px rgba(139, 92, 246, 0.7)" : "0 0 15px rgba(59, 130, 246, 0.6)",
-            }}
-          />
-        </FloatingElement>
-
-        <FloatingElement delay={4} duration={10} className="bottom-40 left-32">
-          <div
-            className={`w-4 h-4 rounded-full ${isDarkMode ? "bg-cyan-400" : "bg-indigo-400"}`}
-            style={{
-              boxShadow: isDarkMode ? "0 0 30px rgba(34, 211, 238, 0.5)" : "0 0 25px rgba(99, 102, 241, 0.4)",
-            }}
-          />
-        </FloatingElement>
-
-        <FloatingElement delay={1} duration={7} className="top-1/3 right-16">
-          <div
-            className={`w-2.5 h-2.5 rounded-full ${isDarkMode ? "bg-pink-400" : "bg-rose-400"}`}
-            style={{
-              boxShadow: isDarkMode ? "0 0 22px rgba(244, 114, 182, 0.6)" : "0 0 18px rgba(251, 113, 133, 0.5)",
-            }}
-          />
-        </FloatingElement>
-
-        <FloatingElement delay={3} duration={9} className="bottom-1/3 right-1/3">
-          <div
-            className={`w-3.5 h-3.5 rounded-full ${isDarkMode ? "bg-emerald-400" : "bg-green-400"}`}
-            style={{
-              boxShadow: isDarkMode ? "0 0 28px rgba(52, 211, 153, 0.5)" : "0 0 22px rgba(34, 197, 94, 0.4)",
-            }}
-          />
-        </FloatingElement>
-
-        <FloatingElement delay={5} duration={11} className="top-1/2 left-1/4">
-          <div
-            className={`w-1.5 h-1.5 rounded-full ${isDarkMode ? "bg-yellow-400" : "bg-orange-400"}`}
-            style={{
-              boxShadow: isDarkMode ? "0 0 18px rgba(251, 191, 36, 0.6)" : "0 0 15px rgba(251, 146, 60, 0.5)",
-            }}
-          />
-        </FloatingElement>
-
-        {/* Additional scattered dots for more depth */}
-        {[...Array(12)].map((_, i) => (
-          <FloatingElement
-            key={i}
-            delay={i * 0.8}
-            duration={6 + i * 0.5}
-            className={`top-${15 + i * 6}% left-${8 + i * 7}%`}
-          >
-            <div
-              className={`w-1 h-1 rounded-full ${isDarkMode ? "bg-slate-400" : "bg-gray-400"} opacity-60`}
-              style={{
-                boxShadow: isDarkMode ? "0 0 8px rgba(148, 163, 184, 0.4)" : "0 0 6px rgba(156, 163, 175, 0.3)",
-              }}
-            />
-          </FloatingElement>
-        ))}
-      </div>
-    )
-  }
-
   // Loading State Render Method
   const renderLoadingState = () => (
     <div className={`flex justify-center items-center h-64 ${isDarkMode ? "text-gray-100" : "text-gray-900"}`}>
@@ -224,7 +127,6 @@ const ContestTracker = () => {
       </div>
     </div>
   )
-
   // Error State Render Method
   const renderErrorState = () => (
     <div
@@ -257,7 +159,6 @@ const ContestTracker = () => {
       </div>
     </div>
   )
-
   // Render Contest Card
   const renderContestCard = (contest) => (
     <div
@@ -337,7 +238,6 @@ const ContestTracker = () => {
       </div>
     </div>
   )
-
   // Filters Render Method
   const renderFilters = () => (
     <div
@@ -392,7 +292,6 @@ const ContestTracker = () => {
       </div>
     </div>
   )
-
   // Pagination Render Method
   const renderPagination = () => {
     const paginatedContests = processedContests.slice(
@@ -400,7 +299,6 @@ const ContestTracker = () => {
       pagination.currentPage * pagination.contestsPerPage,
     )
     const totalPages = Math.ceil(processedContests.length / pagination.contestsPerPage)
-
     return (
       <div className="flex justify-center items-center space-x-4 mt-6">
         <button
@@ -453,7 +351,6 @@ const ContestTracker = () => {
       </div>
     )
   }
-
   // Statistics Render Method
   const renderStatistics = () => (
     <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
@@ -500,19 +397,17 @@ const ContestTracker = () => {
       </div>
     </div>
   )
-
   // Paginated Contests
   const paginatedContests = useMemo(() => {
     const startIndex = (pagination.currentPage - 1) * pagination.contestsPerPage
     const endIndex = startIndex + pagination.contestsPerPage
     return processedContests.slice(startIndex, endIndex)
   }, [processedContests, pagination])
-
   return (
     <div
       className={`relative min-h-screen w-full pt-12 transition-colors duration-300 ${isDarkMode ? "bg-slate-900 text-gray-100" : "bg-gray-50 text-gray-900"}`}
     >
-      {/* <FlowingBackground /> */}
+      <GridBackground isDarkMode={isDarkMode} />
       <div className="relative z-10 max-w-6xl mx-auto p-8">
         <h1
           className={`text-4xl sm:text-5xl md:text-6xl font-bold mb-8 text-center
@@ -522,13 +417,10 @@ const ContestTracker = () => {
         >
           Coding Contest Tracker
         </h1>
-
         {/* Statistics */}
         {renderStatistics()}
-
         {/* Filters */}
         {renderFilters()}
-
         {/* Contest List */}
         <div>
           {contestData.loading ? (
@@ -550,29 +442,10 @@ const ContestTracker = () => {
             </div>
           )}
         </div>
-
         {/* Pagination */}
         {!contestData.loading && !contestData.error && processedContests.length > 0 && renderPagination()}
       </div>
-      <style jsx>{`
-        @keyframes float {
-          0%,
-          100% {
-            transform: translateY(0px) translateX(0px) scale(1);
-          }
-          25% {
-            transform: translateY(-15px) translateX(8px) scale(1.05);
-          }
-          50% {
-            transform: translateY(-8px) translateX(-8px) scale(0.95);
-          }
-          75% {
-            transform: translateY(-20px) translateX(5px) scale(1.02);
-          }
-        }
-      `}</style>
     </div>
   )
 }
-
 export default ContestTracker
