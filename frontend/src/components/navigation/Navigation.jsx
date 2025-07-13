@@ -446,11 +446,11 @@ const MobileMenu = ({ isOpen, onClose, navigationSections }) => {
                   boxShadow: isDarkMode ? "0 8px 25px rgba(139, 92, 246, 0.3)" : "0 8px 25px rgba(139, 92, 246, 0.2)",
                 }}
               >
-                <span className="text-white font-bold text-xl">C</span>
+                <Link to="/" className="text-xl font-bold tracking-tight">
+              <span className="text-white font-bold text-lg">CK</span>
+            </Link>
               </div>
-              <Link to="/" className="text-2xl font-bold">
-                CodingKaro
-              </Link>
+             
             </div>
             <button
               onClick={onClose}
@@ -608,11 +608,11 @@ const Navigation = () => {
             boxShadow: isDarkMode ? "0 8px 25px rgba(139, 92, 246, 0.3)" : "0 8px 25px rgba(139, 92, 246, 0.2)",
           }}
         >
-          <span className="text-white font-bold text-xl">C</span>
+            <Link to="/" className="text-xl font-bold tracking-tight">
+              <span className="text-white font-bold text-lg">CK</span>
+            </Link>
         </div>
-        <Link to="/" className="text-2xl font-bold tracking-tight">
-          CodingKaro
-        </Link>
+        
       </div>
 
       {/* Navigation Sections with Enhanced Dropdowns */}
@@ -746,11 +746,11 @@ const Navigation = () => {
                 boxShadow: isDarkMode ? "0 8px 25px rgba(139, 92, 246, 0.3)" : "0 8px 25px rgba(139, 92, 246, 0.2)",
               }}
             >
-              <span className="text-white font-bold text-lg">C</span>
-            </div>
-            <Link to="/" className="text-xl font-bold tracking-tight">
-              CodingKaro
+              <Link to="/" className="text-xl font-bold tracking-tight">
+              <span className="text-white font-bold text-lg">CK</span>
             </Link>
+            </div>
+            
           </div>
 
           <div className="flex items-center space-x-4">
