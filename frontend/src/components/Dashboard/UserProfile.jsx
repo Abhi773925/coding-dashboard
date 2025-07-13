@@ -534,7 +534,7 @@ const UserProfile = () => {
         </div>
       </div>
 
-      <div className="relative z-10 max-w-7xl mx-auto px-4 py-8">
+      <div className="relative z-10 max-w-7xl mx-auto px-4 py-20">
         {/* Header */}
         <div className="text-center mb-8">
           <div className="relative inline-block">
