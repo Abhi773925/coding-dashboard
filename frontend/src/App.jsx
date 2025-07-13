@@ -17,12 +17,13 @@ import { Import } from 'lucide-react';
 import IdeaStormGame from './components/Card/IdeaStorm';
 import UserProfile from "./components/Dashboard/UserProfile";
 import Dashboard from './components/Dashboard/Dashboard';
+
 function App() {
   return (
     <AuthProvider>
       <ThemeProvider>
         <Router>
-          <Navigation /> {/* Always show the Navbar */}
+          <Navigation />
           <Routes>
           <Route
           path="/"
