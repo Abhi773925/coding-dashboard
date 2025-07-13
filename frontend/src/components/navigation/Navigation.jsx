@@ -653,7 +653,7 @@ const Navigation = () => {
             {openSection === section.name && (
               <div
                 className={`
-                  absolute top-full left-0 mt-3 w-72
+                  absolute top-full left-0  w-72
                   ${isDarkMode ? "bg-slate-800/95 text-slate-200 border-slate-700/50" : "bg-white/95 text-gray-800 border-gray-200/50"}
                   rounded-2xl shadow-2xl border backdrop-blur-md overflow-hidden z-50
                 `}
