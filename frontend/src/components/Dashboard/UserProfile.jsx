@@ -188,7 +188,6 @@ const UserProfile = () => {
   const tabs = [
     { id: "profile", label: "Profile", icon: User },
     { id: "platforms", label: "Platforms", icon: Code },
-    { id: "settings", label: "Settings", icon: Settings },
   ]
 
   const TabButton = ({ tab, isActive, onClick }) => (
