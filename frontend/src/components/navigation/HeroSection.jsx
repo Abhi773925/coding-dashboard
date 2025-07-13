@@ -177,7 +177,7 @@ const HeroSection = () => {
             className={`ml-5 px-4 py-2 rounded-full text-sm font-semibold transition-all duration-300 hover:scale-105
             ${
               isDarkMode
-                ? "bg-yellow-400 text-slate-900 hover:bg-yellow-300"
+                ? "bg-blue-400 text-slate-900 hover:bg-yellow-300"
                 : "bg-purple-600 text-white hover:bg-purple-700"
             }`}
           >
