@@ -138,58 +138,7 @@ const FullStack = () => {
     )
   }
 
-  if (showSetup) {
-    return (
-      <div
-        className={`min-h-screen flex items-center justify-center transition-all duration-300 ${isDarkMode ? "bg-gray-900" : "bg-gray-50"} grid-background`}
-      >
-        <div className="max-w-2xl mx-auto p-6">
-          <div
-            className={`rounded-3xl p-8 shadow-2xl border transition-all duration-300 ${isDarkMode ? "bg-gray-800 border-gray-700" : "bg-white border-gray-200"}`}
-          >
-            <div className="text-center mb-8">
-              <p className={`text-xl ${isDarkMode ? "text-gray-300" : "text-gray-600"}`}>YouTube Playlist Player</p>
-            </div>
-
-            <div className="space-y-6">
-              <div>
-                <label className={`block font-semibold mb-2 ${isDarkMode ? "text-white" : "text-gray-900"}`}>
-                  YouTube API Key
-                </label>
-                <input
-                  type="password"
-                  value={apiKey}
-                  onChange={(e) => setApiKey(e.target.value)}
-                  className={`w-full px-4 py-3 rounded-xl border transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-purple-500 ${isDarkMode ? "bg-gray-700 border-gray-600 text-white placeholder-gray-400" : "bg-white border-gray-300 text-gray-900 placeholder-gray-500"}`}
-                  placeholder="Enter your YouTube Data API v3 key"
-                />
-              </div>
-
-              <button
-                onClick={handleSetup}
-                disabled={loading}
-                className="w-full bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white font-bold py-3 px-6 rounded-xl transition-all duration-300 transform hover:scale-105 disabled:opacity-50"
-              >
-                {loading ? "Loading..." : "Load Playlist"}
-              </button>
-
-              {error && (
-                <div className="bg-red-500/20 border border-red-500/30 rounded-xl p-4">
-                  <p className="text-red-400">{error}</p>
-                </div>
-              )}
-            </div>
-          </div>
-        </div>
-        <style jsx>{`
-          .grid-background {
-            background-image: radial-gradient(circle, ${isDarkMode ? "rgba(255, 255, 255, 0.05)" : "rgba(0, 0, 0, 0.05)"} 1px, transparent 1px);
-            background-size: 20px 20px;
-          }
-        `}</style>
-      </div>
-    )
-  }
+  
 
   return (
     <div
