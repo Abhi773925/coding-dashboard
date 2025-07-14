@@ -18,6 +18,8 @@ import IdeaStormGame from "./components/Card/IdeaStorm";
 import UserProfile from "./components/Dashboard/UserProfile";
 import Dashboard from "./components/Dashboard/Dashboard";
 import FullStack from "./components/fullstack/FullStack";
+import Sql from "./components/interview/Sql";
+import NotesOverview from "./components/interview/NotesOverview";
 
 function App() {
   return (
@@ -70,6 +72,8 @@ function App() {
             />
             <Route path="/explore/learning-paths" element={<Learning />} />
             <Route path="/courses/fullstack" element={<FullStack />} />
+            <Route path="/sql-notes" element={<Sql/>}/>
+            <Route path="/courses/interview-prep" element={<NotesOverview/>}/>
           </Routes>
         </Router>
       </ThemeProvider>
