@@ -3,12 +3,15 @@
 import { useEffect, useState } from "react"
 import { useTheme } from "../context/ThemeContext"
 import { Code, BookOpen, Users, ArrowRight, Rocket, Heart, TrendingUp } from "lucide-react"
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 
 const HeroSection = () => {
   const { isDarkMode } = useTheme()
+  const navigate=useNavigate();
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 })
-
+const handlefullstack=()=>{
+  navigate('/courses/fullstack');
+}
   useEffect(() => {
     const handleMouseMove = (e) => {
       setMousePosition({ x: e.clientX, y: e.clientY })
@@ -169,19 +172,19 @@ const HeroSection = () => {
               : "bg-white/90 border-purple-200/60 text-purple-700"
           }`}
         >
-          <div className={`w-2.5 h-2.5 rounded-full mr-3 ${isDarkMode ? "bg-yellow-400" : "bg-purple-500"}`} />
-          <span className="font-semibold text-base">Beta</span>
+          <div  className={`w-2.5 h-2.5 rounded-full mr-3 ${isDarkMode ? "bg-purple-400" : "bg-purple-500"}`} />
+          <span className="font-semibold text-base">Features</span>
           <span className="mx-3 opacity-60">—</span>
-          <span className="opacity-90">We're actively improving.</span>
-          <button
+          <span className="opacity-90">Full-Stack Playlist Added</span>
+          <button onClick={handlefullstack}
             className={`ml-5 px-4 py-2 rounded-full text-sm font-semibold transition-all duration-300 hover:scale-105
             ${
               isDarkMode
-                ? "bg-blue-400 text-slate-900 hover:bg-yellow-300"
+                ? "bg-blue-400 text-slate-900 hover:bg-purple-700"
                 : "bg-purple-600 text-white hover:bg-purple-700"
             }`}
           >
-            Share Feedback →
+            Check Now →
           </button>
         </div>
 
