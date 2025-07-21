@@ -205,7 +205,7 @@ const handlefullstack=()=>{
             className={`block bg-gradient-to-r bg-clip-text text-transparent
             ${isDarkMode ? "from-purple-400 via-blue-400 to-cyan-400" : "from-purple-600 via-blue-600 to-indigo-600"}`}
           >
-            CODING KARO
+           PREP-MATE
           </span>
         </h1>
 
