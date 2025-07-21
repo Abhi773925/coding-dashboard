@@ -2,19 +2,19 @@ import React from 'react';
 
 const Hero = () => {
   const platforms = [
-    { logo: '/api/placeholder/80/80', color: 'bg-green-100' },
-    { logo: '/api/placeholder/80/80', color: 'bg-blue-100' },
-    { logo: '/api/placeholder/80/80', color: 'bg-red-100' },
     { logo: '/api/placeholder/80/80', color: 'bg-indigo-100' },
-    { logo: '/api/placeholder/80/80', color: 'bg-yellow-100' },
-    { logo: '/api/placeholder/80/80', color: 'bg-teal-100' },
-    { logo: '/api/placeholder/80/80', color: 'bg-purple-100' }
+    { logo: '/api/placeholder/80/80', color: 'bg-blue-100' },
+    { logo: '/api/placeholder/80/80', color: 'bg-indigo-100' },
+    { logo: '/api/placeholder/80/80', color: 'bg-blue-100' },
+    { logo: '/api/placeholder/80/80', color: 'bg-indigo-100' },
+    { logo: '/api/placeholder/80/80', color: 'bg-blue-100' },
+    { logo: '/api/placeholder/80/80', color: 'bg-indigo-100' }
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-purple-100 flex flex-col items-center justify-center p-6">
+    <div className="min-h-screen bg-gradient-to-br from-indigo-50 to-blue-100 flex flex-col items-center justify-center p-6">
       <div className="text-center mb-12">
-        <h1 className="text-5xl font-extrabold bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-purple-600 mb-4">
+        <h1 className="text-5xl font-extrabold bg-clip-text text-transparent bg-gradient-to-r from-indigo-600 to-blue-600 mb-4">
           Coding Platforms
         </h1>
         <p className="text-xl text-gray-600 max-w-2xl mx-auto">

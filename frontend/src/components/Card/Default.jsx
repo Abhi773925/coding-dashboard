@@ -51,7 +51,7 @@ const NotFoundPage = () => {
           <AlertTriangle
             className={`
               text-7xl animate-bounce
-              ${isDarkMode ? "text-purple-400" : "text-purple-600"}
+              ${isDarkMode ? "text-indigo-400" : "text-indigo-600"}
             `}
           />
           <h1
@@ -91,8 +91,8 @@ const NotFoundPage = () => {
               transition-all duration-300 transform hover:scale-105
               ${
                 isDarkMode
-                  ? "bg-gradient-to-r from-purple-600 to-blue-600 text-white hover:from-purple-500 hover:to-blue-500"
-                  : "bg-gradient-to-r from-purple-600 to-blue-600 text-white hover:from-purple-700 hover:to-blue-700"
+                  ? "bg-gradient-to-r from-indigo-600 to-blue-600 text-white hover:from-indigo-500 hover:to-blue-500"
+                  : "bg-gradient-to-r from-indigo-600 to-blue-600 text-white hover:from-indigo-700 hover:to-blue-700"
               }
             `}
             style={{

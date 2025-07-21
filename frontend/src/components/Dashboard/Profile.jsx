@@ -91,13 +91,13 @@ const Profile = () => {
   // Platform specific colors
   const platformColors = {
     leetcode: {
-      iconBg: isDarkMode ? "bg-yellow-900/30" : "bg-yellow-100",
-      iconText: isDarkMode ? "text-yellow-300" : "text-yellow-600",
-      progress: "bg-yellow-500",
-      border: isDarkMode ? "border-yellow-700/50" : "border-yellow-200/50",
+      iconBg: isDarkMode ? "bg-indigo-900/30" : "bg-indigo-100",
+      iconText: isDarkMode ? "text-indigo-300" : "text-indigo-600",
+      progress: "bg-indigo-500",
+      border: isDarkMode ? "border-indigo-700/50" : "border-indigo-200/50",
     },
     github: {
-      iconBg: isDarkMode ? "bg-gray-700/50" : "bg-gray-100",
+      iconBg: isDarkMode ? "bg-blue-900/30" : "bg-blue-100",
       iconText: isDarkMode ? "text-gray-300" : "text-gray-700",
       progress: isDarkMode ? "bg-gray-300" : "bg-gray-700",
       border: isDarkMode ? "border-gray-700/50" : "border-gray-200/50",

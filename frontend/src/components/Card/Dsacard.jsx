@@ -21,7 +21,7 @@ const courseData = [
     description: "Comprehensive journey through modern web technologies",
     level: "Intermediate",
     icon: <Server />,
-    color: "emerald", // Used for accent colors
+    color: "indigo", // Used for accent colors
     skills: ["React", "Node.js", "MongoDB", "Express"],
     route: "/courses/fullstack",
   },
@@ -30,7 +30,7 @@ const courseData = [
     description: "Strategies and practice for acing technical interviews",
     level: "Advanced",
     icon: <Briefcase />,
-    color: "purple", // Used for accent colors
+    color: "indigo", // Used for accent colors
     skills: ["Problem Solving", "Algorithmic Thinking", "Mock Interviews"],
     route: "/courses/interview-prep",
   },
@@ -59,27 +59,16 @@ const DsaCard = () => {
         "orb-dark": "rgba(99, 102, 241, 0.4)", // indigo-400
         "orb-light": "rgba(99, 102, 241, 0.2)", // indigo-600
       },
-      emerald: {
-        text: isDarkMode ? "text-emerald-300" : "text-emerald-600",
-        "bg-light": "bg-emerald-100",
-        "bg-dark": "bg-emerald-900/30",
-        "gradient-from-light": "from-emerald-600",
-        "gradient-to-light": "to-teal-600",
-        "gradient-from-dark": "from-emerald-400",
-        "gradient-to-dark": "to-cyan-400",
-        "orb-dark": "rgba(52, 211, 153, 0.4)", // emerald-400
-        "orb-light": "rgba(34, 197, 94, 0.2)", // emerald-600
-      },
-      purple: {
-        text: isDarkMode ? "text-purple-300" : "text-purple-600",
-        "bg-light": "bg-purple-100",
-        "bg-dark": "bg-purple-900/30",
-        "gradient-from-light": "from-purple-600",
-        "gradient-to-light": "to-pink-600",
-        "gradient-from-dark": "from-purple-400",
-        "gradient-to-dark": "to-rose-400",
-        "orb-dark": "rgba(168, 85, 247, 0.4)", // purple-400
-        "orb-light": "rgba(139, 92, 246, 0.2)", // purple-600
+      blue: {
+        text: isDarkMode ? "text-blue-300" : "text-blue-600",
+        "bg-light": "bg-blue-100",
+        "bg-dark": "bg-blue-900/30",
+        "gradient-from-light": "from-blue-600",
+        "gradient-to-light": "to-indigo-600",
+        "gradient-from-dark": "from-blue-400",
+        "gradient-to-dark": "to-indigo-400",
+        "orb-dark": "rgba(59, 130, 246, 0.4)", // blue-400
+        "orb-light": "rgba(37, 99, 235, 0.2)", // blue-600
       },
     }
     const colorMap = colors[baseColor]

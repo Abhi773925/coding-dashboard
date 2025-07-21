@@ -26,7 +26,7 @@ const Footer = () => {
                 whileTap={{ scale: 0.95 }}
                 className={`
                   text-base font-medium transition-all duration-300
-                  ${isDarkMode ? "text-slate-400 hover:text-purple-400" : "text-gray-600 hover:text-purple-600"}
+                  ${isDarkMode ? "text-slate-400 hover:text-indigo-400" : "text-gray-600 hover:text-indigo-600"}
                 `}
               >
                 {link}
@@ -83,10 +83,10 @@ const Footer = () => {
               className={`
                 text-sm sm:text-base font-medium
                 bg-clip-text text-transparent
-                ${isDarkMode ? "bg-gradient-to-r from-purple-400 to-blue-400" : "bg-gradient-to-r from-purple-600 to-blue-600"}
+                ${isDarkMode ? "bg-gradient-to-r from-indigo-400 to-blue-400" : "bg-gradient-to-r from-indigo-600 to-blue-600"}
               `}
             >
-              © {new Date().getFullYear()} CodingKaro, Inc. All rights reserved.
+              © {new Date().getFullYear()} PrepMate, Inc. All rights reserved.
             </p>
           </div>
         </div>

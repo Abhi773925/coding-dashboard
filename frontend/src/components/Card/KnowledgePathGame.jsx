@@ -75,7 +75,7 @@ const levelData = [
     description: "Master complex item positioning in flex containers",
     level: "Intermediate",
     icon: <Star />,
-    color: "emerald",
+    color: "indigo",
     objective: "Create a centered layout with evenly spaced items",
     targetProps: { display: "flex", flexDirection: "row", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap" },
     availableProps: {
@@ -94,7 +94,7 @@ const levelData = [
     description: "Create complex responsive flexbox patterns",
     level: "Advanced",
     icon: <Trophy />,
-    color: "purple",
+    color: "indigo",
     objective: "Build a responsive card layout that adapts to different screen sizes",
     targetProps: { display: "flex", flexDirection: "row", justifyContent: "space-around", alignItems: "stretch", flexWrap: "wrap", gap: "1rem" },
     availableProps: {
