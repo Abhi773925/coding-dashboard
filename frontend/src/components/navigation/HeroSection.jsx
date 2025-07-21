@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react"
 import { useTheme } from "../context/ThemeContext"
-import { Code, BookOpen, Users, ArrowRight, Rocket, Heart, TrendingUp } from "lucide-react"
+import { Code, BookOpen, Users, ArrowRight, Rocket, Heart, TrendingUp,Star } from "lucide-react"
 import { Link, useNavigate } from "react-router-dom"
 
 const HeroSection = () => {
@@ -42,50 +42,59 @@ const handlefullstack=()=>{
         ${isDarkMode ? "bg-slate-900" : "bg-gray-50"}
       `}
     >
-      {/* Enhanced Flowing Background Pattern */}
+      {/* Lightning Background Effect */}
       <div className="absolute inset-0 overflow-hidden">
-        {/* Main flowing curves - more prominent */}
-        <svg
-          className="absolute inset-0 w-full h-full"
-          viewBox="0 0 1440 900"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <defs>
-            <linearGradient id="gradient1" x1="0%" y1="0%" x2="100%" y2="100%">
-              <stop offset="0%" stopColor={isDarkMode ? "rgba(99, 102, 241, 0.15)" : "rgba(139, 92, 246, 0.12)"} />
-              <stop offset="100%" stopColor={isDarkMode ? "rgba(139, 92, 246, 0.08)" : "rgba(99, 102, 241, 0.08)"} />
-            </linearGradient>
-            <linearGradient id="gradient2" x1="0%" y1="0%" x2="100%" y2="100%">
-              <stop offset="0%" stopColor={isDarkMode ? "rgba(139, 92, 246, 0.12)" : "rgba(59, 130, 246, 0.1)"} />
-              <stop offset="100%" stopColor={isDarkMode ? "rgba(59, 130, 246, 0.06)" : "rgba(139, 92, 246, 0.06)"} />
-            </linearGradient>
-            <linearGradient id="gradient3" x1="0%" y1="0%" x2="100%" y2="100%">
-              <stop offset="0%" stopColor={isDarkMode ? "rgba(59, 130, 246, 0.1)" : "rgba(168, 85, 247, 0.08)"} />
-              <stop offset="100%" stopColor={isDarkMode ? "rgba(168, 85, 247, 0.05)" : "rgba(59, 130, 246, 0.05)"} />
-            </linearGradient>
-          </defs>
+        {/* Lightning Layer */}
+        <div className="absolute inset-0">
+          <svg
+            className="absolute inset-0 w-full h-full opacity-30"
+            viewBox="0 0 100 100"
+            preserveAspectRatio="none"
+          >
+            <defs>
+              <radialGradient id="lightning1" cx="50%" cy="50%" r="50%" fx="50%" fy="50%">
+                <stop offset="0%" stopColor={isDarkMode ? "#6366f1" : "#818cf8"} stopOpacity="0.4" />
+                <stop offset="100%" stopColor={isDarkMode ? "#6366f1" : "#818cf8"} stopOpacity="0" />
+              </radialGradient>
+              <radialGradient id="lightning2" cx="50%" cy="50%" r="50%" fx="50%" fy="50%">
+                <stop offset="0%" stopColor={isDarkMode ? "#7c3aed" : "#8b5cf6"} stopOpacity="0.4" />
+                <stop offset="100%" stopColor={isDarkMode ? "#7c3aed" : "#8b5cf6"} stopOpacity="0" />
+              </radialGradient>
+            </defs>
+            
+            {/* Lightning Bolts */}
+            <path
+              className="lightning-path"
+              d="M30,0 L45,30 L15,40 L60,100"
+              stroke={isDarkMode ? "#818cf8" : "#6366f1"}
+              strokeWidth="0.5"
+              fill="none"
+            />
+            <path
+              className="lightning-path-reverse"
+              d="M70,100 L65,70 L85,60 L40,0"
+              stroke={isDarkMode ? "#8b5cf6" : "#7c3aed"}
+              strokeWidth="0.5"
+              fill="none"
+            />
+          </svg>
 
-          {/* Multiple flowing curves for depth */}
-          <path
-            d="M0,450 Q360,250 720,400 T1440,350 L1440,900 L0,900 Z"
-            fill="url(#gradient1)"
-            className="animate-pulse"
-            style={{ animationDuration: "8s" }}
+          {/* Energy Orbs */}
+          <div className="energy-orb absolute top-1/4 left-1/4 w-32 h-32 rounded-full"
+            style={{
+              background: isDarkMode ? 
+                'radial-gradient(circle, rgba(99,102,241,0.15) 0%, rgba(139,92,246,0.1) 50%, rgba(0,0,0,0) 70%)' :
+                'radial-gradient(circle, rgba(99,102,241,0.1) 0%, rgba(139,92,246,0.05) 50%, rgba(0,0,0,0) 70%)'
+            }}
           />
-          <path
-            d="M0,550 Q360,350 720,500 T1440,450 L1440,900 L0,900 Z"
-            fill="url(#gradient2)"
-            className="animate-pulse"
-            style={{ animationDuration: "12s", animationDelay: "2s" }}
+          <div className="energy-orb absolute bottom-1/3 right-1/3 w-40 h-40 rounded-full"
+            style={{
+              background: isDarkMode ?
+                'radial-gradient(circle, rgba(139,92,246,0.15) 0%, rgba(124,58,237,0.1) 50%, rgba(0,0,0,0) 70%)' :
+                'radial-gradient(circle, rgba(139,92,246,0.1) 0%, rgba(124,58,237,0.05) 50%, rgba(0,0,0,0) 70%)'
+            }}
           />
-          <path
-            d="M0,650 Q360,450 720,600 T1440,550 L1440,900 L0,900 Z"
-            fill="url(#gradient3)"
-            className="animate-pulse"
-            style={{ animationDuration: "10s", animationDelay: "4s" }}
-          />
-        </svg>
+        </div>
 
         {/* Enhanced floating geometric elements */}
         <FloatingElement delay={0} duration={6} className="top-24 left-20">
@@ -161,132 +170,187 @@ const handlefullstack=()=>{
       </div>
 
       {/* Main Content */}
-      <div className="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-20 text-center">
-        {/* Enhanced Beta Badge */}
-        <div
-          className={`inline-flex items-center px-5 py-3 rounded-full text-sm font-medium mb-10 
-          backdrop-blur-sm border transition-all duration-300 hover:scale-105
-          ${
-            isDarkMode
-              ? "bg-slate-800/70 border-slate-700/60 text-purple-300"
-              : "bg-white/90 border-purple-200/60 text-purple-700"
-          }`}
-        >
-          <div  className={`w-2.5 h-2.5 rounded-full mr-3 ${isDarkMode ? "bg-purple-400" : "bg-purple-500"}`} />
-          <span className="font-semibold text-base">Features</span>
-          <span className="mx-3 opacity-60">—</span>
-          <span className="opacity-90">Full-Stack Playlist Added</span>
-          <button onClick={handlefullstack}
-            className={`ml-5 px-4 py-2 rounded-full text-sm font-semibold transition-all duration-300 hover:scale-105
+      <div className="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-20">
+        {/* New Feature Badge */}
+        <div className="flex justify-center mb-8">
+          <div
+            className={`inline-flex items-center px-4 py-2 rounded-full text-sm font-medium
+            backdrop-blur-sm border-2 transition-all duration-300 hover:scale-105 cursor-pointer
             ${
               isDarkMode
-                ? "bg-blue-400 text-slate-900 hover:bg-purple-700"
-                : "bg-purple-600 text-white hover:bg-purple-700"
+                ? "bg-slate-800/40 border-indigo-500/30 text-indigo-300"
+                : "bg-white/60 border-indigo-300/30 text-indigo-700"
             }`}
+            onClick={handlefullstack}
           >
-            Check Now →
-          </button>
+            <span className="relative flex h-2 w-2 mr-2">
+              <span className={`animate-ping absolute inline-flex h-full w-full rounded-full opacity-75 ${isDarkMode ? "bg-purple-400" : "bg-purple-500"}`}></span>
+              <span className={`relative inline-flex rounded-full h-2 w-2 ${isDarkMode ? "bg-purple-500" : "bg-purple-600"}`}></span>
+            </span>
+            <span className="font-medium">New!</span>
+            <span className="mx-2">•</span>
+            <span>Full-Stack Course Available</span>
+            <ArrowRight className="ml-2 w-4 h-4" />
+          </div>
         </div>
 
-        {/* Enhanced Main Heading */}
-        <h1
-          className={`font-bold mb-0 leading-tight tracking-tight
-          text-5xl sm:text-6xl md:text-7xl lg:text-4xl xl:text-6xl
-          ${isDarkMode ? "text-white" : "text-gray-900"}`}
-        >
-          <span className="block mb-3">The Fastest Way to Master Coding with <p
-            className={`block bg-gradient-to-r bg-clip-text text-transparent
-            ${isDarkMode ? "from-purple-400 via-blue-400 to-cyan-400" : "from-purple-600 via-blue-600 to-indigo-600"}`}
-          >
-                  
-          </p></span>
-        
-          <span
-            className={`block bg-gradient-to-r bg-clip-text text-transparent
-            ${isDarkMode ? "from-purple-400 via-blue-400 to-cyan-400" : "from-purple-600 via-blue-600 to-indigo-600"}`}
-          >
-           PREP-MATE
-          </span>
-        </h1>
+        {/* Main Content Grid */}
+        <div className="grid lg:grid-cols-2 gap-12 items-center text-center lg:text-left">
+          <div>
+            {/* Main Heading */}
+            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight mb-6">
+              <span className={isDarkMode ? "text-white" : "text-gray-900"}>Empower Your</span>
+              <span className={`block mt-1 bg-gradient-to-r bg-clip-text text-transparent
+                ${isDarkMode ? "from-indigo-400 via-blue-400 to-indigo-400" : "from-indigo-600 via-blue-600 to-indigo-600"}`}
+              >
+                Learning Journey
+              </span>
+            </h1>
 
-        {/* Enhanced Subtitle */}
-        <p
-          className={`text-xl md:text-2xl lg:text-3xl mb-14 max-w-4xl mx-auto leading-relaxed font-medium
-          ${isDarkMode ? "text-slate-300" : "text-gray-600"}`}
-        >
-          No setup. No download. Instant learning, right in your browser. Experience the future—Beta is just the
-          beginning.
-        </p>
+            {/* Subtitle */}
+            <p className={`text-lg sm:text-xl mb-8 leading-relaxed
+              ${isDarkMode ? "text-slate-300" : "text-gray-600"}`}
+            >
+              Master programming with structured learning paths, hands-on projects, and real-world applications. 
+              Your journey to becoming a skilled developer starts here.
+            </p>
 
-        {/* Enhanced CTA Buttons */}
-        <div className="flex flex-col sm:flex-row gap-6 justify-center mb-20">
-          <Link
-            to="/allcourse"
-            className={`group relative px-10 py-5 rounded-2xl font-semibold text-xl
-              transition-all duration-300 transform hover:scale-105 hover:shadow-2xl
-              ${
-                isDarkMode
-                  ? "bg-gradient-to-r from-purple-600 to-blue-600 text-white hover:from-purple-500 hover:to-blue-500"
-                  : "bg-gradient-to-r from-purple-600 to-blue-600 text-white hover:from-purple-700 hover:to-blue-700"
-              }
-            `}
-            style={{
-              boxShadow: isDarkMode ? "0 10px 40px rgba(139, 92, 246, 0.3)" : "0 10px 40px rgba(139, 92, 246, 0.2)",
-            }}
-          >
-            <div className="flex items-center justify-center">
-              <BookOpen className="mr-4 w-6 h-6" />
-              Start for Free
-              <ArrowRight className="ml-4 w-6 h-6 group-hover:translate-x-1 transition-transform" />
+            {/* CTA Buttons */}
+            <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start mb-8">
+              <Link
+                to="/allcourse"
+                className={`group px-8 py-4 rounded-xl font-semibold text-lg flex items-center justify-center
+                  transition-all duration-300 transform hover:scale-105 hover:-rotate-1
+                  ${
+                    isDarkMode
+                      ? "bg-gradient-to-r from-indigo-500 to-blue-500 text-white hover:from-indigo-400 hover:to-blue-400"
+                      : "bg-gradient-to-r from-indigo-600 to-blue-600 text-white hover:from-indigo-700 hover:to-blue-700"
+                  }
+                `}
+                style={{
+                  boxShadow: isDarkMode ? "0 10px 40px rgba(139, 92, 246, 0.3)" : "0 10px 40px rgba(139, 92, 246, 0.2)",
+                }}
+              >
+                <BookOpen className="mr-2 w-5 h-5" />
+                Start Learning
+                <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
+              </Link>
+
+              <Link
+                to="/projects"
+                className={`group px-8 py-4 rounded-xl font-semibold text-lg flex items-center justify-center
+                  border-2 backdrop-blur-sm transition-all duration-300 transform hover:scale-105 hover:rotate-1
+                  ${
+                    isDarkMode
+                      ? "border-slate-600/40 text-slate-300 hover:bg-slate-800/40 hover:border-indigo-500/40"
+                      : "border-indigo-200 text-indigo-700 hover:bg-indigo-50/40 hover:border-indigo-300"
+                  }
+                `}
+              >
+                <Rocket className="mr-2 w-5 h-5" />
+                View Courses
+              </Link>
             </div>
-          </Link>
 
-          <Link
-            to="/projects"
-            className={`group px-10 py-5 rounded-2xl font-semibold text-xl border-2
-              backdrop-blur-sm transition-all duration-300 transform hover:scale-105
-              ${
-                isDarkMode
-                  ? "border-slate-600 text-slate-300 hover:border-purple-400 hover:text-purple-300 hover:bg-slate-800/60"
-                  : "border-gray-300 text-gray-700 hover:border-purple-500 hover:text-purple-700 hover:bg-white/80"
-              }
-            `}
-          >
-            <div className="flex items-center justify-center">
-              <Rocket className="mr-4 w-6 h-6" />
-              Explore Courses
+            {/* Trust Indicators */}
+            <div className={`flex items-center justify-center lg:justify-start gap-6 text-sm
+              ${isDarkMode ? "text-slate-400" : "text-gray-600"}`}
+            >
+              <div className="flex items-center">
+                <Users className="w-4 h-4 mr-2" />
+                50K+ Students
+              </div>
+              <div className="flex items-center">
+                <Star className="w-4 h-4 mr-2" />
+                4.9/5 Rating
+              </div>
+              <div className="flex items-center">
+                <Heart className="w-4 h-4 mr-2" />
+                99% Satisfaction
+              </div>
             </div>
-          </Link>
+          </div>
+
+          {/* Right Side - Feature Grid */}
+          <div className="grid grid-cols-2 gap-4">
+            {[
+              {
+                icon: Code,
+                title: "Structured Learning",
+                description: "Step-by-step courses designed for both beginners and advanced developers",
+                color: isDarkMode ? "from-blue-500 to-cyan-500" : "from-blue-600 to-cyan-600"
+              },
+              {
+                icon: BookOpen,
+                title: "Rich Content",
+                description: "Video lectures, coding exercises, and real-world projects",
+                color: isDarkMode ? "from-indigo-500 to-blue-500" : "from-indigo-600 to-blue-600"
+              },
+              {
+                icon: Users,
+                title: "Community Support",
+                description: "Learn together with our active community of developers",
+                color: isDarkMode ? "from-blue-500 to-indigo-500" : "from-blue-600 to-indigo-600"
+              },
+              {
+                icon: TrendingUp,
+                title: "Track Progress",
+                description: "Monitor your learning journey with detailed analytics",
+                color: isDarkMode ? "from-indigo-500 to-blue-500" : "from-indigo-600 to-blue-600"
+              }
+            ].map((feature, index) => (
+              <div
+                key={index}
+                className={`p-6 rounded-2xl backdrop-blur-sm border-2 transition-all duration-300 hover:scale-105
+                  ${
+                    isDarkMode
+                      ? "bg-slate-800/40 border-slate-700/40 hover:border-slate-600"
+                      : "bg-white/40 border-gray-200/40 hover:border-purple-200"
+                  }
+                `}
+              >
+                <div className={`inline-flex p-3 rounded-xl bg-gradient-to-r ${feature.color} mb-4`}>
+                  <feature.icon className="w-6 h-6 text-white" />
+                </div>
+                <h3 className={`text-lg font-semibold mb-2 ${isDarkMode ? "text-white" : "text-gray-900"}`}>
+                  {feature.title}
+                </h3>
+                <p className={`text-sm leading-relaxed ${isDarkMode ? "text-slate-400" : "text-gray-600"}`}>
+                  {feature.description}
+                </p>
+              </div>
+            ))}
+          </div>
         </div>
 
-        {/* Enhanced Stats Section */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-10 max-w-6xl mx-auto">
+        {/* Stats Section */}
+        <div className="mt-20 grid grid-cols-2 md:grid-cols-4 gap-8 max-w-6xl mx-auto">
           {[
             {
               icon: Users,
               value: "50K+",
-              label: "Active Developers",
+              label: "Active Learners",
               color: isDarkMode ? "text-blue-400" : "text-blue-600",
               bgColor: isDarkMode ? "bg-blue-500/10" : "bg-blue-500/5",
             },
             {
               icon: Code,
               value: "1M+",
-              label: "Projects Created",
+              label: "Lines of Code",
               color: isDarkMode ? "text-purple-400" : "text-purple-600",
               bgColor: isDarkMode ? "bg-purple-500/10" : "bg-purple-500/5",
             },
             {
               icon: TrendingUp,
               value: "300%",
-              label: "Faster Development",
+              label: "Faster Learning",
               color: isDarkMode ? "text-emerald-400" : "text-emerald-600",
               bgColor: isDarkMode ? "bg-emerald-500/10" : "bg-emerald-500/5",
             },
             {
               icon: Heart,
               value: "99%",
-              label: "Developer Satisfaction",
+              label: "Satisfaction Rate",
               color: isDarkMode ? "text-pink-400" : "text-pink-600",
               bgColor: isDarkMode ? "bg-pink-500/10" : "bg-pink-500/5",
             },
@@ -307,21 +371,54 @@ const handlefullstack=()=>{
         </div>
       </div>
 
-      {/* Enhanced Custom CSS for animations */}
-      <style jsx>{`
+      <style>{`
         @keyframes float {
-          0%,
-          100% {
-            transform: translateY(0px) translateX(0px) scale(1);
+          0%, 100% { transform: translateY(0) scale(1); }
+          50% { transform: translateY(-10px) scale(1.01); }
+        }
+
+        .lightning-path {
+          stroke-dasharray: 200;
+          stroke-dashoffset: 200;
+          animation: lightning 3s linear infinite;
+        }
+
+        .lightning-path-reverse {
+          stroke-dasharray: 200;
+          stroke-dashoffset: 200;
+          animation: lightning 3s linear infinite 1.5s;
+        }
+
+        .energy-orb {
+          animation: pulse 4s ease-in-out infinite;
+        }
+
+        @keyframes lightning {
+          0% { 
+            stroke-dashoffset: 200;
+            opacity: 0;
           }
-          25% {
-            transform: translateY(-15px) translateX(8px) scale(1.05);
+          30% {
+            stroke-dashoffset: 0;
+            opacity: 1;
           }
           50% {
-            transform: translateY(-8px) translateX(-8px) scale(0.95);
+            opacity: 0;
           }
-          75% {
-            transform: translateY(-20px) translateX(5px) scale(1.02);
+          100% {
+            stroke-dashoffset: -200;
+            opacity: 0;
+          }
+        }
+
+        @keyframes pulse {
+          0%, 100% { 
+            transform: scale(1);
+            opacity: 0.5;
+          }
+          50% { 
+            transform: scale(1.1);
+            opacity: 0.8;
           }
         }
       `}</style>

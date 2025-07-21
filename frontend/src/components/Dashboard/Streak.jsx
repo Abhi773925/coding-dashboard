@@ -82,7 +82,7 @@ const Streak = () => {
           ${isDarkMode ? "bg-slate-800/70 text-slate-300" : "bg-white/80 text-gray-700"}
           transition-colors duration-500 border ${isDarkMode ? "border-slate-700" : "border-gray-200"}`}
       >
-        <Loader2 className="animate-spin mr-3 text-purple-500" size={24} />
+        <Loader2 className="animate-spin mr-3 text-indigo-500" size={24} />
         <span className="font-medium">Loading streak...</span>
       </div>
     )

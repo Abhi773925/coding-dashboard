@@ -38,22 +38,22 @@ const navigationSections = [
   {
     name: "Contest",
     icon: BookOpen,
-    bgColor: "bg-blue-100",
-    color: "text-blue-600",
+    bgColor: "bg-indigo-100",
+    color: "text-indigo-600",
     subSections: [{ name: "Contest Tracker", icon: Terminal, route: "/contest" }],
   },
   {
     name: "Courses",
     icon: BookOpen,
-    bgColor: "bg-blue-100",
-    color: "text-blue-600",
+    bgColor: "bg-indigo-100",
+    color: "text-indigo-600",
     subSections: [{ name: "DSA Practice", icon: Terminal, route: "/courses/data-structures" }],
   },
   {
     name: "Community",
     icon: Users,
-    bgColor: "bg-green-100",
-    color: "text-green-600",
+    bgColor: "bg-indigo-100",
+    color: "text-indigo-600",
     subSections: [
       { name: "Forums", icon: Compass, route: "/community/forums" },
       { name: "Mentorship", icon: Book, route: "/community/mentorship" },
@@ -275,7 +275,7 @@ const ProfileDropdown = ({ onLogin, onLogout, isMobile = false }) => {
               <img
                 src={user?.avatar || "/default-avatar.png"}
                 alt="User Avatar"
-                className="w-8 h-8 rounded-full border-2 transition-all duration-300 group-hover:scale-105 border-purple-500"
+                className="w-8 h-8 rounded-full border-2 transition-all duration-300 group-hover:scale-105 border-indigo-500"
               />
               <div className="absolute bottom-0 right-0 w-3 h-3 bg-emerald-500 rounded-full border-2 border-white" />
             </div>

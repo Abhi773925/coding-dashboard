@@ -11,47 +11,47 @@ const testimonials = [
     name: "Sarah Johnson",
     achievement: "Algorithm Mastery",
     quote:
-      "CodingKaro's deep-dive algorithm courses helped me ace my FAANG interviews. Truly a game-changer for competitive programming!",
+      "PrepMate's deep-dive algorithm courses helped me ace my FAANG interviews. Truly a game-changer for competitive programming!",
     details: "Solved 700+ LeetCode problems",
     program: "Competitive Programming Track",
     skills: ["C++", "Algorithms", "Data Structures", "Dynamic Programming"],
     profileImage: "/placeholder.svg?height=150&width=150",
-    color: "green",
+    color: "indigo",
   },
   {
     id: 2,
     name: "David Lee",
     achievement: "Launched My Startup",
     quote:
-      "From idea to deployment, CodingKaro provided the practical skills and mentorship I needed to build and launch my first SaaS product.",
+      "From idea to deployment, PrepMate provided the practical skills and mentorship I needed to build and launch my first SaaS product.",
     details: "Secured seed funding",
     program: "Startup Founder's Bootcamp",
     skills: ["TypeScript", "Next.js", "AWS", "PostgreSQL"],
     profileImage: "/placeholder.svg?height=150&width=150",
-    color: "cyan",
+    color: "indigo",
   },
   {
     id: 3,
     name: "Emily White",
     achievement: "Career Transition",
     quote:
-      "Switching careers felt daunting, but CodingKaro's comprehensive curriculum and career support made it achievable. Highly recommend!",
+      "Switching careers felt daunting, but PrepMate's comprehensive curriculum and career support made it achievable. Highly recommend!",
     details: "Transitioned from Marketing to Software Engineering",
     program: "Software Engineering Immersion",
     skills: ["Java", "Spring Boot", "Microservices", "DevOps"],
     profileImage: "/placeholder.svg?height=150&width=150",
-    color: "blue",
+    color: "indigo",
   },
   {
     id: 4,
     name: "Michael Brown",
     achievement: "Open Source Impact",
-    quote: "Contributing to open source became a reality with CodingKaro's guidance. My code is now used by thousands!",
+    quote: "Contributing to open source became a reality with PrepMate's guidance. My code is now used by thousands!",
     details: "Maintained a popular library",
     program: "Open Source Contributor Program",
     skills: ["Python", "Machine Learning", "TensorFlow", "Docker"],
     profileImage: "/placeholder.svg?height=150&width=150",
-    color: "teal",
+    color: "indigo",
   },
 ]
 
@@ -130,29 +130,17 @@ const TestimonialSection = () => {
 
   const getColorClasses = (color, type) => {
     const colors = {
-      green: {
-        bg: isDarkMode ? "bg-green-900/40" : "bg-green-100",
-        text: isDarkMode ? "text-green-300" : "text-green-700",
-        border: isDarkMode ? "border-green-800" : "border-green-200",
-        gradient: "from-green-600 to-emerald-600",
-      },
-      cyan: {
-        bg: isDarkMode ? "bg-cyan-900/40" : "bg-cyan-100",
-        text: isDarkMode ? "text-cyan-300" : "text-cyan-700",
-        border: isDarkMode ? "border-cyan-800" : "border-cyan-200",
-        gradient: "from-cyan-600 to-blue-600",
+      indigo: {
+        bg: isDarkMode ? "bg-indigo-900/40" : "bg-indigo-100",
+        text: isDarkMode ? "text-indigo-300" : "text-indigo-700",
+        border: isDarkMode ? "border-indigo-800" : "border-indigo-200",
+        gradient: "from-indigo-600 to-blue-600",
       },
       blue: {
         bg: isDarkMode ? "bg-blue-900/40" : "bg-blue-100",
         text: isDarkMode ? "text-blue-300" : "text-blue-700",
         border: isDarkMode ? "border-blue-800" : "border-blue-200",
         gradient: "from-blue-600 to-indigo-600",
-      },
-      teal: {
-        bg: isDarkMode ? "bg-teal-900/40" : "bg-teal-100",
-        text: isDarkMode ? "text-teal-300" : "text-teal-700",
-        border: isDarkMode ? "border-teal-800" : "border-teal-200",
-        gradient: "from-teal-600 to-green-600",
       },
     }
     return colors[color]?.[type] || ""

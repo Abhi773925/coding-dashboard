@@ -63,7 +63,7 @@ const Dashboard = () => {
       >
         <div
           className={`absolute -top-20 -right-20 w-96 h-96 rounded-full blur-3xl opacity-20 animate-blob
-            ${isDarkMode ? "bg-purple-900" : "bg-purple-400"}`}
+            ${isDarkMode ? "bg-indigo-900" : "bg-indigo-400"}`}
           style={{ boxShadow: isDarkMode ? "0 0 80px rgba(168,85,247,0.6)" : "0 0 60px rgba(168,85,247,0.4)" }}
         ></div>
         <div
@@ -86,7 +86,7 @@ const Dashboard = () => {
             <h1
               className={`text-5xl sm:text-6xl lg:text-7xl font-extrabold mb-4 leading-tight tracking-tight
                 bg-clip-text text-transparent
-                ${isDarkMode ? "bg-gradient-to-r from-purple-400 via-blue-400 to-cyan-400" : "bg-gradient-to-r from-purple-600 via-blue-600 to-indigo-600"}`}
+                ${isDarkMode ? "bg-gradient-to-r from-indigo-400 via-blue-400 to-indigo-400" : "bg-gradient-to-r from-indigo-600 via-blue-600 to-indigo-600"}`}
             >
               Your Ultimate Coding <span className="block">Companion</span>
             </h1>

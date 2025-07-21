@@ -122,7 +122,7 @@ const ContestTracker = () => {
   const renderLoadingState = () => (
     <div className={`flex justify-center items-center h-64 ${isDarkMode ? "text-gray-100" : "text-gray-900"}`}>
       <div className="flex flex-col items-center">
-        <Loader2 className={`animate-spin text-4xl ${isDarkMode ? "text-purple-400" : "text-purple-600"} mb-4`} />
+        <Loader2 className={`animate-spin text-4xl ${isDarkMode ? "text-indigo-400" : "text-indigo-600"} mb-4`} />
         <p className={isDarkMode ? "text-slate-300" : "text-gray-700"}>Loading contests...</p>
       </div>
     </div>
@@ -173,8 +173,8 @@ const ContestTracker = () => {
               ? "border-l-4 border-slate-600"
               : "border-l-4 border-gray-400"
             : isDarkMode
-              ? "border-l-4 border-purple-400"
-              : "border-l-4 border-blue-600"
+              ? "border-l-4 border-indigo-400"
+              : "border-l-4 border-indigo-600"
         }
       `}
       style={{
@@ -192,8 +192,8 @@ const ContestTracker = () => {
                   ? "bg-slate-700 text-slate-300"
                   : "bg-gray-200 text-gray-700"
                 : isDarkMode
-                  ? "bg-purple-400 text-slate-900"
-                  : "bg-blue-600 text-white"
+                  ? "bg-indigo-400 text-slate-900"
+                  : "bg-indigo-600 text-white"
             }
           `}
         >
