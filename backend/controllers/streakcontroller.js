@@ -69,25 +69,18 @@ exports.updateStreak = async (req, res) => {
     if (!lastCodedDate || today.diff(lastCodedDate, 'days') === 1) {
       // Increment streak
       streak.currentStreak += 1;
-      streak.lastCodedDate = new Date();
     } 
     // If last activity was today, don't increment but update timestamp
     else if (today.diff(lastCodedDate, 'days') === 0) {
-      streak.lastCodedDate = new Date();
+      // Keep current streak, just update timestamp
     }
     // If more than a day has passed, reset streak
     else {
       streak.currentStreak = 1; // Start new streak
-      streak.lastCodedDate = new Date();
     }
     
     // Update longest streak if needed
     streak.longestStreak = Math.max(streak.longestStreak, streak.currentStreak);
-      );
-    } else if (today.diff(lastCodedDate, 'days') > 1) {
-      // Streak broken
-      streak.currentStreak = 1;
-    }
     
     // Update last coded date
     streak.lastCodedDate = new Date();
@@ -96,7 +89,8 @@ exports.updateStreak = async (req, res) => {
     
     res.json({
       currentStreak: streak.currentStreak,
-      longestStreak: streak.longestStreak
+      longestStreak: streak.longestStreak,
+      lastCodedDate: streak.lastCodedDate
     });
   } catch (error) {
     res.status(500).json({ message: error.message });
