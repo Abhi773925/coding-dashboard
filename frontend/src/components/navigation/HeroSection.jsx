@@ -220,7 +220,7 @@ const handlefullstack=()=>{
               <Link
                 to="/allcourse"
                 className={`group px-8 py-4 rounded-xl font-semibold text-lg flex items-center justify-center
-                  transition-all duration-300 transform hover:scale-105 hover:-rotate-1
+                  transition-all duration-300 transform hover:scale-105   
                   ${
                     isDarkMode
                       ? "bg-gradient-to-r from-indigo-500 to-blue-500 text-white hover:from-indigo-400 hover:to-blue-400"
@@ -237,9 +237,9 @@ const handlefullstack=()=>{
               </Link>
 
               <Link
-                to="/projects"
+                to="/terminal"
                 className={`group px-8 py-4 rounded-xl font-semibold text-lg flex items-center justify-center
-                  border-2 backdrop-blur-sm transition-all duration-300 transform hover:scale-105 hover:rotate-1
+                  border-2 backdrop-blur-sm transition-all duration-300 transform hover:scale-105 
                   ${
                     isDarkMode
                       ? "border-slate-600/40 text-slate-300 hover:bg-slate-800/40 hover:border-indigo-500/40"
@@ -248,7 +248,7 @@ const handlefullstack=()=>{
                 `}
               >
                 <Rocket className="mr-2 w-5 h-5" />
-                View Courses
+                Open Playground
               </Link>
             </div>
 

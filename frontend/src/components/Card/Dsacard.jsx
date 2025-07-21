@@ -3,10 +3,19 @@
 import React, { useState } from "react"
 import { useTheme } from "../context/ThemeContext"
 import { useNavigate } from "react-router-dom"
-import { Code, Server, Briefcase, ArrowRight } from "lucide-react"
+import { Code, Server, Briefcase, ArrowRight, FileCode } from "lucide-react"
 import { motion } from "framer-motion" // Import motion for animations
 
 const courseData = [
+  {
+    title: "JavaScript Mastery",
+    description: "Learn JavaScript from basics to advanced concepts with hands-on practice",
+    level: "All Levels",
+    icon: <FileCode />,
+    color: "blue", // Using blue for variety
+    skills: ["ES6+", "DOM", "Async/Await", "Projects"],
+    route: "/learning/javascript",
+  },
   {
     title: "Data Structures Fundamentals",
     description: "Master the core building blocks of efficient programming",

@@ -1,0 +1,194 @@
+{
+  "title": "JavaScript Complete Syllabus",
+  "sections": [
+    {
+      "id": "basics",
+      "title": "JavaScript Basics",
+      "topics": [
+        {
+          "id": "variables",
+          "name": "Variables & Data Types",
+          "subtopics": [
+            "let, const, var",
+            "Numbers, Strings, Booleans",
+            "null and undefined",
+            "Type conversion"
+          ],
+          "practice": [
+            {
+              "id": "vars-1",
+              "title": "Variable Scope Challenge",
+              "question": "Create variables using let, const, and var. Demonstrate how scope differs for each by creating a function that shows variable hoisting and block scope behavior.",
+              "difficulty": "medium",
+              "starterCode": "// Create variables here\n\nfunction demonstrateScope() {\n  // Your code here\n}\n"
+            }
+          ],
+          "miscQuestion": {
+            "title": "Type Juggling",
+            "question": "Write a function that demonstrates JavaScript's type coercion with different operators (+, -, *, /) using numbers and strings."
+          }
+        },
+        {
+          "id": "operators",
+          "name": "Operators & Control Flow",
+          "subtopics": [
+            "Arithmetic Operators",
+            "Comparison Operators",
+            "Logical Operators",
+            "if...else statements",
+            "switch statements",
+            "Ternary operator"
+          ],
+          "practice": [
+            {
+              "id": "ops-1",
+              "title": "Operator Precedence",
+              "question": "Create a complex expression using different operators that evaluates to true. Explain the order of operations using comments.",
+              "difficulty": "hard",
+              "starterCode": "// Write your expression here\nlet result = \n\n// Explain each step of evaluation"
+            }
+          ],
+          "miscQuestion": {
+            "title": "Control Flow Master",
+            "question": "Write a function that implements a traffic light system using if-else, switch, and ternary operators. Handle different times of day and traffic conditions."
+          }
+        }
+      ]
+    },
+    {
+      "id": "loops-arrays",
+      "title": "Loops and Arrays",
+      "topics": [
+        {
+          "id": "loops",
+          "name": "Loops",
+          "subtopics": [
+            "for loop",
+            "while loop",
+            "do...while loop",
+            "for...of loop",
+            "for...in loop"
+          ],
+          "practice": [
+            {
+              "id": "loop-1",
+              "title": "Loop Comparison",
+              "question": "Write a program that demonstrates all five types of loops performing the same task: summing numbers from 1 to 10. Compare their use cases.",
+              "difficulty": "medium",
+              "starterCode": "// For Loop\n\n// While Loop\n\n// Do-While Loop\n\n// For...of Loop\n\n// For...in Loop"
+            }
+          ],
+          "miscQuestion": {
+            "title": "Nested Loop Challenge",
+            "question": "Create a multiplication table using nested loops. Add formatting to make it visually appealing in the console."
+          }
+        },
+        {
+          "id": "arrays",
+          "name": "Arrays and Array Methods",
+          "subtopics": [
+            "Array creation and access",
+            "map()",
+            "filter()",
+            "reduce()",
+            "forEach()",
+            "find() & findIndex()",
+            "some() & every()",
+            "sort() & reverse()",
+            "slice() & splice()"
+          ],
+          "practice": [
+            {
+              "id": "array-map",
+              "title": "Map Transform",
+              "question": "Given an array of user objects with name and age, use map() to create a new array with formatted strings like 'Name is X years old'.",
+              "difficulty": "easy",
+              "starterCode": "const users = [\n  { name: 'John', age: 25 },\n  { name: 'Jane', age: 30 }\n];\n"
+            },
+            {
+              "id": "array-filter",
+              "title": "Complex Filter",
+              "question": "Filter an array of products to find items that are in stock, under $50, and have a rating above 4 stars.",
+              "difficulty": "medium",
+              "starterCode": "const products = [\n  { name: 'Widget', price: 45, inStock: true, rating: 4.5 },\n  // Add more products\n];\n"
+            },
+            {
+              "id": "array-reduce",
+              "title": "Shopping Cart Total",
+              "question": "Use reduce() to calculate the total price of items in a shopping cart, applying discounts for items over $100.",
+              "difficulty": "medium",
+              "starterCode": "const cart = [\n  { item: 'Laptop', price: 999 },\n  { item: 'Mouse', price: 25 }\n];\n"
+            },
+            {
+              "id": "array-every-some",
+              "title": "Validation Check",
+              "question": "Use every() and some() to validate a form: ensure all required fields are filled and at least one contact method is provided.",
+              "difficulty": "hard",
+              "starterCode": "const formData = [\n  { field: 'name', value: 'John', required: true },\n  { field: 'email', value: '', required: true },\n  { field: 'phone', value: '', required: false }\n];\n"
+            }
+          ],
+          "miscQuestion": {
+            "title": "Array Method Chaining",
+            "question": "Given an array of transactions, use method chaining to: 1) Filter transactions above $100, 2) Map them to include a 5% cashback, 3) Reduce to get total cashback earned."
+          }
+        }
+      ]
+    },
+    {
+      "id": "functions",
+      "title": "Functions",
+      "topics": [
+        {
+          "id": "function-basics",
+          "name": "Function Fundamentals",
+          "subtopics": [
+            "Function Declaration",
+            "Function Expression",
+            "Arrow Functions",
+            "Parameters & Arguments",
+            "Return values",
+            "Default parameters"
+          ],
+          "practice": [
+            {
+              "id": "func-1",
+              "title": "Function Types",
+              "question": "Write the same function using all three styles (declaration, expression, arrow) that calculates the area of a circle. Include parameter validation.",
+              "difficulty": "medium",
+              "starterCode": "// Function Declaration\n\n// Function Expression\n\n// Arrow Function"
+            }
+          ],
+          "miscQuestion": {
+            "title": "Function Master",
+            "question": "Create a function that can take any number of arguments and returns an object with min, max, and average values."
+          }
+        },
+        {
+          "id": "advanced-functions",
+          "name": "Advanced Function Concepts",
+          "subtopics": [
+            "Closure",
+            "Callbacks",
+            "Higher-order functions",
+            "IIFE",
+            "this keyword",
+            "call, apply, bind"
+          ],
+          "practice": [
+            {
+              "id": "closure-1",
+              "title": "Counter Factory",
+              "question": "Create a function factory that generates counter functions with different starting values and step amounts.",
+              "difficulty": "hard",
+              "starterCode": "function createCounter(start, step) {\n  // Your code here\n}"
+            }
+          ],
+          "miscQuestion": {
+            "title": "Function Context",
+            "question": "Create an object with methods that demonstrate the difference between arrow functions and regular functions regarding 'this' binding."
+          }
+        }
+      ]
+    }
+  ]
+}

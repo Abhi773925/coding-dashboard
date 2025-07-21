@@ -2,6 +2,7 @@ import React from "react";
 import { ThemeProvider } from "./components/context/ThemeContext";
 import HeroSection from "./components/navigation/HeroSection";
 import Navigation from "./components/navigation/Navigation";
+import Toast from './components/notification/Toast';
 import Dsacard from "./components/Card/Dsacard";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import { AuthProvider } from "./components/navigation/Navigation";
@@ -20,6 +21,8 @@ import Dashboard from "./components/Dashboard/Dashboard";
 import FullStack from "./components/fullstack/FullStack";
 import Sql from "./components/interview/Sql";
 import NotesOverview from "./components/interview/NotesOverview";
+import CodeCompiler from "./components/Compiler/CodeCompiler";
+import JavaScriptLearning from "./components/learning/JavaScriptLearning";
 
 function App() {
   return (
@@ -27,13 +30,16 @@ function App() {
       <ThemeProvider>
         <Router>
           <Navigation />
+          <Toast />
           <Routes>
-            <Route
+            <Route 
               path="/"
               element={
                 <>
+                 {/* <CodeCompiler/> */}
                   <HeroSection />
                   {/* <Dashboard/> */}
+                 
                   <Dsacard />
                   {/* <Testimonials/> */}
 
@@ -74,6 +80,8 @@ function App() {
             <Route path="/courses/fullstack" element={<FullStack />} />
             <Route path="/sql-notes" element={<Sql/>}/>
             <Route path="/courses/interview-prep" element={<NotesOverview/>}/>
+            <Route path="/learning/javascript" element={<JavaScriptLearning />} />
+            <Route path="/terminal" element={<CodeCompiler />} />
           </Routes>
         </Router>
       </ThemeProvider>

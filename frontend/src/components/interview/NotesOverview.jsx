@@ -37,11 +37,11 @@ export default function NotesOverview() {
       status: "available",
     },
     {
-      title: "OOPs Notes",
-      description: "Object-Oriented Programming Concepts",
+      title: "JavaScript Learning",
+      description: "Master the Basics of JavaScript",
       icon: BookOpen,
-      route: "#",
-      status: "updating-soon",
+      route: "/learning/javascript",
+      status: "available",
     },
     {
       title: "Operating System Notes",
