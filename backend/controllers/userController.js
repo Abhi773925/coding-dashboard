@@ -13,6 +13,7 @@ exports.getUserProfile = async (req, res) => {
     res.status(200).json({
       name: user.name,
       email: user.email,
+      avatar: user.picture || user.avatar || `https://api.dicebear.com/6.x/initials/svg?seed=${user.name}`,
       leetcode: user.leetcode || '',
       github: user.github || '',
       geeksforgeeks: user.geeksforgeeks || ''

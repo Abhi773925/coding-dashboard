@@ -13,6 +13,14 @@ const UserSchema = new mongoose.Schema(
       type: String,
       required: true
     },
+    avatar: {
+      type: String,
+      default: null
+    },
+    picture: {
+      type: String,
+      default: null
+    },
     leetcode: {
       type: String,
       default: null
