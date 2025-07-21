@@ -4,6 +4,7 @@ import React, { useState, useEffect } from "react"
 import { Link } from "react-router-dom"
 import { useTheme } from "../context/ThemeContext"
 import axios from "axios"
+import prepmateLogo from "../../assets/prepmate-logo.png"
 import {
   Moon,
   Sun,
@@ -452,14 +453,11 @@ const MobileMenu = ({ isOpen, onClose, navigationSections }) => {
           >
             <div className="flex items-center space-x-4">
               <div
-                className={`w-12 h-12 rounded-xl flex items-center justify-center
-                ${isDarkMode ? "bg-gradient-to-br from-purple-600 to-blue-600" : "bg-gradient-to-br from-purple-600 to-blue-600"}`}
-                style={{
-                  boxShadow: isDarkMode ? "0 8px 25px rgba(139, 92, 246, 0.3)" : "0 8px 25px rgba(139, 92, 246, 0.2)",
-                }}
+                className={` rounded-xl flex items-center justify-center
+               `}
               >
-                <Link to="/" className="text-xl font-bold tracking-tight">
-              <span className="text-white font-bold text-lg">CK</span>
+              <Link to="/" className="text-xl font-bold tracking-tight pl-4">
+              <img src={prepmateLogo} alt="Prepmate Logo" className="h-[60px] w-auto sm:h-15" />
             </Link>
               </div>
              
@@ -614,14 +612,11 @@ const Navigation = () => {
       {/* Enhanced Logo */}
       <div className="flex items-center space-x-4">
         <div
-          className={`w-12 h-12 rounded-xl flex items-center justify-center transition-all duration-300 hover:scale-105
-          ${isDarkMode ? "bg-gradient-to-br from-purple-600 to-blue-600" : "bg-gradient-to-br from-purple-600 to-blue-600"}`}
-          style={{
-            boxShadow: isDarkMode ? "0 8px 25px rgba(139, 92, 246, 0.3)" : "0 8px 25px rgba(139, 92, 246, 0.2)",
-          }}
+          className={`rounded-xl flex items-center justify-center transition-all duration-300 hover:scale-105
+`}         
         >
-            <Link to="/" className="text-xl font-bold tracking-tight">
-              <span className="text-white font-bold text-lg">CK</span>
+            <Link to="/" className="text-xl font-bold tracking-tight pl-4">
+              <img src={prepmateLogo} alt="Prepmate Logo" className="h-[60px] w-auto sm:h-15" />
             </Link>
         </div>
         
@@ -752,14 +747,12 @@ const Navigation = () => {
         <div className="flex justify-between items-center">
           <div className="flex items-center space-x-3">
             <div
-              className={`w-10 h-10 rounded-xl flex items-center justify-center
-              ${isDarkMode ? "bg-gradient-to-br from-purple-600 to-blue-600" : "bg-gradient-to-br from-purple-600 to-blue-600"}`}
-              style={{
-                boxShadow: isDarkMode ? "0 8px 25px rgba(139, 92, 246, 0.3)" : "0 8px 25px rgba(139, 92, 246, 0.2)",
-              }}
+              className={` rounded-xl flex items-center justify-center
+            `}
+             
             >
-              <Link to="/" className="text-xl font-bold tracking-tight">
-              <span className="text-white font-bold text-lg">CK</span>
+              <Link to="/" className="text-xl font-bold tracking-tight pl-4">
+              <img src={prepmateLogo} alt="Prepmate Logo" className="h-[40px] w-auto sm:h-15" />
             </Link>
             </div>
             

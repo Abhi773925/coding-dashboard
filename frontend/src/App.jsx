@@ -2,6 +2,7 @@ import React from "react";
 import { ThemeProvider } from "./components/context/ThemeContext";
 import HeroSection from "./components/navigation/HeroSection";
 import Navigation from "./components/navigation/Navigation";
+import Header from "./components/navigation/Header";
 import Toast from './components/notification/Toast';
 import Dsacard from "./components/Card/Dsacard";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
@@ -29,6 +30,7 @@ function App() {
     <AuthProvider>
       <ThemeProvider>
         <Router>
+          {/* <Header /> */}
           <Navigation />
           <Toast />
           <Routes>
