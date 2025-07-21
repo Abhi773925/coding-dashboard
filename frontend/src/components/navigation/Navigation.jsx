@@ -164,13 +164,25 @@ const StreakDisplay = () => {
         })
         setStreak(response.data)
         setLoading(false)
+
+        // Update streak on activity
+        await axios.post(`${BACKEND_URL}/api/streak/update`, {
+          email: userEmail
+        })
       } catch (err) {
         console.error("Error fetching streak:", err)
         setLoading(false)
       }
     }
 
+    // Initial fetch
     fetchStreak()
+
+    // Set up automatic refresh every hour
+    const intervalId = setInterval(fetchStreak, 3600000) // 1 hour in milliseconds
+
+    // Clean up interval on component unmount
+    return () => clearInterval(intervalId)
   }, [])
 
   if (loading) {

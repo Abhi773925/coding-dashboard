@@ -1,6 +1,28 @@
 const Streak = require('../models/Streak');
 const moment = require('moment');
 
+const checkAndUpdateStreak = async (streak) => {
+  const today = moment().startOf('day');
+  const lastCodedDate = streak.lastCodedDate ? moment(streak.lastCodedDate).startOf('day') : null;
+  
+  // If there's no last coded date, this is first time
+  if (!lastCodedDate) {
+    return streak;
+  }
+
+  const daysSinceLastCoded = today.diff(lastCodedDate, 'days');
+  
+  // If more than 1 day has passed, reset streak
+  if (daysSinceLastCoded > 1) {
+    streak.currentStreak = 0;
+  }
+  
+  // Update longest streak if needed
+  streak.longestStreak = Math.max(streak.longestStreak, streak.currentStreak);
+  
+  return streak;
+};
+
 exports.getStreak = async (req, res) => {
   try {
     const { email } = req.query;
@@ -13,12 +35,17 @@ exports.getStreak = async (req, res) => {
         currentStreak: 0, 
         longestStreak: 0 
       });
-      await streak.save();
+    } else {
+      // Check and update streak based on time passed
+      streak = await checkAndUpdateStreak(streak);
     }
+    
+    await streak.save();
     
     res.json({
       currentStreak: streak.currentStreak,
-      longestStreak: streak.longestStreak
+      longestStreak: streak.longestStreak,
+      lastCodedDate: streak.lastCodedDate
     });
   } catch (error) {
     res.status(500).json({ message: error.message });
@@ -36,18 +63,26 @@ exports.updateStreak = async (req, res) => {
     }
     
     const today = moment().startOf('day');
-    const lastCodedDate = moment(streak.lastCodedDate).startOf('day');
+    const lastCodedDate = streak.lastCodedDate ? moment(streak.lastCodedDate).startOf('day') : null;
     
-    // Check if coding was done yesterday or today
-    if (!streak.lastCodedDate || 
-        today.diff(lastCodedDate, 'days') === 1) {
-      // Increment current streak
+    // If this is first activity or if last activity was yesterday
+    if (!lastCodedDate || today.diff(lastCodedDate, 'days') === 1) {
+      // Increment streak
       streak.currentStreak += 1;
-      
-      // Update longest streak if needed
-      streak.longestStreak = Math.max(
-        streak.longestStreak, 
-        streak.currentStreak
+      streak.lastCodedDate = new Date();
+    } 
+    // If last activity was today, don't increment but update timestamp
+    else if (today.diff(lastCodedDate, 'days') === 0) {
+      streak.lastCodedDate = new Date();
+    }
+    // If more than a day has passed, reset streak
+    else {
+      streak.currentStreak = 1; // Start new streak
+      streak.lastCodedDate = new Date();
+    }
+    
+    // Update longest streak if needed
+    streak.longestStreak = Math.max(streak.longestStreak, streak.currentStreak);
       );
     } else if (today.diff(lastCodedDate, 'days') > 1) {
       // Streak broken
