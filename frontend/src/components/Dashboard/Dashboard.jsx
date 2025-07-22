@@ -4,6 +4,8 @@ import { useState, useEffect } from "react"
 import { Code, Terminal, BookOpen, Zap, ChevronRight } from "lucide-react"
 import { motion, AnimatePresence } from "framer-motion"
 import { useTheme } from "../context/ThemeContext"
+import Analytics from "./Analytics"
+
 const Dashboard = () => {
   const { isDarkMode, toggleTheme } = useTheme() // Use theme from context
   const [activeFeature, setActiveFeature] = useState(0)
@@ -56,6 +58,9 @@ const Dashboard = () => {
         ${isDarkMode ? "bg-slate-950 text-white" : "bg-gray-50 text-gray-900"}
         transition-colors duration-500`}
     >
+      <div className="w-full max-w-7xl mb-8">
+        <Analytics />
+      </div>
       {/* Animated Background Blobs with Enhanced Glow */}
       <div
         className={`absolute inset-0 overflow-hidden pointer-events-none

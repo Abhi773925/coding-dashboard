@@ -84,6 +84,7 @@ function App() {
             <Route path="/courses/interview-prep" element={<NotesOverview/>}/>
             <Route path="/learning/javascript" element={<JavaScriptLearning />} />
             <Route path="/terminal" element={<CodeCompiler />} />
+            <Route path="/analytics" element={<Analytics />} />
           </Routes>
         </Router>
       </ThemeProvider>
