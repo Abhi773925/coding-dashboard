@@ -24,7 +24,7 @@ import Sql from "./components/interview/Sql";
 import NotesOverview from "./components/interview/NotesOverview";
 import CodeCompiler from "./components/Compiler/CodeCompiler";
 import JavaScriptLearning from "./components/learning/JavaScriptLearning";
-
+import Analytics from "./components/Dashboard/Analytics";
 function App() {
   return (
     <AuthProvider>
