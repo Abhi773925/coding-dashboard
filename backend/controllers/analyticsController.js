@@ -16,8 +16,10 @@ setInterval(() => {
 
 const getAnalytics = async (req, res) => {
     try {
+        console.log('Fetching analytics data...');
         // Get total registered users
         const totalUsers = await User.countDocuments();
+        console.log('Total users:', totalUsers);
 
         const analyticsData = {
             activeUsers: activeUsers.size,
@@ -25,6 +27,7 @@ const getAnalytics = async (req, res) => {
             dailyActiveUsers: dailyActiveUsers.size,
             totalUsers: totalUsers
         };
+        console.log('Analytics data:', analyticsData);
 
         res.json(analyticsData);
     } catch (error) {
@@ -34,16 +37,21 @@ const getAnalytics = async (req, res) => {
 };
 
 const trackPageView = (req, res) => {
+    console.log('Tracking page view...');
     const userId = req.user ? req.user._id : req.ip;
+    console.log('User ID:', userId);
     
     // Track active user
     activeUsers.add(userId);
+    console.log('Active users count:', activeUsers.size);
     
     // Track daily active user
     dailyActiveUsers.add(userId);
+    console.log('Daily active users count:', dailyActiveUsers.size);
     
     // Increment page views
     pageViews++;
+    console.log('Total page views:', pageViews);
     
     res.status(200).json({ message: 'Activity tracked' });
 };

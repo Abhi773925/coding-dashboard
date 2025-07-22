@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { ThemeProvider } from "./components/context/ThemeContext";
 import HeroSection from "./components/navigation/HeroSection";
+import axios from "axios";
 import Navigation from "./components/navigation/Navigation";
 import Header from "./components/navigation/Header";
 import Toast from './components/notification/Toast';
@@ -26,6 +27,16 @@ import CodeCompiler from "./components/Compiler/CodeCompiler";
 import JavaScriptLearning from "./components/learning/JavaScriptLearning";
 import Analytics from "./components/Dashboard/Analytics";
 function App() {
+  useEffect(() => {
+    const trackPageView = async () => {
+      try {
+        await axios.post('https://coding-dashboard-ngwi.onrender.com/api/analytics/track');
+      } catch (error) {
+        console.error('Error tracking page view:', error);
+      }
+    };
+    trackPageView();
+  }, []);
   return (
     <AuthProvider>
       <ThemeProvider>
