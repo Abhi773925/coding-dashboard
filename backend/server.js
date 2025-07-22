@@ -24,6 +24,7 @@ const courseRoutes = require('./routes/courseRoutes');
 const profileRoutes = require("./routes/profileroutes");
 const streakRoutes = require("./routes/streakroutes");
 const userRoutes = require('./routes/userroutes');
+const analyticsRoutes = require('./routes/analyticsRoutes');
 const path = require('path');
 
 // Controllers
@@ -371,6 +372,7 @@ const setupRoutes = () => {
   app.use('/api/codingkaro/courses', courseRoutes);
   app.use('/api', streakRoutes);
   app.use('/api/users', userRoutes);
+  app.use('/api/analytics', analyticsRoutes);
 };
 
 // Enhanced Error Handling Middleware
