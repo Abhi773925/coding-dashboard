@@ -1,7 +1,7 @@
 const User = require('../models/User');
 
 // In-memory storage for active users and page views (this will reset when server restarts)
-let activeUsers = new Set();
+let activeUsers = new Map(); // Changed to Map to store user's last activity timestamp
 let pageViews = 0;
 let dailyActiveUsers = new Set();
 let componentUsage = {
@@ -12,6 +12,18 @@ let componentUsage = {
     fullstack: { count: 0, users: new Set() },
     contests: { count: 0, users: new Set() },
     challenges: { count: 0, users: new Set() }
+};
+
+// Function to clean up inactive users
+const cleanupInactiveUsers = () => {
+    const now = Date.now();
+    const inactiveThreshold = 5 * 60 * 1000; // 5 minutes in milliseconds
+    
+    for (const [userId, lastActivity] of activeUsers.entries()) {
+        if (now - lastActivity > inactiveThreshold) {
+            activeUsers.delete(userId);
+        }
+    }
 };
 
 // Reset daily stats at midnight
@@ -26,6 +38,9 @@ setInterval(() => {
 const getAnalytics = async (req, res) => {
     try {
         console.log('Fetching analytics data...');
+        // Clean up inactive users before counting
+        cleanupInactiveUsers();
+        
         // Get total registered users
         const totalUsers = await User.countDocuments();
         console.log('Total users:', totalUsers);
@@ -61,8 +76,8 @@ const trackPageView = (req, res) => {
     const component = req.body.component;
     console.log('User ID:', userId, 'Component:', component);
     
-    // Track active user
-    activeUsers.add(userId);
+    // Update user's last activity timestamp
+    activeUsers.set(userId, Date.now());
     console.log('Active users count:', activeUsers.size);
     
     // Track daily active user
@@ -79,15 +94,18 @@ const trackPageView = (req, res) => {
         console.log(`${component} usage:`, componentUsage[component]);
     }
     
+    // Clean up inactive users
+    cleanupInactiveUsers();
+    
     console.log('Total page views:', pageViews);
     
     res.status(200).json({ message: 'Activity tracked' });
 };
 
-// Clean up inactive users after 15 minutes
+// Clean up inactive users every minute
 setInterval(() => {
-    activeUsers.clear();
-}, 900000);
+    cleanupInactiveUsers();
+}, 60000);
 
 module.exports = {
     getAnalytics,
