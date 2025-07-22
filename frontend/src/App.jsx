@@ -26,16 +26,27 @@ import NotesOverview from "./components/interview/NotesOverview";
 import CodeCompiler from "./components/Compiler/CodeCompiler";
 import JavaScriptLearning from "./components/learning/JavaScriptLearning";
 import Analytics from "./components/Dashboard/Analytics";
+import { withTracking } from './components/hoc/withTracking';
+
+// Wrap components with tracking
+const TrackedCodeCompiler = withTracking(CodeCompiler);
+const TrackedNotesOverview = withTracking(NotesOverview);
+const TrackedSql = withTracking(Sql);
+const TrackedJavaScriptLearning = withTracking(JavaScriptLearning);
+const TrackedFullStack = withTracking(FullStack);
+const TrackedContestTracker = withTracking(ContestTracker);
+const TrackedKnowledgePathGame = withTracking(KnowledgePathGame);
 function App() {
+  const trackComponentView = async (component = null) => {
+    try {
+      await axios.post('https://coding-dashboard-ngwi.onrender.com/api/analytics/track', { component });
+    } catch (error) {
+      console.error('Error tracking view:', error);
+    }
+  };
+
   useEffect(() => {
-    const trackPageView = async () => {
-      try {
-        await axios.post('https://coding-dashboard-ngwi.onrender.com/api/analytics/track');
-      } catch (error) {
-        console.error('Error tracking page view:', error);
-      }
-    };
-    trackPageView();
+    trackComponentView(); // Track general page view
   }, []);
   return (
     <AuthProvider>
@@ -94,7 +105,39 @@ function App() {
             <Route path="/sql-notes" element={<Sql/>}/>
             <Route path="/courses/interview-prep" element={<NotesOverview/>}/>
             <Route path="/learning/javascript" element={<JavaScriptLearning />} />
-            <Route path="/terminal" element={<CodeCompiler />} />
+            <Route 
+              path="/terminal" 
+              element={<TrackedCodeCompiler onMount={() => trackComponentView('compiler')} />} 
+            />
+            <Route 
+              path="/courses/interview-prep" 
+              element={<TrackedNotesOverview onMount={() => trackComponentView('interviewPrep')} />} 
+            />
+            <Route 
+              path="/sql-notes" 
+              element={<TrackedSql onMount={() => trackComponentView('sqlNotes')} />} 
+            />
+            <Route 
+              path="/learning/javascript" 
+              element={<TrackedJavaScriptLearning onMount={() => trackComponentView('javascript')} />} 
+            />
+            <Route 
+              path="/courses/fullstack" 
+              element={<TrackedFullStack onMount={() => trackComponentView('fullstack')} />} 
+            />
+            <Route 
+              path="/contest" 
+              element={<TrackedContestTracker onMount={() => trackComponentView('contests')} />} 
+            />
+            <Route 
+              path="/explore/challenges" 
+              element={
+                <>
+                  <TrackedKnowledgePathGame onMount={() => trackComponentView('challenges')} />
+                  <IdeaStormGame />
+                </>
+              } 
+            />
             <Route path="/analytics" element={<Analytics />} />
           </Routes>
         </Router>

@@ -6,7 +6,16 @@ const Analytics = () => {
     activeUsers: 0,
     pageViews: 0,
     dailyActiveUsers: 0,
-    totalUsers: 0
+    totalUsers: 0,
+    componentStats: {
+      compiler: { totalVisits: 0, uniqueUsers: 0 },
+      interviewPrep: { totalVisits: 0, uniqueUsers: 0 },
+      sqlNotes: { totalVisits: 0, uniqueUsers: 0 },
+      javascript: { totalVisits: 0, uniqueUsers: 0 },
+      fullstack: { totalVisits: 0, uniqueUsers: 0 },
+      contests: { totalVisits: 0, uniqueUsers: 0 },
+      challenges: { totalVisits: 0, uniqueUsers: 0 }
+    }
   });
 
   useEffect(() => {
@@ -59,6 +68,30 @@ const Analytics = () => {
           <h3 className="text-lg font-semibold text-orange-600 dark:text-orange-400">Total Users</h3>
           <p className="text-3xl font-bold text-orange-800 dark:text-orange-300">{analyticsData.totalUsers}</p>
           <p className="text-sm text-orange-600 dark:text-orange-400">Registered Users</p>
+        </div>
+      </div>
+
+      {/* Component Usage Statistics */}
+      <div className="mt-8">
+        <h3 className="text-xl font-bold mb-4 text-gray-800 dark:text-white">Component Usage Statistics</h3>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+          {Object.entries(analyticsData.componentStats || {}).map(([component, stats]) => (
+            <div key={component} className="bg-indigo-50 dark:bg-gray-700 p-4 rounded-lg">
+              <h4 className="text-lg font-semibold text-indigo-600 dark:text-indigo-400 capitalize">
+                {component.replace(/([A-Z])/g, ' $1').trim()}
+              </h4>
+              <div className="mt-2">
+                <p className="text-indigo-800 dark:text-indigo-300">
+                  <span className="font-bold">{stats.totalVisits}</span>
+                  <span className="text-sm ml-1">Total Visits</span>
+                </p>
+                <p className="text-indigo-800 dark:text-indigo-300">
+                  <span className="font-bold">{stats.uniqueUsers}</span>
+                  <span className="text-sm ml-1">Unique Users</span>
+                </p>
+              </div>
+            </div>
+          ))}
         </div>
       </div>
     </div>

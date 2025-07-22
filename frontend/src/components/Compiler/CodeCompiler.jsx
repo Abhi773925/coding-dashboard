@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useCallback, useMemo, useRef } from "react"
+import { useState, useCallback, useMemo, useRef, useEffect } from "react"
 import {
   Download,
   Copy,
@@ -22,6 +22,7 @@ import {
 import axios from "axios"
 import FloatingElement from "./FloatingElement"
 import { useTheme } from "../context/ThemeContext"
+import { useComponentTracking } from "../../hooks/useComponentTracking"
 const stackblitzFrameworks = {
   React: "https://stackblitz.com/edit/react-ts?embed=1&file=src/App.tsx&view=editor&hideNavigation=1",
   "Next.js": "https://stackblitz.com/edit/nextjs?embed=1&file=pages/index.js&view=editor&hideNavigation=1",

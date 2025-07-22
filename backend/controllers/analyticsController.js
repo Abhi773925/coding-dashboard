@@ -4,6 +4,15 @@ const User = require('../models/User');
 let activeUsers = new Set();
 let pageViews = 0;
 let dailyActiveUsers = new Set();
+let componentUsage = {
+    compiler: { count: 0, users: new Set() },
+    interviewPrep: { count: 0, users: new Set() },
+    sqlNotes: { count: 0, users: new Set() },
+    javascript: { count: 0, users: new Set() },
+    fullstack: { count: 0, users: new Set() },
+    contests: { count: 0, users: new Set() },
+    challenges: { count: 0, users: new Set() }
+};
 
 // Reset daily stats at midnight
 setInterval(() => {
@@ -21,11 +30,21 @@ const getAnalytics = async (req, res) => {
         const totalUsers = await User.countDocuments();
         console.log('Total users:', totalUsers);
 
+        // Process component usage data
+        const componentStats = {};
+        for (const [component, data] of Object.entries(componentUsage)) {
+            componentStats[component] = {
+                totalVisits: data.count,
+                uniqueUsers: data.users.size
+            };
+        }
+
         const analyticsData = {
             activeUsers: activeUsers.size,
             pageViews: pageViews,
             dailyActiveUsers: dailyActiveUsers.size,
-            totalUsers: totalUsers
+            totalUsers: totalUsers,
+            componentStats: componentStats
         };
         console.log('Analytics data:', analyticsData);
 
@@ -39,7 +58,8 @@ const getAnalytics = async (req, res) => {
 const trackPageView = (req, res) => {
     console.log('Tracking page view...');
     const userId = req.user ? req.user._id : req.ip;
-    console.log('User ID:', userId);
+    const component = req.body.component;
+    console.log('User ID:', userId, 'Component:', component);
     
     // Track active user
     activeUsers.add(userId);
@@ -51,6 +71,14 @@ const trackPageView = (req, res) => {
     
     // Increment page views
     pageViews++;
+    
+    // Track component usage if specified
+    if (component && componentUsage[component]) {
+        componentUsage[component].count++;
+        componentUsage[component].users.add(userId);
+        console.log(`${component} usage:`, componentUsage[component]);
+    }
+    
     console.log('Total page views:', pageViews);
     
     res.status(200).json({ message: 'Activity tracked' });
