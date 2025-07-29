@@ -1,45 +1,9 @@
 "use client"
-
 import { useState, useCallback, useMemo, useRef, useEffect } from "react"
-import {
-  Download,
-  Copy,
-  Play,
-  Code2,
-  Layout,
-  Search,
-  X,
-  Terminal,
-  ChevronRight,
-  ChevronDown,
-  Users,
-  Star,
-  Rocket,
-  Sun,
-  Moon,
-  Upload,
-} from "lucide-react"
+import { Download, Copy, Play, Code2, Layout, Search, X, Terminal, ChevronRight, ChevronDown, Users, Star, Rocket, Sun, Moon, Upload, Code, Save } from 'lucide-react'
 import axios from "axios"
 import FloatingElement from "./FloatingElement"
 import { useTheme } from "../context/ThemeContext"
-import { useComponentTracking } from "../../hooks/useComponentTracking"
-const stackblitzFrameworks = {
-  React: "https://stackblitz.com/edit/react-ts?embed=1&file=src/App.tsx&view=editor&hideNavigation=1",
-  "Next.js": "https://stackblitz.com/edit/nextjs?embed=1&file=pages/index.js&view=editor&hideNavigation=1",
-  "React Native": "https://stackblitz.com/edit/react-native?embed=1&file=App.js&view=editor&hideNavigation=1",
-  Remix: "https://stackblitz.com/edit/remix?embed=1&file=app/routes/index.tsx&view=editor&hideNavigation=1",
-  Gatsby: "https://stackblitz.com/edit/gatsby?embed=1&file=src/pages/index.js&view=editor&hideNavigation=1",
-  "Vue 3": "https://stackblitz.com/edit/vue?embed=1",
-  "Nuxt.js": "https://stackblitz.com/edit/nuxt-starter?embed=1",
-  Vuetify: "https://stackblitz.com/edit/vuetify?embed=1",
-  Angular: "https://stackblitz.com/edit/angular-ivy?embed=1",
-  "Angular Material": "https://stackblitz.com/edit/angular-material?embed=1",
-  Svelte: "https://stackblitz.com/edit/svelte?embed=1",
-  SvelteKit: "https://stackblitz.com/edit/sveltekit?embed=1",
-  "Solid.js": "https://stackblitz.com/edit/solid-js?embed=1",
-  Express: "https://stackblitz.com/edit/node-starter?embed=1",
-  Astro: "https://stackblitz.com/edit/astro?embed=1",
-}
 
 const judge0Languages = [
   { id: 63, name: "JavaScript (Node.js)", default: 'console.log("Hello from Node.js!");', icon: "🟨", ext: "js" },
@@ -91,11 +55,11 @@ const getLanguageByExtension = (filename) => {
 
 const ModernCodeCompiler = () => {
   const { isDarkMode, toggleTheme } = useTheme()
-
-  const [activeTab, setActiveTab] = useState("frontend")
+  const [activeTab, setActiveTab] = useState("backend")
   const [selectedFrontend, setSelectedFrontend] = useState("React")
   const [selectedLang, setSelectedLang] = useState(judge0Languages[0])
   const [code, setCode] = useState(judge0Languages[0].default)
+  const [filename, setFilename] = useState("code")
   const [stdin, setStdin] = useState("")
   const [output, setOutput] = useState("")
   const [terminalOutput, setTerminalOutput] = useState("")
@@ -104,16 +68,48 @@ const ModernCodeCompiler = () => {
   const [currentDirectory, setCurrentDirectory] = useState("/")
   const [projectRoot, setProjectRoot] = useState(null)
   const [loading, setLoading] = useState(false)
+  const [isRunning, setIsRunning] = useState(false) // Added missing state
   const [copied, setCopied] = useState(false)
+  const [saveStatus, setSaveStatus] = useState("")
   const [executionDetails, setExecutionDetails] = useState(null)
   const [searchQuery, setSearchQuery] = useState("")
   const [sidebarOpen, setSidebarOpen] = useState(true)
-  const [openFolders, setOpenFolders] = useState({ frontend: true, backend: true, uploaded: true, root: true })
+  const [openFolders, setOpenFolders] = useState({ frontend: true, backend: true, uploaded: true, root: true, savedCode: true })
   const [openTabs, setOpenTabs] = useState([])
   const [activeFile, setActiveFile] = useState(null)
   const [uploadedFiles, setUploadedFiles] = useState([])
-
+  const [savedSnippets, setSavedSnippets] = useState([])
+  const [isLoadingSnippets, setIsLoadingSnippets] = useState(false)
   const fileInputRef = useRef(null)
+
+  // Fetch saved code snippets
+  const fetchSavedSnippets = useCallback(async () => {
+    setIsLoadingSnippets(true);
+    try {
+      const userId = localStorage.getItem('userEmail');
+      if (!userId) {
+        console.log('No user email found in localStorage');
+        return;
+      }
+      const response = await axios.get(`http://localhost:5000/api/code/snippets/${userId}`);
+      if (Array.isArray(response.data)) {
+        setSavedSnippets(response.data);
+      } else {
+        console.error('Received non-array data:', response.data);
+      }
+    } catch (error) {
+      console.error('Error fetching saved snippets:', error);
+      setSaveStatus('Error loading saved code');
+      setTimeout(() => setSaveStatus(''), 3000);
+    } finally {
+      setIsLoadingSnippets(false);
+    }
+  }, []);
+
+  // Load saved snippets on component mount
+  useEffect(() => {
+    fetchSavedSnippets();
+  }, [fetchSavedSnippets]);
 
   const handleFileUpload = useCallback((event) => {
     const files = event.target.files
@@ -121,7 +117,7 @@ const ModernCodeCompiler = () => {
 
     const newUploadedFiles = []
     let filesProcessed = 0
-    let isReactProject = false
+    let isCodeProject = false
     let projectDirectory = null
     let packageJson = null
 
@@ -138,7 +134,7 @@ const ModernCodeCompiler = () => {
       
       // Check if it's a React project
       if (isReactFile || isPackageJson) {
-        isReactProject = true
+        isCodeProject = true
       }
 
       const reader = new FileReader()
@@ -149,10 +145,10 @@ const ModernCodeCompiler = () => {
         
         // Determine file type and prepare for editor
         const fileType = (() => {
-          if (isReactProject) {
+          if (isCodeProject) {
             if (file.name === 'package.json') return 'config'
-            if (file.name.endsWith('.jsx') || file.name.endsWith('.tsx') || 
-                file.name.endsWith('.js') || file.name.endsWith('.ts')) return 'framework'
+            if (file.name.endsWith('.jsx') || file.name.endsWith('.tsx') ||
+                 file.name.endsWith('.js') || file.name.endsWith('.ts')) return 'framework'
             if (file.name.endsWith('.css') || file.name.endsWith('.scss')) return 'style'
             if (file.name.endsWith('.html')) return 'framework'
             if (file.name.endsWith('.json')) return 'config'
@@ -161,9 +157,8 @@ const ModernCodeCompiler = () => {
           return 'uploaded'
         })()
 
-        // Create proper file structure for editor
         const editorFilePath = relativePath.replace(projectDirectory + '/', '')
-        const frameworkUrl = isReactProject ? 
+        const frameworkUrl = isCodeProject ?
           `https://stackblitz.com/edit/react-ts?embed=1&file=${editorFilePath}&view=editor&hideNavigation=1` : null
 
         newUploadedFiles.push({
@@ -173,11 +168,12 @@ const ModernCodeCompiler = () => {
           type: fileType,
           data: {
             ...detectedLang,
-            isReactProject,
+            isCodeProject,
             projectDirectory,
-            stackblitzUrl: isReactProject ? "https://stackblitz.com/edit/react-ts?embed=1&file=src/App.tsx" : null
+            stackblitzUrl: isCodeProject ? "https://stackblitz.com/edit/react-ts?embed=1&file=src/App.tsx" : null
           }
         })
+
         filesProcessed++
         if (filesProcessed === files.length) {
           setUploadedFiles((prev) => [...prev, ...newUploadedFiles])
@@ -216,19 +212,29 @@ const ModernCodeCompiler = () => {
       const files = uploadedFiles.map(f => f.name).join("\n")
       setTerminalOutput((prev) => prev + "\n" + files)
     }
-
     setTerminalCommand("")
   }, [uploadedFiles])
 
   const fileStructure = useMemo(
     () => ({
-      frontend: {
-        name: "Frontend Projects",
-        icon: Layout,
-        files: Object.keys(stackblitzFrameworks).map((name) => ({
-          name,
-          type: "framework",
-          icon: "🌐",
+      savedCode: {
+        name: "Saved Code",
+        icon: Save,
+        files: isLoadingSnippets ? [{
+          name: "Loading...",
+          type: "loading",
+          icon: "⏳",
+          data: { isLoading: true }
+        }] : savedSnippets.map((snippet) => ({
+          name: snippet.filename,
+          type: "saved",
+          icon: "📄",
+          data: snippet.type === "loading" ? { isLoading: true } : {
+            ...snippet,
+            id: snippet._id,
+            code: snippet.code,
+            language: snippet.language
+          },
         })),
       },
       backend: {
@@ -302,8 +308,50 @@ const ModernCodeCompiler = () => {
         },
       }),
     }),
-    [uploadedFiles],
+    [uploadedFiles, savedSnippets, isLoadingSnippets],
   )
+
+  const saveCode = async () => {
+    try {
+      if (!code.trim()) {
+        setSaveStatus('Cannot save empty code');
+        setTimeout(() => setSaveStatus(''), 3000);
+        return;
+      }
+      // Prompt for filename if not set
+      let saveFilename = filename;
+      if (!saveFilename) {
+        const userInput = prompt('Enter a filename for your code:', 'untitled');
+        if (!userInput) {
+          setSaveStatus('Save cancelled');
+          setTimeout(() => setSaveStatus(''), 3000);
+          return;
+        }
+        saveFilename = userInput;
+        setFilename(userInput); // Update the filename in the UI
+      }
+
+      const userId = localStorage.getItem('userEmail'); 
+
+      const response = await axios.post('http://localhost:5000/api/code/save', {
+        userId,
+        filename: saveFilename,
+        code,
+        language: selectedLang.name
+      });
+      
+      const message = response.data.isUpdate ? 'Code updated successfully!' : 'Code saved successfully!';
+      setSaveStatus(message);
+      setTimeout(() => setSaveStatus(''), 3000);
+      
+      // Refresh the saved snippets list
+      fetchSavedSnippets();
+    } catch (error) {
+      console.error('Error saving code:', error);
+      setSaveStatus(error.response?.data?.error || 'Error saving code');
+      setTimeout(() => setSaveStatus(''), 2000);
+    }
+  };
 
   const downloadCode = useCallback(() => {
     const extension = selectedLang.ext
@@ -327,6 +375,7 @@ const ModernCodeCompiler = () => {
 
   const runBackendCode = async () => {
     setLoading(true)
+    setIsRunning(true) // Added this line
     setOutput("Running...")
     setExecutionDetails(null)
     try {
@@ -362,6 +411,7 @@ const ModernCodeCompiler = () => {
       setExecutionDetails(null)
     } finally {
       setLoading(false)
+      setIsRunning(false)
     }
   }
 
@@ -379,6 +429,14 @@ const ModernCodeCompiler = () => {
       return;
     }
 
+    // Handle saved code snippets
+    if (type === 'saved') {
+      setActiveTab("backend");
+      setCode(file.data.code);
+      setFilename(file.data.filename);
+      setSelectedLang(judge0Languages.find(lang => lang.name === file.data.language) || judge0Languages[0]);
+    }
+
     const tabId = `${type}-${file.path || file.name}`
     if (!openTabs.find((tab) => tab.id === tabId)) {
       setOpenTabs((prev) => [
@@ -394,9 +452,9 @@ const ModernCodeCompiler = () => {
     }
     setActiveFile(tabId)
 
-    if (type === "framework" || (file.data?.isReactProject && file.path)) {
+    if (type === "framework" || (file.data?.isCodeProject && file.path)) {
       setActiveTab("frontend")
-      const projectFiles = uploadedFiles.filter(f => 
+      const projectFiles = uploadedFiles.filter(f =>
         f.data?.projectDirectory === file.data?.projectDirectory
       );
       
@@ -406,7 +464,7 @@ const ModernCodeCompiler = () => {
       const frameworkUrl = `${baseUrl}?embed=1&file=${currentFilePath}&view=editor`
       
       // If it's an uploaded React project, update the iframe URL
-      if (file.data?.isReactProject) {
+      if (file.data?.isCodeProject) {
         setSelectedFrontend("React")
         const iframe = document.querySelector('iframe');
         if (iframe) {
@@ -421,7 +479,7 @@ const ModernCodeCompiler = () => {
       setCode(file.data.default)
     } else if (type === "uploaded") {
       // If the file is part of a React project, treat it as a framework
-      if (file.data?.isReactProject) {
+      if (file.data?.isCodeProject) {
         setActiveTab("frontend")
         setSelectedFrontend("React")
       } else {
@@ -474,9 +532,30 @@ const ModernCodeCompiler = () => {
   const statBgClass = isDarkMode ? "bg-gray-800/30" : "bg-indigo-100"
   const statTextColorClass = isDarkMode ? "text-gray-400" : "text-gray-600"
   const statValueColorClass = (color) => (isDarkMode ? color : color.replace("-400", "-600"))
+  const buttonBaseClass = "flex items-center justify-center gap-1 sm:gap-2 px-2 sm:px-3 py-1 sm:py-1.5 rounded-lg transition-all text-xs sm:text-sm"
 
   return (
-    <div className={`min-h-screen pt-16 ${themeBgClass} ${textColorClass} relative overflow-hidden`}>
+    <div className={`min-h-screen pt-4 sm:pt-16 ${themeBgClass} ${textColorClass} relative overflow-hidden`}>
+      {/* Toast Notification */}
+      {saveStatus && (
+        <div className={`fixed top-4 right-4 z-50 p-4 rounded-lg shadow-lg transition-all transform ${
+          saveStatus.includes('error') || saveStatus.includes('cancelled')
+            ? 'bg-red-500'
+            : saveStatus.includes('updated')
+            ? 'bg-blue-500'
+            : 'bg-green-500'
+        } text-white`}>
+          <p className="flex items-center gap-2">
+            {saveStatus.includes('error') || saveStatus.includes('cancelled') ? (
+              <X className="w-4 h-4" />
+            ) : (
+              <Save className="w-4 h-4" />
+            )}
+            {saveStatus}
+          </p>
+        </div>
+      )}
+
       {/* Background Effects */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <div className="absolute inset-0">
@@ -542,6 +621,7 @@ const ModernCodeCompiler = () => {
           />
         </FloatingElement>
       </div>
+
       {/* Main Layout */}
       <div className="flex h-screen relative z-10">
         {/* Sidebar */}
@@ -567,6 +647,7 @@ const ModernCodeCompiler = () => {
               <Layout className="w-4 h-4" />
             </button>
           </div>
+
           {sidebarOpen && (
             <>
               {/* Search Bar */}
@@ -582,6 +663,7 @@ const ModernCodeCompiler = () => {
                   <Search className="absolute left-2.5 top-2.5 text-gray-400 w-4 h-4" />
                 </div>
               </div>
+
               {/* File Explorer */}
               <div className="flex-1 overflow-y-auto">
                 <div className="p-2">
@@ -611,10 +693,10 @@ const ModernCodeCompiler = () => {
                                       <button
                                         onClick={() => toggleFolder(item.path)}
                                         className={`flex items-center gap-2 w-full p-2 ${hoverBgClass} rounded-md transition-colors text-left group`}
-                                        style={{ paddingLeft: `${depth * 1}rem` }}
+                                        style={{ paddingLeft: (depth * 1) + 'rem' }}
                                       >
-                                        {openFolders[item.path] ? 
-                                          <ChevronDown className="w-4 h-4" /> : 
+                                        {openFolders[item.path] ?
+                                          <ChevronDown className="w-4 h-4" /> :
                                           <ChevronRight className="w-4 h-4" />
                                         }
                                         <span className="text-lg">📁</span>
@@ -631,12 +713,25 @@ const ModernCodeCompiler = () => {
                                   );
                                 }
                                 
+                                if (item.type === 'loading') {
+                                  return (
+                                    <div
+                                      key={index}
+                                      className={`flex items-center gap-2 w-full p-2 ${hoverBgClass} rounded-md transition-colors text-left group animate-pulse`}
+                                      style={{ paddingLeft: (depth * 1) + 'rem' }}
+                                    >
+                                      <span className="text-lg">⏳</span>
+                                      <div className="h-4 bg-gray-200 dark:bg-gray-700 rounded w-24"></div>
+                                    </div>
+                                  );
+                                }
+                                
                                 return (
                                   <button
-                                    key={item.path}
+                                    key={item.path || index}
                                     onClick={() => openFile(item, item.type)}
                                     className={`flex items-center gap-2 w-full p-2 ${hoverBgClass} rounded-md transition-colors text-left group`}
-                                    style={{ paddingLeft: `${depth * 1}rem` }}
+                                    style={{ paddingLeft: (depth * 1) + 'rem' }}
                                   >
                                     <span className="text-lg">{item.icon}</span>
                                     <span className={`text-sm ${isDarkMode ? "text-slate-300" : "text-gray-700"} group-hover:${textColorClass}`}>
@@ -645,7 +740,6 @@ const ModernCodeCompiler = () => {
                                   </button>
                                 );
                               };
-                              
                               return renderFileOrFolder(file);
                             })}
                         </div>
@@ -654,6 +748,7 @@ const ModernCodeCompiler = () => {
                   ))}
                 </div>
               </div>
+
               {/* Upload and Clear Buttons */}
               <div className={`p-4 border-t ${borderColorClass} flex flex-col gap-2`}>
                 <input
@@ -682,6 +777,7 @@ const ModernCodeCompiler = () => {
                   </button>
                 )}
               </div>
+
               {/* Stats Section */}
               <div className={`p-4 border-t ${borderColorClass}`}>
                 <div className="grid grid-cols-2 gap-3 text-center">
@@ -702,6 +798,7 @@ const ModernCodeCompiler = () => {
             </>
           )}
         </div>
+
         {/* Main Content */}
         <div className="flex-1 flex flex-col">
           {/* Tab Bar */}
@@ -732,13 +829,14 @@ const ModernCodeCompiler = () => {
               </div>
             )}
           </div>
+
           {/* Toolbar */}
           <div
             className={`flex items-center justify-between ${isDarkMode ? "bg-slate-800/40" : "bg-gray-100/40"} backdrop-blur-sm border-b ${borderColorClass} px-4 py-2`}
           >
             <div className="flex items-center gap-2">
               <button
-                onClick={() => setActiveTab("frontend")}
+                onClick={() => setActiveTab("backend")}
                 className={`flex items-center gap-2 px-3 py-1.5 rounded-lg transition-all text-sm ${
                   activeTab === "frontend" ? buttonPrimaryClass : buttonSecondaryClass
                 }`}
@@ -757,10 +855,20 @@ const ModernCodeCompiler = () => {
               </button>
             </div>
             <div className="flex items-center gap-2">
-              {activeTab === "backend" && (
-                <>
+              {activeTab === "frontend" ? (
+                <select
+                  className={`px-2 sm:px-3 py-1 sm:py-1.5 rounded-lg text-xs sm:text-sm focus:outline-none focus:ring-2 ${selectClass}`}
+                  value={selectedFrontend}
+                  onChange={(e) => setSelectedFrontend(e.target.value)}
+                >
+                  <option value="React">React</option>
+                  <option value="Next.js">Next.js</option>
+                  <option value="Vite">Vite</option>
+                </select>
+              ) : (
+                <div className="flex items-center gap-2">
                   <select
-                    className={`px-3 py-1.5 rounded-lg text-sm focus:outline-none focus:ring-2 ${selectClass}`}
+                    className={`px-2 sm:px-3 py-1 sm:py-1.5 rounded-lg text-xs sm:text-sm focus:outline-none focus:ring-2 ${selectClass}`}
                     value={selectedLang.name}
                     onChange={(e) => {
                       const lang = judge0Languages.find((l) => l.name === e.target.value)
@@ -775,83 +883,70 @@ const ModernCodeCompiler = () => {
                       </option>
                     ))}
                   </select>
-                  <button
-                    onClick={runBackendCode}
-                    className="flex items-center gap-2 bg-gradient-to-r from-green-500 to-emerald-500 hover:from-green-600 hover:to-emerald-600 text-white font-medium px-4 py-1.5 rounded-lg transition-all text-sm"
-                    disabled={loading}
-                  >
-                    <Play size={16} />
-                    {loading ? "Running..." : "Run"}
-                  </button>
-                  <button
-                    onClick={copyCode}
-                    className={`flex items-center gap-2 px-3 py-1.5 rounded-lg transition-all text-sm ${buttonSecondaryClass}`}
-                  >
-                    <Copy size={16} />
-                    {copied ? "Copied!" : "Copy"}
-                  </button>
-                  <button
-                    onClick={downloadCode}
-                    className={`flex items-center gap-2 px-3 py-1.5 rounded-lg transition-all text-sm ${buttonSecondaryClass}`}
-                  >
-                    <Download size={16} />
-                    Download
-                  </button>
-                </>
+                  <input
+                    type="text"
+                    value={filename}
+                    onChange={(e) => setFilename(e.target.value)}
+                    placeholder="Enter filename"
+                    className={`px-2 sm:px-3 py-1 sm:py-1.5 rounded-lg text-xs sm:text-sm focus:outline-none focus:ring-2 ${selectClass} w-28 sm:w-40`}
+                  />
+                </div>
               )}
-              {activeTab === "frontend" && (
-                <select
-                  className={`px-3 py-1.5 rounded-lg text-sm focus:outline-none focus:ring-2 ${selectClass}`}
-                  value={selectedFrontend}
-                  onChange={(e) => setSelectedFrontend(e.target.value)}
+              {activeTab === "backend" ? (
+                <button
+                  onClick={runBackendCode}
+                  className={`${buttonBaseClass} bg-gradient-to-r from-green-500 to-emerald-500 hover:from-green-600 hover:to-emerald-600 text-white font-medium`}
+                  disabled={loading}
                 >
-                  {Object.keys(stackblitzFrameworks).map((framework) => (
-                    <option key={framework} value={framework}>
-                      {framework}
-                    </option>
-                  ))}
-                </select>
+                  <Play className="w-4 h-4 sm:w-5 sm:h-5" />
+                  <span>{loading ? "Running..." : "Run"}</span>
+                </button>
+              ) : (
+                <button
+                  onClick={() => {}} // TODO: Add live preview functionality
+                  className={`${buttonBaseClass} bg-gradient-to-r from-blue-500 to-indigo-500 hover:from-blue-600 hover:to-indigo-600 text-white font-medium`}
+                  disabled={loading}
+                >
+                  <Layout className="w-4 h-4 sm:w-5 sm:h-5" />
+                  <span>{loading ? "Loading..." : "Preview"}</span>
+                </button>
               )}
               <button
-                onClick={toggleTheme}
-                className={`p-1.5 rounded-md ${isDarkMode ? "hover:bg-slate-700/50" : "hover:bg-gray-200/50"} transition-colors`}
-                aria-label="Toggle theme"
+                onClick={saveCode}
+                className={`${buttonBaseClass} ${buttonSecondaryClass}`}
               >
-                {isDarkMode ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />}
+                <Save className="w-4 h-4 sm:w-5 sm:h-5" />
+                <span>Save</span>
+              </button>
+              <button
+                onClick={copyCode}
+                className={`${buttonBaseClass} ${buttonSecondaryClass}`}
+              >
+                <Copy className="w-4 h-4 sm:w-5 sm:h-5" />
+                <span>{copied ? "Copied!" : "Copy"}</span>
+              </button>
+              <button
+                onClick={downloadCode}
+                className={`${buttonBaseClass} ${buttonSecondaryClass}`}
+              >
+                <Download className="w-4 h-4 sm:w-5 sm:h-5" />
+                <span>Download</span>
               </button>
             </div>
+            <button
+              onClick={toggleTheme}
+              className={`p-1.5 rounded-md ${isDarkMode ? "hover:bg-slate-700/50" : "hover:bg-gray-200/50"} transition-colors`}
+              aria-label="Toggle theme"
+            >
+              {isDarkMode ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />}
+            </button>
           </div>
+
           {/* Editor Area */}
           <div className="flex-1 flex">
             {/* Main Editor */}
-            <div className="flex-1 flex flex-col">
-              {activeTab === "frontend" ? (
-                <div className="flex-1 rounded-none overflow-hidden">
-                  <iframe
-                    key={activeFile}
-                    src={(() => {
-                      const activeTab = openTabs.find(tab => tab.id === activeFile);
-                      if (activeTab?.data?.isReactProject) {
-                        // For React projects, use the file-specific URL
-                        const projectPath = activeTab.path.replace(activeTab.data.projectDirectory + '/', '');
-                        return `https://stackblitz.com/edit/react-ts?embed=1&file=${encodeURIComponent(projectPath)}&view=editor&hideNavigation=1&ctl=1`;
-                      } else if (activeTab?.type === 'framework') {
-                        // For built-in frameworks, use the predefined URL with additional parameters
-                        return `${stackblitzFrameworks[selectedFrontend]}&ctl=1`;
-                      }
-                      // Fallback to React template
-                      return `${stackblitzFrameworks.React}&ctl=1`;
-                    })()}
-                    width="100%"
-                    height="100%"
-                    className="border-none"
-                    allow="accelerometer; camera; encrypted-media; geolocation; microphone; midi; payment; usb"
-                    sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts allow-downloads"
-                    loading="lazy"
-                    title="Frontend StackBlitz"
-                  />
-                </div>
-              ) : (
+            <div className="flex-1">
+             
                 <div className={`flex-1 ${editorBgClass}`}>
                   <textarea
                     value={code}
@@ -861,8 +956,9 @@ const ModernCodeCompiler = () => {
                     spellCheck={false}
                   />
                 </div>
-              )}
+            
             </div>
+
             {/* Side Panel for Backend */}
             {activeTab === "backend" && (
               <div className={`w-96 border-l ${borderColorClass} flex flex-col`}>
@@ -881,6 +977,7 @@ const ModernCodeCompiler = () => {
                     className={`flex-1 ${inputOutputBgClass} ${textColorClass} p-4 font-mono text-sm resize-none focus:outline-none ${placeholderColorClass}`}
                   />
                 </div>
+
                 {/* Output Section */}
                 <div className="flex-1 flex flex-col">
                   <div className={`${headerBgClass} backdrop-blur-sm p-3 border-b ${borderColorClass}`}>
@@ -896,13 +993,10 @@ const ModernCodeCompiler = () => {
                       {output || "Run your code to see output here..."}
                     </pre>
                     {executionDetails && (
-                      <div
-                        className={`mt-4 p-3 ${isDarkMode ? "bg-slate-800/50" : "bg-gray-200/50"} rounded-lg border ${borderColorClass}`}
-                      >
+                      <div className={`mt-4 p-3 ${isDarkMode ? "bg-slate-800/50" : "bg-gray-200/50"} rounded-lg border ${borderColorClass}`}>
                         <div className={`text-xs ${statTextColorClass} space-y-1`}>
                           <div>
-                            Status:{" "}
-                            <span
+                            Status: <span
                               className={
                                 executionDetails.status === "Accepted"
                                   ? isDarkMode
@@ -935,41 +1029,47 @@ const ModernCodeCompiler = () => {
               </div>
             )}
           </div>
+
           {/* Terminal */}
-          <div className={`border-t ${borderColorClass} ${showTerminal ? 'h-64' : 'h-8'} transition-all duration-300`}>
-            <div className="flex items-center justify-between px-4 py-1 bg-opacity-50 cursor-pointer"
-                 onClick={() => setShowTerminal(!showTerminal)}>
-              <div className="flex items-center gap-2">
-                <Terminal className="w-4 h-4" />
-                <span className="text-sm font-medium">Terminal</span>
-              </div>
-              <button className={`p-1 rounded hover:${hoverBgClass}`}>
-                {showTerminal ? <ChevronDown className="w-4 h-4" /> : <ChevronRight className="w-4 h-4" />}
-              </button>
-            </div>
-            {showTerminal && (
-              <div className={`h-56 ${editorBgClass} font-mono text-sm p-2 overflow-auto`}>
-                <div className="whitespace-pre-wrap mb-2">{terminalOutput}</div>
-                <div className="flex items-center gap-2">
-                  <span className="text-green-500">$</span>
-                  <input
-                    type="text"
-                    value={terminalCommand}
-                    onChange={(e) => setTerminalCommand(e.target.value)}
-                    onKeyDown={(e) => {
-                      if (e.key === 'Enter' && terminalCommand.trim()) {
-                        executeTerminalCommand(terminalCommand.trim())
-                      }
-                    }}
-                    className={`flex-1 bg-transparent border-none outline-none ${textColorClass}`}
-                    placeholder="Enter command..."
-                  />
+          {activeTab === "backend" && (
+            <>
+              <div className={`border-t ${borderColorClass} ${showTerminal ? 'h-48 sm:h-64' : 'h-8'} transition-all duration-300`}>
+                <div className="flex items-center justify-between px-2 sm:px-4 py-1 bg-opacity-50 cursor-pointer"
+                     onClick={() => setShowTerminal(!showTerminal)}>
+                  <div className="flex items-center gap-2">
+                    <Terminal className="w-4 h-4" />
+                    <span className="text-xs sm:text-sm font-medium">Terminal</span>
+                  </div>
+                  <button className={`p-1 rounded hover:${hoverBgClass}`}>
+                    {showTerminal ? <ChevronDown className="w-4 h-4" /> : <ChevronRight className="w-4 h-4" />}
+                  </button>
                 </div>
+                {showTerminal && (
+                  <div className={`h-40 sm:h-56 ${editorBgClass} font-mono text-xs sm:text-sm p-2 overflow-auto`}>
+                    <div className="whitespace-pre-wrap mb-2">{terminalOutput}</div>
+                    <div className="flex items-center gap-2">
+                      <span className="text-green-500">$</span>
+                      <input
+                        type="text"
+                        value={terminalCommand}
+                        onChange={(e) => setTerminalCommand(e.target.value)}
+                        onKeyDown={(e) => {
+                          if (e.key === 'Enter' && terminalCommand.trim()) {
+                            executeTerminalCommand(terminalCommand.trim())
+                          }
+                        }}
+                        className={`flex-1 bg-transparent border-none outline-none ${textColorClass}`}
+                        placeholder="Enter command..."
+                      />
+                    </div>
+                  </div>
+                )}
               </div>
-            )}
-          </div>
+            </>
+          )}
         </div>
       </div>
+
       <style>{`
         @keyframes float {
           0%, 100% { transform: translateY(0) scale(1); }
@@ -1015,34 +1115,28 @@ const ModernCodeCompiler = () => {
             opacity: 0.8;
           }
         }
-
         /* Custom Scrollbar Styles */
         ::-webkit-scrollbar {
           width: 8px;
           height: 8px;
         }
-
         ::-webkit-scrollbar-track {
           background: ${isDarkMode ? 'rgba(15, 23, 43, 0.3)' : 'rgba(241, 245, 249, 0.3)'};
           border-radius: 4px;
         }
-
         ::-webkit-scrollbar-thumb {
           background: ${isDarkMode ? 'rgba(99, 102, 241, 0.4)' : 'rgba(59, 130, 246, 0.4)'};
           border-radius: 4px;
           transition: all 0.3s ease;
         }
-
         ::-webkit-scrollbar-thumb:hover {
           background: ${isDarkMode ? 'rgba(99, 102, 241, 0.6)' : 'rgba(59, 130, 246, 0.6)'};
         }
-
         /* For Firefox */
         * {
           scrollbar-width: thin;
           scrollbar-color: ${isDarkMode ? 'rgba(99, 102, 241, 0.4) rgba(15, 23, 43, 0.3)' : 'rgba(59, 130, 246, 0.4) rgba(241, 245, 249, 0.3)'};
         }
-
         /* Hide scrollbar for code editor while preserving functionality */
         textarea::-webkit-scrollbar {
           width: 0px;
@@ -1050,7 +1144,7 @@ const ModernCodeCompiler = () => {
         }
       `}</style>
     </div>
-  )
-}
+  );
+};
 
-export default ModernCodeCompiler
+export default ModernCodeCompiler;

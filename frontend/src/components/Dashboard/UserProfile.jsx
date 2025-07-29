@@ -58,7 +58,7 @@ const UserProfile = () => {
         return
       }
 
-      const response = await fetch(`https://coding-dashboard-ngwi.onrender.com/api/users/${userEmail}`)
+      const response = await fetch(`http://localhost:5000/api/users/${userEmail}`)
       
       if (!response.ok) {
         throw new Error(`Failed to fetch profile data: ${response.status}`)
@@ -117,7 +117,7 @@ const UserProfile = () => {
         return
       }
 
-      const response = await fetch(`https://coding-dashboard-ngwi.onrender.com/api/users/${userEmail}`, {
+      const response = await fetch(`http://localhost:5000/api/users/${userEmail}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",

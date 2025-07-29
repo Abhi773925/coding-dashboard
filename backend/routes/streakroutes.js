@@ -4,8 +4,11 @@ const cors = require('cors');
 
 const router = express.Router();
 
-// Enable CORS for all routes
-router.use(cors());
+// Enable CORS with credentials
+router.use(cors({
+    origin: 'http://localhost:5173',
+    credentials: true
+}));
 
 router.get('/streak', getStreak);
 router.post('/streak/update', updateStreak);

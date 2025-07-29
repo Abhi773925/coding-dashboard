@@ -21,10 +21,10 @@ const Analytics = () => {
   useEffect(() => {
     const fetchAnalytics = async () => {
       try {
-        const response = await axios.get('https://coding-dashboard-ngwi.onrender.com/api/analytics');
+        const response = await axios.get('http://localhost:5000/api/analytics');
         setAnalyticsData(response.data);
         // Track page view
-        await axios.post('https://coding-dashboard-ngwi.onrender.com/api/analytics/track');
+        await axios.post('http://localhost:5000/api/analytics/track');
       } catch (error) {
         console.error('Error fetching analytics:', error);
       }

@@ -25,6 +25,7 @@ const profileRoutes = require("./routes/profileroutes");
 const streakRoutes = require("./routes/streakroutes");
 const userRoutes = require('./routes/userroutes');
 const analyticsRoutes = require('./routes/analyticsRoutes');
+const codeRoutes = require('./routes/codeRoutes');
 const path = require('path');
 
 // Controllers
@@ -83,6 +84,7 @@ app.use(cors({
   credentials: true,
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'] // Explicitly allow methods
 }));
+
 
 // Implement a health check ping route that DB can use to stay active
 app.get('/api/internal/ping', (req, res) => {
@@ -373,6 +375,7 @@ const setupRoutes = () => {
   app.use('/api', streakRoutes);
   app.use('/api/users', userRoutes);
   app.use('/api/analytics', analyticsRoutes);
+  app.use('/api/code', codeRoutes);
 };
 
 // Enhanced Error Handling Middleware

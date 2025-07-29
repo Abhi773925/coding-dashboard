@@ -33,7 +33,7 @@ import {
 import { motion, AnimatePresence } from "framer-motion"
 
 // Backend URL Configuration
-const BACKEND_URL = "https://coding-dashboard-ngwi.onrender.com"
+const BACKEND_URL = "http://localhost:5000"
 
 const navigationSections = [
   {
@@ -160,14 +160,16 @@ const StreakDisplay = () => {
           setLoading(false)
           return
         }
-        const response = await axios.get(`${BACKEND_URL}/api/streak`, {
+        const baseUrl = import.meta.env.VITE_BACKEND_URL || 'http://localhost:5000/api';
+        const response = await axios.get(`${baseUrl}/streak`, {
           params: { email: userEmail },
+          withCredentials: true
         })
         setStreak(response.data)
         setLoading(false)
 
         // Update streak on activity
-        await axios.post(`${BACKEND_URL}/api/streak/update`, {
+        await axios.post(`${baseUrl}/streak/update`, {
           email: userEmail
         })
       } catch (err) {

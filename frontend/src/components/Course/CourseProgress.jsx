@@ -11,7 +11,7 @@ import { motion, AnimatePresence } from "framer-motion"
 import FilterForm from "./FilterForm" // Import the new FilterForm
 
 // Backend URL Configuration
-const BACKEND_URL = "https://coding-dashboard-ngwi.onrender.com/api"
+const BACKEND_URL = "http://localhost:5000/api"
 
 // Grid Background Component (retained from previous update)
 const GridBackground = ({ isDarkMode }) => {

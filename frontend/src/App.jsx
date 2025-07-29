@@ -37,16 +37,56 @@ const TrackedFullStack = withTracking(FullStack);
 const TrackedContestTracker = withTracking(ContestTracker);
 const TrackedKnowledgePathGame = withTracking(KnowledgePathGame);
 function App() {
+  // Retry configuration
+  const RETRY_COUNT = 3;
+  const RETRY_DELAY = 1000; // 1 second
+
+  const sleep = (ms) => new Promise(resolve => setTimeout(resolve, ms));
+
   const trackComponentView = async (component = null) => {
-    try {
-      await axios.post('https://coding-dashboard-ngwi.onrender.com/api/analytics/track', { component });
-    } catch (error) {
-      console.error('Error tracking view:', error);
-    }
+    let attempts = 0;
+    
+    const attemptTrack = async () => {
+      try {
+        const response = await axios.post(
+          'http://localhost:5000/api/analytics/track', 
+          { 
+            component,
+            timestamp: new Date().toISOString(),
+            userAgent: navigator.userAgent
+          },
+          {
+            timeout: 5000, // 5 second timeout
+            headers: {
+              'Content-Type': 'application/json'
+            }
+          }
+        );
+        return response.data;
+      } catch (error) {
+        if (attempts < RETRY_COUNT) {
+          attempts++;
+          await sleep(RETRY_DELAY * attempts);
+          return attemptTrack();
+        }
+        // If all retries failed, log error but don't throw
+        console.warn(`Analytics tracking failed after ${RETRY_COUNT} attempts:`, 
+          error.response?.status || 'Network Error');
+        return null;
+      }
+    };
+
+    // Make tracking non-blocking
+    attemptTrack().catch(error => {
+      console.warn('Failed to track component view:', error);
+    });
   };
 
   useEffect(() => {
-    trackComponentView(); // Track general page view
+    // Only track if we're in production
+    if (process.env.NODE_ENV === 'production') {
+      trackComponentView(); // Track general page view
+    }
   }, []);
   return (
     <AuthProvider>
@@ -54,6 +94,10 @@ function App() {
         <Router>
           {/* <Header /> */}
           <Navigation />
+        
+          {/* <CodeEditor/> */}
+          {/* <UnifiedCodeEditor/> */}
+          {/* <FrameworkEditor/> */}
           <Toast />
           <Routes>
             <Route 
@@ -139,6 +183,7 @@ function App() {
               } 
             />
             <Route path="/analytics" element={<Analytics />} />
+           
           </Routes>
         </Router>
       </ThemeProvider>
