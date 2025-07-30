@@ -29,11 +29,15 @@ import {
   X,
   ChevronDown,
   Zap,
+  Code2,
+  MessageSquare,
+  Brain,
 } from "lucide-react"
 import { motion, AnimatePresence } from "framer-motion"
+import config from '../../config/api'
 
 // Backend URL Configuration
-const BACKEND_URL = "http://localhost:5000"
+const BACKEND_URL = config.BACKEND_URL
 
 const navigationSections = [
   {
@@ -60,6 +64,17 @@ const navigationSections = [
       { name: "Mentorship", icon: Book, route: "/community/mentorship" },
     ],
   },
+  {
+    name: "Collaboration",
+    icon: Users,
+    bgColor: "bg-purple-100",
+    color: "text-purple-600",
+    subSections: [
+      { name: "Code Together", icon: Code2, route: "/collaborate" },
+      { name: "Interview Mode", icon: MessageSquare, route: "/interview" },
+    ],
+  },
+ 
   
 ]
 
@@ -160,8 +175,7 @@ const StreakDisplay = () => {
           setLoading(false)
           return
         }
-        const baseUrl = import.meta.env.VITE_BACKEND_URL || 'http://localhost:5000/api';
-        const response = await axios.get(`${baseUrl}/streak`, {
+        const response = await axios.get(`${config.API_URL}/streak`, {
           params: { email: userEmail },
           withCredentials: true
         })
@@ -169,7 +183,7 @@ const StreakDisplay = () => {
         setLoading(false)
 
         // Update streak on activity
-        await axios.post(`${baseUrl}/streak/update`, {
+        await axios.post(`${config.API_URL}/streak/update`, {
           email: userEmail
         })
       } catch (err) {

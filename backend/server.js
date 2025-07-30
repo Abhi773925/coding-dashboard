@@ -8,6 +8,11 @@ const session = require('express-session');
 const MongoStore = require('connect-mongo');
 const cookieParser = require('cookie-parser');
 const http = require('http');
+const { Server } = require('socket.io');
+
+// Collaboration imports
+const CollaborationServer = require('./socketServer');
+const CodeExecutionEngine = require('./codeExecutionEngine');
 
 // Models
 const User = require('./models/User');
@@ -33,6 +38,13 @@ const fetchSolutions = require("./controllers/youtubeScraper");
 const fetchContests = require("./controllers/fetchContests");
 
 const app = express();
+
+// Create HTTP server for Socket.IO
+const server = http.createServer(app);
+
+// Initialize collaboration features
+const codeExecutionEngine = new CodeExecutionEngine();
+let collaborationServer;
 
 // Enhanced and corrected MongoDB Connection Function
 const connectDB = async () => {
@@ -376,6 +388,65 @@ const setupRoutes = () => {
   app.use('/api/users', userRoutes);
   app.use('/api/analytics', analyticsRoutes);
   app.use('/api/code', codeRoutes);
+
+  // Collaboration routes
+  app.get('/api/collaboration/sessions', (req, res) => {
+    if (collaborationServer) {
+      res.json({
+        success: true,
+        sessions: collaborationServer.getActiveSessions(),
+        presence: collaborationServer.getUserPresence()
+      });
+    } else {
+      res.status(503).json({ success: false, message: 'Collaboration server not initialized' });
+    }
+  });
+
+  app.post('/api/code/execute', async (req, res) => {
+    try {
+      const { code, language, fileName, input, userId } = req.body;
+      
+      if (!code || !language) {
+        return res.status(400).json({
+          success: false,
+          message: 'Code and language are required'
+        });
+      }
+
+      const result = await codeExecutionEngine.executeCode(
+        code, 
+        language, 
+        fileName, 
+        input, 
+        userId || req.user?.id
+      );
+
+      res.json({
+        success: true,
+        result
+      });
+    } catch (error) {
+      res.status(500).json({
+        success: false,
+        message: 'Execution failed',
+        error: error.message
+      });
+    }
+  });
+
+  app.get('/api/code/languages', (req, res) => {
+    res.json({
+      success: true,
+      languages: codeExecutionEngine.getSupportedLanguages()
+    });
+  });
+
+  app.get('/api/code/stats', (req, res) => {
+    res.json({
+      success: true,
+      stats: codeExecutionEngine.getExecutionStats()
+    });
+  });
 };
 
 // Enhanced Error Handling Middleware
@@ -429,26 +500,30 @@ const startServer = async () => {
   initialDataFetch();
 
   const PORT = process.env.PORT || 5000;
-  const server = app.listen(PORT, () => {
+  const serverInstance = server.listen(PORT, () => {
     console.log(`🚀 CodingKaro Backend running on port ${PORT}`);
     console.log(`🌐 Environment: ${process.env.NODE_ENV}`);
     console.log(`🔐 Authentication: Google OAuth configured`);
+    console.log(`🤝 Collaboration: Socket.IO server initialized`);
   });
   
+  // Initialize collaboration server after HTTP server starts
+  collaborationServer = new CollaborationServer(server);
+  
   // Setup keep-alive mechanism to prevent server and DB from idling
-  setupKeepAlive(server);
+  setupKeepAlive(serverInstance);
 
   // Graceful Shutdown
   process.on('SIGTERM', () => {
     console.log('SIGTERM received. Shutting down gracefully');
-    server.close(() => {
+    serverInstance.close(() => {
       console.log('Process terminated');
       mongoose.connection.close();
       process.exit(0);
     });
   });
 
-  return server;
+  return serverInstance;
 };
 
 // Start Server
