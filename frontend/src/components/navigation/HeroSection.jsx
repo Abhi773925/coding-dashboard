@@ -231,7 +231,7 @@ const handlefullstack=()=>{
               </Link>
 
               <Link
-                to="/terminal"
+                to="/collaborate"
                 className={`group px-8 py-4 rounded-xl font-semibold text-lg flex items-center justify-center
                   border-2 ${colors.effects.backdrop} transition-all duration-300 transform hover:scale-105 
                   ${

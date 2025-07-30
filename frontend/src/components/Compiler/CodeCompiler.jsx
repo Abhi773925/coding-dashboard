@@ -6,12 +6,13 @@ import FloatingElement from "./FloatingElement"
 import { useTheme } from "../context/ThemeContext"
 import { useNavigate } from "react-router-dom"
 
-const judge0Languages = [
-  { id: 63, name: "JavaScript (Node.js)", default: 'console.log("Hello from Node.js!");', icon: "🟨", ext: "js" },
-  { id: 74, name: "TypeScript", default: 'console.log("Hello from TypeScript!");', icon: "🔷", ext: "ts" },
-  { id: 71, name: "Python 3", default: 'print("Hello from Python!")', icon: "🐍", ext: "py" },
+const pistonLanguages = [
+  { language: "javascript", version: "18.15.0", name: "JavaScript (Node.js)", default: 'console.log("Hello from Node.js!");', icon: "🟨", ext: "js" },
+  { language: "typescript", version: "5.0.3", name: "TypeScript", default: 'console.log("Hello from TypeScript!");', icon: "🔷", ext: "ts" },
+  { language: "python", version: "3.10.0", name: "Python 3", default: 'print("Hello from Python!")', icon: "🐍", ext: "py" },
   {
-    id: 62,
+    language: "java",
+    version: "15.0.2",
     name: "Java",
     default:
       'public class Main {\n    public static void main(String[] args) {\n        System.out.println("Hello from Java!");\n    }\n}',
@@ -19,24 +20,27 @@ const judge0Languages = [
     ext: "java",
   },
   {
-    id: 54,
+    language: "c++",
+    version: "10.2.0",
     name: "C++",
     default: '#include <iostream>\nint main() {\n    std::cout << "Hello from C++";\n    return 0;\n}',
     icon: "⚡",
     ext: "cpp",
   },
   {
-    id: 50,
+    language: "c",
+    version: "10.2.0",
     name: "C",
     default: '#include <stdio.h>\nint main() {\n    printf("Hello from C!");\n    return 0;\n}',
     icon: "🔧",
     ext: "c",
   },
-  { id: 78, name: "Kotlin", default: 'fun main() {\n    println("Hello from Kotlin!")\n}', icon: "🎯", ext: "kt" },
-  { id: 73, name: "Rust", default: 'fn main() {\n    println!("Hello from Rust!");\n}', icon: "🦀", ext: "rs" },
-  { id: 68, name: "PHP", default: '<?php\necho "Hello from PHP!";', icon: "🐘", ext: "php" },
+  { language: "kotlin", version: "1.8.20", name: "Kotlin", default: 'fun main() {\n    println("Hello from Kotlin!")\n}', icon: "🎯", ext: "kt" },
+  { language: "rust", version: "1.68.2", name: "Rust", default: 'fn main() {\n    println!("Hello from Rust!");\n}', icon: "🦀", ext: "rs" },
+  { language: "php", version: "8.2.3", name: "PHP", default: '<?php\necho "Hello from PHP!";', icon: "🐘", ext: "php" },
   {
-    id: 60,
+    language: "go",
+    version: "1.16.2",
     name: "Go",
     default: 'package main\n\nimport "fmt"\n\nfunc main() {\n    fmt.Println("Hello from Go!")\n}',
     icon: "🐹",
@@ -46,20 +50,20 @@ const judge0Languages = [
 
 const getLanguageByExtension = (filename) => {
   const ext = filename.split(".").pop()
-  const lang = judge0Languages.find((l) => l.ext === ext)
+  const lang = pistonLanguages.find((l) => l.ext === ext)
   if (lang) {
     return { ...lang, type: "language" } // Mark as language type
   }
   // Default for other files, or handle as plain text
-  return { id: null, name: "Plain Text", default: "", icon: "📄", ext: "txt" }
+  return { language: "plain", version: "1.0.0", name: "Plain Text", default: "", icon: "📄", ext: "txt" }
 }
 
 const ModernCodeCompiler = () => {
   const { isDarkMode, toggleTheme, colors, schemes } = useTheme()
   const [activeTab, setActiveTab] = useState("backend")
   const [selectedFrontend, setSelectedFrontend] = useState("React")
-  const [selectedLang, setSelectedLang] = useState(judge0Languages[0])
-  const [code, setCode] = useState(judge0Languages[0].default)
+  const [selectedLang, setSelectedLang] = useState(pistonLanguages[0])
+  const [code, setCode] = useState(pistonLanguages[0].default)
   const [filename, setFilename] = useState("code")
   const [stdin, setStdin] = useState("")
   const [output, setOutput] = useState("")
@@ -114,6 +118,18 @@ const handleclicker=()=>{
   useEffect(() => {
     fetchSavedSnippets();
   }, [fetchSavedSnippets]);
+
+  // Fetch available runtimes from Piston API
+  const fetchAvailableRuntimes = useCallback(async () => {
+    try {
+      const response = await axios.get('https://emkc.org/api/v2/piston/runtimes');
+      console.log('Available Piston runtimes:', response.data);
+      return response.data;
+    } catch (error) {
+      console.error('Error fetching runtimes:', error);
+      return [];
+    }
+  }, []);
 
   const handleFileUpload = useCallback((event) => {
     const files = event.target.files
@@ -244,7 +260,7 @@ const handleclicker=()=>{
       backend: {
         name: "Backend Languages",
         icon: Code2,
-        files: judge0Languages.map((lang) => ({
+        files: pistonLanguages.map((lang) => ({
           name: lang.name,
           type: "language",
           icon: lang.icon,
@@ -379,36 +395,34 @@ const handleclicker=()=>{
 
   const runBackendCode = async () => {
     setLoading(true)
-    setIsRunning(true) // Added this line
+    setIsRunning(true)
     setOutput("Running...")
     setExecutionDetails(null)
     try {
-      const { data } = await axios.post(
-        "https://judge0-ce.p.rapidapi.com/submissions",
-        {
-          language_id: selectedLang.id,
-          source_code: code,
-          stdin: stdin,
-          cpu_time_limit: 5,
-          memory_limit: 512000,
-        },
-        {
-          params: { base64_encoded: "false", wait: "true" },
-          headers: {
-            "x-rapidapi-host": "judge0-ce.p.rapidapi.com",
-            "x-rapidapi-key": "af4a1574a2msh2682c4dc719c971p122eb1jsn51b3589532bf", // Replace with your actual RapidAPI key
-            "Content-Type": "application/json",
-          },
-        },
-      )
-      const result = data.stdout || data.stderr || data.compile_output || "No output"
+      const { data } = await axios.post("https://emkc.org/api/v2/piston/execute", {
+        language: selectedLang.language,
+        version: selectedLang.version,
+        files: [
+          {
+            name: `main.${selectedLang.ext}`,
+            content: code
+          }
+        ],
+        stdin: stdin,
+        compile_timeout: 10000,
+        run_timeout: 3000,
+        compile_memory_limit: -1,
+        run_memory_limit: -1
+      })
+      
+      const result = data.run?.stdout || data.run?.stderr || data.compile?.stdout || data.compile?.stderr || "No output"
       setOutput(result)
       setExecutionDetails({
-        status: data.status?.description || "Unknown",
-        time: data.time || "0",
-        memory: Math.round((data.memory || 0) / 1024),
-        compile_output: data.compile_output,
-        stderr: data.stderr,
+        status: data.run?.code === 0 ? "Accepted" : "Runtime Error",
+        time: data.run?.signal ? `Signal: ${data.run.signal}` : "N/A",
+        memory: "N/A",
+        compile_output: data.compile?.stdout || data.compile?.stderr || "",
+        stderr: data.run?.stderr || "",
       })
     } catch (err) {
       setOutput("Error: " + err.message)
@@ -438,7 +452,7 @@ const handleclicker=()=>{
       setActiveTab("backend");
       setCode(file.data.code);
       setFilename(file.data.filename);
-      setSelectedLang(judge0Languages.find(lang => lang.name === file.data.language) || judge0Languages[0]);
+      setSelectedLang(pistonLanguages.find(lang => lang.name === file.data.language) || pistonLanguages[0]);
     }
 
     const tabId = `${type}-${file.path || file.name}`
@@ -490,12 +504,12 @@ const handleclicker=()=>{
         setActiveTab("backend")
         setCode(file.content)
         // Try to set selectedLang if it's a known language
-        const detectedLang = judge0Languages.find((l) => l.ext === file.data.ext)
+        const detectedLang = pistonLanguages.find((l) => l.ext === file.data.ext)
         if (detectedLang) {
           setSelectedLang(detectedLang)
         } else {
           // Fallback for unknown extensions or plain text
-          setSelectedLang({ id: null, name: "Plain Text", default: "", icon: "📄", ext: "txt" })
+          setSelectedLang({ language: "plain", version: "1.0.0", name: "Plain Text", default: "", icon: "📄", ext: "txt" })
         }
       }
     }
@@ -873,14 +887,14 @@ const handleclicker=()=>{
                     className={`px-2 sm:px-3 py-1 sm:py-1.5 rounded-lg text-xs sm:text-sm focus:outline-none focus:ring-2 ${selectClass}`}
                     value={selectedLang.name}
                     onChange={(e) => {
-                      const lang = judge0Languages.find((l) => l.name === e.target.value)
+                      const lang = pistonLanguages.find((l) => l.name === e.target.value)
                       setSelectedLang(lang)
                       setCode(lang.default)
                       setOutput("")
                     }}
                   >
-                    {judge0Languages.map((lang) => (
-                      <option key={lang.id} value={lang.name}>
+                    {pistonLanguages.map((lang) => (
+                      <option key={lang.language} value={lang.name}>
                         {lang.name}
                       </option>
                     ))}
@@ -933,6 +947,14 @@ const handleclicker=()=>{
               >
                 <Download className="w-4 h-4 sm:w-5 sm:h-5" />
                 <span>Download</span>
+              </button>
+              <button
+                onClick={fetchAvailableRuntimes}
+                className={`${buttonBaseClass} ${buttonSecondaryClass}`}
+                title="Fetch available runtimes from Piston API"
+              >
+                <Code className="w-4 h-4 sm:w-5 sm:h-5" />
+                <span>Runtimes</span>
               </button>
             </div>
             <button

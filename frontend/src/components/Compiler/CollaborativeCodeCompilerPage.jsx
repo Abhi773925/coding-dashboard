@@ -66,12 +66,13 @@ const customStyles = `
   }
 `
 
-const judge0Languages = [
-  { id: 63, name: "JavaScript (Node.js)", default: 'console.log("Hello from Node.js!");', icon: "🟨", ext: "js" },
-  { id: 74, name: "TypeScript", default: 'console.log("Hello from TypeScript!");', icon: "🔷", ext: "ts" },
-  { id: 71, name: "Python 3", default: 'print("Hello from Python!")', icon: "🐍", ext: "py" },
+const pistonLanguages = [
+  { language: "javascript", version: "18.15.0", name: "JavaScript (Node.js)", default: 'console.log("Hello from Node.js!");', icon: "🟨", ext: "js" },
+  { language: "typescript", version: "5.0.3", name: "TypeScript", default: 'console.log("Hello from TypeScript!");', icon: "🔷", ext: "ts" },
+  { language: "python", version: "3.10.0", name: "Python 3", default: 'print("Hello from Python!")', icon: "🐍", ext: "py" },
   {
-    id: 62,
+    language: "java",
+    version: "15.0.2",
     name: "Java",
     default:
       'public class Main {\n    public static void main(String[] args) {\n        System.out.println("Hello from Java!");\n    }\n}',
@@ -79,24 +80,27 @@ const judge0Languages = [
     ext: "java",
   },
   {
-    id: 54,
+    language: "c++",
+    version: "10.2.0",
     name: "C++",
     default: '#include <iostream>\nint main() {\n    std::cout << "Hello from C++" << std::endl;\n    return 0;\n}',
     icon: "⚡",
     ext: "cpp",
   },
   {
-    id: 50,
+    language: "c",
+    version: "10.2.0",
     name: "C",
     default: '#include <stdio.h>\nint main() {\n    printf("Hello from C!");\n    return 0;\n}',
     icon: "🔧",
     ext: "c",
   },
-  { id: 78, name: "Kotlin", default: 'fun main() {\n    println("Hello from Kotlin!")\n}', icon: "🎯", ext: "kt" },
-  { id: 73, name: "Rust", default: 'fn main() {\n    println!("Hello from Rust!");\n}', icon: "🦀", ext: "rs" },
-  { id: 68, name: "PHP", default: '<?php\necho "Hello from PHP!";', icon: "🐘", ext: "php" },
+  { language: "kotlin", version: "1.8.20", name: "Kotlin", default: 'fun main() {\n    println("Hello from Kotlin!")\n}', icon: "🎯", ext: "kt" },
+  { language: "rust", version: "1.68.2", name: "Rust", default: 'fn main() {\n    println!("Hello from Rust!");\n}', icon: "🦀", ext: "rs" },
+  { language: "php", version: "8.2.3", name: "PHP", default: '<?php\necho "Hello from PHP!";', icon: "🐘", ext: "php" },
   {
-    id: 60,
+    language: "go",
+    version: "1.16.2",
     name: "Go",
     default: 'package main\n\nimport "fmt"\n\nfunc main() {\n    fmt.Println("Hello from Go!")\n}',
     icon: "🐹",
@@ -106,11 +110,11 @@ const judge0Languages = [
 
 const getLanguageByExtension = (filename) => {
   const ext = filename.split(".").pop().toLowerCase()
-  const lang = judge0Languages.find((l) => l.ext === ext)
+  const lang = pistonLanguages.find((l) => l.ext === ext)
   if (lang) {
     return { ...lang, type: "language" }
   }
-  return { id: null, name: "Plain Text", default: "", icon: "📄", ext: "txt" }
+  return { language: "plain", version: "1.0.0", name: "Plain Text", default: "", icon: "📄", ext: "txt" }
 }
 
 const getMonacoLanguage = (ext) => {
@@ -139,10 +143,10 @@ const CollaborativeCodeCompiler = ({ sessionId: propSessionId }) => {
   const { isDarkMode, toggleTheme } = useTheme()
 
   // Basic states
-  const [code, setCode] = useState(judge0Languages[0].default)
+  const [code, setCode] = useState(pistonLanguages[0].default)
   const [output, setOutput] = useState("")
   const [stdin, setStdin] = useState("")
-  const [selectedLang, setSelectedLang] = useState(judge0Languages[0])
+  const [selectedLang, setSelectedLang] = useState(pistonLanguages[0])
   const [filename, setFilename] = useState("code")
   const [isExecuting, setIsExecuting] = useState(false)
   const [executionDetails, setExecutionDetails] = useState(null)
@@ -262,6 +266,18 @@ const CollaborativeCodeCompiler = ({ sessionId: propSessionId }) => {
   useEffect(() => {
     fetchSavedSnippets()
   }, [fetchSavedSnippets])
+
+  // Fetch available runtimes from Piston API
+  const fetchAvailableRuntimes = useCallback(async () => {
+    try {
+      const response = await axios.get('https://emkc.org/api/v2/piston/runtimes');
+      console.log('Available Piston runtimes:', response.data);
+      return response.data;
+    } catch (error) {
+      console.error('Error fetching runtimes:', error);
+      return [];
+    }
+  }, []);
 
   // Handle browser refresh and URL changes - KEEP EXISTING
   useEffect(() => {
@@ -459,7 +475,9 @@ const CollaborativeCodeCompiler = ({ sessionId: propSessionId }) => {
       }
 
       if (sessionLanguageId && sessionLanguage) {
-        const lang = judge0Languages.find((l) => l.id === sessionLanguageId)
+        // For backward compatibility, try to find by name first, then by old ID
+        const lang = pistonLanguages.find((l) => l.name === sessionLanguage) || 
+                     pistonLanguages.find((l) => l.language === sessionLanguage)
         if (lang) {
           setSelectedLang(lang)
         }
@@ -486,7 +504,10 @@ const CollaborativeCodeCompiler = ({ sessionId: propSessionId }) => {
 
     newSocket.on("language-change", (data) => {
       console.log("Language changed by another user:", data)
-      const lang = judge0Languages.find((l) => l.id === data.languageId)
+      // Handle both new Piston format and legacy format
+      const lang = pistonLanguages.find((l) => l.name === data.language) || 
+                   pistonLanguages.find((l) => l.language === data.language) ||
+                   (data.languageId && pistonLanguages[data.languageId]) // fallback for old format
       if (lang) {
         setSelectedLang(lang)
         if (data.defaultCode) {
@@ -510,7 +531,7 @@ const CollaborativeCodeCompiler = ({ sessionId: propSessionId }) => {
         }
       }
       if (data.language) {
-        const lang = judge0Languages.find((l) => l.name === data.language)
+        const lang = pistonLanguages.find((l) => l.name === data.language)
         if (lang) {
           setSelectedLang(lang)
         }
@@ -682,7 +703,7 @@ const CollaborativeCodeCompiler = ({ sessionId: propSessionId }) => {
     [socket, sessionId, canEdit],
   )
 
-  // Enhanced language change handler with synchronization - KEEP EXISTING
+  // Enhanced language change handler with synchronization - Updated for Piston API
   const handleLanguageChange = useCallback(
     (lang) => {
       setSelectedLang(lang)
@@ -692,8 +713,8 @@ const CollaborativeCodeCompiler = ({ sessionId: propSessionId }) => {
       if (socket && sessionId && canEdit) {
         socket.emit("language-change", {
           sessionId,
-          languageId: lang.id,
-          languageName: lang.name,
+          language: lang.name,
+          languageInfo: lang,
           defaultCode: lang.default,
           userId: localStorage.getItem("userEmail"),
           userName: localStorage.getItem("userName"),
@@ -715,10 +736,10 @@ const CollaborativeCodeCompiler = ({ sessionId: propSessionId }) => {
         setFilename(file.name || file.filename || "untitled")
 
         const detectedLang = getLanguageByExtension(file.name || file.filename || "")
-        if (detectedLang.id) {
+        if (detectedLang.language) {
           setSelectedLang(detectedLang)
         } else {
-          setSelectedLang(judge0Languages[0])
+          setSelectedLang(pistonLanguages[0])
         }
 
         if (socket && sessionId && canEdit) {
@@ -726,7 +747,7 @@ const CollaborativeCodeCompiler = ({ sessionId: propSessionId }) => {
             sessionId,
             filename: file.name || file.filename || "untitled",
             code: file.content || file.code || "",
-            language: detectedLang.name || judge0Languages[0].name,
+            language: detectedLang.name || pistonLanguages[0].name,
             userId: localStorage.getItem("userEmail"),
             userName: localStorage.getItem("userName"),
           })
@@ -751,7 +772,7 @@ const CollaborativeCodeCompiler = ({ sessionId: propSessionId }) => {
     editorRef.current = editorInstance
   }, [])
 
-  // Execute code function - KEEP EXISTING
+  // Execute code function - Updated to use Piston API
   const executeCode = useCallback(async () => {
     if (!code.trim()) {
       setOutput("No code to execute")
@@ -775,39 +796,36 @@ const CollaborativeCodeCompiler = ({ sessionId: propSessionId }) => {
           sessionId,
           code,
           language: selectedLang.name,
-          languageId: selectedLang.id,
+          languageInfo: selectedLang,
           stdin: stdin || "",
         })
       } else {
-        console.log("Executing code with Judge0 API")
+        console.log("Executing code with Piston API")
 
-        const { data } = await axios.post(
-          "https://judge0-ce.p.rapidapi.com/submissions",
-          {
-            language_id: selectedLang.id,
-            source_code: code,
-            stdin: stdin,
-            cpu_time_limit: 5,
-            memory_limit: 512000,
-          },
-          {
-            params: { base64_encoded: "false", wait: "true" },
-            headers: {
-              "x-rapidapi-host": "judge0-ce.p.rapidapi.com",
-              "x-rapidapi-key": "af4a1574a2msh2682c4dc719c971p122eb1jsn51b3589532bf",
-              "Content-Type": "application/json",
-            },
-          },
-        )
+        const { data } = await axios.post("https://emkc.org/api/v2/piston/execute", {
+          language: selectedLang.language,
+          version: selectedLang.version,
+          files: [
+            {
+              name: `main.${selectedLang.ext}`,
+              content: code
+            }
+          ],
+          stdin: stdin,
+          compile_timeout: 10000,
+          run_timeout: 3000,
+          compile_memory_limit: -1,
+          run_memory_limit: -1
+        })
 
-        const result = data.stdout || data.stderr || data.compile_output || "No output"
+        const result = data.run?.stdout || data.run?.stderr || data.compile?.stdout || data.compile?.stderr || "No output"
         setOutput(result)
         setExecutionDetails({
-          status: data.status?.description || "Unknown",
-          time: data.time || "0",
-          memory: Math.round((data.memory || 0) / 1024),
-          compile_output: data.compile_output,
-          stderr: data.stderr,
+          status: data.run?.code === 0 ? "Accepted" : "Runtime Error",
+          time: data.run?.signal ? `Signal: ${data.run.signal}` : "N/A",
+          memory: "N/A",
+          compile_output: data.compile?.stdout || data.compile?.stderr || "",
+          stderr: data.run?.stderr || "",
         })
       }
     } catch (error) {
@@ -1204,7 +1222,7 @@ const CollaborativeCodeCompiler = ({ sessionId: propSessionId }) => {
       setCode(snippet.code)
       setFilename(snippet.filename)
 
-      const lang = judge0Languages.find((l) => l.name === snippet.language)
+      const lang = pistonLanguages.find((l) => l.name === snippet.language)
       if (lang) {
         setSelectedLang(lang)
       }
@@ -1437,7 +1455,7 @@ const CollaborativeCodeCompiler = ({ sessionId: propSessionId }) => {
       backend: {
         name: "Backend Languages",
         icon: Code2,
-        files: judge0Languages.map((lang) => ({
+        files: pistonLanguages.map((lang) => ({
           name: lang.name,
           type: "language",
           icon: lang.icon,
@@ -1670,22 +1688,22 @@ const CollaborativeCodeCompiler = ({ sessionId: propSessionId }) => {
                   }`}>Language Templates</span>
                   <span className={`text-xs ${
                     isDarkMode ? "text-gray-500" : "text-gray-400"
-                  } ml-auto`}>({judge0Languages.length})</span>
+                  } ml-auto`}>({pistonLanguages.length})</span>
                 </button>
                 {openFolders.backend && (
                   <div className={`border-t ${
                     isDarkMode ? "border-gray-600" : "border-gray-300"
                   }`}>
-                    {filterItems(judge0Languages, searchQuery).map((lang) => (
+                    {filterItems(pistonLanguages, searchQuery).map((lang) => (
                       <button
-                        key={lang.id}
+                        key={lang.language}
                         onClick={() => openFile(lang, "language")}
                         className={`flex items-center space-x-3 text-sm w-full text-left p-3 border-b ${
                           isDarkMode ? "border-gray-600" : "border-gray-200"
                         } last:border-b-0 ${
                           isDarkMode ? "hover:bg-blue-900" : "hover:bg-blue-50"
                         } transition-colors ${
-                          selectedLang.id === lang.id
+                          selectedLang.language === lang.language
                             ? `${isDarkMode ? "bg-blue-800 border-blue-500" : "bg-blue-100 border-blue-300"}`
                             : ""
                         }`}
@@ -1697,7 +1715,7 @@ const CollaborativeCodeCompiler = ({ sessionId: propSessionId }) => {
                             isDarkMode ? "text-gray-400" : "text-gray-500"
                           }`}>.{lang.ext} files</div>
                         </div>
-                        {selectedLang.id === lang.id && <div className="w-2 h-2 bg-blue-500 rounded-full"></div>}
+                        {selectedLang.language === lang.language && <div className="w-2 h-2 bg-blue-500 rounded-full"></div>}
                       </button>
                     ))}
                   </div>
@@ -2709,7 +2727,7 @@ const CollaborativeCodeCompiler = ({ sessionId: propSessionId }) => {
         <select
           value={selectedLang.name}
           onChange={(e) => {
-            const lang = judge0Languages.find((l) => l.name === e.target.value)
+            const lang = pistonLanguages.find((l) => l.name === e.target.value)
             handleLanguageChange(lang)
           }}
           className={`px-2 sm:px-3 py-2 ${
@@ -2718,8 +2736,8 @@ const CollaborativeCodeCompiler = ({ sessionId: propSessionId }) => {
               : "bg-white border-gray-300 text-gray-900"
           } border rounded-lg text-sm focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 min-w-0 max-w-32 sm:max-w-none`}
         >
-          {judge0Languages.map((lang) => (
-            <option key={lang.id} value={lang.name}>
+          {pistonLanguages.map((lang) => (
+            <option key={lang.language} value={lang.name}>
               {lang.icon} {lang.name}
             </option>
           ))}
