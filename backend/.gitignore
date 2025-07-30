@@ -2,3 +2,4 @@
 **/id_rsa
 *.pem
 *.key
+node_modules/
