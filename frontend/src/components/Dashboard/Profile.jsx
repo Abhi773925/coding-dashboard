@@ -18,7 +18,7 @@ import {
 import { motion, AnimatePresence } from "framer-motion"
 
 const Profile = () => {
-  const { isDarkMode } = useTheme()
+  const { isDarkMode, colors, schemes } = useTheme()
   const [userProfile, setUserProfile] = useState(null)
   const [developerScore, setDeveloperScore] = useState(null)
   const [loading, setLoading] = useState(true)
@@ -88,31 +88,11 @@ const Profile = () => {
     visible: { opacity: 1, y: 0, transition: { duration: 0.3, ease: "easeOut" } },
   }
 
-  // Platform specific colors
-  const platformColors = {
-    leetcode: {
-      iconBg: isDarkMode ? "bg-indigo-900/30" : "bg-indigo-100",
-      iconText: isDarkMode ? "text-indigo-300" : "text-indigo-600",
-      progress: "bg-indigo-500",
-      border: isDarkMode ? "border-indigo-700/50" : "border-indigo-200/50",
-    },
-    github: {
-      iconBg: isDarkMode ? "bg-blue-900/30" : "bg-blue-100",
-      iconText: isDarkMode ? "text-gray-300" : "text-gray-700",
-      progress: isDarkMode ? "bg-gray-300" : "bg-gray-700",
-      border: isDarkMode ? "border-gray-700/50" : "border-gray-200/50",
-    },
-    geeksforgeeks: {
-      iconBg: isDarkMode ? "bg-green-900/30" : "bg-green-100",
-      iconText: isDarkMode ? "text-green-300" : "text-green-600",
-      progress: "bg-green-600",
-      border: isDarkMode ? "border-green-700/50" : "border-green-200/50",
-    },
-  }
-
+  // Platform specific colors - Using centralized theme
   const getPlatformColor = (platform, type) => {
-    const colors = platformColors[platform] || platformColors.github
-    return colors[type]
+    const platformColors = colors.platforms[platform] || colors.platforms.github
+    const mode = isDarkMode ? 'dark' : 'light'
+    return platformColors[mode][type]
   }
 
   // Helper function to render LeetCode stats

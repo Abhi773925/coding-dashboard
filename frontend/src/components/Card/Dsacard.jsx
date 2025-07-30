@@ -46,7 +46,7 @@ const courseData = [
 ]
 
 const DsaCard = () => {
-  const { isDarkMode } = useTheme()
+  const { isDarkMode, colors, schemes } = useTheme()
   const [hoveredCard, setHoveredCard] = useState(null)
   const navigate = useNavigate()
 
@@ -107,7 +107,7 @@ const DsaCard = () => {
     <div
       className={`
         min-h-screen py-24 px-4 sm:px-6 lg:px-8
-        ${isDarkMode ? "bg-slate-900 text-gray-100" : "bg-gray-50 text-gray-900"}
+        ${schemes.pageBackground(isDarkMode)}
         transition-colors duration-300
       `}
     >
@@ -115,12 +115,7 @@ const DsaCard = () => {
         <h2
           className={`
             text-4xl sm:text-5xl md:text-6xl font-bold text-center mb-16
-            bg-clip-text text-transparent
-            ${
-              isDarkMode
-                ? "bg-gradient-to-r from-purple-400 via-blue-400 to-cyan-400"
-                : "bg-gradient-to-r from-purple-600 via-blue-600 to-indigo-600"
-            }
+            ${schemes.brandGradient(isDarkMode)} bg-clip-text text-transparent
           `}
         >
           Explore Our Courses
@@ -135,20 +130,14 @@ const DsaCard = () => {
                 transform transition-all duration-500 ease-in-out
                 border group cursor-pointer
                 ${hoveredCard === index ? "scale-[1.02] shadow-2xl" : "scale-100 shadow-lg"}
-                ${
-                  isDarkMode
-                    ? `bg-slate-800/70 border-slate-700/50 hover:border-purple-400/50`
-                    : `bg-white/80 border-gray-200/50 hover:border-purple-500/50`
-                }
+                ${schemes.cardBackground(isDarkMode)} hover:border-purple-400/50
               `}
               onMouseEnter={() => setHoveredCard(index)}
               onMouseLeave={() => setHoveredCard(null)}
               style={{
                 boxShadow:
                   hoveredCard === index
-                    ? isDarkMode
-                      ? "0 15px 40px rgba(0,0,0,0.4)"
-                      : "0 15px 40px rgba(0,0,0,0.1)"
+                    ? colors.effects.shadow
                     : isDarkMode
                       ? "0 8px 20px rgba(0,0,0,0.2)"
                       : "0 5px 15px rgba(0,0,0,0.08)",

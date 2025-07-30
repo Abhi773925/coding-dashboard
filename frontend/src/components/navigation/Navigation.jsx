@@ -579,7 +579,7 @@ const MobileMenu = ({ isOpen, onClose, navigationSections }) => {
 }
 
 const Navigation = () => {
-  const { isDarkMode, toggleTheme } = useTheme()
+  const { isDarkMode, toggleTheme, colors, schemes } = useTheme()
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
   const [isMobile, setIsMobile] = useState(false)
   const [openSection, setOpenSection] = useState(null)
@@ -615,12 +615,8 @@ const Navigation = () => {
     <nav
       className={`
         hidden lg:flex fixed top-0 left-0 right-0 z-40
-        ${
-          isDarkMode
-            ? "bg-slate-900/90 border-slate-800/50 text-gray-100"
-            : "bg-white/90 border-gray-200/50 text-gray-900"
-        }
-        backdrop-blur-md border-b
+        ${colors.navigation.bg} ${colors.navigation.border} ${colors.navigation.text}
+        ${colors.effects.backdrop} border-b
         items-center justify-between px-8 py-2
         shadow-lg transition-all duration-300
       `}

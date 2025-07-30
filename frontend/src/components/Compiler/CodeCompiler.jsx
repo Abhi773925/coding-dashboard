@@ -4,6 +4,7 @@ import { Download, Copy, Play, Code2, Layout, Search, X, Terminal, ChevronRight,
 import axios from "axios"
 import FloatingElement from "./FloatingElement"
 import { useTheme } from "../context/ThemeContext"
+import { useNavigate } from "react-router-dom"
 
 const judge0Languages = [
   { id: 63, name: "JavaScript (Node.js)", default: 'console.log("Hello from Node.js!");', icon: "🟨", ext: "js" },
@@ -54,7 +55,7 @@ const getLanguageByExtension = (filename) => {
 }
 
 const ModernCodeCompiler = () => {
-  const { isDarkMode, toggleTheme } = useTheme()
+  const { isDarkMode, toggleTheme, colors, schemes } = useTheme()
   const [activeTab, setActiveTab] = useState("backend")
   const [selectedFrontend, setSelectedFrontend] = useState("React")
   const [selectedLang, setSelectedLang] = useState(judge0Languages[0])
@@ -81,7 +82,10 @@ const ModernCodeCompiler = () => {
   const [savedSnippets, setSavedSnippets] = useState([])
   const [isLoadingSnippets, setIsLoadingSnippets] = useState(false)
   const fileInputRef = useRef(null)
-
+const navigate=useNavigate();
+const handleclicker=()=>{
+  navigate('/');
+}
   // Fetch saved code snippets
   const fetchSavedSnippets = useCallback(async () => {
     setIsLoadingSnippets(true);
@@ -535,7 +539,7 @@ const ModernCodeCompiler = () => {
   const buttonBaseClass = "flex items-center justify-center gap-1 sm:gap-2 px-2 sm:px-3 py-1 sm:py-1.5 rounded-lg transition-all text-xs sm:text-sm"
 
   return (
-    <div className={`min-h-screen pt-4 sm:pt-16 ${themeBgClass} ${textColorClass} relative overflow-hidden`}>
+    <div className={`min-h-screen  ${themeBgClass} ${textColorClass} relative overflow-hidden`}>
       {/* Toast Notification */}
       {saveStatus && (
         <div className={`fixed top-4 right-4 z-50 p-4 rounded-lg shadow-lg transition-all transform ${
@@ -629,15 +633,13 @@ const ModernCodeCompiler = () => {
           className={`${sidebarOpen ? "w-80" : "w-12"} ${sidebarBgClass} backdrop-blur-sm border-r ${borderColorClass} transition-all duration-300 flex flex-col`}
         >
           {/* Sidebar Header */}
-          <div className={`flex items-center justify-between p-4 border-b ${borderColorClass}`}>
+          <div className={`flex items-center justify-between p-4 border-b ${borderColorClass}`} >
             {sidebarOpen && (
-              <div className="flex items-center gap-2">
+              <div className="flex items-center gap-2 cursor-pointer " onClick={handleclicker}>
                 <div className="w-8 h-8 rounded-lg bg-gradient-to-r from-indigo-500 to-purple-500 flex items-center justify-center">
                   <Code2 className="w-4 h-4 text-white" />
                 </div>
-                <span className="font-semibold bg-gradient-to-r from-indigo-400 to-purple-400 bg-clip-text text-transparent">
-                  Code IDE
-                </span>
+                
               </div>
             )}
             <button

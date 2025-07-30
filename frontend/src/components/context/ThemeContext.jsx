@@ -1,9 +1,12 @@
 import React, { createContext, useState, useContext, useEffect } from 'react';
+import { getThemeColors, colorSchemes } from '../../theme/colorTheme';
 
 // Create the ThemeContext
 export const ThemeContext = createContext({
   isDarkMode: true,
   toggleTheme: () => {},
+  colors: {},
+  schemes: {}
 });
 
 // Theme Provider Component
@@ -19,6 +22,10 @@ export const ThemeProvider = ({ children }) => {
     }
   });
 
+  // Get current theme colors
+  const colors = getThemeColors(isDarkMode);
+  const schemes = colorSchemes;
+
   // Save theme to localStorage whenever it changes
   useEffect(() => {
     try {
@@ -28,9 +35,13 @@ export const ThemeProvider = ({ children }) => {
       if (isDarkMode) {
         document.body.classList.add('dark');
         document.body.classList.remove('light');
+        document.documentElement.classList.add('dark');
+        document.documentElement.classList.remove('light');
       } else {
         document.body.classList.add('light');
         document.body.classList.remove('dark');
+        document.documentElement.classList.add('light');
+        document.documentElement.classList.remove('dark');
       }
     } catch (error) {
       console.error('Error saving theme to localStorage:', error);
@@ -46,6 +57,8 @@ export const ThemeProvider = ({ children }) => {
   const contextValue = {
     isDarkMode,
     toggleTheme,
+    colors,
+    schemes
   };
 
   return (

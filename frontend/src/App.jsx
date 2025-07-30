@@ -27,6 +27,7 @@ import CollaborativeCodeCompilerPage from "./components/Compiler/CollaborativeCo
 import JavaScriptLearning from "./components/learning/JavaScriptLearning";
 import Analytics from "./components/Dashboard/Analytics";
 import InterviewMode from "./components/Collaboration/InterviewMode";
+import ThemeDemo from "./components/ThemeDemo";
 import { withTracking } from './components/hoc/withTracking';
 
 // Wrap components with tracking
@@ -41,7 +42,7 @@ const TrackedKnowledgePathGame = withTracking(KnowledgePathGame);
 
 const AppContent = () => {
   const location = useLocation();
-  const hideNavigationRoutes = ['/collaborate', '/interview'];
+  const hideNavigationRoutes = ['/collaborate', '/interview','/terminal'];
   const isCollaborationRoute = hideNavigationRoutes.some(route => location.pathname.startsWith(route));
 
   const RETRY_COUNT = 3;
@@ -102,6 +103,7 @@ const AppContent = () => {
         <Route path="/learning/javascript" element={<TrackedJavaScriptLearning onMount={() => trackComponentView('javascript')} />} />
         <Route path="/terminal" element={<TrackedCodeCompiler onMount={() => trackComponentView('compiler')} />} />
         <Route path="/analytics" element={<Analytics />} />
+        <Route path="/theme-demo" element={<ThemeDemo />} />
         <Route path="/collaborate" element={<TrackedCollaborativeCodeCompilerPage onMount={() => trackComponentView('collaborative-compiler')} />} />
         <Route path="/collaborate/:sessionId" element={<TrackedCollaborativeCodeCompilerPage onMount={() => trackComponentView('collaborative-compiler')} />} />
         <Route path="/interview" element={<InterviewMode onMount={() => trackComponentView('interview')} />} />

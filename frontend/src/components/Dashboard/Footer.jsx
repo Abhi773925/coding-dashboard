@@ -4,13 +4,13 @@ import { useTheme } from "../context/ThemeContext"
 import { motion } from "framer-motion" // Import motion for animations
 
 const Footer = () => {
-  const { isDarkMode } = useTheme()
+  const { isDarkMode, colors, schemes } = useTheme()
 
   return (
     <footer
        className={`
         max-h-fit py-6 px-2 sm:px-6 lg:px-8
-        ${isDarkMode ? "bg-slate-900 text-gray-100" : "bg-gray-50 text-gray-900"}
+        ${schemes.pageBackground(isDarkMode)}
         transition-colors duration-300
       `}
     >
@@ -26,7 +26,7 @@ const Footer = () => {
                 whileTap={{ scale: 0.95 }}
                 className={`
                   text-base font-medium transition-all duration-300
-                  ${isDarkMode ? "text-slate-400 hover:text-indigo-400" : "text-gray-600 hover:text-indigo-600"}
+                  ${colors.text.secondary} hover:${colors.text.accent}
                 `}
               >
                 {link}

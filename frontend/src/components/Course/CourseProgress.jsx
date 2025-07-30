@@ -291,7 +291,7 @@ const QuestionCard = ({ question, courseId, dayNumber, updateQuestionStatus, isD
 
 const CourseProgress = () => {
   // Theme and Authentication Hooks
-  const { isDarkMode } = useTheme()
+  const { isDarkMode, colors, schemes } = useTheme()
   const { isLoggedIn, login, user } = useAuth()
 
   // State Management

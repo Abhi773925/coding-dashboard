@@ -6,7 +6,7 @@ import { Code, BookOpen, Users, ArrowRight, Rocket, Heart, TrendingUp,Star } fro
 import { Link, useNavigate } from "react-router-dom"
 
 const HeroSection = () => {
-  const { isDarkMode } = useTheme()
+  const { isDarkMode, colors, schemes } = useTheme()
   const navigate=useNavigate();
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 })
 const handlefullstack=()=>{
@@ -39,7 +39,7 @@ const handlefullstack=()=>{
       className={`
         relative min-h-screen flex items-center justify-center overflow-hidden pt-20
         transition-all duration-700 ease-in-out
-        ${isDarkMode ? "bg-slate-900" : "bg-gray-50"}
+        ${schemes.pageBackground(isDarkMode)}
       `}
     >
       {/* Lightning Background Effect */}
@@ -175,7 +175,7 @@ const handlefullstack=()=>{
         <div className="flex justify-center mb-8">
           <div
             className={`inline-flex items-center px-4 py-2 rounded-full text-sm font-medium
-            backdrop-blur-sm border-2 transition-all duration-300 hover:scale-105 cursor-pointer
+            ${colors.effects.backdrop} border-2 transition-all duration-300 hover:scale-105 cursor-pointer
             ${
               isDarkMode
                 ? "bg-slate-800/40 border-indigo-500/30 text-indigo-300"
@@ -199,17 +199,15 @@ const handlefullstack=()=>{
           <div>
             {/* Main Heading */}
             <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight mb-6">
-              <span className={isDarkMode ? "text-white" : "text-gray-900"}>Empower Your</span>
-              <span className={`block mt-1 bg-gradient-to-r bg-clip-text text-transparent
-                ${isDarkMode ? "from-indigo-400 via-blue-400 to-indigo-400" : "from-indigo-600 via-blue-600 to-indigo-600"}`}
+              <span className={colors.text.primary}>Empower Your</span>
+              <span className={`block mt-1 ${schemes.brandGradient(isDarkMode)} bg-clip-text text-transparent`}
               >
                 Learning Journey
               </span>
             </h1>
 
             {/* Subtitle */}
-            <p className={`text-lg sm:text-xl mb-8 leading-relaxed
-              ${isDarkMode ? "text-slate-300" : "text-gray-600"}`}
+            <p className={`text-lg sm:text-xl mb-8 leading-relaxed ${colors.text.secondary}`}
             >
               Master programming with structured learning paths, hands-on projects, and real-world applications. 
               Your journey to becoming a skilled developer starts here.
@@ -221,11 +219,7 @@ const handlefullstack=()=>{
                 to="/allcourse"
                 className={`group px-8 py-4 rounded-xl font-semibold text-lg flex items-center justify-center
                   transition-all duration-300 transform hover:scale-105   
-                  ${
-                    isDarkMode
-                      ? "bg-gradient-to-r from-indigo-500 to-blue-500 text-white hover:from-indigo-400 hover:to-blue-400"
-                      : "bg-gradient-to-r from-indigo-600 to-blue-600 text-white hover:from-indigo-700 hover:to-blue-700"
-                  }
+                  ${schemes.primaryButton(isDarkMode)}
                 `}
                 style={{
                   boxShadow: isDarkMode ? "0 10px 40px rgba(139, 92, 246, 0.3)" : "0 10px 40px rgba(139, 92, 246, 0.2)",
@@ -239,7 +233,7 @@ const handlefullstack=()=>{
               <Link
                 to="/terminal"
                 className={`group px-8 py-4 rounded-xl font-semibold text-lg flex items-center justify-center
-                  border-2 backdrop-blur-sm transition-all duration-300 transform hover:scale-105 
+                  border-2 ${colors.effects.backdrop} transition-all duration-300 transform hover:scale-105 
                   ${
                     isDarkMode
                       ? "border-slate-600/40 text-slate-300 hover:bg-slate-800/40 hover:border-indigo-500/40"

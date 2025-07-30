@@ -6,7 +6,7 @@ import { Code, BookOpen, Github, Cpu, Globe, Award, ChevronDown, ChevronUp, Chec
 import { Link } from "react-router-dom"
 
 const Learning = () => {
-  const { isDarkMode } = useTheme()
+  const { isDarkMode, colors, schemes } = useTheme()
   const [activeTab, setActiveTab] = useState("dsa")
   const [expandedSections, setExpandedSections] = useState({
     dsa: [0],
