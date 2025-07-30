@@ -1598,13 +1598,17 @@ const CollaborativeCodeCompiler = ({ sessionId: propSessionId }) => {
       case "files":
         return (
           <div className="h-full flex flex-col overflow-x-hidden">
-            <div className="p-4 border-b border-gray-700">
+            <div className={`p-4 ${
+              isDarkMode ? "border-gray-700" : "border-gray-300"
+            } border-b`}>
               <h2 className="text-lg font-semibold mb-3 flex items-center space-x-2">
                 <Folder className="w-5 h-5 text-blue-500" />
                 <span>File Explorer</span>
               </h2>
               <div className="relative mb-3">
-                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-400" />
+                <Search className={`absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 ${
+                  isDarkMode ? "text-gray-400" : "text-gray-500"
+                }`} />
                 <input
                   type="text"
                   placeholder="Search files..."
@@ -1631,7 +1635,7 @@ const CollaborativeCodeCompiler = ({ sessionId: propSessionId }) => {
                   className={`flex items-center space-x-2 px-3 py-2 rounded-lg text-sm font-medium transition-colors ${
                     code.trim()
                       ? "bg-green-600 hover:bg-green-700 text-white"
-                      : "bg-gray-600 text-gray-300 cursor-not-allowed"
+                      : `${isDarkMode ? "bg-gray-600 text-gray-300" : "bg-gray-300 text-gray-500"} cursor-not-allowed`
                   }`}
                 >
                   <Save className="w-4 h-4" />
@@ -1642,34 +1646,56 @@ const CollaborativeCodeCompiler = ({ sessionId: propSessionId }) => {
 
             <div className="flex-1 overflow-y-auto p-4 space-y-4">
               {/* Language Templates */}
-              <div className="bg-white dark:bg-gray-700 rounded-lg border border-gray-200 dark:border-gray-600 overflow-hidden">
+              <div className={`${
+                isDarkMode 
+                  ? "bg-gray-700 border-gray-600" 
+                  : "bg-white border-gray-300"
+              } rounded-lg border overflow-hidden`}>
                 <button
                   onClick={() => toggleFolder("backend")}
-                  className="flex items-center space-x-2 text-left w-full p-3 hover:bg-gray-50 dark:hover:bg-gray-600 transition-colors"
+                  className={`flex items-center space-x-2 text-left w-full p-3 ${
+                    isDarkMode 
+                      ? "hover:bg-gray-600" 
+                      : "hover:bg-gray-100"
+                  } transition-colors`}
                 >
-                  <div className="text-gray-400">
+                  <div className={`${
+                    isDarkMode ? "text-gray-400" : "text-gray-500"
+                  }`}>
                     {openFolders.backend ? <ChevronDown className="w-4 h-4" /> : <ChevronRight className="w-4 h-4" />}
                   </div>
                   <Folder className="w-4 h-4 text-blue-500" />
-                  <span className="font-semibold text-blue-700 dark:text-blue-300">Language Templates</span>
-                  <span className="text-xs text-gray-500 ml-auto">({judge0Languages.length})</span>
+                  <span className={`font-semibold ${
+                    isDarkMode ? "text-blue-300" : "text-blue-700"
+                  }`}>Language Templates</span>
+                  <span className={`text-xs ${
+                    isDarkMode ? "text-gray-500" : "text-gray-400"
+                  } ml-auto`}>({judge0Languages.length})</span>
                 </button>
                 {openFolders.backend && (
-                  <div className="border-t border-gray-200 dark:border-gray-600">
+                  <div className={`border-t ${
+                    isDarkMode ? "border-gray-600" : "border-gray-300"
+                  }`}>
                     {filterItems(judge0Languages, searchQuery).map((lang) => (
                       <button
                         key={lang.id}
                         onClick={() => openFile(lang, "language")}
-                        className={`flex items-center space-x-3 text-sm w-full text-left p-3 border-b border-gray-100 dark:border-gray-600 last:border-b-0 hover:bg-blue-50 dark:hover:bg-blue-900 transition-colors ${
+                        className={`flex items-center space-x-3 text-sm w-full text-left p-3 border-b ${
+                          isDarkMode ? "border-gray-600" : "border-gray-200"
+                        } last:border-b-0 ${
+                          isDarkMode ? "hover:bg-blue-900" : "hover:bg-blue-50"
+                        } transition-colors ${
                           selectedLang.id === lang.id
-                            ? "bg-blue-100 dark:bg-blue-800 border-blue-300 dark:border-blue-500"
+                            ? `${isDarkMode ? "bg-blue-800 border-blue-500" : "bg-blue-100 border-blue-300"}`
                             : ""
                         }`}
                       >
                         <span className="text-lg">{lang.icon}</span>
                         <div className="flex-1">
                           <div className="font-medium">{lang.name}</div>
-                          <div className="text-xs text-gray-500">.{lang.ext} files</div>
+                          <div className={`text-xs ${
+                            isDarkMode ? "text-gray-400" : "text-gray-500"
+                          }`}>.{lang.ext} files</div>
                         </div>
                         {selectedLang.id === lang.id && <div className="w-2 h-2 bg-blue-500 rounded-full"></div>}
                       </button>
@@ -1680,12 +1706,22 @@ const CollaborativeCodeCompiler = ({ sessionId: propSessionId }) => {
 
               {/* Uploaded Files */}
               {uploadedFiles.length > 0 && (
-                <div className="bg-white dark:bg-gray-700 rounded-lg border border-gray-200 dark:border-gray-600 overflow-hidden">
+                <div className={`${
+                  isDarkMode 
+                    ? "bg-gray-700 border-gray-600" 
+                    : "bg-white border-gray-300"
+                } rounded-lg border overflow-hidden`}>
                   <button
                     onClick={() => toggleFolder("uploaded")}
-                    className="flex items-center space-x-2 text-left w-full p-3 hover:bg-gray-50 dark:hover:bg-gray-600 transition-colors"
+                    className={`flex items-center space-x-2 text-left w-full p-3 ${
+                      isDarkMode 
+                        ? "hover:bg-gray-600" 
+                        : "hover:bg-gray-100"
+                    } transition-colors`}
                   >
-                    <div className="text-gray-400">
+                    <div className={`${
+                      isDarkMode ? "text-gray-400" : "text-gray-500"
+                    }`}>
                       {openFolders.uploaded ? (
                         <ChevronDown className="w-4 h-4" />
                       ) : (
@@ -1693,20 +1729,32 @@ const CollaborativeCodeCompiler = ({ sessionId: propSessionId }) => {
                       )}
                     </div>
                     <Folder className="w-4 h-4 text-green-500" />
-                    <span className="font-semibold text-green-700 dark:text-green-300">Uploaded Files</span>
-                    <span className="text-xs text-gray-500 ml-auto">({uploadedFiles.length})</span>
+                    <span className={`font-semibold ${
+                      isDarkMode ? "text-green-300" : "text-green-700"
+                    }`}>Uploaded Files</span>
+                    <span className={`text-xs ${
+                      isDarkMode ? "text-gray-500" : "text-gray-400"
+                    } ml-auto`}>({uploadedFiles.length})</span>
                   </button>
                   {openFolders.uploaded && (
-                    <div className="border-t border-gray-200 dark:border-gray-600">
+                    <div className={`border-t ${
+                      isDarkMode ? "border-gray-600" : "border-gray-300"
+                    }`}>
                       {filterItems(uploadedFiles, searchQuery).map((file) => (
                         <div
                           key={file.id}
-                          className="flex items-center justify-between group border-b border-gray-100 dark:border-gray-600 last:border-b-0 hover:bg-green-50 dark:hover:bg-green-900 transition-colors"
+                          className={`flex items-center justify-between group border-b ${
+                            isDarkMode ? "border-gray-600" : "border-gray-200"
+                          } last:border-b-0 ${
+                            isDarkMode ? "hover:bg-green-900" : "hover:bg-green-50"
+                          } transition-colors`}
                         >
                           <button
                             onClick={() => openFile(file, "uploaded")}
                             className={`flex items-center space-x-3 text-sm flex-1 text-left p-3 ${
-                              activeFile?.id === file.id ? "bg-green-100 dark:bg-green-800" : ""
+                              activeFile?.id === file.id 
+                                ? `${isDarkMode ? "bg-green-800" : "bg-green-100"}` 
+                                : ""
                             }`}
                           >
                             <FileText className="w-4 h-4 text-green-600" />
@@ -1741,29 +1789,51 @@ const CollaborativeCodeCompiler = ({ sessionId: propSessionId }) => {
               )}
 
               {/* Saved Code Snippets */}
-              <div className="bg-white dark:bg-gray-700 rounded-lg border border-gray-200 dark:border-gray-600 overflow-hidden">
+              <div className={`${
+                isDarkMode 
+                  ? "bg-gray-700 border-gray-600" 
+                  : "bg-white border-gray-300"
+              } rounded-lg border overflow-hidden`}>
                 <button
                   onClick={() => toggleFolder("savedCode")}
-                  className="flex items-center space-x-2 text-left w-full p-3 hover:bg-gray-50 dark:hover:bg-gray-600 transition-colors"
+                  className={`flex items-center space-x-2 text-left w-full p-3 ${
+                    isDarkMode 
+                      ? "hover:bg-gray-600" 
+                      : "hover:bg-gray-100"
+                  } transition-colors`}
                 >
-                  <div className="text-gray-400">
+                  <div className={`${
+                    isDarkMode ? "text-gray-400" : "text-gray-500"
+                  }`}>
                     {openFolders.savedCode ? <ChevronDown className="w-4 h-4" /> : <ChevronRight className="w-4 h-4" />}
                   </div>
                   <Folder className="w-4 h-4 text-purple-500" />
-                  <span className="font-semibold text-purple-700 dark:text-purple-300">Saved Code</span>
-                  <span className="text-xs text-gray-500 ml-auto">({savedSnippets?.length || 0})</span>
+                  <span className={`font-semibold ${
+                    isDarkMode ? "text-purple-300" : "text-purple-700"
+                  }`}>Saved Code</span>
+                  <span className={`text-xs ${
+                    isDarkMode ? "text-gray-500" : "text-gray-400"
+                  } ml-auto`}>({savedSnippets?.length || 0})</span>
                 </button>
                 {openFolders.savedCode && (
-                  <div className="border-t border-gray-200 dark:border-gray-600">
+                  <div className={`border-t ${
+                    isDarkMode ? "border-gray-600" : "border-gray-300"
+                  }`}>
                     {savedSnippets?.length === 0 || !savedSnippets ? (
-                      <div className="p-4 text-center text-gray-500 text-sm">
+                      <div className={`p-4 text-center ${
+                        isDarkMode ? "text-gray-400" : "text-gray-500"
+                      } text-sm`}>
                         {isLoadingSnippets ? "Loading..." : "No saved code snippets"}
                       </div>
                     ) : (
                       filterItems(savedSnippets || [], searchQuery).map((snippet) => (
                         <div
                           key={snippet._id}
-                          className="flex items-center justify-between group border-b border-gray-100 dark:border-gray-600 last:border-b-0 hover:bg-purple-50 dark:hover:bg-purple-900 transition-colors"
+                          className={`flex items-center justify-between group border-b ${
+                            isDarkMode ? "border-gray-600" : "border-gray-200"
+                          } last:border-b-0 ${
+                            isDarkMode ? "hover:bg-purple-900" : "hover:bg-purple-50"
+                          } transition-colors`}
                         >
                           <button
                             onClick={() => loadSavedSnippet(snippet)}
@@ -1772,7 +1842,9 @@ const CollaborativeCodeCompiler = ({ sessionId: propSessionId }) => {
                             <Star className="w-4 h-4 text-yellow-500" />
                             <div className="flex-1 min-w-0">
                               <div className="font-medium truncate">{snippet.filename}</div>
-                              <div className="text-xs text-gray-500">{snippet.language}</div>
+                              <div className={`text-xs ${
+                                isDarkMode ? "text-gray-400" : "text-gray-500"
+                              }`}>{snippet.language}</div>
                             </div>
                           </button>
                           <div className="opacity-0 group-hover:opacity-100 flex space-x-1 px-2">
@@ -2496,7 +2568,11 @@ const CollaborativeCodeCompiler = ({ sessionId: propSessionId }) => {
   }
 
   return (
-    <div className={`h-screen w-screen max-h-screen max-w-screen overflow-hidden flex ${isDarkMode ? "bg-gray-900 text-white" : "bg-white text-gray-900"}`}>
+    <div className={`h-screen w-screen max-h-screen max-w-screen overflow-hidden flex ${
+      isDarkMode 
+        ? "bg-gray-900 text-white" 
+        : "bg-gray-50 text-gray-900"
+    }`}>
       {/* Hidden File Input */}
       <input
         type="file"
@@ -2508,7 +2584,11 @@ const CollaborativeCodeCompiler = ({ sessionId: propSessionId }) => {
       />
 
       {/* Vertical Sidebar */}
-      <div className="w-16 min-w-16 max-w-16 h-full max-h-full bg-gray-800 border-r border-gray-700 flex flex-col items-center py-4 space-y-2 flex-shrink-0">
+      <div className={`w-16 min-w-16 max-w-16 h-full max-h-full ${
+        isDarkMode 
+          ? "bg-gray-800 border-gray-700" 
+          : "bg-white border-gray-300"
+      } border-r flex flex-col items-center py-4 space-y-2 flex-shrink-0`}>
         {/* Logo/Brand - Back to Home */}
         <button 
           onClick={() => window.location.href = '/'}
@@ -2528,8 +2608,8 @@ const CollaborativeCodeCompiler = ({ sessionId: propSessionId }) => {
                 item.active
                   ? "bg-blue-600 text-white shadow-lg"
                   : item.disabled
-                    ? "text-gray-500 cursor-not-allowed"
-                    : "text-gray-400 hover:text-white hover:bg-gray-700"
+                    ? `${isDarkMode ? "text-gray-500" : "text-gray-400"} cursor-not-allowed`
+                    : `${isDarkMode ? "text-gray-400 hover:text-white hover:bg-gray-700" : "text-gray-600 hover:text-gray-800 hover:bg-gray-200"}`
               }`}
             >
               <item.icon className="w-5 h-5" />
@@ -2555,7 +2635,11 @@ const CollaborativeCodeCompiler = ({ sessionId: propSessionId }) => {
       <div className="flex-1 h-full max-h-full overflow-hidden flex min-w-0">
         {/* Left Panel */}
         {activePanel && !isMobile && (
-          <div className={`${isTablet ? "w-80 min-w-80 max-w-80" : "w-96 min-w-96 max-w-96"} h-full max-h-full bg-gray-800 border-r border-gray-700 flex flex-col overflow-hidden overflow-x-hidden flex-shrink-0`}>
+          <div className={`${isTablet ? "w-80 min-w-80 max-w-80" : "w-96 min-w-96 max-w-96"} h-full max-h-full ${
+            isDarkMode 
+              ? "bg-gray-800 border-gray-700" 
+              : "bg-white border-gray-300"
+          } border-r flex flex-col overflow-hidden overflow-x-hidden flex-shrink-0`}>
             {renderPanelContent()}
           </div>
         )}
@@ -2564,10 +2648,22 @@ const CollaborativeCodeCompiler = ({ sessionId: propSessionId }) => {
         {activePanel && isMobile && (
           <>
             <div className="fixed inset-0 bg-black bg-opacity-50 z-40" onClick={() => closePanelSynchronized(activePanel)} />
-            <div className="fixed left-16 top-0 bottom-0 w-80 min-w-80 max-w-80 bg-gray-800 border-r border-gray-700 z-50 flex flex-col overflow-hidden overflow-x-hidden flex-shrink-0">
-              <div className="flex items-center justify-between p-4 border-b border-gray-700 flex-shrink-0">
+            <div className={`fixed left-16 top-0 bottom-0 w-80 min-w-80 max-w-80 ${
+              isDarkMode 
+                ? "bg-gray-800 border-gray-700" 
+                : "bg-white border-gray-300"
+            } border-r z-50 flex flex-col overflow-hidden overflow-x-hidden flex-shrink-0`}>
+              <div className={`flex items-center justify-between p-4 ${
+                isDarkMode 
+                  ? "border-gray-700" 
+                  : "border-gray-300"
+              } border-b flex-shrink-0`}>
                 <h2 className="text-lg font-semibold truncate">{sidebarItems.find((item) => item.id === activePanel)?.label}</h2>
-                <button onClick={() => closePanelSynchronized(activePanel)} className="text-gray-400 hover:text-white flex-shrink-0">
+                <button onClick={() => closePanelSynchronized(activePanel)} className={`${
+                  isDarkMode 
+                    ? "text-gray-400 hover:text-white" 
+                    : "text-gray-600 hover:text-gray-800"
+                } flex-shrink-0`}>
                   <X className="w-5 h-5" />
                 </button>
               </div>
@@ -2579,7 +2675,11 @@ const CollaborativeCodeCompiler = ({ sessionId: propSessionId }) => {
         {/* Editor Area */}
         <div className="flex-1 flex flex-col overflow-hidden min-w-0 h-full max-h-full">
   {/* Top Bar */}
-  <div className="h-14 bg-gradient-to-r from-gray-800 to-gray-750 border-b border-gray-700 flex items-center justify-between px-2 sm:px-4 flex-shrink-0">
+  <div className={`h-14 ${
+    isDarkMode 
+      ? "bg-gradient-to-r from-gray-800 to-gray-750 border-gray-700" 
+      : "bg-gradient-to-r from-white to-gray-100 border-gray-300"
+  } border-b flex items-center justify-between px-2 sm:px-4 flex-shrink-0`}>
     <div className="flex items-center space-x-2 sm:space-x-4 flex-1 min-w-0">
       {/* Mobile Menu Toggle */}
       {isMobile && (
@@ -2591,7 +2691,11 @@ const CollaborativeCodeCompiler = ({ sessionId: propSessionId }) => {
               setActivePanel("files")
             }
           }}
-          className="p-2 rounded-lg text-gray-400 hover:text-white hover:bg-gray-700 transition-colors flex-shrink-0"
+          className={`p-2 rounded-lg ${
+            isDarkMode 
+              ? "text-gray-400 hover:text-white hover:bg-gray-700" 
+              : "text-gray-600 hover:text-gray-800 hover:bg-gray-200"
+          } transition-colors flex-shrink-0`}
         >
           <Menu className="w-5 h-5" />
         </button>
@@ -2599,14 +2703,20 @@ const CollaborativeCodeCompiler = ({ sessionId: propSessionId }) => {
 
       {/* Language Selector */}
       <div className="flex items-center space-x-1 sm:space-x-2 min-w-0">
-        <span className="text-xs text-gray-400 hidden md:block">Language:</span>
+        <span className={`text-xs ${
+          isDarkMode ? "text-gray-400" : "text-gray-600"
+        } hidden md:block`}>Language:</span>
         <select
           value={selectedLang.name}
           onChange={(e) => {
             const lang = judge0Languages.find((l) => l.name === e.target.value)
             handleLanguageChange(lang)
           }}
-          className="px-2 sm:px-3 py-2 bg-gray-700 border border-gray-600 rounded-lg text-white text-sm focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 min-w-0 max-w-32 sm:max-w-none"
+          className={`px-2 sm:px-3 py-2 ${
+            isDarkMode 
+              ? "bg-gray-700 border-gray-600 text-white" 
+              : "bg-white border-gray-300 text-gray-900"
+          } border rounded-lg text-sm focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 min-w-0 max-w-32 sm:max-w-none`}
         >
           {judge0Languages.map((lang) => (
             <option key={lang.id} value={lang.name}>
@@ -2618,15 +2728,23 @@ const CollaborativeCodeCompiler = ({ sessionId: propSessionId }) => {
 
       {/* Filename Input */}
       <div className="flex items-center space-x-1 sm:space-x-2 min-w-0">
-        <span className="text-xs text-gray-400 hidden md:block">File:</span>
+        <span className={`text-xs ${
+          isDarkMode ? "text-gray-400" : "text-gray-600"
+        } hidden md:block`}>File:</span>
         <input
           type="text"
           value={filename}
           onChange={(e) => setFilename(e.target.value)}
           placeholder="filename"
-          className="px-2 sm:px-3 py-2 bg-gray-700 border border-gray-600 rounded-lg text-white text-sm w-20 sm:w-32 md:w-48 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
+          className={`px-2 sm:px-3 py-2 ${
+            isDarkMode 
+              ? "bg-gray-700 border-gray-600 text-white" 
+              : "bg-white border-gray-300 text-gray-900"
+          } border rounded-lg text-sm w-20 sm:w-32 md:w-48 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500`}
         />
-        <span className="text-xs text-gray-400 flex-shrink-0">.{selectedLang.ext}</span>
+        <span className={`text-xs ${
+          isDarkMode ? "text-gray-400" : "text-gray-600"
+        } flex-shrink-0`}>.{selectedLang.ext}</span>
       </div>
     </div>
 
@@ -2800,10 +2918,18 @@ const CollaborativeCodeCompiler = ({ sessionId: propSessionId }) => {
   <div
     className={`${
       isMobile ? "fixed inset-y-0 right-0 w-full z-40 max-w-full" : isTablet ? "w-80 min-w-80 max-w-80" : "w-96 min-w-96 max-w-96"
-    } bg-gray-800 border-l border-gray-700 flex flex-col overflow-hidden h-full max-h-full flex-shrink-0`}
+    } ${
+      isDarkMode 
+        ? "bg-gray-800 border-gray-700" 
+        : "bg-white border-gray-300"
+    } border-l flex flex-col overflow-hidden h-full max-h-full flex-shrink-0`}
   >
     {/* Panel Header */}
-    <div className="h-12 bg-gray-700 border-b border-gray-600 flex items-center justify-between px-4 flex-shrink-0">
+    <div className={`h-12 ${
+      isDarkMode 
+        ? "bg-gray-700 border-gray-600" 
+        : "bg-gray-100 border-gray-300"
+    } border-b flex items-center justify-between px-4 flex-shrink-0`}>
       <div className="flex items-center space-x-2">
         <Terminal className="w-4 h-4 text-blue-400" />
         <span className="text-sm font-semibold">Input/Output</span>
@@ -2812,7 +2938,9 @@ const CollaborativeCodeCompiler = ({ sessionId: propSessionId }) => {
         <button
           onClick={() => setShowInputTerminal(!showInputTerminal)}
           className={`px-2 py-1 text-xs rounded transition-colors ${
-            showInputTerminal ? "bg-blue-600 text-white" : "bg-gray-600 text-gray-300 hover:bg-gray-500"
+            showInputTerminal 
+              ? "bg-blue-600 text-white" 
+              : `${isDarkMode ? "bg-gray-600 text-gray-300 hover:bg-gray-500" : "bg-gray-300 text-gray-600 hover:bg-gray-400"}`
           }`}
         >
           Input
@@ -2820,7 +2948,9 @@ const CollaborativeCodeCompiler = ({ sessionId: propSessionId }) => {
         <button
           onClick={() => setShowOutputTerminal(!showOutputTerminal)}
           className={`px-2 py-1 text-xs rounded transition-colors ${
-            showOutputTerminal ? "bg-green-600 text-white" : "bg-gray-600 text-gray-300 hover:bg-gray-500"
+            showOutputTerminal 
+              ? "bg-green-600 text-white" 
+              : `${isDarkMode ? "bg-gray-600 text-gray-300 hover:bg-gray-500" : "bg-gray-300 text-gray-600 hover:bg-gray-400"}`
           }`}
         >
           Output
@@ -2828,7 +2958,11 @@ const CollaborativeCodeCompiler = ({ sessionId: propSessionId }) => {
         {isMobile && (
           <button
             onClick={() => setRightPanelOpen(false)}
-            className="text-gray-400 hover:text-white ml-2"
+            className={`${
+              isDarkMode 
+                ? "text-gray-400 hover:text-white" 
+                : "text-gray-600 hover:text-gray-800"
+            } ml-2`}
           >
             <X className="w-4 h-4" />
           </button>

@@ -1,0 +1,4 @@
+# Ignore any SSH private keys
+**/id_rsa
+*.pem
+*.key
