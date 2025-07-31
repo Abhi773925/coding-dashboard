@@ -1,0 +1,112 @@
+{
+  "name": "PrepMate - Coding Interview Preparation",
+  "short_name": "PrepMate",
+  "description": "Master coding interviews with expert mentorship, practice challenges, and real-time collaboration tools",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#2563eb",
+  "orientation": "portrait-primary",
+  "categories": ["education", "productivity", "developer"],
+  "lang": "en-US",
+  "icons": [
+    {
+      "src": "/images/icons/icon-72x72.svg",
+      "sizes": "72x72",
+      "type": "image/svg+xml",
+      "purpose": "maskable any"
+    },
+    {
+      "src": "/images/icons/icon-144x144.svg",
+      "sizes": "144x144",
+      "type": "image/svg+xml",
+      "purpose": "maskable any"
+    },{
+      "sizes": "384x384",
+      "type": "image/png",
+      "purpose": "maskable any"
+    },
+    {
+      "src": "/images/icons/icon-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable any"
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "/images/screenshots/desktop-home.png",
+      "sizes": "1280x720",
+      "type": "image/png",
+      "form_factor": "wide",
+      "label": "PrepMate Homepage"
+    },
+    {
+      "src": "/images/screenshots/mobile-dashboard.png",
+      "sizes": "375x667",
+      "type": "image/png",
+      "form_factor": "narrow",
+      "label": "Mobile Dashboard"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Dashboard",
+      "short_name": "Dashboard",
+      "description": "View your learning progress",
+      "url": "/dashboard",
+      "icons": [
+        {
+          "src": "/images/icons/dashboard-icon.png",
+          "sizes": "96x96"
+        }
+      ]
+    },
+    {
+      "name": "Practice",
+      "short_name": "Practice",
+      "description": "Start coding practice",
+      "url": "/compiler",
+      "icons": [
+        {
+          "src": "/images/icons/code-icon.png",
+          "sizes": "96x96"
+        }
+      ]
+    },
+    {
+      "name": "Mentorship",
+      "short_name": "Mentorship",
+      "description": "Find a mentor",
+      "url": "/mentorship",
+      "icons": [
+        {
+          "src": "/images/icons/mentor-icon.png",
+          "sizes": "96x96"
+        }
+      ]
+    }
+  ],
+  "prefer_related_applications": false,
+  "edge_side_panel": {
+    "preferred_width": 400
+  },
+  "launch_handler": {
+    "client_mode": "navigate-existing"
+  },
+  "protocol_handlers": [
+    {
+      "protocol": "web+prepmate",
+      "url": "/share?url=%s"
+    }
+  ],
+  "share_target": {
+    "action": "/share",
+    "method": "GET",
+    "params": {
+      "title": "title",
+      "text": "text",
+      "url": "url"
+    }
+  }
+}

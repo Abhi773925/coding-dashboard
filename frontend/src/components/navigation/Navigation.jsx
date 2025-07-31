@@ -474,7 +474,7 @@ const MobileMenu = ({ isOpen, onClose, navigationSections }) => {
                `}
               >
               <Link to="/" className="text-xl font-bold tracking-tight pl-4">
-              <img src={prepmateLogo} alt="Prepmate Logo" className="h-[60px] w-auto sm:h-15" />
+              <img src={prepmateLogo} alt="Prepmate Logo" className="h-[30px] w-auto sm:h-15" />
             </Link>
               </div>
              
@@ -629,7 +629,7 @@ const Navigation = () => {
 `}         
         >
             <Link to="/" className="text-xl font-bold tracking-tight pl-4">
-              <img src={prepmateLogo} alt="Prepmate Logo" className="h-[60px] w-auto sm:h-15" />
+              <img src={prepmateLogo} alt="Prepmate Logo" className="h-[30px] w-auto sm:h-15" />
             </Link>
         </div>
         
@@ -765,7 +765,7 @@ const Navigation = () => {
              
             >
               <Link to="/" className="text-xl font-bold tracking-tight pl-4">
-              <img src={prepmateLogo} alt="Prepmate Logo" className="h-[40px] w-auto sm:h-15" />
+              <img src={prepmateLogo} alt="Prepmate Logo" className="h-[30px] w-auto sm:h-15" />
             </Link>
             </div>
             

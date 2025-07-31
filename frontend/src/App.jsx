@@ -28,7 +28,16 @@ import JavaScriptLearning from "./components/learning/JavaScriptLearning";
 import Analytics from "./components/Dashboard/Analytics";
 import InterviewMode from "./components/Collaboration/InterviewMode";
 import ThemeDemo from "./components/ThemeDemo";
+
+// SEO Components
+import SEO from "./components/SEO/SEO";
+import PerformanceOptimizer from "./components/Performance/PerformanceOptimizer";
+import Breadcrumb from "./components/SEO/Breadcrumb";
 import { withTracking } from './components/hoc/withTracking';
+
+// SEO Analytics and Testing
+import seoAnalytics from './utils/seoAnalytics';
+import { runSEOTest } from './utils/seoTester';
 
 // Wrap components with tracking
 const TrackedCodeCompiler = withTracking(CodeCompiler);
@@ -79,35 +88,251 @@ const AppContent = () => {
   };
 
   useEffect(() => {
+    // Always initialize SEO analytics
+    seoAnalytics.init();
+    
+    // Make SEO testing functions globally available for manual testing
+    if (typeof window !== 'undefined') {
+      window.runSEOTest = runSEOTest;
+      window.seoAnalytics = seoAnalytics;
+    }
+    
     if (process.env.NODE_ENV === 'production') {
       trackComponentView();
+    }
+    
+    // Run SEO test automatically in development
+    if (process.env.NODE_ENV === 'development') {
+      setTimeout(() => {
+        runSEOTest();
+      }, 2000); // Wait for page to fully load
     }
   }, []);
 
   return (
     <>
+      {/* Performance Optimizer - loads once */}
+      <PerformanceOptimizer />
+      
       {!isCollaborationRoute && <Navigation />}
       <Toast />
-      <Routes>
-        <Route path="/" element={<><HeroSection /><Dsacard /><Footer /></>} />
-        <Route path="/allcourse" element={<Dsacard />} />
-        <Route path="/profile" element={<><UserProfile /><Profile /></>} />
-        <Route path="/courses/data-structures" element={<CourseProgress />} />
-        <Route path="/contest" element={<TrackedContestTracker onMount={() => trackComponentView('contests')} />} />
-        <Route path="*" element={<Default />} />
-        <Route path="/explore/challenges" element={<><TrackedKnowledgePathGame onMount={() => trackComponentView('challenges')} /><IdeaStormGame /></>} />
-        <Route path="/explore/learning-paths" element={<Learning />} />
-        <Route path="/courses/fullstack" element={<TrackedFullStack onMount={() => trackComponentView('fullstack')} />} />
-        <Route path="/sql-notes" element={<TrackedSql onMount={() => trackComponentView('sqlNotes')} />} />
-        <Route path="/courses/interview-prep" element={<TrackedNotesOverview onMount={() => trackComponentView('interviewPrep')} />} />
-        <Route path="/learning/javascript" element={<TrackedJavaScriptLearning onMount={() => trackComponentView('javascript')} />} />
-        <Route path="/terminal" element={<TrackedCodeCompiler onMount={() => trackComponentView('compiler')} />} />
-        <Route path="/analytics" element={<Analytics />} />
-        <Route path="/theme-demo" element={<ThemeDemo />} />
-        <Route path="/collaborate" element={<TrackedCollaborativeCodeCompilerPage onMount={() => trackComponentView('collaborative-compiler')} />} />
-        <Route path="/collaborate/:sessionId" element={<TrackedCollaborativeCodeCompilerPage onMount={() => trackComponentView('collaborative-compiler')} />} />
-        <Route path="/interview" element={<InterviewMode onMount={() => trackComponentView('interview')} />} />
-      </Routes>
+      
+      <main role="main">
+        <Routes>
+        <Route path="/" element={
+          <>
+            <SEO page="home" />
+            <HeroSection />
+            <Dsacard />
+            <Footer />
+          </>
+        } />
+        
+        <Route path="/allcourse" element={
+          <>
+            <SEO page="courses" />
+            <Breadcrumb items={[{ name: 'Courses', href: '/allcourse' }]} className="container mx-auto px-4 py-2" />
+            <Dsacard />
+          </>
+        } />
+        
+        <Route path="/profile" element={
+          <>
+            <SEO page="dashboard" title="My Profile - Track Your Progress" />
+            <Breadcrumb items={[{ name: 'Profile', href: '/profile' }]} className="container mx-auto px-4 py-2" />
+            <UserProfile />
+            <Profile />
+          </>
+        } />
+        
+        <Route path="/courses/data-structures" element={
+          <>
+            <SEO 
+              page="courses" 
+              title="Data Structures Course - Master the Fundamentals"
+              description="Learn essential data structures including arrays, linked lists, trees, graphs, and more. Perfect for coding interview preparation."
+              keywords="data structures, arrays, linked lists, trees, graphs, coding interview, computer science"
+            />
+            <Breadcrumb items={[
+              { name: 'Courses', href: '/allcourse' },
+              { name: 'Data Structures', href: '/courses/data-structures' }
+            ]} className="container mx-auto px-4 py-2" />
+            <CourseProgress />
+          </>
+        } />
+        
+        <Route path="/contest" element={
+          <>
+            <SEO page="contests" />
+            <Breadcrumb items={[{ name: 'Contests', href: '/contest' }]} className="container mx-auto px-4 py-2" />
+            <TrackedContestTracker onMount={() => trackComponentView('contests')} />
+          </>
+        } />
+        
+        <Route path="/explore/challenges" element={
+          <>
+            <SEO 
+              page="dashboard" 
+              title="Coding Challenges - Practice Problem Solving"
+              description="Solve coding challenges and improve your problem-solving skills. Practice with interactive games and puzzles."
+              keywords="coding challenges, problem solving, programming puzzles, algorithm practice"
+            />
+            <Breadcrumb items={[
+              { name: 'Explore', href: '/explore' },
+              { name: 'Challenges', href: '/explore/challenges' }
+            ]} className="container mx-auto px-4 py-2" />
+            <TrackedKnowledgePathGame onMount={() => trackComponentView('challenges')} />
+            <IdeaStormGame />
+          </>
+        } />
+        
+        <Route path="/explore/learning-paths" element={
+          <>
+            <SEO 
+              page="courses" 
+              title="Learning Paths - Structured Programming Education"
+              description="Follow structured learning paths designed for different skill levels and career goals. From beginner to advanced programming concepts."
+              keywords="learning paths, programming education, skill development, career growth"
+            />
+            <Breadcrumb items={[
+              { name: 'Explore', href: '/explore' },
+              { name: 'Learning Paths', href: '/explore/learning-paths' }
+            ]} className="container mx-auto px-4 py-2" />
+            <Learning />
+          </>
+        } />
+        
+        <Route path="/courses/fullstack" element={
+          <>
+            <SEO 
+              page="courses" 
+              title="Full Stack Development - Complete Web Development Course"
+              description="Master full stack web development with React, Node.js, databases, and deployment. Build real-world applications."
+              keywords="full stack development, web development, react, nodejs, javascript, database"
+            />
+            <Breadcrumb items={[
+              { name: 'Courses', href: '/allcourse' },
+              { name: 'Full Stack', href: '/courses/fullstack' }
+            ]} className="container mx-auto px-4 py-2" />
+            <TrackedFullStack onMount={() => trackComponentView('fullstack')} />
+          </>
+        } />
+        
+        <Route path="/sql-notes" element={
+          <>
+            <SEO 
+              title="SQL Notes - Database Query Reference"
+              description="Comprehensive SQL notes and examples. Learn database queries, joins, optimization, and advanced SQL concepts."
+              keywords="sql, database, queries, mysql, postgresql, sql tutorial, database design"
+            />
+            <Breadcrumb items={[{ name: 'SQL Notes', href: '/sql-notes' }]} className="container mx-auto px-4 py-2" />
+            <TrackedSql onMount={() => trackComponentView('sqlNotes')} />
+          </>
+        } />
+        
+        <Route path="/courses/interview-prep" element={
+          <>
+            <SEO 
+              page="courses" 
+              title="Interview Preparation - Ace Your Coding Interviews"
+              description="Comprehensive interview preparation course covering algorithms, system design, behavioral questions, and mock interviews."
+              keywords="interview preparation, coding interview, algorithm interview, system design, mock interview"
+            />
+            <Breadcrumb items={[
+              { name: 'Courses', href: '/allcourse' },
+              { name: 'Interview Prep', href: '/courses/interview-prep' }
+            ]} className="container mx-auto px-4 py-2" />
+            <TrackedNotesOverview onMount={() => trackComponentView('interviewPrep')} />
+          </>
+        } />
+        
+        <Route path="/learning/javascript" element={
+          <>
+            <SEO 
+              page="courses" 
+              title="JavaScript Learning - Master Modern JavaScript"
+              description="Learn JavaScript from basics to advanced concepts. ES6+, async programming, DOM manipulation, and modern frameworks."
+              keywords="javascript, programming, web development, ES6, async, DOM, frontend"
+            />
+            <Breadcrumb items={[
+              { name: 'Learning', href: '/learning' },
+              { name: 'JavaScript', href: '/learning/javascript' }
+            ]} className="container mx-auto px-4 py-2" />
+            <TrackedJavaScriptLearning onMount={() => trackComponentView('javascript')} />
+          </>
+        } />
+        
+        <Route path="/terminal" element={
+          <>
+            <SEO page="compiler" />
+            <TrackedCodeCompiler onMount={() => trackComponentView('compiler')} />
+          </>
+        } />
+        
+        <Route path="/analytics" element={
+          <>
+            <SEO 
+              page="dashboard" 
+              title="Analytics Dashboard - Track Your Learning Progress"
+              description="View detailed analytics of your learning progress, coding activity, and performance metrics."
+              keywords="analytics, progress tracking, learning metrics, performance dashboard"
+            />
+            <Breadcrumb items={[{ name: 'Analytics', href: '/analytics' }]} className="container mx-auto px-4 py-2" />
+            <Analytics />
+          </>
+        } />
+        
+        <Route path="/theme-demo" element={
+          <>
+            <SEO 
+              title="Theme Demo - UI Components Showcase"
+              description="Explore PrepMate's user interface components and theme customization options."
+              keywords="ui components, theme, design system, user interface"
+            />
+            <ThemeDemo />
+          </>
+        } />
+        
+        <Route path="/collaborate" element={
+          <>
+            <SEO page="collaboration" />
+            <TrackedCollaborativeCodeCompilerPage onMount={() => trackComponentView('collaborative-compiler')} />
+          </>
+        } />
+        
+        <Route path="/collaborate/:sessionId" element={
+          <>
+            <SEO 
+              page="collaboration" 
+              title="Live Collaboration Session - Real-time Code Sharing"
+              description="Join a live coding collaboration session with video chat and real-time code editing."
+            />
+            <TrackedCollaborativeCodeCompilerPage onMount={() => trackComponentView('collaborative-compiler')} />
+          </>
+        } />
+        
+        <Route path="/interview" element={
+          <>
+            <SEO 
+              title="Mock Interview - Practice Coding Interviews"
+              description="Practice coding interviews in a realistic environment with timer, whiteboard, and interview questions."
+              keywords="mock interview, coding interview practice, interview simulation, technical interview"
+            />
+            <InterviewMode onMount={() => trackComponentView('interview')} />
+          </>
+        } />
+        
+        <Route path="*" element={
+          <>
+            <SEO 
+              title="Page Not Found - PrepMate"
+              description="The page you're looking for doesn't exist. Explore our coding courses, challenges, and mentorship programs."
+            />
+            <Default />
+          </>
+        } />
+        </Routes>
+      </main>
     </>
   );
 };

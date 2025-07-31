@@ -4,13 +4,147 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     
-    <!-- Replace this with the actual favicon path -->
-    <link rel="icon" type="image/png" href="./src/assets/prepmate-logo.png" />
+    <!-- Primary Meta Tags -->
+    <title>PrepMate - Master Coding Interviews & Get Hired</title>
+    <meta name="title" content="PrepMate - Master Coding Interviews & Get Hired" />
+    <meta name="description" content="Excel in coding interviews with PrepMate's comprehensive platform. Get expert mentorship, practice coding challenges, and access real-time collaboration tools. Join thousands of successful developers." />
+    <meta name="keywords" content="coding interviews, programming practice, coding mentorship, leetcode practice, software engineer preparation, coding challenges, interview preparation, programming tutorial, data structures, algorithms" />
+    <meta name="author" content="PrepMate Team" />
+    <meta name="robots" content="index, follow" />
+    <meta name="language" content="en" />
+    <meta name="revisit-after" content="7 days" />
     
-    <title>PrepMate</title>
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://www.prepmate.site/" />
+    <meta property="og:title" content="PrepMate - Master Coding Interviews with Expert Mentorship" />
+    <meta property="og:description" content="Excel in coding interviews with PrepMate's comprehensive platform. Get expert mentorship, practice coding challenges, and access real-time collaboration tools." />
+    <meta property="og:image" content="https://www.prepmate.site/images/prepmate-og-image.jpg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="PrepMate - Coding Interview Preparation Platform" />
+    <meta property="og:site_name" content="PrepMate" />
+    <meta property="og:locale" content="en_US" />
+    
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:url" content="https://www.prepmate.site/" />
+    <meta property="twitter:title" content="PrepMate - Master Coding Interviews with Expert Mentorship" />
+    <meta property="twitter:description" content="Excel in coding interviews with PrepMate's comprehensive platform. Get expert mentorship, practice coding challenges, and access real-time collaboration tools." />
+    <meta property="twitter:image" content="https://www.prepmate.site/images/prepmate-og-image.jpg" />
+    <meta property="twitter:image:alt" content="PrepMate - Coding Interview Preparation Platform" />
+    <meta property="twitter:site" content="@PrepMate" />
+    <meta property="twitter:creator" content="@PrepMate" />
+    
+    <!-- Favicon and Icons -->
+    <link rel="icon" type="image/png" sizes="32x32" href="/images/icons/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/images/icons/favicon-16x16.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/images/icons/apple-touch-icon.png" />
+    <link rel="mask-icon" href="/images/icons/safari-pinned-tab.svg" color="#2563eb" />
+    <meta name="msapplication-TileColor" content="#2563eb" />
+    <meta name="msapplication-config" content="/browserconfig.xml" />
+    <meta name="theme-color" content="#2563eb" />
+    
+    <!-- PWA Manifest -->
+    <link rel="manifest" href="/manifest.json" />
+    
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://www.prepmate.site/" />
+    
+    <!-- Preconnect to external domains -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="preconnect" href="https://prepmate-kvol.onrender.com" />
+    
+    <!-- DNS prefetch for performance -->
+    <link rel="dns-prefetch" href="//www.google-analytics.com" />
+    <link rel="dns-prefetch" href="//www.googletagmanager.com" />
+    
+    <!-- Preload critical resources -->
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'" />
+    <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" /></noscript>
+    
+    <!-- Critical CSS (should be inlined in production) -->
+    <style data-critical>
+      /* Critical above-the-fold styles */
+      *,*::before,*::after{box-sizing:border-box}
+      body{margin:0;font-family:Inter,-apple-system,BlinkMacSystemFont,sans-serif;line-height:1.6;color:#1f2937}
+      .loading{display:flex;align-items:center;justify-content:center;min-height:100vh}
+    </style>
+    
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      "name": "PrepMate",
+      "url": "https://www.prepmate.site",
+      "description": "Comprehensive coding interview preparation platform with expert mentorship",
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": "https://www.prepmate.site/search?q={search_term_string}",
+        "query-input": "required name=search_term_string"
+      },
+      "sameAs": [
+        "https://twitter.com/PrepMate",
+        "https://linkedin.com/company/prepmate",
+        "https://github.com/prepmate"
+      ]
+    }
+    </script>
+    
+    <!-- Google Analytics (replace with your GA4 measurement ID) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=GA_MEASUREMENT_ID"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'GA_MEASUREMENT_ID', {
+        page_title: document.title,
+        page_location: window.location.href
+      });
+    </script>
+    
+    <!-- Enhanced Analytics Tracking -->
+    <script src="/ga-tracking.js" defer></script>
+    
+    <!-- SEO Testing Tools (for development and testing) -->
+    <script src="/seo-test.js" defer></script>
+    
+    <!-- Hotjar Tracking Code (optional) -->
+    <!-- <script>
+      (function(h,o,t,j,a,r){
+        h.hj=h.hj||function(){(h.hj.q=h.hj.q||[]).push(arguments)};
+        h._hjSettings={hjid:YOUR_HOTJAR_ID,hjsv:6};
+        a=o.getElementsByTagName('head')[0];
+        r=o.createElement('script');r.async=1;
+        r.src=t+h._hjSettings.hjid+j+h._hjSettings.hjsv;
+        a.appendChild(r);
+      })(window,document,'https://static.hotjar.com/c/hotjar-','.js?sv=');
+    </script> -->
   </head>
   <body>
-    <div id="root"></div>
+    <noscript>
+      <div style="padding: 2rem; text-align: center; background: #fee2e2; color: #991b1b; margin: 1rem; border-radius: 0.5rem;">
+        <h1>JavaScript Required</h1>
+        <p>PrepMate requires JavaScript to be enabled in your browser for the best experience.</p>
+        <p>Please enable JavaScript and refresh the page.</p>
+      </div>
+    </noscript>
+    
+    <div id="root">
+      <!-- Loading placeholder -->
+      <div class="loading">
+        <div style="text-align: center;">
+          <img src="/images/prepmate-logo.png" alt="PrepMate" style="width: 64px; height: 64px; margin-bottom: 1rem;" />
+          <div style="width: 40px; height: 40px; border: 4px solid #f3f4f6; border-top: 4px solid #2563eb; border-radius: 50%; animation: spin 1s linear infinite; margin: 0 auto;"></div>
+        </div>
+      </div>
+      <style>
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+      </style>
+    </div>
+    
     <script type="module" src="/src/main.jsx"></script>
   </body>
 </html>

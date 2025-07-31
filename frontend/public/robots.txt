@@ -1,0 +1,37 @@
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://www.prepmate.site/sitemap.xml
+
+# Important pages
+Allow: /
+Allow: /mentorship
+Allow: /contests
+Allow: /courses
+Allow: /terminal
+Allow: /dashboard
+Allow: /profile
+Allow: /analytics
+Allow: /collaborate
+
+# Specific course pages
+Allow: /courses/data-structures
+Allow: /courses/fullstack
+Allow: /courses/interview-prep
+Allow: /learning/javascript
+
+# Disallow certain paths
+Disallow: /api/
+Disallow: /admin/
+Disallow: /_next/
+Disallow: /private/
+Disallow: /*.json$
+Disallow: /collaborate/*?*
+Disallow: /interview/*?*
+
+# Crawl delay (be nice to the server)
+Crawl-delay: 1
+
+# Cache directives
+# Static assets are served with proper cache headers
