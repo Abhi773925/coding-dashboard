@@ -42,7 +42,7 @@ const TrackedKnowledgePathGame = withTracking(KnowledgePathGame);
 
 const AppContent = () => {
   const location = useLocation();
-  const hideNavigationRoutes = ['/collaborate', '/interview','/terminal'];
+  const hideNavigationRoutes = ['/collaborate', '/interview','/terminal', '/coding-advanced'];
   const isCollaborationRoute = hideNavigationRoutes.some(route => location.pathname.startsWith(route));
 
   const RETRY_COUNT = 3;

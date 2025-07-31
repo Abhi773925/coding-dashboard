@@ -31,7 +31,7 @@ import {
   Zap,
   Code2,
   MessageSquare,
-  Brain,
+  Brain
 } from "lucide-react"
 import { motion, AnimatePresence } from "framer-motion"
 import config from '../../config/api'
@@ -71,7 +71,7 @@ const navigationSections = [
     color: "text-purple-600",
     subSections: [
       { name: "Code Together", icon: Code2, route: "/collaborate" },
-      { name: "Interview Mode", icon: MessageSquare, route: "/interview" },
+      { name: "Interview Mode", icon: MessageSquare, route: "/ss" },
     ],
   },
  
