@@ -109,7 +109,8 @@ export const AuthProvider = ({ children }) => {
             setUser(response.data)
           }
           if (response.data.email) {
-            localStorage.setItem("userEmail", response.data.email)
+            localStorage.setItem("userEmail", response.data.email);
+            localStorage.setItem("userName", response.data.name);
           }
         }
       } catch (error) {
