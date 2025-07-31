@@ -1,10 +1,19 @@
-// Service Worker for caching and offline functionality
-const CACHE_NAME = 'prepmate-v1';
-const STATIC_CACHE = 'prepmate-static-v1';
-const DYNAMIC_CACHE = 'prepmate-dynamic-v1';
+// Enhanced Service Worker for optimized caching, offline functionality and SEO performance
+const CACHE_NAME = 'prepmate-v2'; // Incremented version
+const STATIC_CACHE = 'prepmate-static-v2';
+const DYNAMIC_CACHE = 'prepmate-dynamic-v2';
+const API_CACHE = 'prepmate-api-v2';
+const IMG_CACHE = 'prepmate-images-v2';
 
-// Assets to cache on install
-const STATIC_ASSETS = [
+// Cache expiration times
+const EXPIRATION = {
+  staticAssets: 30 * 24 * 60 * 60, // 30 days
+  dynamicAssets: 7 * 24 * 60 * 60, // 7 days
+  apiData: 6 * 60 * 60 // 6 hours
+};
+
+// Critical assets to cache on install for offline functionality
+const CRITICAL_ASSETS = [
   '/',
   '/index.html',
   '/static/css/main.css',
@@ -12,10 +21,25 @@ const STATIC_ASSETS = [
   '/images/prepmate-logo.png',
   '/images/prepmate-logo.svg',
   '/manifest.json',
+  '/offline.html', // Dedicated offline page
   'https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap'
 ];
 
-// API routes to cache
+// Extended static assets to cache on activation
+const STATIC_ASSETS = [
+  ...CRITICAL_ASSETS,
+  '/images/icons/icon-72x72.svg',
+  '/images/icons/icon-96x96.svg',
+  '/images/icons/icon-128x128.svg',
+  '/images/icons/icon-144x144.svg',
+  '/images/icons/icon-152x152.svg',
+  '/images/icons/icon-192x192.svg',
+  '/images/icons/icon-384x384.svg',
+  '/images/icons/icon-512x512.svg',
+  '/images/hero-background.svg'
+];
+
+// API routes to cache with stale-while-revalidate strategy
 const API_CACHE_PATTERNS = [
   /^https:\/\/prepmate-kvol\.onrender\.com\/api\/contests/,
   /^https:\/\/prepmate-kvol\.onrender\.com\/api\/courses/,

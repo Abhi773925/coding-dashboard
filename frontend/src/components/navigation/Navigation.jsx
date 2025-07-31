@@ -260,10 +260,10 @@ const StreakDisplay = () => {
         }`}
         title="Streak service is currently unavailable. Your progress is still being tracked locally."
       >
-        <Zap size={18} className={isDarkMode ? "text-gray-500" : "text-gray-400"} />
+        {/* <Zap size={18} className={isDarkMode ? "text-gray-500" : "text-gray-400"} />
         <span className="text-sm font-semibold">
           {streak.currentStreak > 0 ? `${streak.currentStreak} day${streak.currentStreak !== 1 ? "s" : ""}` : "Offline"}
-        </span>
+        </span> */}
       </div>
     )
   }
@@ -279,10 +279,10 @@ const StreakDisplay = () => {
         boxShadow: isDarkMode ? "0 4px 15px rgba(251, 146, 60, 0.1)" : "0 4px 15px rgba(251, 146, 60, 0.1)",
       }}
     >
-      <Zap size={18} className="text-orange-500" />
+      {/* <Zap size={18} className="text-orange-500" />
       <span className="text-sm font-semibold">
         {streak.currentStreak} day{streak.currentStreak !== 1 ? "s" : ""}
-      </span>
+      </span> */}
     </div>
   )
 }
