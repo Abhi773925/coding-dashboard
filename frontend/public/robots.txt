@@ -1,10 +1,7 @@
 User-agent: *
 Allow: /
 
-# Sitemap
-Sitemap: https://www.prepmate.site/sitemap.xml
-
-# Important pages
+# Priority pages for crawling
 Allow: /
 Allow: /mentorship
 Allow: /contests
@@ -14,14 +11,12 @@ Allow: /dashboard
 Allow: /profile
 Allow: /analytics
 Allow: /collaborate
-
-# Specific course pages
 Allow: /courses/data-structures
 Allow: /courses/fullstack
 Allow: /courses/interview-prep
 Allow: /learning/javascript
 
-# Disallow certain paths
+# Disallow paths that don't need indexing
 Disallow: /api/
 Disallow: /admin/
 Disallow: /_next/
@@ -30,8 +25,24 @@ Disallow: /*.json$
 Disallow: /collaborate/*?*
 Disallow: /interview/*?*
 
-# Crawl delay (be nice to the server)
+# Specific instructions for major crawlers
+User-agent: Googlebot
+Allow: /
 Crawl-delay: 1
 
-# Cache directives
-# Static assets are served with proper cache headers
+User-agent: Bingbot
+Allow: /
+Crawl-delay: 1
+
+User-agent: Slurp
+Allow: /
+Crawl-delay: 1
+
+User-agent: DuckDuckBot
+Allow: /
+Crawl-delay: 1
+
+# Sitemap declarations - helps search engines find all pages
+Sitemap: https://www.prepmate.site/sitemap.xml
+Sitemap: https://www.prepmate.site/sitemap-courses.xml
+Sitemap: https://www.prepmate.site/sitemap-mentors.xml

@@ -1,0 +1,146 @@
+/* Additional CSS for SEO improvements and accessibility */
+
+/* Ensure minimum touch target sizes for mobile accessibility */
+button,
+a[role="button"],
+input[type="button"],
+input[type="submit"],
+input[type="reset"],
+.btn,
+.button {
+  min-height: 44px;
+  min-width: 44px;
+  padding: 12px 16px;
+}
+
+/* Exception for inline buttons or icon-only buttons */
+.btn-sm,
+.button-small,
+button[aria-label*="Close"],
+button[aria-label*="Toggle"] {
+  min-height: 40px;
+  min-width: 40px;
+  padding: 8px;
+}
+
+/* Skip navigation link for accessibility */
+.skip-link {
+  position: absolute;
+  top: -40px;
+  left: 6px;
+  background: #2563eb;
+  color: white;
+  padding: 8px;
+  text-decoration: none;
+  border-radius: 4px;
+  z-index: 1000;
+  transition: top 0.2s;
+}
+
+.skip-link:focus {
+  top: 6px;
+}
+
+/* Improve focus visibility */
+*:focus {
+  outline: 2px solid #2563eb;
+  outline-offset: 2px;
+}
+
+/* Ensure proper color contrast */
+.text-gray-500 {
+  color: #6b7280 !important; /* Darker gray for better contrast */
+}
+
+.text-gray-400 {
+  color: #9ca3af !important; /* Lighter gray only for non-essential text */
+}
+
+/* Loading states for better UX */
+.loading {
+  opacity: 0.7;
+  pointer-events: none;
+}
+
+.loading::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 20px;
+  height: 20px;
+  margin: -10px 0 0 -10px;
+  border: 2px solid #f3f4f6;
+  border-top: 2px solid #2563eb;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Responsive images */
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+/* Ensure proper line heights for readability */
+p,
+li,
+.text {
+  line-height: 1.6;
+}
+
+/* Mobile-first responsive design */
+@media (max-width: 640px) {
+  button,
+  .btn {
+    min-height: 48px; /* Larger on mobile */
+    font-size: 16px; /* Prevent zoom on iOS */
+  }
+  
+  input,
+  textarea,
+  select {
+    font-size: 16px; /* Prevent zoom on iOS */
+  }
+  
+  /* Larger tap targets on mobile */
+  .mobile-touch {
+    min-height: 48px;
+    min-width: 48px;
+  }
+}
+
+/* Print styles for better accessibility */
+@media print {
+  .no-print {
+    display: none !important;
+  }
+  
+  a[href]:after {
+    content: " (" attr(href) ")";
+  }
+  
+  abbr[title]:after {
+    content: " (" attr(title) ")";
+  }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  * {
+    border-color: currentColor !important;
+  }
+  
+  .bg-gray-100 {
+    background-color: #ffffff !important;
+  }
+  
+  .bg-gray-900 {
+    background-color: #000000 !important;
+  }
+}

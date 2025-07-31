@@ -21,7 +21,7 @@
       "sizes": "144x144",
       "type": "image/svg+xml",
       "purpose": "maskable any"
-    },{
+    }
       "sizes": "384x384",
       "type": "image/png",
       "purpose": "maskable any"

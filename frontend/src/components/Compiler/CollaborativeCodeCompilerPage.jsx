@@ -2677,11 +2677,15 @@ const CollaborativeCodeCompiler = ({ sessionId: propSessionId }) => {
                   : "border-gray-300"
               } border-b flex-shrink-0`}>
                 <h2 className="text-lg font-semibold truncate">{sidebarItems.find((item) => item.id === activePanel)?.label}</h2>
-                <button onClick={() => closePanelSynchronized(activePanel)} className={`${
-                  isDarkMode 
-                    ? "text-gray-400 hover:text-white" 
-                    : "text-gray-600 hover:text-gray-800"
-                } flex-shrink-0`}>
+                <button 
+                  onClick={() => closePanelSynchronized(activePanel)} 
+                  className={`${
+                    isDarkMode 
+                      ? "text-gray-400 hover:text-white" 
+                      : "text-gray-600 hover:text-gray-800"
+                  } flex-shrink-0`}
+                  aria-label="Close panel"
+                >
                   <X className="w-5 h-5" />
                 </button>
               </div>
@@ -3174,7 +3178,11 @@ const CollaborativeCodeCompiler = ({ sessionId: propSessionId }) => {
         <div className="h-64 border-t bg-gray-900 border-gray-700">
           <div className="flex items-center justify-between p-2 bg-gray-800 text-white">
             <span className="font-semibold">Terminal - {currentDirectory}</span>
-            <button onClick={() => setShowTerminal(false)} className="text-gray-400 hover:text-white">
+            <button 
+              onClick={() => setShowTerminal(false)} 
+              className="text-gray-400 hover:text-white"
+              aria-label="Close terminal"
+            >
               <X className="w-4 h-4" />
             </button>
           </div>

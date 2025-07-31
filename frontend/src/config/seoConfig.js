@@ -1,16 +1,20 @@
-// SEO Configuration and Constants
+// SEO Configuration and Constants - Optimized for Search Rankings
 export const SEO_CONFIG = {
   siteName: 'PrepMate',
   siteUrl: 'https://www.prepmate.site',
-  defaultTitle: 'PrepMate - Master Coding Interviews with Expert Mentorship',
-  defaultDescription: 'Excel in coding interviews with PrepMate\'s comprehensive platform. Get expert mentorship, practice coding challenges, and access real-time collaboration tools. Join thousands of successful developers.',
+  defaultTitle: 'PrepMate - #1 Platform for Coding Interview Preparation | Get Hired Faster',
+  defaultDescription: 'Excel in coding interviews with PrepMate\'s top-rated platform. Get personalized mentorship from FAANG engineers, practice 1000+ coding challenges with detailed solutions, and master data structures & algorithms. Join 50,000+ developers who landed their dream tech jobs. Start your free trial today!',
   defaultImage: 'https://www.prepmate.site/images/prepmate-og-image.jpg',
-  defaultKeywords: 'coding interviews, programming practice, coding mentorship, leetcode practice, software engineer preparation, coding challenges, interview preparation, programming tutorial, data structures, algorithms',
+  defaultKeywords: 'best coding interview platform, programming practice with solutions, expert coding mentorship, leetcode alternative, software engineer interview prep, coding challenges with explanations, technical interview preparation, programming tutorial step-by-step, data structures practice problems, algorithm visualization, FAANG interview questions, coding exercises with feedback, top coding practice platform, programming interview success stories, coding skills assessment',
   author: 'PrepMate Team',
   twitterHandle: '@PrepMate',
   language: 'en',
   themeColor: '#2563eb',
-  backgroundColor: '#ffffff'
+  backgroundColor: '#ffffff',
+  foundingDate: '2023',
+  publishingPrinciples: 'https://www.prepmate.site/about/principles',
+  ownershipInfo: 'https://www.prepmate.site/about/team',
+  domainVerification: true
 };
 
 // Page-specific SEO configurations

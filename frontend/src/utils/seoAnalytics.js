@@ -1,9 +1,16 @@
-// SEO Analytics and Tracking Utilities
+// Advanced SEO Analytics and Tracking Utilities
 class SEOAnalytics {
   constructor() {
     this.isProduction = process.env.NODE_ENV === 'production';
     this.baseUrl = 'https://www.prepmate.site';
     this.initialized = false;
+    this.rankingFactors = {
+      performance: 0,
+      engagement: 0,
+      coreWebVitals: 0,
+      contentQuality: 0,
+      backlinks: 0
+    };
   }
 
   // Initialize analytics tracking
@@ -28,19 +35,27 @@ class SEOAnalytics {
     this.initialized = true;
   }
 
-  // Initialize Google Analytics
+  // Initialize Google Analytics with enhanced tracking
   initGA() {
     if (typeof window.gtag !== 'function') return;
 
-    // Enhanced ecommerce tracking
-    window.gtag('config', 'GA_MEASUREMENT_ID', {
+    // Enhanced ecommerce and SEO performance tracking
+    window.gtag('config', 'G-XXXXXXXXXX', {
       page_title: document.title,
       page_location: window.location.href,
+      page_path: window.location.pathname,
+      send_page_view: true,
       custom_map: {
         custom_parameter_1: 'page_category',
-        custom_parameter_2: 'user_type'
+        custom_parameter_2: 'user_type',
+        custom_parameter_3: 'content_group',
+        custom_parameter_4: 'search_ranking',
+        custom_parameter_5: 'page_performance'
       }
     });
+    
+    // Track additional SEO parameters
+    this.trackSEOMetrics();
   }
 
   // Initialize Search Console tracking

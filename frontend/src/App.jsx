@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { BrowserRouter as Router, Route, Routes, useLocation } from "react-router-dom";
 import { ThemeProvider } from "./components/context/ThemeContext";
 import './App.css';
+import './accessibility.css';
 import HeroSection from "./components/navigation/HeroSection";
 import axios from "axios";
 import Navigation from "./components/navigation/Navigation";
@@ -38,6 +39,7 @@ import { withTracking } from './components/hoc/withTracking';
 // SEO Analytics and Testing
 import seoAnalytics from './utils/seoAnalytics';
 import { runSEOTest } from './utils/seoTester';
+import faqStructuredData from './config/faqStructuredData';
 
 // Wrap components with tracking
 const TrackedCodeCompiler = withTracking(CodeCompiler);
@@ -97,6 +99,16 @@ const AppContent = () => {
       window.seoAnalytics = seoAnalytics;
     }
     
+    // Add FAQ structured data for better search results
+    const addFAQStructuredData = () => {
+      const scriptTag = document.createElement('script');
+      scriptTag.type = 'application/ld+json';
+      scriptTag.textContent = JSON.stringify(faqStructuredData);
+      document.head.appendChild(scriptTag);
+    };
+    
+    addFAQStructuredData();
+    
     if (process.env.NODE_ENV === 'production') {
       trackComponentView();
     }
@@ -111,13 +123,18 @@ const AppContent = () => {
 
   return (
     <>
+      {/* Skip navigation link for accessibility */}
+      <a href="#main-content" className="skip-link">
+        Skip to main content
+      </a>
+      
       {/* Performance Optimizer - loads once */}
       <PerformanceOptimizer />
       
       {!isCollaborationRoute && <Navigation />}
       <Toast />
       
-      <main role="main">
+      <main role="main" id="main-content">
         <Routes>
         <Route path="/" element={
           <>
