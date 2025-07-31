@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import config from '../../config/api';
 
 const Analytics = () => {
   const [analyticsData, setAnalyticsData] = useState({
@@ -21,12 +22,33 @@ const Analytics = () => {
   useEffect(() => {
     const fetchAnalytics = async () => {
       try {
-        const response = await axios.get('https://prepmate-kvol.onrender.com/api/analytics');
+        // Use config for API URL
+        const response = await axios.get(`${config.API_URL}/analytics`, {
+          timeout: 8000 // Longer timeout for data-heavy requests
+        });
         setAnalyticsData(response.data);
-        // Track page view
-        await axios.post('https://prepmate-kvol.onrender.com/api/analytics/track');
+        
+        // Track page view - non-blocking with try-catch
+        try {
+          await axios.post(`${config.API_URL}/analytics/track`, {
+            component: 'Analytics',
+            timestamp: new Date().toISOString()
+          }, { timeout: 5000 });
+        } catch (trackError) {
+          console.warn('Error tracking analytics page view:', trackError.message);
+          // Continue without throwing - this is non-critical
+        }
       } catch (error) {
         console.error('Error fetching analytics:', error);
+        // If we have cached data, use it as a fallback
+        const cachedAnalytics = localStorage.getItem('cachedAnalytics');
+        if (cachedAnalytics) {
+          try {
+            setAnalyticsData(JSON.parse(cachedAnalytics));
+          } catch (parseError) {
+            console.error('Error parsing cached analytics:', parseError);
+          }
+        }
       }
     };
 

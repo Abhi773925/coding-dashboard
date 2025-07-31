@@ -167,37 +167,69 @@ const StreakDisplay = () => {
     longestStreak: 0,
   })
   const [loading, setLoading] = useState(true)
+  const [error, setError] = useState(false)
+  const [retryCount, setRetryCount] = useState(0)
+  const maxRetries = 3
 
   useEffect(() => {
-    const fetchStreak = async () => {
+    const fetchStreak = async (attempt = 0) => {
       try {
+        setError(false)
         const userEmail = localStorage.getItem("userEmail")
         if (!userEmail) {
           setLoading(false)
           return
         }
+        
+        // Get cached streak data if available
+        const cachedStreak = localStorage.getItem("userStreak")
+        if (cachedStreak) {
+          setStreak(JSON.parse(cachedStreak))
+        }
+
         const response = await axios.get(`${config.API_URL}/streak`, {
           params: { email: userEmail },
-          withCredentials: true
+          withCredentials: true,
+          timeout: 5000 // 5 second timeout
         })
+        
         setStreak(response.data)
         setLoading(false)
+        setRetryCount(0)
+        
+        // Cache the streak data
+        localStorage.setItem("userStreak", JSON.stringify(response.data))
 
-        // Update streak on activity
-        await axios.post(`${config.API_URL}/streak/update`, {
-          email: userEmail
-        })
+        // Update streak on activity - use a try/catch to prevent this from breaking the UI
+        try {
+          await axios.post(`${config.API_URL}/streak/update`, {
+            email: userEmail
+          }, { timeout: 5000 })
+        } catch (updateErr) {
+          console.warn("Failed to update streak activity:", updateErr.message)
+          // Continue without throwing - this is non-critical
+        }
       } catch (err) {
         console.error("Error fetching streak:", err)
-        setLoading(false)
+        
+        // Retry logic with exponential backoff
+        if (attempt < maxRetries) {
+          const backoffTime = Math.pow(2, attempt) * 1000 // exponential backoff: 1s, 2s, 4s
+          console.log(`Retrying streak fetch in ${backoffTime/1000}s (attempt ${attempt + 1}/${maxRetries})`)
+          setTimeout(() => fetchStreak(attempt + 1), backoffTime)
+          setRetryCount(attempt + 1)
+        } else {
+          setError(true)
+          setLoading(false)
+        }
       }
     }
 
     // Initial fetch
     fetchStreak()
 
-    // Set up automatic refresh every hour
-    const intervalId = setInterval(fetchStreak, 3600000) // 1 hour in milliseconds
+    // Set up automatic refresh every hour, but only if the component is still mounted
+    const intervalId = setInterval(() => fetchStreak(), 3600000) // 1 hour in milliseconds
 
     // Clean up interval on component unmount
     return () => clearInterval(intervalId)
@@ -211,7 +243,27 @@ const StreakDisplay = () => {
         }`}
       >
         <div className="w-5 h-5 rounded-full bg-gray-300 animate-pulse"></div>
-        <span className="text-sm font-medium">...</span>
+        <span className="text-sm font-medium">
+          {retryCount > 0 ? `Retrying ${retryCount}/${maxRetries}...` : "..."}
+        </span>
+      </div>
+    )
+  }
+
+  if (error) {
+    return (
+      <div
+        className={`flex items-center space-x-2 px-4 py-2 rounded-full backdrop-blur-sm transition-all duration-300 ${
+          isDarkMode
+            ? "bg-slate-800/60 text-gray-400 border border-slate-700/50"
+            : "bg-gray-100/80 text-gray-600 border border-gray-200/50"
+        }`}
+        title="Streak service is currently unavailable. Your progress is still being tracked locally."
+      >
+        <Zap size={18} className={isDarkMode ? "text-gray-500" : "text-gray-400"} />
+        <span className="text-sm font-semibold">
+          {streak.currentStreak > 0 ? `${streak.currentStreak} day${streak.currentStreak !== 1 ? "s" : ""}` : "Offline"}
+        </span>
       </div>
     )
   }

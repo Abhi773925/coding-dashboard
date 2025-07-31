@@ -56,36 +56,72 @@ const AppContent = () => {
   const hideNavigationRoutes = ['/collaborate', '/interview','/terminal', '/coding-advanced'];
   const isCollaborationRoute = hideNavigationRoutes.some(route => location.pathname.startsWith(route));
 
-  const RETRY_COUNT = 3;
-  const RETRY_DELAY = 1000;
+  const MAX_RETRY_COUNT = 3;
 
   const sleep = (ms) => new Promise(resolve => setTimeout(resolve, ms));
+  
+  // Store analytics data locally when server is unavailable
+  const storeOfflineAnalytics = (data) => {
+    try {
+      const offlineAnalytics = JSON.parse(localStorage.getItem('offlineAnalytics') || '[]');
+      offlineAnalytics.push({
+        ...data,
+        timestamp: new Date().toISOString()
+      });
+      // Limit storage to prevent overflow
+      if (offlineAnalytics.length > 100) offlineAnalytics.shift();
+      localStorage.setItem('offlineAnalytics', JSON.stringify(offlineAnalytics));
+    } catch (err) {
+      console.error('Failed to store offline analytics', err);
+    }
+  };
 
   const trackComponentView = async (component = null) => {
-    let attempts = 0;
-    const attemptTrack = async () => {
+    const analyticsData = {
+      component,
+      timestamp: new Date().toISOString(),
+      userAgent: navigator.userAgent
+    };
+    
+    const attemptTrack = async (attempt = 0) => {
       try {
-        const response = await axios.post('https://prepmate-kvol.onrender.com/api/analytics/track', {
-          component,
-          timestamp: new Date().toISOString(),
-          userAgent: navigator.userAgent
-        }, {
+        const response = await axios.post(`${config.API_URL}/analytics/track`, analyticsData, {
           timeout: 5000,
           headers: {
             'Content-Type': 'application/json'
           }
         });
+        
+        // If successful and we have stored offline analytics, try to send them
+        const offlineAnalytics = localStorage.getItem('offlineAnalytics');
+        if (offlineAnalytics && offlineAnalytics !== '[]') {
+          try {
+            await axios.post(`${config.API_URL}/analytics/batch`, JSON.parse(offlineAnalytics), {
+              timeout: 5000
+            });
+            localStorage.removeItem('offlineAnalytics');
+          } catch (e) {
+            // Silently fail - we'll try again next time
+          }
+        }
+        
         return response.data;
       } catch (error) {
-        if (attempts < RETRY_COUNT) {
-          attempts++;
-          await sleep(RETRY_DELAY * attempts);
-          return attemptTrack();
+        // Store analytics locally for later transmission
+        storeOfflineAnalytics(analyticsData);
+        
+        // Use exponential backoff for retries
+        if (attempt < MAX_RETRY_COUNT) {
+          const backoffTime = Math.min(1000 * Math.pow(2, attempt), 10000);
+          await sleep(backoffTime);
+          return attemptTrack(attempt + 1);
         }
-        console.warn(`Analytics tracking failed after ${RETRY_COUNT} attempts:`, error.response?.status || 'Network Error');
+        console.warn(`Analytics tracking failed after ${MAX_RETRY_COUNT} attempts:`, error.response?.status || 'Network Error');
         return null;
       }
     };
+    
+    // Make tracking non-blocking
     attemptTrack().catch(error => console.warn('Failed to track component view:', error));
   };
 
