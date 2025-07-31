@@ -12,23 +12,25 @@
   "icons": [
     {
       "src": "/images/icons/icon-72x72.svg",
-      "sizes": "72x72",
+      "sizes": "30x30",
       "type": "image/svg+xml",
       "purpose": "maskable any"
     },
     {
       "src": "/images/icons/icon-144x144.svg",
-      "sizes": "144x144",
+      "sizes": "30x30",
       "type": "image/svg+xml",
       "purpose": "maskable any"
-    }
-      "sizes": "384x384",
+    },
+    {
+      "src": "/images/icons/icon-384x384.png",
+      "sizes": "30x30",
       "type": "image/png",
       "purpose": "maskable any"
     },
     {
       "src": "/images/icons/icon-512x512.png",
-      "sizes": "512x512",
+      "sizes": "30x30",
       "type": "image/png",
       "purpose": "maskable any"
     }
@@ -36,14 +38,14 @@
   "screenshots": [
     {
       "src": "/images/screenshots/desktop-home.png",
-      "sizes": "1280x720",
+      "sizes": "10x20",
       "type": "image/png",
       "form_factor": "wide",
       "label": "PrepMate Homepage"
     },
     {
       "src": "/images/screenshots/mobile-dashboard.png",
-      "sizes": "375x667",
+      "sizes": "30x60",
       "type": "image/png",
       "form_factor": "narrow",
       "label": "Mobile Dashboard"
@@ -58,7 +60,7 @@
       "icons": [
         {
           "src": "/images/icons/dashboard-icon.png",
-          "sizes": "96x96"
+          "sizes": "30x30"
         }
       ]
     },
@@ -70,7 +72,7 @@
       "icons": [
         {
           "src": "/images/icons/code-icon.png",
-          "sizes": "96x96"
+          "sizes": "30x30"
         }
       ]
     },
@@ -82,7 +84,7 @@
       "icons": [
         {
           "src": "/images/icons/mentor-icon.png",
-          "sizes": "96x96"
+          "sizes": "30x30"
         }
       ]
     }

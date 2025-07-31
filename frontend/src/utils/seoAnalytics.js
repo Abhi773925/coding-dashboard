@@ -53,9 +53,42 @@ class SEOAnalytics {
         custom_parameter_5: 'page_performance'
       }
     });
+  }
+  
+  // Track SEO metrics for analytics
+  trackSEOMetrics() {
+    if (typeof window.gtag !== 'function') return;
     
-    // Track additional SEO parameters
-    this.trackSEOMetrics();
+    try {
+      // Track page performance metrics
+      const pageLoadTime = window.performance && window.performance.timing ? 
+        (window.performance.timing.loadEventEnd - window.performance.timing.navigationStart) / 1000 : 
+        null;
+        
+      if (pageLoadTime) {
+        window.gtag('event', 'page_performance', {
+          'metric_name': 'page_load_time',
+          'value': pageLoadTime,
+          'page_path': window.location.pathname
+        });
+      }
+      
+      // Track content visibility
+      const contentElements = document.querySelectorAll('main h1, main h2, main p');
+      if (contentElements.length > 0) {
+        window.gtag('event', 'content_quality', {
+          'metric_name': 'content_elements',
+          'value': contentElements.length,
+          'page_path': window.location.pathname
+        });
+      }
+      
+      // Update ranking factors for internal use
+      this.rankingFactors.performance = pageLoadTime < 3 ? 100 : pageLoadTime < 5 ? 80 : 60;
+      this.rankingFactors.contentQuality = contentElements.length > 20 ? 100 : contentElements.length > 10 ? 80 : 60;
+    } catch (error) {
+      console.warn('Error tracking SEO metrics:', error);
+    }
   }
 
   // Initialize Search Console tracking
