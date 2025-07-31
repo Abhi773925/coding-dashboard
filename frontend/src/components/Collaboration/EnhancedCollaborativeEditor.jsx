@@ -149,7 +149,7 @@ const EnhancedCollaborativeEditor = ({ sessionId, userId, userName, initialRole 
   // Socket connection and event handlers
   useEffect(() => {
     console.log('Initializing Socket.IO connection...');
-    const backendUrl = import.meta.env.VITE_BACKEND_URL || 'http://localhost:5000';
+    const backendUrl = import.meta.env.VITE_BACKEND_URL || 'https://prepmate-kvol.onrender.com';
     console.log('Connecting to:', backendUrl);
     
     const newSocket = io(backendUrl, {

@@ -21,10 +21,10 @@ const Analytics = () => {
   useEffect(() => {
     const fetchAnalytics = async () => {
       try {
-        const response = await axios.get('http://localhost:5000/api/analytics');
+        const response = await axios.get('https://prepmate-kvol.onrender.com/api/analytics');
         setAnalyticsData(response.data);
         // Track page view
-        await axios.post('http://localhost:5000/api/analytics/track');
+        await axios.post('https://prepmate-kvol.onrender.com/api/analytics/track');
       } catch (error) {
         console.error('Error fetching analytics:', error);
       }

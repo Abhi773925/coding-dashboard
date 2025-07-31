@@ -43,7 +43,7 @@ const Profile = () => {
 
         // Fetch profile data
         const profileResponse = await fetch(
-          `http://localhost:5000/api/codingkaro/users?email=${email}`,
+          `https://prepmate-kvol.onrender.com/api/codingkaro/users?email=${email}`,
         )
         if (!profileResponse.ok) {
           throw new Error("Failed to fetch profile data")
@@ -53,7 +53,7 @@ const Profile = () => {
 
         // Fetch developer score
         const scoreResponse = await fetch(
-          `http://localhost:5000/api/codingkaro/users/score?email=${email}`,
+          `https://prepmate-kvol.onrender.com/api/codingkaro/users/score?email=${email}`,
         )
         if (scoreResponse.ok) {
           const scoreData = await scoreResponse.json()

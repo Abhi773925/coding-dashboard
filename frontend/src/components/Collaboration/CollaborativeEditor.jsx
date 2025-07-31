@@ -88,7 +88,7 @@ const CollaborativeEditor = ({ sessionId, userId, userName, initialRole = 'viewe
 
   // Initialize socket connection
   useEffect(() => {
-    const newSocket = io(import.meta.env.VITE_BACKEND_URL || 'http://localhost:5000', {
+    const newSocket = io(import.meta.env.VITE_BACKEND_URL || 'https://prepmate-kvol.onrender.com', {
       withCredentials: true
     });
 

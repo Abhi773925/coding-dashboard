@@ -54,7 +54,7 @@ const AppContent = () => {
     let attempts = 0;
     const attemptTrack = async () => {
       try {
-        const response = await axios.post('http://localhost:5000/api/analytics/track', {
+        const response = await axios.post('https://prepmate-kvol.onrender.com/api/analytics/track', {
           component,
           timestamp: new Date().toISOString(),
           userAgent: navigator.userAgent

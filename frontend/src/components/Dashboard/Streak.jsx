@@ -16,7 +16,7 @@ const Streak = () => {
   const [error, setError] = useState(null)
 
   // Configure axios base URL for backend
-  axios.defaults.baseURL = "http://localhost:5000/api"
+  axios.defaults.baseURL = "https://prepmate-kvol.onrender.com/api"
 
   useEffect(() => {
     const fetchStreak = async () => {

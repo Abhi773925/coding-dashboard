@@ -1,7 +1,7 @@
 import { useEffect, useRef } from 'react';
 import axios from 'axios';
 
-const ANALYTICS_URL = 'http://localhost:5000/api/analytics/track';
+const ANALYTICS_URL = 'https://prepmate-kvol.onrender.com/api/analytics/track';
 const RETRY_COUNT = 3;
 const RETRY_DELAY = 1000;
 

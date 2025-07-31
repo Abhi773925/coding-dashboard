@@ -77,7 +77,7 @@ const ContestTracker = () => {
   const fetchContests = async () => {
     setContestData((prev) => ({ ...prev, loading: true, error: null }))
     try {
-      const response = await axios.get("http://localhost:5000/api/codingkaro/contests")
+      const response = await axios.get("https://prepmate-kvol.onrender.com/api/codingkaro/contests")
       setContestData({
         contests: response.data,
         totalContests: response.data.length,

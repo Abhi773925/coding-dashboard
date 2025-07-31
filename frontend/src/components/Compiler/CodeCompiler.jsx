@@ -99,7 +99,7 @@ const handleclicker=()=>{
         console.log('No user email found in localStorage');
         return;
       }
-      const response = await axios.get(`http://localhost:5000/api/code/snippets/${userId}`);
+      const response = await axios.get(`https://prepmate-kvol.onrender.com/api/code/snippets/${userId}`);
       if (Array.isArray(response.data)) {
         setSavedSnippets(response.data);
       } else {
@@ -353,7 +353,7 @@ const handleclicker=()=>{
 
       const userId = localStorage.getItem('userEmail'); 
 
-      const response = await axios.post('http://localhost:5000/api/code/save', {
+      const response = await axios.post('https://prepmate-kvol.onrender.com/api/code/save', {
         userId,
         filename: saveFilename,
         code,
