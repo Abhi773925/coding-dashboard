@@ -129,7 +129,7 @@ const ProfileDashboard = () => {
     if (!authUser?.email) return;
     
     try {
-      const response = await fetchWithWakeUp('/api/profile/update', {
+      const response = await fetchWithWakeUp('https://prepmate-kvol.onrender.com/api/profile/update', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
