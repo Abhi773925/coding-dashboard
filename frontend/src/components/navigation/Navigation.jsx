@@ -31,7 +31,8 @@ import {
   Zap,
   Code2,
   MessageSquare,
-  Brain
+  Brain,
+  Network
 } from "lucide-react"
 import { motion, AnimatePresence } from "framer-motion"
 import config from '../../config/api'
@@ -52,18 +53,23 @@ const navigationSections = [
     icon: BookOpen,
     bgColor: "bg-indigo-100",
     color: "text-indigo-600",
-    subSections: [{ name: "DSA Practice", icon: Terminal, route: "/courses/data-structures" }],
-  },
-  {
-    name: "Community",
-    icon: Users,
-    bgColor: "bg-indigo-100",
-    color: "text-indigo-600",
     subSections: [
-      { name: "Forums", icon: Compass, route: "/community/forums" },
-      { name: "Mentorship", icon: Book, route: "/community/mentorship" },
+      { name: "DSA Practice", icon: Terminal, route: "/courses/data-structures" },
+      { name: "Full Stack", icon: Code2, route: "/courses/fullstack" },
+      { name: "All Courses", icon: BookOpen, route: "/allcourse" },
     ],
   },
+  {
+    name: "Interview Series",
+    icon: Brain,
+    bgColor: "bg-purple-100",
+    color: "text-purple-600",
+    subSections: [
+      { name: "Computer Networks", icon: Network, route: "/interview-series/computer-networks" },
+      { name: "All Series", icon: BookOpen, route: "/interview-series" },
+    ],
+  },
+ 
   {
     name: "Collaboration",
     icon: Users,
@@ -298,25 +304,7 @@ const ProfileDropdown = ({ onLogin, onLogout, isMobile = false }) => {
       icon: UserCircle,
       color: "text-indigo-400",
       route: "/profile",
-    },
-    {
-      name: "My Learning",
-      icon: Award,
-      color: "text-emerald-400",
-      route: "/learning",
-    },
-    {
-      name: "Billing",
-      icon: CreditCard,
-      color: "text-rose-400",
-      route: "/billing",
-    },
-    {
-      name: "Settings",
-      icon: Settings,
-      color: "text-sky-400",
-      route: "/settings",
-    },
+    }
   ]
 
   // Determine the position of the dropdown based on whether it's mobile or desktop
@@ -865,4 +853,4 @@ const Navigation = () => {
   )
 }
 
-export default Navigation
+export default Navigation;    

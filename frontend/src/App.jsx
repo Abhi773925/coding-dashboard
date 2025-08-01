@@ -30,6 +30,12 @@ import Analytics from "./components/Dashboard/Analytics";
 import InterviewMode from "./components/Collaboration/InterviewMode";
 import ThemeDemo from "./components/ThemeDemo";
 
+// Interview Series Components
+import InterviewSeriesOverview from "./components/interview-series/InterviewSeriesOverview";
+import ComputerNetworks from "./components/interview-series/ComputerNetworks";
+import OperatingSystems from "./components/interview-series/OperatingSystems";
+import ObjectOrientedProgramming from "./components/interview-series/ObjectOrientedProgramming";
+
 // SEO Components
 import SEO from "./components/SEO/SEO";
 import PerformanceOptimizer from "./components/Performance/PerformanceOptimizer";
@@ -50,7 +56,10 @@ const TrackedJavaScriptLearning = withTracking(JavaScriptLearning);
 const TrackedFullStack = withTracking(FullStack);
 const TrackedContestTracker = withTracking(ContestTracker);
 const TrackedKnowledgePathGame = withTracking(KnowledgePathGame);
-
+const TrackedInterviewSeriesOverview = withTracking(InterviewSeriesOverview);
+const TrackedComputerNetworks = withTracking(ComputerNetworks);
+const TrackedOperatingSystems = withTracking(OperatingSystems);
+const TrackedObjectOrientedProgramming = withTracking(ObjectOrientedProgramming);
 const AppContent = () => {
   const location = useLocation();
   const hideNavigationRoutes = ['/collaborate', '/interview','/terminal', '/coding-advanced'];
@@ -184,7 +193,7 @@ const AppContent = () => {
         <Route path="/allcourse" element={
           <>
             <SEO page="courses" />
-            <Breadcrumb items={[{ name: 'Courses', href: '/allcourse' }]} className="container mx-auto px-4 py-2" />
+            <Breadcrumb items={[{ name: 'Courses', href: '/allcourse' }]} />
             <Dsacard />
           </>
         } />
@@ -192,7 +201,7 @@ const AppContent = () => {
         <Route path="/profile" element={
           <>
             <SEO page="dashboard" title="My Profile - Track Your Progress" />
-            <Breadcrumb items={[{ name: 'Profile', href: '/profile' }]} className="container mx-auto px-4 py-2" />
+            <Breadcrumb items={[{ name: 'Profile', href: '/profile' }]} />
             <UserProfile />
             <Profile />
           </>
@@ -209,7 +218,7 @@ const AppContent = () => {
             <Breadcrumb items={[
               { name: 'Courses', href: '/allcourse' },
               { name: 'Data Structures', href: '/courses/data-structures' }
-            ]} className="container mx-auto px-4 py-2" />
+            ]} />
             <CourseProgress />
           </>
         } />
@@ -217,7 +226,7 @@ const AppContent = () => {
         <Route path="/contest" element={
           <>
             <SEO page="contests" />
-            <Breadcrumb items={[{ name: 'Contests', href: '/contest' }]} className="container mx-auto px-4 py-2" />
+            <Breadcrumb items={[{ name: 'Contests', href: '/contest' }]} />
             <TrackedContestTracker onMount={() => trackComponentView('contests')} />
           </>
         } />
@@ -233,7 +242,7 @@ const AppContent = () => {
             <Breadcrumb items={[
               { name: 'Explore', href: '/explore' },
               { name: 'Challenges', href: '/explore/challenges' }
-            ]} className="container mx-auto px-4 py-2" />
+            ]} />
             <TrackedKnowledgePathGame onMount={() => trackComponentView('challenges')} />
             <IdeaStormGame />
           </>
@@ -250,7 +259,7 @@ const AppContent = () => {
             <Breadcrumb items={[
               { name: 'Explore', href: '/explore' },
               { name: 'Learning Paths', href: '/explore/learning-paths' }
-            ]} className="container mx-auto px-4 py-2" />
+            ]} />
             <Learning />
           </>
         } />
@@ -266,7 +275,7 @@ const AppContent = () => {
             <Breadcrumb items={[
               { name: 'Courses', href: '/allcourse' },
               { name: 'Full Stack', href: '/courses/fullstack' }
-            ]} className="container mx-auto px-4 py-2" />
+            ]} />
             <TrackedFullStack onMount={() => trackComponentView('fullstack')} />
           </>
         } />
@@ -278,7 +287,7 @@ const AppContent = () => {
               description="Comprehensive SQL notes and examples. Learn database queries, joins, optimization, and advanced SQL concepts."
               keywords="sql, database, queries, mysql, postgresql, sql tutorial, database design"
             />
-            <Breadcrumb items={[{ name: 'SQL Notes', href: '/sql-notes' }]} className="container mx-auto px-4 py-2" />
+            <Breadcrumb items={[{ name: 'SQL Notes', href: '/sql-notes' }]} />
             <TrackedSql onMount={() => trackComponentView('sqlNotes')} />
           </>
         } />
@@ -294,8 +303,65 @@ const AppContent = () => {
             <Breadcrumb items={[
               { name: 'Courses', href: '/allcourse' },
               { name: 'Interview Prep', href: '/courses/interview-prep' }
-            ]} className="container mx-auto px-4 py-2" />
+            ]} />
             <TrackedNotesOverview onMount={() => trackComponentView('interviewPrep')} />
+          </>
+        } />
+        
+        <Route path="/interview-series" element={
+          <>
+            <SEO 
+              title="Interview Series - Technical Interview Preparation"
+              description="Comprehensive technical interview preparation series covering computer networks, operating systems, databases, and more."
+              keywords="technical interview, computer science fundamentals, networking, operating systems, database systems, system design"
+            />
+            <Breadcrumb items={[{ name: 'Interview Series', href: '/interview-series' }]} />
+            <TrackedInterviewSeriesOverview onMount={() => trackComponentView('interviewSeries')} />
+          </>
+        } />
+        
+        <Route path="/interview-series/computer-networks" element={
+          <>
+            <SEO 
+              title="Computer Networks - Interview Preparation Guide"
+              description="Master computer networking concepts for technical interviews. Learn OSI model, TCP/IP, routing, switching, and network security."
+              keywords="computer networks, networking interview, OSI model, TCP/IP, routing protocols, network security, technical interview"
+            />
+            <Breadcrumb items={[
+              { name: 'Interview Series', href: '/interview-series' },
+              { name: 'Computer Networks', href: '/interview-series/computer-networks' }
+            ]} />
+            <TrackedComputerNetworks onMount={() => trackComponentView('computerNetworks')} />
+          </>
+        } />
+
+        <Route path="/interview-series/oops" element={
+          <>
+            <SEO 
+              title="OOPS - Interview Preparation Guide"
+              description="Master object-oriented programming concepts for technical interviews. Learn inheritance, polymorphism, abstraction, encapsulation, and design patterns."
+              keywords="OOPS, object-oriented programming, inheritance, polymorphism, abstraction, encapsulation, design patterns, technical interview"
+            />
+            <Breadcrumb items={[
+              { name: 'Interview Series', href: '/interview-series' },
+              { name: 'OOPS', href: '/interview-series/oops' }
+            ]} />
+            <TrackedObjectOrientedProgramming onMount={() => trackComponentView('oops')} />
+          </>
+        } />
+
+        <Route path="/interview-series/operating-systems" element={
+          <>
+            <SEO 
+              title="Operating Systems - Interview Preparation Guide"
+              description="Master operating system concepts for technical interviews. Learn processes, threads, memory management, scheduling, synchronization, and deadlocks."
+              keywords="operating systems, OS interview, processes, threads, memory management, CPU scheduling, synchronization, deadlocks, technical interview"
+            />
+            <Breadcrumb items={[
+              { name: 'Interview Series', href: '/interview-series' },
+              { name: 'Operating Systems', href: '/interview-series/operating-systems' }
+            ]} />
+            <TrackedOperatingSystems onMount={() => trackComponentView('operatingSystems')} />
           </>
         } />
         
@@ -310,7 +376,7 @@ const AppContent = () => {
             <Breadcrumb items={[
               { name: 'Learning', href: '/learning' },
               { name: 'JavaScript', href: '/learning/javascript' }
-            ]} className="container mx-auto px-4 py-2" />
+            ]} />
             <TrackedJavaScriptLearning onMount={() => trackComponentView('javascript')} />
           </>
         } />
@@ -330,7 +396,7 @@ const AppContent = () => {
               description="View detailed analytics of your learning progress, coding activity, and performance metrics."
               keywords="analytics, progress tracking, learning metrics, performance dashboard"
             />
-            <Breadcrumb items={[{ name: 'Analytics', href: '/analytics' }]} className="container mx-auto px-4 py-2" />
+            <Breadcrumb items={[{ name: 'Analytics', href: '/analytics' }]} />
             <Analytics />
           </>
         } />
