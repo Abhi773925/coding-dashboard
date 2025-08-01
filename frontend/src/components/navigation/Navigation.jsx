@@ -241,38 +241,38 @@ const StreakDisplay = () => {
     return () => clearInterval(intervalId)
   }, [])
 
-  if (loading) {
-    return (
-      <div
-        className={`flex items-center space-x-2 px-4 py-2 rounded-full backdrop-blur-sm ${
-          isDarkMode ? "bg-slate-800/60" : "bg-white/80"
-        }`}
-      >
-        <div className="w-5 h-5 rounded-full bg-gray-300 animate-pulse"></div>
-        <span className="text-sm font-medium">
-          {retryCount > 0 ? `Retrying ${retryCount}/${maxRetries}...` : "..."}
-        </span>
-      </div>
-    )
-  }
+  // if (loading) {
+  //   return (
+  //     <div
+  //       className={`flex items-center space-x-2 px-4 py-2 rounded-full backdrop-blur-sm ${
+  //         isDarkMode ? "bg-slate-800/60" : "bg-white/80"
+  //       }`}
+  //     >
+  //       <div className="w-5 h-5 rounded-full bg-gray-300 animate-pulse"></div>
+  //       <span className="text-sm font-medium">
+  //         {retryCount > 0 ? `Retrying ${retryCount}/${maxRetries}...` : "..."}
+  //       </span>
+  //     </div>
+  //   )
+  // }
 
-  if (error) {
-    return (
-      <div
-        className={`flex items-center space-x-2 px-4 py-2 rounded-full backdrop-blur-sm transition-all duration-300 ${
-          isDarkMode
-            ? "bg-slate-800/60 text-gray-400 border border-slate-700/50"
-            : "bg-gray-100/80 text-gray-600 border border-gray-200/50"
-        }`}
-        title="Streak service is currently unavailable. Your progress is still being tracked locally."
-      >
-        <Zap size={18} className={isDarkMode ? "text-gray-500" : "text-gray-400"} />
-        <span className="text-sm font-semibold">
-          {streak.currentStreak > 0 ? `${streak.currentStreak} day${streak.currentStreak !== 1 ? "s" : ""}` : "Offline"}
-        </span>
-      </div>
-    )
-  }
+  // if (error) {
+  //   return (
+  //     <div
+  //       className={`flex items-center space-x-2 px-4 py-2 rounded-full backdrop-blur-sm transition-all duration-300 ${
+  //         isDarkMode
+  //           ? "bg-slate-800/60 text-gray-400 border border-slate-700/50"
+  //           : "bg-gray-100/80 text-gray-600 border border-gray-200/50"
+  //       }`}
+  //       title="Streak service is currently unavailable. Your progress is still being tracked locally."
+  //     >
+  //       <Zap size={18} className={isDarkMode ? "text-gray-500" : "text-gray-400"} />
+  //       <span className="text-sm font-semibold">
+  //         {streak.currentStreak > 0 ? `${streak.currentStreak} day${streak.currentStreak !== 1 ? "s" : ""}` : "Offline"}
+  //       </span>
+  //     </div>
+  //   )
+  // }
 
   return (
     <div
@@ -285,10 +285,10 @@ const StreakDisplay = () => {
         boxShadow: isDarkMode ? "0 4px 15px rgba(251, 146, 60, 0.1)" : "0 4px 15px rgba(251, 146, 60, 0.1)",
       }}
     >
-      {/* <Zap size={18} className="text-orange-500" />
+      <Zap size={18} className="text-orange-500" />
       <span className="text-sm font-semibold">
         {streak.currentStreak} day{streak.currentStreak !== 1 ? "s" : ""}
-      </span> */}
+      </span>
     </div>
   )
 }
