@@ -173,7 +173,6 @@ const ActivityHeatmap = ({ user }) => {
 
   function calculateCurrentStreak() {
     if (!heatmapData || Object.keys(heatmapData).length === 0) {
-      console.log('🐛 No heatmap data available for streak calculation');
       return 0;
     }
     
@@ -196,7 +195,6 @@ const ActivityHeatmap = ({ user }) => {
       currentDate.setDate(currentDate.getDate() - 1);
     }
     
-    console.log(`📊 Current streak calculated: ${streak} days`);
     return streak;
   }
 
