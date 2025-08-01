@@ -25,6 +25,7 @@ import {
   LogIn
 } from 'lucide-react';
 import { useAuth } from '../navigation/Navigation';
+import { fetchWithWakeUp } from '../../utils/serverWakeUp';
 import ProfileHeader from './ProfileHeader';
 import PlatformCards from './PlatformCards';
 import SkillsOverview from './SkillsOverview';
@@ -72,7 +73,7 @@ const ProfileDashboard = () => {
     setError(null);
     
     try {
-      const response = await fetch(`/api/profile/user?email=${authUser.email}`);
+      const response = await fetchWithWakeUp(`/api/profile/user?email=${authUser.email}`);
       
       if (!response.ok) {
         if (response.status === 404) {
@@ -128,7 +129,7 @@ const ProfileDashboard = () => {
     if (!authUser?.email) return;
     
     try {
-      const response = await fetch('/api/profile/update', {
+      const response = await fetchWithWakeUp('/api/profile/update', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

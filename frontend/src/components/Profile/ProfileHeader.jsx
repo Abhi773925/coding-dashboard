@@ -14,6 +14,7 @@ import {
   TrendingUp,
   Target
 } from 'lucide-react';
+import { fetchWithWakeUp } from '../../utils/serverWakeUp';
 
 const ProfileHeader = ({ user, profileMode, setProfileMode, onUpdate }) => {
   const [editData, setEditData] = useState({
@@ -25,7 +26,7 @@ const ProfileHeader = ({ user, profileMode, setProfileMode, onUpdate }) => {
 
   const handleSave = async () => {
     try {
-      const response = await fetch('/api/profile/update-basic', {
+      const response = await fetchWithWakeUp('/api/profile/update-basic', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

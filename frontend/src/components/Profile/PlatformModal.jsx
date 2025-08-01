@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { X, ExternalLink, AlertCircle, CheckCircle, Loader } from 'lucide-react';
+import { fetchWithWakeUp } from '../../utils/serverWakeUp';
 
 const PlatformModal = ({ isOpen, onClose, platform, onSubmit, existingUsername }) => {
   const [username, setUsername] = useState(existingUsername || '');
@@ -74,7 +75,7 @@ const PlatformModal = ({ isOpen, onClose, platform, onSubmit, existingUsername }
     setValidationResult(null);
 
     try {
-      const response = await fetch('/api/profile/validate', {
+      const response = await fetchWithWakeUp('/api/profile/validate', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
