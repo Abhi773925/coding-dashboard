@@ -4,10 +4,11 @@ const cors = require('cors');
 
 const router = express.Router();
 
-// Enable CORS with credentials
+// Enable CORS with credentials for multiple origins
 router.use(cors({
-    origin: 'http://localhost:5173',
-    credentials: true
+    origin: ["https://www.prepmate.site", "http://localhost:5173", "https://prepmate-kvol.onrender.com"],
+    credentials: true,
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS']
 }));
 
 router.get('/streak', getStreak);

@@ -189,31 +189,49 @@ const StreakDisplay = () => {
         
         // Get cached streak data if available
         const cachedStreak = localStorage.getItem("userStreak")
-        if (cachedStreak) {
-          setStreak(JSON.parse(cachedStreak))
+        if (cachedStreak && attempt === 0) {
+          try {
+            const parsed = JSON.parse(cachedStreak)
+            setStreak(parsed)
+          } catch (e) {
+            console.warn("Invalid cached streak data, removing...")
+            localStorage.removeItem("userStreak")
+          }
         }
 
-        const response = await axios.get(`${config.API_URL}/streak`, {
+        const response = await axios.get(`${config.BACKEND_URL}/api/streak`, {
           params: { email: userEmail },
           withCredentials: true,
-          timeout: 5000 // 5 second timeout
+          timeout: 10000 // 10 second timeout
         })
         
-        setStreak(response.data)
-        setLoading(false)
-        setRetryCount(0)
-        
-        // Cache the streak data
-        localStorage.setItem("userStreak", JSON.stringify(response.data))
+        if (response.data) {
+          // Validate the response data
+          const validatedData = {
+            currentStreak: response.data.currentStreak || 0,
+            longestStreak: response.data.longestStreak || 0,
+            lastCodedDate: response.data.lastCodedDate || null
+          }
+          
+          setStreak(validatedData)
+          setLoading(false)
+          setRetryCount(0)
+          
+          // Cache the streak data
+          localStorage.setItem("userStreak", JSON.stringify(validatedData))
 
-        // Update streak on activity - use a try/catch to prevent this from breaking the UI
-        try {
-          await axios.post(`${config.API_URL}/streak/update`, {
-            email: userEmail
-          }, { timeout: 5000 })
-        } catch (updateErr) {
-          console.warn("Failed to update streak activity:", updateErr.message)
-          // Continue without throwing - this is non-critical
+          // Update streak on activity - use a try/catch to prevent this from breaking the UI
+          try {
+            await axios.post(`${config.BACKEND_URL}/api/streak/update`, {
+              email: userEmail
+            }, { 
+              timeout: 10000,
+              withCredentials: true 
+            })
+          } catch (updateErr) {
+            console.warn("Failed to update streak activity:", updateErr.message)
+            // Continue without throwing - this is non-critical
+          }
         }
       } catch (err) {
         console.error("Error fetching streak:", err)
@@ -227,6 +245,18 @@ const StreakDisplay = () => {
         } else {
           setError(true)
           setLoading(false)
+          
+          // Try to use cached data as fallback
+          const cachedStreak = localStorage.getItem("userStreak")
+          if (cachedStreak) {
+            try {
+              const parsed = JSON.parse(cachedStreak)
+              setStreak(parsed)
+              console.log("Using cached streak data as fallback")
+            } catch (e) {
+              console.warn("Failed to parse cached streak data")
+            }
+          }
         }
       }
     }
@@ -241,38 +271,38 @@ const StreakDisplay = () => {
     return () => clearInterval(intervalId)
   }, [])
 
-  // if (loading) {
-  //   return (
-  //     <div
-  //       className={`flex items-center space-x-2 px-4 py-2 rounded-full backdrop-blur-sm ${
-  //         isDarkMode ? "bg-slate-800/60" : "bg-white/80"
-  //       }`}
-  //     >
-  //       <div className="w-5 h-5 rounded-full bg-gray-300 animate-pulse"></div>
-  //       <span className="text-sm font-medium">
-  //         {retryCount > 0 ? `Retrying ${retryCount}/${maxRetries}...` : "..."}
-  //       </span>
-  //     </div>
-  //   )
-  // }
+  // Show loading state briefly
+  if (loading && retryCount === 0) {
+    return (
+      <div
+        className={`flex items-center space-x-2 px-4 py-2 rounded-full backdrop-blur-sm transition-all duration-300 ${
+          isDarkMode
+            ? "bg-slate-800/60 text-slate-400 border border-slate-700/50"
+            : "bg-gray-100/80 text-gray-600 border border-gray-200/50"
+        }`}
+      >
+        <div className="w-4 h-4 rounded-full bg-gray-300 animate-pulse"></div>
+        <span className="text-sm font-medium">Loading...</span>
+      </div>
+    )
+  }
 
-  // if (error) {
-  //   return (
-  //     <div
-  //       className={`flex items-center space-x-2 px-4 py-2 rounded-full backdrop-blur-sm transition-all duration-300 ${
-  //         isDarkMode
-  //           ? "bg-slate-800/60 text-gray-400 border border-slate-700/50"
-  //           : "bg-gray-100/80 text-gray-600 border border-gray-200/50"
-  //       }`}
-  //       title="Streak service is currently unavailable. Your progress is still being tracked locally."
-  //     >
-  //       <Zap size={18} className={isDarkMode ? "text-gray-500" : "text-gray-400"} />
-  //       <span className="text-sm font-semibold">
-  //         {streak.currentStreak > 0 ? `${streak.currentStreak} day${streak.currentStreak !== 1 ? "s" : ""}` : "Offline"}
-  //       </span>
-  //     </div>
-  //   )
-  // }
+  // Show error state with fallback to cached data
+  if (error && streak.currentStreak === 0) {
+    return (
+      <div
+        className={`flex items-center space-x-2 px-4 py-2 rounded-full backdrop-blur-sm transition-all duration-300 ${
+          isDarkMode
+            ? "bg-slate-800/60 text-gray-400 border border-slate-700/50"
+            : "bg-gray-100/80 text-gray-600 border border-gray-200/50"
+        }`}
+        title="Streak service is temporarily unavailable. Your progress is still being tracked."
+      >
+        <Zap size={18} className={isDarkMode ? "text-gray-500" : "text-gray-400"} />
+        <span className="text-sm font-semibold">Offline</span>
+      </div>
+    )
+  }
 
   return (
     <div
@@ -284,11 +314,15 @@ const StreakDisplay = () => {
       style={{
         boxShadow: isDarkMode ? "0 4px 15px rgba(251, 146, 60, 0.1)" : "0 4px 15px rgba(251, 146, 60, 0.1)",
       }}
+      title={error ? "Using cached data - service temporarily unavailable" : `Current streak: ${streak.currentStreak} days`}
     >
-      <Zap size={18} className="text-orange-500" />
+      <Zap size={18} className={error ? "text-amber-500" : "text-orange-500"} />
       <span className="text-sm font-semibold">
         {streak.currentStreak} day{streak.currentStreak !== 1 ? "s" : ""}
       </span>
+      {error && (
+        <div className="w-2 h-2 rounded-full bg-amber-500 animate-pulse" title="Using cached data" />
+      )}
     </div>
   )
 }
