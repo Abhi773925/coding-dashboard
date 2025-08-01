@@ -19,9 +19,12 @@ import {
   Award,
   Zap
 } from 'lucide-react';
+import { getThemeColors } from '../../theme/colorTheme';
 
-const PlatformCards = ({ user, onConnectPlatform, detailed = false }) => {
+const PlatformCards = ({ user, onConnectPlatform, detailed = false, isDarkMode = false }) => {
   const [selectedPlatform, setSelectedPlatform] = useState(null);
+  
+  const themeColors = getThemeColors(isDarkMode);
 
   const platforms = [
     {
@@ -29,7 +32,7 @@ const PlatformCards = ({ user, onConnectPlatform, detailed = false }) => {
       name: 'LeetCode',
       icon: Code2,
       color: 'from-orange-500 to-yellow-500',
-      bgColor: 'bg-orange-50 dark:bg-orange-900/20',
+      bgColor: isDarkMode ? 'bg-orange-900/20' : 'bg-orange-50',
       description: 'Algorithmic problem solving',
       url: 'https://leetcode.com'
     },
@@ -37,8 +40,8 @@ const PlatformCards = ({ user, onConnectPlatform, detailed = false }) => {
       id: 'github',
       name: 'GitHub',
       icon: Github,
-      color: 'from-gray-700 to-gray-900',
-      bgColor: 'bg-gray-50 dark:bg-gray-800/50',
+      color: 'from-slate-600 to-slate-800',
+      bgColor: isDarkMode ? 'bg-slate-800/50' : 'bg-slate-50',
       description: 'Code repositories & contributions',
       url: 'https://github.com'
     },
@@ -46,8 +49,8 @@ const PlatformCards = ({ user, onConnectPlatform, detailed = false }) => {
       id: 'geeksforgeeks',
       name: 'GeeksforGeeks',
       icon: Brain,
-      color: 'from-green-500 to-emerald-600',
-      bgColor: 'bg-green-50 dark:bg-green-900/20',
+      color: 'from-emerald-500 to-green-600',
+      bgColor: isDarkMode ? 'bg-emerald-900/20' : 'bg-emerald-50',
       description: 'Programming tutorials & practice',
       url: 'https://geeksforgeeks.org'
     },
@@ -55,8 +58,8 @@ const PlatformCards = ({ user, onConnectPlatform, detailed = false }) => {
       id: 'codechef',
       name: 'CodeChef',
       icon: Trophy,
-      color: 'from-yellow-600 to-orange-600',
-      bgColor: 'bg-yellow-50 dark:bg-yellow-900/20',
+      color: 'from-amber-500 to-orange-600',
+      bgColor: isDarkMode ? 'bg-amber-900/20' : 'bg-amber-50',
       description: 'Competitive programming',
       url: 'https://codechef.com'
     },
@@ -65,7 +68,7 @@ const PlatformCards = ({ user, onConnectPlatform, detailed = false }) => {
       name: 'Codeforces',
       icon: Target,
       color: 'from-blue-500 to-indigo-600',
-      bgColor: 'bg-blue-50 dark:bg-blue-900/20',
+      bgColor: isDarkMode ? 'bg-blue-900/20' : 'bg-blue-50',
       description: 'Programming contests',
       url: 'https://codeforces.com'
     },
@@ -73,8 +76,8 @@ const PlatformCards = ({ user, onConnectPlatform, detailed = false }) => {
       id: 'hackerrank',
       name: 'HackerRank',
       icon: Zap,
-      color: 'from-green-600 to-teal-600',
-      bgColor: 'bg-teal-50 dark:bg-teal-900/20',
+      color: 'from-emerald-600 to-teal-600',
+      bgColor: isDarkMode ? 'bg-teal-900/20' : 'bg-teal-50',
       description: 'Skills assessment & challenges',
       url: 'https://hackerrank.com'
     }
@@ -240,8 +243,8 @@ const PlatformCards = ({ user, onConnectPlatform, detailed = false }) => {
     return (
       <div className="space-y-6">
         <div className="flex items-center justify-between">
-          <h2 className="text-2xl font-bold text-gray-900 dark:text-white">Connected Platforms</h2>
-          <p className="text-sm text-gray-600 dark:text-gray-400">
+          <h2 className={`text-2xl font-bold ${themeColors.profile.text.primary}`}>Connected Platforms</h2>
+          <p className={`text-sm ${themeColors.profile.text.secondary} px-3 py-1 bg-purple-50 dark:bg-purple-900/20 rounded-full`}>
             {Object.keys(user?.platformStats || {}).length} of {platforms.length} connected
           </p>
         </div>
@@ -254,15 +257,15 @@ const PlatformCards = ({ user, onConnectPlatform, detailed = false }) => {
             return (
               <motion.div
                 key={platform.id}
-                className={`${platform.bgColor} rounded-xl p-6 border border-gray-200 dark:border-gray-700 transition-all duration-300 hover:shadow-lg`}
+                className={`${themeColors.profile.card.bg} ${themeColors.profile.card.border} ${themeColors.profile.card.shadow} ${themeColors.profile.card.hover} rounded-xl p-6 border backdrop-blur-sm transition-all duration-300`}
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
-                whileHover={{ y: -5 }}
+                whileHover={{ y: -5, scale: 1.02 }}
                 transition={{ duration: 0.3 }}
               >
                 <div className="flex items-center justify-between mb-4">
                   <div className="flex items-center space-x-3">
-                    <div className={`p-3 rounded-lg bg-gradient-to-r ${platform.color}`}>
+                    <div className={`p-3 rounded-lg bg-gradient-to-r ${platform.color} shadow-lg`}>
                       <Icon className="w-6 h-6 text-white" />
                     </div>
                     <div>
@@ -315,10 +318,10 @@ const PlatformCards = ({ user, onConnectPlatform, detailed = false }) => {
   }
 
   return (
-    <div className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-lg">
+    <div className={`${themeColors.profile.card.bg} ${themeColors.profile.card.border} rounded-xl p-6 ${themeColors.profile.card.shadow} border backdrop-blur-sm`}>
       <div className="flex items-center justify-between mb-4">
-        <h3 className="text-lg font-semibold text-gray-900 dark:text-white">Platforms</h3>
-        <span className="text-sm text-gray-600 dark:text-gray-400">
+        <h3 className={`text-lg font-semibold ${themeColors.profile.text.primary}`}>Platforms</h3>
+        <span className={`text-sm ${themeColors.profile.text.secondary}`}>
           {Object.keys(user?.platformStats || {}).length}/{platforms.length}
         </span>
       </div>
@@ -331,17 +334,18 @@ const PlatformCards = ({ user, onConnectPlatform, detailed = false }) => {
           return (
             <motion.div
               key={platform.id}
-              className="flex items-center justify-between p-3 rounded-lg bg-gray-50 dark:bg-gray-700/50 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors duration-200"
-              whileHover={{ x: 5 }}
+              className={`flex items-center justify-between p-3 rounded-lg ${platform.bgColor} ${themeColors.profile.card.hover} transition-all duration-200 border border-transparent hover:border-purple-200 dark:hover:border-purple-700`}
+              whileHover={{ x: 5, scale: 1.02 }}
+              transition={{ duration: 0.2 }}
             >
               <div className="flex items-center space-x-3">
-                <div className={`p-2 rounded-md bg-gradient-to-r ${platform.color}`}>
+                <div className={`p-2 rounded-md bg-gradient-to-r ${platform.color} shadow-md`}>
                   <Icon className="w-4 h-4 text-white" />
                 </div>
                 <div>
-                  <p className="font-medium text-gray-900 dark:text-white">{platform.name}</p>
+                  <p className={`font-medium ${themeColors.profile.text.primary}`}>{platform.name}</p>
                   {connected && (
-                    <p className="text-xs text-gray-600 dark:text-gray-400">
+                    <p className={`text-xs ${themeColors.profile.text.secondary}`}>
                       @{user.platformStats[platform.id].username}
                     </p>
                   )}
@@ -349,11 +353,11 @@ const PlatformCards = ({ user, onConnectPlatform, detailed = false }) => {
               </div>
               
               {connected ? (
-                <CheckCircle className="w-5 h-5 text-green-500" />
+                <CheckCircle className="w-5 h-5 text-emerald-500" />
               ) : (
                 <button
                   onClick={() => onConnectPlatform(platform.id)}
-                  className="p-1 text-blue-500 hover:text-blue-600 transition-colors"
+                  className="p-1 text-purple-500 hover:text-purple-600 dark:text-purple-400 dark:hover:text-purple-300 transition-colors transform hover:scale-110"
                 >
                   <Plus className="w-4 h-4" />
                 </button>
@@ -365,7 +369,7 @@ const PlatformCards = ({ user, onConnectPlatform, detailed = false }) => {
 
       <button
         onClick={() => {/* Navigate to detailed platforms view */}}
-        className="w-full mt-4 px-4 py-2 text-sm text-blue-600 dark:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-900/20 rounded-lg transition-colors duration-200"
+        className={`w-full mt-4 px-4 py-2 text-sm ${themeColors.profile.text.accent} hover:bg-purple-50 dark:hover:bg-purple-900/20 rounded-lg transition-all duration-200 transform hover:scale-105`}
       >
         View All Platforms
       </button>

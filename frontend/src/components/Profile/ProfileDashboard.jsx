@@ -26,6 +26,7 @@ import {
 } from 'lucide-react';
 import { useAuth } from '../navigation/Navigation';
 import { fetchWithWakeUp } from '../../utils/serverWakeUp';
+import { getThemeColors } from '../../theme/colorTheme';
 import ProfileHeader from './ProfileHeader';
 import PlatformCards from './PlatformCards';
 import SkillsOverview from './SkillsOverview';
@@ -44,6 +45,36 @@ const ProfileDashboard = () => {
   const [showPlatformModal, setShowPlatformModal] = useState(false);
   const [selectedPlatform, setSelectedPlatform] = useState(null);
   const [profileMode, setProfileMode] = useState('view'); // 'view' or 'edit'
+  const [isDarkMode, setIsDarkMode] = useState(false);
+
+  // Get theme colors
+  const themeColors = getThemeColors(isDarkMode);
+
+  // Dark mode detection
+  useEffect(() => {
+    const checkDarkMode = () => {
+      const darkMode = document.documentElement.classList.contains('dark') || 
+                      window.matchMedia('(prefers-color-scheme: dark)').matches;
+      setIsDarkMode(darkMode);
+    };
+
+    checkDarkMode();
+    
+    // Listen for changes
+    const observer = new MutationObserver(checkDarkMode);
+    observer.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ['class']
+    });
+
+    const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+    mediaQuery.addEventListener('change', checkDarkMode);
+
+    return () => {
+      observer.disconnect();
+      mediaQuery.removeEventListener('change', checkDarkMode);
+    };
+  }, []);
 
   const tabs = [
     { id: 'overview', label: 'Overview', icon: User },
@@ -233,38 +264,49 @@ const ProfileDashboard = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-blue-50 dark:from-gray-900 dark:to-blue-900">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <div className={`min-h-screen bg-gradient-to-br ${isDarkMode ? 'from-slate-900 via-slate-800 to-indigo-900' : 'from-gray-50 via-purple-50 to-blue-50'}`}
+      style={{
+        background: isDarkMode 
+          ? 'radial-gradient(circle at 20% 20%, rgba(139, 92, 246, 0.1) 0%, transparent 50%), radial-gradient(circle at 80% 80%, rgba(59, 130, 246, 0.1) 0%, transparent 50%), linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #312e81 100%)'
+          : 'radial-gradient(circle at 20% 20%, rgba(139, 92, 246, 0.05) 0%, transparent 50%), radial-gradient(circle at 80% 80%, rgba(59, 130, 246, 0.05) 0%, transparent 50%), linear-gradient(135deg, #f9fafb 0%, #f3e8ff 50%, #dbeafe 100%)'
+      }}
+    >
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8"
+        style={{
+          backdropFilter: 'blur(8px)'
+        }}
+      >
         {/* Profile Header */}
         <ProfileHeader 
-          user={profileData}
+          user={profileData} 
           profileMode={profileMode}
           setProfileMode={setProfileMode}
           onUpdate={fetchUserProfile}
+          isDarkMode={isDarkMode}
         />
 
         {/* Show welcome message for new users */}
         {profileData?.isNewUser && (
           <motion.div
-            className="mt-6 bg-gradient-to-r from-blue-50 to-purple-50 dark:from-blue-900/20 dark:to-purple-900/20 border border-blue-200 dark:border-blue-800 rounded-xl p-6"
+            className={`mt-6 bg-gradient-to-r ${isDarkMode ? 'from-purple-900/20 to-blue-900/20 border-purple-700/50' : 'from-purple-50 to-blue-50 border-purple-200'} border rounded-xl p-6 backdrop-blur-sm`}
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
           >
             <div className="flex items-start space-x-4">
-              <div className="w-12 h-12 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full flex items-center justify-center flex-shrink-0">
+              <div className="w-12 h-12 bg-gradient-to-r from-purple-600 to-blue-600 rounded-full flex items-center justify-center flex-shrink-0 shadow-lg">
                 <Star className="w-6 h-6 text-white" />
               </div>
               <div>
-                <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">
+                <h3 className={`text-lg font-semibold ${themeColors.profile.text.primary} mb-2`}>
                   Welcome to your coding profile! 🎉
                 </h3>
-                <p className="text-gray-600 dark:text-gray-400 mb-4">
+                <p className={`${themeColors.profile.text.secondary} mb-4`}>
                   Connect your coding platforms to see comprehensive stats, track your progress, and showcase your achievements.
                 </p>
                 <button
                   onClick={() => setSelectedTab('platforms')}
-                  className="inline-flex items-center space-x-2 bg-gradient-to-r from-blue-500 to-purple-600 text-white px-4 py-2 rounded-lg font-medium hover:from-blue-600 hover:to-purple-700 transition-all duration-200"
+                  className="inline-flex items-center space-x-2 bg-gradient-to-r from-purple-600 to-blue-600 text-white px-4 py-2 rounded-lg font-medium hover:from-purple-700 hover:to-blue-700 transition-all duration-200 transform hover:scale-105 shadow-lg"
                 >
                   <Plus className="w-4 h-4" />
                   <span>Connect Platforms</span>
@@ -276,7 +318,7 @@ const ProfileDashboard = () => {
 
         {/* Navigation Tabs */}
         <div className="mt-8">
-          <div className="border-b border-gray-200 dark:border-gray-700">
+          <div className={`border-b ${isDarkMode ? 'border-slate-700' : 'border-purple-200'}`}>
             <nav className="-mb-px flex space-x-8 overflow-x-auto">
               {tabs.map((tab) => {
                 const Icon = tab.icon;
@@ -284,10 +326,10 @@ const ProfileDashboard = () => {
                   <button
                     key={tab.id}
                     onClick={() => setSelectedTab(tab.id)}
-                    className={`flex items-center space-x-2 py-4 px-1 border-b-2 font-medium text-sm whitespace-nowrap transition-colors duration-200 ${
+                    className={`flex items-center space-x-2 py-4 px-1 border-b-2 font-medium text-sm whitespace-nowrap transition-all duration-200 transform hover:scale-105 ${
                       selectedTab === tab.id
-                        ? 'border-blue-500 text-blue-600 dark:text-blue-400'
-                        : 'border-transparent text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-300 hover:border-gray-300'
+                        ? 'border-purple-500 text-purple-600 dark:text-purple-400 shadow-lg'
+                        : `border-transparent ${themeColors.profile.text.secondary} hover:text-purple-600 dark:hover:text-purple-400 hover:border-purple-300`
                     }`}
                   >
                     <Icon className="w-5 h-5" />
@@ -312,15 +354,16 @@ const ProfileDashboard = () => {
               {selectedTab === 'overview' && (
                 <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
                   <div className="lg:col-span-2 space-y-6">
-                    <ProfileStats user={profileData} />
-                    <RecentActivity user={profileData} />
+                    <ProfileStats user={profileData} isDarkMode={isDarkMode} />
+                    <RecentActivity user={profileData} isDarkMode={isDarkMode} />
                   </div>
                   <div className="space-y-6">
                     <PlatformCards 
                       user={profileData}
                       onConnectPlatform={handleConnectPlatform}
+                      isDarkMode={isDarkMode}
                     />
-                    <AchievementShowcase user={profileData} />
+                    <AchievementShowcase user={profileData} isDarkMode={isDarkMode} />
                   </div>
                 </div>
               )}
@@ -330,15 +373,16 @@ const ProfileDashboard = () => {
                   user={profileData}
                   onConnectPlatform={handleConnectPlatform}
                   detailed={true}
+                  isDarkMode={isDarkMode}
                 />
               )}
 
               {selectedTab === 'skills' && (
-                <SkillsOverview user={profileData} />
+                <SkillsOverview user={profileData} isDarkMode={isDarkMode} />
               )}
 
               {selectedTab === 'activity' && (
-                <ActivityHeatmap user={profileData} />
+                <ActivityHeatmap user={profileData} isDarkMode={isDarkMode} />
               )}
 
               {selectedTab === 'achievements' && (

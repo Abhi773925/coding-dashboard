@@ -14,8 +14,10 @@ import {
   Award,
   Activity
 } from 'lucide-react';
+import { getThemeColors } from '../../theme/colorTheme';
 
-const ProfileStats = ({ user, detailed = false }) => {
+const ProfileStats = ({ user, detailed = false, isDarkMode = false }) => {
+  const themeColors = getThemeColors(isDarkMode);
   const calculateStats = () => {
     if (!user?.platformStats) return null;
 
@@ -65,11 +67,11 @@ const ProfileStats = ({ user, detailed = false }) => {
 
   if (!stats) {
     return (
-      <div className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-lg">
-        <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">Statistics</h3>
+      <div className={`${themeColors.profile.card.bg} ${themeColors.profile.card.border} rounded-xl p-6 ${themeColors.profile.card.shadow} border backdrop-blur-sm`}>
+        <h3 className={`text-lg font-semibold ${themeColors.profile.text.primary} mb-4`}>Statistics</h3>
         <div className="text-center py-8">
-          <Target className="w-12 h-12 text-gray-400 mx-auto mb-4" />
-          <p className="text-gray-600 dark:text-gray-400">
+          <Target className={`w-12 h-12 ${themeColors.profile.text.secondary} mx-auto mb-4`} />
+          <p className={`${themeColors.profile.text.secondary}`}>
             Connect platforms to see your statistics
           </p>
         </div>
@@ -82,43 +84,43 @@ const ProfileStats = ({ user, detailed = false }) => {
       label: 'Problems Solved',
       value: stats.totalProblems,
       icon: Code2,
-      color: 'from-blue-500 to-blue-600',
-      bgColor: 'bg-blue-50 dark:bg-blue-900/20'
+      color: 'from-emerald-500 to-green-600',
+      bgColor: isDarkMode ? 'bg-emerald-900/20' : 'bg-emerald-50'
     },
     {
       label: 'Repositories',
       value: stats.totalRepositories,
       icon: GitBranch,
-      color: 'from-green-500 to-green-600',
-      bgColor: 'bg-green-50 dark:bg-green-900/20'
+      color: 'from-blue-500 to-indigo-600',
+      bgColor: isDarkMode ? 'bg-blue-900/20' : 'bg-blue-50'
     },
     {
       label: 'Total Stars',
       value: stats.totalStars,
       icon: Star,
-      color: 'from-yellow-500 to-yellow-600',
-      bgColor: 'bg-yellow-50 dark:bg-yellow-900/20'
+      color: 'from-amber-500 to-yellow-600',
+      bgColor: isDarkMode ? 'bg-amber-900/20' : 'bg-amber-50'
     },
     {
       label: 'Contributions',
       value: stats.totalContributions,
       icon: Activity,
-      color: 'from-purple-500 to-purple-600',
-      bgColor: 'bg-purple-50 dark:bg-purple-900/20'
+      color: 'from-purple-500 to-violet-600',
+      bgColor: isDarkMode ? 'bg-purple-900/20' : 'bg-purple-50'
     },
     {
       label: 'Contests',
       value: stats.totalContest,
       icon: Trophy,
-      color: 'from-orange-500 to-orange-600',
-      bgColor: 'bg-orange-50 dark:bg-orange-900/20'
+      color: 'from-orange-500 to-red-600',
+      bgColor: isDarkMode ? 'bg-orange-900/20' : 'bg-orange-50'
     },
     {
       label: 'Platforms',
       value: stats.platforms,
       icon: Users,
-      color: 'from-pink-500 to-pink-600',
-      bgColor: 'bg-pink-50 dark:bg-pink-900/20'
+      color: 'from-pink-500 to-rose-600',
+      bgColor: isDarkMode ? 'bg-pink-900/20' : 'bg-pink-50'
     }
   ];
 
@@ -227,10 +229,10 @@ const ProfileStats = ({ user, detailed = false }) => {
   }
 
   return (
-    <div className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-lg">
+    <div className={`${themeColors.profile.card.bg} ${themeColors.profile.card.border} rounded-xl p-6 ${themeColors.profile.card.shadow} border backdrop-blur-sm`}>
       <div className="flex items-center justify-between mb-6">
-        <h3 className="text-lg font-semibold text-gray-900 dark:text-white">Quick Stats</h3>
-        <TrendingUp className="w-5 h-5 text-green-500" />
+        <h3 className={`text-lg font-semibold ${themeColors.profile.text.primary}`}>Quick Stats</h3>
+        <TrendingUp className="w-5 h-5 text-emerald-500" />
       </div>
 
       <div className="grid grid-cols-2 gap-4">
@@ -239,19 +241,19 @@ const ProfileStats = ({ user, detailed = false }) => {
           return (
             <motion.div
               key={item.label}
-              className="text-center p-4 rounded-lg bg-gray-50 dark:bg-gray-700/50 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors duration-200"
+              className={`text-center p-4 rounded-lg ${item.bgColor} ${themeColors.profile.card.hover} transition-all duration-200 border border-transparent hover:border-purple-200 dark:hover:border-purple-700`}
               initial={{ opacity: 0, scale: 0.8 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.3, delay: index * 0.1 }}
-              whileHover={{ scale: 1.05 }}
+              whileHover={{ scale: 1.05, y: -2 }}
             >
-              <div className={`inline-flex p-2 rounded-lg bg-gradient-to-r ${item.color} mb-2`}>
+              <div className={`inline-flex p-2 rounded-lg bg-gradient-to-r ${item.color} mb-2 shadow-lg`}>
                 <Icon className="w-4 h-4 text-white" />
               </div>
-              <p className="text-2xl font-bold text-gray-900 dark:text-white">
+              <p className={`text-2xl font-bold ${themeColors.profile.text.primary}`}>
                 {item.value.toLocaleString()}
               </p>
-              <p className="text-xs text-gray-600 dark:text-gray-400">{item.label}</p>
+              <p className={`text-xs ${themeColors.profile.text.secondary}`}>{item.label}</p>
             </motion.div>
           );
         })}
@@ -260,14 +262,14 @@ const ProfileStats = ({ user, detailed = false }) => {
       {/* Progress Indicators */}
       <div className="mt-6 space-y-3">
         <div className="flex items-center justify-between">
-          <span className="text-sm text-gray-600 dark:text-gray-400">Overall Progress</span>
-          <span className="text-sm font-medium text-gray-900 dark:text-white">
+          <span className={`text-sm ${themeColors.profile.text.secondary}`}>Overall Progress</span>
+          <span className={`text-sm font-medium ${themeColors.profile.text.primary}`}>
             {Math.min(100, Math.round((stats.totalProblems + stats.totalRepositories) / 10))}%
           </span>
         </div>
-        <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2">
+        <div className={`w-full ${isDarkMode ? 'bg-slate-700' : 'bg-gray-200'} rounded-full h-2`}>
           <div 
-            className="bg-gradient-to-r from-blue-500 to-purple-500 h-2 rounded-full transition-all duration-500"
+            className="bg-gradient-to-r from-purple-500 to-blue-500 h-2 rounded-full transition-all duration-500 shadow-lg"
             style={{ 
               width: `${Math.min(100, Math.round((stats.totalProblems + stats.totalRepositories) / 10))}%` 
             }}

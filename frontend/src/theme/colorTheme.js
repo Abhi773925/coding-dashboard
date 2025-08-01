@@ -105,6 +105,60 @@ export const colorTheme = {
 
   // Feature specific colors
   features: {
+    // Profile specific theme
+    profile: {
+      light: {
+        header: {
+          bg: "bg-white/90",
+          border: "border-gray-200/50",
+          shadow: "shadow-xl",
+          coverGradient: "bg-gradient-to-r from-purple-600 via-blue-600 to-indigo-600"
+        },
+        card: {
+          bg: "bg-white/80",
+          border: "border-gray-200/50",
+          shadow: "shadow-lg hover:shadow-xl",
+          hover: "hover:bg-white/90"
+        },
+        stats: {
+          primary: "bg-gradient-to-r from-purple-600 to-blue-600",
+          secondary: "bg-gradient-to-r from-blue-500 to-indigo-600",
+          accent: "bg-gradient-to-r from-indigo-500 to-purple-600",
+          success: "bg-gradient-to-r from-emerald-500 to-green-600"
+        },
+        text: {
+          primary: "text-gray-900",
+          secondary: "text-gray-600",
+          accent: "text-purple-600"
+        }
+      },
+      dark: {
+        header: {
+          bg: "bg-slate-800/90",
+          border: "border-slate-700/50",
+          shadow: "shadow-2xl shadow-black/40",
+          coverGradient: "bg-gradient-to-r from-purple-400 via-blue-400 to-cyan-400"
+        },
+        card: {
+          bg: "bg-slate-800/70",
+          border: "border-slate-700/50",
+          shadow: "shadow-xl shadow-black/20 hover:shadow-2xl hover:shadow-black/30",
+          hover: "hover:bg-slate-700/70"
+        },
+        stats: {
+          primary: "bg-gradient-to-r from-purple-600 to-blue-600",
+          secondary: "bg-gradient-to-r from-blue-500 to-indigo-600",
+          accent: "bg-gradient-to-r from-indigo-500 to-purple-600",
+          success: "bg-gradient-to-r from-emerald-500 to-green-600"
+        },
+        text: {
+          primary: "text-white",
+          secondary: "text-slate-400",
+          accent: "text-purple-400"
+        }
+      }
+    },
+
     // Difficulty levels
     difficulty: {
       easy: {
@@ -252,6 +306,7 @@ export const getThemeColors = (isDarkMode) => {
     text: colorTheme.components.text[mode],
     
     // Feature colors
+    profile: colorTheme.features.profile[mode],
     difficulty: colorTheme.features.difficulty,
     platforms: colorTheme.features.platforms,
     courses: colorTheme.features.courses,
