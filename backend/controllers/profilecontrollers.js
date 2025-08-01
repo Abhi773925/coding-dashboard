@@ -54,7 +54,7 @@ const platformValidationStrategies = {
   
   github: async (username) => {
     try {
-      const response = await axios.get(`https://github.com/${username}`, {
+      const response = await axios.get(`https://api.github.com/users/${username}`, {
         headers: createHeaders()
       });
       return response.status === 200;
@@ -65,7 +65,7 @@ const platformValidationStrategies = {
 
   geeksforgeeks: async (username) => {
     try {
-      const profileUrl = `https://geeksforgeeks.org/user/${username}`;
+      const profileUrl = `https://auth.geeksforgeeks.org/user/${username}`;
       const response = await axios.get(profileUrl, { headers: createHeaders() });
       const $ = cheerio.load(response.data);
       return $('.profile_name').length > 0;
@@ -76,7 +76,7 @@ const platformValidationStrategies = {
 
   hackerrank: async (username) => {
     try {
-      const profileUrl = `https://www.hackerrank.com/profile/${username}`;
+      const profileUrl = `https://www.hackerrank.com/${username}`;
       const response = await axios.get(profileUrl, { headers: createHeaders() });
       const $ = cheerio.load(response.data);
       return $('.profile-username').length > 0;
