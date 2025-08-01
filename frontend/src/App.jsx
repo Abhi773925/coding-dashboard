@@ -96,23 +96,26 @@ const AppContent = () => {
     
     const attemptTrack = async (attempt = 0) => {
       try {
-        const response = await axios.post(`${config.API_URL}/analytics/track`, analyticsData, {
-          timeout: 5000,
+        const response = await axios.post(`${config.BACKEND_URL}/api/analytics/track`, analyticsData, {
+          timeout: 10000, // Increased timeout
           headers: {
             'Content-Type': 'application/json'
-          }
+          },
+          withCredentials: true
         });
         
         // If successful and we have stored offline analytics, try to send them
         const offlineAnalytics = localStorage.getItem('offlineAnalytics');
         if (offlineAnalytics && offlineAnalytics !== '[]') {
           try {
-            await axios.post(`${config.API_URL}/analytics/batch`, JSON.parse(offlineAnalytics), {
-              timeout: 5000
+            await axios.post(`${config.BACKEND_URL}/api/analytics/batch`, JSON.parse(offlineAnalytics), {
+              timeout: 10000,
+              withCredentials: true
             });
             localStorage.removeItem('offlineAnalytics');
           } catch (e) {
             // Silently fail - we'll try again next time
+            console.warn('Failed to send offline analytics:', e.message);
           }
         }
         
@@ -127,7 +130,14 @@ const AppContent = () => {
           await sleep(backoffTime);
           return attemptTrack(attempt + 1);
         }
-        console.warn(`Analytics tracking failed after ${MAX_RETRY_COUNT} attempts:`, error.response?.status || 'Network Error');
+        // Log with more details but don't spam console
+        if (attempt === 0) {
+          console.warn(`Analytics tracking failed after ${MAX_RETRY_COUNT} attempts:`, {
+            status: error.response?.status || 'Network Error',
+            message: error.message,
+            url: error.config?.url
+          });
+        }
         return null;
       }
     };

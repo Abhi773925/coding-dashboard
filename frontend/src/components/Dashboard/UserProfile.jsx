@@ -16,6 +16,7 @@ import {
   BookOpen
 } from "lucide-react"
 import { useTheme } from "../context/ThemeContext"
+import { safeToISOString, safeFormatDate } from "../../utils/dateUtils"
 // Mock theme context for demonstration
 
 
@@ -74,7 +75,7 @@ const UserProfile = () => {
         geeksforgeeks: data.geeksforgeeks || "",
         bio: data.bio || "",
         location: data.location || "",
-        joinDate: data.createdAt || data.joinDate || new Date().toISOString(),
+        joinDate: data.createdAt || data.joinDate || safeToISOString(new Date()),
         avatar: data.avatar || null,
       }
       

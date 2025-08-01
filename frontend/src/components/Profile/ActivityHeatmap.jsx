@@ -12,6 +12,7 @@ import {
   Filter,
   BarChart3
 } from 'lucide-react';
+import { safeDateString, safeParseDate, safeGetYear, safeFromTimestamp, isValidDate } from '../../utils/dateUtils';
 
 const ActivityHeatmap = ({ user }) => {
   const [selectedYear, setSelectedYear] = useState(new Date().getFullYear());
@@ -35,8 +36,10 @@ const ActivityHeatmap = ({ user }) => {
     
     // Initialize all dates with 0 activity
     for (let d = new Date(startDate); d <= endDate; d.setDate(d.getDate() + 1)) {
-      const dateStr = d.toISOString().split('T')[0];
-      data[dateStr] = 0;
+      const dateStr = safeDateString(d);
+      if (dateStr) {
+        data[dateStr] = 0;
+      }
     }
 
     // Add activity data from connected platforms
@@ -51,40 +54,57 @@ const ActivityHeatmap = ({ user }) => {
         switch(platform) {
           case 'leetcode':
             if (stats.calendar?.submissionCalendar) {
-              Object.entries(stats.calendar.submissionCalendar).forEach(([timestamp, count]) => {
-                const date = new Date(parseInt(timestamp) * 1000);
-                if (date.getFullYear() === selectedYear) {
-                  const dateStr = date.toISOString().split('T')[0];
-                  if (data[dateStr] !== undefined) {
-                    data[dateStr] += count;
-                  }
-                }
-              });
-            }
-            break;
-          case 'github':
-            if (stats.contributionCalendar) {
-              Object.entries(stats.contributionCalendar).forEach(([dateStr, count]) => {
-                const date = new Date(dateStr);
-                if (date.getFullYear() === selectedYear && data[dateStr] !== undefined) {
-                  data[dateStr] += count;
-                }
-              });
-            }
-            break;
-          case 'geeksforgeeks':
-            if (stats.monthlyActivity) {
-              Object.values(stats.monthlyActivity).forEach(days => {
-                days.forEach(({ date, count }) => {
-                  const activityDate = new Date(date);
-                  if (activityDate.getFullYear() === selectedYear) {
-                    const dateStr = activityDate.toISOString().split('T')[0];
-                    if (data[dateStr] !== undefined) {
+              try {
+                Object.entries(stats.calendar.submissionCalendar).forEach(([timestamp, count]) => {
+                  const date = safeFromTimestamp(parseInt(timestamp));
+                  const year = safeGetYear(date);
+                  if (date && year === selectedYear) {
+                    const dateStr = safeDateString(date);
+                    if (dateStr && data[dateStr] !== undefined) {
                       data[dateStr] += count;
                     }
                   }
                 });
-              });
+              } catch (error) {
+                console.warn('Error processing LeetCode calendar data:', error);
+              }
+            }
+            break;
+          case 'github':
+            if (stats.contributionCalendar) {
+              try {
+                Object.entries(stats.contributionCalendar).forEach(([dateStr, count]) => {
+                  const date = safeParseDate(dateStr);
+                  const year = safeGetYear(date);
+                  if (date && year === selectedYear && data[dateStr] !== undefined) {
+                    data[dateStr] += count;
+                  }
+                });
+              } catch (error) {
+                console.warn('Error processing GitHub contribution data:', error);
+              }
+            }
+            break;
+          case 'geeksforgeeks':
+            if (stats.monthlyActivity) {
+              try {
+                Object.values(stats.monthlyActivity).forEach(days => {
+                  if (Array.isArray(days)) {
+                    days.forEach(({ date, count }) => {
+                      const activityDate = safeParseDate(date);
+                      const year = safeGetYear(activityDate);
+                      if (activityDate && year === selectedYear) {
+                        const dateStr = safeDateString(activityDate);
+                        if (dateStr && data[dateStr] !== undefined) {
+                          data[dateStr] += count;
+                        }
+                      }
+                    });
+                  }
+                });
+              } catch (error) {
+                console.warn('Error processing GeeksforGeeks activity data:', error);
+              }
             }
             break;
         }
@@ -130,13 +150,13 @@ const ActivityHeatmap = ({ user }) => {
     while (currentDate <= endDate) {
       const week = [];
       for (let day = 0; day < 7; day++) {
-        const dateStr = currentDate.toISOString().split('T')[0];
-        const count = heatmapData[dateStr] || 0;
+        const dateStr = safeDateString(currentDate);
+        const count = dateStr ? (heatmapData[dateStr] || 0) : 0;
         const intensity = getIntensityLevel(count);
         
         week.push({
           date: new Date(currentDate),
-          dateStr,
+          dateStr: dateStr || '',
           count,
           intensity,
           isCurrentYear: currentDate.getFullYear() === selectedYear
@@ -182,8 +202,8 @@ const ActivityHeatmap = ({ user }) => {
     
     // Start from today and go backwards
     while (currentDate.getFullYear() === selectedYear) {
-      const dateStr = currentDate.toISOString().split('T')[0];
-      const activityCount = heatmapData[dateStr] || 0;
+      const dateStr = safeDateString(currentDate);
+      const activityCount = dateStr ? (heatmapData[dateStr] || 0) : 0;
       
       if (activityCount > 0) {
         streak++;
@@ -202,16 +222,25 @@ const ActivityHeatmap = ({ user }) => {
     let maxStreak = 0;
     let currentStreak = 0;
     
-    Object.entries(heatmapData)
-      .sort(([a], [b]) => new Date(a) - new Date(b))
-      .forEach(([date, count]) => {
-        if (count > 0) {
-          currentStreak++;
-          maxStreak = Math.max(maxStreak, currentStreak);
-        } else {
-          currentStreak = 0;
-        }
-      });
+    try {
+      Object.entries(heatmapData)
+        .sort(([a], [b]) => {
+          const dateA = safeParseDate(a);
+          const dateB = safeParseDate(b);
+          if (!dateA || !dateB) return 0;
+          return dateA - dateB;
+        })
+        .forEach(([date, count]) => {
+          if (count > 0) {
+            currentStreak++;
+            maxStreak = Math.max(maxStreak, currentStreak);
+          } else {
+            currentStreak = 0;
+          }
+        });
+    } catch (error) {
+      console.warn('Error calculating longest streak:', error);
+    }
     
     return maxStreak;
   }

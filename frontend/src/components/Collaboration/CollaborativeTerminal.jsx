@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { Terminal, Play, Square, Trash2, Download, Copy, Settings } from 'lucide-react';
 import { useTheme } from '../context/ThemeContext';
+import { safeToISOString, safeFormatDate } from '../../utils/dateUtils';
 
 const CollaborativeTerminal = ({ sessionId, socket, canExecute = true }) => {
   const { isDarkMode } = useTheme();
@@ -258,7 +259,12 @@ README.md`,
 
   const downloadLog = () => {
     const output = terminalHistory
-      .map(entry => `[${entry.timestamp.toISOString()}] ${entry.content}`)
+      .map(entry => {
+        const timestamp = entry.timestamp && entry.timestamp.toISOString ? 
+          entry.timestamp.toISOString() : 
+          new Date().toISOString();
+        return `[${timestamp}] ${entry.content}`;
+      })
       .join('\n');
     
     const blob = new Blob([output], { type: 'text/plain' });
@@ -271,12 +277,25 @@ README.md`,
   };
 
   const formatTimestamp = (timestamp) => {
-    return timestamp.toLocaleTimeString('en-US', { 
-      hour12: false, 
-      hour: '2-digit', 
-      minute: '2-digit', 
-      second: '2-digit' 
-    });
+    try {
+      if (!timestamp || !timestamp.toLocaleTimeString) {
+        return new Date().toLocaleTimeString('en-US', { 
+          hour12: false, 
+          hour: '2-digit', 
+          minute: '2-digit', 
+          second: '2-digit' 
+        });
+      }
+      return timestamp.toLocaleTimeString('en-US', { 
+        hour12: false, 
+        hour: '2-digit', 
+        minute: '2-digit', 
+        second: '2-digit' 
+      });
+    } catch (error) {
+      console.warn('Error formatting timestamp:', error);
+      return '00:00:00';
+    }
   };
 
   return (

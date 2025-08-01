@@ -12,6 +12,7 @@ import {
   Target,
   Zap
 } from 'lucide-react';
+import { safeDateString, safeFromTimestamp, safeFormatDate } from '../../utils/dateUtils';
 
 const RecentActivity = ({ user }) => {
   const generateRecentActivity = () => {
@@ -48,6 +49,7 @@ const RecentActivity = ({ user }) => {
           // Recent problem solving
           const totalSolved = stats.problemStats?.totalSolved || 0;
           if (totalSolved > 0) {
+            const randomTime = new Date(now.getTime() - Math.random() * 7 * 24 * 60 * 60 * 1000);
             activities.push({
               id: 'leetcode-problems',
               type: 'achievement',
@@ -55,7 +57,7 @@ const RecentActivity = ({ user }) => {
               title: `Solved ${totalSolved} LeetCode problems`,
               description: 'Keep up the great problem-solving streak!',
               icon: Code2,
-              time: new Date(now.getTime() - Math.random() * 7 * 24 * 60 * 60 * 1000).toISOString().split('T')[0],
+              time: safeDateString(randomTime) || safeDateString(now),
               color: 'text-blue-500'
             });
           }
@@ -63,6 +65,10 @@ const RecentActivity = ({ user }) => {
           // Badge achievements
           if (stats.badges && stats.badges.length > 0) {
             const recentBadge = stats.badges[0];
+            const badgeTime = recentBadge.creationDate ? 
+              safeFromTimestamp(recentBadge.creationDate) : 
+              new Date(now.getTime() - Math.random() * 30 * 24 * 60 * 60 * 1000);
+            
             activities.push({
               id: `leetcode-badge-${recentBadge.id}`,
               type: 'badge',
@@ -70,9 +76,7 @@ const RecentActivity = ({ user }) => {
               title: `Earned "${recentBadge.displayName}" badge`,
               description: 'New achievement unlocked on LeetCode!',
               icon: Star,
-              time: recentBadge.creationDate ? 
-                new Date(recentBadge.creationDate * 1000).toISOString().split('T')[0] : 
-                new Date(now.getTime() - Math.random() * 30 * 24 * 60 * 60 * 1000).toISOString().split('T')[0],
+              time: safeDateString(badgeTime) || safeDateString(now),
               color: 'text-yellow-500'
             });
           }
@@ -82,6 +86,7 @@ const RecentActivity = ({ user }) => {
           // Recent contributions
           const totalContributions = stats.contributions?.total || 0;
           if (totalContributions > 0) {
+            const contributionTime = new Date(now.getTime() - Math.random() * 3 * 24 * 60 * 60 * 1000);
             activities.push({
               id: 'github-contributions',
               type: 'contribution',
@@ -89,7 +94,7 @@ const RecentActivity = ({ user }) => {
               title: `Made ${totalContributions} contributions this year`,
               description: 'Active contributor to open source projects',
               icon: GitCommit,
-              time: new Date(now.getTime() - Math.random() * 3 * 24 * 60 * 60 * 1000).toISOString().split('T')[0],
+              time: safeDateString(contributionTime) || safeDateString(now),
               color: 'text-green-500'
             });
           }
@@ -97,6 +102,7 @@ const RecentActivity = ({ user }) => {
           // Repository milestones
           const repos = stats.stats?.publicRepos || 0;
           if (repos > 0) {
+            const repoTime = new Date(now.getTime() - Math.random() * 14 * 24 * 60 * 60 * 1000);
             activities.push({
               id: 'github-repos',
               type: 'milestone',
@@ -104,7 +110,7 @@ const RecentActivity = ({ user }) => {
               title: `Published ${repos} public repositories`,
               description: 'Building an impressive portfolio of projects',
               icon: Target,
-              time: new Date(now.getTime() - Math.random() * 14 * 24 * 60 * 60 * 1000).toISOString().split('T')[0],
+              time: safeDateString(repoTime) || safeDateString(now),
               color: 'text-purple-500'
             });
           }
@@ -112,6 +118,7 @@ const RecentActivity = ({ user }) => {
           // Star achievements
           const stars = stats.stats?.totalStars || 0;
           if (stars > 0) {
+            const starTime = new Date(now.getTime() - Math.random() * 7 * 24 * 60 * 60 * 1000);
             activities.push({
               id: 'github-stars',
               type: 'recognition',
@@ -119,7 +126,7 @@ const RecentActivity = ({ user }) => {
               title: `Received ${stars} stars across repositories`,
               description: 'Community recognition for quality code',
               icon: Star,
-              time: new Date(now.getTime() - Math.random() * 7 * 24 * 60 * 60 * 1000).toISOString().split('T')[0],
+              time: safeDateString(starTime) || safeDateString(now),
               color: 'text-yellow-500'
             });
           }
@@ -131,6 +138,7 @@ const RecentActivity = ({ user }) => {
             .reduce((sum, val) => sum + parseInt(val || 0), 0);
           
           if (gfgProblems > 0) {
+            const gfgTime = new Date(now.getTime() - Math.random() * 5 * 24 * 60 * 60 * 1000);
             activities.push({
               id: 'gfg-problems',
               type: 'practice',
@@ -138,7 +146,7 @@ const RecentActivity = ({ user }) => {
               title: `Solved ${gfgProblems} problems on GeeksforGeeks`,
               description: 'Strengthening DSA fundamentals',
               icon: Code2,
-              time: new Date(now.getTime() - Math.random() * 5 * 24 * 60 * 60 * 1000).toISOString().split('T')[0],
+              time: safeDateString(gfgTime) || safeDateString(now),
               color: 'text-green-500'
             });
           }
@@ -146,6 +154,7 @@ const RecentActivity = ({ user }) => {
           // Badge achievements
           if (stats.badges && stats.badges.length > 0) {
             stats.badges.slice(0, 2).forEach((badge, index) => {
+              const badgeTime = new Date(now.getTime() - Math.random() * 20 * 24 * 60 * 60 * 1000);
               activities.push({
                 id: `gfg-badge-${index}`,
                 type: 'badge',
@@ -153,7 +162,7 @@ const RecentActivity = ({ user }) => {
                 title: `Earned "${badge.name}" badge`,
                 description: badge.description || 'Achievement unlocked on GeeksforGeeks',
                 icon: Trophy,
-                time: new Date(now.getTime() - Math.random() * 20 * 24 * 60 * 60 * 1000).toISOString().split('T')[0],
+                time: safeDateString(badgeTime) || safeDateString(now),
                 color: 'text-emerald-500'
               });
             });
@@ -165,6 +174,7 @@ const RecentActivity = ({ user }) => {
     // Add platform connection activities
     const platformCount = Object.keys(user.platformStats).length;
     if (platformCount >= 3) {
+      const connectionTime = new Date(now.getTime() - Math.random() * 10 * 24 * 60 * 60 * 1000);
       activities.push({
         id: 'platform-connections',
         type: 'milestone',
@@ -172,7 +182,7 @@ const RecentActivity = ({ user }) => {
         title: `Connected ${platformCount} coding platforms`,
         description: 'Building a comprehensive coding profile',
         icon: Zap,
-        time: new Date(now.getTime() - Math.random() * 10 * 24 * 60 * 60 * 1000).toISOString().split('T')[0],
+        time: safeDateString(connectionTime) || safeDateString(now),
         color: 'text-indigo-500'
       });
     }

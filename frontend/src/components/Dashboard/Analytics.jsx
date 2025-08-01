@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import config from '../../config/api';
+import { safeToISOString } from '../../utils/dateUtils';
 
 const Analytics = () => {
   const [analyticsData, setAnalyticsData] = useState({
@@ -30,10 +31,13 @@ const Analytics = () => {
         
         // Track page view - non-blocking with try-catch
         try {
-          await axios.post(`${config.API_URL}/analytics/track`, {
+          await axios.post(`${config.BACKEND_URL}/api/analytics/track`, {
             component: 'Analytics',
-            timestamp: new Date().toISOString()
-          }, { timeout: 5000 });
+            timestamp: safeToISOString(new Date())
+          }, { 
+            timeout: 10000,
+            withCredentials: true 
+          });
         } catch (trackError) {
           console.warn('Error tracking analytics page view:', trackError.message);
           // Continue without throwing - this is non-critical

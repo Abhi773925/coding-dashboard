@@ -48,6 +48,7 @@ import {
   ExternalLink
 } from 'lucide-react';
 import { useTheme } from '../context/ThemeContext';
+import { safeToISOString } from '../../utils/dateUtils';
 
 const EnhancedCollaborativeEditor = ({ sessionId, userId, userName, initialRole = 'viewer' }) => {
   const { isDarkMode } = useTheme();
@@ -502,7 +503,7 @@ const EnhancedCollaborativeEditor = ({ sessionId, userId, userName, initialRole 
         message: newMessage.trim(),
         userId,
         userName,
-        timestamp: new Date().toISOString()
+        timestamp: safeToISOString(new Date())
       });
       setNewMessage('');
     }
