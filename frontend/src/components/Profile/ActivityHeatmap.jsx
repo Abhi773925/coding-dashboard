@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { 
   Calendar, 
@@ -16,7 +16,18 @@ import {
 const ActivityHeatmap = ({ user }) => {
   const [selectedYear, setSelectedYear] = useState(new Date().getFullYear());
   const [selectedPlatform, setSelectedPlatform] = useState('all');
+  const [isDataLoaded, setIsDataLoaded] = useState(false);
   
+  // Check if platform data is available and loaded
+  useEffect(() => {
+    const hasValidData = user?.platformStats && Object.keys(user.platformStats).length > 0;
+    setIsDataLoaded(hasValidData);
+  }, [user]);
+
+  const heatmapData = useMemo(() => {
+    return generateHeatmapData();
+  }, [user, selectedYear, selectedPlatform, isDataLoaded]);
+
   const generateHeatmapData = () => {
     const data = {};
     const startDate = new Date(selectedYear, 0, 1);
@@ -82,8 +93,6 @@ const ActivityHeatmap = ({ user }) => {
 
     return data;
   };
-
-  const heatmapData = generateHeatmapData();
   
   const getIntensityLevel = (count) => {
     if (count === 0) return 0;
@@ -142,26 +151,52 @@ const ActivityHeatmap = ({ user }) => {
   };
 
   const weeks = renderHeatmapGrid();
-  const totalActivity = Object.values(heatmapData).reduce((sum, count) => sum + count, 0);
-  const activeDays = Object.values(heatmapData).filter(count => count > 0).length;
-  const currentStreak = calculateCurrentStreak();
-  const longestStreak = calculateLongestStreak();
+  
+  // Calculate statistics with memoization and proper data checking
+  const { totalActivity, activeDays, currentStreak, longestStreak } = useMemo(() => {
+    if (!isDataLoaded || !heatmapData) {
+      return { totalActivity: 0, activeDays: 0, currentStreak: 0, longestStreak: 0 };
+    }
+    
+    const total = Object.values(heatmapData).reduce((sum, count) => sum + count, 0);
+    const active = Object.values(heatmapData).filter(count => count > 0).length;
+    const current = calculateCurrentStreak();
+    const longest = calculateLongestStreak();
+    
+    return { 
+      totalActivity: total, 
+      activeDays: active, 
+      currentStreak: current, 
+      longestStreak: longest 
+    };
+  }, [heatmapData, isDataLoaded, selectedYear]);
 
   function calculateCurrentStreak() {
+    if (!heatmapData || Object.keys(heatmapData).length === 0) {
+      console.log('🐛 No heatmap data available for streak calculation');
+      return 0;
+    }
+    
     const today = new Date();
     let streak = 0;
     let currentDate = new Date(today);
     
+    // Start from today and go backwards
     while (currentDate.getFullYear() === selectedYear) {
       const dateStr = currentDate.toISOString().split('T')[0];
-      if (heatmapData[dateStr] > 0) {
+      const activityCount = heatmapData[dateStr] || 0;
+      
+      if (activityCount > 0) {
         streak++;
-      } else {
+      } else if (streak > 0) {
+        // Break on first gap after activity found
         break;
       }
+      // If no activity yet and streak is 0, continue looking backwards
       currentDate.setDate(currentDate.getDate() - 1);
     }
     
+    console.log(`📊 Current streak calculated: ${streak} days`);
     return streak;
   }
 
