@@ -266,10 +266,10 @@ const StreakDisplay = () => {
         }`}
         title="Streak service is currently unavailable. Your progress is still being tracked locally."
       >
-        {/* <Zap size={18} className={isDarkMode ? "text-gray-500" : "text-gray-400"} />
+        <Zap size={18} className={isDarkMode ? "text-gray-500" : "text-gray-400"} />
         <span className="text-sm font-semibold">
           {streak.currentStreak > 0 ? `${streak.currentStreak} day${streak.currentStreak !== 1 ? "s" : ""}` : "Offline"}
-        </span> */}
+        </span>
       </div>
     )
   }
