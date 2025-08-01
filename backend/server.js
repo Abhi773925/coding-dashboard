@@ -383,6 +383,7 @@ const setupRoutes = () => {
   app.use("/api/codingkaro/contests", contestRoutes);
   app.use('/api/codingkaro/questions', questionRoutes);
   app.use("/api/codingkaro/users", profileRoutes);
+  app.use("/api/profile", profileRoutes); // Add direct profile access
   app.use('/api/codingkaro/courses', courseRoutes);
   app.use('/api', streakRoutes);
   app.use('/api/users', userRoutes);

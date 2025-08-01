@@ -3,15 +3,24 @@ const router = express.Router();
 const platformController = require('../controllers/profilecontrollers');
 
 // Validate usernames
-router.post('/validate-usernames', platformController.validateUsernames);
+router.post('/validate', platformController.validateUsernames);
 
 // Update user's platform profiles
-router.put('/update-profile', platformController.updateUserProfile);
+router.post('/update', platformController.updateUserProfile);
 
-// Get user profile with GitHub and LeetCode stats
-router.get('/', platformController.getUserProfile);
+// Update basic profile information (name, bio, location, etc.)
+router.post('/update-basic', platformController.updateBasicProfile);
+
+// Get user profile with all platform stats
+router.get('/user', platformController.getUserProfile);
 
 // Get developer score
 router.get('/score', platformController.getDeveloperScore);
+
+// Get public profile by username/email
+router.get('/public/:identifier', platformController.getPublicProfile);
+
+// Get profile analytics
+router.get('/analytics', platformController.getProfileAnalytics);
 
 module.exports = router;

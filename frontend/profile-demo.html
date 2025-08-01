@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile Demo - PrepMate</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/framer-motion@10.16.4/dist/framer-motion.js"></script>
+    <script src="https://unpkg.com/lucide-react@latest/dist/umd/lucide-react.js"></script>
+</head>
+<body class="bg-gray-100">
+    <div id="root"></div>
+
+    <script type="text/babel">
+        const { useState, useEffect } = React;
+        const { motion, AnimatePresence } = Motion;
+
+        // Demo Profile Component
+        const ProfileDemo = () => {
+            const [user, setUser] = useState(null);
+            const [loading, setLoading] = useState(true);
+            const [testData, setTestData] = useState({
+                email: 'test@example.com',
+                leetcode: 'rockstarabhishek',
+                github: 'Abhi773925',
+                geeksforgeeks: 'testuser'
+            });
+
+            useEffect(() => {
+                // Simulate loading profile data
+                setTimeout(() => {
+                    setUser({
+                        email: 'test@example.com',
+                        name: 'Abhishek Kumar',
+                        bio: 'Full-stack developer passionate about coding and problem solving',
+                        location: 'India',
+                        website: 'https://prepmate.site',
+                        avatar: null,
+                        platformStats: {
+                            leetcode: {
+                                username: 'rockstarabhishek',
+                                stats: {
+                                    problemStats: {
+                                        totalSolved: 1134,
+                                        difficulty: {
+                                            easy: 430,
+                                            medium: 383,
+                                            hard: 48
+                                        }
+                                    },
+                                    contestStats: {
+                                        rating: 1425,
+                                        attended: 1,
+                                        globalRanking: 24820
+                                    },
+                                    badges: [
+                                        { id: 1, displayName: 'Annual Badge 2023', creationDate: 1672531200 }
+                                    ]
+                                }
+                            },
+                            github: {
+                                username: 'Abhi773925',
+                                stats: {
+                                    stats: {
+                                        publicRepos: 25,
+                                        totalStars: 150,
+                                        followers: 50,
+                                        following: 75
+                                    },
+                                    contributions: {
+                                        total: 1200
+                                    },
+                                    languages: [
+                                        { name: 'JavaScript', count: 15 },
+                                        { name: 'Python', count: 8 },
+                                        { name: 'Java', count: 5 }
+                                    ]
+                                }
+                            }
+                        }
+                    });
+                    setLoading(false);
+                }, 2000);
+            }, []);
+
+            const connectPlatform = async (platform) => {
+                const username = prompt(`Enter your ${platform} username:`);
+                if (username) {
+                    try {
+                        const response = await fetch('/api/codingkaro/users/update', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                            },
+                            body: JSON.stringify({
+                                email: testData.email,
+                                [platform]: username
+                            }),
+                        });
+                        
+                        const result = await response.json();
+                        alert(result.message);
+                        
+                        if (response.ok) {
+                            // Refresh profile data
+                            window.location.reload();
+                        }
+                    } catch (error) {
+                        alert('Error connecting platform: ' + error.message);
+                    }
+                }
+            };
+
+            const testValidation = async () => {
+                try {
+                    const response = await fetch('/api/codingkaro/users/validate', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify(testData),
+                    });
+                    
+                    const result = await response.json();
+                    alert('Validation Results: ' + JSON.stringify(result, null, 2));
+                } catch (error) {
+                    alert('Error validating usernames: ' + error.message);
+                }
+            };
+
+            const fetchProfile = async () => {
+                try {
+                    const response = await fetch(`/api/codingkaro/users/user?email=${testData.email}`);
+                    const result = await response.json();
+                    alert('Profile Data: ' + JSON.stringify(result, null, 2));
+                } catch (error) {
+                    alert('Error fetching profile: ' + error.message);
+                }
+            };
+
+            if (loading) {
+                return (
+                    <div className="min-h-screen flex items-center justify-center">
+                        <div className="text-center">
+                            <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-blue-500 mx-auto"></div>
+                            <p className="mt-4 text-lg text-gray-600">Loading Profile Demo...</p>
+                        </div>
+                    </div>
+                );
+            }
+
+            return (
+                <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 p-8">
+                    <div className="max-w-6xl mx-auto">
+                        {/* Header */}
+                        <motion.div 
+                            className="text-center mb-8"
+                            initial={{ opacity: 0, y: -50 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ duration: 0.6 }}
+                        >
+                            <h1 className="text-4xl font-bold text-gray-900 mb-4">
+                                🚀 PrepMate Profile Demo
+                            </h1>
+                            <p className="text-lg text-gray-600">
+                                Interactive demo of the multi-platform profile system
+                            </p>
+                        </motion.div>
+
+                        {/* Test Buttons */}
+                        <motion.div 
+                            className="bg-white rounded-xl shadow-lg p-6 mb-8"
+                            initial={{ opacity: 0, scale: 0.9 }}
+                            animate={{ opacity: 1, scale: 1 }}
+                            transition={{ duration: 0.5 }}
+                        >
+                            <h2 className="text-2xl font-semibold mb-4">API Testing</h2>
+                            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                                <button 
+                                    onClick={testValidation}
+                                    className="bg-blue-500 hover:bg-blue-600 text-white px-6 py-3 rounded-lg transition-colors duration-200"
+                                >
+                                    Test Username Validation
+                                </button>
+                                <button 
+                                    onClick={fetchProfile}
+                                    className="bg-green-500 hover:bg-green-600 text-white px-6 py-3 rounded-lg transition-colors duration-200"
+                                >
+                                    Fetch Profile Data
+                                </button>
+                                <button 
+                                    onClick={() => connectPlatform('leetcode')}
+                                    className="bg-orange-500 hover:bg-orange-600 text-white px-6 py-3 rounded-lg transition-colors duration-200"
+                                >
+                                    Connect LeetCode
+                                </button>
+                            </div>
+                        </motion.div>
+
+                        {/* Mock Profile Display */}
+                        <motion.div 
+                            className="bg-white rounded-xl shadow-lg overflow-hidden mb-8"
+                            initial={{ opacity: 0, y: 50 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ duration: 0.6, delay: 0.2 }}
+                        >
+                            {/* Profile Header */}
+                            <div className="h-32 bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500"></div>
+                            <div className="px-6 pb-6">
+                                <div className="flex items-end -mt-16 mb-4">
+                                    <div className="w-32 h-32 rounded-full border-4 border-white bg-gray-200 flex items-center justify-center">
+                                        <span className="text-4xl">👨‍💻</span>
+                                    </div>
+                                </div>
+                                <h2 className="text-2xl font-bold text-gray-900">{user.name}</h2>
+                                <p className="text-gray-600 mt-2">{user.bio}</p>
+                                <div className="flex items-center space-x-4 mt-4 text-sm text-gray-500">
+                                    <span>📍 {user.location}</span>
+                                    <span>🌐 {user.website}</span>
+                                </div>
+                            </div>
+                        </motion.div>
+
+                        {/* Platform Stats */}
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                            {/* LeetCode Stats */}
+                            <motion.div 
+                                className="bg-white rounded-xl shadow-lg p-6"
+                                initial={{ opacity: 0, x: -50 }}
+                                animate={{ opacity: 1, x: 0 }}
+                                transition={{ duration: 0.6, delay: 0.4 }}
+                            >
+                                <div className="flex items-center mb-4">
+                                    <div className="w-8 h-8 bg-orange-500 rounded-lg flex items-center justify-center mr-3">
+                                        <span className="text-white font-bold">LC</span>
+                                    </div>
+                                    <h3 className="text-lg font-semibold">LeetCode</h3>
+                                </div>
+                                <div className="grid grid-cols-3 gap-4 text-center">
+                                    <div>
+                                        <p className="text-2xl font-bold text-orange-600">
+                                            {user.platformStats.leetcode.stats.problemStats.totalSolved}
+                                        </p>
+                                        <p className="text-xs text-gray-600">Problems Solved</p>
+                                    </div>
+                                    <div>
+                                        <p className="text-2xl font-bold text-blue-600">
+                                            {user.platformStats.leetcode.stats.contestStats.rating}
+                                        </p>
+                                        <p className="text-xs text-gray-600">Contest Rating</p>
+                                    </div>
+                                    <div>
+                                        <p className="text-2xl font-bold text-purple-600">
+                                            {user.platformStats.leetcode.stats.badges.length}
+                                        </p>
+                                        <p className="text-xs text-gray-600">Badges</p>
+                                    </div>
+                                </div>
+                            </motion.div>
+
+                            {/* GitHub Stats */}
+                            <motion.div 
+                                className="bg-white rounded-xl shadow-lg p-6"
+                                initial={{ opacity: 0, x: 50 }}
+                                animate={{ opacity: 1, x: 0 }}
+                                transition={{ duration: 0.6, delay: 0.6 }}
+                            >
+                                <div className="flex items-center mb-4">
+                                    <div className="w-8 h-8 bg-gray-800 rounded-lg flex items-center justify-center mr-3">
+                                        <span className="text-white font-bold">GH</span>
+                                    </div>
+                                    <h3 className="text-lg font-semibold">GitHub</h3>
+                                </div>
+                                <div className="grid grid-cols-2 gap-4 text-center">
+                                    <div>
+                                        <p className="text-2xl font-bold text-blue-600">
+                                            {user.platformStats.github.stats.stats.publicRepos}
+                                        </p>
+                                        <p className="text-xs text-gray-600">Repositories</p>
+                                    </div>
+                                    <div>
+                                        <p className="text-2xl font-bold text-yellow-600">
+                                            {user.platformStats.github.stats.stats.totalStars}
+                                        </p>
+                                        <p className="text-xs text-gray-600">Total Stars</p>
+                                    </div>
+                                    <div>
+                                        <p className="text-2xl font-bold text-green-600">
+                                            {user.platformStats.github.stats.stats.followers}
+                                        </p>
+                                        <p className="text-xs text-gray-600">Followers</p>
+                                    </div>
+                                    <div>
+                                        <p className="text-2xl font-bold text-purple-600">
+                                            {user.platformStats.github.stats.contributions.total}
+                                        </p>
+                                        <p className="text-xs text-gray-600">Contributions</p>
+                                    </div>
+                                </div>
+                            </motion.div>
+                        </div>
+
+                        {/* Footer */}
+                        <motion.div 
+                            className="text-center mt-12"
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            transition={{ duration: 0.6, delay: 0.8 }}
+                        >
+                            <p className="text-gray-600">
+                                🎉 Profile system ready for integration with your React app!
+                            </p>
+                        </motion.div>
+                    </div>
+                </div>
+            );
+        };
+
+        ReactDOM.render(<ProfileDemo />, document.getElementById('root'));
+    </script>
+</body>
+</html>

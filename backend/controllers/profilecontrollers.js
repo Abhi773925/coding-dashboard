@@ -800,3 +800,247 @@ exports.getDeveloperScore = async (req, res) => {
     });
   }
 };
+
+// Update Basic Profile Information
+exports.updateBasicProfile = async (req, res) => {
+  try {
+    const { email, name, bio, location, website, preferences } = req.body;
+
+    // Validate email
+    if (!email) {
+      return res.status(400).json({ message: 'Email is required' });
+    }
+
+    // Find user
+    const user = await User.findOne({ email });
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+
+    // Update basic profile fields
+    if (name) user.name = name;
+    if (bio !== undefined) user.bio = bio;
+    if (location !== undefined) user.location = location;
+    if (website !== undefined) user.website = website;
+    
+    // Update preferences if provided
+    if (preferences) {
+      if (preferences.theme) user.preferences.theme = preferences.theme;
+      if (preferences.emailNotifications !== undefined) user.preferences.emailNotifications = preferences.emailNotifications;
+      if (preferences.publicProfile !== undefined) user.preferences.publicProfile = preferences.publicProfile;
+    }
+
+    // Save user
+    await user.save();
+
+    res.json({ 
+      message: "Basic profile updated successfully", 
+      user: { 
+        email: user.email,
+        name: user.name,
+        bio: user.bio,
+        location: user.location,
+        website: user.website,
+        preferences: user.preferences
+      }
+    });
+  } catch (error) {
+    res.status(500).json({ 
+      message: "Server error", 
+      error: error.message 
+    });
+  }
+};
+
+// Get Public Profile
+exports.getPublicProfile = async (req, res) => {
+  try {
+    const { identifier } = req.params;
+
+    // Find user by email or username (you may want to add username field)
+    const user = await User.findOne({ 
+      $or: [
+        { email: identifier },
+        { name: identifier }
+      ]
+    });
+
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+
+    // Check if profile is public
+    if (!user.preferences?.publicProfile) {
+      return res.status(403).json({ message: 'Profile is private' });
+    }
+
+    // Fetch stats for platforms with usernames (only for public profiles)
+    const platformStats = {};
+    const statsPromises = SUPPORTED_PLATFORMS
+      .filter(platform => user[platform])
+      .map(async (platform) => {
+        try {
+          const statsStrategy = platformStatsFetching[platform];
+          if (statsStrategy) {
+            const stats = await statsStrategy(user[platform]);
+            return { platform, stats };
+          }
+        } catch (error) {
+          console.error(`Error fetching ${platform} stats`, error);
+        }
+      });
+
+    const resolvedStats = await Promise.allSettled(statsPromises);
+    resolvedStats.forEach(result => {
+      if (result.status === 'fulfilled' && result.value) {
+        const { platform, stats } = result.value;
+        platformStats[platform] = {
+          username: user[platform],
+          stats
+        };
+      }
+    });
+
+    // Return public profile information
+    res.json({
+      name: user.name,
+      bio: user.bio,
+      location: user.location,
+      website: user.website,
+      avatar: user.avatar,
+      picture: user.picture,
+      joinDate: user.createdAt,
+      platformStats
+    });
+  } catch (error) {
+    res.status(500).json({
+      message: "Server error",
+      error: error.message
+    });
+  }
+};
+
+// Get Profile Analytics
+exports.getProfileAnalytics = async (req, res) => {
+  try {
+    const { email } = req.query;
+
+    if (!email) {
+      return res.status(400).json({ message: 'Email is required' });
+    }
+
+    const user = await User.findOne({ email });
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+
+    // Calculate analytics
+    const analytics = {
+      profileCompleteness: 0,
+      platformsConnected: 0,
+      totalActivity: 0,
+      growthMetrics: {},
+      recommendations: []
+    };
+
+    // Calculate profile completeness
+    const requiredFields = ['name', 'email'];
+    const optionalFields = ['bio', 'location', 'website'];
+    const platformFields = ['leetcode', 'github', 'geeksforgeeks'];
+    
+    let completedFields = 0;
+    const totalFields = requiredFields.length + optionalFields.length + platformFields.length;
+    
+    requiredFields.forEach(field => {
+      if (user[field]) completedFields++;
+    });
+    
+    optionalFields.forEach(field => {
+      if (user[field]) completedFields++;
+    });
+    
+    platformFields.forEach(platform => {
+      if (user[platform]) {
+        completedFields++;
+        analytics.platformsConnected++;
+      }
+    });
+    
+    analytics.profileCompleteness = Math.round((completedFields / totalFields) * 100);
+
+    // Fetch platform stats for analytics
+    if (analytics.platformsConnected > 0) {
+      const platformStats = {};
+      const statsPromises = SUPPORTED_PLATFORMS
+        .filter(platform => user[platform])
+        .map(async (platform) => {
+          try {
+            const statsStrategy = platformStatsFetching[platform];
+            if (statsStrategy) {
+              const stats = await statsStrategy(user[platform]);
+              return { platform, stats };
+            }
+          } catch (error) {
+            console.error(`Error fetching ${platform} stats for analytics`, error);
+          }
+        });
+
+      const resolvedStats = await Promise.allSettled(statsPromises);
+      resolvedStats.forEach(result => {
+        if (result.status === 'fulfilled' && result.value) {
+          const { platform, stats } = result.value;
+          platformStats[platform] = stats;
+        }
+      });
+
+      // Calculate total activity
+      Object.entries(platformStats).forEach(([platform, stats]) => {
+        switch(platform) {
+          case 'leetcode':
+            analytics.totalActivity += stats.problemStats?.totalSolved || 0;
+            break;
+          case 'github':
+            analytics.totalActivity += stats.contributions?.total || 0;
+            break;
+          case 'geeksforgeeks':
+            const gfgProblems = Object.values(stats.problemStats || {})
+              .reduce((sum, val) => sum + parseInt(val || 0), 0);
+            analytics.totalActivity += gfgProblems;
+            break;
+        }
+      });
+
+      // Generate recommendations
+      if (analytics.profileCompleteness < 80) {
+        analytics.recommendations.push({
+          type: 'profile',
+          title: 'Complete your profile',
+          description: 'Add more information to make your profile stand out'
+        });
+      }
+
+      if (analytics.platformsConnected < 3) {
+        analytics.recommendations.push({
+          type: 'platform',
+          title: 'Connect more platforms',
+          description: 'Connect additional coding platforms to showcase your skills'
+        });
+      }
+
+      if (analytics.totalActivity < 100) {
+        analytics.recommendations.push({
+          type: 'activity',
+          title: 'Increase coding activity',
+          description: 'Practice more problems and contribute to open source projects'
+        });
+      }
+    }
+
+    res.json(analytics);
+  } catch (error) {
+    res.status(500).json({
+      message: "Analytics calculation error",
+      error: error.message
+    });
+  }
+};

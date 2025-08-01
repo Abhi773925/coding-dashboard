@@ -21,6 +21,7 @@ import IdeaStormGame from "./components/Card/IdeaStorm";
 import UserProfile from "./components/Dashboard/UserProfile";
 import Dashboard from "./components/Dashboard/Dashboard";
 import FullStack from "./components/fullstack/FullStack";
+import { ProfileDashboard } from "./components/Profile";
 import Sql from "./components/interview/Sql";
 import NotesOverview from "./components/interview/NotesOverview";
 import CodeCompiler from "./components/Compiler/CodeCompiler";
@@ -200,10 +201,9 @@ const AppContent = () => {
         
         <Route path="/profile" element={
           <>
-            <SEO page="dashboard" title="My Profile - Track Your Progress" />
+            <SEO page="dashboard" title="My Profile - Multi-Platform Coding Profile" />
             <Breadcrumb items={[{ name: 'Profile', href: '/profile' }]} />
-            <UserProfile />
-            <Profile />
+            <ProfileDashboard />
           </>
         } />
         
