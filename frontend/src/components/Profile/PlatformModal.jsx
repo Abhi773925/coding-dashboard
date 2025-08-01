@@ -75,7 +75,7 @@ const PlatformModal = ({ isOpen, onClose, platform, onSubmit, existingUsername }
     setValidationResult(null);
 
     try {
-      const response = await fetchWithWakeUp('/api/profile/validate', {
+      const response = await fetchWithWakeUp('https://prepmate-kvol.onrender.com/api/profile/validate', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
