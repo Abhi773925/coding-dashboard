@@ -183,14 +183,14 @@ const ProfileDashboard = () => {
   // Show login prompt if user is not logged in
   if (!isLoggedIn) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-gray-50 to-blue-50 dark:from-gray-900 dark:to-blue-900 flex items-center justify-center">
+      <div className="min-h-screen bg-gradient-to-br from-gray-50 to-blue-50 dark:from-slate-900 dark:to-slate-900 flex items-center justify-center">
         <motion.div
           className="max-w-md w-full mx-4"
           initial={{ opacity: 0, scale: 0.8 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.5 }}
         >
-          <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-xl p-8 text-center">
+          <div className="bg-white dark:bg-slate-800 rounded-2xl shadow-xl p-8 text-center">
             <div className="w-16 h-16 bg-blue-100 dark:bg-blue-900 rounded-full flex items-center justify-center mx-auto mb-6">
               <LogIn className="w-8 h-8 text-blue-600 dark:text-blue-400" />
             </div>
@@ -264,7 +264,7 @@ const ProfileDashboard = () => {
   }
 
   return (
-    <div className={`min-h-screen bg-gradient-to-br ${isDarkMode ? 'from-slate-900 via-slate-800 to-indigo-900' : 'from-gray-50 via-purple-50 to-blue-50'}`}
+    <div className={`min-h-screen bg-gradient-to-br ${isDarkMode ? 'bg-slate-900 ' : 'bg-white'} `}
       style={{
         background: isDarkMode 
           ? 'radial-gradient(circle at 20% 20%, rgba(139, 92, 246, 0.1) 0%, transparent 50%), radial-gradient(circle at 80% 80%, rgba(59, 130, 246, 0.1) 0%, transparent 50%), linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #312e81 100%)'
