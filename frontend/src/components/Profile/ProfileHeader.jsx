@@ -26,7 +26,7 @@ const ProfileHeader = ({ user, profileMode, setProfileMode, onUpdate }) => {
 
   const handleSave = async () => {
     try {
-      const response = await fetchWithWakeUp('/api/profile/update-basic', {
+      const response = await fetchWithWakeUp('https://prepmate-kvol.onrender.com/api/profile/update-basic', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

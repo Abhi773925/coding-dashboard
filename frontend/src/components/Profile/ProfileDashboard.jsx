@@ -73,7 +73,7 @@ const ProfileDashboard = () => {
     setError(null);
     
     try {
-      const response = await fetchWithWakeUp(`/api/profile/user?email=${authUser.email}`);
+      const response = await fetchWithWakeUp(`https://prepmate-kvol.onrender.com/api/profile/user?email=${authUser.email}`);
       
       if (!response.ok) {
         if (response.status === 404) {
