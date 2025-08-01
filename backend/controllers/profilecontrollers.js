@@ -54,7 +54,7 @@ const platformValidationStrategies = {
   
   github: async (username) => {
     try {
-      const response = await axios.get(`https://api.github.com/users/${username}`, {
+      const response = await axios.get(`https://github.com/${username}`, {
         headers: createHeaders()
       });
       return response.status === 200;
@@ -221,13 +221,41 @@ const platformStatsFetching = {
           topPercentage: contestRanking.topPercentage,
           badge: contestRanking.badge?.name
         } : null,
-        contestHistory: contestHistory.map(item => ({
-          title: item.contest.title,
-          date: new Date(item.contest.startTime * 1000).toISOString().split('T')[0],
-          rating: item.rating,
-          ranking: item.ranking,
-          attended: item.attended
-        })),
+        contestHistory: contestHistory.map(item => {
+          try {
+            // Safely handle contest start time
+            const startTime = item.contest?.startTime;
+            let dateStr = null;
+            
+            if (startTime) {
+              // Handle both seconds and milliseconds timestamps
+              const timestamp = typeof startTime === 'number' ? 
+                (startTime > 1e10 ? startTime : startTime * 1000) : 
+                new Date(startTime).getTime();
+              
+              if (!isNaN(timestamp)) {
+                dateStr = new Date(timestamp).toISOString().split('T')[0];
+              }
+            }
+            
+            return {
+              title: item.contest?.title || '',
+              date: dateStr,
+              rating: item.rating || 0,
+              ranking: item.ranking || 0,
+              attended: item.attended || false
+            };
+          } catch (error) {
+            console.warn('Error processing contest history item:', error);
+            return {
+              title: item.contest?.title || '',
+              date: null,
+              rating: item.rating || 0,
+              ranking: item.ranking || 0,
+              attended: item.attended || false
+            };
+          }
+        }).filter(item => item.date !== null), // Remove items with invalid dates
         badges: userData.badges || [],
         calendar: {
           activeYears: calendarData?.activeYears || [],

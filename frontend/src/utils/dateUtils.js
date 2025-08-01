@@ -60,6 +60,45 @@ export const safeParseDate = (dateInput) => {
   try {
     if (!dateInput) return null;
     
+    // If it's already a Date object and valid, return it
+    if (dateInput instanceof Date) {
+      return isNaN(dateInput.getTime()) ? null : dateInput;
+    }
+    
+    // Handle string inputs
+    if (typeof dateInput === 'string') {
+      // Handle common date formats
+      const dateString = dateInput.trim();
+      
+      // Check for ISO date format (YYYY-MM-DD or YYYY-MM-DDTHH:mm:ss)
+      if (/^\d{4}-\d{2}-\d{2}/.test(dateString)) {
+        const date = new Date(dateString);
+        if (!isNaN(date.getTime())) {
+          return date;
+        }
+      }
+      
+      // Check if it's a numeric timestamp as string
+      if (/^\d+$/.test(dateString)) {
+        return safeFromTimestamp(parseInt(dateString));
+      }
+      
+      // Try general Date parsing
+      const date = new Date(dateString);
+      if (!isNaN(date.getTime())) {
+        return date;
+      }
+      
+      console.warn('Invalid date string provided to safeParseDate:', dateInput);
+      return null;
+    }
+    
+    // Handle numeric inputs (timestamps)
+    if (typeof dateInput === 'number') {
+      return safeFromTimestamp(dateInput);
+    }
+    
+    // Try direct Date construction as fallback
     const date = new Date(dateInput);
     
     if (isNaN(date.getTime())) {
@@ -86,11 +125,31 @@ export const safeGetYear = (dateInput) => {
 
 /**
  * Creates a safe date from timestamp (handles both seconds and milliseconds)
- * @param {number} timestamp - Unix timestamp
+ * @param {number|string} timestamp - Unix timestamp or date string
  * @returns {Date|null} - Parsed date or null if invalid
  */
 export const safeFromTimestamp = (timestamp) => {
   try {
+    // Handle string dates first
+    if (typeof timestamp === 'string') {
+      // Check if it's a valid date string
+      if (timestamp.includes('-') || timestamp.includes('/') || timestamp.includes('T')) {
+        const date = new Date(timestamp);
+        if (!isNaN(date.getTime())) {
+          return date;
+        }
+      }
+      
+      // Try to parse as number if it's a numeric string
+      const numericTimestamp = parseFloat(timestamp);
+      if (!isNaN(numericTimestamp)) {
+        timestamp = numericTimestamp;
+      } else {
+        console.warn('Invalid timestamp provided:', timestamp);
+        return null;
+      }
+    }
+    
     if (typeof timestamp !== 'number' || isNaN(timestamp)) {
       console.warn('Invalid timestamp provided:', timestamp);
       return null;

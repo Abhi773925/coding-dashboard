@@ -25,10 +25,6 @@ const ActivityHeatmap = ({ user }) => {
     setIsDataLoaded(hasValidData);
   }, [user]);
 
-  const heatmapData = useMemo(() => {
-    return generateHeatmapData();
-  }, [user, selectedYear, selectedPlatform, isDataLoaded]);
-
   const generateHeatmapData = () => {
     const data = {};
     const startDate = new Date(selectedYear, 0, 1);
@@ -113,6 +109,10 @@ const ActivityHeatmap = ({ user }) => {
 
     return data;
   };
+
+  const heatmapData = useMemo(() => {
+    return generateHeatmapData();
+  }, [user, selectedYear, selectedPlatform, isDataLoaded]);
   
   const getIntensityLevel = (count) => {
     if (count === 0) return 0;
