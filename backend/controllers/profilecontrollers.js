@@ -1044,3 +1044,94 @@ exports.getProfileAnalytics = async (req, res) => {
     });
   }
 };
+
+// Connect Platform Controller
+exports.connectPlatform = async (req, res) => {
+  try {
+    const { email, platform, username } = req.body;
+
+    // Validate required fields
+    if (!email || !platform || !username) {
+      return res.status(400).json({ message: 'Email, platform, and username are required' });
+    }
+
+    // Check if platform is supported
+    if (!SUPPORTED_PLATFORMS.includes(platform)) {
+      return res.status(400).json({ message: 'Platform not supported' });
+    }
+
+    // Find user
+    let user = await User.findOne({ email });
+    
+    // Create user if not exists
+    if (!user) {
+      user = new User({ email, name: req.body.name || 'User' });
+    }
+
+    // Validate username before connecting
+    const validationStrategy = platformValidationStrategies[platform];
+    if (validationStrategy) {
+      const isValid = await validationStrategy(username);
+      if (!isValid) {
+        return res.status(400).json({ 
+          message: `Invalid ${platform} username: ${username}`,
+          valid: false
+        });
+      }
+    }
+
+    // Connect platform
+    user[platform] = username;
+    await user.save();
+
+    res.json({ 
+      message: `${platform} connected successfully`,
+      platform,
+      username,
+      valid: true
+    });
+  } catch (error) {
+    res.status(500).json({ 
+      message: "Error connecting platform", 
+      error: error.message 
+    });
+  }
+};
+
+// Disconnect Platform Controller
+exports.disconnectPlatform = async (req, res) => {
+  try {
+    const { email, platform } = req.body;
+
+    // Validate required fields
+    if (!email || !platform) {
+      return res.status(400).json({ message: 'Email and platform are required' });
+    }
+
+    // Find user
+    const user = await User.findOne({ email });
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+
+    // Disconnect platform
+    user[platform] = null;
+    
+    // Clear cached stats for this platform
+    if (user.platformStatsCache.has(platform)) {
+      user.platformStatsCache.delete(platform);
+    }
+    
+    await user.save();
+
+    res.json({ 
+      message: `${platform} disconnected successfully`,
+      platform
+    });
+  } catch (error) {
+    res.status(500).json({ 
+      message: "Error disconnecting platform", 
+      error: error.message 
+    });
+  }
+};

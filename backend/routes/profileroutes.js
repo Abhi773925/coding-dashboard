@@ -11,6 +11,12 @@ router.post('/update', platformController.updateUserProfile);
 // Update basic profile information (name, bio, location, etc.)
 router.post('/update-basic', platformController.updateBasicProfile);
 
+// Connect platform
+router.post('/connect-platform', platformController.connectPlatform);
+
+// Disconnect platform
+router.post('/disconnect-platform', platformController.disconnectPlatform);
+
 // Get user profile with all platform stats
 router.get('/user', platformController.getUserProfile);
 
