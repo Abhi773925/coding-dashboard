@@ -35,7 +35,7 @@ const PlatformModal = ({ isOpen, onClose, platform, onSubmit, existingUsername }
     geeksforgeeks: {
       name: 'GeeksforGeeks',
       placeholder: 'Enter your GeeksforGeeks username',
-      exampleUrl: 'https://auth.geeksforgeeks.org/user/username',
+      exampleUrl: 'https://geeksforgeeks.org/user/username',
       description: 'Connect your GeeksforGeeks profile to track coding practice and achievements',
       color: 'green'
     },
@@ -56,7 +56,7 @@ const PlatformModal = ({ isOpen, onClose, platform, onSubmit, existingUsername }
     hackerrank: {
       name: 'HackerRank',
       placeholder: 'Enter your HackerRank username',
-      exampleUrl: 'https://hackerrank.com/username',
+      exampleUrl: 'https://hackerrank.com/profile/username',
       description: 'Connect your HackerRank profile to track skills assessments and challenges',
       color: 'teal'
     }
