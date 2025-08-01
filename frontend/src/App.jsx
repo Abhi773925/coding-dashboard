@@ -22,6 +22,7 @@ import UserProfile from "./components/Dashboard/UserProfile";
 import Dashboard from "./components/Dashboard/Dashboard";
 import FullStack from "./components/fullstack/FullStack";
 import { ProfileDashboard } from "./components/Profile";
+import DebugProfile from "./components/Profile/DebugProfile";
 import Sql from "./components/interview/Sql";
 import NotesOverview from "./components/interview/NotesOverview";
 import CodeCompiler from "./components/Compiler/CodeCompiler";
@@ -204,6 +205,13 @@ const AppContent = () => {
             <SEO page="dashboard" title="My Profile - Multi-Platform Coding Profile" />
             <Breadcrumb items={[{ name: 'Profile', href: '/profile' }]} />
             <ProfileDashboard />
+          </>
+        } />
+        
+        <Route path="/profile-debug" element={
+          <>
+            <SEO page="dashboard" title="Profile Debug" />
+            <DebugProfile />
           </>
         } />
         

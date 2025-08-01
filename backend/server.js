@@ -26,7 +26,7 @@ const Streak = require('./models/Streak');
 const contestRoutes = require("./routes/contestRoutes");
 const questionRoutes = require('./routes/questionRoutes');
 const courseRoutes = require('./routes/courseRoutes');
-const profileRoutes = require("./routes/profileRoutes");
+const profileroutes = require("./routes/profileroutes");
 const streakRoutes = require("./routes/streakRoutes");
 const userRoutes = require('./routes/userroutes');
 const analyticsRoutes = require('./routes/analyticsRoutes');
@@ -382,8 +382,8 @@ const setupRoutes = () => {
   // Other API routes
   app.use("/api/codingkaro/contests", contestRoutes);
   app.use('/api/codingkaro/questions', questionRoutes);
-  app.use("/api/codingkaro/users", profileRoutes);
-  app.use("/api/profile", profileRoutes); // Add direct profile access
+  app.use("/api/codingkaro/users", profileroutes);
+  app.use("/api/profile", profileroutes); // Add direct profile access
   app.use('/api/codingkaro/courses', courseRoutes);
   app.use('/api', streakRoutes);
   app.use('/api/users', userRoutes);
