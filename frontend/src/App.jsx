@@ -31,7 +31,7 @@ import JavaScriptLearning from "./components/learning/JavaScriptLearning";
 import Analytics from "./components/Dashboard/Analytics";
 import InterviewMode from "./components/Collaboration/InterviewMode";
 import ThemeDemo from "./components/ThemeDemo";
-
+import { Analytics } from "@vercel/analytics/next"
 // Interview Series Components
 import InterviewSeriesOverview from "./components/interview-series/InterviewSeriesOverview";
 import ComputerNetworks from "./components/interview-series/ComputerNetworks";
@@ -179,7 +179,12 @@ const AppContent = () => {
   }, []);
 
   return (
-    <>      
+    <>
+      {/* Skip navigation link for accessibility */}
+      <a href="#main-content" className="skip-link">
+        Skip to main content
+      </a>
+      
       {/* Performance Optimizer - loads once */}
       <PerformanceOptimizer />
       
@@ -192,6 +197,7 @@ const AppContent = () => {
           <>
             <SEO page="home" />
             <HeroSection />
+            <Analytics/> 
             <Dsacard />
             <Footer />
           </>

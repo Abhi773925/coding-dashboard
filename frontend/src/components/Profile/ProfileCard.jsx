@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { 
   User, 
@@ -25,9 +25,9 @@ import {
 import { useTheme } from '../context/ThemeContext';
 import { fetchWithWakeUp } from '../../utils/serverWakeUp';
 
-const ProfileCard = ({ user, onUpdate, profileMode, setProfileMode }) => {
+const ProfileCard = ({ user, onUpdate }) => {
   const { isDarkMode } = useTheme();
-  
+  const [isEditing, setIsEditing] = useState(false);
   const [editData, setEditData] = useState({
     name: user?.name || '',
     bio: user?.bio || '',
@@ -38,58 +38,8 @@ const ProfileCard = ({ user, onUpdate, profileMode, setProfileMode }) => {
     github: user?.github || ''
   });
 
-  // Use profileMode if provided, otherwise fall back to internal state
-  const [internalIsEditing, setInternalIsEditing] = useState(false);
-  const isEditing = profileMode ? profileMode === 'edit' : internalIsEditing;
-  const setIsEditing = setProfileMode ? 
-    (editing) => setProfileMode(editing ? 'edit' : 'view') : 
-    setInternalIsEditing;
-
-  // Update editData when user data changes
-  useEffect(() => {
-    setEditData({
-      name: user?.name || '',
-      bio: user?.bio || '',
-      location: user?.location || '',
-      website: user?.website || '',
-      linkedin: user?.linkedin || '',
-      instagram: user?.instagram || '',
-      github: user?.github || ''
-    });
-  }, [user]);
-
-  // Sync with profileMode prop
-  useEffect(() => {
-    setIsEditing(profileMode === 'edit');
-  }, [profileMode]);
-
-  const handleEditToggle = () => {
-    const newMode = isEditing ? 'view' : 'edit';
-    setIsEditing(!isEditing);
-    if (setProfileMode) {
-      setProfileMode(newMode);
-    }
-  };
-
   const handleSave = async () => {
     try {
-      // Only send fields that have changed
-      const updatedFields = {};
-      
-      if (editData.name !== (user?.name || '')) updatedFields.name = editData.name;
-      if (editData.bio !== (user?.bio || '')) updatedFields.bio = editData.bio;
-      if (editData.location !== (user?.location || '')) updatedFields.location = editData.location;
-      if (editData.website !== (user?.website || '')) updatedFields.website = editData.website;
-      if (editData.linkedin !== (user?.linkedin || '')) updatedFields.linkedin = editData.linkedin;
-      if (editData.instagram !== (user?.instagram || '')) updatedFields.instagram = editData.instagram;
-      if (editData.github !== (user?.github || '')) updatedFields.github = editData.github;
-
-      // If no fields changed, just exit edit mode
-      if (Object.keys(updatedFields).length === 0) {
-        setIsEditing(false);
-        return;
-      }
-
       const response = await fetchWithWakeUp('https://prepmate-kvol.onrender.com/api/profile/update-basic', {
         method: 'POST',
         headers: {
@@ -97,22 +47,16 @@ const ProfileCard = ({ user, onUpdate, profileMode, setProfileMode }) => {
         },
         body: JSON.stringify({
           email: user.email,
-          ...updatedFields
+          ...editData
         }),
       });
       
       if (response.ok) {
-        const result = await response.json();
         setIsEditing(false);
         onUpdate && onUpdate();
-      } else {
-        const errorData = await response.json();
-        console.error('Error response:', errorData);
-        alert(`Error updating profile: ${errorData.message}`);
       }
     } catch (error) {
       console.error('Error updating profile:', error);
-      alert('Network error. Please try again.');
     }
   };
 
@@ -234,22 +178,9 @@ const ProfileCard = ({ user, onUpdate, profileMode, setProfileMode }) => {
       {/* Profile Picture and Basic Info */}
       <div className="text-center mb-6">
         <div className="relative inline-block">
-          {user?.avatar || user?.picture ? (
-            <img
-              src={user.avatar || user.picture}
-              alt={user?.name || 'Profile'}
-              className="w-24 h-24 rounded-full mx-auto mb-4 object-cover border-4 border-white shadow-lg"
-              onError={(e) => {
-                e.target.style.display = 'none';
-                e.target.nextSibling.style.display = 'flex';
-              }}
-            />
-          ) : null}
-          <div 
-            className={`w-24 h-24 rounded-full mx-auto mb-4 flex items-center justify-center text-white font-bold text-2xl border-4 border-white shadow-lg ${
-              isDarkMode ? 'bg-gradient-to-br from-blue-500 to-purple-600' : 'bg-gradient-to-br from-blue-400 to-purple-500'
-            } ${(user?.avatar || user?.picture) ? 'hidden' : 'flex'}`}
-          >
+          <div className={`w-24 h-24 rounded-full mx-auto mb-4 flex items-center justify-center text-white font-bold text-2xl ${
+            isDarkMode ? 'bg-gradient-to-br from-blue-500 to-purple-600' : 'bg-gradient-to-br from-blue-400 to-purple-500'
+          }`}>
             {user?.name ? user.name.charAt(0).toUpperCase() : 'U'}
           </div>
           <div className={`absolute -bottom-1 -right-1 w-8 h-8 rounded-full flex items-center justify-center cursor-pointer transition-transform hover:scale-110 ${
@@ -432,7 +363,7 @@ const ProfileCard = ({ user, onUpdate, profileMode, setProfileMode }) => {
           whileHover={{ scale: 1.02 }}
           whileTap={{ scale: 0.98 }}
         >
-          Get your Prepmate Card
+          Get your Codolio Card
         </motion.button>
       </div>
 
@@ -447,81 +378,72 @@ const ProfileCard = ({ user, onUpdate, profileMode, setProfileMode }) => {
           </div>
         )}
         
-        {user?.location && !isEditing && (
+        {(user?.location || editData.location) && (
           <div className="flex items-center space-x-3">
             <MapPin className={`w-4 h-4 ${isDarkMode ? 'text-slate-400' : 'text-gray-500'}`} />
             <span className={`text-sm ${isDarkMode ? 'text-slate-300' : 'text-gray-700'}`}>
-              {user.location}
+              {user?.location || editData.location}
             </span>
           </div>
         )}
 
-        {user?.website && !isEditing && (
+        {(user?.website || editData.website) && (
           <div className="flex items-center space-x-3">
             <ExternalLink className={`w-4 h-4 ${isDarkMode ? 'text-slate-400' : 'text-gray-500'}`} />
             <a 
-              href={user.website} 
+              href={user?.website || editData.website} 
               target="_blank" 
               rel="noopener noreferrer"
               className={`text-sm hover:underline ${isDarkMode ? 'text-blue-400' : 'text-blue-600'}`}
             >
-              {user.website}
+              {user?.website || editData.website}
+            </a>
+          </div>
+        )}
+
+        {/* Social Media Links */}
+        {(user?.github || editData.github) && (
+          <div className="flex items-center space-x-3">
+            <Github className={`w-4 h-4 ${isDarkMode ? 'text-slate-400' : 'text-gray-500'}`} />
+            <a 
+              href={`https://github.com/${user?.github || editData.github}`} 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className={`text-sm hover:underline ${isDarkMode ? 'text-blue-400' : 'text-blue-600'}`}
+            >
+              @{user?.github || editData.github}
+            </a>
+          </div>
+        )}
+
+        {(user?.linkedin || editData.linkedin) && (
+          <div className="flex items-center space-x-3">
+            <Linkedin className={`w-4 h-4 ${isDarkMode ? 'text-slate-400' : 'text-gray-500'}`} />
+            <a 
+              href={`https://linkedin.com/in/${user?.linkedin || editData.linkedin}`} 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className={`text-sm hover:underline ${isDarkMode ? 'text-blue-400' : 'text-blue-600'}`}
+            >
+              @{user?.linkedin || editData.linkedin}
+            </a>
+          </div>
+        )}
+
+        {(user?.instagram || editData.instagram) && (
+          <div className="flex items-center space-x-3">
+            <Instagram className={`w-4 h-4 ${isDarkMode ? 'text-slate-400' : 'text-gray-500'}`} />
+            <a 
+              href={`https://instagram.com/${user?.instagram || editData.instagram}`} 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className={`text-sm hover:underline ${isDarkMode ? 'text-blue-400' : 'text-blue-600'}`}
+            >
+              @{user?.instagram || editData.instagram}
             </a>
           </div>
         )}
       </div>
-
-      {/* Social Media Links */}
-      {(user?.linkedin || user?.instagram || user?.github) && !isEditing && (
-        <div className="mb-6">
-          <h3 className={`text-sm font-semibold mb-3 ${isDarkMode ? 'text-white' : 'text-gray-900'}`}>
-            Social Links
-          </h3>
-          <div className="space-y-3">
-            {user?.github && (
-              <div className="flex items-center space-x-3">
-                <Github className={`w-4 h-4 ${isDarkMode ? 'text-slate-400' : 'text-gray-500'}`} />
-                <a 
-                  href={`https://github.com/${user.github}`} 
-                  target="_blank" 
-                  rel="noopener noreferrer"
-                  className={`text-sm hover:underline ${isDarkMode ? 'text-blue-400' : 'text-blue-600'}`}
-                >
-                  @{user.github}
-                </a>
-              </div>
-            )}
-
-            {user?.linkedin && (
-              <div className="flex items-center space-x-3">
-                <Linkedin className={`w-4 h-4 ${isDarkMode ? 'text-slate-400' : 'text-gray-500'}`} />
-                <a 
-                  href={`https://linkedin.com/in/${user.linkedin}`} 
-                  target="_blank" 
-                  rel="noopener noreferrer"
-                  className={`text-sm hover:underline ${isDarkMode ? 'text-blue-400' : 'text-blue-600'}`}
-                >
-                  @{user.linkedin}
-                </a>
-              </div>
-            )}
-
-            {user?.instagram && (
-              <div className="flex items-center space-x-3">
-                <Instagram className={`w-4 h-4 ${isDarkMode ? 'text-slate-400' : 'text-gray-500'}`} />
-                <a 
-                  href={`https://instagram.com/${user.instagram}`} 
-                  target="_blank" 
-                  rel="noopener noreferrer"
-                  className={`text-sm hover:underline ${isDarkMode ? 'text-blue-400' : 'text-blue-600'}`}
-                >
-                  @{user.instagram}
-                </a>
-              </div>
-            )}
-          </div>
-        </div>
-      )}
 
       {/* About Section */}
       {user?.bio && !isEditing && (
@@ -535,6 +457,80 @@ const ProfileCard = ({ user, onUpdate, profileMode, setProfileMode }) => {
         </div>
       )}
 
+      {/* Quick Stats */}
+      <div className="grid grid-cols-2 gap-4 mb-6">
+        <div className={`text-center p-3 rounded-lg ${
+          isDarkMode ? 'bg-slate-800/50' : 'bg-gray-50'
+        }`}>
+          <div className={`text-lg font-bold ${isDarkMode ? 'text-white' : 'text-gray-900'}`}>
+            {overallScore.toLocaleString()}
+          </div>
+          <div className={`text-xs ${isDarkMode ? 'text-slate-400' : 'text-gray-600'}`}>
+            Overall Score
+          </div>
+        </div>
+        <div className={`text-center p-3 rounded-lg ${
+          isDarkMode ? 'bg-slate-800/50' : 'bg-gray-50'
+        }`}>
+          <div className={`text-lg font-bold ${isDarkMode ? 'text-white' : 'text-gray-900'}`}>
+            {connectedPlatforms}
+          </div>
+          <div className={`text-xs ${isDarkMode ? 'text-slate-400' : 'text-gray-600'}`}>
+            Platforms
+          </div>
+        </div>
+      </div>
+
+      {/* Platform Ranks */}
+      {platformRanks.length > 0 && (
+        <div className="mb-6">
+          <h3 className={`text-sm font-semibold mb-3 ${isDarkMode ? 'text-white' : 'text-gray-900'}`}>
+            Platform Rankings
+          </h3>
+          <div className="space-y-2">
+            {platformRanks.map((rank, index) => {
+              const Icon = rank.icon;
+              return (
+                <div key={index} className={`flex items-center justify-between p-2 rounded-lg ${
+                  isDarkMode ? 'bg-slate-800/30' : 'bg-gray-50/50'
+                }`}>
+                  <div className="flex items-center space-x-2">
+                    <div className={`p-1.5 rounded-lg bg-gradient-to-r ${rank.color}`}>
+                      <Icon className="w-3 h-3 text-white" />
+                    </div>
+                    <span className={`text-xs font-medium ${isDarkMode ? 'text-slate-300' : 'text-gray-700'}`}>
+                      {rank.platform}
+                    </span>
+                  </div>
+                  <span className={`text-xs font-bold ${isDarkMode ? 'text-white' : 'text-gray-900'}`}>
+                    {rank.rank}
+                  </span>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      )}
+
+      {/* Profile Completeness */}
+      <div className="space-y-3">
+        <div className="flex items-center justify-between">
+          <span className={`text-sm font-medium ${isDarkMode ? 'text-slate-300' : 'text-gray-700'}`}>
+            Profile Completeness
+          </span>
+          <span className={`text-sm font-bold ${isDarkMode ? 'text-white' : 'text-gray-900'}`}>
+            {completeness}%
+          </span>
+        </div>
+        <div className={`w-full rounded-full h-2 ${isDarkMode ? 'bg-slate-700' : 'bg-gray-200'}`}>
+          <motion.div 
+            className="bg-gradient-to-r from-green-500 to-emerald-500 h-2 rounded-full"
+            initial={{ width: 0 }}
+            animate={{ width: `${completeness}%` }}
+            transition={{ duration: 1, delay: 0.5 }}
+          />
+        </div>
+      </div>
     </motion.div>
   );
 };

@@ -273,37 +273,3 @@
 .theme-pulse-glow {
   animation: pulse-glow 2s ease-in-out infinite;
 }
-
-/* Custom Scrollbar Styles */
-.custom-scrollbar {
-  scrollbar-width: thin;
-  scrollbar-color: var(--color-primary) transparent;
-}
-
-.custom-scrollbar::-webkit-scrollbar {
-  width: 6px;
-}
-
-.custom-scrollbar::-webkit-scrollbar-track {
-  background: transparent;
-}
-
-.custom-scrollbar::-webkit-scrollbar-thumb {
-  background: var(--color-primary);
-  border-radius: 3px;
-  opacity: 0.6;
-}
-
-.custom-scrollbar::-webkit-scrollbar-thumb:hover {
-  background: var(--color-primary-dark);
-  opacity: 0.8;
-}
-
-/* Dark theme scrollbar adjustments */
-.dark .custom-scrollbar::-webkit-scrollbar-thumb {
-  background: var(--color-primary-light);
-}
-
-.dark .custom-scrollbar::-webkit-scrollbar-thumb:hover {
-  background: var(--color-primary);
-}

@@ -27,11 +27,13 @@ import {
 import { useAuth } from '../navigation/Navigation';
 import { fetchWithWakeUp } from '../../utils/serverWakeUp';
 import { useTheme } from '../context/ThemeContext';
+import ProfileHeader from './ProfileHeader';
 import ProfileCard from './ProfileCard';
 import PlatformCards from './PlatformCards';
 import SkillsOverview from './SkillsOverview';
 import ActivityHeatmap from './ActivityHeatmap';
 import PlatformModal from './PlatformModal';
+import ProfileStats from './ProfileStats';
 import RecentActivity from './RecentActivity';
 import AchievementShowcase from './AchievementShowcase';
 
@@ -85,9 +87,6 @@ const ProfileDashboard = () => {
             bio: '',
             location: '',
             website: '',
-            github: '',
-            linkedin: '',
-            instagram: '',
             missingPlatforms: ['leetcode', 'github', 'geeksforgeeks'],
             platformStats: {},
             isNewUser: true
@@ -115,9 +114,6 @@ const ProfileDashboard = () => {
         bio: '',
         location: '',
         website: '',
-        github: '',
-        linkedin: '',
-        instagram: '',
         missingPlatforms: ['leetcode', 'github', 'geeksforgeeks'],
         platformStats: {},
         isNewUser: true
@@ -159,7 +155,7 @@ const ProfileDashboard = () => {
   // Show login prompt if user is not logged in
   if (!isLoggedIn) {
     return (
-      <div className={`min-h-screen  ${isDarkMode ? 'bg-slate-950 text-gray-100' : 'bg-white text-gray-900'} flex items-center justify-center relative overflow-hidden`}>
+      <div className={`min-h-screen ${isDarkMode ? 'bg-slate-950 text-gray-100' : 'bg-white text-gray-900'} flex items-center justify-center relative overflow-hidden`}>
         {/* Subtle background effect without animations */}
         <div className="absolute inset-0">
           <div 
@@ -311,6 +307,14 @@ const ProfileDashboard = () => {
       </div>
       
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        {/* Profile Header */}
+        <ProfileHeader 
+          user={profileData} 
+          profileMode={profileMode}
+          setProfileMode={setProfileMode}
+          onUpdate={fetchUserProfile}
+        />
+
         {/* Show welcome message for new users */}
         {profileData?.isNewUser && (
           <motion.div
@@ -385,82 +389,118 @@ const ProfileDashboard = () => {
 
         {/* Tab Content */}
         <div className="mt-8">
-          <div className="grid grid-cols-1 xl:grid-cols-4 gap-6">
-            {/* Left Column - Static Profile Card */}
-            <div className="xl:col-span-1 order-1 xl:order-1">
-              <div className="sticky top-8">
-                <ProfileCard 
-                  user={profileData} 
-                  onUpdate={fetchUserProfile}
-                  profileMode={profileMode}
-                  setProfileMode={setProfileMode}
-                />
-              </div>
-            </div>
-            
-            {/* Right Column - Scrollable Content */}
-            <div className="xl:col-span-3 order-2 xl:order-2">
-              <div className="h-[calc(100vh-12rem)] overflow-y-auto pr-4 custom-scrollbar">
-                <AnimatePresence mode="wait">
-                  <motion.div
-                    key={selectedTab}
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: -20 }}
-                    transition={{ duration: 0.3 }}
-                  >
-                    {selectedTab === 'overview' && (
-                      <div className="space-y-6">
-                        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-                          <PlatformCards 
-                            user={profileData}
-                            onConnectPlatform={handleConnectPlatform}
-                          />
-                          <AchievementShowcase user={profileData} />
-                        </div>
-                        <RecentActivity user={profileData} />
-                        <ActivityHeatmap user={profileData} />
-                      </div>
-                    )}
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={selectedTab}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -20 }}
+              transition={{ duration: 0.3 }}
+            >
+              {selectedTab === 'overview' && (
+                <div className="grid grid-cols-1 xl:grid-cols-4 gap-6">
+                  {/* Left Column - Profile Card */}
+                  <div className="xl:col-span-1 order-1 xl:order-1">
+                    <ProfileCard 
+                      user={profileData} 
+                      onUpdate={fetchUserProfile}
+                    />
+                  </div>
+                  
+                  {/* Right Column - Main Content */}
+                  <div className="xl:col-span-3 order-2 xl:order-2 space-y-6">
+                    <ProfileStats user={profileData} />
+                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                      <PlatformCards 
+                        user={profileData}
+                        onConnectPlatform={handleConnectPlatform}
+                      />
+                      <AchievementShowcase user={profileData} />
+                    </div>
+                    <RecentActivity user={profileData} />
+                    <ActivityHeatmap user={profileData} />
+                  </div>
+                </div>
+              )}
 
-                    {selectedTab === 'platforms' && (
-                      <div>
-                        <PlatformCards 
-                          user={profileData}
-                          onConnectPlatform={handleConnectPlatform}
-                          detailed={true}
-                        />
-                      </div>
-                    )}
+              {selectedTab === 'platforms' && (
+                <div className="grid grid-cols-1 xl:grid-cols-4 gap-6">
+                  {/* Left Column - Profile Card */}
+                  <div className="xl:col-span-1 order-1 xl:order-1">
+                    <ProfileCard 
+                      user={profileData} 
+                      onUpdate={fetchUserProfile}
+                    />
+                  </div>
+                  
+                  {/* Right Column - Platform Details */}
+                  <div className="xl:col-span-3 order-2 xl:order-2">
+                    <PlatformCards 
+                      user={profileData}
+                      onConnectPlatform={handleConnectPlatform}
+                      detailed={true}
+                    />
+                  </div>
+                </div>
+              )}
 
-                    {selectedTab === 'skills' && (
-                      <div>
-                        <SkillsOverview user={profileData} />
-                      </div>
-                    )}
+              {selectedTab === 'skills' && (
+                <div className="grid grid-cols-1 xl:grid-cols-4 gap-6">
+                  {/* Left Column - Profile Card */}
+                  <div className="xl:col-span-1 order-1 xl:order-1">
+                    <ProfileCard 
+                      user={profileData} 
+                      onUpdate={fetchUserProfile}
+                    />
+                  </div>
+                  
+                  {/* Right Column - Skills Content */}
+                  <div className="xl:col-span-3 order-2 xl:order-2">
+                    <SkillsOverview user={profileData} />
+                  </div>
+                </div>
+              )}
 
-                    {selectedTab === 'activity' && (
-                      <div>
-                        <ActivityHeatmap user={profileData} />
-                      </div>
-                    )}
+              {selectedTab === 'activity' && (
+                <div className="grid grid-cols-1 xl:grid-cols-4 gap-6">
+                  {/* Left Column - Profile Card */}
+                  <div className="xl:col-span-1 order-1 xl:order-1">
+                    <ProfileCard 
+                      user={profileData} 
+                      onUpdate={fetchUserProfile}
+                    />
+                  </div>
+                  
+                  {/* Right Column - Activity Content */}
+                  <div className="xl:col-span-3 order-2 xl:order-2">
+                    <ActivityHeatmap user={profileData} />
+                  </div>
+                </div>
+              )}
 
-                    {selectedTab === 'achievements' && (
-                      <div>
-                        <AchievementShowcase user={profileData} detailed={true} />
-                      </div>
-                    )}
+              {selectedTab === 'achievements' && (
+                <AchievementShowcase user={profileData} detailed={true} />
+              )}
 
-                    {selectedTab === 'analytics' && (
-                      <div className="space-y-6">
-                        <ActivityHeatmap user={profileData} />
-                      </div>
-                    )}
-                  </motion.div>
-                </AnimatePresence>
-              </div>
-            </div>
-          </div>
+              {selectedTab === 'analytics' && (
+                <div className="grid grid-cols-1 xl:grid-cols-4 gap-6">
+                  {/* Left Column - Profile Card */}
+                  <div className="xl:col-span-1 order-1 xl:order-1">
+                    <ProfileCard 
+                      user={profileData} 
+                      onUpdate={fetchUserProfile}
+                    />
+                  </div>
+                  
+                  {/* Right Column - Analytics Content */}
+                  <div className="xl:col-span-3 order-2 xl:order-2 space-y-6">
+                    <ProfileStats user={profileData} detailed={true} />
+                    <ActivityHeatmap user={profileData} />
+                  </div>
+                </div>
+              )}
+            </motion.div>
+          </AnimatePresence>
         </div>
 
         {/* Platform Connection Modal */}
