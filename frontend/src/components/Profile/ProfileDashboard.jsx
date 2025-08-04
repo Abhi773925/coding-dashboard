@@ -33,7 +33,6 @@ import PlatformCards from './PlatformCards';
 import SkillsOverview from './SkillsOverview';
 import ActivityHeatmap from './ActivityHeatmap';
 import PlatformModal from './PlatformModal';
-import ProfileStats from './ProfileStats';
 import RecentActivity from './RecentActivity';
 import AchievementShowcase from './AchievementShowcase';
 
@@ -413,7 +412,6 @@ const ProfileDashboard = () => {
                   >
                     {selectedTab === 'overview' && (
                       <div className="space-y-6">
-                        <ProfileStats user={profileData} />
                         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
                           <PlatformCards 
                             user={profileData}
@@ -456,7 +454,6 @@ const ProfileDashboard = () => {
 
                     {selectedTab === 'analytics' && (
                       <div className="space-y-6">
-                        <ProfileStats user={profileData} detailed={true} />
                         <ActivityHeatmap user={profileData} />
                       </div>
                     )}

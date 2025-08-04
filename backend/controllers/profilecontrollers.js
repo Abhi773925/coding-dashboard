@@ -2071,23 +2071,33 @@ exports.updateBasicProfile = async (req, res) => {
       return res.status(400).json({ message: 'Email is required' });
     }
 
-    // Find user
-    const user = await User.findOne({ email });
+    // Find user or create if doesn't exist
+    let user = await User.findOne({ email });
     if (!user) {
-      return res.status(404).json({ message: 'User not found' });
+      user = new User({ 
+        email, 
+        name: name || 'User',
+        bio: bio || '',
+        location: location || '',
+        website: website || '',
+        linkedin: linkedin || '',
+        instagram: instagram || '',
+        github: github || ''
+      });
+    } else {
+      // Update basic profile fields
+      if (name !== undefined) user.name = name;
+      if (bio !== undefined) user.bio = bio;
+      if (location !== undefined) user.location = location;
+      if (website !== undefined) user.website = website;
+      if (linkedin !== undefined) user.linkedin = linkedin;
+      if (instagram !== undefined) user.instagram = instagram;
+      if (github !== undefined) user.github = github;
     }
-
-    // Update basic profile fields
-    if (name) user.name = name;
-    if (bio !== undefined) user.bio = bio;
-    if (location !== undefined) user.location = location;
-    if (website !== undefined) user.website = website;
-    if (linkedin !== undefined) user.linkedin = linkedin;
-    if (instagram !== undefined) user.instagram = instagram;
-    if (github !== undefined) user.github = github;
     
     // Update preferences if provided
     if (preferences) {
+      if (!user.preferences) user.preferences = {};
       if (preferences.theme) user.preferences.theme = preferences.theme;
       if (preferences.emailNotifications !== undefined) user.preferences.emailNotifications = preferences.emailNotifications;
       if (preferences.publicProfile !== undefined) user.preferences.publicProfile = preferences.publicProfile;
@@ -2111,6 +2121,7 @@ exports.updateBasicProfile = async (req, res) => {
       }
     });
   } catch (error) {
+    console.error('Profile update error:', error);
     res.status(500).json({ 
       message: "Server error", 
       error: error.message 

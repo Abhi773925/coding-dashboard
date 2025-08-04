@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { 
   User, 
@@ -38,6 +38,19 @@ const ProfileCard = ({ user, onUpdate }) => {
     github: user?.github || ''
   });
 
+  // Update editData when user data changes
+  useEffect(() => {
+    setEditData({
+      name: user?.name || '',
+      bio: user?.bio || '',
+      location: user?.location || '',
+      website: user?.website || '',
+      linkedin: user?.linkedin || '',
+      instagram: user?.instagram || '',
+      github: user?.github || ''
+    });
+  }, [user]);
+
   const handleSave = async () => {
     try {
       const response = await fetchWithWakeUp('https://prepmate-kvol.onrender.com/api/profile/update-basic', {
@@ -52,11 +65,18 @@ const ProfileCard = ({ user, onUpdate }) => {
       });
       
       if (response.ok) {
+        const result = await response.json();
+        console.log('Profile updated successfully:', result);
         setIsEditing(false);
         onUpdate && onUpdate();
+      } else {
+        const errorData = await response.json();
+        console.error('Error response:', errorData);
+        alert(`Error updating profile: ${errorData.message}`);
       }
     } catch (error) {
       console.error('Error updating profile:', error);
+      alert('Network error. Please try again.');
     }
   };
 
@@ -458,7 +478,56 @@ const ProfileCard = ({ user, onUpdate }) => {
       )}
 
       {/* Quick Stats */}
-      <div className="grid grid-cols-2 gap-4 mb-6">
+      {!isEditing && (
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 mb-6">
+          <div className={`text-center p-4 rounded-xl bg-gradient-to-br from-purple-500 to-purple-600`}>
+            <div className="text-white">
+              <div className="text-lg font-bold">
+                {overallScore.toLocaleString()}
+              </div>
+              <div className="text-xs opacity-90">
+                Overall Score
+              </div>
+            </div>
+          </div>
+          
+          <div className={`text-center p-4 rounded-xl bg-gradient-to-br from-green-500 to-green-600`}>
+            <div className="text-white">
+              <div className="text-lg font-bold">
+                {completeness}%
+              </div>
+              <div className="text-xs opacity-90">
+                Profile Complete
+              </div>
+            </div>
+          </div>
+          
+          <div className={`text-center p-4 rounded-xl bg-gradient-to-br from-purple-500 to-violet-600`}>
+            <div className="text-white">
+              <div className="text-lg font-bold">
+                {connectedPlatforms}
+              </div>
+              <div className="text-xs opacity-90">
+                Platforms
+              </div>
+            </div>
+          </div>
+          
+          <div className={`text-center p-4 rounded-xl bg-gradient-to-br from-blue-500 to-blue-600`}>
+            <div className="text-white">
+              <div className="text-lg font-bold">
+                #{Math.floor(Math.random() * 9000) + 1000}
+              </div>
+              <div className="text-xs opacity-90">
+                Rank
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Legacy Quick Stats - Keep for backward compatibility */}
+      <div className="grid grid-cols-2 gap-4 mb-6" style={{ display: 'none' }}>
         <div className={`text-center p-3 rounded-lg ${
           isDarkMode ? 'bg-slate-800/50' : 'bg-gray-50'
         }`}>
