@@ -310,7 +310,7 @@ const ProfileDashboard = () => {
         />
       </div>
       
-      <div className="relative z-10 max-w-7xl mx-auto px-2 sm:px-4 lg:px-6 py-8">
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Show welcome message for new users */}
         {profileData?.isNewUser && (
           <motion.div
@@ -400,7 +400,7 @@ const ProfileDashboard = () => {
             
             {/* Right Column - Scrollable Content */}
             <div className="xl:col-span-3 order-2 xl:order-2">
-              <div className="h-[calc(100vh-12rem)] overflow-y-auto pr-2 custom-scrollbar">
+              <div className="h-[calc(100vh-12rem)] overflow-y-auto pr-4 custom-scrollbar">
                 <AnimatePresence mode="wait">
                   <motion.div
                     key={selectedTab}
