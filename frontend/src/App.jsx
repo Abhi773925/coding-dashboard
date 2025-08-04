@@ -30,7 +30,7 @@ import CollaborativeCodeCompilerPage from "./components/Compiler/CollaborativeCo
 import JavaScriptLearning from "./components/learning/JavaScriptLearning";
 import InterviewMode from "./components/Collaboration/InterviewMode";
 import ThemeDemo from "./components/ThemeDemo";
-import { Analytics } from "@vercel/analytics/react"// Interview Series Components
+import { Analytics } from "@vercel/analytics/react"
 import InterviewSeriesOverview from "./components/interview-series/InterviewSeriesOverview";
 import ComputerNetworks from "./components/interview-series/ComputerNetworks";
 import OperatingSystems from "./components/interview-series/OperatingSystems";
