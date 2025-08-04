@@ -643,13 +643,13 @@ const PlatformCards = ({ user, onConnectPlatform, detailed = false }) => {
       isDarkMode 
         ? 'bg-slate-900/95 border-slate-700/50' 
         : 'bg-white/95 border-gray-200/50'
-    } rounded-xl p-6 backdrop-blur-md border shadow-2xl transition-all duration-300`}
+    } rounded-xl p-4 sm:p-6 backdrop-blur-md border shadow-2xl transition-all duration-300`}
     style={{
       boxShadow: isDarkMode ? "0 25px 50px rgba(0, 0, 0, 0.5)" : "0 25px 50px rgba(0, 0, 0, 0.15)",
     }}>
-      <div className="flex items-center justify-between mb-6">
-        <h3 className={`text-lg font-semibold ${isDarkMode ? 'text-slate-200' : 'text-gray-800'}`}>Platform Connections</h3>
-        <span className={`text-sm px-3 py-1 rounded-full ${
+      <div className="flex items-center justify-between mb-4 sm:mb-6">
+        <h3 className={`text-lg sm:text-xl font-semibold ${isDarkMode ? 'text-slate-200' : 'text-gray-800'}`}>Platform Connections</h3>
+        <span className={`text-xs sm:text-sm px-3 py-1 rounded-full ${
           isDarkMode 
             ? 'bg-slate-800/60 text-slate-400 border border-slate-700/50' 
             : 'bg-gray-100/80 text-gray-500 border border-gray-200/50'
@@ -658,7 +658,7 @@ const PlatformCards = ({ user, onConnectPlatform, detailed = false }) => {
         </span>
       </div>
 
-      <div className="space-y-4">
+      <div className="space-y-3 sm:space-y-4">
         {platforms.slice(0, 3).map((platform) => {
           const Icon = platform.icon;
           const connected = isConnected(platform.id);
@@ -666,7 +666,7 @@ const PlatformCards = ({ user, onConnectPlatform, detailed = false }) => {
           return (
             <motion.div
               key={platform.id}
-              className={`group flex items-center justify-between p-4 rounded-lg ${platform.bgGradient} border transition-all duration-300 hover:scale-[1.02] ${
+              className={`group flex items-center justify-between p-3 sm:p-4 rounded-lg ${platform.bgGradient} border transition-all duration-300 hover:scale-[1.02] ${
                 isDarkMode 
                   ? 'border-slate-700/50 hover:bg-slate-800/50 hover:border-slate-600/50' 
                   : 'border-gray-200/50 hover:bg-white/80 hover:border-gray-300/50'
@@ -677,18 +677,18 @@ const PlatformCards = ({ user, onConnectPlatform, detailed = false }) => {
               whileHover={{ x: 5 }}
               transition={{ duration: 0.2 }}
             >
-              <div className="flex items-center space-x-4">
-                <div className={`p-3 rounded-lg bg-gradient-to-r ${platform.color} shadow-md transition-transform duration-300 group-hover:scale-110`}>
-                  <Icon className="w-5 h-5 text-white" />
+              <div className="flex items-center space-x-3 sm:space-x-4 min-w-0 flex-1">
+                <div className={`p-2 sm:p-3 rounded-lg bg-gradient-to-r ${platform.color} shadow-md transition-transform duration-300 group-hover:scale-110 flex-shrink-0`}>
+                  <Icon className="w-4 h-4 sm:w-5 sm:h-5 text-white" />
                 </div>
-                <div>
-                  <p className={`font-semibold ${isDarkMode ? 'text-slate-200' : 'text-gray-800'} transition-colors duration-300`}>{platform.name}</p>
+                <div className="min-w-0 flex-1">
+                  <p className={`font-semibold text-sm sm:text-base ${isDarkMode ? 'text-slate-200' : 'text-gray-800'} transition-colors duration-300 truncate`}>{platform.name}</p>
                   {connected ? (
-                    <p className={`text-sm ${isDarkMode ? 'text-slate-400' : 'text-gray-500'}`}>
+                    <p className={`text-xs sm:text-sm ${isDarkMode ? 'text-slate-400' : 'text-gray-500'} truncate`}>
                       @{user.platformStats[platform.id].username}
                     </p>
                   ) : (
-                    <p className={`text-xs ${isDarkMode ? 'text-slate-400' : 'text-gray-500'}`}>
+                    <p className={`text-xs ${isDarkMode ? 'text-slate-400' : 'text-gray-500'} truncate`}>
                       {platform.description}
                     </p>
                   )}
@@ -696,14 +696,14 @@ const PlatformCards = ({ user, onConnectPlatform, detailed = false }) => {
               </div>
               
               {connected ? (
-                <div className="flex items-center space-x-2">
-                  <CheckCircle className={`w-5 h-5 ${isDarkMode ? 'text-emerald-400' : 'text-emerald-500'}`} />
-                  <span className={`text-xs font-medium ${isDarkMode ? 'text-emerald-400' : 'text-emerald-600'}`}>Connected</span>
+                <div className="flex items-center space-x-2 flex-shrink-0">
+                  <CheckCircle className={`w-4 h-4 sm:w-5 sm:h-5 ${isDarkMode ? 'text-emerald-400' : 'text-emerald-500'}`} />
+                  <span className={`text-xs sm:text-sm font-medium ${isDarkMode ? 'text-emerald-400' : 'text-emerald-600'} hidden sm:inline`}>Connected</span>
                 </div>
               ) : (
                 <button
                   onClick={() => onConnectPlatform(platform.id)}
-                  className={`group flex items-center space-x-2 px-4 py-2 rounded-lg transition-all duration-300 transform hover:scale-105 ${
+                  className={`group flex items-center space-x-1 sm:space-x-2 px-2 sm:px-4 py-1 sm:py-2 rounded-lg transition-all duration-300 transform hover:scale-105 flex-shrink-0 ${
                     isDarkMode
                       ? 'bg-gradient-to-r from-indigo-600 to-purple-600 text-white hover:from-indigo-500 hover:to-purple-500'
                       : 'bg-gradient-to-r from-indigo-600 to-purple-600 text-white hover:from-indigo-700 hover:to-purple-700'
@@ -714,8 +714,8 @@ const PlatformCards = ({ user, onConnectPlatform, detailed = false }) => {
                       : "0 4px 15px rgba(139, 92, 246, 0.2)",
                   }}
                 >
-                  <Plus className="w-4 h-4" />
-                  <span className="text-sm font-medium">Connect</span>
+                  <Plus className="w-3 h-3 sm:w-4 sm:h-4" />
+                  <span className="text-xs sm:text-sm font-medium hidden sm:inline">Connect</span>
                 </button>
               )}
             </motion.div>
@@ -724,7 +724,7 @@ const PlatformCards = ({ user, onConnectPlatform, detailed = false }) => {
       </div>
 
       <button
-        className={`w-full mt-6 px-4 py-3 text-sm font-medium rounded-lg transition-all duration-300 transform hover:scale-[1.02] backdrop-blur-sm ${
+        className={`w-full mt-4 sm:mt-6 px-4 py-2 sm:py-3 text-sm font-medium rounded-lg transition-all duration-300 transform hover:scale-[1.02] backdrop-blur-sm ${
           isDarkMode 
             ? 'text-indigo-400 hover:bg-slate-800/60 border border-slate-700/50 hover:border-slate-600/50' 
             : 'text-indigo-600 hover:bg-white/80 border border-gray-200/50 hover:border-gray-300/50'
@@ -735,7 +735,7 @@ const PlatformCards = ({ user, onConnectPlatform, detailed = false }) => {
       >
         <div className="flex items-center justify-center space-x-2">
           <span>View All Platforms</span>
-          <ExternalLink className="w-4 h-4" />
+          <ExternalLink className="w-3 h-3 sm:w-4 sm:h-4" />
         </div>
       </button>
     </div>
