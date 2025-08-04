@@ -207,30 +207,83 @@ const PlatformCards = ({ user, onConnectPlatform, detailed = false }) => {
             <div className="grid grid-cols-2 gap-3">
               <div className="text-center">
                 <p className={`text-2xl font-bold ${isDarkMode ? 'text-emerald-400' : 'text-emerald-600'}`}>
-                  {stats.profile?.ranking || 'N/A'}
+                  {stats.contest?.rating || stats.codingScores?.contest_rating || 'N/A'}
                 </p>
-                <p className="text-xs text-gray-600 dark:text-gray-400">Institute Rank</p>
+                <p className="text-xs text-gray-600 dark:text-gray-400">Contest Rating</p>
               </div>
               <div className="text-center">
                 <p className="text-2xl font-bold text-blue-600 dark:text-blue-400">
-                  {Object.values(stats.problemStats || {}).reduce((sum, val) => sum + parseInt(val || 0), 0)}
+                  {stats.totalSolved || Object.values(stats.problemStats || {}).reduce((sum, val) => sum + parseInt(val || 0), 0) || 0}
                 </p>
                 <p className="text-xs text-gray-600 dark:text-gray-400">Problems Solved</p>
               </div>
             </div>
             
+            {(stats.submissions?.total > 0 || stats.codingScores?.total_submissions) && (
+              <div className="grid grid-cols-2 gap-3 pt-2 border-t border-gray-200 dark:border-gray-700">
+                <div className="text-center">
+                  <p className={`text-lg font-semibold ${isDarkMode ? 'text-orange-400' : 'text-orange-600'}`}>
+                    {stats.submissions?.total || stats.codingScores?.total_submissions || '0'}
+                  </p>
+                  <p className="text-xs text-gray-600 dark:text-gray-400">Total Submissions</p>
+                </div>
+                <div className="text-center">
+                  <p className={`text-lg font-semibold ${isDarkMode ? 'text-green-400' : 'text-green-600'}`}>
+                    {stats.submissions?.accuracy || 
+                     (stats.submissions?.total > 0 ? 
+                      ((stats.submissions.accepted / stats.submissions.total) * 100).toFixed(1) : '0')}%
+                  </p>
+                  <p className="text-xs text-gray-600 dark:text-gray-400">Accuracy</p>
+                </div>
+              </div>
+            )}
+
+            {(stats.streak?.current || stats.codingScores?.current_streak) && (
+              <div className="grid grid-cols-2 gap-3 pt-2 border-t border-gray-200 dark:border-gray-700">
+                <div className="text-center">
+                  <p className={`text-lg font-semibold ${isDarkMode ? 'text-purple-400' : 'text-purple-600'}`}>
+                    {stats.streak?.current || stats.codingScores?.current_streak || '0'}
+                  </p>
+                  <p className="text-xs text-gray-600 dark:text-gray-400">Current Streak</p>
+                </div>
+                <div className="text-center">
+                  <p className={`text-lg font-semibold ${isDarkMode ? 'text-indigo-400' : 'text-indigo-600'}`}>
+                    {stats.streak?.max || stats.codingScores?.max_streak || '0'}
+                  </p>
+                  <p className="text-xs text-gray-600 dark:text-gray-400">Max Streak</p>
+                </div>
+              </div>
+            )}
+
+            {stats.profile?.institute && (
+              <div className="pt-2 border-t border-gray-200 dark:border-gray-700">
+                <div className="text-center">
+                  <p className={`text-sm font-medium ${isDarkMode ? 'text-gray-300' : 'text-gray-700'}`}>
+                    {stats.profile.institute}
+                  </p>
+                  <p className="text-xs text-gray-600 dark:text-gray-400">Institute</p>
+                </div>
+              </div>
+            )}
+            
             {stats.badges && stats.badges.length > 0 && (
-              <div className="space-y-2">
+              <div className="space-y-2 pt-2 border-t border-gray-200 dark:border-gray-700">
                 <p className="text-sm font-medium text-gray-700 dark:text-gray-300">Recent Badges:</p>
                 <div className="flex flex-wrap gap-1">
                   {stats.badges.slice(0, 3).map((badge, idx) => (
                     <span 
                       key={idx}
                       className="px-2 py-1 bg-green-100 dark:bg-green-900/30 text-xs rounded-full text-green-700 dark:text-green-300"
+                      title={badge.description}
                     >
                       {badge.name}
                     </span>
                   ))}
+                  {stats.badges.length > 3 && (
+                    <span className="px-2 py-1 bg-gray-100 dark:bg-gray-800 text-xs rounded-full text-gray-600 dark:text-gray-400">
+                      +{stats.badges.length - 3} more
+                    </span>
+                  )}
                 </div>
               </div>
             )}

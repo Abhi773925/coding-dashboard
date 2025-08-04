@@ -929,62 +929,181 @@ const platformStatsFetching = {
           if (response.status === 200) {
             const $ = cheerio.load(response.data);
             
-            // Extract basic profile information with multiple selectors
-            const name = $('.profile_name, .profile-name, .user-name, .userName').first().text().trim();
-            const institute = $('.profile_institute, .profile-institute, .user-institute, .institute').first().text().trim();
-            const ranking = $('.rankNum, .rank-num, .user-rank, .ranking').first().text().trim();
-            const avatar = $('.profile_img img, .profile-img img, .user-avatar img, .avatar img').first().attr('src');
+            // Extract profile information using specific selectors based on actual GFG HTML structure
+            const name = $('.userName').first().text().trim() || 
+                         $('.profile_name').first().text().trim() || 
+                         username;
             
-            // Extract coding stats with multiple selectors
-            const codingScores = {};
-            $('.score_card_value, .score-card-value, .coding-score').each((index, element) => {
-              const $el = $(element);
-              const label = $el.prev('.score_card_name, .score-card-name').text().trim() || 
-                           $el.siblings('.score_card_name, .score-card-name').text().trim();
-              const value = $el.text().trim();
-              if (label && value) {
-                codingScores[label.toLowerCase().replace(/\s+/g, '_')] = value;
+            const institute = $('.userTxt').first().text().trim() || 
+                             $('.profile_institute').first().text().trim();
+            
+            // Extract avatar image
+            const avatar = $('.profilePicSection img').first().attr('src') || 
+                          $('.profile_img img').first().attr('src');
+            
+            // Extract contest rating and ranking
+            let contestRating = '';
+            let currentRank = '';
+            let maxRating = '';
+            
+            // Look for contest data in script tags or data attributes
+            const scriptTags = $('script').toArray();
+            for (const script of scriptTags) {
+              const scriptContent = $(script).html();
+              if (scriptContent && scriptContent.includes('contestData')) {
+                // Extract contest rating from script content
+                const ratingMatch = scriptContent.match(/current_rating['"]\s*:\s*(\d+)/);
+                if (ratingMatch) {
+                  contestRating = ratingMatch[1];
+                }
+                
+                const rankMatch = scriptContent.match(/current_rank['"]\s*:\s*(\d+)/);
+                if (rankMatch) {
+                  currentRank = rankMatch[1];
+                }
+                
+                const maxRatingMatch = scriptContent.match(/max_rating['"]\s*:\s*(\d+)/);
+                if (maxRatingMatch) {
+                  maxRating = maxRatingMatch[1];
+                }
+                break;
               }
-            });
+            }
             
-            // Extract problem-solving stats with multiple selectors
+            // Extract submissions data
+            let totalSubmissions = 0;
+            let acceptedSubmissions = 0;
+            
+            // Look for submissions data in script tags
+            for (const script of scriptTags) {
+              const scriptContent = $(script).html();
+              if (scriptContent && scriptContent.includes('userSubmissionsInfo')) {
+                // Extract total submissions
+                const totalMatch = scriptContent.match(/total['"]\s*:\s*(\d+)/);
+                if (totalMatch) {
+                  totalSubmissions = parseInt(totalMatch[1]);
+                }
+                
+                // Extract accepted submissions (look for accuracy or accepted count)
+                const accuracyMatch = scriptContent.match(/accuracy['"]\s*:\s*([\d.]+)/);
+                if (accuracyMatch && totalSubmissions > 0) {
+                  const accuracy = parseFloat(accuracyMatch[1]);
+                  acceptedSubmissions = Math.round((accuracy / 100) * totalSubmissions);
+                }
+                break;
+              }
+            }
+            
+            // Extract problem solving stats
             const problemStats = {};
-            $('.problemSolved_details_container, .problem-solved-container, .problems-solved').each((index, element) => {
+            let totalSolved = 0;
+            
+            // Look for problem categories data
+            $('.problemSolved_details_container').each((index, element) => {
               const $el = $(element);
-              const category = $el.find('.problemSolved_heading_container h3, .problem-category, .category-name').text().trim();
-              const solvedCount = $el.find('.solved_problem_container h3, .solved-count, .count').text().trim();
+              const category = $el.find('.problemSolved_heading_container h3').text().trim();
+              const solvedCount = $el.find('.solved_problem_container h3').text().trim();
               if (category && solvedCount) {
-                problemStats[category.toLowerCase().replace(/\s+/g, '_')] = parseInt(solvedCount) || 0;
+                const count = parseInt(solvedCount) || 0;
+                problemStats[category.toLowerCase().replace(/\s+/g, '_')] = count;
+                totalSolved += count;
               }
             });
             
-            // Extract badges/achievements with multiple selectors
+            // If no specific categories found, try to extract total from script
+            if (totalSolved === 0) {
+              for (const script of scriptTags) {
+                const scriptContent = $(script).html();
+                if (scriptContent && scriptContent.includes('problems_solved')) {
+                  const solvedMatch = scriptContent.match(/problems_solved['"]\s*:\s*(\d+)/);
+                  if (solvedMatch) {
+                    totalSolved = parseInt(solvedMatch[1]);
+                    problemStats.total_problems = totalSolved;
+                    break;
+                  }
+                }
+              }
+            }
+            
+            // Extract badges and achievements
             const badges = [];
-            $('.profile_badge_card, .badge-card, .achievement-card, .badge').each((index, element) => {
+            $('.profile_badge_card').each((index, element) => {
               const $el = $(element);
-              const badgeName = $el.find('.badge_card_title, .badge-title, .achievement-title').text().trim();
-              const badgeDesc = $el.find('.badge_card_desc, .badge-desc, .achievement-desc').text().trim();
+              const badgeName = $el.find('.badge_card_title').text().trim();
+              const badgeDesc = $el.find('.badge_card_desc').text().trim();
               if (badgeName) {
-                badges.push({ name: badgeName, description: badgeDesc });
+                badges.push({ 
+                  name: badgeName, 
+                  description: badgeDesc,
+                  type: 'achievement'
+                });
               }
             });
             
-            // If we found any meaningful data, use this URL
-            if (name || Object.keys(codingScores).length > 0 || Object.keys(problemStats).length > 0 || badges.length > 0) {
+            // Extract streak information
+            let currentStreak = '';
+            let maxStreak = '';
+            
+            for (const script of scriptTags) {
+              const scriptContent = $(script).html();
+              if (scriptContent && scriptContent.includes('streak')) {
+                const currentStreakMatch = scriptContent.match(/current_streak['"]\s*:\s*(\d+)/);
+                if (currentStreakMatch) {
+                  currentStreak = currentStreakMatch[1];
+                }
+                
+                const maxStreakMatch = scriptContent.match(/max_streak['"]\s*:\s*(\d+)/);
+                if (maxStreakMatch) {
+                  maxStreak = maxStreakMatch[1];
+                }
+                break;
+              }
+            }
+            
+            // Build comprehensive coding scores object
+            const codingScores = {};
+            if (contestRating) codingScores.contest_rating = contestRating;
+            if (currentRank) codingScores.current_rank = currentRank;
+            if (maxRating) codingScores.max_rating = maxRating;
+            if (currentStreak) codingScores.current_streak = currentStreak;
+            if (maxStreak) codingScores.max_streak = maxStreak;
+            if (totalSubmissions > 0) codingScores.total_submissions = totalSubmissions.toString();
+            if (acceptedSubmissions > 0) codingScores.accepted_submissions = acceptedSubmissions.toString();
+            
+            // Check if we found meaningful data
+            if (name !== username || Object.keys(codingScores).length > 0 || 
+                Object.keys(problemStats).length > 0 || badges.length > 0 || totalSolved > 0) {
+              
               profileData = {
                 profile: {
                   name: name || username,
-                  institute,
-                  ranking,
-                  avatar
+                  institute: institute || '',
+                  ranking: currentRank || '',
+                  avatar: avatar || null
                 },
                 codingScores,
                 problemStats,
                 badges,
-                totalSolved: Object.values(problemStats).reduce((sum, count) => sum + count, 0)
+                totalSolved,
+                submissions: {
+                  total: totalSubmissions,
+                  accepted: acceptedSubmissions,
+                  accuracy: totalSubmissions > 0 ? ((acceptedSubmissions / totalSubmissions) * 100).toFixed(2) : '0'
+                },
+                contest: {
+                  rating: contestRating || '0',
+                  maxRating: maxRating || '0',
+                  rank: currentRank || '0'
+                },
+                streak: {
+                  current: currentStreak || '0',
+                  max: maxStreak || '0'
+                },
+                connected: true
               };
               
-              console.log(`GeeksforGeeks stats found for ${username} at ${profileUrl}`);
+              console.log(`GeeksforGeeks comprehensive stats found for ${username} at ${profileUrl}`);
+              console.log('Extracted data:', JSON.stringify(profileData, null, 2));
               break;
             }
           }
@@ -1007,7 +1126,10 @@ const platformStatsFetching = {
           problemStats: {},
           badges: [],
           totalSolved: 0,
-          connected: true // At least we know the username is valid
+          submissions: { total: 0, accepted: 0, accuracy: '0' },
+          contest: { rating: '0', maxRating: '0', rank: '0' },
+          streak: { current: '0', max: '0' },
+          connected: true
         };
       }
 
@@ -1031,6 +1153,9 @@ const platformStatsFetching = {
         problemStats: {},
         badges: [],
         totalSolved: 0,
+        submissions: { total: 0, accepted: 0, accuracy: '0' },
+        contest: { rating: '0', maxRating: '0', rank: '0' },
+        streak: { current: '0', max: '0' },
         connected: true,
         error: error.message
       };
