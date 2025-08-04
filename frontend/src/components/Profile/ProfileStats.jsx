@@ -15,9 +15,11 @@ import {
   Activity
 } from 'lucide-react';
 import { useTheme } from '../context/ThemeContext';
+import { getThemeColors } from '../../theme/colorTheme';
 
 const ProfileStats = ({ user, detailed = false }) => {
   const { isDarkMode } = useTheme();
+  const themeColors = getThemeColors(isDarkMode);
   
   const calculateStats = () => {
     if (!user?.platformStats) return null;

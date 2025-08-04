@@ -1478,7 +1478,7 @@ const platformStatsFetching = {
         if (cachedData) return cachedData;
       }
 
-      const profileUrl = `https://www.hackerrank.com/profile/${username}`;
+      const profileUrl = `https://www.hackerrank.com/${username}`;
       console.log(`Fetching HackerRank stats for ${username} from ${profileUrl}`);
       
       const response = await axios.get(profileUrl, { 
@@ -1492,203 +1492,209 @@ const platformStatsFetching = {
       
       const $ = cheerio.load(response.data);
       
-      // Extract profile information with multiple selectors
-      let name = '';
-      const nameSelectors = [
-        '.profile-username',
-        '.username',
-        '.profile-name',
-        '.user-name',
-        '.profile-header .name',
-        '.hacker-name',
-        '.profile-title'
-      ];
+      // Extract data from the HR.PREFETCH_DATA JavaScript object
+      let profileData = null;
+      const scriptTags = $('script').toArray();
       
-      for (const selector of nameSelectors) {
-        const element = $(selector);
-        if (element.length > 0 && element.text().trim()) {
-          name = element.text().trim();
-          break;
+      for (const script of scriptTags) {
+        const scriptContent = $(script).html();
+        if (scriptContent && scriptContent.includes('HR.PREFETCH_DATA')) {
+          try {
+            // Extract the PREFETCH_DATA object
+            const dataMatch = scriptContent.match(/HR\.PREFETCH_DATA\s*=\s*({.*?});/s);
+            if (dataMatch) {
+              const prefetchData = JSON.parse(dataMatch[1]);
+              
+              // Extract profile information
+              const profile = prefetchData.profile || {};
+              
+              // Look for badge and skill data in the prefetch data
+              const badges = [];
+              const skills = {};
+              let totalScore = 0;
+              let rank = '';
+              
+              // Extract from contest data if available
+              if (prefetchData.contest) {
+                const contest = prefetchData.contest;
+                // Process contest-related data
+              }
+              
+              // Extract user stats from the page content
+              let problemsSolved = 0;
+              let submissions = 0;
+              let badges_count = 0;
+              
+              // Try to extract stats from various selectors
+              $('.profile-stats .stat-value, .stats-value, .achievement-value').each((index, element) => {
+                const value = parseInt($(element).text().trim()) || 0;
+                const label = $(element).siblings('.stat-label, .stats-label').text().toLowerCase();
+                
+                if (label.includes('problem') || label.includes('challenge')) {
+                  problemsSolved = Math.max(problemsSolved, value);
+                } else if (label.includes('submission')) {
+                  submissions = Math.max(submissions, value);
+                } else if (label.includes('badge')) {
+                  badges_count = Math.max(badges_count, value);
+                }
+              });
+              
+              // Extract badges from page content
+              $('.badge, .achievement-badge, .skill-badge').each((index, element) => {
+                const badgeName = $(element).find('.badge-name, .badge-title').text().trim();
+                const badgeLevel = $(element).find('.badge-level, .badge-rank').text().trim();
+                
+                if (badgeName) {
+                  badges.push({
+                    name: badgeName,
+                    level: badgeLevel || 'Earned',
+                    type: 'skill'
+                  });
+                }
+              });
+              
+              // Extract skills/domains from page
+              $('.skill, .domain-skill, .track-skill').each((index, element) => {
+                const skillName = $(element).find('.skill-name, .domain-name').text().trim();
+                const skillScore = $(element).find('.skill-score, .score').text().trim();
+                
+                if (skillName) {
+                  skills[skillName.toLowerCase().replace(/\s+/g, '_')] = parseInt(skillScore) || 0;
+                  totalScore += parseInt(skillScore) || 0;
+                }
+              });
+              
+              // Extract name and avatar from page if not in prefetch
+              let name = profile.name || username;
+              let avatar = profile.avatar || '';
+              
+              // Try to get name from page
+              const nameSelectors = ['.profile-username', '.username', '.profile-name', '.hacker-name'];
+              for (const selector of nameSelectors) {
+                const element = $(selector);
+                if (element.length > 0 && element.text().trim()) {
+                  name = element.text().trim();
+                  break;
+                }
+              }
+              
+              // Try to get avatar from page
+              const avatarSelectors = ['.profile-avatar img', '.user-avatar img', '.avatar img'];
+              for (const selector of avatarSelectors) {
+                const element = $(selector);
+                if (element.length > 0) {
+                  const src = element.attr('src');
+                  if (src) {
+                    avatar = src.startsWith('/') ? 'https://www.hackerrank.com' + src : src;
+                    break;
+                  }
+                }
+              }
+              
+              profileData = {
+                profile: {
+                  name: name || username,
+                  username: username,
+                  avatar: avatar || null,
+                  country: profile.country || '',
+                  rank: rank || ''
+                },
+                stats: {
+                  problemsSolved: problemsSolved,
+                  totalSubmissions: submissions,
+                  totalScore: totalScore,
+                  badges: badges,
+                  skills: skills,
+                  badgeCount: badges.length || badges_count
+                },
+                achievements: badges,
+                connected: true
+              };
+              
+              console.log(`HackerRank comprehensive stats extracted for ${username}`);
+              break;
+            }
+          } catch (parseError) {
+            console.log('Error parsing HackerRank PREFETCH_DATA:', parseError.message);
+          }
         }
       }
       
-      let avatar = '';
-      const avatarSelectors = [
-        '.profile-avatar img',
-        '.user-avatar img',
-        '.profile-image img',
-        '.avatar img',
-        '.profile-photo img',
-        '.hacker-avatar img'
-      ];
-      
-      for (const selector of avatarSelectors) {
-        const element = $(selector);
-        if (element.length > 0) {
-          avatar = element.attr('src') || '';
-          if (avatar) {
-            // Convert relative URL to absolute
-            if (avatar.startsWith('/')) {
-              avatar = 'https://www.hackerrank.com' + avatar;
-            }
+      // Fallback: Extract basic info from HTML if prefetch data parsing failed
+      if (!profileData) {
+        let name = username;
+        let avatar = '';
+        
+        // Try to extract basic profile info
+        const nameSelectors = ['.profile-username', '.username', '.profile-name', '.hacker-name'];
+        for (const selector of nameSelectors) {
+          const element = $(selector);
+          if (element.length > 0 && element.text().trim()) {
+            name = element.text().trim();
             break;
           }
         }
-      }
-      
-      let country = '';
-      const countrySelectors = [
-        '.profile-country',
-        '.country',
-        '.user-country',
-        '.location',
-        '.profile-location'
-      ];
-      
-      for (const selector of countrySelectors) {
-        const element = $(selector);
-        if (element.length > 0 && element.text().trim()) {
-          country = element.text().trim();
-          break;
-        }
-      }
-      
-      // Extract badges with multiple selectors
-      const badges = [];
-      const badgeSelectors = [
-        '.badge-title',
-        '.badge-name',
-        '.achievement-title',
-        '.badge .title',
-        '.achievements .badge-title',
-        '.profile-badges .badge-title'
-      ];
-      
-      for (const selector of badgeSelectors) {
-        $(selector).each((index, element) => {
-          const badgeName = $(element).text().trim();
-          if (badgeName && !badges.some(b => b.name === badgeName)) {
-            badges.push({ name: badgeName });
-          }
-        });
-        if (badges.length > 0) break;
-      }
-      
-      // Extract skills and scores
-      const skills = [];
-      const skillSelectors = [
-        '.skill-name',
-        '.domain-name',
-        '.track-name',
-        '.skill-title',
-        '.domain-title'
-      ];
-      
-      for (const selector of skillSelectors) {
-        $(selector).each((index, element) => {
-          const skillName = $(element).text().trim();
-          if (skillName && !skills.includes(skillName)) {
-            skills.push(skillName);
-          }
-        });
-        if (skills.length > 0) break;
-      }
-      
-      // Extract ranking information
-      let ranking = '';
-      const rankingSelectors = [
-        '.profile-rank',
-        '.rank',
-        '.global-rank',
-        '.ranking',
-        '.profile-ranking'
-      ];
-      
-      for (const selector of rankingSelectors) {
-        const element = $(selector);
-        if (element.length > 0 && element.text().trim()) {
-          ranking = element.text().trim();
-          break;
-        }
-      }
-      
-      // Extract score information
-      let score = 0;
-      const scoreSelectors = [
-        '.profile-score',
-        '.score',
-        '.total-score',
-        '.points',
-        '.hacker-score'
-      ];
-      
-      for (const selector of scoreSelectors) {
-        const element = $(selector);
-        if (element.length > 0) {
-          const scoreText = element.text().trim().replace(/\D/g, '');
-          if (scoreText) {
-            score = parseInt(scoreText) || 0;
-            if (score > 0) break;
+        
+        const avatarSelectors = ['.profile-avatar img', '.user-avatar img', '.avatar img'];
+        for (const selector of avatarSelectors) {
+          const element = $(selector);
+          if (element.length > 0) {
+            const src = element.attr('src');
+            if (src) {
+              avatar = src.startsWith('/') ? 'https://www.hackerrank.com' + src : src;
+              break;
+            }
           }
         }
+        
+        profileData = {
+          profile: {
+            name: name,
+            username: username,
+            avatar: avatar || null,
+            country: '',
+            rank: ''
+          },
+          stats: {
+            problemsSolved: 0,
+            totalSubmissions: 0,
+            totalScore: 0,
+            badges: [],
+            skills: {},
+            badgeCount: 0
+          },
+          achievements: [],
+          connected: true
+        };
       }
-      
-      // Extract problem solving stats
-      let problemsSolved = 0;
-      const problemSelectors = [
-        '.problems-solved',
-        '.solved-count',
-        '.challenges-solved',
-        '.total-challenges',
-        '.problems-count'
-      ];
-      
-      for (const selector of problemSelectors) {
-        const element = $(selector);
-        if (element.length > 0) {
-          const problemText = element.text().trim().replace(/\D/g, '');
-          if (problemText) {
-            problemsSolved = parseInt(problemText) || 0;
-            if (problemsSolved > 0) break;
-          }
-        }
-      }
-      
-      const result = {
-        platform: 'HackerRank',
-        username,
-        profile: {
-          name: name || username,
-          avatar: avatar || '',
-          country: country || 'N/A'
-        },
-        stats: {
-          score,
-          ranking: ranking || 'N/A',
-          problemsSolved
-        },
-        badges: badges,
-        badgeCount: badges.length,
-        skills: skills,
-        profileUrl,
-        lastUpdated: new Date().toISOString()
-      };
-
-      console.log(`HackerRank stats extracted for ${username}:`, result);
 
       // Cache the result
       if (userId) {
-        await setCachedData(userId, 'hackerrank', result);
+        await setCachedData(userId, 'hackerrank', profileData);
       }
 
-      return result;
+      return profileData;
     } catch (error) {
-      console.error(`Error fetching HackerRank stats for ${username}:`, error.message);
+      console.error('HackerRank stats fetch failed', error);
       return {
-        platform: 'HackerRank',
-        username,
-        error: error.message,
-        lastUpdated: new Date().toISOString()
+        profile: {
+          name: username,
+          username: username,
+          avatar: null,
+          country: '',
+          rank: ''
+        },
+        stats: {
+          problemsSolved: 0,
+          totalSubmissions: 0,
+          totalScore: 0,
+          badges: [],
+          skills: {},
+          badgeCount: 0
+        },
+        achievements: [],
+        connected: true,
+        error: error.message
       };
     }
   },

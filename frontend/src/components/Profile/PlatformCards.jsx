@@ -290,6 +290,76 @@ const PlatformCards = ({ user, onConnectPlatform, detailed = false }) => {
           </div>
         );
 
+      case 'hackerrank':
+        return (
+          <div className="mt-4 space-y-3">
+            <div className="grid grid-cols-2 gap-3">
+              <div className="text-center">
+                <p className={`text-2xl font-bold ${isDarkMode ? 'text-emerald-400' : 'text-emerald-600'}`}>
+                  {stats.stats?.problemsSolved || 0}
+                </p>
+                <p className="text-xs text-gray-600 dark:text-gray-400">Problems Solved</p>
+              </div>
+              <div className="text-center">
+                <p className="text-2xl font-bold text-blue-600 dark:text-blue-400">
+                  {stats.stats?.totalScore || 0}
+                </p>
+                <p className="text-xs text-gray-600 dark:text-gray-400">Total Score</p>
+              </div>
+            </div>
+            
+            {(stats.stats?.totalSubmissions > 0) && (
+              <div className="grid grid-cols-2 gap-3 pt-2 border-t border-gray-200 dark:border-gray-700">
+                <div className="text-center">
+                  <p className={`text-lg font-semibold ${isDarkMode ? 'text-orange-400' : 'text-orange-600'}`}>
+                    {stats.stats.totalSubmissions}
+                  </p>
+                  <p className="text-xs text-gray-600 dark:text-gray-400">Total Submissions</p>
+                </div>
+                <div className="text-center">
+                  <p className={`text-lg font-semibold ${isDarkMode ? 'text-purple-400' : 'text-purple-600'}`}>
+                    {stats.stats?.badgeCount || stats.achievements?.length || 0}
+                  </p>
+                  <p className="text-xs text-gray-600 dark:text-gray-400">Badges</p>
+                </div>
+              </div>
+            )}
+
+            {stats.profile?.country && (
+              <div className="pt-2 border-t border-gray-200 dark:border-gray-700">
+                <div className="text-center">
+                  <p className={`text-sm font-medium ${isDarkMode ? 'text-gray-300' : 'text-gray-700'}`}>
+                    {stats.profile.country}
+                  </p>
+                  <p className="text-xs text-gray-600 dark:text-gray-400">Country</p>
+                </div>
+              </div>
+            )}
+            
+            {stats.achievements && stats.achievements.length > 0 && (
+              <div className="space-y-2 pt-2 border-t border-gray-200 dark:border-gray-700">
+                <p className="text-sm font-medium text-gray-700 dark:text-gray-300">Recent Badges:</p>
+                <div className="flex flex-wrap gap-1">
+                  {stats.achievements.slice(0, 3).map((badge, idx) => (
+                    <span 
+                      key={idx}
+                      className="px-2 py-1 bg-emerald-100 dark:bg-emerald-900/30 text-xs rounded-full text-emerald-700 dark:text-emerald-300"
+                      title={badge.description || badge.level}
+                    >
+                      {badge.name}
+                    </span>
+                  ))}
+                  {stats.achievements.length > 3 && (
+                    <span className="px-2 py-1 bg-gray-100 dark:bg-gray-800 text-xs rounded-full text-gray-600 dark:text-gray-400">
+                      +{stats.achievements.length - 3} more
+                    </span>
+                  )}
+                </div>
+              </div>
+            )}
+          </div>
+        );
+
       default:
         return (
           <div className="mt-4 text-center">
@@ -304,19 +374,29 @@ const PlatformCards = ({ user, onConnectPlatform, detailed = false }) => {
   if (detailed) {
     return (
       <div className={`min-h-screen py-8 px-4 ${
-        isDarkMode ? 'bg-slate-950 text-gray-100' : 'bg-white text-gray-900'
+        isDarkMode ? 'bg-slate-950' : 'bg-white'
       }`}>
         <div className="max-w-7xl mx-auto">
           <div className="flex items-center justify-between mb-8">
-            <h2 className={`text-3xl font-bold ${isDarkMode ? 'text-slate-200' : 'text-gray-800'}`}>
-              <span className="bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">
-                Platform Connections
-              </span>
-            </h2>
+            <div className="flex items-center gap-4">
+              <div className={`p-3 rounded-xl ${
+                isDarkMode ? 'bg-gradient-to-r from-indigo-500/20 to-purple-500/20' : 'bg-gradient-to-r from-indigo-100 to-purple-100'
+              }`}>
+                <Trophy className={`w-8 h-8 ${isDarkMode ? 'text-indigo-400' : 'text-indigo-600'}`} />
+              </div>
+              <div>
+                <h2 className={`text-3xl font-bold ${isDarkMode ? 'text-slate-200' : 'text-gray-800'}`}>
+                  Platform Connections
+                </h2>
+                <p className={`text-sm mt-1 ${isDarkMode ? 'text-slate-400' : 'text-gray-600'}`}>
+                  Connect your coding profiles to track progress
+                </p>
+              </div>
+            </div>
             <div className={`px-4 py-2 rounded-full backdrop-blur-md border ${
               isDarkMode 
-                ? 'bg-slate-900/95 border-slate-700/50 text-slate-400' 
-                : 'bg-white/95 border-gray-200/50 text-gray-500'
+                ? 'bg-slate-900/95 border-slate-700/50 text-slate-300' 
+                : 'bg-white/95 border-gray-200/50 text-gray-600'
             }`}
             style={{
               boxShadow: isDarkMode ? "0 8px 25px rgba(0, 0, 0, 0.3)" : "0 8px 25px rgba(0, 0, 0, 0.1)",
