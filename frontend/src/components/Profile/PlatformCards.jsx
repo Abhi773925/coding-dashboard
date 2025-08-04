@@ -179,8 +179,49 @@ const PlatformCards = ({ user, onConnectPlatform, detailed = false }) => {
               </div>
             </div>
 
-            {stats.languages && (
-              <div className="space-y-2">
+            {/* Additional stats row */}
+            <div className="grid grid-cols-2 gap-3 pt-2 border-t border-gray-200 dark:border-gray-700">
+              <div className="text-center">
+                <p className={`text-lg font-semibold ${isDarkMode ? 'text-blue-400' : 'text-blue-600'}`}>
+                  {stats.stats?.following || 0}
+                </p>
+                <p className="text-xs text-gray-600 dark:text-gray-400">Following</p>
+              </div>
+              <div className="text-center">
+                <p className={`text-lg font-semibold ${isDarkMode ? 'text-green-400' : 'text-green-600'}`}>
+                  {stats.contributions?.streak || 0}
+                </p>
+                <p className="text-xs text-gray-600 dark:text-gray-400">Streak</p>
+              </div>
+            </div>
+
+            {/* Profile information */}
+            {(stats.profile?.company || stats.profile?.location) && (
+              <div className="pt-2 border-t border-gray-200 dark:border-gray-700">
+                <div className="grid grid-cols-2 gap-3">
+                  {stats.profile?.company && (
+                    <div className="text-center">
+                      <p className={`text-sm font-medium ${isDarkMode ? 'text-gray-300' : 'text-gray-700'}`}>
+                        {stats.profile.company}
+                      </p>
+                      <p className="text-xs text-gray-600 dark:text-gray-400">Company</p>
+                    </div>
+                  )}
+                  {stats.profile?.location && (
+                    <div className="text-center">
+                      <p className={`text-sm font-medium ${isDarkMode ? 'text-gray-300' : 'text-gray-700'}`}>
+                        {stats.profile.location}
+                      </p>
+                      <p className="text-xs text-gray-600 dark:text-gray-400">Location</p>
+                    </div>
+                  )}
+                </div>
+              </div>
+            )}
+
+            {/* Top Languages */}
+            {stats.languages && stats.languages.length > 0 && (
+              <div className="space-y-2 pt-2 border-t border-gray-200 dark:border-gray-700">
                 <p className={`text-sm font-medium ${isDarkMode ? 'text-slate-200' : 'text-gray-800'}`}>Top Languages:</p>
                 <div className="flex flex-wrap gap-1">
                   {stats.languages.slice(0, 5).map((lang, idx) => (
@@ -192,8 +233,32 @@ const PlatformCards = ({ user, onConnectPlatform, detailed = false }) => {
                           : 'bg-gray-100/80 text-gray-700'
                       }`}
                     >
-                      {lang.name}
+                      {lang.name} ({lang.count})
                     </span>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {/* Recent repositories */}
+            {stats.repositories && stats.repositories.length > 0 && (
+              <div className="space-y-2 pt-2 border-t border-gray-200 dark:border-gray-700">
+                <p className={`text-sm font-medium ${isDarkMode ? 'text-slate-200' : 'text-gray-800'}`}>Recent Repos:</p>
+                <div className="space-y-1">
+                  {stats.repositories.slice(0, 3).map((repo, idx) => (
+                    <div key={idx} className="flex justify-between items-center">
+                      <span className={`text-xs ${isDarkMode ? 'text-blue-400' : 'text-blue-600'}`}>
+                        {repo.name}
+                      </span>
+                      <div className="flex items-center space-x-2 text-xs text-gray-600 dark:text-gray-400">
+                        {repo.language && (
+                          <span>{repo.language}</span>
+                        )}
+                        {repo.stars > 0 && (
+                          <span>⭐ {repo.stars}</span>
+                        )}
+                      </div>
+                    </div>
                   ))}
                 </div>
               </div>
@@ -207,7 +272,7 @@ const PlatformCards = ({ user, onConnectPlatform, detailed = false }) => {
             <div className="grid grid-cols-2 gap-3">
               <div className="text-center">
                 <p className={`text-2xl font-bold ${isDarkMode ? 'text-emerald-400' : 'text-emerald-600'}`}>
-                  {stats.contest?.rating || stats.codingScores?.contest_rating || 'N/A'}
+                  {stats.contest?.rating || stats.codingScores?.contest_rating || '0'}
                 </p>
                 <p className="text-xs text-gray-600 dark:text-gray-400">Contest Rating</p>
               </div>
@@ -219,6 +284,7 @@ const PlatformCards = ({ user, onConnectPlatform, detailed = false }) => {
               </div>
             </div>
             
+            {/* Submissions and Accuracy Row */}
             {(stats.submissions?.total > 0 || stats.codingScores?.total_submissions) && (
               <div className="grid grid-cols-2 gap-3 pt-2 border-t border-gray-200 dark:border-gray-700">
                 <div className="text-center">
@@ -238,39 +304,52 @@ const PlatformCards = ({ user, onConnectPlatform, detailed = false }) => {
               </div>
             )}
 
-            {(stats.streak?.current || stats.codingScores?.current_streak) && (
-              <div className="grid grid-cols-2 gap-3 pt-2 border-t border-gray-200 dark:border-gray-700">
-                <div className="text-center">
-                  <p className={`text-lg font-semibold ${isDarkMode ? 'text-purple-400' : 'text-purple-600'}`}>
-                    {stats.streak?.current || stats.codingScores?.current_streak || '0'}
-                  </p>
-                  <p className="text-xs text-gray-600 dark:text-gray-400">Current Streak</p>
-                </div>
-                <div className="text-center">
-                  <p className={`text-lg font-semibold ${isDarkMode ? 'text-indigo-400' : 'text-indigo-600'}`}>
-                    {stats.streak?.max || stats.codingScores?.max_streak || '0'}
-                  </p>
-                  <p className="text-xs text-gray-600 dark:text-gray-400">Max Streak</p>
-                </div>
+            {/* Streak and Max Rating Row */}
+            <div className="grid grid-cols-2 gap-3 pt-2 border-t border-gray-200 dark:border-gray-700">
+              <div className="text-center">
+                <p className={`text-lg font-semibold ${isDarkMode ? 'text-purple-400' : 'text-purple-600'}`}>
+                  {stats.streak?.current || stats.codingScores?.current_streak || '0'}
+                </p>
+                <p className="text-xs text-gray-600 dark:text-gray-400">Current Streak</p>
               </div>
-            )}
+              <div className="text-center">
+                <p className={`text-lg font-semibold ${isDarkMode ? 'text-indigo-400' : 'text-indigo-600'}`}>
+                  {stats.contest?.maxRating || stats.codingScores?.max_rating || stats.streak?.max || stats.codingScores?.max_streak || '0'}
+                </p>
+                <p className="text-xs text-gray-600 dark:text-gray-400">Max Rating/Streak</p>
+              </div>
+            </div>
 
-            {stats.profile?.institute && (
+            {/* Institute/Ranking Info */}
+            {(stats.profile?.institute || stats.contest?.rank || stats.codingScores?.current_rank) && (
               <div className="pt-2 border-t border-gray-200 dark:border-gray-700">
-                <div className="text-center">
-                  <p className={`text-sm font-medium ${isDarkMode ? 'text-gray-300' : 'text-gray-700'}`}>
-                    {stats.profile.institute}
-                  </p>
-                  <p className="text-xs text-gray-600 dark:text-gray-400">Institute</p>
+                <div className="grid grid-cols-2 gap-3">
+                  {stats.profile?.institute && (
+                    <div className="text-center">
+                      <p className={`text-sm font-medium ${isDarkMode ? 'text-gray-300' : 'text-gray-700'}`}>
+                        {stats.profile.institute}
+                      </p>
+                      <p className="text-xs text-gray-600 dark:text-gray-400">Institute</p>
+                    </div>
+                  )}
+                  {(stats.contest?.rank || stats.codingScores?.current_rank) && (
+                    <div className="text-center">
+                      <p className={`text-sm font-medium ${isDarkMode ? 'text-yellow-400' : 'text-yellow-600'}`}>
+                        #{stats.contest?.rank || stats.codingScores?.current_rank}
+                      </p>
+                      <p className="text-xs text-gray-600 dark:text-gray-400">Rank</p>
+                    </div>
+                  )}
                 </div>
               </div>
             )}
             
+            {/* Badges Section */}
             {stats.badges && stats.badges.length > 0 && (
               <div className="space-y-2 pt-2 border-t border-gray-200 dark:border-gray-700">
                 <p className="text-sm font-medium text-gray-700 dark:text-gray-300">Recent Badges:</p>
                 <div className="flex flex-wrap gap-1">
-                  {stats.badges.slice(0, 3).map((badge, idx) => (
+                  {stats.badges.slice(0, 4).map((badge, idx) => (
                     <span 
                       key={idx}
                       className="px-2 py-1 bg-green-100 dark:bg-green-900/30 text-xs rounded-full text-green-700 dark:text-green-300"
@@ -279,11 +358,30 @@ const PlatformCards = ({ user, onConnectPlatform, detailed = false }) => {
                       {badge.name}
                     </span>
                   ))}
-                  {stats.badges.length > 3 && (
+                  {stats.badges.length > 4 && (
                     <span className="px-2 py-1 bg-gray-100 dark:bg-gray-800 text-xs rounded-full text-gray-600 dark:text-gray-400">
-                      +{stats.badges.length - 3} more
+                      +{stats.badges.length - 4} more
                     </span>
                   )}
+                </div>
+              </div>
+            )}
+
+            {/* Problem Stats Breakdown */}
+            {stats.problemStats && Object.keys(stats.problemStats).length > 0 && (
+              <div className="space-y-2 pt-2 border-t border-gray-200 dark:border-gray-700">
+                <p className="text-sm font-medium text-gray-700 dark:text-gray-300">Problem Categories:</p>
+                <div className="grid grid-cols-2 gap-2 text-xs">
+                  {Object.entries(stats.problemStats).slice(0, 4).map(([category, count]) => (
+                    <div key={category} className="flex justify-between">
+                      <span className="text-gray-600 dark:text-gray-400 capitalize">
+                        {category.replace(/_/g, ' ')}:
+                      </span>
+                      <span className={`font-semibold ${isDarkMode ? 'text-blue-400' : 'text-blue-600'}`}>
+                        {count}
+                      </span>
+                    </div>
+                  ))}
                 </div>
               </div>
             )}
@@ -296,51 +394,64 @@ const PlatformCards = ({ user, onConnectPlatform, detailed = false }) => {
             <div className="grid grid-cols-2 gap-3">
               <div className="text-center">
                 <p className={`text-2xl font-bold ${isDarkMode ? 'text-emerald-400' : 'text-emerald-600'}`}>
-                  {stats.stats?.problemsSolved || 0}
+                  {stats.stats?.problemsSolved || stats.problemsSolved || 0}
                 </p>
                 <p className="text-xs text-gray-600 dark:text-gray-400">Problems Solved</p>
               </div>
               <div className="text-center">
                 <p className="text-2xl font-bold text-blue-600 dark:text-blue-400">
-                  {stats.stats?.totalScore || 0}
+                  {stats.stats?.totalScore || stats.totalScore || 0}
                 </p>
                 <p className="text-xs text-gray-600 dark:text-gray-400">Total Score</p>
               </div>
             </div>
             
-            {(stats.stats?.totalSubmissions > 0) && (
-              <div className="grid grid-cols-2 gap-3 pt-2 border-t border-gray-200 dark:border-gray-700">
-                <div className="text-center">
-                  <p className={`text-lg font-semibold ${isDarkMode ? 'text-orange-400' : 'text-orange-600'}`}>
-                    {stats.stats.totalSubmissions}
-                  </p>
-                  <p className="text-xs text-gray-600 dark:text-gray-400">Total Submissions</p>
-                </div>
-                <div className="text-center">
-                  <p className={`text-lg font-semibold ${isDarkMode ? 'text-purple-400' : 'text-purple-600'}`}>
-                    {stats.stats?.badgeCount || stats.achievements?.length || 0}
-                  </p>
-                  <p className="text-xs text-gray-600 dark:text-gray-400">Badges</p>
-                </div>
+            {/* Submissions and Badge Count */}
+            <div className="grid grid-cols-2 gap-3 pt-2 border-t border-gray-200 dark:border-gray-700">
+              <div className="text-center">
+                <p className={`text-lg font-semibold ${isDarkMode ? 'text-orange-400' : 'text-orange-600'}`}>
+                  {stats.stats?.totalSubmissions || stats.totalSubmissions || 0}
+                </p>
+                <p className="text-xs text-gray-600 dark:text-gray-400">Total Submissions</p>
               </div>
-            )}
+              <div className="text-center">
+                <p className={`text-lg font-semibold ${isDarkMode ? 'text-purple-400' : 'text-purple-600'}`}>
+                  {stats.stats?.badgeCount || stats.badgeCount || stats.achievements?.length || 0}
+                </p>
+                <p className="text-xs text-gray-600 dark:text-gray-400">Badges</p>
+              </div>
+            </div>
 
-            {stats.profile?.country && (
+            {/* Country and Rank */}
+            {(stats.profile?.country || stats.profile?.rank) && (
               <div className="pt-2 border-t border-gray-200 dark:border-gray-700">
-                <div className="text-center">
-                  <p className={`text-sm font-medium ${isDarkMode ? 'text-gray-300' : 'text-gray-700'}`}>
-                    {stats.profile.country}
-                  </p>
-                  <p className="text-xs text-gray-600 dark:text-gray-400">Country</p>
+                <div className="grid grid-cols-2 gap-3">
+                  {stats.profile?.country && (
+                    <div className="text-center">
+                      <p className={`text-sm font-medium ${isDarkMode ? 'text-gray-300' : 'text-gray-700'}`}>
+                        {stats.profile.country}
+                      </p>
+                      <p className="text-xs text-gray-600 dark:text-gray-400">Country</p>
+                    </div>
+                  )}
+                  {stats.profile?.rank && (
+                    <div className="text-center">
+                      <p className={`text-sm font-medium ${isDarkMode ? 'text-yellow-400' : 'text-yellow-600'}`}>
+                        {stats.profile.rank}
+                      </p>
+                      <p className="text-xs text-gray-600 dark:text-gray-400">Rank</p>
+                    </div>
+                  )}
                 </div>
               </div>
             )}
             
-            {stats.achievements && stats.achievements.length > 0 && (
+            {/* Achievements/Badges */}
+            {((stats.achievements && stats.achievements.length > 0) || (stats.stats?.badges && stats.stats.badges.length > 0)) && (
               <div className="space-y-2 pt-2 border-t border-gray-200 dark:border-gray-700">
                 <p className="text-sm font-medium text-gray-700 dark:text-gray-300">Recent Badges:</p>
                 <div className="flex flex-wrap gap-1">
-                  {stats.achievements.slice(0, 3).map((badge, idx) => (
+                  {(stats.achievements || stats.stats?.badges || []).slice(0, 4).map((badge, idx) => (
                     <span 
                       key={idx}
                       className="px-2 py-1 bg-emerald-100 dark:bg-emerald-900/30 text-xs rounded-full text-emerald-700 dark:text-emerald-300"
@@ -349,12 +460,40 @@ const PlatformCards = ({ user, onConnectPlatform, detailed = false }) => {
                       {badge.name}
                     </span>
                   ))}
-                  {stats.achievements.length > 3 && (
+                  {(stats.achievements || stats.stats?.badges || []).length > 4 && (
                     <span className="px-2 py-1 bg-gray-100 dark:bg-gray-800 text-xs rounded-full text-gray-600 dark:text-gray-400">
-                      +{stats.achievements.length - 3} more
+                      +{(stats.achievements || stats.stats?.badges || []).length - 4} more
                     </span>
                   )}
                 </div>
+              </div>
+            )}
+
+            {/* Skills */}
+            {(stats.stats?.skills && Object.keys(stats.stats.skills).length > 0) && (
+              <div className="space-y-2 pt-2 border-t border-gray-200 dark:border-gray-700">
+                <p className="text-sm font-medium text-gray-700 dark:text-gray-300">Top Skills:</p>
+                <div className="grid grid-cols-2 gap-2 text-xs">
+                  {Object.entries(stats.stats.skills).slice(0, 4).map(([skill, score]) => (
+                    <div key={skill} className="flex justify-between">
+                      <span className="text-gray-600 dark:text-gray-400 capitalize">
+                        {skill.replace(/_/g, ' ')}:
+                      </span>
+                      <span className={`font-semibold ${isDarkMode ? 'text-blue-400' : 'text-blue-600'}`}>
+                        {score}
+                      </span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {/* Connection Status */}
+            {!stats.connected && stats.error && (
+              <div className="pt-2 border-t border-red-200 dark:border-red-700">
+                <p className="text-xs text-red-600 dark:text-red-400 text-center">
+                  Connection issue: Please check username
+                </p>
               </div>
             )}
           </div>
