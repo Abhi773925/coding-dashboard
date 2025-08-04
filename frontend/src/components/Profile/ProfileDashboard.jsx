@@ -154,7 +154,7 @@ const ProfileDashboard = () => {
   // Show login prompt if user is not logged in
   if (!isLoggedIn) {
     return (
-      <div className={`min-h-screen ${schemes.pageBackground(isDarkMode)} flex items-center justify-center relative overflow-hidden`}>
+      <div className={`min-h-screen ${isDarkMode ? 'bg-slate-950 text-gray-100' : 'bg-white text-gray-900'} flex items-center justify-center relative overflow-hidden`}>
         {/* Subtle background effect without animations */}
         <div className="absolute inset-0">
           <div 
@@ -173,19 +173,30 @@ const ProfileDashboard = () => {
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.5 }}
         >
-          <div className={`${schemes.cardBackground(isDarkMode)} rounded-2xl shadow-xl p-8 text-center ${colors.effects.backdrop} border ${isDarkMode ? 'border-slate-700/50' : 'border-slate-200/50'}`}>
+          <div className={`rounded-2xl shadow-2xl p-8 text-center backdrop-blur-md border ${
+            isDarkMode 
+              ? 'bg-slate-900/95 border-slate-700/50' 
+              : 'bg-white/95 border-gray-200/50'
+          }`}
+          style={{
+            boxShadow: isDarkMode ? "0 25px 50px rgba(0, 0, 0, 0.5)" : "0 25px 50px rgba(0, 0, 0, 0.15)",
+          }}>
             <div className={`w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-6 bg-gradient-to-r ${isDarkMode ? 'from-indigo-500 to-purple-600' : 'from-indigo-600 to-purple-700'}`}>
               <LogIn className="w-8 h-8 text-white" />
             </div>
-            <h2 className={`text-2xl font-bold ${colors.text.primary} mb-4`}>
+            <h2 className={`text-2xl font-bold mb-4 ${isDarkMode ? 'text-slate-200' : 'text-gray-800'}`}>
               Access Your Profile
             </h2>
-            <p className={`${colors.text.secondary} mb-6`}>
+            <p className={`mb-6 ${isDarkMode ? 'text-slate-400' : 'text-gray-500'}`}>
               Please log in to view and manage your multi-platform coding profile.
             </p>
             <button
               onClick={login}
-              className={`w-full px-6 py-3 rounded-lg font-medium transition-all duration-300 transform hover:scale-105 ${schemes.primaryButton(isDarkMode)}`}
+              className={`w-full px-6 py-3 rounded-lg font-medium transition-all duration-300 transform hover:scale-105 ${
+                isDarkMode
+                  ? 'bg-gradient-to-r from-indigo-600 to-purple-600 text-white hover:from-indigo-500 hover:to-purple-500'
+                  : 'bg-gradient-to-r from-indigo-600 to-purple-600 text-white hover:from-indigo-700 hover:to-purple-700'
+              }`}
               style={{
                 boxShadow: isDarkMode 
                   ? "0 8px 25px rgba(139, 92, 246, 0.3)" 
@@ -202,7 +213,7 @@ const ProfileDashboard = () => {
 
   if (loading) {
     return (
-      <div className={`min-h-screen ${schemes.pageBackground(isDarkMode)} flex items-center justify-center relative overflow-hidden`}>
+      <div className={`min-h-screen ${isDarkMode ? 'bg-slate-950 text-gray-100' : 'bg-white text-gray-900'} flex items-center justify-center relative overflow-hidden`}>
         {/* Subtle background effect without animations */}
         <div className="absolute inset-0">
           <div 
@@ -225,7 +236,7 @@ const ProfileDashboard = () => {
             <div className={`w-16 h-16 border-4 border-dashed rounded-full animate-spin ${isDarkMode ? 'border-indigo-400' : 'border-indigo-600'}`}></div>
             <div className={`absolute inset-0 w-16 h-16 border-4 rounded-full animate-pulse ${isDarkMode ? 'border-indigo-300/50' : 'border-indigo-300/50'}`}></div>
           </div>
-          <p className={`text-lg font-medium ${colors.text.primary}`}>Loading your profile...</p>
+          <p className={`text-lg font-medium ${isDarkMode ? 'text-slate-200' : 'text-gray-800'}`}>Loading your profile...</p>
         </motion.div>
       </div>
     );
@@ -281,8 +292,8 @@ const ProfileDashboard = () => {
   }
 
   return (
-    <div className={`min-h-screen ${schemes.pageBackground(isDarkMode)} relative overflow-hidden`}>
-      {/* Subtle background effect matching hero section - no animations */}
+    <div className={`min-h-screen relative overflow-hidden ${isDarkMode ? 'bg-slate-950 text-gray-100' : 'bg-white text-gray-900'}`}>
+      {/* Subtle background effect matching Navigation - no animations */}
       <div className="absolute inset-0">
         <div 
           className={`absolute inset-0 opacity-30`}
@@ -306,11 +317,14 @@ const ProfileDashboard = () => {
         {/* Show welcome message for new users */}
         {profileData?.isNewUser && (
           <motion.div
-            className={`mt-6 rounded-xl p-6 border transition-all duration-300 ${
+            className={`mt-6 rounded-xl p-6 border transition-all duration-300 backdrop-blur-md ${
               isDarkMode 
-                ? 'bg-slate-800/60 border-indigo-500/30 shadow-lg shadow-indigo-500/10' 
-                : 'bg-white/80 border-indigo-200/50 shadow-lg shadow-indigo-500/10'
-            } ${colors.effects.backdrop}`}
+                ? 'bg-slate-900/95 border-slate-700/50' 
+                : 'bg-white/95 border-gray-200/50'
+            }`}
+            style={{
+              boxShadow: isDarkMode ? "0 8px 25px rgba(139, 92, 246, 0.3)" : "0 8px 25px rgba(139, 92, 246, 0.2)",
+            }}
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
@@ -320,15 +334,19 @@ const ProfileDashboard = () => {
                 <Star className="w-6 h-6 text-white" />
               </div>
               <div>
-                <h3 className={`text-lg font-semibold ${colors.text.primary} mb-2`}>
+                <h3 className={`text-lg font-semibold mb-2 ${isDarkMode ? 'text-slate-200' : 'text-gray-800'}`}>
                   Welcome to your coding profile! 🎉
                 </h3>
-                <p className={`${colors.text.secondary} mb-4`}>
+                <p className={`mb-4 ${isDarkMode ? 'text-slate-400' : 'text-gray-500'}`}>
                   Connect your coding platforms to see comprehensive stats, track your progress, and showcase your achievements.
                 </p>
                 <button
                   onClick={() => setSelectedTab('platforms')}
-                  className={`inline-flex items-center space-x-2 px-4 py-2 rounded-lg font-medium transition-all duration-300 transform hover:scale-105 ${schemes.primaryButton(isDarkMode)}`}
+                  className={`inline-flex items-center space-x-2 px-4 py-2 rounded-lg font-medium transition-all duration-300 transform hover:scale-105 ${
+                    isDarkMode
+                      ? 'bg-gradient-to-r from-indigo-600 to-purple-600 text-white hover:from-indigo-500 hover:to-purple-500'
+                      : 'bg-gradient-to-r from-indigo-600 to-purple-600 text-white hover:from-indigo-700 hover:to-purple-700'
+                  }`}
                   style={{
                     boxShadow: isDarkMode 
                       ? "0 4px 15px rgba(139, 92, 246, 0.3)" 
@@ -345,7 +363,7 @@ const ProfileDashboard = () => {
 
         {/* Navigation Tabs */}
         <div className="mt-8">
-          <div className={`border-b ${isDarkMode ? 'border-slate-700/50' : 'border-slate-200/50'}`}>
+          <div className={`border-b ${isDarkMode ? 'border-slate-700/50' : 'border-gray-200/50'}`}>
             <nav className="-mb-px flex space-x-8 overflow-x-auto">
               {tabs.map((tab) => {
                 const Icon = tab.icon;
@@ -356,7 +374,7 @@ const ProfileDashboard = () => {
                     className={`flex items-center space-x-2 py-4 px-1 border-b-2 font-medium text-sm whitespace-nowrap transition-all duration-300 transform hover:scale-105 ${
                       selectedTab === tab.id
                         ? `border-indigo-500 ${isDarkMode ? 'text-indigo-400' : 'text-indigo-600'} shadow-md`
-                        : `border-transparent ${colors.text.secondary} ${isDarkMode ? 'hover:text-indigo-400 hover:border-indigo-400/50' : 'hover:text-indigo-600 hover:border-indigo-300/50'}`
+                        : `border-transparent ${isDarkMode ? 'text-slate-400 hover:text-indigo-400 hover:border-slate-600/50' : 'text-gray-500 hover:text-indigo-600 hover:border-gray-300/50'}`
                     }`}
                   >
                     <Icon className="w-5 h-5" />

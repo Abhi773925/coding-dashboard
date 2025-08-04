@@ -111,37 +111,37 @@ const PlatformCards = ({ user, onConnectPlatform, detailed = false }) => {
                 <p className={`text-2xl font-bold ${isDarkMode ? 'text-orange-400' : 'text-orange-600'}`}>
                   {stats.problemStats?.totalSolved || 0}
                 </p>
-                <p className={`text-xs ${colors.text.secondary}`}>Problems Solved</p>
+                <p className={`text-xs ${isDarkMode ? 'text-slate-400' : 'text-gray-500'}`}>Problems Solved</p>
               </div>
               <div className="text-center">
                 <p className={`text-2xl font-bold ${isDarkMode ? 'text-blue-400' : 'text-blue-600'}`}>
                   {stats.contestStats?.rating || 'N/A'}
                 </p>
-                <p className={`text-xs ${colors.text.secondary}`}>Contest Rating</p>
+                <p className={`text-xs ${isDarkMode ? 'text-slate-400' : 'text-gray-500'}`}>Contest Rating</p>
               </div>
               <div className="text-center">
                 <p className={`text-2xl font-bold ${isDarkMode ? 'text-purple-400' : 'text-purple-600'}`}>
                   {stats.badges?.length || 0}
                 </p>
-                <p className={`text-xs ${colors.text.secondary}`}>Badges</p>
+                <p className={`text-xs ${isDarkMode ? 'text-slate-400' : 'text-gray-500'}`}>Badges</p>
               </div>
             </div>
             
             {stats.problemStats?.difficulty && (
               <div className="space-y-2">
-                <p className={`text-sm font-medium ${colors.text.primary}`}>Difficulty Breakdown:</p>
+                <p className={`text-sm font-medium ${isDarkMode ? 'text-slate-200' : 'text-gray-800'}`}>Difficulty Breakdown:</p>
                 <div className="grid grid-cols-3 gap-2 text-xs">
                   <div className="flex justify-between">
                     <span className={isDarkMode ? 'text-emerald-400' : 'text-emerald-600'}>Easy:</span>
-                    <span className={`font-medium ${colors.text.primary}`}>{stats.problemStats.difficulty.easy || 0}</span>
+                    <span className={`font-medium ${isDarkMode ? 'text-slate-200' : 'text-gray-800'}`}>{stats.problemStats.difficulty.easy || 0}</span>
                   </div>
                   <div className="flex justify-between">
                     <span className={isDarkMode ? 'text-yellow-400' : 'text-yellow-600'}>Medium:</span>
-                    <span className={`font-medium ${colors.text.primary}`}>{stats.problemStats.difficulty.medium || 0}</span>
+                    <span className={`font-medium ${isDarkMode ? 'text-slate-200' : 'text-gray-800'}`}>{stats.problemStats.difficulty.medium || 0}</span>
                   </div>
                   <div className="flex justify-between">
                     <span className={isDarkMode ? 'text-red-400' : 'text-red-600'}>Hard:</span>
-                    <span className={`font-medium ${colors.text.primary}`}>{stats.problemStats.difficulty.hard || 0}</span>
+                    <span className={`font-medium ${isDarkMode ? 'text-slate-200' : 'text-gray-800'}`}>{stats.problemStats.difficulty.hard || 0}</span>
                   </div>
                 </div>
               </div>
@@ -157,36 +157,40 @@ const PlatformCards = ({ user, onConnectPlatform, detailed = false }) => {
                 <p className={`text-2xl font-bold ${isDarkMode ? 'text-blue-400' : 'text-blue-600'}`}>
                   {stats.stats?.publicRepos || 0}
                 </p>
-                <p className={`text-xs ${colors.text.secondary}`}>Repositories</p>
+                <p className={`text-xs ${isDarkMode ? 'text-slate-400' : 'text-gray-500'}`}>Repositories</p>
               </div>
               <div className="text-center">
                 <p className={`text-2xl font-bold ${isDarkMode ? 'text-yellow-400' : 'text-yellow-600'}`}>
                   {stats.stats?.totalStars || 0}
                 </p>
-                <p className={`text-xs ${colors.text.secondary}`}>Total Stars</p>
+                <p className={`text-xs ${isDarkMode ? 'text-slate-400' : 'text-gray-500'}`}>Total Stars</p>
               </div>
               <div className="text-center">
                 <p className={`text-2xl font-bold ${isDarkMode ? 'text-emerald-400' : 'text-emerald-600'}`}>
                   {stats.stats?.followers || 0}
                 </p>
-                <p className={`text-xs ${colors.text.secondary}`}>Followers</p>
+                <p className={`text-xs ${isDarkMode ? 'text-slate-400' : 'text-gray-500'}`}>Followers</p>
               </div>
               <div className="text-center">
                 <p className={`text-2xl font-bold ${isDarkMode ? 'text-purple-400' : 'text-purple-600'}`}>
                   {stats.contributions?.total || 0}
                 </p>
-                <p className={`text-xs ${colors.text.secondary}`}>Contributions</p>
+                <p className={`text-xs ${isDarkMode ? 'text-slate-400' : 'text-gray-500'}`}>Contributions</p>
               </div>
             </div>
 
             {stats.languages && (
               <div className="space-y-2">
-                <p className={`text-sm font-medium ${colors.text.primary}`}>Top Languages:</p>
+                <p className={`text-sm font-medium ${isDarkMode ? 'text-slate-200' : 'text-gray-800'}`}>Top Languages:</p>
                 <div className="flex flex-wrap gap-1">
                   {stats.languages.slice(0, 5).map((lang, idx) => (
                     <span 
                       key={idx}
-                      className={`px-2 py-1 ${isDarkMode ? 'bg-slate-700/50' : 'bg-slate-100'} text-xs rounded-full ${colors.text.secondary}`}
+                      className={`px-2 py-1 text-xs rounded-full ${
+                        isDarkMode 
+                          ? 'bg-slate-800/60 text-slate-300' 
+                          : 'bg-gray-100/80 text-gray-700'
+                      }`}
                     >
                       {lang.name}
                     </span>
@@ -246,16 +250,25 @@ const PlatformCards = ({ user, onConnectPlatform, detailed = false }) => {
 
   if (detailed) {
     return (
-      <div className={`${schemes.pageBackground(isDarkMode)} min-h-screen py-8 px-4`}>
+      <div className={`min-h-screen py-8 px-4 ${
+        isDarkMode ? 'bg-slate-950 text-gray-100' : 'bg-white text-gray-900'
+      }`}>
         <div className="max-w-7xl mx-auto">
           <div className="flex items-center justify-between mb-8">
-            <h2 className={`text-3xl font-bold ${colors.text.primary}`}>
-              <span className={`${schemes.brandGradient(isDarkMode)} bg-clip-text text-transparent`}>
+            <h2 className={`text-3xl font-bold ${isDarkMode ? 'text-slate-200' : 'text-gray-800'}`}>
+              <span className="bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">
                 Platform Connections
               </span>
             </h2>
-            <div className={`px-4 py-2 rounded-full ${isDarkMode ? 'bg-slate-800/60' : 'bg-white/80'} ${colors.effects.backdrop} border ${isDarkMode ? 'border-slate-700/50' : 'border-slate-200/50'}`}>
-              <span className={`text-sm font-medium ${colors.text.secondary}`}>
+            <div className={`px-4 py-2 rounded-full backdrop-blur-md border ${
+              isDarkMode 
+                ? 'bg-slate-900/95 border-slate-700/50 text-slate-400' 
+                : 'bg-white/95 border-gray-200/50 text-gray-500'
+            }`}
+            style={{
+              boxShadow: isDarkMode ? "0 8px 25px rgba(0, 0, 0, 0.3)" : "0 8px 25px rgba(0, 0, 0, 0.1)",
+            }}>
+              <span className="text-sm font-medium">
                 {Object.keys(user?.platformStats || {}).length} of {platforms.length} connected
               </span>
             </div>
@@ -269,11 +282,14 @@ const PlatformCards = ({ user, onConnectPlatform, detailed = false }) => {
               return (
                 <motion.div
                   key={platform.id}
-                  className={`${schemes.cardBackground(isDarkMode)} rounded-xl p-6 ${colors.effects.backdrop} border transition-all duration-300 hover:scale-[1.02] shadow-lg ${
+                  className={`rounded-xl p-6 backdrop-blur-md border transition-all duration-300 hover:scale-[1.02] ${
                     isDarkMode 
-                      ? 'hover:shadow-xl hover:shadow-purple-500/10 border-slate-700/50' 
-                      : 'hover:shadow-xl hover:shadow-purple-500/10 border-slate-200/50'
+                      ? 'bg-slate-900/95 border-slate-700/50 hover:bg-slate-800/60' 
+                      : 'bg-white/95 border-gray-200/50 hover:bg-white'
                   }`}
+                  style={{
+                    boxShadow: isDarkMode ? "0 25px 50px rgba(0, 0, 0, 0.5)" : "0 25px 50px rgba(0, 0, 0, 0.15)",
+                  }}
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   whileHover={{ y: -5 }}
@@ -285,8 +301,8 @@ const PlatformCards = ({ user, onConnectPlatform, detailed = false }) => {
                         <Icon className="w-6 h-6 text-white" />
                       </div>
                       <div>
-                        <h3 className={`font-semibold ${colors.text.primary}`}>{platform.name}</h3>
-                        <p className={`text-xs ${colors.text.secondary}`}>{platform.description}</p>
+                        <h3 className={`font-semibold ${isDarkMode ? 'text-slate-200' : 'text-gray-800'}`}>{platform.name}</h3>
+                        <p className={`text-xs ${isDarkMode ? 'text-slate-400' : 'text-gray-500'}`}>{platform.description}</p>
                       </div>
                     </div>
                     
@@ -296,7 +312,7 @@ const PlatformCards = ({ user, onConnectPlatform, detailed = false }) => {
                         <span className={`text-xs font-medium ${isDarkMode ? 'text-emerald-400' : 'text-emerald-600'}`}>Connected</span>
                       </div>
                     ) : (
-                      <AlertCircle className={`w-5 h-5 ${colors.text.secondary}`} />
+                      <AlertCircle className={`w-5 h-5 ${isDarkMode ? 'text-slate-400' : 'text-gray-400'}`} />
                     )}
                   </div>
 
@@ -310,7 +326,11 @@ const PlatformCards = ({ user, onConnectPlatform, detailed = false }) => {
                           href={`${platform.url}/${user.platformStats[platform.id].username}`}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className={`${isDarkMode ? 'text-indigo-400 hover:text-indigo-300' : 'text-indigo-600 hover:text-indigo-700'} transition-colors duration-300`}
+                          className={`transition-colors duration-300 ${
+                            isDarkMode 
+                              ? 'text-indigo-400 hover:text-indigo-300' 
+                              : 'text-indigo-600 hover:text-indigo-700'
+                          }`}
                         >
                           <ExternalLink className="w-4 h-4" />
                         </a>
@@ -321,7 +341,11 @@ const PlatformCards = ({ user, onConnectPlatform, detailed = false }) => {
                     <div className="text-center py-6">
                       <button
                         onClick={() => onConnectPlatform(platform.id)}
-                        className={`group flex items-center justify-center space-x-2 w-full px-6 py-3 rounded-lg transition-all duration-300 transform hover:scale-105 ${schemes.primaryButton(isDarkMode)}`}
+                        className={`group flex items-center justify-center space-x-2 w-full px-6 py-3 rounded-lg transition-all duration-300 transform hover:scale-105 ${
+                          isDarkMode
+                            ? 'bg-gradient-to-r from-indigo-600 to-purple-600 text-white hover:from-indigo-500 hover:to-purple-500'
+                            : 'bg-gradient-to-r from-indigo-600 to-purple-600 text-white hover:from-indigo-700 hover:to-purple-700'
+                        }`}
                         style={{
                           boxShadow: isDarkMode 
                             ? "0 8px 25px rgba(139, 92, 246, 0.3)" 
@@ -343,10 +367,21 @@ const PlatformCards = ({ user, onConnectPlatform, detailed = false }) => {
   }
 
   return (
-    <div className={`${schemes.cardBackground(isDarkMode)} rounded-xl p-6 ${colors.effects.backdrop} border shadow-lg transition-all duration-700`}>
+    <div className={`${
+      isDarkMode 
+        ? 'bg-slate-900/95 border-slate-700/50' 
+        : 'bg-white/95 border-gray-200/50'
+    } rounded-xl p-6 backdrop-blur-md border shadow-2xl transition-all duration-300`}
+    style={{
+      boxShadow: isDarkMode ? "0 25px 50px rgba(0, 0, 0, 0.5)" : "0 25px 50px rgba(0, 0, 0, 0.15)",
+    }}>
       <div className="flex items-center justify-between mb-6">
-        <h3 className={`text-lg font-semibold ${colors.text.primary}`}>Platform Connections</h3>
-        <span className={`text-sm ${colors.text.secondary} px-3 py-1 rounded-full ${isDarkMode ? 'bg-slate-700/50' : 'bg-slate-100'}`}>
+        <h3 className={`text-lg font-semibold ${isDarkMode ? 'text-slate-200' : 'text-gray-800'}`}>Platform Connections</h3>
+        <span className={`text-sm px-3 py-1 rounded-full ${
+          isDarkMode 
+            ? 'bg-slate-800/60 text-slate-400 border border-slate-700/50' 
+            : 'bg-gray-100/80 text-gray-500 border border-gray-200/50'
+        }`}>
           {Object.keys(user?.platformStats || {}).length}/{platforms.length} Connected
         </span>
       </div>
@@ -361,9 +396,12 @@ const PlatformCards = ({ user, onConnectPlatform, detailed = false }) => {
               key={platform.id}
               className={`group flex items-center justify-between p-4 rounded-lg ${platform.bgGradient} border transition-all duration-300 hover:scale-[1.02] ${
                 isDarkMode 
-                  ? 'border-slate-700/50 hover:border-indigo-500/30 hover:shadow-lg hover:shadow-indigo-500/10' 
-                  : 'border-slate-200/50 hover:border-indigo-300/50 hover:shadow-lg hover:shadow-indigo-500/10'
+                  ? 'border-slate-700/50 hover:bg-slate-800/50 hover:border-slate-600/50' 
+                  : 'border-gray-200/50 hover:bg-white/80 hover:border-gray-300/50'
               }`}
+              style={{
+                boxShadow: isDarkMode ? "0 4px 15px rgba(0, 0, 0, 0.2)" : "0 4px 15px rgba(0, 0, 0, 0.1)",
+              }}
               whileHover={{ x: 5 }}
               transition={{ duration: 0.2 }}
             >
@@ -372,13 +410,13 @@ const PlatformCards = ({ user, onConnectPlatform, detailed = false }) => {
                   <Icon className="w-5 h-5 text-white" />
                 </div>
                 <div>
-                  <p className={`font-semibold ${colors.text.primary} transition-colors duration-300`}>{platform.name}</p>
+                  <p className={`font-semibold ${isDarkMode ? 'text-slate-200' : 'text-gray-800'} transition-colors duration-300`}>{platform.name}</p>
                   {connected ? (
-                    <p className={`text-sm ${colors.text.secondary}`}>
+                    <p className={`text-sm ${isDarkMode ? 'text-slate-400' : 'text-gray-500'}`}>
                       @{user.platformStats[platform.id].username}
                     </p>
                   ) : (
-                    <p className={`text-xs ${colors.text.secondary}`}>
+                    <p className={`text-xs ${isDarkMode ? 'text-slate-400' : 'text-gray-500'}`}>
                       {platform.description}
                     </p>
                   )}
@@ -393,7 +431,11 @@ const PlatformCards = ({ user, onConnectPlatform, detailed = false }) => {
               ) : (
                 <button
                   onClick={() => onConnectPlatform(platform.id)}
-                  className={`group flex items-center space-x-2 px-4 py-2 rounded-lg transition-all duration-300 transform hover:scale-105 ${schemes.primaryButton(isDarkMode)}`}
+                  className={`group flex items-center space-x-2 px-4 py-2 rounded-lg transition-all duration-300 transform hover:scale-105 ${
+                    isDarkMode
+                      ? 'bg-gradient-to-r from-indigo-600 to-purple-600 text-white hover:from-indigo-500 hover:to-purple-500'
+                      : 'bg-gradient-to-r from-indigo-600 to-purple-600 text-white hover:from-indigo-700 hover:to-purple-700'
+                  }`}
                   style={{
                     boxShadow: isDarkMode 
                       ? "0 4px 15px rgba(139, 92, 246, 0.3)" 
@@ -410,12 +452,14 @@ const PlatformCards = ({ user, onConnectPlatform, detailed = false }) => {
       </div>
 
       <button
-        onClick={() => {/* Navigate to detailed platforms view */}}
-        className={`w-full mt-6 px-4 py-3 text-sm font-medium rounded-lg transition-all duration-300 transform hover:scale-[1.02] ${
+        className={`w-full mt-6 px-4 py-3 text-sm font-medium rounded-lg transition-all duration-300 transform hover:scale-[1.02] backdrop-blur-sm ${
           isDarkMode 
-            ? 'text-indigo-400 hover:bg-indigo-500/10 border border-indigo-500/30 hover:border-indigo-400/50' 
-            : 'text-indigo-600 hover:bg-indigo-50 border border-indigo-200/50 hover:border-indigo-300/50'
-        } ${colors.effects.backdrop}`}
+            ? 'text-indigo-400 hover:bg-slate-800/60 border border-slate-700/50 hover:border-slate-600/50' 
+            : 'text-indigo-600 hover:bg-white/80 border border-gray-200/50 hover:border-gray-300/50'
+        }`}
+        style={{
+          boxShadow: isDarkMode ? "0 4px 15px rgba(99, 102, 241, 0.1)" : "0 4px 15px rgba(99, 102, 241, 0.1)",
+        }}
       >
         <div className="flex items-center justify-center space-x-2">
           <span>View All Platforms</span>
