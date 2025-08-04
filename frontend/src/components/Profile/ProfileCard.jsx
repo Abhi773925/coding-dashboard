@@ -447,72 +447,81 @@ const ProfileCard = ({ user, onUpdate, profileMode, setProfileMode }) => {
           </div>
         )}
         
-        {(user?.location || editData.location) && (
+        {user?.location && !isEditing && (
           <div className="flex items-center space-x-3">
             <MapPin className={`w-4 h-4 ${isDarkMode ? 'text-slate-400' : 'text-gray-500'}`} />
             <span className={`text-sm ${isDarkMode ? 'text-slate-300' : 'text-gray-700'}`}>
-              {user?.location || editData.location}
+              {user.location}
             </span>
           </div>
         )}
 
-        {(user?.website || editData.website) && (
+        {user?.website && !isEditing && (
           <div className="flex items-center space-x-3">
             <ExternalLink className={`w-4 h-4 ${isDarkMode ? 'text-slate-400' : 'text-gray-500'}`} />
             <a 
-              href={user?.website || editData.website} 
+              href={user.website} 
               target="_blank" 
               rel="noopener noreferrer"
               className={`text-sm hover:underline ${isDarkMode ? 'text-blue-400' : 'text-blue-600'}`}
             >
-              {user?.website || editData.website}
-            </a>
-          </div>
-        )}
-
-        {/* Social Media Links */}
-        {user?.github && !isEditing && (
-          <div className="flex items-center space-x-3">
-            <Github className={`w-4 h-4 ${isDarkMode ? 'text-slate-400' : 'text-gray-500'}`} />
-            <a 
-              href={`https://github.com/${user.github}`} 
-              target="_blank" 
-              rel="noopener noreferrer"
-              className={`text-sm hover:underline ${isDarkMode ? 'text-blue-400' : 'text-blue-600'}`}
-            >
-              @{user.github}
-            </a>
-          </div>
-        )}
-
-        {user?.linkedin && !isEditing && (
-          <div className="flex items-center space-x-3">
-            <Linkedin className={`w-4 h-4 ${isDarkMode ? 'text-slate-400' : 'text-gray-500'}`} />
-            <a 
-              href={`https://linkedin.com/in/${user.linkedin}`} 
-              target="_blank" 
-              rel="noopener noreferrer"
-              className={`text-sm hover:underline ${isDarkMode ? 'text-blue-400' : 'text-blue-600'}`}
-            >
-              @{user.linkedin}
-            </a>
-          </div>
-        )}
-
-        {user?.instagram && !isEditing && (
-          <div className="flex items-center space-x-3">
-            <Instagram className={`w-4 h-4 ${isDarkMode ? 'text-slate-400' : 'text-gray-500'}`} />
-            <a 
-              href={`https://instagram.com/${user.instagram}`} 
-              target="_blank" 
-              rel="noopener noreferrer"
-              className={`text-sm hover:underline ${isDarkMode ? 'text-blue-400' : 'text-blue-600'}`}
-            >
-              @{user.instagram}
+              {user.website}
             </a>
           </div>
         )}
       </div>
+
+      {/* Social Media Links */}
+      {(user?.linkedin || user?.instagram || user?.github) && !isEditing && (
+        <div className="mb-6">
+          <h3 className={`text-sm font-semibold mb-3 ${isDarkMode ? 'text-white' : 'text-gray-900'}`}>
+            Social Links
+          </h3>
+          <div className="space-y-3">
+            {user?.github && (
+              <div className="flex items-center space-x-3">
+                <Github className={`w-4 h-4 ${isDarkMode ? 'text-slate-400' : 'text-gray-500'}`} />
+                <a 
+                  href={`https://github.com/${user.github}`} 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className={`text-sm hover:underline ${isDarkMode ? 'text-blue-400' : 'text-blue-600'}`}
+                >
+                  @{user.github}
+                </a>
+              </div>
+            )}
+
+            {user?.linkedin && (
+              <div className="flex items-center space-x-3">
+                <Linkedin className={`w-4 h-4 ${isDarkMode ? 'text-slate-400' : 'text-gray-500'}`} />
+                <a 
+                  href={`https://linkedin.com/in/${user.linkedin}`} 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className={`text-sm hover:underline ${isDarkMode ? 'text-blue-400' : 'text-blue-600'}`}
+                >
+                  @{user.linkedin}
+                </a>
+              </div>
+            )}
+
+            {user?.instagram && (
+              <div className="flex items-center space-x-3">
+                <Instagram className={`w-4 h-4 ${isDarkMode ? 'text-slate-400' : 'text-gray-500'}`} />
+                <a 
+                  href={`https://instagram.com/${user.instagram}`} 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className={`text-sm hover:underline ${isDarkMode ? 'text-blue-400' : 'text-blue-600'}`}
+                >
+                  @{user.instagram}
+                </a>
+              </div>
+            )}
+          </div>
+        </div>
+      )}
 
       {/* About Section */}
       {user?.bio && !isEditing && (
