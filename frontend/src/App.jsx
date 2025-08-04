@@ -179,12 +179,7 @@ const AppContent = () => {
   }, []);
 
   return (
-    <>
-      {/* Skip navigation link for accessibility */}
-      <a href="#main-content" className="skip-link">
-        Skip to main content
-      </a>
-      
+    <>      
       {/* Performance Optimizer - loads once */}
       <PerformanceOptimizer />
       

@@ -27,6 +27,13 @@ import { fetchWithWakeUp } from '../../utils/serverWakeUp';
 
 const ProfileCard = ({ user, onUpdate, profileMode, setProfileMode }) => {
   const { isDarkMode } = useTheme();
+  
+  // Debug logging to see user data
+  console.log('ProfileCard user data:', user);
+  console.log('ProfileCard user bio:', user?.bio);
+  console.log('ProfileCard user linkedin:', user?.linkedin);
+  console.log('ProfileCard user instagram:', user?.instagram);
+  
   const [editData, setEditData] = useState({
     name: user?.name || '',
     bio: user?.bio || '',
@@ -532,6 +539,19 @@ const ProfileCard = ({ user, onUpdate, profileMode, setProfileMode }) => {
           <p className={`text-sm ${isDarkMode ? 'text-slate-300' : 'text-gray-600'}`}>
             {user?.bio}
           </p>
+        </div>
+      )}
+
+      {/* Debug Section - Remove this after testing */}
+      {!isEditing && (
+        <div className="mb-6 p-3 border border-red-300 bg-red-50 text-red-800 text-xs rounded">
+          <h4 className="font-bold mb-2">Debug Info:</h4>
+          <p>Bio exists: {user?.bio ? 'YES' : 'NO'}</p>
+          <p>Bio value: "{user?.bio || 'empty'}"</p>
+          <p>LinkedIn: "{user?.linkedin || 'empty'}"</p>
+          <p>Instagram: "{user?.instagram || 'empty'}"</p>
+          <p>GitHub: "{user?.github || 'empty'}"</p>
+          <p>Is Editing: {isEditing ? 'YES' : 'NO'}</p>
         </div>
       )}
 
