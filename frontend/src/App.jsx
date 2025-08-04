@@ -28,7 +28,6 @@ import NotesOverview from "./components/interview/NotesOverview";
 import CodeCompiler from "./components/Compiler/CodeCompiler";
 import CollaborativeCodeCompilerPage from "./components/Compiler/CollaborativeCodeCompilerPage";
 import JavaScriptLearning from "./components/learning/JavaScriptLearning";
-import Analytics from "./components/Dashboard/Analytics";
 import InterviewMode from "./components/Collaboration/InterviewMode";
 import ThemeDemo from "./components/ThemeDemo";
 import { Analytics } from "@vercel/analytics/react"// Interview Series Components
@@ -42,7 +41,7 @@ import SEO from "./components/SEO/SEO";
 import PerformanceOptimizer from "./components/Performance/PerformanceOptimizer";
 import Breadcrumb from "./components/SEO/Breadcrumb";
 import { withTracking } from './components/hoc/withTracking';
-
+import { Analytics } from "@vercel/analytics/next"
 // SEO Analytics and Testing
 import seoAnalytics from './utils/seoAnalytics';
 import { runSEOTest } from './utils/seoTester';
@@ -196,7 +195,7 @@ const AppContent = () => {
           <>
             <SEO page="home" />
             <HeroSection />
-            <Analytics/> 
+            <Analytics />
             <Dsacard />
             <Footer />
           </>
@@ -403,19 +402,6 @@ const AppContent = () => {
           <>
             <SEO page="compiler" />
             <TrackedCodeCompiler onMount={() => trackComponentView('compiler')} />
-          </>
-        } />
-        
-        <Route path="/analytics" element={
-          <>
-            <SEO 
-              page="dashboard" 
-              title="Analytics Dashboard - Track Your Learning Progress"
-              description="View detailed analytics of your learning progress, coding activity, and performance metrics."
-              keywords="analytics, progress tracking, learning metrics, performance dashboard"
-            />
-            <Breadcrumb items={[{ name: 'Analytics', href: '/analytics' }]} />
-            <Analytics />
           </>
         } />
         
