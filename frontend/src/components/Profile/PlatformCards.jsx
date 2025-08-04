@@ -19,67 +19,72 @@ import {
   Award,
   Zap
 } from 'lucide-react';
-import { getThemeColors } from '../../theme/colorTheme';
+import { useTheme } from '../context/ThemeContext';
 
-const PlatformCards = ({ user, onConnectPlatform, detailed = false, isDarkMode = false }) => {
+const PlatformCards = ({ user, onConnectPlatform, detailed = false }) => {
   const [selectedPlatform, setSelectedPlatform] = useState(null);
-  
-  const themeColors = getThemeColors(isDarkMode);
+  const { isDarkMode, colors, schemes } = useTheme();
 
   const platforms = [
     {
       id: 'leetcode',
       name: 'LeetCode',
       icon: Code2,
-      color: 'from-orange-500 to-yellow-500',
-      bgColor: isDarkMode ? 'bg-orange-900/20' : 'bg-orange-50',
+      color: isDarkMode ? 'from-orange-400 to-yellow-400' : 'from-orange-500 to-yellow-500',
+      bgGradient: isDarkMode ? 'bg-gradient-to-br from-orange-500/10 to-yellow-500/10' : 'bg-gradient-to-br from-orange-50 to-yellow-50',
       description: 'Algorithmic problem solving',
-      url: 'https://leetcode.com'
+      url: 'https://leetcode.com',
+      accentColor: isDarkMode ? 'text-orange-400' : 'text-orange-600'
     },
     {
       id: 'github',
       name: 'GitHub',
       icon: Github,
-      color: 'from-slate-600 to-slate-800',
-      bgColor: isDarkMode ? 'bg-slate-800/50' : 'bg-slate-50',
+      color: isDarkMode ? 'from-slate-400 to-slate-600' : 'from-slate-600 to-slate-800',
+      bgGradient: isDarkMode ? 'bg-gradient-to-br from-slate-500/10 to-slate-700/10' : 'bg-gradient-to-br from-slate-50 to-slate-100',
       description: 'Code repositories & contributions',
-      url: 'https://github.com'
+      url: 'https://github.com',
+      accentColor: isDarkMode ? 'text-slate-400' : 'text-slate-700'
     },
     {
       id: 'geeksforgeeks',
       name: 'GeeksforGeeks',
       icon: Brain,
-      color: 'from-emerald-500 to-green-600',
-      bgColor: isDarkMode ? 'bg-emerald-900/20' : 'bg-emerald-50',
+      color: isDarkMode ? 'from-emerald-400 to-green-500' : 'from-emerald-500 to-green-600',
+      bgGradient: isDarkMode ? 'bg-gradient-to-br from-emerald-500/10 to-green-500/10' : 'bg-gradient-to-br from-emerald-50 to-green-50',
       description: 'Programming tutorials & practice',
-      url: 'https://geeksforgeeks.org'
+      url: 'https://geeksforgeeks.org',
+      accentColor: isDarkMode ? 'text-emerald-400' : 'text-emerald-600'
     },
     {
       id: 'codechef',
       name: 'CodeChef',
       icon: Trophy,
-      color: 'from-amber-500 to-orange-600',
-      bgColor: isDarkMode ? 'bg-amber-900/20' : 'bg-amber-50',
+      color: isDarkMode ? 'from-amber-400 to-orange-500' : 'from-amber-500 to-orange-600',
+      bgGradient: isDarkMode ? 'bg-gradient-to-br from-amber-500/10 to-orange-500/10' : 'bg-gradient-to-br from-amber-50 to-orange-50',
       description: 'Competitive programming',
-      url: 'https://codechef.com'
+      url: 'https://codechef.com',
+      accentColor: isDarkMode ? 'text-amber-400' : 'text-amber-600'
     },
     {
       id: 'codeforces',
       name: 'Codeforces',
       icon: Target,
-      color: 'from-blue-500 to-indigo-600',
-      bgColor: isDarkMode ? 'bg-blue-900/20' : 'bg-blue-50',
+      color: isDarkMode ? 'from-blue-400 to-indigo-500' : 'from-blue-500 to-indigo-600',
+      bgGradient: isDarkMode ? 'bg-gradient-to-br from-blue-500/10 to-indigo-500/10' : 'bg-gradient-to-br from-blue-50 to-indigo-50',
       description: 'Programming contests',
-      url: 'https://codeforces.com'
+      url: 'https://codeforces.com',
+      accentColor: isDarkMode ? 'text-blue-400' : 'text-blue-600'
     },
     {
       id: 'hackerrank',
       name: 'HackerRank',
       icon: Zap,
-      color: 'from-emerald-600 to-teal-600',
-      bgColor: isDarkMode ? 'bg-teal-900/20' : 'bg-teal-50',
+      color: isDarkMode ? 'from-emerald-400 to-teal-500' : 'from-emerald-600 to-teal-600',
+      bgGradient: isDarkMode ? 'bg-gradient-to-br from-emerald-500/10 to-teal-500/10' : 'bg-gradient-to-br from-emerald-50 to-teal-50',
       description: 'Skills assessment & challenges',
-      url: 'https://hackerrank.com'
+      url: 'https://hackerrank.com',
+      accentColor: isDarkMode ? 'text-emerald-400' : 'text-emerald-600'
     }
   ];
 
@@ -103,40 +108,40 @@ const PlatformCards = ({ user, onConnectPlatform, detailed = false, isDarkMode =
           <div className="mt-4 space-y-3">
             <div className="grid grid-cols-3 gap-3">
               <div className="text-center">
-                <p className="text-2xl font-bold text-orange-600 dark:text-orange-400">
+                <p className={`text-2xl font-bold ${isDarkMode ? 'text-orange-400' : 'text-orange-600'}`}>
                   {stats.problemStats?.totalSolved || 0}
                 </p>
-                <p className="text-xs text-gray-600 dark:text-gray-400">Problems Solved</p>
+                <p className={`text-xs ${colors.text.secondary}`}>Problems Solved</p>
               </div>
               <div className="text-center">
-                <p className="text-2xl font-bold text-blue-600 dark:text-blue-400">
+                <p className={`text-2xl font-bold ${isDarkMode ? 'text-blue-400' : 'text-blue-600'}`}>
                   {stats.contestStats?.rating || 'N/A'}
                 </p>
-                <p className="text-xs text-gray-600 dark:text-gray-400">Contest Rating</p>
+                <p className={`text-xs ${colors.text.secondary}`}>Contest Rating</p>
               </div>
               <div className="text-center">
-                <p className="text-2xl font-bold text-purple-600 dark:text-purple-400">
+                <p className={`text-2xl font-bold ${isDarkMode ? 'text-purple-400' : 'text-purple-600'}`}>
                   {stats.badges?.length || 0}
                 </p>
-                <p className="text-xs text-gray-600 dark:text-gray-400">Badges</p>
+                <p className={`text-xs ${colors.text.secondary}`}>Badges</p>
               </div>
             </div>
             
             {stats.problemStats?.difficulty && (
               <div className="space-y-2">
-                <p className="text-sm font-medium text-gray-700 dark:text-gray-300">Difficulty Breakdown:</p>
+                <p className={`text-sm font-medium ${colors.text.primary}`}>Difficulty Breakdown:</p>
                 <div className="grid grid-cols-3 gap-2 text-xs">
                   <div className="flex justify-between">
-                    <span className="text-green-600">Easy:</span>
-                    <span className="font-medium">{stats.problemStats.difficulty.easy || 0}</span>
+                    <span className={isDarkMode ? 'text-emerald-400' : 'text-emerald-600'}>Easy:</span>
+                    <span className={`font-medium ${colors.text.primary}`}>{stats.problemStats.difficulty.easy || 0}</span>
                   </div>
                   <div className="flex justify-between">
-                    <span className="text-yellow-600">Medium:</span>
-                    <span className="font-medium">{stats.problemStats.difficulty.medium || 0}</span>
+                    <span className={isDarkMode ? 'text-yellow-400' : 'text-yellow-600'}>Medium:</span>
+                    <span className={`font-medium ${colors.text.primary}`}>{stats.problemStats.difficulty.medium || 0}</span>
                   </div>
                   <div className="flex justify-between">
-                    <span className="text-red-600">Hard:</span>
-                    <span className="font-medium">{stats.problemStats.difficulty.hard || 0}</span>
+                    <span className={isDarkMode ? 'text-red-400' : 'text-red-600'}>Hard:</span>
+                    <span className={`font-medium ${colors.text.primary}`}>{stats.problemStats.difficulty.hard || 0}</span>
                   </div>
                 </div>
               </div>
@@ -149,39 +154,39 @@ const PlatformCards = ({ user, onConnectPlatform, detailed = false, isDarkMode =
           <div className="mt-4 space-y-3">
             <div className="grid grid-cols-2 gap-3">
               <div className="text-center">
-                <p className="text-2xl font-bold text-blue-600 dark:text-blue-400">
+                <p className={`text-2xl font-bold ${isDarkMode ? 'text-blue-400' : 'text-blue-600'}`}>
                   {stats.stats?.publicRepos || 0}
                 </p>
-                <p className="text-xs text-gray-600 dark:text-gray-400">Repositories</p>
+                <p className={`text-xs ${colors.text.secondary}`}>Repositories</p>
               </div>
               <div className="text-center">
-                <p className="text-2xl font-bold text-yellow-600 dark:text-yellow-400">
+                <p className={`text-2xl font-bold ${isDarkMode ? 'text-yellow-400' : 'text-yellow-600'}`}>
                   {stats.stats?.totalStars || 0}
                 </p>
-                <p className="text-xs text-gray-600 dark:text-gray-400">Total Stars</p>
+                <p className={`text-xs ${colors.text.secondary}`}>Total Stars</p>
               </div>
               <div className="text-center">
-                <p className="text-2xl font-bold text-green-600 dark:text-green-400">
+                <p className={`text-2xl font-bold ${isDarkMode ? 'text-emerald-400' : 'text-emerald-600'}`}>
                   {stats.stats?.followers || 0}
                 </p>
-                <p className="text-xs text-gray-600 dark:text-gray-400">Followers</p>
+                <p className={`text-xs ${colors.text.secondary}`}>Followers</p>
               </div>
               <div className="text-center">
-                <p className="text-2xl font-bold text-purple-600 dark:text-purple-400">
+                <p className={`text-2xl font-bold ${isDarkMode ? 'text-purple-400' : 'text-purple-600'}`}>
                   {stats.contributions?.total || 0}
                 </p>
-                <p className="text-xs text-gray-600 dark:text-gray-400">Contributions</p>
+                <p className={`text-xs ${colors.text.secondary}`}>Contributions</p>
               </div>
             </div>
 
             {stats.languages && (
               <div className="space-y-2">
-                <p className="text-sm font-medium text-gray-700 dark:text-gray-300">Top Languages:</p>
+                <p className={`text-sm font-medium ${colors.text.primary}`}>Top Languages:</p>
                 <div className="flex flex-wrap gap-1">
                   {stats.languages.slice(0, 5).map((lang, idx) => (
                     <span 
                       key={idx}
-                      className="px-2 py-1 bg-gray-100 dark:bg-gray-700 text-xs rounded-full"
+                      className={`px-2 py-1 ${isDarkMode ? 'bg-slate-700/50' : 'bg-slate-100'} text-xs rounded-full ${colors.text.secondary}`}
                     >
                       {lang.name}
                     </span>
@@ -197,7 +202,7 @@ const PlatformCards = ({ user, onConnectPlatform, detailed = false, isDarkMode =
           <div className="mt-4 space-y-3">
             <div className="grid grid-cols-2 gap-3">
               <div className="text-center">
-                <p className="text-2xl font-bold text-green-600 dark:text-green-400">
+                <p className={`text-2xl font-bold ${isDarkMode ? 'text-emerald-400' : 'text-emerald-600'}`}>
                   {stats.profile?.ranking || 'N/A'}
                 </p>
                 <p className="text-xs text-gray-600 dark:text-gray-400">Institute Rank</p>
@@ -241,92 +246,112 @@ const PlatformCards = ({ user, onConnectPlatform, detailed = false, isDarkMode =
 
   if (detailed) {
     return (
-      <div className="space-y-6">
-        <div className="flex items-center justify-between">
-          <h2 className={`text-2xl font-bold ${themeColors.profile.text.primary}`}>Connected Platforms</h2>
-          <p className={`text-sm ${themeColors.profile.text.secondary} px-3 py-1 bg-purple-50 dark:bg-purple-900/20 rounded-full`}>
-            {Object.keys(user?.platformStats || {}).length} of {platforms.length} connected
-          </p>
-        </div>
+      <div className={`${schemes.pageBackground(isDarkMode)} min-h-screen py-8 px-4`}>
+        <div className="max-w-7xl mx-auto">
+          <div className="flex items-center justify-between mb-8">
+            <h2 className={`text-3xl font-bold ${colors.text.primary}`}>
+              <span className={`${schemes.brandGradient(isDarkMode)} bg-clip-text text-transparent`}>
+                Platform Connections
+              </span>
+            </h2>
+            <div className={`px-4 py-2 rounded-full ${isDarkMode ? 'bg-slate-800/60' : 'bg-white/80'} ${colors.effects.backdrop} border ${isDarkMode ? 'border-slate-700/50' : 'border-slate-200/50'}`}>
+              <span className={`text-sm font-medium ${colors.text.secondary}`}>
+                {Object.keys(user?.platformStats || {}).length} of {platforms.length} connected
+              </span>
+            </div>
+          </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {platforms.map((platform) => {
-            const Icon = platform.icon;
-            const connected = isConnected(platform.id);
-            
-            return (
-              <motion.div
-                key={platform.id}
-                className={`${themeColors.profile.card.bg} ${themeColors.profile.card.border} ${themeColors.profile.card.shadow} ${themeColors.profile.card.hover} rounded-xl p-6 border backdrop-blur-sm transition-all duration-300`}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                whileHover={{ y: -5, scale: 1.02 }}
-                transition={{ duration: 0.3 }}
-              >
-                <div className="flex items-center justify-between mb-4">
-                  <div className="flex items-center space-x-3">
-                    <div className={`p-3 rounded-lg bg-gradient-to-r ${platform.color} shadow-lg`}>
-                      <Icon className="w-6 h-6 text-white" />
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {platforms.map((platform) => {
+              const Icon = platform.icon;
+              const connected = isConnected(platform.id);
+              
+              return (
+                <motion.div
+                  key={platform.id}
+                  className={`${schemes.cardBackground(isDarkMode)} rounded-xl p-6 ${colors.effects.backdrop} border transition-all duration-300 hover:scale-[1.02] shadow-lg ${
+                    isDarkMode 
+                      ? 'hover:shadow-xl hover:shadow-purple-500/10 border-slate-700/50' 
+                      : 'hover:shadow-xl hover:shadow-purple-500/10 border-slate-200/50'
+                  }`}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  whileHover={{ y: -5 }}
+                  transition={{ duration: 0.3 }}
+                >
+                  <div className="flex items-center justify-between mb-6">
+                    <div className="flex items-center space-x-3">
+                      <div className={`p-3 rounded-lg bg-gradient-to-r ${platform.color} shadow-lg transition-transform duration-300`}>
+                        <Icon className="w-6 h-6 text-white" />
+                      </div>
+                      <div>
+                        <h3 className={`font-semibold ${colors.text.primary}`}>{platform.name}</h3>
+                        <p className={`text-xs ${colors.text.secondary}`}>{platform.description}</p>
+                      </div>
                     </div>
-                    <div>
-                      <h3 className="font-semibold text-gray-900 dark:text-white">{platform.name}</h3>
-                      <p className="text-xs text-gray-600 dark:text-gray-400">{platform.description}</p>
-                    </div>
+                    
+                    {connected ? (
+                      <div className="flex items-center space-x-2">
+                        <CheckCircle className={`w-5 h-5 ${isDarkMode ? 'text-emerald-400' : 'text-emerald-500'}`} />
+                        <span className={`text-xs font-medium ${isDarkMode ? 'text-emerald-400' : 'text-emerald-600'}`}>Connected</span>
+                      </div>
+                    ) : (
+                      <AlertCircle className={`w-5 h-5 ${colors.text.secondary}`} />
+                    )}
                   </div>
-                  
+
                   {connected ? (
-                    <CheckCircle className="w-5 h-5 text-green-500" />
-                  ) : (
-                    <AlertCircle className="w-5 h-5 text-gray-400" />
-                  )}
-                </div>
-
-                {connected ? (
-                  <div>
-                    <div className="flex items-center justify-between mb-2">
-                      <span className="text-sm font-medium text-gray-700 dark:text-gray-300">
-                        @{user.platformStats[platform.id].username}
-                      </span>
-                      <a
-                        href={`${platform.url}/${user.platformStats[platform.id].username}`}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="text-blue-500 hover:text-blue-600 transition-colors"
-                      >
-                        <ExternalLink className="w-4 h-4" />
-                      </a>
+                    <div>
+                      <div className="flex items-center justify-between mb-4">
+                        <span className={`text-sm font-medium ${platform.accentColor}`}>
+                          @{user.platformStats[platform.id].username}
+                        </span>
+                        <a
+                          href={`${platform.url}/${user.platformStats[platform.id].username}`}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className={`${isDarkMode ? 'text-indigo-400 hover:text-indigo-300' : 'text-indigo-600 hover:text-indigo-700'} transition-colors duration-300`}
+                        >
+                          <ExternalLink className="w-4 h-4" />
+                        </a>
+                      </div>
+                      {renderPlatformDetails(platform)}
                     </div>
-                    {renderPlatformDetails(platform)}
-                  </div>
-                ) : (
-                  <div className="text-center py-4">
-                    <button
-                      onClick={() => onConnectPlatform(platform.id)}
-                      className="flex items-center justify-center space-x-2 w-full px-4 py-2 bg-blue-500 hover:bg-blue-600 text-white rounded-lg transition-colors duration-200"
-                    >
-                      <Plus className="w-4 h-4" />
-                      <span>Connect {platform.name}</span>
-                    </button>
-                  </div>
-                )}
-              </motion.div>
-            );
-          })}
+                  ) : (
+                    <div className="text-center py-6">
+                      <button
+                        onClick={() => onConnectPlatform(platform.id)}
+                        className={`group flex items-center justify-center space-x-2 w-full px-6 py-3 rounded-lg transition-all duration-300 transform hover:scale-105 ${schemes.primaryButton(isDarkMode)}`}
+                        style={{
+                          boxShadow: isDarkMode 
+                            ? "0 8px 25px rgba(139, 92, 246, 0.3)" 
+                            : "0 8px 25px rgba(139, 92, 246, 0.2)",
+                        }}
+                      >
+                        <Plus className="w-5 h-5" />
+                        <span className="font-medium">Connect {platform.name}</span>
+                      </button>
+                    </div>
+                  )}
+                </motion.div>
+              );
+            })}
+          </div>
         </div>
       </div>
     );
   }
 
   return (
-    <div className={`${themeColors.profile.card.bg} ${themeColors.profile.card.border} rounded-xl p-6 ${themeColors.profile.card.shadow} border backdrop-blur-sm`}>
-      <div className="flex items-center justify-between mb-4">
-        <h3 className={`text-lg font-semibold ${themeColors.profile.text.primary}`}>Platforms</h3>
-        <span className={`text-sm ${themeColors.profile.text.secondary}`}>
-          {Object.keys(user?.platformStats || {}).length}/{platforms.length}
+    <div className={`${schemes.cardBackground(isDarkMode)} rounded-xl p-6 ${colors.effects.backdrop} border shadow-lg transition-all duration-700`}>
+      <div className="flex items-center justify-between mb-6">
+        <h3 className={`text-lg font-semibold ${colors.text.primary}`}>Platform Connections</h3>
+        <span className={`text-sm ${colors.text.secondary} px-3 py-1 rounded-full ${isDarkMode ? 'bg-slate-700/50' : 'bg-slate-100'}`}>
+          {Object.keys(user?.platformStats || {}).length}/{platforms.length} Connected
         </span>
       </div>
 
-      <div className="space-y-3">
+      <div className="space-y-4">
         {platforms.slice(0, 3).map((platform) => {
           const Icon = platform.icon;
           const connected = isConnected(platform.id);
@@ -334,32 +359,49 @@ const PlatformCards = ({ user, onConnectPlatform, detailed = false, isDarkMode =
           return (
             <motion.div
               key={platform.id}
-              className={`flex items-center justify-between p-3 rounded-lg ${platform.bgColor} ${themeColors.profile.card.hover} transition-all duration-200 border border-transparent hover:border-purple-200 dark:hover:border-purple-700`}
-              whileHover={{ x: 5, scale: 1.02 }}
+              className={`group flex items-center justify-between p-4 rounded-lg ${platform.bgGradient} border transition-all duration-300 hover:scale-[1.02] ${
+                isDarkMode 
+                  ? 'border-slate-700/50 hover:border-indigo-500/30 hover:shadow-lg hover:shadow-indigo-500/10' 
+                  : 'border-slate-200/50 hover:border-indigo-300/50 hover:shadow-lg hover:shadow-indigo-500/10'
+              }`}
+              whileHover={{ x: 5 }}
               transition={{ duration: 0.2 }}
             >
-              <div className="flex items-center space-x-3">
-                <div className={`p-2 rounded-md bg-gradient-to-r ${platform.color} shadow-md`}>
-                  <Icon className="w-4 h-4 text-white" />
+              <div className="flex items-center space-x-4">
+                <div className={`p-3 rounded-lg bg-gradient-to-r ${platform.color} shadow-md transition-transform duration-300 group-hover:scale-110`}>
+                  <Icon className="w-5 h-5 text-white" />
                 </div>
                 <div>
-                  <p className={`font-medium ${themeColors.profile.text.primary}`}>{platform.name}</p>
-                  {connected && (
-                    <p className={`text-xs ${themeColors.profile.text.secondary}`}>
+                  <p className={`font-semibold ${colors.text.primary} transition-colors duration-300`}>{platform.name}</p>
+                  {connected ? (
+                    <p className={`text-sm ${colors.text.secondary}`}>
                       @{user.platformStats[platform.id].username}
+                    </p>
+                  ) : (
+                    <p className={`text-xs ${colors.text.secondary}`}>
+                      {platform.description}
                     </p>
                   )}
                 </div>
               </div>
               
               {connected ? (
-                <CheckCircle className="w-5 h-5 text-emerald-500" />
+                <div className="flex items-center space-x-2">
+                  <CheckCircle className={`w-5 h-5 ${isDarkMode ? 'text-emerald-400' : 'text-emerald-500'}`} />
+                  <span className={`text-xs font-medium ${isDarkMode ? 'text-emerald-400' : 'text-emerald-600'}`}>Connected</span>
+                </div>
               ) : (
                 <button
                   onClick={() => onConnectPlatform(platform.id)}
-                  className="p-1 text-purple-500 hover:text-purple-600 dark:text-purple-400 dark:hover:text-purple-300 transition-colors transform hover:scale-110"
+                  className={`group flex items-center space-x-2 px-4 py-2 rounded-lg transition-all duration-300 transform hover:scale-105 ${schemes.primaryButton(isDarkMode)}`}
+                  style={{
+                    boxShadow: isDarkMode 
+                      ? "0 4px 15px rgba(139, 92, 246, 0.3)" 
+                      : "0 4px 15px rgba(139, 92, 246, 0.2)",
+                  }}
                 >
                   <Plus className="w-4 h-4" />
+                  <span className="text-sm font-medium">Connect</span>
                 </button>
               )}
             </motion.div>
@@ -369,9 +411,16 @@ const PlatformCards = ({ user, onConnectPlatform, detailed = false, isDarkMode =
 
       <button
         onClick={() => {/* Navigate to detailed platforms view */}}
-        className={`w-full mt-4 px-4 py-2 text-sm ${themeColors.profile.text.accent} hover:bg-purple-50 dark:hover:bg-purple-900/20 rounded-lg transition-all duration-200 transform hover:scale-105`}
+        className={`w-full mt-6 px-4 py-3 text-sm font-medium rounded-lg transition-all duration-300 transform hover:scale-[1.02] ${
+          isDarkMode 
+            ? 'text-indigo-400 hover:bg-indigo-500/10 border border-indigo-500/30 hover:border-indigo-400/50' 
+            : 'text-indigo-600 hover:bg-indigo-50 border border-indigo-200/50 hover:border-indigo-300/50'
+        } ${colors.effects.backdrop}`}
       >
-        View All Platforms
+        <div className="flex items-center justify-center space-x-2">
+          <span>View All Platforms</span>
+          <ExternalLink className="w-4 h-4" />
+        </div>
       </button>
     </div>
   );

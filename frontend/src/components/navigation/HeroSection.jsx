@@ -42,116 +42,168 @@ const handlefullstack=()=>{
         ${schemes.pageBackground(isDarkMode)}
       `}
     >
-      {/* Lightning Background Effect */}
+      {/* Enhanced Background Effect with Better Theme Consistency */}
       <div className="absolute inset-0 overflow-hidden">
-        {/* Lightning Layer */}
+        {/* Animated Gradient Background */}
+        <div className="absolute inset-0">
+          <div 
+            className={`absolute inset-0 opacity-40 ${isDarkMode ? 'opacity-60' : 'opacity-30'}`}
+            style={{
+              background: isDarkMode 
+                ? 'radial-gradient(ellipse at top, rgba(99,102,241,0.15) 0%, rgba(139,92,246,0.1) 35%, rgba(0,0,0,0) 70%), radial-gradient(ellipse at bottom right, rgba(34,211,238,0.1) 0%, rgba(99,102,241,0.05) 50%, rgba(0,0,0,0) 70%)'
+                : 'radial-gradient(ellipse at top, rgba(99,102,241,0.08) 0%, rgba(139,92,246,0.05) 35%, rgba(255,255,255,0) 70%), radial-gradient(ellipse at bottom right, rgba(34,211,238,0.06) 0%, rgba(99,102,241,0.03) 50%, rgba(255,255,255,0) 70%)'
+            }}
+          />
+        </div>
+
+        {/* Lightning Layer with Enhanced Theme Colors */}
         <div className="absolute inset-0">
           <svg
-            className="absolute inset-0 w-full h-full opacity-30"
+            className={`absolute inset-0 w-full h-full ${isDarkMode ? 'opacity-40' : 'opacity-25'}`}
             viewBox="0 0 100 100"
             preserveAspectRatio="none"
           >
             <defs>
               <radialGradient id="lightning1" cx="50%" cy="50%" r="50%" fx="50%" fy="50%">
-                <stop offset="0%" stopColor={isDarkMode ? "#6366f1" : "#818cf8"} stopOpacity="0.4" />
-                <stop offset="100%" stopColor={isDarkMode ? "#6366f1" : "#818cf8"} stopOpacity="0" />
+                <stop offset="0%" stopColor={isDarkMode ? "#6366f1" : "#4f46e5"} stopOpacity={isDarkMode ? "0.5" : "0.3"} />
+                <stop offset="100%" stopColor={isDarkMode ? "#6366f1" : "#4f46e5"} stopOpacity="0" />
               </radialGradient>
               <radialGradient id="lightning2" cx="50%" cy="50%" r="50%" fx="50%" fy="50%">
-                <stop offset="0%" stopColor={isDarkMode ? "#7c3aed" : "#8b5cf6"} stopOpacity="0.4" />
-                <stop offset="100%" stopColor={isDarkMode ? "#7c3aed" : "#8b5cf6"} stopOpacity="0" />
+                <stop offset="0%" stopColor={isDarkMode ? "#8b5cf6" : "#7c3aed"} stopOpacity={isDarkMode ? "0.5" : "0.3"} />
+                <stop offset="100%" stopColor={isDarkMode ? "#8b5cf6" : "#7c3aed"} stopOpacity="0" />
               </radialGradient>
             </defs>
             
-            {/* Lightning Bolts */}
+            {/* Lightning Bolts with Theme-Aware Colors */}
             <path
               className="lightning-path"
               d="M30,0 L45,30 L15,40 L60,100"
               stroke={isDarkMode ? "#818cf8" : "#6366f1"}
-              strokeWidth="0.5"
+              strokeWidth={isDarkMode ? "0.6" : "0.4"}
               fill="none"
+              opacity={isDarkMode ? "0.7" : "0.5"}
             />
             <path
               className="lightning-path-reverse"
               d="M70,100 L65,70 L85,60 L40,0"
-              stroke={isDarkMode ? "#8b5cf6" : "#7c3aed"}
-              strokeWidth="0.5"
+              stroke={isDarkMode ? "#a78bfa" : "#8b5cf6"}
+              strokeWidth={isDarkMode ? "0.6" : "0.4"}
               fill="none"
+              opacity={isDarkMode ? "0.7" : "0.5"}
             />
           </svg>
 
-          {/* Energy Orbs */}
-          <div className="energy-orb absolute top-1/4 left-1/4 w-32 h-32 rounded-full"
+          {/* Enhanced Energy Orbs with Better Theme Integration */}
+          <div 
+            className={`energy-orb absolute top-1/4 left-1/4 w-32 h-32 rounded-full transition-all duration-700 ${isDarkMode ? 'opacity-60' : 'opacity-40'}`}
             style={{
               background: isDarkMode ? 
-                'radial-gradient(circle, rgba(99,102,241,0.15) 0%, rgba(139,92,246,0.1) 50%, rgba(0,0,0,0) 70%)' :
-                'radial-gradient(circle, rgba(99,102,241,0.1) 0%, rgba(139,92,246,0.05) 50%, rgba(0,0,0,0) 70%)'
+                'radial-gradient(circle, rgba(99,102,241,0.2) 0%, rgba(139,92,246,0.15) 40%, rgba(0,0,0,0) 70%)' :
+                'radial-gradient(circle, rgba(99,102,241,0.12) 0%, rgba(139,92,246,0.08) 40%, rgba(255,255,255,0) 70%)',
+              filter: isDarkMode ? 'blur(1px)' : 'blur(0.5px)'
             }}
           />
-          <div className="energy-orb absolute bottom-1/3 right-1/3 w-40 h-40 rounded-full"
+          <div 
+            className={`energy-orb absolute bottom-1/3 right-1/3 w-40 h-40 rounded-full transition-all duration-700 ${isDarkMode ? 'opacity-60' : 'opacity-40'}`}
             style={{
               background: isDarkMode ?
-                'radial-gradient(circle, rgba(139,92,246,0.15) 0%, rgba(124,58,237,0.1) 50%, rgba(0,0,0,0) 70%)' :
-                'radial-gradient(circle, rgba(139,92,246,0.1) 0%, rgba(124,58,237,0.05) 50%, rgba(0,0,0,0) 70%)'
+                'radial-gradient(circle, rgba(139,92,246,0.2) 0%, rgba(34,211,238,0.15) 40%, rgba(0,0,0,0) 70%)' :
+                'radial-gradient(circle, rgba(139,92,246,0.12) 0%, rgba(34,211,238,0.08) 40%, rgba(255,255,255,0) 70%)',
+              filter: isDarkMode ? 'blur(1px)' : 'blur(0.5px)'
+            }}
+          />
+          {/* Additional Accent Orb for Balance */}
+          <div 
+            className={`energy-orb absolute top-2/3 left-1/6 w-24 h-24 rounded-full transition-all duration-700 ${isDarkMode ? 'opacity-50' : 'opacity-30'}`}
+            style={{
+              background: isDarkMode ?
+                'radial-gradient(circle, rgba(34,211,238,0.15) 0%, rgba(99,102,241,0.1) 40%, rgba(0,0,0,0) 70%)' :
+                'radial-gradient(circle, rgba(34,211,238,0.1) 0%, rgba(99,102,241,0.06) 40%, rgba(255,255,255,0) 70%)',
+              filter: isDarkMode ? 'blur(0.8px)' : 'blur(0.4px)'
             }}
           />
         </div>
 
-        {/* Enhanced floating geometric elements */}
+        {/* Enhanced floating geometric elements with better theme awareness */}
         <FloatingElement delay={0} duration={6} className="top-24 left-20">
           <div
-            className={`w-3 h-3 rounded-full ${isDarkMode ? "bg-blue-400" : "bg-purple-400"}`}
+            className={`w-3 h-3 rounded-full transition-all duration-700 ${
+              isDarkMode ? "bg-indigo-400" : "bg-indigo-500"
+            }`}
             style={{
-              boxShadow: isDarkMode ? "0 0 25px rgba(59, 130, 246, 0.6)" : "0 0 20px rgba(139, 92, 246, 0.5)",
+              boxShadow: isDarkMode 
+                ? "0 0 25px rgba(99, 102, 241, 0.7), 0 0 50px rgba(99, 102, 241, 0.3)" 
+                : "0 0 20px rgba(99, 102, 241, 0.6), 0 0 40px rgba(99, 102, 241, 0.2)",
             }}
           />
         </FloatingElement>
 
         <FloatingElement delay={2} duration={8} className="top-32 right-24">
           <div
-            className={`w-2 h-2 rounded-full ${isDarkMode ? "bg-purple-400" : "bg-blue-400"}`}
+            className={`w-2 h-2 rounded-full transition-all duration-700 ${
+              isDarkMode ? "bg-purple-400" : "bg-purple-500"
+            }`}
             style={{
-              boxShadow: isDarkMode ? "0 0 20px rgba(139, 92, 246, 0.7)" : "0 0 15px rgba(59, 130, 246, 0.6)",
+              boxShadow: isDarkMode 
+                ? "0 0 20px rgba(139, 92, 246, 0.8), 0 0 40px rgba(139, 92, 246, 0.4)" 
+                : "0 0 15px rgba(139, 92, 246, 0.7), 0 0 30px rgba(139, 92, 246, 0.3)",
             }}
           />
         </FloatingElement>
 
         <FloatingElement delay={4} duration={10} className="bottom-40 left-32">
           <div
-            className={`w-4 h-4 rounded-full ${isDarkMode ? "bg-cyan-400" : "bg-indigo-400"}`}
+            className={`w-4 h-4 rounded-full transition-all duration-700 ${
+              isDarkMode ? "bg-cyan-400" : "bg-blue-500"
+            }`}
             style={{
-              boxShadow: isDarkMode ? "0 0 30px rgba(34, 211, 238, 0.5)" : "0 0 25px rgba(99, 102, 241, 0.4)",
+              boxShadow: isDarkMode 
+                ? "0 0 30px rgba(34, 211, 238, 0.6), 0 0 60px rgba(34, 211, 238, 0.3)" 
+                : "0 0 25px rgba(59, 130, 246, 0.5), 0 0 50px rgba(59, 130, 246, 0.2)",
             }}
           />
         </FloatingElement>
 
         <FloatingElement delay={1} duration={7} className="top-1/3 right-16">
           <div
-            className={`w-2.5 h-2.5 rounded-full ${isDarkMode ? "bg-pink-400" : "bg-rose-400"}`}
+            className={`w-2.5 h-2.5 rounded-full transition-all duration-700 ${
+              isDarkMode ? "bg-pink-400" : "bg-rose-500"
+            }`}
             style={{
-              boxShadow: isDarkMode ? "0 0 22px rgba(244, 114, 182, 0.6)" : "0 0 18px rgba(251, 113, 133, 0.5)",
+              boxShadow: isDarkMode 
+                ? "0 0 22px rgba(244, 114, 182, 0.7), 0 0 44px rgba(244, 114, 182, 0.3)" 
+                : "0 0 18px rgba(244, 63, 94, 0.6), 0 0 36px rgba(244, 63, 94, 0.2)",
             }}
           />
         </FloatingElement>
 
         <FloatingElement delay={3} duration={9} className="bottom-1/3 right-1/3">
           <div
-            className={`w-3.5 h-3.5 rounded-full ${isDarkMode ? "bg-emerald-400" : "bg-green-400"}`}
+            className={`w-3.5 h-3.5 rounded-full transition-all duration-700 ${
+              isDarkMode ? "bg-emerald-400" : "bg-emerald-500"
+            }`}
             style={{
-              boxShadow: isDarkMode ? "0 0 28px rgba(52, 211, 153, 0.5)" : "0 0 22px rgba(34, 197, 94, 0.4)",
+              boxShadow: isDarkMode 
+                ? "0 0 28px rgba(52, 211, 153, 0.6), 0 0 56px rgba(52, 211, 153, 0.3)" 
+                : "0 0 22px rgba(34, 197, 94, 0.5), 0 0 44px rgba(34, 197, 94, 0.2)",
             }}
           />
         </FloatingElement>
 
         <FloatingElement delay={5} duration={11} className="top-1/2 left-1/4">
           <div
-            className={`w-1.5 h-1.5 rounded-full ${isDarkMode ? "bg-yellow-400" : "bg-orange-400"}`}
+            className={`w-1.5 h-1.5 rounded-full transition-all duration-700 ${
+              isDarkMode ? "bg-yellow-400" : "bg-amber-500"
+            }`}
             style={{
-              boxShadow: isDarkMode ? "0 0 18px rgba(251, 191, 36, 0.6)" : "0 0 15px rgba(251, 146, 60, 0.5)",
+              boxShadow: isDarkMode 
+                ? "0 0 18px rgba(251, 191, 36, 0.7), 0 0 36px rgba(251, 191, 36, 0.3)" 
+                : "0 0 15px rgba(245, 158, 11, 0.6), 0 0 30px rgba(245, 158, 11, 0.2)",
             }}
           />
         </FloatingElement>
 
-        {/* Additional scattered dots for more depth */}
+        {/* Additional scattered dots with enhanced theme consistency */}
         {[...Array(12)].map((_, i) => (
           <FloatingElement
             key={i}
@@ -160,9 +212,13 @@ const handlefullstack=()=>{
             className={`top-${15 + i * 6}% left-${8 + i * 7}%`}
           >
             <div
-              className={`w-1 h-1 rounded-full ${isDarkMode ? "bg-slate-400" : "bg-gray-400"} opacity-60`}
+              className={`w-1 h-1 rounded-full transition-all duration-700 ${
+                isDarkMode ? "bg-slate-300" : "bg-gray-500"
+              } ${isDarkMode ? 'opacity-70' : 'opacity-50'}`}
               style={{
-                boxShadow: isDarkMode ? "0 0 8px rgba(148, 163, 184, 0.4)" : "0 0 6px rgba(156, 163, 175, 0.3)",
+                boxShadow: isDarkMode 
+                  ? "0 0 8px rgba(203, 213, 225, 0.5)" 
+                  : "0 0 6px rgba(107, 114, 128, 0.4)",
               }}
             />
           </FloatingElement>
@@ -171,26 +227,33 @@ const handlefullstack=()=>{
 
       {/* Main Content */}
       <div className="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-20">
-        {/* New Feature Badge */}
+        {/* Enhanced New Feature Badge with Better Theme Integration */}
         <div className="flex justify-center mb-8">
           <div
-            className={`inline-flex items-center px-4 py-2 rounded-full text-sm font-medium
-            ${colors.effects.backdrop} border-2 transition-all duration-300 hover:scale-105 cursor-pointer
+            className={`group inline-flex items-center px-6 py-3 rounded-full text-sm font-medium
+            ${colors.effects.backdrop} border-2 transition-all duration-500 hover:scale-105 cursor-pointer
+            transform hover:rotate-1 hover:shadow-xl
             ${
               isDarkMode
-                ? "bg-slate-800/40 border-indigo-500/30 text-indigo-300"
-                : "bg-white/60 border-indigo-300/30 text-indigo-700"
+                ? "bg-slate-800/60 border-indigo-400/40 text-indigo-300 hover:bg-slate-700/70 hover:border-indigo-400/60 shadow-lg shadow-indigo-500/20"
+                : "bg-white/80 border-indigo-400/40 text-indigo-700 hover:bg-white/90 hover:border-indigo-500/50 shadow-lg shadow-indigo-500/10"
             }`}
             onClick={handlefullstack}
           >
-            <span className="relative flex h-2 w-2 mr-2">
-              <span className={`animate-ping absolute inline-flex h-full w-full rounded-full opacity-75 ${isDarkMode ? "bg-purple-400" : "bg-purple-500"}`}></span>
-              <span className={`relative inline-flex rounded-full h-2 w-2 ${isDarkMode ? "bg-purple-500" : "bg-purple-600"}`}></span>
+            <span className="relative flex h-2 w-2 mr-3">
+              <span className={`animate-ping absolute inline-flex h-full w-full rounded-full opacity-75 ${
+                isDarkMode ? "bg-purple-400" : "bg-purple-500"
+              }`}></span>
+              <span className={`relative inline-flex rounded-full h-2 w-2 ${
+                isDarkMode ? "bg-purple-500" : "bg-purple-600"
+              }`}></span>
             </span>
-            <span className="font-medium">New!</span>
-            <span className="mx-2">•</span>
-            <span>Full-Stack Course Available</span>
-            <ArrowRight className="ml-2 w-4 h-4" />
+            <span className="font-semibold">✨ New!</span>
+            <span className="mx-2 opacity-60">•</span>
+            <span className="font-medium">Full-Stack Course Available</span>
+            <ArrowRight className={`ml-3 w-4 h-4 transition-transform duration-300 group-hover:translate-x-1 ${
+              isDarkMode ? "text-indigo-300" : "text-indigo-600"
+            }`} />
           </div>
         </div>
 
