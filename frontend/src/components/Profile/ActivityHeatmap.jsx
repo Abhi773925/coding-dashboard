@@ -12,9 +12,11 @@ import {
   Filter,
   BarChart3
 } from 'lucide-react';
+import { useTheme } from '../context/ThemeContext';
 import { safeDateString, safeParseDate, safeGetYear, safeFromTimestamp, isValidDate } from '../../utils/dateUtils';
 
 const ActivityHeatmap = ({ user }) => {
+  const { isDarkMode } = useTheme();
   const [selectedYear, setSelectedYear] = useState(new Date().getFullYear());
   const [selectedPlatform, setSelectedPlatform] = useState('all');
   const [isDataLoaded, setIsDataLoaded] = useState(false);
@@ -258,17 +260,32 @@ const ActivityHeatmap = ({ user }) => {
     .filter(year => year <= new Date().getFullYear());
 
   return (
-    <div className="space-y-4 sm:space-y-6">
+    <div className={`space-y-6 p-6 rounded-xl ${
+      isDarkMode 
+        ? 'bg-slate-900/50 border border-slate-700/50' 
+        : 'bg-white border border-gray-200'
+    }`}>
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
-        <h2 className="text-xl sm:text-2xl lg:text-3xl font-bold text-black dark:text-white px-2">
-          Activity Overview
-        </h2>
+        <div className="flex items-center gap-3">
+          <div className={`p-2 rounded-lg ${
+            isDarkMode ? 'bg-gradient-to-r from-violet-500/20 to-purple-500/20' : 'bg-gradient-to-r from-violet-100 to-purple-100'
+          }`}>
+            <BarChart3 className={`w-6 h-6 ${isDarkMode ? 'text-violet-400' : 'text-violet-600'}`} />
+          </div>
+          <h2 className={`text-2xl font-bold ${isDarkMode ? 'text-slate-200' : 'text-gray-900'}`}>
+            Activity Overview
+          </h2>
+        </div>
         
-        <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2 sm:gap-4">
+        <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2 sm:gap-3">
           <select
             value={selectedPlatform}
             onChange={(e) => setSelectedPlatform(e.target.value)}
-            className="px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-black dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm sm:text-base"
+            className={`px-3 py-2 border rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors ${
+              isDarkMode 
+                ? 'border-slate-600 bg-slate-800 text-slate-200 hover:border-slate-500' 
+                : 'border-gray-300 bg-white text-gray-900 hover:border-gray-400'
+            }`}
           >
             {platforms.map(platform => (
               <option key={platform.id} value={platform.id}>
@@ -280,7 +297,11 @@ const ActivityHeatmap = ({ user }) => {
           <select
             value={selectedYear}
             onChange={(e) => setSelectedYear(parseInt(e.target.value))}
-            className="px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-black dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm sm:text-base"
+            className={`px-3 py-2 border rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors ${
+              isDarkMode 
+                ? 'border-slate-600 bg-slate-800 text-slate-200 hover:border-slate-500' 
+                : 'border-gray-300 bg-white text-gray-900 hover:border-gray-400'
+            }`}
           >
             {availableYears.map(year => (
               <option key={year} value={year}>
@@ -292,29 +313,43 @@ const ActivityHeatmap = ({ user }) => {
       </div>
 
       {/* Activity Stats - Enhanced Responsive Grid */}
-      <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
+      <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-4">
         <motion.div
-          className="bg-white dark:bg-gray-800 rounded-lg p-3 sm:p-4 shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-200 dark:border-gray-700"
+          className={`rounded-lg p-4 backdrop-blur-sm transition-all duration-300 hover:shadow-lg ${
+            isDarkMode 
+              ? 'bg-gradient-to-br from-blue-500/10 to-cyan-500/10 border border-blue-400/20' 
+              : 'bg-gradient-to-br from-blue-50 to-cyan-50 border border-blue-200'
+          }`}
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.3 }}
-          whileHover={{ scale: 1.02 }}
+          whileHover={{ scale: 1.02, y: -2 }}
         >
-          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
-            <div className="text-center sm:text-left">
-              <p className="text-xs sm:text-sm font-medium text-black dark:text-gray-300">Total Activity</p>
-              <p className="text-lg sm:text-xl lg:text-2xl font-bold text-black dark:text-white">{totalActivity.toLocaleString()}</p>
+          <div className="flex items-center justify-between">
+            <div>
+              <p className={`text-sm font-medium ${isDarkMode ? 'text-blue-300' : 'text-blue-700'}`}>
+                Total Activity
+              </p>
+              <p className={`text-2xl font-bold ${isDarkMode ? 'text-white' : 'text-gray-900'}`}>
+                {totalActivity.toLocaleString()}
+              </p>
             </div>
-            <Activity className="w-6 h-6 sm:w-7 sm:h-7 lg:w-8 lg:h-8 text-blue-500 mx-auto sm:mx-0" />
+            <div className="p-2 bg-gradient-to-r from-blue-500 to-cyan-500 rounded-lg">
+              <Activity className="w-5 h-5 text-white" />
+            </div>
           </div>
         </motion.div>
 
         <motion.div
-          className="bg-white dark:bg-gray-800 rounded-lg p-3 sm:p-4 shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-200 dark:border-gray-700"
+          className={`rounded-lg p-4 backdrop-blur-sm transition-all duration-300 hover:shadow-lg ${
+            isDarkMode 
+              ? 'bg-gradient-to-br from-emerald-500/10 to-green-500/10 border border-emerald-400/20' 
+              : 'bg-gradient-to-br from-emerald-50 to-green-50 border border-emerald-200'
+          }`}
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.3, delay: 0.1 }}
-          whileHover={{ scale: 1.02 }}
+          whileHover={{ scale: 1.02, y: -2 }}
         >
           <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
             <div className="text-center sm:text-left">

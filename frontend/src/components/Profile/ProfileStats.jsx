@@ -14,10 +14,11 @@ import {
   Award,
   Activity
 } from 'lucide-react';
-import { getThemeColors } from '../../theme/colorTheme';
+import { useTheme } from '../context/ThemeContext';
 
-const ProfileStats = ({ user, detailed = false, isDarkMode = false }) => {
-  const themeColors = getThemeColors(isDarkMode);
+const ProfileStats = ({ user, detailed = false }) => {
+  const { isDarkMode } = useTheme();
+  
   const calculateStats = () => {
     if (!user?.platformStats) return null;
 
@@ -48,6 +49,11 @@ const ProfileStats = ({ user, detailed = false, isDarkMode = false }) => {
               .reduce((sum, val) => sum + parseInt(val || 0), 0);
             totalProblems += gfgProblems;
           }
+          // Add contest data from new structure
+          if (stats.contest?.rating) {
+            totalContest += 1;
+          }
+          break;
           break;
       }
     });
@@ -84,75 +90,108 @@ const ProfileStats = ({ user, detailed = false, isDarkMode = false }) => {
       label: 'Problems Solved',
       value: stats.totalProblems,
       icon: Code2,
-      color: 'from-emerald-500 to-green-600',
-      bgColor: isDarkMode ? 'bg-emerald-900/20' : 'bg-emerald-50'
+      color: isDarkMode ? 'from-blue-400 to-cyan-500' : 'from-blue-500 to-cyan-600',
+      bgColor: isDarkMode 
+        ? 'bg-gradient-to-br from-blue-500/10 to-cyan-500/10 border border-blue-400/20' 
+        : 'bg-gradient-to-br from-blue-50 to-cyan-50 border border-blue-200',
+      textColor: isDarkMode ? 'text-blue-300' : 'text-blue-700'
     },
     {
       label: 'Repositories',
       value: stats.totalRepositories,
       icon: GitBranch,
-      color: 'from-blue-500 to-indigo-600',
-      bgColor: isDarkMode ? 'bg-blue-900/20' : 'bg-blue-50'
+      color: isDarkMode ? 'from-purple-400 to-violet-500' : 'from-purple-500 to-violet-600',
+      bgColor: isDarkMode 
+        ? 'bg-gradient-to-br from-purple-500/10 to-violet-500/10 border border-purple-400/20' 
+        : 'bg-gradient-to-br from-purple-50 to-violet-50 border border-purple-200',
+      textColor: isDarkMode ? 'text-purple-300' : 'text-purple-700'
     },
     {
       label: 'Total Stars',
       value: stats.totalStars,
       icon: Star,
-      color: 'from-amber-500 to-yellow-600',
-      bgColor: isDarkMode ? 'bg-amber-900/20' : 'bg-amber-50'
+      color: isDarkMode ? 'from-amber-400 to-orange-500' : 'from-amber-500 to-orange-600',
+      bgColor: isDarkMode 
+        ? 'bg-gradient-to-br from-amber-500/10 to-orange-500/10 border border-amber-400/20' 
+        : 'bg-gradient-to-br from-amber-50 to-orange-50 border border-amber-200',
+      textColor: isDarkMode ? 'text-amber-300' : 'text-amber-700'
     },
     {
       label: 'Contributions',
       value: stats.totalContributions,
       icon: Activity,
-      color: 'from-purple-500 to-violet-600',
-      bgColor: isDarkMode ? 'bg-purple-900/20' : 'bg-purple-50'
+      color: isDarkMode ? 'from-emerald-400 to-green-500' : 'from-emerald-500 to-green-600',
+      bgColor: isDarkMode 
+        ? 'bg-gradient-to-br from-emerald-500/10 to-green-500/10 border border-emerald-400/20' 
+        : 'bg-gradient-to-br from-emerald-50 to-green-50 border border-emerald-200',
+      textColor: isDarkMode ? 'text-emerald-300' : 'text-emerald-700'
     },
     {
       label: 'Contests',
       value: stats.totalContest,
       icon: Trophy,
-      color: 'from-orange-500 to-red-600',
-      bgColor: isDarkMode ? 'bg-orange-900/20' : 'bg-orange-50'
+      color: isDarkMode ? 'from-pink-400 to-rose-500' : 'from-pink-500 to-rose-600',
+      bgColor: isDarkMode 
+        ? 'bg-gradient-to-br from-pink-500/10 to-rose-500/10 border border-pink-400/20' 
+        : 'bg-gradient-to-br from-pink-50 to-rose-50 border border-pink-200',
+      textColor: isDarkMode ? 'text-pink-300' : 'text-pink-700'
     },
     {
       label: 'Platforms',
       value: stats.platforms,
       icon: Users,
-      color: 'from-pink-500 to-rose-600',
-      bgColor: isDarkMode ? 'bg-pink-900/20' : 'bg-pink-50'
+      color: isDarkMode ? 'from-indigo-400 to-purple-500' : 'from-indigo-500 to-purple-600',
+      bgColor: isDarkMode 
+        ? 'bg-gradient-to-br from-indigo-500/10 to-purple-500/10 border border-indigo-400/20' 
+        : 'bg-gradient-to-br from-indigo-50 to-purple-50 border border-indigo-200',
+      textColor: isDarkMode ? 'text-indigo-300' : 'text-indigo-700'
     }
   ];
 
   if (detailed) {
     return (
-      <div className="space-y-6">
-        <h2 className="text-2xl font-bold text-gray-900 dark:text-white">Performance Analytics</h2>
+      <div className={`space-y-8 p-6 rounded-xl ${
+        isDarkMode 
+          ? 'bg-slate-900/50 border border-slate-700/50' 
+          : 'bg-white border border-gray-200'
+      }`}>
+        <div className="flex items-center gap-3">
+          <div className={`p-2 rounded-lg ${
+            isDarkMode ? 'bg-gradient-to-r from-blue-500/20 to-purple-500/20' : 'bg-gradient-to-r from-blue-100 to-purple-100'
+          }`}>
+            <TrendingUp className={`w-6 h-6 ${isDarkMode ? 'text-blue-400' : 'text-blue-600'}`} />
+          </div>
+          <h2 className={`text-2xl font-bold ${isDarkMode ? 'text-slate-200' : 'text-gray-900'}`}>
+            Performance Analytics
+          </h2>
+        </div>
         
         {/* Overview Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 xs:grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-4 gap-4">
           {statItems.map((item, index) => {
             const Icon = item.icon;
             return (
               <motion.div
                 key={item.label}
-                className={`${item.bgColor} rounded-xl p-6 border border-gray-200 dark:border-gray-700`}
+                className={`${item.bgColor} rounded-xl p-4 backdrop-blur-sm hover:shadow-lg transition-all duration-300`}
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.3, delay: index * 0.1 }}
-                whileHover={{ y: -5 }}
+                whileHover={{ y: -2, scale: 1.02 }}
               >
-                <div className="flex items-center justify-between">
-                  <div>
-                    <p className="text-sm font-medium text-gray-600 dark:text-gray-400">
+                <div className="flex items-start justify-between">
+                  <div className="flex-1">
+                    <p className={`text-sm font-medium ${item.textColor || (isDarkMode ? 'text-gray-400' : 'text-gray-600')}`}>
                       {item.label}
                     </p>
-                    <p className="text-3xl font-bold text-gray-900 dark:text-white mt-1">
+                    <p className={`text-xl sm:text-2xl lg:text-3xl font-bold mt-1 ${
+                      isDarkMode ? 'text-white' : 'text-gray-900'
+                    }`}>
                       {item.value.toLocaleString()}
                     </p>
                   </div>
-                  <div className={`p-3 rounded-lg bg-gradient-to-r ${item.color}`}>
-                    <Icon className="w-6 h-6 text-white" />
+                  <div className={`p-2.5 rounded-lg bg-gradient-to-r ${item.color} shadow-lg`}>
+                    <Icon className="w-5 h-5 text-white" />
                   </div>
                 </div>
               </motion.div>
@@ -161,8 +200,14 @@ const ProfileStats = ({ user, detailed = false, isDarkMode = false }) => {
         </div>
 
         {/* Platform Breakdown */}
-        <div className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-lg">
-          <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-6">Platform Breakdown</h3>
+        <div className={`rounded-xl p-6 ${
+          isDarkMode 
+            ? 'bg-slate-800/50 border border-slate-700/50' 
+            : 'bg-white border border-gray-200'
+        }`}>
+          <h3 className={`text-lg font-semibold mb-6 ${isDarkMode ? 'text-slate-200' : 'text-gray-900'}`}>
+            Platform Breakdown
+          </h3>
           <div className="space-y-4">
             {Object.entries(user.platformStats).map(([platform, data]) => {
               const stats = data.stats;
@@ -229,47 +274,61 @@ const ProfileStats = ({ user, detailed = false, isDarkMode = false }) => {
   }
 
   return (
-    <div className={`${themeColors.profile.card.bg} ${themeColors.profile.card.border} rounded-xl p-6 ${themeColors.profile.card.shadow} border backdrop-blur-sm`}>
-      <div className="flex items-center justify-between mb-6">
-        <h3 className={`text-lg font-semibold ${themeColors.profile.text.primary}`}>Quick Stats</h3>
-        <TrendingUp className="w-5 h-5 text-emerald-500" />
+    <div className={`p-4 rounded-xl backdrop-blur-sm ${
+      isDarkMode 
+        ? 'bg-slate-900/50 border border-slate-700/50' 
+        : 'bg-white/80 border border-gray-200'
+    }`}>
+      <div className="flex items-center gap-2 mb-4">
+        <div className={`p-1.5 rounded-lg ${
+          isDarkMode ? 'bg-gradient-to-r from-emerald-500/20 to-green-500/20' : 'bg-gradient-to-r from-emerald-100 to-green-100'
+        }`}>
+          <TrendingUp className={`w-4 h-4 ${isDarkMode ? 'text-emerald-400' : 'text-emerald-600'}`} />
+        </div>
+        <h3 className={`text-lg font-semibold ${isDarkMode ? 'text-slate-200' : 'text-gray-900'}`}>
+          Quick Stats
+        </h3>
       </div>
 
-      <div className="grid grid-cols-2 gap-4">
+      <div className="grid grid-cols-2 gap-3">
         {statItems.slice(0, 4).map((item, index) => {
           const Icon = item.icon;
           return (
             <motion.div
               key={item.label}
-              className={`text-center p-4 rounded-lg ${item.bgColor} ${themeColors.profile.card.hover} transition-all duration-200 border border-transparent hover:border-purple-200 dark:hover:border-purple-700`}
+              className={`text-center p-3 rounded-lg ${item.bgColor} hover:shadow-md transition-all duration-200`}
               initial={{ opacity: 0, scale: 0.8 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.3, delay: index * 0.1 }}
-              whileHover={{ scale: 1.05, y: -2 }}
+              whileHover={{ scale: 1.02, y: -1 }}
             >
-              <div className={`inline-flex p-2 rounded-lg bg-gradient-to-r ${item.color} mb-2 shadow-lg`}>
-                <Icon className="w-4 h-4 text-white" />
+              <div className={`inline-flex p-1.5 rounded-lg bg-gradient-to-r ${item.color} mb-2 shadow-sm`}>
+                <Icon className="w-3.5 h-3.5 text-white" />
               </div>
-              <p className={`text-2xl font-bold ${themeColors.profile.text.primary}`}>
+              <p className={`text-xl font-bold ${isDarkMode ? 'text-white' : 'text-gray-900'}`}>
                 {item.value.toLocaleString()}
               </p>
-              <p className={`text-xs ${themeColors.profile.text.secondary}`}>{item.label}</p>
+              <p className={`text-xs ${item.textColor || (isDarkMode ? 'text-gray-400' : 'text-gray-600')}`}>
+                {item.label}
+              </p>
             </motion.div>
           );
         })}
       </div>
 
       {/* Progress Indicators */}
-      <div className="mt-6 space-y-3">
+      <div className="mt-4 space-y-3">
         <div className="flex items-center justify-between">
-          <span className={`text-sm ${themeColors.profile.text.secondary}`}>Overall Progress</span>
-          <span className={`text-sm font-medium ${themeColors.profile.text.primary}`}>
+          <span className={`text-sm ${isDarkMode ? 'text-gray-400' : 'text-gray-600'}`}>
+            Overall Progress
+          </span>
+          <span className={`text-sm font-medium ${isDarkMode ? 'text-slate-200' : 'text-gray-900'}`}>
             {Math.min(100, Math.round((stats.totalProblems + stats.totalRepositories) / 10))}%
           </span>
         </div>
-        <div className={`w-full ${isDarkMode ? 'bg-slate-700' : 'bg-gray-200'} rounded-full h-2`}>
+        <div className={`w-full rounded-full h-2 ${isDarkMode ? 'bg-slate-700' : 'bg-gray-200'}`}>
           <div 
-            className="bg-gradient-to-r from-purple-500 to-blue-500 h-2 rounded-full transition-all duration-500 shadow-lg"
+            className="bg-gradient-to-r from-purple-500 to-blue-500 h-2 rounded-full transition-all duration-500 shadow-sm"
             style={{ 
               width: `${Math.min(100, Math.round((stats.totalProblems + stats.totalRepositories) / 10))}%` 
             }}
