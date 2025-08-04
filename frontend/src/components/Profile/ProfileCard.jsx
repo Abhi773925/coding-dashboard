@@ -432,7 +432,7 @@ const ProfileCard = ({ user, onUpdate, profileMode, setProfileMode }) => {
           whileHover={{ scale: 1.02 }}
           whileTap={{ scale: 0.98 }}
         >
-          Get your Codolio Card
+          Get your Prepmate Card
         </motion.button>
       </div>
 

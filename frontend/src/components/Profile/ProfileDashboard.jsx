@@ -85,6 +85,9 @@ const ProfileDashboard = () => {
             bio: '',
             location: '',
             website: '',
+            github: '',
+            linkedin: '',
+            instagram: '',
             missingPlatforms: ['leetcode', 'github', 'geeksforgeeks'],
             platformStats: {},
             isNewUser: true
@@ -112,6 +115,9 @@ const ProfileDashboard = () => {
         bio: '',
         location: '',
         website: '',
+        github: '',
+        linkedin: '',
+        instagram: '',
         missingPlatforms: ['leetcode', 'github', 'geeksforgeeks'],
         platformStats: {},
         isNewUser: true
