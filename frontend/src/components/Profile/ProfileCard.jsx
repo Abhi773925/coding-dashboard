@@ -1,0 +1,384 @@
+import React, { useState } from 'react';
+import { motion } from 'framer-motion';
+import { 
+  User, 
+  Edit3, 
+  Save, 
+  X, 
+  Camera, 
+  MapPin, 
+  Mail, 
+  Calendar,
+  Trophy,
+  Star,
+  TrendingUp,
+  Target,
+  Award,
+  ExternalLink,
+  Shield,
+  Github,
+  Code2,
+  Activity
+} from 'lucide-react';
+import { useTheme } from '../context/ThemeContext';
+import { fetchWithWakeUp } from '../../utils/serverWakeUp';
+
+const ProfileCard = ({ user, onUpdate }) => {
+  const { isDarkMode } = useTheme();
+  const [isEditing, setIsEditing] = useState(false);
+  const [editData, setEditData] = useState({
+    name: user?.name || '',
+    bio: user?.bio || '',
+    location: user?.location || '',
+    website: user?.website || ''
+  });
+
+  const handleSave = async () => {
+    try {
+      const response = await fetchWithWakeUp('https://prepmate-kvol.onrender.com/api/profile/update-basic', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          email: user.email,
+          ...editData
+        }),
+      });
+      
+      if (response.ok) {
+        setIsEditing(false);
+        onUpdate && onUpdate();
+      }
+    } catch (error) {
+      console.error('Error updating profile:', error);
+    }
+  };
+
+  const calculateOverallScore = () => {
+    if (!user?.platformStats) return 0;
+    
+    let totalScore = 0;
+    const platforms = Object.keys(user.platformStats);
+    
+    platforms.forEach(platform => {
+      const stats = user.platformStats[platform]?.stats;
+      if (stats) {
+        switch(platform) {
+          case 'leetcode':
+            totalScore += (stats.problemStats?.totalSolved || 0) * 10;
+            totalScore += (stats.contestStats?.rating || 0) / 10;
+            break;
+          case 'github':
+            totalScore += (stats.stats?.publicRepos || 0) * 5;
+            totalScore += (stats.stats?.totalStars || 0) * 2;
+            break;
+          case 'geeksforgeeks':
+            totalScore += 100; // Base score for having GFG
+            break;
+        }
+      }
+    });
+    
+    return Math.round(totalScore);
+  };
+
+  const getProfileCompleteness = () => {
+    const requiredFields = ['name', 'email'];
+    const optionalFields = ['bio', 'location', 'website'];
+    const platformFields = ['leetcode', 'github', 'geeksforgeeks'];
+    
+    let completed = 0;
+    let total = requiredFields.length + optionalFields.length + platformFields.length;
+    
+    // Check required fields
+    requiredFields.forEach(field => {
+      if (user?.[field]) completed++;
+    });
+    
+    // Check optional fields
+    optionalFields.forEach(field => {
+      if (user?.[field] || editData[field]) completed++;
+    });
+    
+    // Check platform connections
+    platformFields.forEach(platform => {
+      if (user?.platformStats?.[platform]) completed++;
+    });
+    
+    return Math.round((completed / total) * 100);
+  };
+
+  const getPlatformRanks = () => {
+    const ranks = [];
+    if (user?.platformStats) {
+      Object.entries(user.platformStats).forEach(([platform, data]) => {
+        const stats = data.stats;
+        if (stats) {
+          switch(platform) {
+            case 'leetcode':
+              if (stats.contestStats?.ranking) {
+                ranks.push({
+                  platform: 'LeetCode',
+                  rank: stats.contestStats.ranking,
+                  icon: Code2,
+                  color: 'from-orange-400 to-yellow-500'
+                });
+              }
+              break;
+            case 'github':
+              if (stats.stats?.followers) {
+                ranks.push({
+                  platform: 'GitHub',
+                  rank: `${stats.stats.followers} followers`,
+                  icon: Github,
+                  color: 'from-gray-400 to-gray-600'
+                });
+              }
+              break;
+            case 'geeksforgeeks':
+              if (stats.profile?.ranking) {
+                ranks.push({
+                  platform: 'GeeksforGeeks',
+                  rank: stats.profile.ranking,
+                  icon: Trophy,
+                  color: 'from-green-400 to-emerald-500'
+                });
+              }
+              break;
+          }
+        }
+      });
+    }
+    return ranks;
+  };
+
+  const connectedPlatforms = user?.platformStats ? Object.keys(user.platformStats).length : 0;
+  const overallScore = calculateOverallScore();
+  const completeness = getProfileCompleteness();
+  const platformRanks = getPlatformRanks();
+
+  return (
+    <motion.div
+      className={`rounded-2xl p-6 backdrop-blur-sm border transition-all duration-300 ${
+        isDarkMode 
+          ? 'bg-slate-900/70 border-slate-700/50 shadow-xl' 
+          : 'bg-white/90 border-gray-200/50 shadow-lg'
+      }`}
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.5 }}
+      whileHover={{ y: -2, shadow: isDarkMode ? '0 25px 50px rgba(0,0,0,0.3)' : '0 25px 50px rgba(0,0,0,0.1)' }}
+    >
+      {/* Profile Picture and Basic Info */}
+      <div className="text-center mb-6">
+        <div className="relative inline-block">
+          <div className={`w-24 h-24 rounded-full mx-auto mb-4 flex items-center justify-center text-white font-bold text-2xl ${
+            isDarkMode ? 'bg-gradient-to-br from-blue-500 to-purple-600' : 'bg-gradient-to-br from-blue-400 to-purple-500'
+          }`}>
+            {user?.name ? user.name.charAt(0).toUpperCase() : 'U'}
+          </div>
+          <div className={`absolute -bottom-1 -right-1 w-8 h-8 rounded-full flex items-center justify-center cursor-pointer transition-transform hover:scale-110 ${
+            isDarkMode ? 'bg-slate-700 text-slate-300' : 'bg-gray-100 text-gray-600'
+          }`}>
+            <Camera className="w-4 h-4" />
+          </div>
+        </div>
+
+        {isEditing ? (
+          <div className="space-y-3">
+            <input
+              type="text"
+              value={editData.name}
+              onChange={(e) => setEditData({...editData, name: e.target.value})}
+              className={`w-full px-3 py-2 rounded-lg border text-center font-semibold text-lg ${
+                isDarkMode 
+                  ? 'bg-slate-800 border-slate-600 text-white' 
+                  : 'bg-white border-gray-300 text-gray-900'
+              }`}
+              placeholder="Your Name"
+            />
+            <div className="flex justify-center space-x-2">
+              <button
+                onClick={handleSave}
+                className="p-2 bg-green-500 text-white rounded-lg hover:bg-green-600 transition-colors"
+              >
+                <Save className="w-4 h-4" />
+              </button>
+              <button
+                onClick={() => setIsEditing(false)}
+                className="p-2 bg-gray-500 text-white rounded-lg hover:bg-gray-600 transition-colors"
+              >
+                <X className="w-4 h-4" />
+              </button>
+            </div>
+          </div>
+        ) : (
+          <div className="group">
+            <h2 className={`text-xl font-bold mb-1 ${isDarkMode ? 'text-white' : 'text-gray-900'}`}>
+              {user?.name || 'Your Name'}
+            </h2>
+            <p className={`text-sm ${isDarkMode ? 'text-slate-400' : 'text-gray-600'}`}>
+              @{user?.email?.split('@')[0] || 'username'}
+            </p>
+            <button
+              onClick={() => setIsEditing(true)}
+              className={`mt-2 opacity-0 group-hover:opacity-100 transition-opacity p-1 rounded ${
+                isDarkMode ? 'text-slate-400 hover:text-white' : 'text-gray-400 hover:text-gray-700'
+              }`}
+            >
+              <Edit3 className="w-4 h-4" />
+            </button>
+          </div>
+        )}
+
+        {/* Get Codolio Card Button */}
+        <motion.button
+          className="mt-4 w-full bg-gradient-to-r from-orange-500 to-orange-600 text-white py-2.5 px-4 rounded-lg font-semibold text-sm transition-all duration-300 hover:from-orange-600 hover:to-orange-700 shadow-lg"
+          whileHover={{ scale: 1.02 }}
+          whileTap={{ scale: 0.98 }}
+        >
+          Get your Codolio Card
+        </motion.button>
+      </div>
+
+      {/* Contact Information */}
+      <div className="space-y-3 mb-6">
+        {user?.email && (
+          <div className="flex items-center space-x-3">
+            <Mail className={`w-4 h-4 ${isDarkMode ? 'text-slate-400' : 'text-gray-500'}`} />
+            <span className={`text-sm ${isDarkMode ? 'text-slate-300' : 'text-gray-700'}`}>
+              {user.email}
+            </span>
+          </div>
+        )}
+        
+        {(user?.location || editData.location) && (
+          <div className="flex items-center space-x-3">
+            <MapPin className={`w-4 h-4 ${isDarkMode ? 'text-slate-400' : 'text-gray-500'}`} />
+            <span className={`text-sm ${isDarkMode ? 'text-slate-300' : 'text-gray-700'}`}>
+              {user?.location || editData.location}
+            </span>
+          </div>
+        )}
+
+        {(user?.website || editData.website) && (
+          <div className="flex items-center space-x-3">
+            <ExternalLink className={`w-4 h-4 ${isDarkMode ? 'text-slate-400' : 'text-gray-500'}`} />
+            <a 
+              href={user?.website || editData.website} 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className={`text-sm hover:underline ${isDarkMode ? 'text-blue-400' : 'text-blue-600'}`}
+            >
+              {user?.website || editData.website}
+            </a>
+          </div>
+        )}
+      </div>
+
+      {/* About Section */}
+      {(user?.bio || isEditing) && (
+        <div className="mb-6">
+          <h3 className={`text-sm font-semibold mb-2 ${isDarkMode ? 'text-white' : 'text-gray-900'}`}>
+            About
+          </h3>
+          {isEditing ? (
+            <textarea
+              value={editData.bio}
+              onChange={(e) => setEditData({...editData, bio: e.target.value})}
+              className={`w-full px-3 py-2 rounded-lg border text-sm resize-none ${
+                isDarkMode 
+                  ? 'bg-slate-800 border-slate-600 text-white' 
+                  : 'bg-white border-gray-300 text-gray-900'
+              }`}
+              rows="3"
+              placeholder="Tell us about yourself..."
+            />
+          ) : (
+            <p className={`text-sm ${isDarkMode ? 'text-slate-300' : 'text-gray-600'}`}>
+              {user?.bio || 'N/A'}
+            </p>
+          )}
+        </div>
+      )}
+
+      {/* Quick Stats */}
+      <div className="grid grid-cols-2 gap-4 mb-6">
+        <div className={`text-center p-3 rounded-lg ${
+          isDarkMode ? 'bg-slate-800/50' : 'bg-gray-50'
+        }`}>
+          <div className={`text-lg font-bold ${isDarkMode ? 'text-white' : 'text-gray-900'}`}>
+            {overallScore.toLocaleString()}
+          </div>
+          <div className={`text-xs ${isDarkMode ? 'text-slate-400' : 'text-gray-600'}`}>
+            Overall Score
+          </div>
+        </div>
+        <div className={`text-center p-3 rounded-lg ${
+          isDarkMode ? 'bg-slate-800/50' : 'bg-gray-50'
+        }`}>
+          <div className={`text-lg font-bold ${isDarkMode ? 'text-white' : 'text-gray-900'}`}>
+            {connectedPlatforms}
+          </div>
+          <div className={`text-xs ${isDarkMode ? 'text-slate-400' : 'text-gray-600'}`}>
+            Platforms
+          </div>
+        </div>
+      </div>
+
+      {/* Platform Ranks */}
+      {platformRanks.length > 0 && (
+        <div className="mb-6">
+          <h3 className={`text-sm font-semibold mb-3 ${isDarkMode ? 'text-white' : 'text-gray-900'}`}>
+            Platform Rankings
+          </h3>
+          <div className="space-y-2">
+            {platformRanks.map((rank, index) => {
+              const Icon = rank.icon;
+              return (
+                <div key={index} className={`flex items-center justify-between p-2 rounded-lg ${
+                  isDarkMode ? 'bg-slate-800/30' : 'bg-gray-50/50'
+                }`}>
+                  <div className="flex items-center space-x-2">
+                    <div className={`p-1.5 rounded-lg bg-gradient-to-r ${rank.color}`}>
+                      <Icon className="w-3 h-3 text-white" />
+                    </div>
+                    <span className={`text-xs font-medium ${isDarkMode ? 'text-slate-300' : 'text-gray-700'}`}>
+                      {rank.platform}
+                    </span>
+                  </div>
+                  <span className={`text-xs font-bold ${isDarkMode ? 'text-white' : 'text-gray-900'}`}>
+                    {rank.rank}
+                  </span>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      )}
+
+      {/* Profile Completeness */}
+      <div className="space-y-3">
+        <div className="flex items-center justify-between">
+          <span className={`text-sm font-medium ${isDarkMode ? 'text-slate-300' : 'text-gray-700'}`}>
+            Profile Completeness
+          </span>
+          <span className={`text-sm font-bold ${isDarkMode ? 'text-white' : 'text-gray-900'}`}>
+            {completeness}%
+          </span>
+        </div>
+        <div className={`w-full rounded-full h-2 ${isDarkMode ? 'bg-slate-700' : 'bg-gray-200'}`}>
+          <motion.div 
+            className="bg-gradient-to-r from-green-500 to-emerald-500 h-2 rounded-full"
+            initial={{ width: 0 }}
+            animate={{ width: `${completeness}%` }}
+            transition={{ duration: 1, delay: 0.5 }}
+          />
+        </div>
+      </div>
+    </motion.div>
+  );
+};
+
+export default ProfileCard;

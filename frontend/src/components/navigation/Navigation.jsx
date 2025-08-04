@@ -881,7 +881,7 @@ const Navigation = () => {
   )
 
   return (
-    <div className={`${isDarkMode ? "dark bg-slate-950 text-gray-100" : "bg-white text-gray-900"}`}>
+    <div className={`${isDarkMode ? "dark bg-slate-900 text-gray-100" : "bg-white text-gray-900"}`}>
       {isMobile ? renderMobileNavigation() : renderDesktopNavigation()}
     </div>
   )

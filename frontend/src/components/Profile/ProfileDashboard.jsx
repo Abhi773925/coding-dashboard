@@ -28,6 +28,7 @@ import { useAuth } from '../navigation/Navigation';
 import { fetchWithWakeUp } from '../../utils/serverWakeUp';
 import { useTheme } from '../context/ThemeContext';
 import ProfileHeader from './ProfileHeader';
+import ProfileCard from './ProfileCard';
 import PlatformCards from './PlatformCards';
 import SkillsOverview from './SkillsOverview';
 import ActivityHeatmap from './ActivityHeatmap';
@@ -397,35 +398,84 @@ const ProfileDashboard = () => {
               transition={{ duration: 0.3 }}
             >
               {selectedTab === 'overview' && (
-                <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-                  <div className="lg:col-span-2 space-y-6">
-                    <ProfileStats user={profileData} />
-                    <RecentActivity user={profileData} />
-                  </div>
-                  <div className="space-y-6">
-                    <PlatformCards 
-                      user={profileData}
-                      onConnectPlatform={handleConnectPlatform}
+                <div className="grid grid-cols-1 xl:grid-cols-4 gap-6">
+                  {/* Left Column - Profile Card */}
+                  <div className="xl:col-span-1 order-1 xl:order-1">
+                    <ProfileCard 
+                      user={profileData} 
+                      onUpdate={fetchUserProfile}
                     />
-                    <AchievementShowcase user={profileData} />
+                  </div>
+                  
+                  {/* Right Column - Main Content */}
+                  <div className="xl:col-span-3 order-2 xl:order-2 space-y-6">
+                    <ProfileStats user={profileData} />
+                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                      <PlatformCards 
+                        user={profileData}
+                        onConnectPlatform={handleConnectPlatform}
+                      />
+                      <AchievementShowcase user={profileData} />
+                    </div>
+                    <RecentActivity user={profileData} />
+                    <ActivityHeatmap user={profileData} />
                   </div>
                 </div>
               )}
 
               {selectedTab === 'platforms' && (
-                <PlatformCards 
-                  user={profileData}
-                  onConnectPlatform={handleConnectPlatform}
-                  detailed={true}
-                />
+                <div className="grid grid-cols-1 xl:grid-cols-4 gap-6">
+                  {/* Left Column - Profile Card */}
+                  <div className="xl:col-span-1 order-1 xl:order-1">
+                    <ProfileCard 
+                      user={profileData} 
+                      onUpdate={fetchUserProfile}
+                    />
+                  </div>
+                  
+                  {/* Right Column - Platform Details */}
+                  <div className="xl:col-span-3 order-2 xl:order-2">
+                    <PlatformCards 
+                      user={profileData}
+                      onConnectPlatform={handleConnectPlatform}
+                      detailed={true}
+                    />
+                  </div>
+                </div>
               )}
 
               {selectedTab === 'skills' && (
-                <SkillsOverview user={profileData} />
+                <div className="grid grid-cols-1 xl:grid-cols-4 gap-6">
+                  {/* Left Column - Profile Card */}
+                  <div className="xl:col-span-1 order-1 xl:order-1">
+                    <ProfileCard 
+                      user={profileData} 
+                      onUpdate={fetchUserProfile}
+                    />
+                  </div>
+                  
+                  {/* Right Column - Skills Content */}
+                  <div className="xl:col-span-3 order-2 xl:order-2">
+                    <SkillsOverview user={profileData} />
+                  </div>
+                </div>
               )}
 
               {selectedTab === 'activity' && (
-                <ActivityHeatmap user={profileData} />
+                <div className="grid grid-cols-1 xl:grid-cols-4 gap-6">
+                  {/* Left Column - Profile Card */}
+                  <div className="xl:col-span-1 order-1 xl:order-1">
+                    <ProfileCard 
+                      user={profileData} 
+                      onUpdate={fetchUserProfile}
+                    />
+                  </div>
+                  
+                  {/* Right Column - Activity Content */}
+                  <div className="xl:col-span-3 order-2 xl:order-2">
+                    <ActivityHeatmap user={profileData} />
+                  </div>
+                </div>
               )}
 
               {selectedTab === 'achievements' && (
@@ -433,9 +483,20 @@ const ProfileDashboard = () => {
               )}
 
               {selectedTab === 'analytics' && (
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-                  <ProfileStats user={profileData} detailed={true} />
-                  <ActivityHeatmap user={profileData} />
+                <div className="grid grid-cols-1 xl:grid-cols-4 gap-6">
+                  {/* Left Column - Profile Card */}
+                  <div className="xl:col-span-1 order-1 xl:order-1">
+                    <ProfileCard 
+                      user={profileData} 
+                      onUpdate={fetchUserProfile}
+                    />
+                  </div>
+                  
+                  {/* Right Column - Analytics Content */}
+                  <div className="xl:col-span-3 order-2 xl:order-2 space-y-6">
+                    <ProfileStats user={profileData} detailed={true} />
+                    <ActivityHeatmap user={profileData} />
+                  </div>
                 </div>
               )}
             </motion.div>
