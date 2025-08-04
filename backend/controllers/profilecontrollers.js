@@ -2064,7 +2064,7 @@ exports.getDeveloperScore = async (req, res) => {
 // Update Basic Profile Information
 exports.updateBasicProfile = async (req, res) => {
   try {
-    const { email, name, bio, location, website, preferences } = req.body;
+    const { email, name, bio, location, website, linkedin, instagram, github, preferences } = req.body;
 
     // Validate email
     if (!email) {
@@ -2082,6 +2082,9 @@ exports.updateBasicProfile = async (req, res) => {
     if (bio !== undefined) user.bio = bio;
     if (location !== undefined) user.location = location;
     if (website !== undefined) user.website = website;
+    if (linkedin !== undefined) user.linkedin = linkedin;
+    if (instagram !== undefined) user.instagram = instagram;
+    if (github !== undefined) user.github = github;
     
     // Update preferences if provided
     if (preferences) {
@@ -2101,6 +2104,9 @@ exports.updateBasicProfile = async (req, res) => {
         bio: user.bio,
         location: user.location,
         website: user.website,
+        linkedin: user.linkedin,
+        instagram: user.instagram,
+        github: user.github,
         preferences: user.preferences
       }
     });

@@ -43,6 +43,14 @@ const UserSchema = new mongoose.Schema(
       type: String,
       default: null
     },
+    linkedin: {
+      type: String,
+      default: null
+    },
+    instagram: {
+      type: String,
+      default: null
+    },
     geeksforgeeks:{
       type: String,
       default: null

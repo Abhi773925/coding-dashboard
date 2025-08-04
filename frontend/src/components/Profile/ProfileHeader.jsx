@@ -12,7 +12,10 @@ import {
   Trophy,
   Star,
   TrendingUp,
-  Target
+  Target,
+  Github,
+  Linkedin,
+  Instagram
 } from 'lucide-react';
 import { fetchWithWakeUp } from '../../utils/serverWakeUp';
 import { getThemeColors } from '../../theme/colorTheme';
@@ -22,7 +25,10 @@ const ProfileHeader = ({ user, profileMode, setProfileMode, onUpdate, isDarkMode
     name: user?.name || '',
     bio: user?.bio || '',
     location: user?.location || '',
-    website: user?.website || ''
+    website: user?.website || '',
+    linkedin: user?.linkedin || '',
+    instagram: user?.instagram || '',
+    github: user?.github || ''
   });
 
   const themeColors = getThemeColors(isDarkMode);

@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Social Profile Test - PrepMate</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 min-h-screen">
+    <div class="container mx-auto p-6">
+        <div class="max-w-2xl mx-auto">
+            <h1 class="text-3xl font-bold text-center mb-8">Social Profile Update Test</h1>
+            
+            <!-- Profile Update Form -->
+            <div class="bg-white rounded-lg shadow-lg p-6 mb-6">
+                <h2 class="text-xl font-semibold mb-4">Update Profile</h2>
+                <form id="profileForm" class="space-y-4">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Email</label>
+                        <input type="email" id="email" value="test@example.com" 
+                               class="w-full px-3 py-2 border border-gray-300 rounded-md" required>
+                    </div>
+                    
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Name</label>
+                        <input type="text" id="name" placeholder="Your Name"
+                               class="w-full px-3 py-2 border border-gray-300 rounded-md">
+                    </div>
+                    
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Bio</label>
+                        <textarea id="bio" placeholder="Tell us about yourself..." rows="3"
+                                  class="w-full px-3 py-2 border border-gray-300 rounded-md"></textarea>
+                    </div>
+                    
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Location</label>
+                        <input type="text" id="location" placeholder="Your Location"
+                               class="w-full px-3 py-2 border border-gray-300 rounded-md">
+                    </div>
+                    
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Website</label>
+                        <input type="url" id="website" placeholder="https://yourwebsite.com"
+                               class="w-full px-3 py-2 border border-gray-300 rounded-md">
+                    </div>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">GitHub Username</label>
+                            <input type="text" id="github" placeholder="github-username"
+                                   class="w-full px-3 py-2 border border-gray-300 rounded-md">
+                        </div>
+                        
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">LinkedIn Username</label>
+                            <input type="text" id="linkedin" placeholder="linkedin-username"
+                                   class="w-full px-3 py-2 border border-gray-300 rounded-md">
+                        </div>
+                        
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Instagram Username</label>
+                            <input type="text" id="instagram" placeholder="instagram-username"
+                                   class="w-full px-3 py-2 border border-gray-300 rounded-md">
+                        </div>
+                    </div>
+                    
+                    <button type="submit" 
+                            class="w-full bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 transition-colors">
+                        Update Profile
+                    </button>
+                </form>
+            </div>
+            
+            <!-- Profile Display -->
+            <div class="bg-white rounded-lg shadow-lg p-6 mb-6" id="profileDisplay" style="display: none;">
+                <h2 class="text-xl font-semibold mb-4">Profile Information</h2>
+                <div id="profileContent"></div>
+            </div>
+            
+            <!-- Test Results -->
+            <div class="bg-white rounded-lg shadow-lg p-6">
+                <h2 class="text-xl font-semibold mb-4">Test Results</h2>
+                <div id="testResults" class="space-y-2"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const API_BASE = 'https://prepmate-kvol.onrender.com/api/profile';
+        
+        function addTestResult(message, type = 'info') {
+            const testResults = document.getElementById('testResults');
+            const div = document.createElement('div');
+            div.className = `p-3 rounded-md ${
+                type === 'success' ? 'bg-green-100 text-green-800' :
+                type === 'error' ? 'bg-red-100 text-red-800' :
+                'bg-blue-100 text-blue-800'
+            }`;
+            div.textContent = `${new Date().toLocaleTimeString()}: ${message}`;
+            testResults.appendChild(div);
+            testResults.scrollTop = testResults.scrollHeight;
+        }
+        
+        function displayProfile(profile) {
+            const profileDisplay = document.getElementById('profileDisplay');
+            const profileContent = document.getElementById('profileContent');
+            
+            profileContent.innerHTML = `
+                <div class="space-y-3">
+                    <div><strong>Name:</strong> ${profile.name || 'N/A'}</div>
+                    <div><strong>Email:</strong> ${profile.email || 'N/A'}</div>
+                    <div><strong>Bio:</strong> ${profile.bio || 'N/A'}</div>
+                    <div><strong>Location:</strong> ${profile.location || 'N/A'}</div>
+                    <div><strong>Website:</strong> ${profile.website ? `<a href="${profile.website}" target="_blank" class="text-blue-600 hover:underline">${profile.website}</a>` : 'N/A'}</div>
+                    <div><strong>GitHub:</strong> ${profile.github ? `<a href="https://github.com/${profile.github}" target="_blank" class="text-blue-600 hover:underline">@${profile.github}</a>` : 'N/A'}</div>
+                    <div><strong>LinkedIn:</strong> ${profile.linkedin ? `<a href="https://linkedin.com/in/${profile.linkedin}" target="_blank" class="text-blue-600 hover:underline">@${profile.linkedin}</a>` : 'N/A'}</div>
+                    <div><strong>Instagram:</strong> ${profile.instagram ? `<a href="https://instagram.com/${profile.instagram}" target="_blank" class="text-blue-600 hover:underline">@${profile.instagram}</a>` : 'N/A'}</div>
+                </div>
+            `;
+            
+            profileDisplay.style.display = 'block';
+        }
+        
+        document.getElementById('profileForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const formData = {
+                email: document.getElementById('email').value,
+                name: document.getElementById('name').value,
+                bio: document.getElementById('bio').value,
+                location: document.getElementById('location').value,
+                website: document.getElementById('website').value,
+                github: document.getElementById('github').value,
+                linkedin: document.getElementById('linkedin').value,
+                instagram: document.getElementById('instagram').value
+            };
+            
+            // Remove empty fields
+            Object.keys(formData).forEach(key => {
+                if (!formData[key]) {
+                    formData[key] = undefined;
+                }
+            });
+            
+            addTestResult('Sending profile update request...');
+            
+            try {
+                const response = await fetch(`${API_BASE}/update-basic`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(formData)
+                });
+                
+                const result = await response.json();
+                
+                if (response.ok) {
+                    addTestResult('Profile updated successfully!', 'success');
+                    displayProfile(result.user);
+                } else {
+                    addTestResult(`Error: ${result.message}`, 'error');
+                }
+            } catch (error) {
+                addTestResult(`Network Error: ${error.message}`, 'error');
+            }
+        });
+        
+        // Load initial profile if exists
+        window.addEventListener('load', async () => {
+            const email = document.getElementById('email').value;
+            addTestResult('Loading initial profile...');
+            
+            try {
+                const response = await fetch(`${API_BASE}/user?email=${email}`);
+                const result = await response.json();
+                
+                if (response.ok && result.user) {
+                    addTestResult('Profile loaded successfully', 'success');
+                    displayProfile(result.user);
+                    
+                    // Pre-fill form with existing data
+                    if (result.user.name) document.getElementById('name').value = result.user.name;
+                    if (result.user.bio) document.getElementById('bio').value = result.user.bio;
+                    if (result.user.location) document.getElementById('location').value = result.user.location;
+                    if (result.user.website) document.getElementById('website').value = result.user.website;
+                    if (result.user.github) document.getElementById('github').value = result.user.github;
+                    if (result.user.linkedin) document.getElementById('linkedin').value = result.user.linkedin;
+                    if (result.user.instagram) document.getElementById('instagram').value = result.user.instagram;
+                } else {
+                    addTestResult('No existing profile found', 'info');
+                }
+            } catch (error) {
+                addTestResult(`Error loading profile: ${error.message}`, 'error');
+            }
+        });
+    </script>
+</body>
+</html>

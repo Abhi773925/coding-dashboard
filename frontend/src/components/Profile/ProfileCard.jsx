@@ -18,7 +18,9 @@ import {
   Shield,
   Github,
   Code2,
-  Activity
+  Activity,
+  Linkedin,
+  Instagram
 } from 'lucide-react';
 import { useTheme } from '../context/ThemeContext';
 import { fetchWithWakeUp } from '../../utils/serverWakeUp';
@@ -30,7 +32,10 @@ const ProfileCard = ({ user, onUpdate }) => {
     name: user?.name || '',
     bio: user?.bio || '',
     location: user?.location || '',
-    website: user?.website || ''
+    website: user?.website || '',
+    linkedin: user?.linkedin || '',
+    instagram: user?.instagram || '',
+    github: user?.github || ''
   });
 
   const handleSave = async () => {
@@ -85,8 +90,8 @@ const ProfileCard = ({ user, onUpdate }) => {
 
   const getProfileCompleteness = () => {
     const requiredFields = ['name', 'email'];
-    const optionalFields = ['bio', 'location', 'website'];
-    const platformFields = ['leetcode', 'github', 'geeksforgeeks'];
+    const optionalFields = ['bio', 'location', 'website', 'linkedin', 'instagram', 'github'];
+    const platformFields = ['leetcode', 'geeksforgeeks'];
     
     let completed = 0;
     let total = requiredFields.length + optionalFields.length + platformFields.length;
@@ -186,30 +191,150 @@ const ProfileCard = ({ user, onUpdate }) => {
         </div>
 
         {isEditing ? (
-          <div className="space-y-3">
-            <input
-              type="text"
-              value={editData.name}
-              onChange={(e) => setEditData({...editData, name: e.target.value})}
-              className={`w-full px-3 py-2 rounded-lg border text-center font-semibold text-lg ${
-                isDarkMode 
-                  ? 'bg-slate-800 border-slate-600 text-white' 
-                  : 'bg-white border-gray-300 text-gray-900'
-              }`}
-              placeholder="Your Name"
-            />
-            <div className="flex justify-center space-x-2">
+          <div className="space-y-4">
+            {/* Name Input */}
+            <div>
+              <label className={`block text-xs font-medium mb-1 ${isDarkMode ? 'text-slate-300' : 'text-gray-700'}`}>
+                Name
+              </label>
+              <input
+                type="text"
+                value={editData.name}
+                onChange={(e) => setEditData({...editData, name: e.target.value})}
+                className={`w-full px-3 py-2 rounded-lg border text-sm ${
+                  isDarkMode 
+                    ? 'bg-slate-800 border-slate-600 text-white' 
+                    : 'bg-white border-gray-300 text-gray-900'
+                }`}
+                placeholder="Your Name"
+              />
+            </div>
+
+            {/* Bio Input */}
+            <div>
+              <label className={`block text-xs font-medium mb-1 ${isDarkMode ? 'text-slate-300' : 'text-gray-700'}`}>
+                Bio
+              </label>
+              <textarea
+                value={editData.bio}
+                onChange={(e) => setEditData({...editData, bio: e.target.value})}
+                className={`w-full px-3 py-2 rounded-lg border text-sm resize-none ${
+                  isDarkMode 
+                    ? 'bg-slate-800 border-slate-600 text-white' 
+                    : 'bg-white border-gray-300 text-gray-900'
+                }`}
+                rows="3"
+                placeholder="Tell us about yourself..."
+              />
+            </div>
+
+            {/* Location Input */}
+            <div>
+              <label className={`block text-xs font-medium mb-1 ${isDarkMode ? 'text-slate-300' : 'text-gray-700'}`}>
+                Location
+              </label>
+              <input
+                type="text"
+                value={editData.location}
+                onChange={(e) => setEditData({...editData, location: e.target.value})}
+                className={`w-full px-3 py-2 rounded-lg border text-sm ${
+                  isDarkMode 
+                    ? 'bg-slate-800 border-slate-600 text-white' 
+                    : 'bg-white border-gray-300 text-gray-900'
+                }`}
+                placeholder="Your Location"
+              />
+            </div>
+
+            {/* Website Input */}
+            <div>
+              <label className={`block text-xs font-medium mb-1 ${isDarkMode ? 'text-slate-300' : 'text-gray-700'}`}>
+                Website
+              </label>
+              <input
+                type="url"
+                value={editData.website}
+                onChange={(e) => setEditData({...editData, website: e.target.value})}
+                className={`w-full px-3 py-2 rounded-lg border text-sm ${
+                  isDarkMode 
+                    ? 'bg-slate-800 border-slate-600 text-white' 
+                    : 'bg-white border-gray-300 text-gray-900'
+                }`}
+                placeholder="https://yourwebsite.com"
+              />
+            </div>
+
+            {/* Social Media Inputs */}
+            <div className="grid grid-cols-1 gap-3">
+              <div>
+                <label className={`block text-xs font-medium mb-1 ${isDarkMode ? 'text-slate-300' : 'text-gray-700'}`}>
+                  <Github className="w-3 h-3 inline mr-1" />
+                  GitHub Username
+                </label>
+                <input
+                  type="text"
+                  value={editData.github}
+                  onChange={(e) => setEditData({...editData, github: e.target.value})}
+                  className={`w-full px-3 py-2 rounded-lg border text-sm ${
+                    isDarkMode 
+                      ? 'bg-slate-800 border-slate-600 text-white' 
+                      : 'bg-white border-gray-300 text-gray-900'
+                  }`}
+                  placeholder="github-username"
+                />
+              </div>
+
+              <div>
+                <label className={`block text-xs font-medium mb-1 ${isDarkMode ? 'text-slate-300' : 'text-gray-700'}`}>
+                  <Linkedin className="w-3 h-3 inline mr-1" />
+                  LinkedIn Username
+                </label>
+                <input
+                  type="text"
+                  value={editData.linkedin}
+                  onChange={(e) => setEditData({...editData, linkedin: e.target.value})}
+                  className={`w-full px-3 py-2 rounded-lg border text-sm ${
+                    isDarkMode 
+                      ? 'bg-slate-800 border-slate-600 text-white' 
+                      : 'bg-white border-gray-300 text-gray-900'
+                  }`}
+                  placeholder="linkedin-username"
+                />
+              </div>
+
+              <div>
+                <label className={`block text-xs font-medium mb-1 ${isDarkMode ? 'text-slate-300' : 'text-gray-700'}`}>
+                  <Instagram className="w-3 h-3 inline mr-1" />
+                  Instagram Username
+                </label>
+                <input
+                  type="text"
+                  value={editData.instagram}
+                  onChange={(e) => setEditData({...editData, instagram: e.target.value})}
+                  className={`w-full px-3 py-2 rounded-lg border text-sm ${
+                    isDarkMode 
+                      ? 'bg-slate-800 border-slate-600 text-white' 
+                      : 'bg-white border-gray-300 text-gray-900'
+                  }`}
+                  placeholder="instagram-username"
+                />
+              </div>
+            </div>
+
+            <div className="flex justify-center space-x-2 pt-2">
               <button
                 onClick={handleSave}
-                className="p-2 bg-green-500 text-white rounded-lg hover:bg-green-600 transition-colors"
+                className="px-4 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600 transition-colors flex items-center space-x-2"
               >
                 <Save className="w-4 h-4" />
+                <span>Save</span>
               </button>
               <button
                 onClick={() => setIsEditing(false)}
-                className="p-2 bg-gray-500 text-white rounded-lg hover:bg-gray-600 transition-colors"
+                className="px-4 py-2 bg-gray-500 text-white rounded-lg hover:bg-gray-600 transition-colors flex items-center space-x-2"
               >
                 <X className="w-4 h-4" />
+                <span>Cancel</span>
               </button>
             </div>
           </div>
@@ -275,31 +400,60 @@ const ProfileCard = ({ user, onUpdate }) => {
             </a>
           </div>
         )}
+
+        {/* Social Media Links */}
+        {(user?.github || editData.github) && (
+          <div className="flex items-center space-x-3">
+            <Github className={`w-4 h-4 ${isDarkMode ? 'text-slate-400' : 'text-gray-500'}`} />
+            <a 
+              href={`https://github.com/${user?.github || editData.github}`} 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className={`text-sm hover:underline ${isDarkMode ? 'text-blue-400' : 'text-blue-600'}`}
+            >
+              @{user?.github || editData.github}
+            </a>
+          </div>
+        )}
+
+        {(user?.linkedin || editData.linkedin) && (
+          <div className="flex items-center space-x-3">
+            <Linkedin className={`w-4 h-4 ${isDarkMode ? 'text-slate-400' : 'text-gray-500'}`} />
+            <a 
+              href={`https://linkedin.com/in/${user?.linkedin || editData.linkedin}`} 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className={`text-sm hover:underline ${isDarkMode ? 'text-blue-400' : 'text-blue-600'}`}
+            >
+              @{user?.linkedin || editData.linkedin}
+            </a>
+          </div>
+        )}
+
+        {(user?.instagram || editData.instagram) && (
+          <div className="flex items-center space-x-3">
+            <Instagram className={`w-4 h-4 ${isDarkMode ? 'text-slate-400' : 'text-gray-500'}`} />
+            <a 
+              href={`https://instagram.com/${user?.instagram || editData.instagram}`} 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className={`text-sm hover:underline ${isDarkMode ? 'text-blue-400' : 'text-blue-600'}`}
+            >
+              @{user?.instagram || editData.instagram}
+            </a>
+          </div>
+        )}
       </div>
 
       {/* About Section */}
-      {(user?.bio || isEditing) && (
+      {user?.bio && !isEditing && (
         <div className="mb-6">
           <h3 className={`text-sm font-semibold mb-2 ${isDarkMode ? 'text-white' : 'text-gray-900'}`}>
             About
           </h3>
-          {isEditing ? (
-            <textarea
-              value={editData.bio}
-              onChange={(e) => setEditData({...editData, bio: e.target.value})}
-              className={`w-full px-3 py-2 rounded-lg border text-sm resize-none ${
-                isDarkMode 
-                  ? 'bg-slate-800 border-slate-600 text-white' 
-                  : 'bg-white border-gray-300 text-gray-900'
-              }`}
-              rows="3"
-              placeholder="Tell us about yourself..."
-            />
-          ) : (
-            <p className={`text-sm ${isDarkMode ? 'text-slate-300' : 'text-gray-600'}`}>
-              {user?.bio || 'N/A'}
-            </p>
-          )}
+          <p className={`text-sm ${isDarkMode ? 'text-slate-300' : 'text-gray-600'}`}>
+            {user?.bio}
+          </p>
         </div>
       )}
 
