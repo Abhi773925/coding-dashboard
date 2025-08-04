@@ -29,4 +29,13 @@ router.get('/public/:identifier', platformController.getPublicProfile);
 // Get profile analytics
 router.get('/analytics', platformController.getProfileAnalytics);
 
+// Force refresh cache for a platform
+router.post('/refresh-cache', platformController.refreshPlatformCache);
+
+// Get cache status
+router.get('/cache-status', platformController.getCacheStatus);
+
+// Debug endpoint for testing platform validation and stats
+router.get('/debug/:platform/:username', platformController.debugPlatform);
+
 module.exports = router;

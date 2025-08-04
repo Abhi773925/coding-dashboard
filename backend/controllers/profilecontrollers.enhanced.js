@@ -132,85 +132,11 @@ const platformValidationStrategies = {
 
   geeksforgeeks: async (username) => {
     try {
-      // Try different possible URLs and methods
-      const urls = [
-        `https://auth.geeksforgeeks.org/user/${username}`,
-        `https://www.geeksforgeeks.org/user/${username}`,
-        `https://auth.geeksforgeeks.org/user/${username}/profile`
-      ];
-      
-      for (const profileUrl of urls) {
-        try {
-          console.log(`Trying GeeksforGeeks URL: ${profileUrl}`);
-          
-          const response = await axios.get(profileUrl, { 
-            headers: {
-              ...createHeaders(),
-              'Referer': 'https://www.geeksforgeeks.org/',
-              'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8'
-            }, 
-            timeout: 15000,
-            validateStatus: function (status) {
-              return status < 500; // Accept any status code less than 500
-            }
-          });
-          
-          if (response.status === 200) {
-            const $ = cheerio.load(response.data);
-            
-            // Multiple selectors to check for profile existence
-            const profileIndicators = [
-              $('.profile_name').length > 0,
-              $('.profilePicSection').length > 0,
-              $('.profile-container').length > 0,
-              $('.user-profile').length > 0,
-              $('.profile-info').length > 0,
-              $('.profile_pic').length > 0,
-              $('div[class*="profile"]').length > 0,
-              $('.user-details').length > 0,
-              $('.user-info').length > 0,
-              // Check if page title contains the username
-              $('title').text().toLowerCase().includes(username.toLowerCase()),
-              // Check for any text that might indicate a valid profile
-              $.text().toLowerCase().includes('profile') && $.text().toLowerCase().includes(username.toLowerCase())
-            ];
-            
-            console.log(`GeeksforGeeks profile indicators for ${username}:`, profileIndicators);
-            
-            if (profileIndicators.some(indicator => indicator)) {
-              console.log(`GeeksforGeeks profile found for ${username} at ${profileUrl}`);
-              return true;
-            }
-            
-            // Additional check - if the page doesn't contain "user not found" or similar error messages
-            const errorMessages = [
-              'user not found',
-              'profile not found',
-              'does not exist',
-              'user does not exist',
-              'invalid user',
-              '404',
-              'not found'
-            ];
-            
-            const pageText = $.text().toLowerCase();
-            const hasErrorMessage = errorMessages.some(msg => pageText.includes(msg));
-            
-            if (!hasErrorMessage && pageText.includes(username.toLowerCase())) {
-              console.log(`GeeksforGeeks profile likely exists for ${username} (no error messages found)`);
-              return true;
-            }
-          }
-        } catch (urlError) {
-          console.log(`Failed to fetch ${profileUrl}:`, urlError.message);
-          continue;
-        }
-      }
-      
-      console.log(`GeeksforGeeks profile not found for ${username}`);
-      return false;
-    } catch (error) {
-      console.error('GeeksforGeeks validation error:', error.message);
+      const profileUrl = `https://auth.geeksforgeeks.org/user/${username}`;
+      const response = await axios.get(profileUrl, { headers: createHeaders(), timeout: 10000 });
+      const $ = cheerio.load(response.data);
+      return $('.profile_name').length > 0 || $('.profilePicSection').length > 0;
+    } catch {
       return false;
     }
   },
@@ -650,136 +576,68 @@ const platformStatsFetching = {
         if (cachedData) return cachedData;
       }
 
-      // Try different possible URLs
-      const urls = [
-        `https://auth.geeksforgeeks.org/user/${username}`,
-        `https://www.geeksforgeeks.org/user/${username}`,
-        `https://auth.geeksforgeeks.org/user/${username}/profile`
-      ];
+      const profileUrl = `https://auth.geeksforgeeks.org/user/${username}`;
+      const response = await axios.get(profileUrl, { headers: createHeaders(), timeout: 15000 });
+      const $ = cheerio.load(response.data);
       
-      let profileData = null;
+      // Extract basic profile information
+      const name = $('.profile_name').text().trim();
+      const institute = $('.profile_institute').text().trim();
+      const ranking = $('.rankNum').text().trim();
+      const avatar = $('.profile_img img').attr('src');
       
-      for (const profileUrl of urls) {
-        try {
-          console.log(`Trying GeeksforGeeks stats URL: ${profileUrl}`);
-          
-          const response = await axios.get(profileUrl, { 
-            headers: {
-              ...createHeaders(),
-              'Referer': 'https://www.geeksforgeeks.org/',
-              'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8'
-            }, 
-            timeout: 15000 
-          });
-          
-          if (response.status === 200) {
-            const $ = cheerio.load(response.data);
-            
-            // Extract basic profile information with multiple selectors
-            const name = $('.profile_name, .profile-name, .user-name, .userName').first().text().trim();
-            const institute = $('.profile_institute, .profile-institute, .user-institute, .institute').first().text().trim();
-            const ranking = $('.rankNum, .rank-num, .user-rank, .ranking').first().text().trim();
-            const avatar = $('.profile_img img, .profile-img img, .user-avatar img, .avatar img').first().attr('src');
-            
-            // Extract coding stats with multiple selectors
-            const codingScores = {};
-            $('.score_card_value, .score-card-value, .coding-score').each((index, element) => {
-              const $el = $(element);
-              const label = $el.prev('.score_card_name, .score-card-name').text().trim() || 
-                           $el.siblings('.score_card_name, .score-card-name').text().trim();
-              const value = $el.text().trim();
-              if (label && value) {
-                codingScores[label.toLowerCase().replace(/\s+/g, '_')] = value;
-              }
-            });
-            
-            // Extract problem-solving stats with multiple selectors
-            const problemStats = {};
-            $('.problemSolved_details_container, .problem-solved-container, .problems-solved').each((index, element) => {
-              const $el = $(element);
-              const category = $el.find('.problemSolved_heading_container h3, .problem-category, .category-name').text().trim();
-              const solvedCount = $el.find('.solved_problem_container h3, .solved-count, .count').text().trim();
-              if (category && solvedCount) {
-                problemStats[category.toLowerCase().replace(/\s+/g, '_')] = parseInt(solvedCount) || 0;
-              }
-            });
-            
-            // Extract badges/achievements with multiple selectors
-            const badges = [];
-            $('.profile_badge_card, .badge-card, .achievement-card, .badge').each((index, element) => {
-              const $el = $(element);
-              const badgeName = $el.find('.badge_card_title, .badge-title, .achievement-title').text().trim();
-              const badgeDesc = $el.find('.badge_card_desc, .badge-desc, .achievement-desc').text().trim();
-              if (badgeName) {
-                badges.push({ name: badgeName, description: badgeDesc });
-              }
-            });
-            
-            // If we found any meaningful data, use this URL
-            if (name || Object.keys(codingScores).length > 0 || Object.keys(problemStats).length > 0 || badges.length > 0) {
-              profileData = {
-                profile: {
-                  name: name || username,
-                  institute,
-                  ranking,
-                  avatar
-                },
-                codingScores,
-                problemStats,
-                badges,
-                totalSolved: Object.values(problemStats).reduce((sum, count) => sum + count, 0)
-              };
-              
-              console.log(`GeeksforGeeks stats found for ${username} at ${profileUrl}`);
-              break;
-            }
-          }
-        } catch (urlError) {
-          console.log(`Failed to fetch GeeksforGeeks stats from ${profileUrl}:`, urlError.message);
-          continue;
+      // Extract coding stats
+      const codingScores = {};
+      $('.score_card_value').each((index, element) => {
+        const label = $(element).prev('.score_card_name').text().trim();
+        const value = $(element).text().trim();
+        if (label && value) {
+          codingScores[label.toLowerCase().replace(/\s+/g, '_')] = value;
         }
-      }
+      });
       
-      // If no data found, create a basic profile
-      if (!profileData) {
-        profileData = {
-          profile: {
-            name: username,
-            institute: '',
-            ranking: '',
-            avatar: null
-          },
-          codingScores: {},
-          problemStats: {},
-          badges: [],
-          totalSolved: 0,
-          connected: true // At least we know the username is valid
-        };
-      }
+      // Extract problem-solving stats
+      const problemStats = {};
+      $('.problemSolved_details_container').each((index, element) => {
+        const category = $(element).find('.problemSolved_heading_container h3').text().trim();
+        const solvedCount = $(element).find('.solved_problem_container h3').text().trim();
+        if (category && solvedCount) {
+          problemStats[category.toLowerCase().replace(/\s+/g, '_')] = parseInt(solvedCount) || 0;
+        }
+      });
+      
+      // Extract badges/achievements
+      const badges = [];
+      $('.profile_badge_card').each((index, element) => {
+        const badgeName = $(element).find('.badge_card_title').text().trim();
+        const badgeDesc = $(element).find('.badge_card_desc').text().trim();
+        if (badgeName) {
+          badges.push({ name: badgeName, description: badgeDesc });
+        }
+      });
+
+      const result = {
+        profile: {
+          name,
+          institute,
+          ranking,
+          avatar
+        },
+        codingScores,
+        problemStats,
+        badges,
+        totalSolved: Object.values(problemStats).reduce((sum, count) => sum + count, 0)
+      };
 
       // Cache the result
       if (userId) {
-        await setCachedData(userId, 'geeksforgeeks', profileData);
+        await setCachedData(userId, 'geeksforgeeks', result);
       }
 
-      return profileData;
+      return result;
     } catch (error) {
       console.error('GeeksforGeeks stats fetch failed', error);
-      // Return basic profile even on error
-      return {
-        profile: {
-          name: username,
-          institute: '',
-          ranking: '',
-          avatar: null
-        },
-        codingScores: {},
-        problemStats: {},
-        badges: [],
-        totalSolved: 0,
-        connected: true,
-        error: error.message
-      };
+      return null;
     }
   },
 
@@ -1559,265 +1417,6 @@ exports.getCacheStatus = async (req, res) => {
   } catch (error) {
     res.status(500).json({
       message: "Error getting cache status",
-      error: error.message
-    });
-  }
-};
-
-// Debug endpoint for testing platform validation and stats
-exports.debugPlatform = async (req, res) => {
-  try {
-    const { platform, username } = req.params;
-
-    if (!SUPPORTED_PLATFORMS.includes(platform)) {
-      return res.status(400).json({ message: 'Platform not supported' });
-    }
-
-    if (!username) {
-      return res.status(400).json({ message: 'Username is required' });
-    }
-
-    console.log(`Debug: Testing ${platform} for username: ${username}`);
-
-    const result = {
-      platform,
-      username,
-      validation: null,
-      stats: null,
-      errors: []
-    };
-
-    // Test validation
-    try {
-      const validationStrategy = platformValidationStrategies[platform];
-      if (validationStrategy) {
-        console.log(`Debug: Running validation for ${platform}...`);
-        result.validation = await validationStrategy(username);
-        console.log(`Debug: Validation result for ${platform}: ${result.validation}`);
-      } else {
-        result.errors.push(`No validation strategy found for ${platform}`);
-      }
-    } catch (validationError) {
-      console.error(`Debug: Validation error for ${platform}:`, validationError);
-      result.errors.push(`Validation error: ${validationError.message}`);
-    }
-
-    // Test stats fetching
-    try {
-      const statsStrategy = platformStatsFetching[platform];
-      if (statsStrategy) {
-        console.log(`Debug: Running stats fetching for ${platform}...`);
-        result.stats = await statsStrategy(username, null); // No userId for debug
-        console.log(`Debug: Stats result for ${platform}:`, !!result.stats);
-      } else {
-        result.errors.push(`No stats fetching strategy found for ${platform}`);
-      }
-    } catch (statsError) {
-      console.error(`Debug: Stats error for ${platform}:`, statsError);
-      result.errors.push(`Stats error: ${statsError.message}`);
-    }
-
-    res.json(result);
-  } catch (error) {
-    res.status(500).json({
-      message: "Debug error",
-      error: error.message
-    });
-  }
-};
-
-// Get Public Profile
-exports.getPublicProfile = async (req, res) => {
-  try {
-    const { identifier } = req.params;
-
-    // Find user by email or username
-    const user = await User.findOne({ 
-      $or: [
-        { email: identifier },
-        { name: identifier }
-      ]
-    });
-
-    if (!user) {
-      return res.status(404).json({ message: 'User not found' });
-    }
-
-    // Check if profile is public
-    if (!user.preferences?.publicProfile) {
-      return res.status(403).json({ message: 'Profile is private' });
-    }
-
-    // Fetch stats for platforms with usernames (only for public profiles)
-    const platformStats = {};
-    const statsPromises = SUPPORTED_PLATFORMS
-      .filter(platform => user[platform])
-      .map(async (platform) => {
-        try {
-          const statsStrategy = platformStatsFetching[platform];
-          if (statsStrategy) {
-            const stats = await statsStrategy(user[platform], user._id);
-            return { platform, stats };
-          }
-        } catch (error) {
-          console.error(`Error fetching ${platform} stats`, error);
-        }
-      });
-
-    const resolvedStats = await Promise.allSettled(statsPromises);
-    resolvedStats.forEach(result => {
-      if (result.status === 'fulfilled' && result.value) {
-        const { platform, stats } = result.value;
-        platformStats[platform] = {
-          username: user[platform],
-          stats
-        };
-      }
-    });
-
-    // Return public profile information
-    res.json({
-      name: user.name,
-      bio: user.bio,
-      location: user.location,
-      website: user.website,
-      avatar: user.avatar,
-      picture: user.picture,
-      joinDate: user.createdAt,
-      platformStats
-    });
-  } catch (error) {
-    res.status(500).json({
-      message: "Server error",
-      error: error.message
-    });
-  }
-};
-
-// Get Profile Analytics
-exports.getProfileAnalytics = async (req, res) => {
-  try {
-    const { email } = req.query;
-
-    if (!email) {
-      return res.status(400).json({ message: 'Email is required' });
-    }
-
-    const user = await User.findOne({ email });
-    if (!user) {
-      return res.status(404).json({ message: 'User not found' });
-    }
-
-    // Calculate analytics
-    const analytics = {
-      profileCompleteness: 0,
-      platformsConnected: 0,
-      totalActivity: 0,
-      growthMetrics: {},
-      recommendations: []
-    };
-
-    // Calculate profile completeness
-    const requiredFields = ['name', 'email'];
-    const optionalFields = ['bio', 'location', 'website'];
-    const platformFields = ['leetcode', 'github', 'geeksforgeeks'];
-    
-    let completedFields = 0;
-    const totalFields = requiredFields.length + optionalFields.length + platformFields.length;
-    
-    requiredFields.forEach(field => {
-      if (user[field]) completedFields++;
-    });
-    
-    optionalFields.forEach(field => {
-      if (user[field]) completedFields++;
-    });
-    
-    platformFields.forEach(platform => {
-      if (user[platform]) {
-        completedFields++;
-        analytics.platformsConnected++;
-      }
-    });
-    
-    analytics.profileCompleteness = Math.round((completedFields / totalFields) * 100);
-
-    // Fetch platform stats for analytics
-    if (analytics.platformsConnected > 0) {
-      const platformStats = {};
-      const statsPromises = SUPPORTED_PLATFORMS
-        .filter(platform => user[platform])
-        .map(async (platform) => {
-          try {
-            const statsStrategy = platformStatsFetching[platform];
-            if (statsStrategy) {
-              const stats = await statsStrategy(user[platform], user._id);
-              return { platform, stats };
-            }
-          } catch (error) {
-            console.error(`Error fetching ${platform} stats for analytics`, error);
-          }
-        });
-
-      const resolvedStats = await Promise.allSettled(statsPromises);
-      resolvedStats.forEach(result => {
-        if (result.status === 'fulfilled' && result.value) {
-          const { platform, stats } = result.value;
-          platformStats[platform] = stats;
-        }
-      });
-
-      // Calculate total activity
-      Object.entries(platformStats).forEach(([platform, stats]) => {
-        switch(platform) {
-          case 'leetcode':
-            analytics.totalActivity += stats.problemStats?.totalSolved || 0;
-            break;
-          case 'github':
-            analytics.totalActivity += stats.contributions?.total || 0;
-            break;
-          case 'geeksforgeeks':
-            analytics.totalActivity += stats.totalSolved || 0;
-            break;
-          case 'codechef':
-            analytics.totalActivity += stats.problemStats?.totalSolved || 0;
-            break;
-          case 'codeforces':
-            analytics.totalActivity += stats.stats?.problemsSolved || 0;
-            break;
-        }
-      });
-
-      // Generate recommendations
-      if (analytics.profileCompleteness < 80) {
-        analytics.recommendations.push({
-          type: 'profile',
-          title: 'Complete your profile',
-          description: 'Add more information to make your profile stand out'
-        });
-      }
-
-      if (analytics.platformsConnected < 3) {
-        analytics.recommendations.push({
-          type: 'platform',
-          title: 'Connect more platforms',
-          description: 'Connect additional coding platforms to showcase your skills'
-        });
-      }
-
-      if (analytics.totalActivity < 100) {
-        analytics.recommendations.push({
-          type: 'activity',
-          title: 'Increase coding activity',
-          description: 'Practice more problems and contribute to open source projects'
-        });
-      }
-    }
-
-    res.json(analytics);
-  } catch (error) {
-    res.status(500).json({
-      message: "Analytics calculation error",
       error: error.message
     });
   }

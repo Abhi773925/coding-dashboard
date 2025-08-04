@@ -2,11 +2,10 @@
 
 import { useState, useEffect, useMemo } from "react"
 import axios from "axios"
-import { Search, Calendar, Clock, LinkIcon, Youtube, Loader2, ChevronLeft, ChevronRight, Filter, Menu, X } from "lucide-react"
+import { Search, Calendar, Clock, LinkIcon, Youtube, Loader2, ChevronLeft, ChevronRight, Filter } from "lucide-react"
 import { useTheme } from "../context/ThemeContext"
-import './ContestCalendar.css'
 
-const ContestTracker = () => {
+const ContestCalendar = () => {
   const { isDarkMode } = useTheme()
   
   // State Management
@@ -20,20 +19,6 @@ const ContestTracker = () => {
   const [currentDate, setCurrentDate] = useState(new Date())
   const [selectedPlatforms, setSelectedPlatforms] = useState([])
   const [searchTerm, setSearchTerm] = useState("")
-  const [isSidebarOpen, setIsSidebarOpen] = useState(false)
-  const [mobileView, setMobileView] = useState('list') // 'list' or 'calendar'
-  const [isMobile, setIsMobile] = useState(false)
-
-  // Check if mobile on mount and resize
-  useEffect(() => {
-    const checkMobile = () => {
-      setIsMobile(window.innerWidth < 768)
-    }
-    
-    checkMobile()
-    window.addEventListener('resize', checkMobile)
-    return () => window.removeEventListener('resize', checkMobile)
-  }, [])
   
   // Fetch Contests
   const fetchContests = async () => {
@@ -171,42 +156,11 @@ const ContestTracker = () => {
     )
   }
 
-  return ( 
-    <div className={`min-h-screen max-h-screen min-w-fit pt-[70px] overflow-hidden transition-colors duration-300 ${isDarkMode ? "bg-gray-900 text-white" : "bg-gray-50 text-gray-900"}`}>
-      {/* Mobile Header */}
-      <div className="md:hidden p-4 border-b border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 flex-shrink-0">
-        <div className="flex items-center justify-between">
-          <h1 className="text-xl font-bold">Contest Tracker</h1>
-          <div className="flex items-center space-x-2">
-            <button
-              onClick={() => setMobileView('list')}
-              className={`p-2 rounded-lg ${
-                mobileView === 'list' 
-                  ? 'bg-blue-600 text-white' 
-                  : isDarkMode ? 'bg-gray-700 text-gray-300' : 'bg-gray-200 text-gray-600'
-              }`}
-            >
-              <Menu size={20} />
-            </button>
-            <button
-              onClick={() => setMobileView('calendar')}
-              className={`p-2 rounded-lg ${
-                mobileView === 'calendar' 
-                  ? 'bg-blue-600 text-white' 
-                  : isDarkMode ? 'bg-gray-700 text-gray-300' : 'bg-gray-200 text-gray-600'
-              }`}
-            >
-              <Calendar size={20} />
-            </button>
-          </div>
-        </div>
-      </div>
-
-      <div className="flex h-[calc(100vh-70px)] md:h-[calc(100vh-70px)] overflow-hidden">
-        {/* Sidebar - Show based on mobile view or always show on desktop */}
-        <div className={`${
-          mobileView === 'list' ? 'w-full h-full' : 'hidden'
-        } md:w-80 md:block border-r ${isDarkMode ? 'bg-gray-800 border-gray-700' : 'bg-white border-gray-200'} flex flex-col overflow-hidden`}>
+  return (
+    <div className={`min-h-screen max-h-screen pt-[70px] overflow-hidden transition-colors duration-300 ${isDarkMode ? "bg-gray-900 text-white" : "bg-gray-50 text-gray-900"}`}>
+      <div className="flex h-[calc(100vh-70px)] overflow-hidden">
+        {/* Sidebar */}
+        <div className={`w-80 border-r ${isDarkMode ? 'bg-gray-800 border-gray-700' : 'bg-white border-gray-200'} flex flex-col overflow-hidden`}>
           {/* Search and Filters */}
           <div className="p-4 border-b border-gray-200 dark:border-gray-700 flex-shrink-0">
             <div className="relative mb-4">
@@ -232,7 +186,7 @@ const ContestTracker = () => {
                   <button
                     key={platform}
                     onClick={() => togglePlatform(platform)}
-                    className={`px-3 py-1 rounded-full text-xs md:text-sm font-medium transition-colors ${
+                    className={`px-3 py-1 rounded-full text-sm font-medium transition-colors ${
                       selectedPlatforms.length === 0 || selectedPlatforms.includes(platform)
                         ? `${platformColors[platform]} text-white`
                         : isDarkMode 
@@ -250,7 +204,7 @@ const ContestTracker = () => {
           {/* Upcoming Contests */}
           <div className="flex-1 overflow-y-auto custom-scrollbar">
             <div className="p-4">
-              <h2 className="text-lg md:text-xl font-semibold mb-4 text-gray-900 dark:text-white">
+              <h2 className="text-lg font-semibold mb-4 text-gray-900 dark:text-white">
                 Upcoming Contests
               </h2>
               <p className="text-sm text-gray-600 dark:text-gray-400 mb-4">
@@ -261,7 +215,7 @@ const ContestTracker = () => {
                 {upcomingContests.map(contest => (
                   <div
                     key={contest._id}
-                    className={`p-3 md:p-4 rounded-lg border transition-colors hover:shadow-md ${
+                    className={`p-3 rounded-lg border transition-colors hover:shadow-md ${
                       isDarkMode 
                         ? 'bg-gray-700 border-gray-600 hover:bg-gray-650' 
                         : 'bg-gray-50 border-gray-200 hover:bg-gray-100'
@@ -269,41 +223,33 @@ const ContestTracker = () => {
                   >
                     <div className="flex items-start justify-between mb-2">
                       <div className="flex-1">
-                        <h3 className="font-medium text-sm md:text-base line-clamp-2 mb-1">
+                        <h3 className="font-medium text-sm line-clamp-2 mb-1">
                           {contest.title}
                         </h3>
-                        <div className="flex items-center gap-2 text-xs md:text-sm text-gray-600 dark:text-gray-400">
+                        <div className="flex items-center gap-2 text-xs text-gray-600 dark:text-gray-400">
                           <div className={`w-2 h-2 rounded-full ${platformColors[contest.platform]}`}></div>
                           <span>{contest.platform}</span>
                         </div>
                       </div>
                     </div>
                     
-                    <div className="flex items-center justify-between text-xs md:text-sm text-gray-600 dark:text-gray-400 mb-2">
+                    <div className="flex items-center justify-between text-xs text-gray-600 dark:text-gray-400">
                       <div className="flex items-center gap-1">
-                        <Calendar size={14} />
+                        <Calendar size={12} />
                         <span>{formatDate(contest.start_time)}</span>
                       </div>
                       <div className="flex items-center gap-1">
-                        <Clock size={14} />
+                        <Clock size={12} />
                         <span>{formatTime(contest.start_time)}</span>
                       </div>
                     </div>
                     
-                    <div className="flex gap-2">
+                    <div className="mt-2 flex gap-2">
                       <a
                         href={contest.url}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="flex-1 bg-blue-600 hover:bg-blue-700 text-white text-xs md:text-sm py-2 px-3 rounded-lg text-center transition-colors"
-                      >
-                        Join Contest
-                      </a>
-                      <a
-                        href={contest.url}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="text-xs md:text-sm text-blue-600 dark:text-blue-400 hover:underline py-2 px-3 border border-blue-600 dark:border-blue-400 rounded-lg text-center transition-colors hover:bg-blue-50 dark:hover:bg-blue-900/20"
+                        className="text-xs text-blue-600 dark:text-blue-400 hover:underline"
                       >
                         Add to Calendar
                       </a>
@@ -315,29 +261,27 @@ const ContestTracker = () => {
           </div>
         </div>
 
-        {/* Main Calendar Area - Show based on mobile view or always show on desktop */}
-        <div className={`${
-          mobileView === 'calendar' ? 'flex' : 'hidden'
-        } md:flex flex-1 flex-col overflow-hidden`}>
+        {/* Main Calendar Area */}
+        <div className="flex-1 flex flex-col overflow-hidden">
           {/* Calendar Header */}
-          <div className={`p-2 md:p-4 border-b ${isDarkMode ? 'border-gray-700' : 'border-gray-200'} flex-shrink-0`}>
-            <div className="flex items-center justify-between mb-2 md:mb-4">
-              <h1 className="text-lg md:text-2xl font-bold">
+          <div className={`p-4 border-b ${isDarkMode ? 'border-gray-700' : 'border-gray-200'} flex-shrink-0`}>
+            <div className="flex items-center justify-between mb-4">
+              <h1 className="text-2xl font-bold">
                 {getMonthName(currentDate)}
               </h1>
               
-              <div className="flex items-center space-x-1 md:space-x-2">
+              <div className="flex items-center space-x-2">
                 <button
                   onClick={() => navigateMonth(-1)}
-                  className={`p-1 md:p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 ${
+                  className={`p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 ${
                     isDarkMode ? 'text-gray-300' : 'text-gray-600'
                   }`}
                 >
-                  <ChevronLeft size={16} className="md:w-5 md:h-5" />
+                  <ChevronLeft size={20} />
                 </button>
                 <button
                   onClick={() => setCurrentDate(new Date())}
-                  className={`px-2 md:px-4 py-1 md:py-2 rounded-lg text-xs md:text-sm font-medium transition-colors ${
+                  className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
                     isDarkMode 
                       ? 'bg-blue-600 text-white hover:bg-blue-700'
                       : 'bg-blue-600 text-white hover:bg-blue-700'
@@ -347,26 +291,26 @@ const ContestTracker = () => {
                 </button>
                 <button
                   onClick={() => navigateMonth(1)}
-                  className={`p-1 md:p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 ${
+                  className={`p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 ${
                     isDarkMode ? 'text-gray-300' : 'text-gray-600'
                   }`}
                 >
-                  <ChevronRight size={16} className="md:w-5 md:h-5" />
+                  <ChevronRight size={20} />
                 </button>
               </div>
             </div>
           </div>
 
           {/* Calendar Grid */}
-          <div className="flex-1 p-2 md:p-4 overflow-y-auto custom-scrollbar">
+          <div className="flex-1 p-4 overflow-y-auto custom-scrollbar">
             {/* Days of week header */}
             <div className="grid grid-cols-7 gap-1 mb-2">
               {['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'].map(day => (
                 <div
                   key={day}
-                  className="p-1 md:p-3 text-center text-xs md:text-sm font-medium text-gray-600 dark:text-gray-400"
+                  className="p-3 text-center text-sm font-medium text-gray-600 dark:text-gray-400"
                 >
-                  {day.slice(0, 3)}
+                  {day}
                 </div>
               ))}
             </div>
@@ -380,7 +324,7 @@ const ContestTracker = () => {
                 return (
                   <div
                     key={index}
-                    className={`min-h-16 md:min-h-24 p-1 border transition-colors ${
+                    className={`min-h-24 p-1 border transition-colors ${
                       isDarkMode 
                         ? 'border-gray-700 hover:bg-gray-800' 
                         : 'border-gray-200 hover:bg-gray-50'
@@ -388,7 +332,7 @@ const ContestTracker = () => {
                   >
                     {date && (
                       <>
-                        <div className={`text-xs md:text-sm font-medium mb-1 ${
+                        <div className={`text-sm font-medium mb-1 ${
                           isToday 
                             ? 'text-blue-600 dark:text-blue-400' 
                             : isDarkMode ? 'text-gray-300' : 'text-gray-700'
@@ -397,7 +341,7 @@ const ContestTracker = () => {
                         </div>
                         
                         <div className="space-y-1">
-                          {dayContests.slice(0, isMobile ? 1 : 3).map(contest => (
+                          {dayContests.slice(0, 3).map(contest => (
                             <div
                               key={contest._id}
                               className={`text-xs p-1 rounded text-white truncate cursor-pointer ${
@@ -405,12 +349,12 @@ const ContestTracker = () => {
                               }`}
                               title={contest.title}
                             >
-                              {isMobile ? contest.title.slice(0, 10) + '...' : contest.title}
+                              {contest.title}
                             </div>
                           ))}
-                          {dayContests.length > (isMobile ? 1 : 3) && (
+                          {dayContests.length > 3 && (
                             <div className="text-xs text-gray-500 dark:text-gray-400">
-                              +{dayContests.length - (isMobile ? 1 : 3)} more
+                              +{dayContests.length - 3} more
                             </div>
                           )}
                         </div>
@@ -427,5 +371,4 @@ const ContestTracker = () => {
   )
 }
 
-
-export default ContestTracker;
+export default ContestCalendar
