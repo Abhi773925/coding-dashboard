@@ -19,18 +19,19 @@ const SUPPORTED_PLATFORMS = [
 
 // Cache configuration - different intervals for different platforms
 const CACHE_DURATION = {
-  github: 6 * 60 * 60 * 1000, // 6 hours for GitHub (slower changing data)
-  leetcode: 2 * 60 * 60 * 1000, // 2 hours for LeetCode
-  geeksforgeeks: 4 * 60 * 60 * 1000, // 4 hours for GeeksforGeeks
-  codechef: 4 * 60 * 60 * 1000, // 4 hours for CodeChef
-  codeforces: 2 * 60 * 60 * 1000, // 2 hours for Codeforces
-  hackerrank: 4 * 60 * 60 * 1000, // 4 hours for HackerRank
-  hackerearth: 4 * 60 * 60 * 1000, // 4 hours for HackerEarth
-  kaggle: 6 * 60 * 60 * 1000, // 6 hours for Kaggle
-  topcoder: 6 * 60 * 60 * 1000, // 6 hours for TopCoder
-  atcoder: 4 * 60 * 60 * 1000, // 4 hours for AtCoder
-  spoj: 6 * 60 * 60 * 1000 // 6 hours for SPOJ
+  github: 2 * 60 * 1000,       // 2 minutes for GitHub
+  leetcode: 2 * 60 * 1000,     // 2 minutes for LeetCode
+  geeksforgeeks: 1 * 60 * 60 * 1000, // 1 hour for GeeksforGeeks (unchanged)
+  codechef: 2 * 60 * 1000,     // 2 minutes for CodeChef
+  codeforces: 2 * 60 * 1000,   // 2 minutes for Codeforces
+  hackerrank: 2 * 60 * 1000,   // 2 minutes for HackerRank
+  hackerearth: 2 * 60 * 1000,  // 2 minutes for HackerEarth
+  kaggle: 2 * 60 * 1000,       // 2 minutes for Kaggle
+  topcoder: 2 * 60 * 1000,     // 2 minutes for TopCoder
+  atcoder: 2 * 60 * 1000,      // 2 minutes for AtCoder
+  spoj: 2 * 60 * 1000          // 2 minutes for SPOJ
 };
+
 
 // Utility function for creating custom headers
 const createHeaders = () => ({
