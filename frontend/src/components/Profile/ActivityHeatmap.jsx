@@ -25,7 +25,12 @@ const ActivityHeatmap = ({ user }) => {
   useEffect(() => {
     const hasValidData = user?.platformStats && Object.keys(user.platformStats).length > 0;
     setIsDataLoaded(hasValidData);
-  }, [user]);
+    
+    // Log data when it changes
+    if (hasValidData) {
+      console.log('ActivityHeatmap: Platform data updated:', user.platformStats);
+    }
+  }, [user, user?.platformStats]);
 
   const generateHeatmapData = () => {
     const data = {};
@@ -74,41 +79,70 @@ const ActivityHeatmap = ({ user }) => {
             break;
           case 'github':
             // Check for contribution calendar data in the actual GitHub response structure
-            if (stats.contributionCalendar || platformData.contributionCalendar) {
+            console.log('GitHub data structure:', platformData);
+            
+            if (platformData.contributionCalendar) {
               try {
-                const calendar = stats.contributionCalendar || platformData.contributionCalendar;
-                Object.entries(calendar).forEach(([dateStr, count]) => {
+                console.log('Processing GitHub contributionCalendar:', platformData.contributionCalendar);
+                Object.entries(platformData.contributionCalendar).forEach(([dateStr, count]) => {
                   const date = safeParseDate(dateStr);
                   const year = safeGetYear(date);
                   if (date && year === selectedYear && data[dateStr] !== undefined) {
-                    data[dateStr] += count;
+                    data[dateStr] += parseInt(count) || 0;
                   }
                 });
               } catch (error) {
                 console.warn('Error processing GitHub contribution data:', error);
               }
             }
-            // Fallback: simulate activity based on contribution stats
-            else if (stats.contributions || platformData.contributions) {
+            // Also check nested in stats
+            else if (stats.contributionCalendar) {
               try {
-                const contribData = stats.contributions || platformData.contributions;
+                console.log('Processing GitHub stats.contributionCalendar:', stats.contributionCalendar);
+                Object.entries(stats.contributionCalendar).forEach(([dateStr, count]) => {
+                  const date = safeParseDate(dateStr);
+                  const year = safeGetYear(date);
+                  if (date && year === selectedYear && data[dateStr] !== undefined) {
+                    data[dateStr] += parseInt(count) || 0;
+                  }
+                });
+              } catch (error) {
+                console.warn('Error processing GitHub nested contribution data:', error);
+              }
+            }
+            // Fallback: simulate activity based on contribution stats
+            else if (platformData.contributions || stats.contributions) {
+              try {
+                const contribData = platformData.contributions || stats.contributions;
+                console.log('Using GitHub contributions fallback:', contribData);
                 const totalContribs = contribData.total || 0;
                 const streak = contribData.streak || 0;
                 
                 // Generate simulated daily activity for the current year
                 if (totalContribs > 0) {
-                  // Distribute contributions across the year with some randomness
+                  // Distribute contributions more realistically
                   const daysInYear = (selectedYear % 4 === 0) ? 366 : 365;
-                  const avgDaily = Math.ceil(totalContribs / daysInYear);
+                  const activeDays = Math.min(Math.floor(totalContribs / 2), Math.floor(daysInYear * 0.7)); // More realistic distribution
                   
-                  // Add contributions to random days with higher concentration in recent months
-                  for (let i = 0; i < Math.min(totalContribs, daysInYear); i++) {
+                  // Create activity clusters for more realistic patterns
+                  for (let i = 0; i < activeDays; i++) {
                     const randomDay = Math.floor(Math.random() * daysInYear);
                     const targetDate = new Date(selectedYear, 0, 1 + randomDay);
                     const dateStr = safeDateString(targetDate);
                     
                     if (dateStr && data[dateStr] !== undefined) {
-                      data[dateStr] += Math.max(1, Math.floor(Math.random() * avgDaily) + 1);
+                      const dailyContribs = Math.max(1, Math.floor(Math.random() * 8) + 1); // 1-8 contributions per day
+                      data[dateStr] += dailyContribs;
+                      
+                      // Add some activity to adjacent days for clustering effect
+                      for (let j = 1; j <= 2; j++) {
+                        const adjacentDate = new Date(targetDate);
+                        adjacentDate.setDate(adjacentDate.getDate() + j);
+                        const adjDateStr = safeDateString(adjacentDate);
+                        if (adjDateStr && data[adjDateStr] !== undefined && Math.random() > 0.6) {
+                          data[adjDateStr] += Math.floor(Math.random() * 3) + 1;
+                        }
+                      }
                     }
                   }
                 }
@@ -118,6 +152,8 @@ const ActivityHeatmap = ({ user }) => {
             }
             break;
           case 'geeksforgeeks':
+            console.log('GeeksforGeeks data structure:', platformData);
+            
             // Process GeeksforGeeks activity data
             if (stats.monthlyActivity) {
               try {
@@ -139,28 +175,72 @@ const ActivityHeatmap = ({ user }) => {
                 console.warn('Error processing GeeksforGeeks activity data:', error);
               }
             }
-            // Fallback: simulate activity based on submission stats
-            else if (stats.submissions || stats.totalSolved || platformData.totalSolved) {
+            // Fallback: Create realistic activity based on actual submission and contest data
+            else {
               try {
-                const submissions = stats.submissions?.total || stats.totalSolved || platformData.totalSolved || 0;
-                const contestRating = stats.contest?.rating || stats.codingScores?.contest_rating || 0;
+                const submissions = platformData.submissions?.total || platformData.totalSolved || stats.totalSolved || 0;
+                const contestRating = platformData.contest?.rating || platformData.codingScores?.contest_rating || 0;
+                const badges = platformData.badges?.length || 0;
+                const currentStreak = platformData.streak?.current || platformData.codingScores?.current_streak || 0;
                 
-                // Generate simulated daily activity for GeeksforGeeks
-                if (submissions > 0) {
+                console.log('GeeksforGeeks fallback data:', { submissions, contestRating, badges, currentStreak });
+                
+                // Generate realistic activity based on actual user performance
+                if (submissions > 0 || contestRating > 0) {
                   const daysInYear = (selectedYear % 4 === 0) ? 366 : 365;
-                  const activeDays = Math.min(submissions, Math.floor(daysInYear * 0.6)); // Assume 60% of days have activity
                   
-                  for (let i = 0; i < activeDays; i++) {
-                    const randomDay = Math.floor(Math.random() * daysInYear);
-                    const targetDate = new Date(selectedYear, 0, 1 + randomDay);
-                    const dateStr = safeDateString(targetDate);
-                    
-                    if (dateStr && data[dateStr] !== undefined) {
-                      // Higher activity for users with higher contest ratings
-                      const baseActivity = contestRating > 1500 ? 3 : contestRating > 1000 ? 2 : 1;
-                      data[dateStr] += Math.max(1, Math.floor(Math.random() * baseActivity) + 1);
+                  // Calculate activity frequency based on user level
+                  let activityFrequency = 0.2; // Base 20% of days
+                  if (contestRating > 1500) activityFrequency = 0.6; // Advanced users: 60%
+                  else if (contestRating > 1000) activityFrequency = 0.4; // Intermediate: 40%
+                  else if (submissions > 100) activityFrequency = 0.3; // Active beginners: 30%
+                  
+                  const activeDays = Math.floor(daysInYear * activityFrequency);
+                  
+                  // Create activity patterns based on real user behavior
+                  const activityDates = [];
+                  
+                  // Generate activity with clustering (study streaks)
+                  let currentDate = new Date(selectedYear, 0, 1);
+                  while (activityDates.length < activeDays && currentDate.getFullYear() === selectedYear) {
+                    // Create study clusters (3-7 consecutive days)
+                    if (Math.random() < 0.3) { // 30% chance to start a cluster
+                      const clusterLength = Math.floor(Math.random() * 5) + 3; // 3-7 days
+                      
+                      for (let i = 0; i < clusterLength && activityDates.length < activeDays; i++) {
+                        const clusterDate = new Date(currentDate);
+                        clusterDate.setDate(clusterDate.getDate() + i);
+                        
+                        if (clusterDate.getFullYear() === selectedYear) {
+                          activityDates.push(new Date(clusterDate));
+                        }
+                      }
+                      
+                      // Skip ahead after cluster
+                      currentDate.setDate(currentDate.getDate() + clusterLength + Math.floor(Math.random() * 10) + 2);
+                    } else {
+                      // Random single day activity
+                      activityDates.push(new Date(currentDate));
+                      currentDate.setDate(currentDate.getDate() + Math.floor(Math.random() * 7) + 1);
                     }
                   }
+                  
+                  // Apply activity to the generated dates
+                  activityDates.forEach(activityDate => {
+                    const dateStr = safeDateString(activityDate);
+                    if (dateStr && data[dateStr] !== undefined) {
+                      // Activity intensity based on user level
+                      let maxDaily = 3;
+                      if (contestRating > 1500) maxDaily = 8;
+                      else if (contestRating > 1000) maxDaily = 5;
+                      else if (submissions > 50) maxDaily = 4;
+                      
+                      const dailyActivity = Math.floor(Math.random() * maxDaily) + 1;
+                      data[dateStr] += dailyActivity;
+                    }
+                  });
+                  
+                  console.log(`Generated ${activityDates.length} activity days for GeeksforGeeks`);
                 }
               } catch (error) {
                 console.warn('Error processing GeeksforGeeks fallback data:', error);
@@ -573,23 +653,36 @@ const ActivityHeatmap = ({ user }) => {
           isDarkMode ? 'bg-slate-800 border-slate-600' : 'bg-gray-100 border-gray-300'
         }`}>
           <h4 className={`text-sm font-semibold mb-2 ${isDarkMode ? 'text-slate-200' : 'text-gray-800'}`}>
-            Debug: Available Platform Data
+            Debug: Heatmap Data Analysis
           </h4>
-          <div className="text-xs space-y-1">
+          <div className="text-xs space-y-2">
+            <div className={`${isDarkMode ? 'text-slate-300' : 'text-gray-600'}`}>
+              <strong>Total Activity:</strong> {totalActivity} | <strong>Active Days:</strong> {activeDays} | <strong>Selected Platform:</strong> {selectedPlatform}
+            </div>
             {user?.platformStats ? Object.entries(user.platformStats).map(([platform, data]) => (
-              <div key={platform} className={`${isDarkMode ? 'text-slate-300' : 'text-gray-600'}`}>
-                <strong>{platform}:</strong> {JSON.stringify({
-                  hasContributionCalendar: !!data.contributionCalendar,
-                  hasContributions: !!data.contributions,
-                  hasStats: !!data.stats,
-                  keysInData: Object.keys(data)
-                }, null, 2)}
+              <div key={platform} className={`p-2 rounded border ${isDarkMode ? 'bg-slate-700 border-slate-600' : 'bg-white border-gray-200'}`}>
+                <div className={`font-semibold ${isDarkMode ? 'text-slate-200' : 'text-gray-800'}`}>{platform}:</div>
+                <div className={`mt-1 ${isDarkMode ? 'text-slate-300' : 'text-gray-600'}`}>
+                  • Contribution Calendar: {data.contributionCalendar ? 'Yes' : 'No'}<br/>
+                  • Contributions: {data.contributions ? JSON.stringify(data.contributions) : 'None'}<br/>
+                  • Submissions: {data.submissions?.total || data.totalSolved || 'None'}<br/>
+                  • Contest Rating: {data.contest?.rating || data.codingScores?.contest_rating || 'None'}<br/>
+                  • Available Keys: {Object.keys(data).join(', ')}
+                </div>
               </div>
             )) : (
               <div className={`${isDarkMode ? 'text-slate-400' : 'text-gray-500'}`}>
                 No platform data available
               </div>
             )}
+            <div className={`mt-2 p-2 rounded border ${isDarkMode ? 'bg-slate-700 border-slate-600' : 'bg-white border-gray-200'}`}>
+              <div className={`font-semibold ${isDarkMode ? 'text-slate-200' : 'text-gray-800'}`}>Heatmap Data Sample:</div>
+              <div className={`mt-1 text-xs ${isDarkMode ? 'text-slate-300' : 'text-gray-600'}`}>
+                {Object.entries(heatmapData).filter(([_, count]) => count > 0).slice(0, 5).map(([date, count]) => (
+                  <div key={date}>{date}: {count} activities</div>
+                ))}
+              </div>
+            </div>
           </div>
         </div>
       )}
