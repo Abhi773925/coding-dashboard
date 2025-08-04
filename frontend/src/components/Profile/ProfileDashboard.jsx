@@ -389,118 +389,82 @@ const ProfileDashboard = () => {
 
         {/* Tab Content */}
         <div className="mt-8">
-          <AnimatePresence mode="wait">
-            <motion.div
-              key={selectedTab}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -20 }}
-              transition={{ duration: 0.3 }}
-            >
-              {selectedTab === 'overview' && (
-                <div className="grid grid-cols-1 xl:grid-cols-4 gap-6">
-                  {/* Left Column - Profile Card */}
-                  <div className="xl:col-span-1 order-1 xl:order-1">
-                    <ProfileCard 
-                      user={profileData} 
-                      onUpdate={fetchUserProfile}
-                    />
-                  </div>
-                  
-                  {/* Right Column - Main Content */}
-                  <div className="xl:col-span-3 order-2 xl:order-2 space-y-6">
-                    <ProfileStats user={profileData} />
-                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-                      <PlatformCards 
-                        user={profileData}
-                        onConnectPlatform={handleConnectPlatform}
-                      />
-                      <AchievementShowcase user={profileData} />
-                    </div>
-                    <RecentActivity user={profileData} />
-                    <ActivityHeatmap user={profileData} />
-                  </div>
-                </div>
-              )}
+          <div className="grid grid-cols-1 xl:grid-cols-4 gap-6">
+            {/* Left Column - Static Profile Card */}
+            <div className="xl:col-span-1 order-1 xl:order-1">
+              <div className="sticky top-8">
+                <ProfileCard 
+                  user={profileData} 
+                  onUpdate={fetchUserProfile}
+                />
+              </div>
+            </div>
+            
+            {/* Right Column - Scrollable Content */}
+            <div className="xl:col-span-3 order-2 xl:order-2">
+              <div className="h-[calc(100vh-12rem)] overflow-y-auto pr-4 custom-scrollbar">
+                <AnimatePresence mode="wait">
+                  <motion.div
+                    key={selectedTab}
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -20 }}
+                    transition={{ duration: 0.3 }}
+                  >
+                    {selectedTab === 'overview' && (
+                      <div className="space-y-6">
+                        <ProfileStats user={profileData} />
+                        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                          <PlatformCards 
+                            user={profileData}
+                            onConnectPlatform={handleConnectPlatform}
+                          />
+                          <AchievementShowcase user={profileData} />
+                        </div>
+                        <RecentActivity user={profileData} />
+                        <ActivityHeatmap user={profileData} />
+                      </div>
+                    )}
 
-              {selectedTab === 'platforms' && (
-                <div className="grid grid-cols-1 xl:grid-cols-4 gap-6">
-                  {/* Left Column - Profile Card */}
-                  <div className="xl:col-span-1 order-1 xl:order-1">
-                    <ProfileCard 
-                      user={profileData} 
-                      onUpdate={fetchUserProfile}
-                    />
-                  </div>
-                  
-                  {/* Right Column - Platform Details */}
-                  <div className="xl:col-span-3 order-2 xl:order-2">
-                    <PlatformCards 
-                      user={profileData}
-                      onConnectPlatform={handleConnectPlatform}
-                      detailed={true}
-                    />
-                  </div>
-                </div>
-              )}
+                    {selectedTab === 'platforms' && (
+                      <div>
+                        <PlatformCards 
+                          user={profileData}
+                          onConnectPlatform={handleConnectPlatform}
+                          detailed={true}
+                        />
+                      </div>
+                    )}
 
-              {selectedTab === 'skills' && (
-                <div className="grid grid-cols-1 xl:grid-cols-4 gap-6">
-                  {/* Left Column - Profile Card */}
-                  <div className="xl:col-span-1 order-1 xl:order-1">
-                    <ProfileCard 
-                      user={profileData} 
-                      onUpdate={fetchUserProfile}
-                    />
-                  </div>
-                  
-                  {/* Right Column - Skills Content */}
-                  <div className="xl:col-span-3 order-2 xl:order-2">
-                    <SkillsOverview user={profileData} />
-                  </div>
-                </div>
-              )}
+                    {selectedTab === 'skills' && (
+                      <div>
+                        <SkillsOverview user={profileData} />
+                      </div>
+                    )}
 
-              {selectedTab === 'activity' && (
-                <div className="grid grid-cols-1 xl:grid-cols-4 gap-6">
-                  {/* Left Column - Profile Card */}
-                  <div className="xl:col-span-1 order-1 xl:order-1">
-                    <ProfileCard 
-                      user={profileData} 
-                      onUpdate={fetchUserProfile}
-                    />
-                  </div>
-                  
-                  {/* Right Column - Activity Content */}
-                  <div className="xl:col-span-3 order-2 xl:order-2">
-                    <ActivityHeatmap user={profileData} />
-                  </div>
-                </div>
-              )}
+                    {selectedTab === 'activity' && (
+                      <div>
+                        <ActivityHeatmap user={profileData} />
+                      </div>
+                    )}
 
-              {selectedTab === 'achievements' && (
-                <AchievementShowcase user={profileData} detailed={true} />
-              )}
+                    {selectedTab === 'achievements' && (
+                      <div>
+                        <AchievementShowcase user={profileData} detailed={true} />
+                      </div>
+                    )}
 
-              {selectedTab === 'analytics' && (
-                <div className="grid grid-cols-1 xl:grid-cols-4 gap-6">
-                  {/* Left Column - Profile Card */}
-                  <div className="xl:col-span-1 order-1 xl:order-1">
-                    <ProfileCard 
-                      user={profileData} 
-                      onUpdate={fetchUserProfile}
-                    />
-                  </div>
-                  
-                  {/* Right Column - Analytics Content */}
-                  <div className="xl:col-span-3 order-2 xl:order-2 space-y-6">
-                    <ProfileStats user={profileData} detailed={true} />
-                    <ActivityHeatmap user={profileData} />
-                  </div>
-                </div>
-              )}
-            </motion.div>
-          </AnimatePresence>
+                    {selectedTab === 'analytics' && (
+                      <div className="space-y-6">
+                        <ProfileStats user={profileData} detailed={true} />
+                        <ActivityHeatmap user={profileData} />
+                      </div>
+                    )}
+                  </motion.div>
+                </AnimatePresence>
+              </div>
+            </div>
+          </div>
         </div>
 
         {/* Platform Connection Modal */}
