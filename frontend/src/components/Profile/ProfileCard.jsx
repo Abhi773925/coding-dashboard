@@ -25,9 +25,8 @@ import {
 import { useTheme } from '../context/ThemeContext';
 import { fetchWithWakeUp } from '../../utils/serverWakeUp';
 
-const ProfileCard = ({ user, onUpdate }) => {
+const ProfileCard = ({ user, onUpdate, profileMode, setProfileMode }) => {
   const { isDarkMode } = useTheme();
-  const [isEditing, setIsEditing] = useState(false);
   const [editData, setEditData] = useState({
     name: user?.name || '',
     bio: user?.bio || '',
@@ -37,6 +36,13 @@ const ProfileCard = ({ user, onUpdate }) => {
     instagram: user?.instagram || '',
     github: user?.github || ''
   });
+
+  // Use profileMode if provided, otherwise fall back to internal state
+  const [internalIsEditing, setInternalIsEditing] = useState(false);
+  const isEditing = profileMode ? profileMode === 'edit' : internalIsEditing;
+  const setIsEditing = setProfileMode ? 
+    (editing) => setProfileMode(editing ? 'edit' : 'view') : 
+    setInternalIsEditing;
 
   // Update editData when user data changes
   useEffect(() => {
@@ -50,6 +56,19 @@ const ProfileCard = ({ user, onUpdate }) => {
       github: user?.github || ''
     });
   }, [user]);
+
+  // Sync with profileMode prop
+  useEffect(() => {
+    setIsEditing(profileMode === 'edit');
+  }, [profileMode]);
+
+  const handleEditToggle = () => {
+    const newMode = isEditing ? 'view' : 'edit';
+    setIsEditing(!isEditing);
+    if (setProfileMode) {
+      setProfileMode(newMode);
+    }
+  };
 
   const handleSave = async () => {
     try {
