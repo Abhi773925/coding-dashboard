@@ -217,22 +217,172 @@ const platformValidationStrategies = {
 
   hackerrank: async (username) => {
     try {
-      const profileUrl = `https://www.hackerrank.com/profile/${username}`;
-      const response = await axios.get(profileUrl, { headers: createHeaders(), timeout: 10000 });
-      const $ = cheerio.load(response.data);
-      return $('.profile-username').length > 0 || $('[data-testid="profile-header"]').length > 0;
-    } catch {
+      // Try different possible URLs for HackerRank
+      const urls = [
+        `https://www.hackerrank.com/profile/${username}`,
+        `https://www.hackerrank.com/${username}`,
+        `https://www.hackerrank.com/users/${username}`
+      ];
+      
+      for (const profileUrl of urls) {
+        try {
+          console.log(`Trying HackerRank URL: ${profileUrl}`);
+          
+          const response = await axios.get(profileUrl, { 
+            headers: {
+              ...createHeaders(),
+              'Referer': 'https://www.hackerrank.com/',
+              'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8'
+            }, 
+            timeout: 15000,
+            validateStatus: function (status) {
+              return status < 500; // Accept any status code less than 500
+            }
+          });
+          
+          if (response.status === 200) {
+            const $ = cheerio.load(response.data);
+            
+            // Multiple selectors to check for profile existence
+            const profileIndicators = [
+              $('.profile-username').length > 0,
+              $('[data-testid="profile-header"]').length > 0,
+              $('.profile-header').length > 0,
+              $('.user-profile').length > 0,
+              $('.profile-card').length > 0,
+              $('.profile-details').length > 0,
+              $('.user-header').length > 0,
+              $('.profile-info').length > 0,
+              // Check page title
+              $('title').text().toLowerCase().includes(username.toLowerCase()),
+              // Check for username in the page
+              $.text().toLowerCase().includes(username.toLowerCase()) && $.text().toLowerCase().includes('hackerrank')
+            ];
+            
+            console.log(`HackerRank profile indicators for ${username}:`, profileIndicators);
+            
+            if (profileIndicators.some(indicator => indicator)) {
+              console.log(`HackerRank profile found for ${username} at ${profileUrl}`);
+              return true;
+            }
+            
+            // Check if page doesn't contain error messages
+            const errorMessages = [
+              'user not found',
+              'profile not found',
+              'does not exist',
+              'user does not exist',
+              'invalid user',
+              '404',
+              'not found',
+              'page not found'
+            ];
+            
+            const pageText = $.text().toLowerCase();
+            const hasErrorMessage = errorMessages.some(msg => pageText.includes(msg));
+            
+            if (!hasErrorMessage && pageText.includes(username.toLowerCase())) {
+              console.log(`HackerRank profile likely exists for ${username} (no error messages found)`);
+              return true;
+            }
+          }
+        } catch (urlError) {
+          console.log(`Failed to fetch ${profileUrl}:`, urlError.message);
+          continue;
+        }
+      }
+      
+      console.log(`HackerRank profile not found for ${username}`);
+      return false;
+    } catch (error) {
+      console.error('HackerRank validation error:', error.message);
       return false;
     }
   },
 
   codechef: async (username) => {
     try {
-      const profileUrl = `https://www.codechef.com/users/${username}`;
-      const response = await axios.get(profileUrl, { headers: createHeaders(), timeout: 10000 });
-      const $ = cheerio.load(response.data);
-      return $('.user-details-container').length > 0 || $('.user-profile').length > 0;
-    } catch {
+      // Try different possible URLs for CodeChef
+      const urls = [
+        `https://www.codechef.com/users/${username}`,
+        `https://www.codechef.com/users/${username}/`
+      ];
+      
+      for (const profileUrl of urls) {
+        try {
+          console.log(`Trying CodeChef URL: ${profileUrl}`);
+          
+          const response = await axios.get(profileUrl, { 
+            headers: {
+              ...createHeaders(),
+              'Referer': 'https://www.codechef.com/',
+              'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8'
+            }, 
+            timeout: 15000,
+            validateStatus: function (status) {
+              return status < 500; // Accept any status code less than 500
+            }
+          });
+          
+          if (response.status === 200) {
+            const $ = cheerio.load(response.data);
+            
+            // Multiple selectors to check for profile existence
+            const profileIndicators = [
+              $('.user-details-container').length > 0,
+              $('.user-profile').length > 0,
+              $('.profile-header').length > 0,
+              $('.user-header').length > 0,
+              $('.profile-container').length > 0,
+              $('.user-info').length > 0,
+              $('.rating-header').length > 0,
+              $('.user-details').length > 0,
+              // Check for username display
+              $('.username').text().toLowerCase().includes(username.toLowerCase()),
+              // Check page title
+              $('title').text().toLowerCase().includes(username.toLowerCase()),
+              // Check for username in the page content
+              $.text().toLowerCase().includes(username.toLowerCase()) && !$.text().toLowerCase().includes('user not found')
+            ];
+            
+            console.log(`CodeChef profile indicators for ${username}:`, profileIndicators);
+            
+            if (profileIndicators.some(indicator => indicator)) {
+              console.log(`CodeChef profile found for ${username} at ${profileUrl}`);
+              return true;
+            }
+            
+            // Check if page doesn't contain error messages
+            const errorMessages = [
+              'user not found',
+              'profile not found',
+              'does not exist',
+              'user does not exist',
+              'invalid user',
+              '404',
+              'not found',
+              'user not exist',
+              'invalid username'
+            ];
+            
+            const pageText = $.text().toLowerCase();
+            const hasErrorMessage = errorMessages.some(msg => pageText.includes(msg));
+            
+            if (!hasErrorMessage && pageText.includes(username.toLowerCase())) {
+              console.log(`CodeChef profile likely exists for ${username} (no error messages found)`);
+              return true;
+            }
+          }
+        } catch (urlError) {
+          console.log(`Failed to fetch ${profileUrl}:`, urlError.message);
+          continue;
+        }
+      }
+      
+      console.log(`CodeChef profile not found for ${username}`);
+      return false;
+    } catch (error) {
+      console.error('CodeChef validation error:', error.message);
       return false;
     }
   },
@@ -516,36 +666,140 @@ const platformStatsFetching = {
       const $ = cheerio.load(profileResponse.data);
 
       // Extract basic profile information with improved selectors
-      const name = $('h1.vcard-names .p-name, .h-card .p-name').text().trim();
-      const login = $('span.p-nickname, .p-nickname').text().trim();
-      const bio = $('div.p-note.user-profile-bio, .user-profile-bio').text().trim();
-      const company = $('li[itemprop="worksFor"], .p-org').text().trim();
-      const location = $('li[itemprop="homeLocation"], .p-label').first().text().trim();
-      const blog = $('li[itemprop="url"] a, .p-label a').first().attr('href');
-      const avatar = $('img.avatar.avatar-user, .avatar').attr('src');
+      const name = $('h1.vcard-names .p-name, .h-card .p-name, .vcard-fullname').text().trim();
+      const login = $('span.p-nickname, .p-nickname, .vcard-username').text().trim();
+      const bio = $('div.p-note.user-profile-bio, .user-profile-bio, .p-note div').text().trim();
+      const company = $('li[itemprop="worksFor"], .p-org, .vcard-detail[itemprop="worksFor"]').text().trim();
+      const location = $('li[itemprop="homeLocation"], .p-label, .vcard-detail[itemprop="homeLocation"]').first().text().trim();
+      const blog = $('li[itemprop="url"] a, .p-label a, .vcard-detail[itemprop="url"] a').first().attr('href');
+      const avatar = $('img.avatar.avatar-user, .avatar, .avatar-user').attr('src');
       const htmlUrl = `https://github.com/${username}`;
-      const createdAt = $('li.p-label relative-time, relative-time').attr('datetime');
+      const createdAt = $('li.p-label relative-time, relative-time, .vcard-detail relative-time').attr('datetime');
 
-      // Extract stats with improved selectors
-      const followers = parseInt($('a[href$="/followers"] .text-bold, a[href$="/followers"] .Counter').text().replace(/[^\d]/g, '') || '0');
-      const following = parseInt($('a[href$="/following"] .text-bold, a[href$="/following"] .Counter').text().replace(/[^\d]/g, '') || '0');
-      const publicRepos = parseInt($('nav a[href$="?tab=repositories"] .Counter, .Counter').first().text().replace(/[^\d]/g, '') || '0');
+      // Extract stats with multiple selector strategies
+      let followers = 0;
+      let following = 0;
+      let publicRepos = 0;
 
-      // Extract contribution stats with improved selectors
-      const contributionStats = {
-        total: parseInt($('.js-yearly-contributions h2, .ContributionCalendar h2').text().match(/[\d,]+/)?.[0]?.replace(',', '') || '0'),
-        streak: 0 // This would require additional scraping
-      };
+      // Try multiple selectors for followers
+      const followerSelectors = [
+        'a[href$="/followers"] .text-bold',
+        'a[href$="/followers"] .Counter',
+        'a[href$="/followers"] span',
+        '.vcard-stat:contains("followers") .vcard-stat-count',
+        '[data-tab-item="followers"] .Counter'
+      ];
+      
+      for (const selector of followerSelectors) {
+        const text = $(selector).text().trim();
+        if (text) {
+          followers = parseInt(text.replace(/[^\d]/g, '')) || 0;
+          if (followers > 0) break;
+        }
+      }
 
-      // Parse contribution calendar with improved selectors
+      // Try multiple selectors for following
+      const followingSelectors = [
+        'a[href$="/following"] .text-bold',
+        'a[href$="/following"] .Counter', 
+        'a[href$="/following"] span',
+        '.vcard-stat:contains("following") .vcard-stat-count',
+        '[data-tab-item="following"] .Counter'
+      ];
+      
+      for (const selector of followingSelectors) {
+        const text = $(selector).text().trim();
+        if (text) {
+          following = parseInt(text.replace(/[^\d]/g, '')) || 0;
+          if (following > 0) break;
+        }
+      }
+
+      // Try multiple selectors for repositories
+      const repoSelectors = [
+        'nav a[href$="?tab=repositories"] .Counter',
+        '.UnderlineNav-item[data-tab-item="repositories"] .Counter',
+        '.vcard-stat:contains("repositories") .vcard-stat-count',
+        'a[data-tab-item="repositories"] .Counter'
+      ];
+      
+      for (const selector of repoSelectors) {
+        const text = $(selector).text().trim();
+        if (text) {
+          publicRepos = parseInt(text.replace(/[^\d]/g, '')) || 0;
+          if (publicRepos > 0) break;
+        }
+      }
+
+      // Extract contribution stats with improved selectors and streak calculation
+      let totalContributions = 0;
+      let currentStreak = 0;
+      
+      // Try multiple selectors for contributions
+      const contributionSelectors = [
+        '.js-yearly-contributions h2',
+        '.ContributionCalendar h2',
+        '.contrib-column .contrib-number',
+        '.js-contribution-graph h2'
+      ];
+      
+      for (const selector of contributionSelectors) {
+        const text = $(selector).text().trim();
+        const match = text.match(/[\d,]+/);
+        if (match) {
+          totalContributions = parseInt(match[0].replace(',', '')) || 0;
+          if (totalContributions > 0) break;
+        }
+      }
+
+      // Parse contribution calendar with improved selectors and calculate streak
       const contributionCalendar = {};
-      $('.ContributionCalendar-day, .js-calendar-graph rect').each((i, el) => {
+      const contributionData = [];
+      
+      $('.ContributionCalendar-day, .js-calendar-graph rect, .ContributionCalendar rect').each((i, el) => {
         const date = $(el).attr('data-date');
         const count = parseInt($(el).attr('data-level') || $(el).attr('data-count') || '0');
         if (date) {
           contributionCalendar[date] = count;
+          contributionData.push({ date: new Date(date), count });
         }
       });
+
+      // Calculate current streak
+      if (contributionData.length > 0) {
+        contributionData.sort((a, b) => b.date - a.date); // Sort by date descending
+        const today = new Date();
+        let streakCount = 0;
+        
+        for (const contrib of contributionData) {
+          const daysDiff = Math.floor((today - contrib.date) / (1000 * 60 * 60 * 24));
+          
+          // Only count days within the last year and consecutive days with contributions
+          if (daysDiff <= 365) {
+            if (contrib.count > 0) {
+              if (daysDiff === streakCount) {
+                streakCount++;
+              } else if (daysDiff === streakCount + 1) {
+                streakCount++;
+              } else {
+                break;
+              }
+            } else if (daysDiff === streakCount) {
+              // Allow one day gap
+              streakCount++;
+            } else {
+              break;
+            }
+          }
+        }
+        currentStreak = streakCount;
+      }
+
+      const contributionStats = {
+        total: totalContributions,
+        streak: currentStreak,
+        thisYear: totalContributions // Assuming the total is for this year
+      };
 
       // Optimized repository fetching (limited to first 30 for performance)
       const repositories = [];
@@ -792,44 +1046,213 @@ const platformStatsFetching = {
       }
 
       const profileUrl = `https://www.codechef.com/users/${username}`;
-      const response = await axios.get(profileUrl, { headers: createHeaders(), timeout: 15000 });
+      console.log(`Fetching CodeChef stats for ${username} from ${profileUrl}`);
+      
+      const response = await axios.get(profileUrl, { 
+        headers: {
+          ...createHeaders(),
+          'Referer': 'https://www.codechef.com/',
+          'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8'
+        }, 
+        timeout: 15000 
+      });
+      
       const $ = cheerio.load(response.data);
       
-      // Extract basic profile information
-      const name = $('.user-details-container .user-name').text().trim();
-      const country = $('.user-details-container .user-country-name').text().trim();
-      const avatar = $('.user-image img').attr('src');
+      // Extract profile information with multiple selectors
+      let name = '';
+      const nameSelectors = [
+        '.user-details-container .user-name',
+        '.user-name',
+        '.profile-name',
+        '.username',
+        '.user-header .name',
+        '.profile-header .name'
+      ];
       
-      // Extract ratings and rankings
-      const currentRating = $('.rating-number').first().text().trim();
-      const highestRating = $('.rating-number').eq(1).text().trim();
-      const globalRank = $('.rank-number').first().text().trim();
-      const countryRank = $('.rank-number').eq(1).text().trim();
+      for (const selector of nameSelectors) {
+        const element = $(selector);
+        if (element.length > 0 && element.text().trim()) {
+          name = element.text().trim();
+          break;
+        }
+      }
       
-      // Extract problem stats
-      const problemsFullySolved = $('.problems-solved .prob-comp-solved').text().trim();
-      const problemsPartiallySolved = $('.problems-solved .prob-partially-solved').text().trim();
+      let country = '';
+      const countrySelectors = [
+        '.user-details-container .user-country-name',
+        '.user-country-name',
+        '.country',
+        '.user-country',
+        '.profile-country'
+      ];
+      
+      for (const selector of countrySelectors) {
+        const element = $(selector);
+        if (element.length > 0 && element.text().trim()) {
+          country = element.text().trim();
+          break;
+        }
+      }
+      
+      let avatar = '';
+      const avatarSelectors = [
+        '.user-image img',
+        '.user-avatar img',
+        '.profile-image img',
+        '.avatar img',
+        '.user-photo img'
+      ];
+      
+      for (const selector of avatarSelectors) {
+        const element = $(selector);
+        if (element.length > 0) {
+          avatar = element.attr('src') || '';
+          if (avatar) break;
+        }
+      }
+      
+      // Extract ratings with multiple selectors
+      let currentRating = 0;
+      let highestRating = 0;
+      
+      const ratingSelectors = [
+        '.rating-number',
+        '.rating',
+        '.user-rating',
+        '.rating-header .rating',
+        '.profile-rating',
+        '.current-rating'
+      ];
+      
+      const ratingElements = $(ratingSelectors.join(', '));
+      if (ratingElements.length > 0) {
+        currentRating = parseInt(ratingElements.first().text().trim()) || 0;
+        if (ratingElements.length > 1) {
+          highestRating = parseInt(ratingElements.eq(1).text().trim()) || currentRating;
+        }
+      }
+      
+      // Extract rankings with multiple selectors
+      let globalRank = 0;
+      let countryRank = 0;
+      
+      const rankSelectors = [
+        '.rank-number',
+        '.ranking',
+        '.user-rank',
+        '.rank',
+        '.global-rank',
+        '.country-rank'
+      ];
+      
+      const rankElements = $(rankSelectors.join(', '));
+      if (rankElements.length > 0) {
+        globalRank = parseInt(rankElements.first().text().trim().replace(/\D/g, '')) || 0;
+        if (rankElements.length > 1) {
+          countryRank = parseInt(rankElements.eq(1).text().trim().replace(/\D/g, '')) || 0;
+        }
+      }
+      
+      // Extract problem stats with multiple selectors
+      let problemsFullySolved = 0;
+      let problemsPartiallySolved = 0;
+      
+      const problemSelectors = [
+        '.problems-solved .prob-comp-solved',
+        '.prob-comp-solved',
+        '.fully-solved',
+        '.problems-fully-solved',
+        '.solved-count'
+      ];
+      
+      for (const selector of problemSelectors) {
+        const element = $(selector);
+        if (element.length > 0) {
+          problemsFullySolved = parseInt(element.text().trim()) || 0;
+          if (problemsFullySolved > 0) break;
+        }
+      }
+      
+      const partialSelectors = [
+        '.problems-solved .prob-partially-solved',
+        '.prob-partially-solved',
+        '.partially-solved',
+        '.problems-partially-solved',
+        '.partial-count'
+      ];
+      
+      for (const selector of partialSelectors) {
+        const element = $(selector);
+        if (element.length > 0) {
+          problemsPartiallySolved = parseInt(element.text().trim()) || 0;
+          if (problemsPartiallySolved > 0) break;
+        }
+      }
+      
+      // Extract additional stats
+      let contests = 0;
+      const contestSelectors = [
+        '.contests-participated',
+        '.contest-count',
+        '.total-contests',
+        '.user-contests'
+      ];
+      
+      for (const selector of contestSelectors) {
+        const element = $(selector);
+        if (element.length > 0) {
+          contests = parseInt(element.text().trim().replace(/\D/g, '')) || 0;
+          if (contests > 0) break;
+        }
+      }
+      
+      let stars = 0;
+      const starSelectors = [
+        '.rating-star',
+        '.star-rating',
+        '.stars',
+        '.user-stars'
+      ];
+      
+      for (const selector of starSelectors) {
+        const element = $(selector);
+        if (element.length > 0) {
+          stars = element.find('*').length || parseInt(element.text().trim()) || 0;
+          if (stars > 0) break;
+        }
+      }
       
       const result = {
+        platform: 'CodeChef',
+        username,
         profile: {
-          name,
-          country,
-          avatar
+          name: name || username,
+          country: country || 'N/A',
+          avatar: avatar || ''
         },
         ratings: {
-          current: parseInt(currentRating) || 0,
-          highest: parseInt(highestRating) || 0
+          current: currentRating,
+          highest: highestRating || currentRating
         },
         rankings: {
-          global: parseInt(globalRank) || 0,
-          country: parseInt(countryRank) || 0
+          global: globalRank,
+          country: countryRank
         },
         problemStats: {
-          fullySolved: parseInt(problemsFullySolved) || 0,
-          partiallySolved: parseInt(problemsPartiallySolved) || 0,
-          totalSolved: (parseInt(problemsFullySolved) || 0) + (parseInt(problemsPartiallySolved) || 0)
-        }
+          fullySolved: problemsFullySolved,
+          partiallySolved: problemsPartiallySolved,
+          totalSolved: problemsFullySolved + problemsPartiallySolved
+        },
+        additionalStats: {
+          contests,
+          stars
+        },
+        profileUrl,
+        lastUpdated: new Date().toISOString()
       };
+
+      console.log(`CodeChef stats extracted for ${username}:`, result);
 
       // Cache the result
       if (userId) {
@@ -838,8 +1261,13 @@ const platformStatsFetching = {
 
       return result;
     } catch (error) {
-      console.error('CodeChef stats fetch failed', error);
-      return null;
+      console.error(`Error fetching CodeChef stats for ${username}:`, error.message);
+      return {
+        platform: 'CodeChef',
+        username,
+        error: error.message,
+        lastUpdated: new Date().toISOString()
+      };
     }
   },
 
@@ -926,32 +1354,202 @@ const platformStatsFetching = {
       }
 
       const profileUrl = `https://www.hackerrank.com/profile/${username}`;
-      const response = await axios.get(profileUrl, { headers: createHeaders(), timeout: 15000 });
-      const $ = cheerio.load(response.data);
+      console.log(`Fetching HackerRank stats for ${username} from ${profileUrl}`);
       
-      // Extract basic profile information
-      const name = $('.profile-username').text().trim();
-      const avatar = $('.profile-avatar img').attr('src');
-      const country = $('.profile-country').text().trim();
-      
-      // Extract stats
-      const badges = [];
-      $('.badge-title').each((index, element) => {
-        const badgeName = $(element).text().trim();
-        if (badgeName) {
-          badges.push({ name: badgeName });
-        }
+      const response = await axios.get(profileUrl, { 
+        headers: {
+          ...createHeaders(),
+          'Referer': 'https://www.hackerrank.com/',
+          'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8'
+        }, 
+        timeout: 15000 
       });
       
+      const $ = cheerio.load(response.data);
+      
+      // Extract profile information with multiple selectors
+      let name = '';
+      const nameSelectors = [
+        '.profile-username',
+        '.username',
+        '.profile-name',
+        '.user-name',
+        '.profile-header .name',
+        '.hacker-name',
+        '.profile-title'
+      ];
+      
+      for (const selector of nameSelectors) {
+        const element = $(selector);
+        if (element.length > 0 && element.text().trim()) {
+          name = element.text().trim();
+          break;
+        }
+      }
+      
+      let avatar = '';
+      const avatarSelectors = [
+        '.profile-avatar img',
+        '.user-avatar img',
+        '.profile-image img',
+        '.avatar img',
+        '.profile-photo img',
+        '.hacker-avatar img'
+      ];
+      
+      for (const selector of avatarSelectors) {
+        const element = $(selector);
+        if (element.length > 0) {
+          avatar = element.attr('src') || '';
+          if (avatar) {
+            // Convert relative URL to absolute
+            if (avatar.startsWith('/')) {
+              avatar = 'https://www.hackerrank.com' + avatar;
+            }
+            break;
+          }
+        }
+      }
+      
+      let country = '';
+      const countrySelectors = [
+        '.profile-country',
+        '.country',
+        '.user-country',
+        '.location',
+        '.profile-location'
+      ];
+      
+      for (const selector of countrySelectors) {
+        const element = $(selector);
+        if (element.length > 0 && element.text().trim()) {
+          country = element.text().trim();
+          break;
+        }
+      }
+      
+      // Extract badges with multiple selectors
+      const badges = [];
+      const badgeSelectors = [
+        '.badge-title',
+        '.badge-name',
+        '.achievement-title',
+        '.badge .title',
+        '.achievements .badge-title',
+        '.profile-badges .badge-title'
+      ];
+      
+      for (const selector of badgeSelectors) {
+        $(selector).each((index, element) => {
+          const badgeName = $(element).text().trim();
+          if (badgeName && !badges.some(b => b.name === badgeName)) {
+            badges.push({ name: badgeName });
+          }
+        });
+        if (badges.length > 0) break;
+      }
+      
+      // Extract skills and scores
+      const skills = [];
+      const skillSelectors = [
+        '.skill-name',
+        '.domain-name',
+        '.track-name',
+        '.skill-title',
+        '.domain-title'
+      ];
+      
+      for (const selector of skillSelectors) {
+        $(selector).each((index, element) => {
+          const skillName = $(element).text().trim();
+          if (skillName && !skills.includes(skillName)) {
+            skills.push(skillName);
+          }
+        });
+        if (skills.length > 0) break;
+      }
+      
+      // Extract ranking information
+      let ranking = '';
+      const rankingSelectors = [
+        '.profile-rank',
+        '.rank',
+        '.global-rank',
+        '.ranking',
+        '.profile-ranking'
+      ];
+      
+      for (const selector of rankingSelectors) {
+        const element = $(selector);
+        if (element.length > 0 && element.text().trim()) {
+          ranking = element.text().trim();
+          break;
+        }
+      }
+      
+      // Extract score information
+      let score = 0;
+      const scoreSelectors = [
+        '.profile-score',
+        '.score',
+        '.total-score',
+        '.points',
+        '.hacker-score'
+      ];
+      
+      for (const selector of scoreSelectors) {
+        const element = $(selector);
+        if (element.length > 0) {
+          const scoreText = element.text().trim().replace(/\D/g, '');
+          if (scoreText) {
+            score = parseInt(scoreText) || 0;
+            if (score > 0) break;
+          }
+        }
+      }
+      
+      // Extract problem solving stats
+      let problemsSolved = 0;
+      const problemSelectors = [
+        '.problems-solved',
+        '.solved-count',
+        '.challenges-solved',
+        '.total-challenges',
+        '.problems-count'
+      ];
+      
+      for (const selector of problemSelectors) {
+        const element = $(selector);
+        if (element.length > 0) {
+          const problemText = element.text().trim().replace(/\D/g, '');
+          if (problemText) {
+            problemsSolved = parseInt(problemText) || 0;
+            if (problemsSolved > 0) break;
+          }
+        }
+      }
+      
       const result = {
+        platform: 'HackerRank',
+        username,
         profile: {
-          username: name,
-          avatar,
-          country
+          name: name || username,
+          avatar: avatar || '',
+          country: country || 'N/A'
+        },
+        stats: {
+          score,
+          ranking: ranking || 'N/A',
+          problemsSolved
         },
         badges: badges,
-        badgeCount: badges.length
+        badgeCount: badges.length,
+        skills: skills,
+        profileUrl,
+        lastUpdated: new Date().toISOString()
       };
+
+      console.log(`HackerRank stats extracted for ${username}:`, result);
 
       // Cache the result
       if (userId) {
@@ -960,8 +1558,13 @@ const platformStatsFetching = {
 
       return result;
     } catch (error) {
-      console.error('HackerRank stats fetch failed', error);
-      return null;
+      console.error(`Error fetching HackerRank stats for ${username}:`, error.message);
+      return {
+        platform: 'HackerRank',
+        username,
+        error: error.message,
+        lastUpdated: new Date().toISOString()
+      };
     }
   },
 
