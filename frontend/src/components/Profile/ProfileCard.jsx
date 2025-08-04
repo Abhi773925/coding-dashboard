@@ -72,6 +72,23 @@ const ProfileCard = ({ user, onUpdate, profileMode, setProfileMode }) => {
 
   const handleSave = async () => {
     try {
+      // Only send fields that have changed
+      const updatedFields = {};
+      
+      if (editData.name !== (user?.name || '')) updatedFields.name = editData.name;
+      if (editData.bio !== (user?.bio || '')) updatedFields.bio = editData.bio;
+      if (editData.location !== (user?.location || '')) updatedFields.location = editData.location;
+      if (editData.website !== (user?.website || '')) updatedFields.website = editData.website;
+      if (editData.linkedin !== (user?.linkedin || '')) updatedFields.linkedin = editData.linkedin;
+      if (editData.instagram !== (user?.instagram || '')) updatedFields.instagram = editData.instagram;
+      if (editData.github !== (user?.github || '')) updatedFields.github = editData.github;
+
+      // If no fields changed, just exit edit mode
+      if (Object.keys(updatedFields).length === 0) {
+        setIsEditing(false);
+        return;
+      }
+
       const response = await fetchWithWakeUp('https://prepmate-kvol.onrender.com/api/profile/update-basic', {
         method: 'POST',
         headers: {
@@ -79,7 +96,7 @@ const ProfileCard = ({ user, onUpdate, profileMode, setProfileMode }) => {
         },
         body: JSON.stringify({
           email: user.email,
-          ...editData
+          ...updatedFields
         }),
       });
       
@@ -217,9 +234,22 @@ const ProfileCard = ({ user, onUpdate, profileMode, setProfileMode }) => {
       {/* Profile Picture and Basic Info */}
       <div className="text-center mb-6">
         <div className="relative inline-block">
-          <div className={`w-24 h-24 rounded-full mx-auto mb-4 flex items-center justify-center text-white font-bold text-2xl ${
-            isDarkMode ? 'bg-gradient-to-br from-blue-500 to-purple-600' : 'bg-gradient-to-br from-blue-400 to-purple-500'
-          }`}>
+          {user?.avatar || user?.picture ? (
+            <img
+              src={user.avatar || user.picture}
+              alt={user?.name || 'Profile'}
+              className="w-24 h-24 rounded-full mx-auto mb-4 object-cover border-4 border-white shadow-lg"
+              onError={(e) => {
+                e.target.style.display = 'none';
+                e.target.nextSibling.style.display = 'flex';
+              }}
+            />
+          ) : null}
+          <div 
+            className={`w-24 h-24 rounded-full mx-auto mb-4 flex items-center justify-center text-white font-bold text-2xl border-4 border-white shadow-lg ${
+              isDarkMode ? 'bg-gradient-to-br from-blue-500 to-purple-600' : 'bg-gradient-to-br from-blue-400 to-purple-500'
+            } ${(user?.avatar || user?.picture) ? 'hidden' : 'flex'}`}
+          >
             {user?.name ? user.name.charAt(0).toUpperCase() : 'U'}
           </div>
           <div className={`absolute -bottom-1 -right-1 w-8 h-8 rounded-full flex items-center justify-center cursor-pointer transition-transform hover:scale-110 ${
@@ -441,44 +471,44 @@ const ProfileCard = ({ user, onUpdate, profileMode, setProfileMode }) => {
         )}
 
         {/* Social Media Links */}
-        {(user?.github || editData.github) && (
+        {user?.github && !isEditing && (
           <div className="flex items-center space-x-3">
             <Github className={`w-4 h-4 ${isDarkMode ? 'text-slate-400' : 'text-gray-500'}`} />
             <a 
-              href={`https://github.com/${user?.github || editData.github}`} 
+              href={`https://github.com/${user.github}`} 
               target="_blank" 
               rel="noopener noreferrer"
               className={`text-sm hover:underline ${isDarkMode ? 'text-blue-400' : 'text-blue-600'}`}
             >
-              @{user?.github || editData.github}
+              @{user.github}
             </a>
           </div>
         )}
 
-        {(user?.linkedin || editData.linkedin) && (
+        {user?.linkedin && !isEditing && (
           <div className="flex items-center space-x-3">
             <Linkedin className={`w-4 h-4 ${isDarkMode ? 'text-slate-400' : 'text-gray-500'}`} />
             <a 
-              href={`https://linkedin.com/in/${user?.linkedin || editData.linkedin}`} 
+              href={`https://linkedin.com/in/${user.linkedin}`} 
               target="_blank" 
               rel="noopener noreferrer"
               className={`text-sm hover:underline ${isDarkMode ? 'text-blue-400' : 'text-blue-600'}`}
             >
-              @{user?.linkedin || editData.linkedin}
+              @{user.linkedin}
             </a>
           </div>
         )}
 
-        {(user?.instagram || editData.instagram) && (
+        {user?.instagram && !isEditing && (
           <div className="flex items-center space-x-3">
             <Instagram className={`w-4 h-4 ${isDarkMode ? 'text-slate-400' : 'text-gray-500'}`} />
             <a 
-              href={`https://instagram.com/${user?.instagram || editData.instagram}`} 
+              href={`https://instagram.com/${user.instagram}`} 
               target="_blank" 
               rel="noopener noreferrer"
               className={`text-sm hover:underline ${isDarkMode ? 'text-blue-400' : 'text-blue-600'}`}
             >
-              @{user?.instagram || editData.instagram}
+              @{user.instagram}
             </a>
           </div>
         )}
@@ -496,129 +526,6 @@ const ProfileCard = ({ user, onUpdate, profileMode, setProfileMode }) => {
         </div>
       )}
 
-      {/* Quick Stats */}
-      {!isEditing && (
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 mb-6">
-          <div className={`text-center p-4 rounded-xl bg-gradient-to-br from-purple-500 to-purple-600`}>
-            <div className="text-white">
-              <div className="text-lg font-bold">
-                {overallScore.toLocaleString()}
-              </div>
-              <div className="text-xs opacity-90">
-                Overall Score
-              </div>
-            </div>
-          </div>
-          
-          <div className={`text-center p-4 rounded-xl bg-gradient-to-br from-green-500 to-green-600`}>
-            <div className="text-white">
-              <div className="text-lg font-bold">
-                {completeness}%
-              </div>
-              <div className="text-xs opacity-90">
-                Profile Complete
-              </div>
-            </div>
-          </div>
-          
-          <div className={`text-center p-4 rounded-xl bg-gradient-to-br from-purple-500 to-violet-600`}>
-            <div className="text-white">
-              <div className="text-lg font-bold">
-                {connectedPlatforms}
-              </div>
-              <div className="text-xs opacity-90">
-                Platforms
-              </div>
-            </div>
-          </div>
-          
-          <div className={`text-center p-4 rounded-xl bg-gradient-to-br from-blue-500 to-blue-600`}>
-            <div className="text-white">
-              <div className="text-lg font-bold">
-                #{Math.floor(Math.random() * 9000) + 1000}
-              </div>
-              <div className="text-xs opacity-90">
-                Rank
-              </div>
-            </div>
-          </div>
-        </div>
-      )}
-
-      {/* Legacy Quick Stats - Keep for backward compatibility */}
-      <div className="grid grid-cols-2 gap-4 mb-6" style={{ display: 'none' }}>
-        <div className={`text-center p-3 rounded-lg ${
-          isDarkMode ? 'bg-slate-800/50' : 'bg-gray-50'
-        }`}>
-          <div className={`text-lg font-bold ${isDarkMode ? 'text-white' : 'text-gray-900'}`}>
-            {overallScore.toLocaleString()}
-          </div>
-          <div className={`text-xs ${isDarkMode ? 'text-slate-400' : 'text-gray-600'}`}>
-            Overall Score
-          </div>
-        </div>
-        <div className={`text-center p-3 rounded-lg ${
-          isDarkMode ? 'bg-slate-800/50' : 'bg-gray-50'
-        }`}>
-          <div className={`text-lg font-bold ${isDarkMode ? 'text-white' : 'text-gray-900'}`}>
-            {connectedPlatforms}
-          </div>
-          <div className={`text-xs ${isDarkMode ? 'text-slate-400' : 'text-gray-600'}`}>
-            Platforms
-          </div>
-        </div>
-      </div>
-
-      {/* Platform Ranks */}
-      {platformRanks.length > 0 && (
-        <div className="mb-6">
-          <h3 className={`text-sm font-semibold mb-3 ${isDarkMode ? 'text-white' : 'text-gray-900'}`}>
-            Platform Rankings
-          </h3>
-          <div className="space-y-2">
-            {platformRanks.map((rank, index) => {
-              const Icon = rank.icon;
-              return (
-                <div key={index} className={`flex items-center justify-between p-2 rounded-lg ${
-                  isDarkMode ? 'bg-slate-800/30' : 'bg-gray-50/50'
-                }`}>
-                  <div className="flex items-center space-x-2">
-                    <div className={`p-1.5 rounded-lg bg-gradient-to-r ${rank.color}`}>
-                      <Icon className="w-3 h-3 text-white" />
-                    </div>
-                    <span className={`text-xs font-medium ${isDarkMode ? 'text-slate-300' : 'text-gray-700'}`}>
-                      {rank.platform}
-                    </span>
-                  </div>
-                  <span className={`text-xs font-bold ${isDarkMode ? 'text-white' : 'text-gray-900'}`}>
-                    {rank.rank}
-                  </span>
-                </div>
-              );
-            })}
-          </div>
-        </div>
-      )}
-
-      {/* Profile Completeness */}
-      <div className="space-y-3">
-        <div className="flex items-center justify-between">
-          <span className={`text-sm font-medium ${isDarkMode ? 'text-slate-300' : 'text-gray-700'}`}>
-            Profile Completeness
-          </span>
-          <span className={`text-sm font-bold ${isDarkMode ? 'text-white' : 'text-gray-900'}`}>
-            {completeness}%
-          </span>
-        </div>
-        <div className={`w-full rounded-full h-2 ${isDarkMode ? 'bg-slate-700' : 'bg-gray-200'}`}>
-          <motion.div 
-            className="bg-gradient-to-r from-green-500 to-emerald-500 h-2 rounded-full"
-            initial={{ width: 0 }}
-            animate={{ width: `${completeness}%` }}
-            transition={{ duration: 1, delay: 0.5 }}
-          />
-        </div>
-      </div>
     </motion.div>
   );
 };
