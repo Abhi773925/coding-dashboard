@@ -25,11 +25,6 @@ const ActivityHeatmap = ({ user }) => {
   useEffect(() => {
     const hasValidData = user?.platformStats && Object.keys(user.platformStats).length > 0;
     setIsDataLoaded(hasValidData);
-    
-    // Log data when it changes
-    if (hasValidData) {
-      console.log('ActivityHeatmap: Platform data updated:', user.platformStats);
-    }
   }, [user, user?.platformStats]);
 
   const generateHeatmapData = () => {
