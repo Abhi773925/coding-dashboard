@@ -41,7 +41,6 @@ import SEO from "./components/SEO/SEO";
 import PerformanceOptimizer from "./components/Performance/PerformanceOptimizer";
 import Breadcrumb from "./components/SEO/Breadcrumb";
 import { withTracking } from './components/hoc/withTracking';
-import { Analytics } from "@vercel/analytics/next"
 // SEO Analytics and Testing
 import seoAnalytics from './utils/seoAnalytics';
 import { runSEOTest } from './utils/seoTester';
