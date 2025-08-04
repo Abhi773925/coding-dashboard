@@ -1,19 +1,5 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { 
-  TrendingUp, 
-  Calendar, 
-  Target, 
-  Star, 
-  GitBranch,
-  Clock,
-  Trophy,
-  Zap,
-  Users,
-  Code2,
-  Award,
-  Activity
-} from 'lucide-react';
 import { useTheme } from '../context/ThemeContext';
 import { getThemeColors } from '../../theme/colorTheme';
 
@@ -78,7 +64,6 @@ const ProfileStats = ({ user, detailed = false }) => {
       <div className={`${themeColors.profile.card.bg} ${themeColors.profile.card.border} rounded-xl p-6 ${themeColors.profile.card.shadow} border backdrop-blur-sm`}>
         <h3 className={`text-lg font-semibold ${themeColors.profile.text.primary} mb-4`}>Statistics</h3>
         <div className="text-center py-8">
-          <Target className={`w-12 h-12 ${themeColors.profile.text.secondary} mx-auto mb-4`} />
           <p className={`${themeColors.profile.text.secondary}`}>
             Connect platforms to see your statistics
           </p>
@@ -91,7 +76,6 @@ const ProfileStats = ({ user, detailed = false }) => {
     {
       label: 'Problems Solved',
       value: stats.totalProblems,
-      icon: Code2,
       color: isDarkMode ? 'from-blue-400 to-cyan-500' : 'from-blue-500 to-cyan-600',
       bgColor: isDarkMode 
         ? 'bg-gradient-to-br from-blue-500/10 to-cyan-500/10 border border-blue-400/20' 
@@ -101,7 +85,6 @@ const ProfileStats = ({ user, detailed = false }) => {
     {
       label: 'Repositories',
       value: stats.totalRepositories,
-      icon: GitBranch,
       color: isDarkMode ? 'from-purple-400 to-violet-500' : 'from-purple-500 to-violet-600',
       bgColor: isDarkMode 
         ? 'bg-gradient-to-br from-purple-500/10 to-violet-500/10 border border-purple-400/20' 
@@ -111,7 +94,6 @@ const ProfileStats = ({ user, detailed = false }) => {
     {
       label: 'Total Stars',
       value: stats.totalStars,
-      icon: Star,
       color: isDarkMode ? 'from-amber-400 to-orange-500' : 'from-amber-500 to-orange-600',
       bgColor: isDarkMode 
         ? 'bg-gradient-to-br from-amber-500/10 to-orange-500/10 border border-amber-400/20' 
@@ -121,7 +103,6 @@ const ProfileStats = ({ user, detailed = false }) => {
     {
       label: 'Contributions',
       value: stats.totalContributions,
-      icon: Activity,
       color: isDarkMode ? 'from-emerald-400 to-green-500' : 'from-emerald-500 to-green-600',
       bgColor: isDarkMode 
         ? 'bg-gradient-to-br from-emerald-500/10 to-green-500/10 border border-emerald-400/20' 
@@ -131,7 +112,6 @@ const ProfileStats = ({ user, detailed = false }) => {
     {
       label: 'Contests',
       value: stats.totalContest,
-      icon: Trophy,
       color: isDarkMode ? 'from-pink-400 to-rose-500' : 'from-pink-500 to-rose-600',
       bgColor: isDarkMode 
         ? 'bg-gradient-to-br from-pink-500/10 to-rose-500/10 border border-pink-400/20' 
@@ -141,7 +121,6 @@ const ProfileStats = ({ user, detailed = false }) => {
     {
       label: 'Platforms',
       value: stats.platforms,
-      icon: Users,
       color: isDarkMode ? 'from-indigo-400 to-purple-500' : 'from-indigo-500 to-purple-600',
       bgColor: isDarkMode 
         ? 'bg-gradient-to-br from-indigo-500/10 to-purple-500/10 border border-indigo-400/20' 
@@ -158,11 +137,6 @@ const ProfileStats = ({ user, detailed = false }) => {
           : 'bg-white border border-gray-200'
       }`}>
         <div className="flex items-center gap-3">
-          <div className={`p-2 rounded-lg ${
-            isDarkMode ? 'bg-gradient-to-r from-blue-500/20 to-purple-500/20' : 'bg-gradient-to-r from-blue-100 to-purple-100'
-          }`}>
-            <TrendingUp className={`w-6 h-6 ${isDarkMode ? 'text-blue-400' : 'text-blue-600'}`} />
-          </div>
           <h2 className={`text-2xl font-bold ${isDarkMode ? 'text-slate-200' : 'text-gray-900'}`}>
             Performance Analytics
           </h2>
@@ -171,7 +145,6 @@ const ProfileStats = ({ user, detailed = false }) => {
         {/* Overview Cards */}
         <div className="grid grid-cols-1 xs:grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-4 gap-4">
           {statItems.map((item, index) => {
-            const Icon = item.icon;
             return (
               <motion.div
                 key={item.label}
@@ -191,9 +164,6 @@ const ProfileStats = ({ user, detailed = false }) => {
                     }`}>
                       {item.value.toLocaleString()}
                     </p>
-                  </div>
-                  <div className={`p-2.5 rounded-lg bg-gradient-to-r ${item.color} shadow-lg`}>
-                    <Icon className="w-5 h-5 text-white" />
                   </div>
                 </div>
               </motion.div>
@@ -282,11 +252,6 @@ const ProfileStats = ({ user, detailed = false }) => {
         : 'bg-white/80 border border-gray-200'
     }`}>
       <div className="flex items-center gap-2 mb-4">
-        <div className={`p-1.5 rounded-lg ${
-          isDarkMode ? 'bg-gradient-to-r from-emerald-500/20 to-green-500/20' : 'bg-gradient-to-r from-emerald-100 to-green-100'
-        }`}>
-          <TrendingUp className={`w-4 h-4 ${isDarkMode ? 'text-emerald-400' : 'text-emerald-600'}`} />
-        </div>
         <h3 className={`text-lg font-semibold ${isDarkMode ? 'text-slate-200' : 'text-gray-900'}`}>
           Quick Stats
         </h3>
@@ -294,7 +259,6 @@ const ProfileStats = ({ user, detailed = false }) => {
 
       <div className="grid grid-cols-2 gap-3">
         {statItems.slice(0, 4).map((item, index) => {
-          const Icon = item.icon;
           return (
             <motion.div
               key={item.label}
@@ -304,9 +268,6 @@ const ProfileStats = ({ user, detailed = false }) => {
               transition={{ duration: 0.3, delay: index * 0.1 }}
               whileHover={{ scale: 1.02, y: -1 }}
             >
-              <div className={`inline-flex p-1.5 rounded-lg bg-gradient-to-r ${item.color} mb-2 shadow-sm`}>
-                <Icon className="w-3.5 h-3.5 text-white" />
-              </div>
               <p className={`text-xl font-bold ${isDarkMode ? 'text-white' : 'text-gray-900'}`}>
                 {item.value.toLocaleString()}
               </p>

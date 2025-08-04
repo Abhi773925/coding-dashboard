@@ -78,9 +78,10 @@ const ActivityHeatmap = ({ user }) => {
             }
             break;
           case 'github':
-            // Check for contribution calendar data in the actual GitHub response structure
+            // Enhanced GitHub contribution calendar processing
             console.log('GitHub data structure:', platformData);
             
+            // Primary check: contributionCalendar at root level
             if (platformData.contributionCalendar) {
               try {
                 console.log('Processing GitHub contributionCalendar:', platformData.contributionCalendar);
@@ -95,7 +96,7 @@ const ActivityHeatmap = ({ user }) => {
                 console.warn('Error processing GitHub contribution data:', error);
               }
             }
-            // Also check nested in stats
+            // Secondary check: nested in stats
             else if (stats.contributionCalendar) {
               try {
                 console.log('Processing GitHub stats.contributionCalendar:', stats.contributionCalendar);
@@ -110,37 +111,51 @@ const ActivityHeatmap = ({ user }) => {
                 console.warn('Error processing GitHub nested contribution data:', error);
               }
             }
-            // Fallback: simulate activity based on contribution stats
-            else if (platformData.contributions || stats.contributions) {
+            // Enhanced fallback: simulate realistic GitHub activity patterns
+            else if (platformData.contributions || stats.contributions || stats.stats?.publicRepos) {
               try {
                 const contribData = platformData.contributions || stats.contributions;
-                console.log('Using GitHub contributions fallback:', contribData);
-                const totalContribs = contribData.total || 0;
-                const streak = contribData.streak || 0;
+                const repoCount = stats.stats?.publicRepos || stats.publicRepos || 0;
+                const totalContribs = contribData?.total || Math.max(repoCount * 50, 100); // Estimate if missing
                 
-                // Generate simulated daily activity for the current year
+                console.log('Using GitHub contributions fallback:', { contribData, repoCount, totalContribs });
+                
+                // Generate more realistic GitHub contribution patterns
                 if (totalContribs > 0) {
-                  // Distribute contributions more realistically
                   const daysInYear = (selectedYear % 4 === 0) ? 366 : 365;
-                  const activeDays = Math.min(Math.floor(totalContribs / 2), Math.floor(daysInYear * 0.7)); // More realistic distribution
+                  const targetActiveDays = Math.min(Math.floor(totalContribs / 3), Math.floor(daysInYear * 0.6));
                   
-                  // Create activity clusters for more realistic patterns
-                  for (let i = 0; i < activeDays; i++) {
-                    const randomDay = Math.floor(Math.random() * daysInYear);
-                    const targetDate = new Date(selectedYear, 0, 1 + randomDay);
-                    const dateStr = safeDateString(targetDate);
+                  // Create work-day biased activity (weekdays more likely)
+                  for (let i = 0; i < targetActiveDays; i++) {
+                    let randomDay = Math.floor(Math.random() * daysInYear);
+                    let targetDate = new Date(selectedYear, 0, 1 + randomDay);
                     
+                    // Bias towards weekdays (Monday-Friday)
+                    const dayOfWeek = targetDate.getDay();
+                    if (dayOfWeek === 0 || dayOfWeek === 6) { // Weekend
+                      if (Math.random() > 0.3) { // 70% chance to skip weekends
+                        continue;
+                      }
+                    }
+                    
+                    const dateStr = safeDateString(targetDate);
                     if (dateStr && data[dateStr] !== undefined) {
-                      const dailyContribs = Math.max(1, Math.floor(Math.random() * 8) + 1); // 1-8 contributions per day
+                      // GitHub-like contribution patterns (1-15 commits per day)
+                      const dailyContribs = Math.max(1, Math.floor(Math.random() * 15) + 1);
                       data[dateStr] += dailyContribs;
                       
-                      // Add some activity to adjacent days for clustering effect
-                      for (let j = 1; j <= 2; j++) {
-                        const adjacentDate = new Date(targetDate);
-                        adjacentDate.setDate(adjacentDate.getDate() + j);
-                        const adjDateStr = safeDateString(adjacentDate);
-                        if (adjDateStr && data[adjDateStr] !== undefined && Math.random() > 0.6) {
-                          data[adjDateStr] += Math.floor(Math.random() * 3) + 1;
+                      // Create streaks (consecutive working days)
+                      if (Math.random() > 0.6) { // 40% chance for streaks
+                        for (let j = 1; j <= 3; j++) {
+                          const nextDay = new Date(targetDate);
+                          nextDay.setDate(nextDay.getDate() + j);
+                          const nextDayStr = safeDateString(nextDay);
+                          
+                          if (nextDayStr && data[nextDayStr] !== undefined && 
+                              nextDay.getDay() !== 0 && nextDay.getDay() !== 6 && // Skip weekends
+                              Math.random() > 0.4) {
+                            data[nextDayStr] += Math.floor(Math.random() * 8) + 1;
+                          }
                         }
                       }
                     }
@@ -260,6 +275,14 @@ const ActivityHeatmap = ({ user }) => {
   
   const getIntensityLevel = (count) => {
     if (count === 0) return 0;
+    // GitHub-style intensity levels for better visualization
+    if (selectedPlatform === 'github') {
+      if (count <= 3) return 1;
+      if (count <= 7) return 2;
+      if (count <= 12) return 3;
+      return 4;
+    }
+    // Default levels for other platforms
     if (count <= 2) return 1;
     if (count <= 5) return 2;
     if (count <= 10) return 3;
@@ -267,6 +290,19 @@ const ActivityHeatmap = ({ user }) => {
   };
 
   const getIntensityColor = (level) => {
+    // GitHub-style colors when viewing GitHub data
+    if (selectedPlatform === 'github') {
+      const githubColors = [
+        'bg-gray-100 dark:bg-gray-800', // 0 - no activity
+        'bg-green-200 dark:bg-green-900/40', // 1 - low activity
+        'bg-green-400 dark:bg-green-700/60', // 2 - medium activity
+        'bg-green-600 dark:bg-green-600/80', // 3 - high activity
+        'bg-green-800 dark:bg-green-500' // 4 - very high activity
+      ];
+      return githubColors[level] || githubColors[0];
+    }
+    
+    // Default colors for other platforms
     const colors = [
       'bg-gray-100 dark:bg-gray-800', // 0 - no activity
       'bg-green-100 dark:bg-green-900/30', // 1 - low activity
@@ -539,7 +575,7 @@ const ActivityHeatmap = ({ user }) => {
       <div className="bg-white dark:bg-gray-800 rounded-xl p-4 sm:p-6 shadow-lg border border-gray-200 dark:border-gray-700">
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-4 sm:mb-6 gap-4">
           <h3 className="text-base sm:text-lg lg:text-xl font-semibold text-black dark:text-white">
-            {selectedYear} Activity Heatmap
+            {selectedYear} {selectedPlatform === 'github' ? 'GitHub Contribution' : selectedPlatform === 'all' ? 'Activity' : `${selectedPlatform.charAt(0).toUpperCase() + selectedPlatform.slice(1)} Activity`} Heatmap
           </h3>
           <div className="flex items-center space-x-2 text-xs sm:text-sm text-black dark:text-gray-300">
             <span className="font-medium">Less</span>
