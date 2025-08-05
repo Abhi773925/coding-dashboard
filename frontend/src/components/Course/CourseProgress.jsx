@@ -113,7 +113,7 @@ const ProgressRing = ({ progress, size = 80, strokeWidth = 6, color = "#8B5CF6",
       </svg>
       <div className="absolute inset-0 flex items-center justify-center">
         <span className={`text-base font-bold ${isDarkMode ? "text-white" : "text-gray-900"}`}>
-          {Math.round(progress)}
+          {Math.round(progress)}%
         </span>
       </div>
     </div>
