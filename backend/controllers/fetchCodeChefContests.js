@@ -9,17 +9,19 @@ const fetchCodeChefContests = async () => {
 
         console.log("🔍 CodeChef API Response:", response.data.past_contests.slice(0, 5)); // Debugging
 
-        const upcoming = response.data.future_contests.map(contest => ({
-            title: contest.contest_name,
-            platform: "CodeChef",
-            start_time: new Date(contest.contest_start_date_iso),
-            duration: contest.contest_duration / 60,
-            url: `https://www.codechef.com/${contest.contest_code}`,
-            past: false,
-        }));
+        const upcoming = response.data.future_contests
+            .slice(0, 20) // Limit upcoming contests
+            .map(contest => ({
+                title: contest.contest_name,
+                platform: "CodeChef",
+                start_time: new Date(contest.contest_start_date_iso),
+                duration: contest.contest_duration / 60,
+                url: `https://www.codechef.com/${contest.contest_code}`,
+                past: false,
+            }));
 
         const past = response.data.past_contests
-            .slice(0, 20) // 🔹 Get only the last 20 past contests
+            .slice(0, 30) // Get the last 30 past contests
             .map(contest => ({
                 title: contest.contest_name,
                 platform: "CodeChef",

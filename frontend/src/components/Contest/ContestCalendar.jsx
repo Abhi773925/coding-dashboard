@@ -42,6 +42,10 @@ const ContestCalendar = () => {
   const fetchContests = async () => {
     setContestData((prev) => ({ ...prev, loading: true, error: null }))
     try {
+      // First, fetch fresh contests from external APIs
+      await axios.get("https://prepmate-kvol.onrender.com/api/codingkaro/contests/fetch")
+      
+      // Then get the stored contests
       const response = await axios.get("https://prepmate-kvol.onrender.com/api/codingkaro/contests")
       setContestData({
         contests: response.data,
@@ -58,6 +62,22 @@ const ContestCalendar = () => {
         loading: false,
         error: errorMessage,
       }))
+    }
+  }
+
+  // Refresh Solution Videos
+  const refreshSolutionVideos = async () => {
+    try {
+      console.log('Triggering solution video refresh...')
+      await axios.post("https://prepmate-kvol.onrender.com/api/codingkaro/contests/refresh-solutions")
+      
+      // Refetch contests to get updated solution links
+      setTimeout(() => {
+        fetchContests()
+      }, 2000) // Wait 2 seconds for YouTube scraper to process
+      
+    } catch (error) {
+      console.error("Error refreshing solution videos:", error)
     }
   }
 
@@ -142,19 +162,21 @@ const ContestCalendar = () => {
     .filter(contest => {
       const contestDate = new Date(contest.start_time)
       const now = new Date()
-      return !contest.past && contestDate > now
+      // Use the backend's past flag primarily, but also check date as fallback
+      return contest.past === false && contestDate > now
     })
     .sort((a, b) => new Date(a.start_time) - new Date(b.start_time))
-    .slice(0, 10) // Show only next 10 contests
+    .slice(0, 15) // Show next 15 contests
 
   const pastContests = filteredContests
     .filter(contest => {
       const contestDate = new Date(contest.start_time)
       const now = new Date()
+      // Use the backend's past flag primarily, but also check date as fallback
       return contest.past === true || contestDate < now
     })
     .sort((a, b) => new Date(b.start_time) - new Date(a.start_time))
-    .slice(0, 15) // Show last 15 past contests
+    .slice(0, 20) // Show last 20 past contests
 
   const platformColors = {
     'LeetCode': 'bg-orange-500',
@@ -253,6 +275,21 @@ const ContestCalendar = () => {
                 {activeView === 'upcoming' ? 'Upcoming Contests' : 'Past Contests'}
               </h2>
               <div className="flex items-center gap-2">
+                {/* Refresh Button */}
+                <button
+                  onClick={activeView === 'past' ? refreshSolutionVideos : fetchContests}
+                  className={`p-2 rounded-lg transition-all duration-200 ${
+                    isDarkMode 
+                      ? 'bg-gray-700 text-gray-300 hover:bg-gray-600' 
+                      : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+                  }`}
+                  title={activeView === 'past' ? 'Refresh Solution Videos' : 'Refresh Contests'}
+                >
+                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+                  </svg>
+                </button>
+                
                 {/* Mobile Filter Toggle Button */}
                 {isMobile && (
                   <button
@@ -430,27 +467,50 @@ const ContestCalendar = () => {
                             </a>
                             
                             {isPast && (
-                              <button
-                                onClick={() => {
-                                  // Open solutions/editorial based on platform
-                                  let solutionUrl = contest.url;
-                                  
-                                  if (contest.platform === 'LeetCode') {
-                                    const contestName = contest.title.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '');
-                                    solutionUrl = `https://leetcode.com/contest/${contestName}/`;
-                                  } else if (contest.platform === 'Codeforces') {
-                                    solutionUrl = `https://codeforces.com/blog/entry/solutions`;
-                                  } else if (contest.platform === 'CodeChef') {
-                                    solutionUrl = `https://discuss.codechef.com/search?q=${encodeURIComponent(contest.title)}`;
-                                  }
-                                  
-                                  window.open(solutionUrl, '_blank');
-                                }}
-                                className="text-xs px-3 py-1.5 rounded bg-green-600 text-white hover:bg-green-700 transition-colors"
-                                title="View Solutions & Editorial"
-                              >
-                                Solutions
-                              </button>
+                              <>
+                                {/* Solution Video Button - if available */}
+                                {contest.solution_link ? (
+                                  <a
+                                    href={contest.solution_link}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="text-xs px-3 py-1.5 rounded bg-red-600 text-white hover:bg-red-700 transition-colors flex items-center gap-1"
+                                    title="Watch Solution Video"
+                                  >
+                                    <Youtube size={12} />
+                                    Video
+                                  </a>
+                                ) : (
+                                  <span className="text-xs px-3 py-1.5 rounded bg-gray-400 text-white cursor-not-allowed">
+                                    Video Soon
+                                  </span>
+                                )}
+                                
+                                {/* Editorial/Solutions Button */}
+                                <button
+                                  onClick={() => {
+                                    // Open solutions/editorial based on platform
+                                    let solutionUrl = contest.url;
+                                    
+                                    if (contest.platform === 'LeetCode') {
+                                      const contestName = contest.title.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '');
+                                      solutionUrl = `https://leetcode.com/contest/${contestName}/`;
+                                    } else if (contest.platform === 'Codeforces') {
+                                      // Extract contest ID from URL for editorial
+                                      const contestId = contest.url.split('/contest/')[1];
+                                      solutionUrl = `https://codeforces.com/blog/entry/editorial-${contestId}`;
+                                    } else if (contest.platform === 'CodeChef') {
+                                      solutionUrl = `https://discuss.codechef.com/search?q=${encodeURIComponent(contest.title)}`;
+                                    }
+                                    
+                                    window.open(solutionUrl, '_blank');
+                                  }}
+                                  className="text-xs px-3 py-1.5 rounded bg-green-600 text-white hover:bg-green-700 transition-colors"
+                                  title="View Solutions & Editorial"
+                                >
+                                  Editorial
+                                </button>
+                              </>
                             )}
                             
                             <button

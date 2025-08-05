@@ -11,6 +11,7 @@ const fetchCodeforcesContests = async () => {
 
         const upcoming = response.data.result
             .filter(contest => contest.phase === "BEFORE")
+            .slice(0, 20) // Limit upcoming contests
             .map(contest => ({
                 title: contest.name,
                 platform: "Codeforces",
@@ -22,7 +23,7 @@ const fetchCodeforcesContests = async () => {
 
         const past = response.data.result
             .filter(contest => contest.phase === "FINISHED")
-            .slice(0, 20) // 🔹 Get only the last 20 past contests
+            .slice(0, 30) // Get the last 30 past contests
             .map(contest => ({
                 title: contest.name,
                 platform: "Codeforces",

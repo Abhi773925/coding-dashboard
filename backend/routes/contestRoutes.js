@@ -1,6 +1,7 @@
 const express = require("express");
 const Contest = require("../models/Contest");
 const fetchContests = require("../controllers/fetchContests");
+const checkForNewSolutions = require("../controllers/youtubeScraper");
 
 const router = express.Router();
 
@@ -106,6 +107,24 @@ router.post("/solution/:id", async (req, res) => {
     } catch (error) {
         console.error("❌ Error updating solution link:", error.message);
         res.status(500).json({ error: "Failed to update solution link" });
+    }
+});
+
+// ✅ Refresh Solution Videos
+router.post("/refresh-solutions", async (req, res) => {
+    try {
+        console.log("🔄 Manually triggering solution video refresh...");
+        
+        // Call the YouTube scraper function
+        await checkForNewSolutions();
+        
+        res.json({ 
+            message: "Solution video refresh triggered successfully!",
+            timestamp: new Date().toISOString()
+        });
+    } catch (error) {
+        console.error("❌ Error refreshing solution videos:", error.message);
+        res.status(500).json({ error: "Failed to refresh solution videos" });
     }
 });
 
