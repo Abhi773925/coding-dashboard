@@ -23,6 +23,7 @@ const ContestCalendar = () => {
   const [isMobile, setIsMobile] = useState(false)
   const [isTablet, setIsTablet] = useState(false)
   const [activeView, setActiveView] = useState('upcoming') // 'upcoming' or 'past'
+  const [showMobileFilters, setShowMobileFilters] = useState(false) // Toggle for mobile filters
 
   // Check if mobile/tablet on mount and resize
   useEffect(() => {
@@ -234,7 +235,7 @@ const ContestCalendar = () => {
   }
 
   return (
-    <div className={`min-h-screen transition-colors duration-300 ${isDarkMode ? "bg-gray-900 text-white" : "bg-gray-50 text-gray-900"}`}>
+    <div className={`min-h-screen transition-colors duration-300 ${isDarkMode ? "bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 text-white" : "bg-gradient-to-br from-blue-50 via-white to-purple-50 text-gray-900"}`}>
       {/* Main Content Container - positioned directly below navbar */}
       <div className="flex overflow-hidden"
            style={{ 
@@ -243,35 +244,54 @@ const ContestCalendar = () => {
            }}>
         
         {/* Left Sidebar - Contest List */}
-        <div className={`${isMobile ? 'w-full' : 'w-80 lg:w-96'} border-r ${isDarkMode ? 'bg-gray-800 border-gray-700' : 'bg-white border-gray-200'} flex flex-col`}>
+        <div className={`${isMobile ? 'w-full' : 'w-80 lg:w-96'} border-r ${isDarkMode ? 'bg-gray-800/90 border-gray-700 backdrop-blur-sm' : 'bg-white/90 border-gray-200 backdrop-blur-sm'} flex flex-col shadow-xl`}>
           
           {/* Header Section */}
-          <div className={`p-6 border-b ${isDarkMode ? 'border-gray-700 bg-gray-800' : 'border-gray-200 bg-white'}`}>
+          <div className={`p-6 border-b ${isDarkMode ? 'border-gray-700 bg-gray-800/90 backdrop-blur-sm' : 'border-gray-200 bg-white/90 backdrop-blur-sm'}`}>
             <div className="flex items-center justify-between mb-4">
               <h2 className={`text-xl font-bold ${isDarkMode ? 'text-white' : 'text-gray-900'}`}>
                 {activeView === 'upcoming' ? 'Upcoming Contests' : 'Past Contests'}
               </h2>
-              <div className="flex items-center bg-gray-100 dark:bg-gray-700 rounded-lg p-1">
-                <button
-                  onClick={() => setActiveView('upcoming')}
-                  className={`px-3 py-1.5 rounded text-sm font-medium transition-all duration-200 ${
-                    activeView === 'upcoming'
-                      ? 'bg-white dark:bg-gray-600 text-blue-600 dark:text-blue-400 shadow-sm'
-                      : 'text-gray-600 dark:text-gray-300 hover:text-gray-800 dark:hover:text-gray-100'
-                  }`}
-                >
-                  Upcoming
-                </button>
-                <button
-                  onClick={() => setActiveView('past')}
-                  className={`px-3 py-1.5 rounded text-sm font-medium transition-all duration-200 ${
-                    activeView === 'past'
-                      ? 'bg-white dark:bg-gray-600 text-blue-600 dark:text-blue-400 shadow-sm'
-                      : 'text-gray-600 dark:text-gray-300 hover:text-gray-800 dark:hover:text-gray-100'
-                  }`}
-                >
-                  Past
-                </button>
+              <div className="flex items-center gap-2">
+                {/* Mobile Filter Toggle Button */}
+                {isMobile && (
+                  <button
+                    onClick={() => setShowMobileFilters(!showMobileFilters)}
+                    className={`p-2 rounded-lg transition-all duration-200 ${
+                      showMobileFilters
+                        ? 'bg-blue-600 text-white'
+                        : isDarkMode 
+                          ? 'bg-gray-700 text-gray-300 hover:bg-gray-600' 
+                          : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+                    }`}
+                    title="Toggle Search & Filters"
+                  >
+                    <Filter size={16} />
+                  </button>
+                )}
+                {/* View Toggle */}
+                <div className="flex items-center bg-gray-100 dark:bg-gray-700 rounded-lg p-1">
+                  <button
+                    onClick={() => setActiveView('upcoming')}
+                    className={`px-3 py-1.5 rounded text-sm font-medium transition-all duration-200 ${
+                      activeView === 'upcoming'
+                        ? 'bg-white dark:bg-gray-600 text-blue-600 dark:text-blue-400 shadow-sm'
+                        : 'text-gray-600 dark:text-gray-300 hover:text-gray-800 dark:hover:text-gray-100'
+                    }`}
+                  >
+                    Upcoming
+                  </button>
+                  <button
+                    onClick={() => setActiveView('past')}
+                    className={`px-3 py-1.5 rounded text-sm font-medium transition-all duration-200 ${
+                      activeView === 'past'
+                        ? 'bg-white dark:bg-gray-600 text-blue-600 dark:text-blue-400 shadow-sm'
+                        : 'text-gray-600 dark:text-gray-300 hover:text-gray-800 dark:hover:text-gray-100'
+                    }`}
+                  >
+                    Past
+                  </button>
+                </div>
               </div>
             </div>
             <p className={`text-sm ${isDarkMode ? 'text-gray-400' : 'text-gray-600'}`}>
@@ -281,46 +301,51 @@ const ContestCalendar = () => {
               }
             </p>
             
-            {/* Search Bar */}
-            <div className="relative mt-4">
-              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" size={16} />
-              <input
-                type="text"
-                placeholder="Search Contests"
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
-                className={`w-full pl-10 pr-4 py-2.5 rounded-lg border transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500 ${
-                  isDarkMode 
-                    ? 'bg-gray-700 border-gray-600 text-white placeholder-gray-400' 
-                    : 'bg-white border-gray-300 text-gray-900 placeholder-gray-500'
-                }`}
-              />
-            </div>
-            
-            {/* Platform Filter Dropdown */}
-            <div className="mt-4">
-              <select 
-                value={selectedPlatforms.length === 0 ? "" : selectedPlatforms[0]}
-                onChange={(e) => {
-                  const platform = e.target.value
-                  if (platform === "") {
-                    setSelectedPlatforms([])
-                  } else {
-                    setSelectedPlatforms([platform])
-                  }
-                }}
-                className={`w-full px-3 py-2.5 rounded-lg border transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500 ${
-                  isDarkMode 
-                    ? 'bg-gray-700 border-gray-600 text-white' 
-                    : 'bg-white border-gray-300 text-gray-900'
-                }`}
-              >
-                <option value="">All Platforms Selected</option>
-                <option value="LeetCode">LeetCode</option>
-                <option value="Codeforces">Codeforces</option>
-                <option value="CodeChef">CodeChef</option>
-                <option value="AtCoder">AtCoder</option>
-              </select>
+            {/* Collapsible Search and Filter Section for Mobile */}
+            <div className={`transition-all duration-300 ease-in-out ${
+              isMobile ? (showMobileFilters ? 'max-h-96 opacity-100 mt-4' : 'max-h-0 opacity-0 overflow-hidden') : 'mt-4'
+            }`}>
+              {/* Search Bar */}
+              <div className="relative mb-4">
+                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" size={16} />
+                <input
+                  type="text"
+                  placeholder="Search Contests"
+                  value={searchTerm}
+                  onChange={(e) => setSearchTerm(e.target.value)}
+                  className={`w-full pl-10 pr-4 py-2.5 rounded-lg border transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500 ${
+                    isDarkMode 
+                      ? 'bg-gray-700/80 border-gray-600 text-white placeholder-gray-400' 
+                      : 'bg-white/80 border-gray-300 text-gray-900 placeholder-gray-500'
+                  } backdrop-blur-sm`}
+                />
+              </div>
+              
+              {/* Platform Filter Dropdown */}
+              <div>
+                <select 
+                  value={selectedPlatforms.length === 0 ? "" : selectedPlatforms[0]}
+                  onChange={(e) => {
+                    const platform = e.target.value
+                    if (platform === "") {
+                      setSelectedPlatforms([])
+                    } else {
+                      setSelectedPlatforms([platform])
+                    }
+                  }}
+                  className={`w-full px-3 py-2.5 rounded-lg border transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500 ${
+                    isDarkMode 
+                      ? 'bg-gray-700/80 border-gray-600 text-white' 
+                      : 'bg-white/80 border-gray-300 text-gray-900'
+                  } backdrop-blur-sm`}
+                >
+                  <option value="">All Platforms Selected</option>
+                  <option value="LeetCode">LeetCode</option>
+                  <option value="Codeforces">Codeforces</option>
+                  <option value="CodeChef">CodeChef</option>
+                  <option value="AtCoder">AtCoder</option>
+                </select>
+              </div>
             </div>
           </div>
 
@@ -336,10 +361,10 @@ const ContestCalendar = () => {
                   return (
                     <div
                       key={contest._id}
-                      className={`p-4 rounded-lg border transition-all duration-200 hover:shadow-md ${
+                      className={`p-4 rounded-xl border transition-all duration-200 hover:shadow-lg transform hover:-translate-y-1 ${
                         isDarkMode 
-                          ? 'bg-gray-700 border-gray-600 hover:bg-gray-650' 
-                          : 'bg-white border-gray-200 hover:bg-gray-50'
+                          ? 'bg-gray-700/80 border-gray-600 hover:bg-gray-700 hover:border-gray-500 backdrop-blur-sm' 
+                          : 'bg-white/80 border-gray-200 hover:bg-white hover:border-gray-300 backdrop-blur-sm'
                       }`}
                     >
                       {/* Date Badge */}
@@ -456,7 +481,7 @@ const ContestCalendar = () => {
         </div>
 
         {/* Right Side - Calendar */}
-        <div className={`${isMobile ? 'hidden' : 'flex-1'} ${isDarkMode ? 'bg-gray-800' : 'bg-white'} flex flex-col`}>
+        <div className={`${isMobile ? 'hidden' : 'flex-1'} ${isDarkMode ? 'bg-gray-800/90 backdrop-blur-sm' : 'bg-white/90 backdrop-blur-sm'} flex flex-col shadow-xl`}>
           
           {/* Calendar Header */}
           <div className={`p-6 border-b ${isDarkMode ? 'border-gray-700' : 'border-gray-200'}`}>
@@ -468,7 +493,7 @@ const ContestCalendar = () => {
               <div className="flex items-center gap-2">
                 <button
                   onClick={() => navigateMonth(-1)}
-                  className={`p-2 rounded-lg transition-colors ${
+                  className={`p-2 rounded-lg transition-colors hover:scale-110 ${
                     isDarkMode ? 'text-gray-300 hover:bg-gray-700' : 'text-gray-600 hover:bg-gray-100'
                   }`}
                 >
@@ -476,13 +501,13 @@ const ContestCalendar = () => {
                 </button>
                 <button
                   onClick={() => setCurrentDate(new Date())}
-                  className="px-4 py-2 text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 rounded-lg transition-colors"
+                  className="px-4 py-2 text-sm font-medium text-white bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 rounded-lg transition-all duration-200 transform hover:scale-105 shadow-md"
                 >
                   Today
                 </button>
                 <button
                   onClick={() => navigateMonth(1)}
-                  className={`p-2 rounded-lg transition-colors ${
+                  className={`p-2 rounded-lg transition-colors hover:scale-110 ${
                     isDarkMode ? 'text-gray-300 hover:bg-gray-700' : 'text-gray-600 hover:bg-gray-100'
                   }`}
                 >
