@@ -175,9 +175,12 @@ const ContestTracker = () => {
   }
 
   return ( 
-    <div className={`min-h-screen pt-[70px] transition-colors duration-300 ${isDarkMode ? "bg-gray-900 text-white" : "bg-gray-50 text-gray-900"}`}>
-      {/* Enhanced Mobile Header with better navigation */}
-      <div className="lg:hidden px-4 py-3 border-b border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 shadow-sm">
+    <div className={`min-h-screen transition-colors duration-300 ${isDarkMode ? "bg-gray-900 text-white" : "bg-gray-50 text-gray-900"}`}
+         style={{ marginTop: '70px' }}>
+      {/* Enhanced Mobile Header with better navigation - positioned directly below navbar */}
+      <div className={`lg:hidden px-4 py-3 border-b bg-white dark:bg-gray-800 shadow-sm ${
+        isDarkMode ? 'border-gray-700' : 'border-gray-200'
+      }`}>
         <div className="flex items-center justify-between">
           <h1 className="text-xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
             Contest Tracker
@@ -210,7 +213,7 @@ const ContestTracker = () => {
       </div>
 
       {/* Main Content Container with improved responsive layout */}
-      <div className="flex h-[calc(100vh-70px)] lg:h-[calc(100vh-70px)] overflow-hidden">
+      <div className="flex overflow-hidden" style={{ height: 'calc(100vh - 70px)' }}>
         
         {/* Enhanced Sidebar with better scrolling and responsive design */}
         <div className={`${
@@ -221,8 +224,10 @@ const ContestTracker = () => {
               : 'w-80 lg:w-96'
         } border-r ${isDarkMode ? 'bg-gray-800 border-gray-700' : 'bg-white border-gray-200'} flex flex-col shadow-lg`}>
           
-          {/* Search and Filters Section */}
-          <div className="p-4 lg:p-6 border-b border-gray-200 dark:border-gray-700 bg-gradient-to-r from-blue-50 to-purple-50 dark:from-gray-800 dark:to-gray-700">
+          {/* Search and Filters Section with navbar integration */}
+          <div className={`p-4 lg:p-6 border-b bg-gradient-to-r from-blue-50 to-purple-50 dark:from-gray-800 dark:to-gray-700 ${
+            isDarkMode ? 'border-gray-700' : 'border-gray-200'
+          }`}>
             {/* Search Bar with improved styling */}
             <div className="relative mb-4">
               <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 dark:text-gray-500" size={18} />
