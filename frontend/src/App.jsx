@@ -201,7 +201,6 @@ const AppContent = () => {
         <Route path="/allcourse" element={
           <>
             <SEO page="courses" />
-            <Breadcrumb items={[{ name: 'Courses', href: '/allcourse' }]} />
             <Dsacard />
           </>
         } />
@@ -209,7 +208,6 @@ const AppContent = () => {
         <Route path="/profile" element={
           <>
             <SEO page="dashboard" title="My Profile - Multi-Platform Coding Profile" />
-            <Breadcrumb items={[{ name: 'Profile', href: '/profile' }]} />
             <ProfileDashboard />
           </>
         } />
@@ -229,10 +227,7 @@ const AppContent = () => {
               description="Learn essential data structures including arrays, linked lists, trees, graphs, and more. Perfect for coding interview preparation."
               keywords="data structures, arrays, linked lists, trees, graphs, coding interview, computer science"
             />
-            <Breadcrumb items={[
-              { name: 'Courses', href: '/allcourse' },
-              { name: 'Data Structures', href: '/courses/data-structures' }
-            ]} />
+            
             <CourseProgress />
           </>
         } />
@@ -253,10 +248,7 @@ const AppContent = () => {
               description="Solve coding challenges and improve your problem-solving skills. Practice with interactive games and puzzles."
               keywords="coding challenges, problem solving, programming puzzles, algorithm practice"
             />
-            <Breadcrumb items={[
-              { name: 'Explore', href: '/explore' },
-              { name: 'Challenges', href: '/explore/challenges' }
-            ]} />
+            
             <TrackedKnowledgePathGame onMount={() => trackComponentView('challenges')} />
             <IdeaStormGame />
           </>
@@ -270,10 +262,7 @@ const AppContent = () => {
               description="Follow structured learning paths designed for different skill levels and career goals. From beginner to advanced programming concepts."
               keywords="learning paths, programming education, skill development, career growth"
             />
-            <Breadcrumb items={[
-              { name: 'Explore', href: '/explore' },
-              { name: 'Learning Paths', href: '/explore/learning-paths' }
-            ]} />
+            
             <Learning />
           </>
         } />
@@ -286,10 +275,7 @@ const AppContent = () => {
               description="Master full stack web development with React, Node.js, databases, and deployment. Build real-world applications."
               keywords="full stack development, web development, react, nodejs, javascript, database"
             />
-            <Breadcrumb items={[
-              { name: 'Courses', href: '/allcourse' },
-              { name: 'Full Stack', href: '/courses/fullstack' }
-            ]} />
+            
             <TrackedFullStack onMount={() => trackComponentView('fullstack')} />
           </>
         } />
@@ -314,10 +300,7 @@ const AppContent = () => {
               description="Comprehensive interview preparation course covering algorithms, system design, behavioral questions, and mock interviews."
               keywords="interview preparation, coding interview, algorithm interview, system design, mock interview"
             />
-            <Breadcrumb items={[
-              { name: 'Courses', href: '/allcourse' },
-              { name: 'Interview Prep', href: '/courses/interview-prep' }
-            ]} />
+           
             <TrackedNotesOverview onMount={() => trackComponentView('interviewPrep')} />
           </>
         } />
@@ -387,10 +370,7 @@ const AppContent = () => {
               description="Learn JavaScript from basics to advanced concepts. ES6+, async programming, DOM manipulation, and modern frameworks."
               keywords="javascript, programming, web development, ES6, async, DOM, frontend"
             />
-            <Breadcrumb items={[
-              { name: 'Learning', href: '/learning' },
-              { name: 'JavaScript', href: '/learning/javascript' }
-            ]} />
+           
             <TrackedJavaScriptLearning onMount={() => trackComponentView('javascript')} />
           </>
         } />
