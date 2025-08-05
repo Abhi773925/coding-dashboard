@@ -180,7 +180,7 @@ const ProfileCard = ({ user, onUpdate }) => {
 
   return (
     <motion.div
-      className={`rounded-2xl backdrop-blur-sm border transition-all duration-300 overflow-hidden w-full max-w-sm md:max-w-md mx-auto h-fit ${
+      className={`rounded-2xl backdrop-blur-sm border transition-all duration-300 overflow-y-auto w-full max-w-sm md:max-w-md mx-auto max-h-screen ${
         isDarkMode 
           ? 'bg-slate-900/70 border-slate-700/50 shadow-xl' 
           : 'bg-white/90 border-gray-200/50 shadow-lg'
