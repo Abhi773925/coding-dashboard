@@ -94,11 +94,18 @@ const ContestCalendar = () => {
       console.log('Past contests:', pastContests.length)
       
       // Log first few contests with their status
-      contestData.contests.slice(0, 5).forEach(contest => {
+      contestData.contests.slice(0, 10).forEach(contest => {
         const contestDate = new Date(contest.start_time)
         const now = new Date()
         const isPast = contest.past === true || contestDate < now
-        console.log(`${contest.title}: ${isPast ? 'PAST' : 'UPCOMING'} (${contestDate.toLocaleDateString()})`)
+        console.log(`${contest.title}: ${isPast ? 'PAST' : 'UPCOMING'} (${contestDate.toLocaleDateString()}) - Backend past flag: ${contest.past}`)
+      })
+      
+      // Log solution links for past contests
+      const pastWithSolutions = pastContests.filter(contest => contest.solution_link)
+      console.log(`Past contests with solution videos: ${pastWithSolutions.length}`)
+      pastWithSolutions.slice(0, 3).forEach(contest => {
+        console.log(`- ${contest.title}: ${contest.solution_link}`)
       })
     }
   }, [contestData.contests, upcomingContests.length, pastContests.length])

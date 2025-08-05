@@ -102,6 +102,42 @@ const trackPageView = (req, res) => {
     res.status(200).json({ message: 'Activity tracked' });
 };
 
+const trackBatch = (req, res) => {
+    console.log('Tracking batch analytics...');
+    const userId = req.user ? req.user._id : req.ip;
+    const events = req.body.events || [];
+    
+    console.log('User ID:', userId, 'Events count:', events.length);
+    
+    // Update user's last activity timestamp
+    activeUsers.set(userId, Date.now());
+    
+    // Track daily active user
+    dailyActiveUsers.add(userId);
+    
+    // Process each event in the batch
+    events.forEach(event => {
+        // Increment page views for each event
+        pageViews++;
+        
+        // Track component usage if specified
+        if (event.component && componentUsage[event.component]) {
+            componentUsage[event.component].count++;
+            componentUsage[event.component].users.add(userId);
+        }
+    });
+    
+    // Clean up inactive users
+    cleanupInactiveUsers();
+    
+    console.log('Batch tracking completed. Total page views:', pageViews);
+    
+    res.status(200).json({ 
+        message: 'Batch analytics tracked successfully',
+        eventsProcessed: events.length
+    });
+};
+
 // Clean up inactive users every minute
 setInterval(() => {
     cleanupInactiveUsers();
@@ -109,5 +145,6 @@ setInterval(() => {
 
 module.exports = {
     getAnalytics,
-    trackPageView
+    trackPageView,
+    trackBatch
 };

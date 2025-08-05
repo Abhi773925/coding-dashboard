@@ -3,7 +3,7 @@ import axios from 'axios';
 import config from '../config/api';
 
 // Use the API URL from config for better maintainability
-const ANALYTICS_URL = `${config.API_URL}/analytics/track`;
+const ANALYTICS_URL = `${config.API_URL}/api/analytics/track`;
 const MAX_RETRY_COUNT = 3;
 
 export const useComponentTracking = (componentName) => {
@@ -57,7 +57,9 @@ export const useComponentTracking = (componentName) => {
         const offlineAnalytics = localStorage.getItem('offlineAnalytics');
         if (offlineAnalytics && offlineAnalytics !== '[]') {
           try {
-            await axios.post(`${ANALYTICS_URL}/batch`, JSON.parse(offlineAnalytics), {
+            await axios.post(`${config.API_URL}/api/analytics/track/batch`, {
+              events: JSON.parse(offlineAnalytics)
+            }, {
               timeout: 5000
             });
             localStorage.removeItem('offlineAnalytics');
