@@ -176,7 +176,7 @@ const ContestTracker = () => {
 
   return ( 
     <div className={`min-h-screen transition-colors duration-300 ${isDarkMode ? "bg-gray-900 text-white" : "bg-gray-50 text-gray-900"}`}
-         style={{ marginTop: '70px' }}>
+         style={{ marginTop: '60px' }}>
       {/* Enhanced Mobile Header with better navigation - positioned directly below navbar */}
       <div className={`lg:hidden px-4 py-3 border-b bg-white dark:bg-gray-800 shadow-sm ${
         isDarkMode ? 'border-gray-700' : 'border-gray-200'
