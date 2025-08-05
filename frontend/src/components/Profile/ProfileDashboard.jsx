@@ -389,10 +389,10 @@ const ProfileDashboard = () => {
               transition={{ duration: 0.3 }}
             >
               {selectedTab === 'overview' && (
-                <div className="grid grid-cols-1 xl:grid-cols-4 gap-6 h-[calc(100vh-16rem)]">
-                  {/* Left Column - Fixed Profile Card */}
-                  <div className="xl:col-span-1 order-1 xl:order-1">
-                    <div className="sticky top-8 h-fit max-h-[calc(100vh-12rem)] overflow-y-auto">
+                <div className="space-y-6 xl:grid xl:grid-cols-4 xl:gap-6 xl:h-[calc(100vh-16rem)] xl:space-y-0">
+                  {/* Mobile: Single Column Flow | Desktop: Fixed Profile Card */}
+                  <div className="xl:col-span-1 xl:order-1">
+                    <div className="xl:sticky xl:top-8 xl:h-fit xl:max-h-[calc(100vh-12rem)] xl:overflow-y-auto">
                       <ProfileCard 
                         user={profileData} 
                         onUpdate={fetchUserProfile}
@@ -400,9 +400,9 @@ const ProfileDashboard = () => {
                     </div>
                   </div>
                   
-                  {/* Right Column - Scrollable Content */}
-                  <div className="xl:col-span-3 order-2 xl:order-2">
-                    <div className="h-[calc(100vh-16rem)] overflow-y-auto pr-4 custom-scrollbar space-y-6">
+                  {/* Mobile: Continues in single column | Desktop: Scrollable Content */}
+                  <div className="xl:col-span-3 xl:order-2">
+                    <div className="space-y-6 xl:h-[calc(100vh-16rem)] xl:overflow-y-auto xl:pr-4 xl:custom-scrollbar">
                       <ProfileStats user={profileData} />
                       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
                         <PlatformCards 
@@ -419,10 +419,10 @@ const ProfileDashboard = () => {
               )}
 
               {selectedTab === 'platforms' && (
-                <div className="grid grid-cols-1 xl:grid-cols-4 gap-6 h-[calc(100vh-16rem)]">
-                  {/* Left Column - Fixed Profile Card */}
-                  <div className="xl:col-span-1 order-1 xl:order-1">
-                    <div className="sticky top-8 h-fit max-h-[calc(100vh-12rem)] overflow-y-auto">
+                <div className="space-y-6 xl:grid xl:grid-cols-4 xl:gap-6 xl:h-[calc(100vh-16rem)] xl:space-y-0">
+                  {/* Mobile: Single Column Flow | Desktop: Fixed Profile Card */}
+                  <div className="xl:col-span-1 xl:order-1">
+                    <div className="xl:sticky xl:top-8 xl:h-fit xl:max-h-[calc(100vh-12rem)] xl:overflow-y-auto">
                       <ProfileCard 
                         user={profileData} 
                         onUpdate={fetchUserProfile}
@@ -430,9 +430,9 @@ const ProfileDashboard = () => {
                     </div>
                   </div>
                   
-                  {/* Right Column - Scrollable Platform Details */}
-                  <div className="xl:col-span-3 order-2 xl:order-2">
-                    <div className="h-[calc(100vh-16rem)] overflow-y-auto pr-4 custom-scrollbar">
+                  {/* Mobile: Continues in single column | Desktop: Scrollable Platform Details */}
+                  <div className="xl:col-span-3 xl:order-2">
+                    <div className="xl:h-[calc(100vh-16rem)] xl:overflow-y-auto xl:pr-4 xl:custom-scrollbar">
                       <PlatformCards 
                         user={profileData}
                         onConnectPlatform={handleConnectPlatform}
@@ -444,10 +444,10 @@ const ProfileDashboard = () => {
               )}
 
               {selectedTab === 'skills' && (
-                <div className="grid grid-cols-1 xl:grid-cols-4 gap-6 h-[calc(100vh-16rem)]">
-                  {/* Left Column - Fixed Profile Card */}
-                  <div className="xl:col-span-1 order-1 xl:order-1">
-                    <div className="sticky top-8 h-fit max-h-[calc(100vh-12rem)] overflow-y-auto">
+                <div className="space-y-6 xl:grid xl:grid-cols-4 xl:gap-6 xl:h-[calc(100vh-16rem)] xl:space-y-0">
+                  {/* Mobile: Single Column Flow | Desktop: Fixed Profile Card */}
+                  <div className="xl:col-span-1 xl:order-1">
+                    <div className="xl:sticky xl:top-8 xl:h-fit xl:max-h-[calc(100vh-12rem)] xl:overflow-y-auto">
                       <ProfileCard 
                         user={profileData} 
                         onUpdate={fetchUserProfile}
@@ -455,9 +455,9 @@ const ProfileDashboard = () => {
                     </div>
                   </div>
                   
-                  {/* Right Column - Scrollable Skills Content */}
-                  <div className="xl:col-span-3 order-2 xl:order-2">
-                    <div className="h-[calc(100vh-16rem)] overflow-y-auto pr-4 custom-scrollbar">
+                  {/* Mobile: Continues in single column | Desktop: Scrollable Skills Content */}
+                  <div className="xl:col-span-3 xl:order-2">
+                    <div className="xl:h-[calc(100vh-16rem)] xl:overflow-y-auto xl:pr-4 xl:custom-scrollbar">
                       <SkillsOverview user={profileData} />
                     </div>
                   </div>
@@ -465,10 +465,10 @@ const ProfileDashboard = () => {
               )}
 
               {selectedTab === 'activity' && (
-                <div className="grid grid-cols-1 xl:grid-cols-4 gap-6 h-[calc(100vh-16rem)]">
-                  {/* Left Column - Fixed Profile Card */}
-                  <div className="xl:col-span-1 order-1 xl:order-1">
-                    <div className="sticky top-8 h-fit max-h-[calc(100vh-12rem)] overflow-y-auto">
+                <div className="space-y-6 xl:grid xl:grid-cols-4 xl:gap-6 xl:h-[calc(100vh-16rem)] xl:space-y-0">
+                  {/* Mobile: Single Column Flow | Desktop: Fixed Profile Card */}
+                  <div className="xl:col-span-1 xl:order-1">
+                    <div className="xl:sticky xl:top-8 xl:h-fit xl:max-h-[calc(100vh-12rem)] xl:overflow-y-auto">
                       <ProfileCard 
                         user={profileData} 
                         onUpdate={fetchUserProfile}
@@ -476,9 +476,9 @@ const ProfileDashboard = () => {
                     </div>
                   </div>
                   
-                  {/* Right Column - Scrollable Activity Content */}
-                  <div className="xl:col-span-3 order-2 xl:order-2">
-                    <div className="h-[calc(100vh-16rem)] overflow-y-auto pr-4 custom-scrollbar">
+                  {/* Mobile: Continues in single column | Desktop: Scrollable Activity Content */}
+                  <div className="xl:col-span-3 xl:order-2">
+                    <div className="xl:h-[calc(100vh-16rem)] xl:overflow-y-auto xl:pr-4 xl:custom-scrollbar">
                       <ActivityHeatmap user={profileData} />
                     </div>
                   </div>
@@ -486,10 +486,10 @@ const ProfileDashboard = () => {
               )}
 
               {selectedTab === 'achievements' && (
-                <div className="grid grid-cols-1 xl:grid-cols-4 gap-6 h-[calc(100vh-16rem)]">
-                  {/* Left Column - Fixed Profile Card */}
-                  <div className="xl:col-span-1 order-1 xl:order-1">
-                    <div className="sticky top-8 h-fit max-h-[calc(100vh-12rem)] overflow-y-auto">
+                <div className="space-y-6 xl:grid xl:grid-cols-4 xl:gap-6 xl:h-[calc(100vh-16rem)] xl:space-y-0">
+                  {/* Mobile: Single Column Flow | Desktop: Fixed Profile Card */}
+                  <div className="xl:col-span-1 xl:order-1">
+                    <div className="xl:sticky xl:top-8 xl:h-fit xl:max-h-[calc(100vh-12rem)] xl:overflow-y-auto">
                       <ProfileCard 
                         user={profileData} 
                         onUpdate={fetchUserProfile}
@@ -497,9 +497,9 @@ const ProfileDashboard = () => {
                     </div>
                   </div>
                   
-                  {/* Right Column - Scrollable Achievements Content */}
-                  <div className="xl:col-span-3 order-2 xl:order-2">
-                    <div className="h-[calc(100vh-16rem)] overflow-y-auto pr-4 custom-scrollbar">
+                  {/* Mobile: Continues in single column | Desktop: Scrollable Achievements Content */}
+                  <div className="xl:col-span-3 xl:order-2">
+                    <div className="xl:h-[calc(100vh-16rem)] xl:overflow-y-auto xl:pr-4 xl:custom-scrollbar">
                       <AchievementShowcase user={profileData} detailed={true} />
                     </div>
                   </div>
@@ -507,17 +507,17 @@ const ProfileDashboard = () => {
               )}
 
               {selectedTab === 'analytics' && (
-                <div className="grid grid-cols-1 xl:grid-cols-4 gap-6">
-                  {/* Left Column - Profile Card */}
-                  <div className="xl:col-span-1 order-1 xl:order-1">
+                <div className="space-y-6 xl:grid xl:grid-cols-4 xl:gap-6 xl:space-y-0">
+                  {/* Mobile: Single Column Flow | Desktop: Profile Card */}
+                  <div className="xl:col-span-1 xl:order-1">
                     <ProfileCard 
                       user={profileData} 
                       onUpdate={fetchUserProfile}
                     />
                   </div>
                   
-                  {/* Right Column - Analytics Content */}
-                  <div className="xl:col-span-3 order-2 xl:order-2 space-y-6">
+                  {/* Mobile: Continues in single column | Desktop: Analytics Content */}
+                  <div className="xl:col-span-3 xl:order-2 space-y-6">
                     <ProfileStats user={profileData} detailed={true} />
                     <ActivityHeatmap user={profileData} />
                   </div>
