@@ -206,7 +206,7 @@ const ProfileCard = ({ user, onUpdate }) => {
         />
       </div>
 
-      <div className="px-3 sm:px-4 pb-3 sm:pb-4">
+      <div className="px-3 sm:px-4 pb-3 h-fit sm:pb-4">
         {/* Profile Picture and Basic Info */}
         <div className="relative -mt-10 sm:-mt-12 mb-3 sm:mb-4">
           <div className="flex flex-col items-center text-center">
