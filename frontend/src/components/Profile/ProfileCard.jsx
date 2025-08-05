@@ -513,30 +513,7 @@ const ProfileCard = ({ user, onUpdate }) => {
         </div>
       )}
 
-      {/* Quick Stats */}
-      {/* <div className="px-4 grid grid-cols-2 gap-4 mb-6">
-        <div className={`text-center p-3 rounded-lg ${
-          isDarkMode ? 'bg-slate-800/50' : 'bg-gray-50'
-        }`}>
-          <div className={`text-lg font-bold ${isDarkMode ? 'text-white' : 'text-gray-900'}`}>
-            {overallScore.toLocaleString()}
-          </div>
-          <div className={`text-xs ${isDarkMode ? 'text-slate-400' : 'text-gray-600'}`}>
-            Overall Score
-          </div>
-        </div>
-        <div className={`text-center p-3 rounded-lg ${
-          isDarkMode ? 'bg-slate-800/50' : 'bg-gray-50'
-        }`}>
-          <div className={`text-lg font-bold ${isDarkMode ? 'text-white' : 'text-gray-900'}`}>
-            {connectedPlatforms}
-          </div>
-          <div className={`text-xs ${isDarkMode ? 'text-slate-400' : 'text-gray-600'}`}>
-            Platforms
-          </div>
-        </div>
-      </div> */}
-
+      
       {/* Platform Ranks */}
       {platformRanks.length > 0 && (
         <div className="px-4 mb-6">
@@ -568,25 +545,7 @@ const ProfileCard = ({ user, onUpdate }) => {
         </div>
       )}
 
-      {/* Profile Completeness */}
-      <div className="px-4 space-y-3">
-        <div className="flex items-center justify-between">
-          <span className={`text-sm font-medium ${isDarkMode ? 'text-slate-300' : 'text-gray-700'}`}>
-            Profile Completeness
-          </span>
-          <span className={`text-sm font-bold ${isDarkMode ? 'text-white' : 'text-gray-900'}`}>
-            {completeness}%
-          </span>
-        </div>
-        <div className={`w-full rounded-full h-2 ${isDarkMode ? 'bg-slate-700' : 'bg-gray-200'}`}>
-          <motion.div 
-            className="bg-gradient-to-r from-green-500 to-emerald-500 h-2 rounded-full"
-            initial={{ width: 0 }}
-            animate={{ width: `${completeness}%` }}
-            transition={{ duration: 1, delay: 0.5 }}
-          />
-        </div>
-      </div>
+     
     </div>
     </motion.div>
   );
