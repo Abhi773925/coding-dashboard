@@ -44,32 +44,32 @@ const calculateStreak = (days) => {
 // Advanced Statistics Component
 const StatsCard = ({ title, value, subtitle, icon: Icon, color, trend, isDarkMode }) => (
   <motion.div
-    whileHover={{ scale: 1.05, y: -5 }}
-    whileTap={{ scale: 0.95 }}
+    whileHover={{ scale: 1.02, y: -2 }}
+    whileTap={{ scale: 0.98 }}
     className={`
-      p-6 rounded-2xl border backdrop-blur-md
+      p-3 sm:p-4 lg:p-6 rounded-xl sm:rounded-2xl border backdrop-blur-md
       ${isDarkMode ? "bg-slate-800/70 border-slate-700/50" : "bg-white/80 border-gray-200/50"}
-      shadow-xl transition-all duration-300
+      shadow-lg sm:shadow-xl transition-all duration-300
     `}
     style={{
-      boxShadow: isDarkMode ? "0 10px 30px rgba(0,0,0,0.3)" : "0 10px 30px rgba(0,0,0,0.1)",
+      boxShadow: isDarkMode ? "0 8px 25px rgba(0,0,0,0.3)" : "0 8px 25px rgba(0,0,0,0.1)",
     }}
   >
-    <div className="flex items-center justify-between mb-4">
-      <div className={`p-3 rounded-xl ${color}`}>
-        <Icon size={24} className="text-white" />
+    <div className="flex items-center justify-between mb-2 sm:mb-3 lg:mb-4">
+      <div className={`p-2 sm:p-3 rounded-lg sm:rounded-xl ${color}`}>
+        <Icon size={16} className="text-white sm:w-5 sm:h-5 lg:w-6 lg:h-6" />
       </div>
       {trend && (
-        <div className={`flex items-center text-sm ${trend > 0 ? 'text-green-500' : 'text-red-500'}`}>
-          <TrendingUp size={16} className="mr-1" />
+        <div className={`flex items-center text-xs sm:text-sm ${trend > 0 ? 'text-green-500' : 'text-red-500'}`}>
+          <TrendingUp size={12} className="mr-1 sm:w-4 sm:h-4" />
           {Math.abs(trend)}%
         </div>
       )}
     </div>
-    <h3 className={`text-2xl font-bold ${isDarkMode ? "text-white" : "text-gray-900"}`}>
+    <h3 className={`text-lg sm:text-xl lg:text-2xl font-bold ${isDarkMode ? "text-white" : "text-gray-900"}`}>
       {value}
     </h3>
-    <p className={`text-sm ${isDarkMode ? "text-gray-400" : "text-gray-600"}`}>
+    <p className={`text-xs sm:text-sm ${isDarkMode ? "text-gray-400" : "text-gray-600"}`}>
       {title}
     </p>
     {subtitle && (
@@ -127,7 +127,7 @@ const DayCard = ({ day, isSelected, onClick, isDarkMode, progress }) => (
     whileHover={{ scale: 1.02, y: -2 }}
     whileTap={{ scale: 0.98 }}
     className={`
-      relative p-6 rounded-2xl min-w-[200px] border transition-all duration-300 backdrop-blur-md
+      relative p-3 sm:p-4 lg:p-6 rounded-xl sm:rounded-2xl min-w-[160px] sm:min-w-[180px] lg:min-w-[200px] border transition-all duration-300 backdrop-blur-md
       ${
         isSelected
           ? isDarkMode
@@ -141,30 +141,30 @@ const DayCard = ({ day, isSelected, onClick, isDarkMode, progress }) => (
     style={{
       boxShadow: isSelected 
         ? isDarkMode 
-          ? "0 20px 40px rgba(139, 92, 246, 0.3)" 
-          : "0 20px 40px rgba(139, 92, 246, 0.2)"
+          ? "0 15px 30px rgba(139, 92, 246, 0.3)" 
+          : "0 15px 30px rgba(139, 92, 246, 0.2)"
         : isDarkMode 
-          ? "0 10px 25px rgba(0,0,0,0.3)" 
-          : "0 10px 25px rgba(0,0,0,0.1)"
+          ? "0 8px 20px rgba(0,0,0,0.3)" 
+          : "0 8px 20px rgba(0,0,0,0.1)"
     }}
   >
     {/* Progress indicator at top */}
-    <div className="absolute top-2 right-2">
-      <div className={`w-3 h-3 rounded-full ${progress === 100 ? 'bg-green-500' : progress > 50 ? 'bg-yellow-500' : 'bg-red-500'}`} />
+    <div className="absolute top-1 sm:top-2 right-1 sm:right-2">
+      <div className={`w-2 h-2 sm:w-3 sm:h-3 rounded-full ${progress === 100 ? 'bg-green-500' : progress > 50 ? 'bg-yellow-500' : 'bg-red-500'}`} />
     </div>
     
-    <div className="flex flex-col items-center space-y-4">
+    <div className="flex flex-col items-center space-y-2 sm:space-y-3 lg:space-y-4">
       {/* Day number with progress ring */}
       <div className="relative">
         <ProgressRing 
           progress={progress} 
-          size={60} 
-          strokeWidth={6} 
+          size={40} 
+          strokeWidth={4} 
           color={isSelected ? "#FFFFFF" : "#8B5CF6"}
           isDarkMode={isDarkMode}
         />
         <div className="absolute inset-0 flex items-center justify-center">
-          <span className={`text-sm font-bold ${isSelected ? "text-white" : isDarkMode ? "text-white" : "text-gray-900"}`}>
+          <span className={`text-xs sm:text-sm font-bold ${isSelected ? "text-white" : isDarkMode ? "text-white" : "text-gray-900"}`}>
             {day.dayNumber}
           </span>
         </div>
@@ -172,21 +172,21 @@ const DayCard = ({ day, isSelected, onClick, isDarkMode, progress }) => (
       
       {/* Day title */}
       <div className="text-center">
-        <h3 className={`font-bold text-lg mb-1 ${isSelected ? "text-white" : isDarkMode ? "text-white" : "text-gray-900"}`}>
+        <h3 className={`font-bold text-sm sm:text-base lg:text-lg mb-1 ${isSelected ? "text-white" : isDarkMode ? "text-white" : "text-gray-900"}`}>
           Day {day.dayNumber}
         </h3>
-        <p className={`text-sm leading-tight ${isSelected ? "text-blue-100" : isDarkMode ? "text-gray-400" : "text-gray-600"}`}>
-          {day.dayTitle?.length > 20 ? `${day.dayTitle?.substring(0, 20)}...` : day.dayTitle}
+        <p className={`text-xs sm:text-sm leading-tight ${isSelected ? "text-blue-100" : isDarkMode ? "text-gray-400" : "text-gray-600"}`}>
+          {day.dayTitle?.length > 15 ? `${day.dayTitle?.substring(0, 15)}...` : day.dayTitle}
         </p>
       </div>
       
       {/* Progress stats */}
-      <div className={`text-center px-3 py-2 rounded-full ${isSelected ? "bg-white/20" : isDarkMode ? "bg-slate-700/50" : "bg-gray-100/80"}`}>
+      <div className={`text-center px-2 sm:px-3 py-1 sm:py-2 rounded-full ${isSelected ? "bg-white/20" : isDarkMode ? "bg-slate-700/50" : "bg-gray-100/80"}`}>
         <div className={`text-xs font-medium ${isSelected ? "text-blue-100" : isDarkMode ? "text-gray-300" : "text-gray-700"}`}>
-          {day.questions?.filter(q => q.status).length || 0}/{day.questions?.length || 0} completed
+          {day.questions?.filter(q => q.status).length || 0}/{day.questions?.length || 0}
         </div>
         <div className={`text-xs ${isSelected ? "text-blue-200" : isDarkMode ? "text-gray-400" : "text-gray-500"}`}>
-          {Math.round(progress)}% done
+          {Math.round(progress)}%
         </div>
       </div>
     </div>
@@ -837,7 +837,7 @@ const CourseProgress = () => {
     >
       {/* Hero Header */}
       <div className={`
-        relative overflow-hidden p-8 rounded-3xl mx-4 mb-8 border backdrop-blur-md
+        relative overflow-hidden p-4 sm:p-6 lg:p-8 rounded-2xl sm:rounded-3xl mx-2 sm:mx-4 mb-4 sm:mb-6 lg:mb-8 border backdrop-blur-md
         ${isDarkMode ? "bg-slate-800/70 border-slate-700/50" : "bg-white/80 border-gray-200/50"}
         shadow-2xl
       `}>
@@ -846,7 +846,7 @@ const CourseProgress = () => {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
-            className={`text-4xl sm:text-5xl md:text-6xl font-bold mb-4
+            className={`text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold mb-2 sm:mb-4
               bg-clip-text text-transparent
               ${isDarkMode ? "bg-gradient-to-r from-purple-400 via-blue-400 to-cyan-400" : "bg-gradient-to-r from-purple-600 via-blue-600 to-indigo-600"}
             `}
@@ -858,30 +858,15 @@ const CourseProgress = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.2 }}
-            className={`text-lg ${isDarkMode ? "text-gray-300" : "text-gray-600"} max-w-2xl mx-auto mb-6`}
+            className={`text-sm sm:text-base lg:text-lg ${isDarkMode ? "text-gray-300" : "text-gray-600"} max-w-xl lg:max-w-2xl mx-auto px-4`}
           >
             Track your coding journey with advanced analytics and personalized insights
           </motion.p>
-
-          {user && (
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.4 }}
-              className={`inline-flex items-center px-6 py-3 rounded-full backdrop-blur-md
-                ${isDarkMode ? "bg-slate-700/70 border border-slate-600/50" : "bg-gray-100/70 border border-gray-300/50"}
-                shadow-lg
-              `}
-            >
-              <Users size={20} className="mr-2 text-purple-500" />
-              <span className="font-medium">Welcome back, {user.name || user.email}</span>
-            </motion.div>
-          )}
         </div>
       </div>
 
       {/* Main Content Area */}
-      <div className="flex-grow p-4 max-w-7xl mx-auto w-full space-y-8">
+      <div className="flex-grow p-2 sm:p-4 max-w-7xl mx-auto w-full space-y-4 sm:space-y-6 lg:space-y-8">
         
         {/* Statistics Dashboard */}
         {showStats && stats && stats.totalQuestions > 0 && (
@@ -889,9 +874,9 @@ const CourseProgress = () => {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
-            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-6 gap-6"
+            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-3 sm:gap-4 lg:gap-6"
           >
-            <div className="lg:col-span-2 xl:col-span-2">
+            <div className="sm:col-span-2 lg:col-span-1 xl:col-span-2">
               <StatsCard
                 title="Overall Progress"
                 value={`${stats.completedQuestions || 0}/${stats.totalQuestions || 0}`}
@@ -948,42 +933,42 @@ const CourseProgress = () => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.2 }}
           className={`
-            p-8 rounded-3xl border backdrop-blur-md
+            p-4 sm:p-6 lg:p-8 rounded-2xl sm:rounded-3xl border backdrop-blur-md
             ${isDarkMode ? "bg-slate-800/70 border-slate-700/50" : "bg-white/80 border-gray-200/50"}
             shadow-2xl
           `}
         >
-          <div className="flex flex-col lg:flex-row items-center justify-between gap-8">
-            <div className="flex items-center space-x-8">
+          <div className="flex flex-col lg:flex-row items-center justify-between gap-4 sm:gap-6 lg:gap-8">
+            <div className="flex flex-col sm:flex-row items-center space-y-4 sm:space-y-0 sm:space-x-6 lg:space-x-8">
               <div className="text-center">
                 <ProgressRing 
                   progress={stats.completionRate || 0} 
-                  size={160} 
-                  strokeWidth={12} 
+                  size={120} 
+                  strokeWidth={10} 
                   color="#8B5CF6"
                   isDarkMode={isDarkMode}
                 />
-                <p className={`mt-4 text-lg font-semibold ${isDarkMode ? "text-gray-300" : "text-gray-600"}`}>
+                <p className={`mt-2 sm:mt-4 text-sm sm:text-base lg:text-lg font-semibold ${isDarkMode ? "text-gray-300" : "text-gray-600"}`}>
                   Overall Progress
                 </p>
               </div>
               
-              <div className="space-y-4">
+              <div className="space-y-2 sm:space-y-3 lg:space-y-4">
                 <div className="flex items-center space-x-3">
-                  <div className="w-4 h-4 bg-green-500 rounded-full"></div>
-                  <span className={`${isDarkMode ? "text-gray-300" : "text-gray-600"}`}>
+                  <div className="w-3 h-3 sm:w-4 sm:h-4 bg-green-500 rounded-full"></div>
+                  <span className={`text-sm sm:text-base ${isDarkMode ? "text-gray-300" : "text-gray-600"}`}>
                     Easy: {(stats.difficultyStats && stats.difficultyStats.EasyCompleted) || 0}/{(stats.difficultyStats && stats.difficultyStats.Easy) || 0}
                   </span>
                 </div>
                 <div className="flex items-center space-x-3">
-                  <div className="w-4 h-4 bg-yellow-500 rounded-full"></div>
-                  <span className={`${isDarkMode ? "text-gray-300" : "text-gray-600"}`}>
+                  <div className="w-3 h-3 sm:w-4 sm:h-4 bg-yellow-500 rounded-full"></div>
+                  <span className={`text-sm sm:text-base ${isDarkMode ? "text-gray-300" : "text-gray-600"}`}>
                     Medium: {(stats.difficultyStats && stats.difficultyStats.MediumCompleted) || 0}/{(stats.difficultyStats && stats.difficultyStats.Medium) || 0}
                   </span>
                 </div>
                 <div className="flex items-center space-x-3">
-                  <div className="w-4 h-4 bg-red-500 rounded-full"></div>
-                  <span className={`${isDarkMode ? "text-gray-300" : "text-gray-600"}`}>
+                  <div className="w-3 h-3 sm:w-4 sm:h-4 bg-red-500 rounded-full"></div>
+                  <span className={`text-sm sm:text-base ${isDarkMode ? "text-gray-300" : "text-gray-600"}`}>
                     Hard: {(stats.difficultyStats && stats.difficultyStats.HardCompleted) || 0}/{(stats.difficultyStats && stats.difficultyStats.Hard) || 0}
                   </span>
                 </div>
@@ -991,34 +976,34 @@ const CourseProgress = () => {
             </div>
 
             {/* Control Panel */}
-            <div className="flex flex-col space-y-4">
-              <div className="flex items-center space-x-4">
+            <div className="flex flex-col space-y-3 sm:space-y-4 w-full sm:w-auto">
+              <div className="flex flex-col sm:flex-row items-center space-y-2 sm:space-y-0 sm:space-x-4">
                 <button
                   onClick={() => setShowStats(!showStats)}
                   className={`
-                    px-6 py-3 rounded-xl flex items-center space-x-2 transition-all duration-300
+                    w-full sm:w-auto px-4 sm:px-6 py-2 sm:py-3 rounded-lg sm:rounded-xl flex items-center justify-center space-x-2 transition-all duration-300 text-sm sm:text-base
                     ${isDarkMode ? "bg-slate-700 hover:bg-slate-600 text-white" : "bg-gray-200 hover:bg-gray-300 text-gray-900"}
                   `}
                 >
-                  <BarChart3 size={20} />
+                  <BarChart3 size={16} className="sm:w-5 sm:h-5" />
                   <span>{showStats ? 'Hide' : 'Show'} Stats</span>
                 </button>
                 
                 <button
                   onClick={() => setIsFilterModalOpen(true)}
-                  className="px-6 py-3 rounded-xl bg-gradient-to-r from-purple-600 to-blue-600 text-white flex items-center space-x-2 hover:from-purple-700 hover:to-blue-700 transition-all duration-300"
+                  className="w-full sm:w-auto px-4 sm:px-6 py-2 sm:py-3 rounded-lg sm:rounded-xl bg-gradient-to-r from-purple-600 to-blue-600 text-white flex items-center justify-center space-x-2 hover:from-purple-700 hover:to-blue-700 transition-all duration-300 text-sm sm:text-base"
                 >
-                  <Filter size={20} />
+                  <Filter size={16} className="sm:w-5 sm:h-5" />
                   <span>Filters</span>
                 </button>
               </div>
               
-              <div className="flex items-center space-x-2">
-                <span className={`text-sm ${isDarkMode ? "text-gray-400" : "text-gray-600"}`}>View:</span>
+              <div className="flex items-center justify-center sm:justify-start space-x-2">
+                <span className={`text-xs sm:text-sm ${isDarkMode ? "text-gray-400" : "text-gray-600"}`}>View:</span>
                 <button
                   onClick={() => setViewMode('grid')}
                   className={`
-                    px-4 py-2 rounded-lg text-sm transition-all duration-200
+                    px-3 sm:px-4 py-1 sm:py-2 rounded-md sm:rounded-lg text-xs sm:text-sm transition-all duration-200
                     ${viewMode === 'grid' 
                       ? 'bg-purple-600 text-white' 
                       : isDarkMode ? 'bg-slate-700 text-gray-300 hover:bg-slate-600' : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
@@ -1030,7 +1015,7 @@ const CourseProgress = () => {
                 <button
                   onClick={() => setViewMode('list')}
                   className={`
-                    px-4 py-2 rounded-lg text-sm transition-all duration-200
+                    px-3 sm:px-4 py-1 sm:py-2 rounded-md sm:rounded-lg text-xs sm:text-sm transition-all duration-200
                     ${viewMode === 'list' 
                       ? 'bg-purple-600 text-white' 
                       : isDarkMode ? 'bg-slate-700 text-gray-300 hover:bg-slate-600' : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
@@ -1050,32 +1035,33 @@ const CourseProgress = () => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.4 }}
           className={`
-            p-8 rounded-3xl border backdrop-blur-md
+            p-4 sm:p-6 lg:p-8 rounded-2xl sm:rounded-3xl border backdrop-blur-md
             ${isDarkMode ? "bg-slate-800/70 border-slate-700/50" : "bg-white/80 border-gray-200/50"}
             shadow-2xl
           `}
           style={{
-            boxShadow: isDarkMode ? "0 25px 50px rgba(0,0,0,0.4)" : "0 25px 50px rgba(0,0,0,0.1)",
+            boxShadow: isDarkMode ? "0 20px 40px rgba(0,0,0,0.4)" : "0 20px 40px rgba(0,0,0,0.1)",
           }}
         >
-          <div className="flex items-center justify-between mb-8">
-            <h2 className={`text-3xl font-bold flex items-center ${isDarkMode ? "text-white" : "text-gray-900"}`}>
-              <Calendar className="mr-4 text-purple-500" size={32} />
-              Course Timeline
+          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-4 sm:mb-6 lg:mb-8 space-y-2 sm:space-y-0">
+            <h2 className={`text-xl sm:text-2xl lg:text-3xl font-bold flex items-center ${isDarkMode ? "text-white" : "text-gray-900"}`}>
+              <Calendar className="mr-2 sm:mr-3 lg:mr-4 text-purple-500" size={24} />
+              <span className="sm:hidden lg:inline">Course Timeline</span>
+              <span className="hidden sm:inline lg:hidden">Timeline</span>
             </h2>
-            <div className={`px-4 py-2 rounded-full ${isDarkMode ? "bg-slate-700/60" : "bg-gray-100/80"}`}>
-              <span className={`text-sm font-medium ${isDarkMode ? "text-gray-300" : "text-gray-600"}`}>
-                {course?.days?.length || 0} Days Total
+            <div className={`px-3 sm:px-4 py-1 sm:py-2 rounded-full ${isDarkMode ? "bg-slate-700/60" : "bg-gray-100/80"}`}>
+              <span className={`text-xs sm:text-sm font-medium ${isDarkMode ? "text-gray-300" : "text-gray-600"}`}>
+                {course?.days?.length || 0} Days
               </span>
             </div>
           </div>
           
           <div className="relative">
-            {/* Timeline line */}
-            <div className={`absolute top-16 left-0 right-0 h-1 rounded-full ${isDarkMode ? "bg-slate-700" : "bg-gray-200"}`} />
+            {/* Timeline line - hidden on mobile for cleaner look */}
+            <div className={`hidden sm:block absolute top-8 lg:top-12 left-0 right-0 h-0.5 sm:h-1 rounded-full ${isDarkMode ? "bg-slate-700" : "bg-gray-200"}`} />
             
             {/* Day cards container */}
-            <div className="flex overflow-x-auto pb-6 space-x-6" style={{
+            <div className="flex overflow-x-auto pb-4 sm:pb-6 space-x-3 sm:space-x-4 lg:space-x-6" style={{
               scrollbarWidth: 'none',
               msOverflowStyle: 'none',
               WebkitScrollbar: { display: 'none' }
@@ -1089,9 +1075,9 @@ const CourseProgress = () => {
                     isDarkMode={isDarkMode}
                     progress={getDayProgress(day)}
                   />
-                  {/* Timeline connector */}
+                  {/* Timeline connector - hidden on mobile */}
                   {index < (course?.days?.length - 1) && (
-                    <div className={`absolute top-16 -right-3 w-6 h-1 ${
+                    <div className={`hidden sm:block absolute top-8 lg:top-12 -right-2 lg:-right-3 w-4 lg:w-6 h-0.5 lg:h-1 ${
                       getDayProgress(day) === 100 ? "bg-green-500" : isDarkMode ? "bg-slate-600" : "bg-gray-300"
                     }`} />
                   )}
@@ -1101,18 +1087,18 @@ const CourseProgress = () => {
           </div>
           
           {/* Timeline legend */}
-          <div className="mt-8 flex items-center justify-center space-x-6">
+          <div className="mt-4 sm:mt-6 lg:mt-8 flex flex-wrap items-center justify-center gap-3 sm:gap-4 lg:gap-6">
             <div className="flex items-center space-x-2">
-              <div className="w-3 h-3 bg-green-500 rounded-full"></div>
-              <span className={`text-sm ${isDarkMode ? "text-gray-400" : "text-gray-600"}`}>Completed</span>
+              <div className="w-2 h-2 sm:w-3 sm:h-3 bg-green-500 rounded-full"></div>
+              <span className={`text-xs sm:text-sm ${isDarkMode ? "text-gray-400" : "text-gray-600"}`}>Completed</span>
             </div>
             <div className="flex items-center space-x-2">
-              <div className="w-3 h-3 bg-yellow-500 rounded-full"></div>
-              <span className={`text-sm ${isDarkMode ? "text-gray-400" : "text-gray-600"}`}>In Progress</span>
+              <div className="w-2 h-2 sm:w-3 sm:h-3 bg-yellow-500 rounded-full"></div>
+              <span className={`text-xs sm:text-sm ${isDarkMode ? "text-gray-400" : "text-gray-600"}`}>In Progress</span>
             </div>
             <div className="flex items-center space-x-2">
-              <div className="w-3 h-3 bg-red-500 rounded-full"></div>
-              <span className={`text-sm ${isDarkMode ? "text-gray-400" : "text-gray-600"}`}>Not Started</span>
+              <div className="w-2 h-2 sm:w-3 sm:h-3 bg-red-500 rounded-full"></div>
+              <span className={`text-xs sm:text-sm ${isDarkMode ? "text-gray-400" : "text-gray-600"}`}>Not Started</span>
             </div>
           </div>
         </motion.div>
@@ -1123,19 +1109,27 @@ const CourseProgress = () => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.6 }}
           className={`
-            p-8 rounded-3xl border backdrop-blur-md
+            p-4 sm:p-6 lg:p-8 rounded-2xl sm:rounded-3xl border backdrop-blur-md
             ${isDarkMode ? "bg-slate-800/70 border-slate-700/50" : "bg-white/80 border-gray-200/50"}
             shadow-2xl
           `}
         >
-          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-8">
-            <h2 className={`text-3xl font-bold flex items-center ${isDarkMode ? "text-white" : "text-gray-900"}`}>
-              <BookOpen className="mr-3 text-purple-500" size={32} />
-              Day {selectedDay}: {course?.days?.find((d) => d && d.dayNumber === selectedDay)?.dayTitle || "Loading..."}
+          <div className="flex flex-col space-y-4 sm:space-y-0 sm:flex-row sm:items-start sm:justify-between mb-6 sm:mb-8">
+            <h2 className={`text-xl sm:text-2xl lg:text-3xl font-bold flex items-start ${isDarkMode ? "text-white" : "text-gray-900"}`}>
+              <BookOpen className="mr-2 sm:mr-3 text-purple-500 flex-shrink-0" size={24} />
+              <div>
+                <div className="flex flex-col sm:flex-row sm:items-center">
+                  <span>Day {selectedDay}:</span>
+                  <span className="text-base sm:text-xl lg:text-2xl sm:ml-2 font-normal">
+                    {course?.days?.find((d) => d && d.dayNumber === selectedDay)?.dayTitle || "Loading..."}
+                  </span>
+                </div>
+              </div>
             </h2>
             
-            <div className={`mt-4 sm:mt-0 text-sm ${isDarkMode ? "text-gray-400" : "text-gray-600"}`}>
-              Showing {filteredQuestionsForSelectedDay.length} of {course?.days?.find((d) => d && d.dayNumber === selectedDay)?.questions?.length || 0} questions
+            <div className={`text-xs sm:text-sm ${isDarkMode ? "text-gray-400" : "text-gray-600"} sm:text-right flex-shrink-0`}>
+              <div>Showing {filteredQuestionsForSelectedDay.length}</div>
+              <div>of {course?.days?.find((d) => d && d.dayNumber === selectedDay)?.questions?.length || 0} questions</div>
             </div>
           </div>
 
@@ -1144,8 +1138,8 @@ const CourseProgress = () => {
               layout 
               className={`
                 ${viewMode === 'grid' 
-                  ? "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6" 
-                  : "space-y-4"
+                  ? "grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3 sm:gap-4 lg:gap-6" 
+                  : "space-y-3 sm:space-y-4"
                 }
               `}
             >
@@ -1167,18 +1161,18 @@ const CourseProgress = () => {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               className={`
-                text-center p-12 rounded-2xl border-2 border-dashed
+                text-center p-6 sm:p-8 lg:p-12 rounded-xl sm:rounded-2xl border-2 border-dashed
                 ${isDarkMode ? "border-slate-700 text-slate-500 bg-slate-800/30" : "border-gray-200 text-gray-400 bg-gray-50/30"}
               `}
             >
-              <div className="space-y-4">
-                <div className={`w-20 h-20 mx-auto rounded-full flex items-center justify-center ${isDarkMode ? "bg-slate-700" : "bg-gray-200"}`}>
-                  <BookOpen size={40} className={isDarkMode ? "text-slate-500" : "text-gray-400"} />
+              <div className="space-y-3 sm:space-y-4">
+                <div className={`w-12 h-12 sm:w-16 sm:h-16 lg:w-20 lg:h-20 mx-auto rounded-full flex items-center justify-center ${isDarkMode ? "bg-slate-700" : "bg-gray-200"}`}>
+                  <BookOpen size={24} className={`sm:w-8 sm:h-8 lg:w-10 lg:h-10 ${isDarkMode ? "text-slate-500" : "text-gray-400"}`} />
                 </div>
-                <h3 className={`text-xl font-semibold ${isDarkMode ? "text-slate-400" : "text-gray-500"}`}>
+                <h3 className={`text-lg sm:text-xl font-semibold ${isDarkMode ? "text-slate-400" : "text-gray-500"}`}>
                   No questions found
                 </h3>
-                <p className={`${isDarkMode ? "text-slate-500" : "text-gray-400"}`}>
+                <p className={`text-sm sm:text-base ${isDarkMode ? "text-slate-500" : "text-gray-400"} max-w-md mx-auto`}>
                   Try adjusting your filters or select a different day
                 </p>
               </div>
