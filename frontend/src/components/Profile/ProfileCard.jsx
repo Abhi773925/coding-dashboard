@@ -180,7 +180,7 @@ const ProfileCard = ({ user, onUpdate }) => {
 
   return (
     <motion.div
-      className={`rounded-2xl backdrop-blur-sm border transition-all duration-300 overflow-hidden ${
+      className={`rounded-2xl backdrop-blur-sm border transition-all duration-300 overflow-hidden min-w-0 w-full max-w-full ${
         isDarkMode 
           ? 'bg-slate-900/70 border-slate-700/50 shadow-xl' 
           : 'bg-white/90 border-gray-200/50 shadow-lg'
@@ -252,7 +252,7 @@ const ProfileCard = ({ user, onUpdate }) => {
                   isDarkMode 
                     ? 'bg-slate-800 border-slate-600 text-white' 
                     : 'bg-white border-gray-300 text-gray-900'
-                }`}
+                } break-words`}
                 placeholder="Your Name"
               />
             </div>
@@ -269,7 +269,7 @@ const ProfileCard = ({ user, onUpdate }) => {
                   isDarkMode 
                     ? 'bg-slate-800 border-slate-600 text-white' 
                     : 'bg-white border-gray-300 text-gray-900'
-                }`}
+                } break-words`}
                 rows="3"
                 placeholder="Tell us about yourself..."
               />
@@ -288,7 +288,7 @@ const ProfileCard = ({ user, onUpdate }) => {
                   isDarkMode 
                     ? 'bg-slate-800 border-slate-600 text-white' 
                     : 'bg-white border-gray-300 text-gray-900'
-                }`}
+                } break-words`}
                 placeholder="Your Location"
               />
             </div>
@@ -306,7 +306,7 @@ const ProfileCard = ({ user, onUpdate }) => {
                   isDarkMode 
                     ? 'bg-slate-800 border-slate-600 text-white' 
                     : 'bg-white border-gray-300 text-gray-900'
-                }`}
+                } break-words`}
                 placeholder="https://yourwebsite.com"
               />
             </div>
@@ -326,7 +326,7 @@ const ProfileCard = ({ user, onUpdate }) => {
                     isDarkMode 
                       ? 'bg-slate-800 border-slate-600 text-white' 
                       : 'bg-white border-gray-300 text-gray-900'
-                  }`}
+                  } break-words`}
                   placeholder="github-username"
                 />
               </div>
@@ -344,7 +344,7 @@ const ProfileCard = ({ user, onUpdate }) => {
                     isDarkMode 
                       ? 'bg-slate-800 border-slate-600 text-white' 
                       : 'bg-white border-gray-300 text-gray-900'
-                  }`}
+                  } break-words`}
                   placeholder="linkedin-username"
                 />
               </div>
@@ -362,7 +362,7 @@ const ProfileCard = ({ user, onUpdate }) => {
                     isDarkMode 
                       ? 'bg-slate-800 border-slate-600 text-white' 
                       : 'bg-white border-gray-300 text-gray-900'
-                  }`}
+                  } break-words`}
                   placeholder="instagram-username"
                 />
               </div>
@@ -387,15 +387,25 @@ const ProfileCard = ({ user, onUpdate }) => {
           </div>
         ) : (
           <div className="group">
-            <h2 className={`text-xl font-bold mb-1 ${isDarkMode ? 'text-white' : 'text-gray-900'}`}>
+            <h2 className={`text-xl font-bold mb-1 break-words ${isDarkMode ? 'text-white' : 'text-gray-900'}`}>
               {user?.name || 'Your Name'}
             </h2>
-            <p className={`text-sm ${isDarkMode ? 'text-slate-400' : 'text-gray-600'}`}>
+            <p className={`text-sm mb-3 break-words ${isDarkMode ? 'text-slate-400' : 'text-gray-600'}`}>
               @{user?.email?.split('@')[0] || 'username'}
             </p>
+            
+            {/* Bio Section - Moved here below name */}
+            {user?.bio && (
+              <div className="mb-4">
+                <p className={`text-sm leading-relaxed break-words ${isDarkMode ? 'text-slate-300' : 'text-gray-600'}`}>
+                  {user.bio}
+                </p>
+              </div>
+            )}
+            
             <button
               onClick={() => setIsEditing(true)}
-              className={`mt-2 opacity-0 group-hover:opacity-100 transition-opacity p-1 rounded ${
+              className={`opacity-0 group-hover:opacity-100 transition-opacity p-1 rounded ${
                 isDarkMode ? 'text-slate-400 hover:text-white' : 'text-gray-400 hover:text-gray-700'
               }`}
             >
@@ -417,31 +427,31 @@ const ProfileCard = ({ user, onUpdate }) => {
       {/* Contact Information */}
       <div className="px-4 space-y-3 mb-6">
         {user?.email && (
-          <div className="flex items-center space-x-3">
-            <Mail className={`w-4 h-4 ${isDarkMode ? 'text-slate-400' : 'text-gray-500'}`} />
-            <span className={`text-sm ${isDarkMode ? 'text-slate-300' : 'text-gray-700'}`}>
+          <div className="flex items-center space-x-3 min-w-0">
+            <Mail className={`w-4 h-4 flex-shrink-0 ${isDarkMode ? 'text-slate-400' : 'text-gray-500'}`} />
+            <span className={`text-sm truncate ${isDarkMode ? 'text-slate-300' : 'text-gray-700'}`}>
               {user.email}
             </span>
           </div>
         )}
         
         {user?.location && (
-          <div className="flex items-center space-x-3">
-            <MapPin className={`w-4 h-4 ${isDarkMode ? 'text-slate-400' : 'text-gray-500'}`} />
-            <span className={`text-sm ${isDarkMode ? 'text-slate-300' : 'text-gray-700'}`}>
+          <div className="flex items-center space-x-3 min-w-0">
+            <MapPin className={`w-4 h-4 flex-shrink-0 ${isDarkMode ? 'text-slate-400' : 'text-gray-500'}`} />
+            <span className={`text-sm break-words ${isDarkMode ? 'text-slate-300' : 'text-gray-700'}`}>
               {user.location}
             </span>
           </div>
         )}
 
         {user?.website && !isEditing && (
-          <div className="flex items-center space-x-3">
-            <ExternalLink className={`w-4 h-4 ${isDarkMode ? 'text-slate-400' : 'text-gray-500'}`} />
+          <div className="flex items-center space-x-3 min-w-0">
+            <ExternalLink className={`w-4 h-4 flex-shrink-0 ${isDarkMode ? 'text-slate-400' : 'text-gray-500'}`} />
             <a 
               href={user.website.startsWith('http') ? user.website : `https://${user.website}`} 
               target="_blank" 
               rel="noopener noreferrer"
-              className={`text-sm hover:underline ${isDarkMode ? 'text-blue-400' : 'text-blue-600'}`}
+              className={`text-sm hover:underline truncate ${isDarkMode ? 'text-blue-400' : 'text-blue-600'}`}
             >
               {user.website}
             </a>
@@ -457,13 +467,13 @@ const ProfileCard = ({ user, onUpdate }) => {
           </h3>
           <div className="space-y-3">
             {user?.github && (
-              <div className="flex items-center space-x-3">
-                <Github className={`w-4 h-4 ${isDarkMode ? 'text-slate-400' : 'text-gray-500'}`} />
+              <div className="flex items-center space-x-3 min-w-0">
+                <Github className={`w-4 h-4 flex-shrink-0 ${isDarkMode ? 'text-slate-400' : 'text-gray-500'}`} />
                 <a 
                   href={`https://github.com/${user.github}`} 
                   target="_blank" 
                   rel="noopener noreferrer"
-                  className={`text-sm hover:underline ${isDarkMode ? 'text-blue-400' : 'text-blue-600'}`}
+                  className={`text-sm hover:underline truncate ${isDarkMode ? 'text-blue-400' : 'text-blue-600'}`}
                 >
                   @{user.github}
                 </a>
@@ -471,13 +481,13 @@ const ProfileCard = ({ user, onUpdate }) => {
             )}
 
             {user?.linkedin && (
-              <div className="flex items-center space-x-3">
-                <Linkedin className={`w-4 h-4 ${isDarkMode ? 'text-slate-400' : 'text-gray-500'}`} />
+              <div className="flex items-center space-x-3 min-w-0">
+                <Linkedin className={`w-4 h-4 flex-shrink-0 ${isDarkMode ? 'text-slate-400' : 'text-gray-500'}`} />
                 <a 
                   href={`https://linkedin.com/in/${user.linkedin}`} 
                   target="_blank" 
                   rel="noopener noreferrer"
-                  className={`text-sm hover:underline ${isDarkMode ? 'text-blue-400' : 'text-blue-600'}`}
+                  className={`text-sm hover:underline truncate ${isDarkMode ? 'text-blue-400' : 'text-blue-600'}`}
                 >
                   @{user.linkedin}
                 </a>
@@ -485,31 +495,19 @@ const ProfileCard = ({ user, onUpdate }) => {
             )}
 
             {user?.instagram && (
-              <div className="flex items-center space-x-3">
-                <Instagram className={`w-4 h-4 ${isDarkMode ? 'text-slate-400' : 'text-gray-500'}`} />
+              <div className="flex items-center space-x-3 min-w-0">
+                <Instagram className={`w-4 h-4 flex-shrink-0 ${isDarkMode ? 'text-slate-400' : 'text-gray-500'}`} />
                 <a 
                   href={`https://instagram.com/${user.instagram}`} 
                   target="_blank" 
                   rel="noopener noreferrer"
-                  className={`text-sm hover:underline ${isDarkMode ? 'text-blue-400' : 'text-blue-600'}`}
+                  className={`text-sm hover:underline truncate ${isDarkMode ? 'text-blue-400' : 'text-blue-600'}`}
                 >
                   @{user.instagram}
                 </a>
               </div>
             )}
           </div>
-        </div>
-      )}
-
-      {/* About Section */}
-      {user?.bio && !isEditing && (
-        <div className="px-4 mb-6">
-          <h3 className={`text-sm font-semibold mb-2 ${isDarkMode ? 'text-white' : 'text-gray-900'}`}>
-            About
-          </h3>
-          <p className={`text-sm ${isDarkMode ? 'text-slate-300' : 'text-gray-600'}`}>
-            {user.bio}
-          </p>
         </div>
       )}
 
@@ -524,18 +522,18 @@ const ProfileCard = ({ user, onUpdate }) => {
             {platformRanks.map((rank, index) => {
               const Icon = rank.icon;
               return (
-                <div key={index} className={`flex items-center justify-between p-2 rounded-lg ${
+                <div key={index} className={`flex items-center justify-between p-2 rounded-lg min-w-0 ${
                   isDarkMode ? 'bg-slate-800/30' : 'bg-gray-50/50'
                 }`}>
-                  <div className="flex items-center space-x-2">
-                    <div className={`p-1.5 rounded-lg bg-gradient-to-r ${rank.color}`}>
+                  <div className="flex items-center space-x-2 min-w-0 flex-1">
+                    <div className={`p-1.5 rounded-lg bg-gradient-to-r flex-shrink-0 ${rank.color}`}>
                       <Icon className="w-3 h-3 text-white" />
                     </div>
-                    <span className={`text-xs font-medium ${isDarkMode ? 'text-slate-300' : 'text-gray-700'}`}>
+                    <span className={`text-xs font-medium truncate ${isDarkMode ? 'text-slate-300' : 'text-gray-700'}`}>
                       {rank.platform}
                     </span>
                   </div>
-                  <span className={`text-xs font-bold ${isDarkMode ? 'text-white' : 'text-gray-900'}`}>
+                  <span className={`text-xs font-bold ml-2 flex-shrink-0 ${isDarkMode ? 'text-white' : 'text-gray-900'}`}>
                     {rank.rank}
                   </span>
                 </div>
