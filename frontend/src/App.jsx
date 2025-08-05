@@ -30,6 +30,7 @@ import CollaborativeCodeCompilerPage from "./components/Compiler/CollaborativeCo
 import JavaScriptLearning from "./components/learning/JavaScriptLearning";
 import InterviewMode from "./components/Collaboration/InterviewMode";
 import ThemeDemo from "./components/ThemeDemo";
+import ThemeShowcase from "./pages/ThemeShowcase";
 import { Analytics } from "@vercel/analytics/react"
 import InterviewSeriesOverview from "./components/interview-series/InterviewSeriesOverview";
 import ComputerNetworks from "./components/interview-series/ComputerNetworks";
@@ -409,6 +410,17 @@ const AppContent = () => {
               keywords="ui components, theme, design system, user interface"
             />
             <ThemeDemo />
+          </>
+        } />
+        
+        <Route path="/theme-showcase" element={
+          <>
+            <SEO 
+              title="New Theme Showcase - Codeconnecto Inspired Design"
+              description="Experience our new codeconnecto-inspired color theme with modern glassmorphism effects and vibrant cyan accents."
+              keywords="theme showcase, codeconnecto, color scheme, modern design, glassmorphism"
+            />
+            <ThemeShowcase />
           </>
         } />
         
