@@ -507,19 +507,23 @@ const ProfileDashboard = () => {
               )}
 
               {selectedTab === 'analytics' && (
-                <div className="space-y-6 xl:grid xl:grid-cols-4 xl:gap-6 xl:space-y-0">
+                <div className="space-y-6 xl:grid xl:grid-cols-4 xl:gap-6 xl:h-[calc(100vh-16rem)] xl:space-y-0">
                   {/* Mobile: Single Column Flow | Desktop: Profile Card */}
                   <div className="xl:col-span-1 xl:order-1">
-                    <ProfileCard 
-                      user={profileData} 
-                      onUpdate={fetchUserProfile}
-                    />
+                    <div className="xl:sticky xl:top-8 xl:h-fit xl:max-h-[calc(100vh-12rem)] xl:overflow-y-auto">
+                      <ProfileCard 
+                        user={profileData} 
+                        onUpdate={fetchUserProfile}
+                      />
+                    </div>
                   </div>
                   
                   {/* Mobile: Continues in single column | Desktop: Analytics Content */}
-                  <div className="xl:col-span-3 xl:order-2 space-y-6">
-                    <ProfileStats user={profileData} detailed={true} />
-                    <ActivityHeatmap user={profileData} />
+                  <div className="xl:col-span-3 xl:order-2">
+                    <div className="space-y-6 xl:h-[calc(100vh-16rem)] xl:overflow-y-auto xl:pr-4 xl:custom-scrollbar">
+                      <ProfileStats user={profileData} detailed={true} />
+                      <ActivityHeatmap user={profileData} />
+                    </div>
                   </div>
                 </div>
               )}
