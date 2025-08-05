@@ -519,6 +519,42 @@ const MobileMenu = ({ isOpen, onClose, navigationSections }) => {
     setOpenSection(openSection === sectionName ? null : sectionName)
   }
 
+  // Get section-specific styling
+  const getSectionStyling = (sectionName) => {
+    const styles = {
+      "Contest": {
+        bgHover: isDarkMode ? "hover:bg-transparent" : "hover:bg-indigo-50/60",
+        bg: isDarkMode ? "bg-transparent" : "bg-indigo-50/30",
+        text: isDarkMode ? "text-indigo-300" : "text-indigo-700",
+        accent: isDarkMode ? "from-transparent to-transparent" : "from-indigo-500/20 to-purple-500/20"
+      },
+      "Courses": {
+        bgHover: isDarkMode ? "hover:bg-transparent" : "hover:bg-blue-50/60",
+        bg: isDarkMode ? "bg-transparent" : "bg-blue-50/30",
+        text: isDarkMode ? "text-blue-300" : "text-blue-700",
+        accent: isDarkMode ? "from-transparent to-transparent" : "from-blue-500/20 to-cyan-500/20"
+      },
+      "Interview Series": {
+        bgHover: isDarkMode ? "hover:bg-transparent" : "hover:bg-purple-50/60",
+        bg: isDarkMode ? "bg-transparent" : "bg-purple-50/30",
+        text: isDarkMode ? "text-purple-300" : "text-purple-700",
+        accent: isDarkMode ? "from-transparent to-transparent" : "from-purple-500/20 to-pink-500/20"
+      },
+      "Collaboration": {
+        bgHover: isDarkMode ? "hover:bg-transparent" : "hover:bg-emerald-50/60",
+        bg: isDarkMode ? "bg-transparent" : "bg-emerald-50/30",
+        text: isDarkMode ? "text-emerald-300" : "text-emerald-700",
+        accent: isDarkMode ? "from-transparent to-transparent" : "from-emerald-500/20 to-teal-500/20"
+      }
+    }
+    return styles[sectionName] || {
+      bgHover: isDarkMode ? "hover:bg-transparent" : "hover:bg-gray-50/60",
+      bg: isDarkMode ? "bg-transparent" : "bg-gray-50/30",
+      text: isDarkMode ? "text-gray-300" : "text-gray-700",
+      accent: isDarkMode ? "from-transparent to-transparent" : "from-gray-500/20 to-slate-500/20"
+    }
+  }
+
   return (
     <AnimatePresence>
       {isOpen && (

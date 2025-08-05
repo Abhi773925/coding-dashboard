@@ -114,6 +114,22 @@ self.addEventListener('fetch', event => {
 async function handleApiRequest(request) {
   const url = new URL(request.url);
   
+  // Don't cache POST, PUT, DELETE requests
+  if (request.method !== 'GET') {
+    try {
+      return await fetch(request);
+    } catch (error) {
+      return new Response(JSON.stringify({
+        error: 'Network unavailable',
+        message: 'Please check your internet connection'
+      }), {
+        status: 503,
+        statusText: 'Service Unavailable',
+        headers: { 'Content-Type': 'application/json' }
+      });
+    }
+  }
+  
   // Check if this API should be cached
   const shouldCache = API_CACHE_PATTERNS.some(pattern => pattern.test(request.url));
   
@@ -137,18 +153,20 @@ async function handleApiRequest(request) {
   try {
     const networkResponse = await fetch(request);
     
-    if (networkResponse.ok) {
-      // Cache successful responses
+    if (networkResponse.ok && request.method === 'GET') {
+      // Cache successful responses only for GET requests
       const cache = await caches.open(DYNAMIC_CACHE);
       cache.put(request, networkResponse.clone());
     }
     
     return networkResponse;
   } catch (error) {
-    // Fallback to cache if network fails
-    const cachedResponse = await caches.match(request);
-    if (cachedResponse) {
-      return cachedResponse;
+    // Fallback to cache if network fails (only for GET requests)
+    if (request.method === 'GET') {
+      const cachedResponse = await caches.match(request);
+      if (cachedResponse) {
+        return cachedResponse;
+      }
     }
     
     // Return offline response
@@ -197,6 +215,11 @@ async function handleNavigationRequest(request) {
 
 // Handle static asset requests
 async function handleStaticRequest(request) {
+  // Only cache GET requests
+  if (request.method !== 'GET') {
+    return fetch(request);
+  }
+
   // Cache-first strategy for static assets
   const cachedResponse = await caches.match(request);
   if (cachedResponse) {
@@ -206,8 +229,8 @@ async function handleStaticRequest(request) {
   try {
     const networkResponse = await fetch(request);
     
-    if (networkResponse.ok) {
-      // Cache static assets
+    if (networkResponse.ok && request.method === 'GET') {
+      // Cache static assets only for GET requests
       const cache = await caches.open(STATIC_CACHE);
       cache.put(request, networkResponse.clone());
     }

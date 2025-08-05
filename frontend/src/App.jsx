@@ -107,7 +107,7 @@ const AppContent = () => {
         const offlineAnalytics = localStorage.getItem('offlineAnalytics');
         if (offlineAnalytics && offlineAnalytics !== '[]') {
           try {
-            await axios.post(`${config.API_BASE_URL}/api/analytics/batch`, JSON.parse(offlineAnalytics), {
+            await axios.post(`${config.API_BASE_URL}/api/analytics/track/batch`, JSON.parse(offlineAnalytics), {
               timeout: 10000,
               withCredentials: true
             });
