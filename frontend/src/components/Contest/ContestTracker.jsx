@@ -8,7 +8,7 @@ import { config } from "../../config/config"
 import './ContestCalendar.css'
 
 const ContestTracker = () => {
-  const { isDarkMode } = useTheme()
+  const { isDarkMode, colors } = useTheme()
   
   // State Management
   const [contestData, setContestData] = useState({
@@ -265,7 +265,7 @@ const ContestTracker = () => {
   }
 
   return (
-    <div className={`min-h-screen transition-colors duration-300 ${isDarkMode ? "bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 text-white" : "bg-gradient-to-br from-blue-50 via-white to-purple-50 text-gray-900"}`}>
+    <div className={`min-h-screen transition-colors duration-300 ${colors?.background || (isDarkMode ? "bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 text-white" : "bg-gradient-to-br from-blue-50 via-white to-purple-50 text-gray-900")}`}>
       {/* Main Content Container - positioned directly below navbar */}
       <div className="flex overflow-hidden"
            style={{ 
@@ -274,12 +274,12 @@ const ContestTracker = () => {
            }}>
         
         {/* Left Sidebar - Contest List */}
-        <div className={`${isMobile ? 'w-full' : 'w-80 lg:w-96'} border-r ${isDarkMode ? 'bg-gray-800/90 border-gray-700 backdrop-blur-sm' : 'bg-white/90 border-gray-200 backdrop-blur-sm'} flex flex-col shadow-xl`}>
+        <div className={`${isMobile ? 'w-full' : 'w-80 lg:w-96'} border-r ${colors?.navigation?.bg || (isDarkMode ? 'bg-gray-800/90' : 'bg-white/90')} ${colors?.navigation?.border || (isDarkMode ? 'border-gray-700' : 'border-gray-200')} ${colors?.effects?.backdrop || 'backdrop-blur-sm'} flex flex-col shadow-xl`}>
           
           {/* Header Section */}
-          <div className={`p-6 border-b ${isDarkMode ? 'border-gray-700 bg-gray-800/90 backdrop-blur-sm' : 'border-gray-200 bg-white/90 backdrop-blur-sm'}`}>
+          <div className={`p-6 border-b ${colors?.navigation?.border || (isDarkMode ? 'border-gray-700' : 'border-gray-200')} ${colors?.navigation?.bg || (isDarkMode ? 'bg-gray-800/90' : 'bg-white/90')} ${colors?.effects?.backdrop || 'backdrop-blur-sm'}`}>
             <div className="flex items-center justify-between mb-4">
-              <h2 className={`text-xl font-bold ${isDarkMode ? 'text-white' : 'text-gray-900'}`}>
+              <h2 className={`text-xl font-bold ${colors?.navigation?.text || (isDarkMode ? 'text-white' : 'text-gray-900')}`}>
                 {activeView === 'upcoming' ? 'Upcoming Contests' : 'Past Contests'}
               </h2>
               <div className="flex items-center gap-2">
@@ -288,8 +288,8 @@ const ContestTracker = () => {
                   onClick={activeView === 'past' ? refreshSolutionVideos : fetchContests}
                   className={`p-2 rounded-lg transition-all duration-200 ${
                     isDarkMode 
-                      ? 'bg-gray-700 text-gray-300 hover:bg-gray-600' 
-                      : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+                      ? 'bg-slate-800/50 text-slate-300 hover:bg-slate-700/50' 
+                      : 'bg-gray-100/50 text-gray-600 hover:bg-gray-200/50'
                   }`}
                   title={activeView === 'past' ? 'Refresh Solution Videos' : 'Refresh Contests'}
                 >
@@ -306,8 +306,8 @@ const ContestTracker = () => {
                       showMobileFilters
                         ? 'bg-blue-600 text-white'
                         : isDarkMode 
-                          ? 'bg-gray-700 text-gray-300 hover:bg-gray-600' 
-                          : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+                          ? 'bg-slate-800/50 text-slate-300 hover:bg-slate-700/50' 
+                          : 'bg-gray-100/50 text-gray-600 hover:bg-gray-200/50'
                     }`}
                     title="Toggle Search & Filters"
                   >
@@ -315,7 +315,7 @@ const ContestTracker = () => {
                   </button>
                 )}
                 {/* View Toggle */}
-                <div className="flex items-center bg-gray-100 dark:bg-gray-700 rounded-lg p-1">
+                <div className={`flex items-center rounded-lg p-1 ${isDarkMode ? 'bg-slate-800/50' : 'bg-gray-100/50'}`}>
                   <button
                     onClick={() => setActiveView('upcoming')}
                     className={`px-3 py-1.5 rounded text-sm font-medium transition-all duration-200 ${
@@ -549,10 +549,10 @@ const ContestTracker = () => {
         </div>
 
         {/* Right Side - Calendar */}
-        <div className={`${isMobile ? 'hidden' : 'flex-1'} ${isDarkMode ? 'bg-gray-800/90 backdrop-blur-sm' : 'bg-white/90 backdrop-blur-sm'} flex flex-col shadow-xl`}>
+        <div className={`${isMobile ? 'hidden' : 'flex-1'} ${colors?.navigation?.bg || (isDarkMode ? 'bg-gray-800/90' : 'bg-white/90')} ${colors?.effects?.backdrop || 'backdrop-blur-sm'} flex flex-col shadow-xl`}>
           
           {/* Calendar Header */}
-          <div className={`p-6 border-b ${isDarkMode ? 'border-gray-700' : 'border-gray-200'}`}>
+          <div className={`p-6 border-b ${colors?.navigation?.border || (isDarkMode ? 'border-gray-700' : 'border-gray-200')}`}>
             <div className="flex items-center justify-between">
               <h1 className={`text-2xl font-bold ${isDarkMode ? 'text-white' : 'text-gray-900'}`}>
                 {getMonthName(currentDate)}
