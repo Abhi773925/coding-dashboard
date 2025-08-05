@@ -180,7 +180,7 @@ const ProfileCard = ({ user, onUpdate }) => {
 
   return (
     <motion.div
-      className={`rounded-2xl backdrop-blur-sm border transition-all duration-300 overflow-hidden min-w-0 w-full max-w-full ${
+      className={`rounded-2xl backdrop-blur-sm border transition-all duration-300 overflow-hidden min-w-0 w-full max-w-full h-fit ${
         isDarkMode 
           ? 'bg-slate-900/70 border-slate-700/50 shadow-xl' 
           : 'bg-white/90 border-gray-200/50 shadow-lg'
@@ -420,12 +420,12 @@ const ProfileCard = ({ user, onUpdate }) => {
           whileHover={{ scale: 1.02 }}
           whileTap={{ scale: 0.98 }}
         >
-          Get your Codolio Card
+          Get your PrepMate Card
         </motion.button>
       </div>
 
       {/* Contact Information */}
-      <div className="px-4 space-y-3 mb-6">
+      <div className="px-4 space-y-2 mb-4">
         {user?.email && (
           <div className="flex items-center space-x-3 min-w-0">
             <Mail className={`w-4 h-4 flex-shrink-0 ${isDarkMode ? 'text-slate-400' : 'text-gray-500'}`} />
@@ -465,47 +465,59 @@ const ProfileCard = ({ user, onUpdate }) => {
           <h3 className={`text-sm font-semibold mb-3 ${isDarkMode ? 'text-white' : 'text-gray-900'}`}>
             Social Links
           </h3>
-          <div className="space-y-3">
+          <div className="flex items-center space-x-4 justify-center">
             {user?.github && (
-              <div className="flex items-center space-x-3 min-w-0">
-                <Github className={`w-4 h-4 flex-shrink-0 ${isDarkMode ? 'text-slate-400' : 'text-gray-500'}`} />
-                <a 
-                  href={`https://github.com/${user.github}`} 
-                  target="_blank" 
-                  rel="noopener noreferrer"
-                  className={`text-sm hover:underline truncate ${isDarkMode ? 'text-blue-400' : 'text-blue-600'}`}
-                >
-                  @{user.github}
-                </a>
-              </div>
+              <motion.a
+                href={`https://github.com/${user.github}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className={`p-3 rounded-full transition-all duration-300 hover:scale-110 ${
+                  isDarkMode 
+                    ? 'bg-slate-800/50 hover:bg-slate-700/70 text-slate-300 hover:text-white' 
+                    : 'bg-gray-100 hover:bg-gray-200 text-gray-600 hover:text-gray-900'
+                }`}
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.95 }}
+                title={`@${user.github} on GitHub`}
+              >
+                <Github className="w-5 h-5" />
+              </motion.a>
             )}
 
             {user?.linkedin && (
-              <div className="flex items-center space-x-3 min-w-0">
-                <Linkedin className={`w-4 h-4 flex-shrink-0 ${isDarkMode ? 'text-slate-400' : 'text-gray-500'}`} />
-                <a 
-                  href={`https://linkedin.com/in/${user.linkedin}`} 
-                  target="_blank" 
-                  rel="noopener noreferrer"
-                  className={`text-sm hover:underline truncate ${isDarkMode ? 'text-blue-400' : 'text-blue-600'}`}
-                >
-                  @{user.linkedin}
-                </a>
-              </div>
+              <motion.a
+                href={`https://linkedin.com/in/${user.linkedin}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className={`p-3 rounded-full transition-all duration-300 hover:scale-110 ${
+                  isDarkMode 
+                    ? 'bg-slate-800/50 hover:bg-blue-600/20 text-slate-300 hover:text-blue-400' 
+                    : 'bg-gray-100 hover:bg-blue-50 text-gray-600 hover:text-blue-600'
+                }`}
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.95 }}
+                title={`@${user.linkedin} on LinkedIn`}
+              >
+                <Linkedin className="w-5 h-5" />
+              </motion.a>
             )}
 
             {user?.instagram && (
-              <div className="flex items-center space-x-3 min-w-0">
-                <Instagram className={`w-4 h-4 flex-shrink-0 ${isDarkMode ? 'text-slate-400' : 'text-gray-500'}`} />
-                <a 
-                  href={`https://instagram.com/${user.instagram}`} 
-                  target="_blank" 
-                  rel="noopener noreferrer"
-                  className={`text-sm hover:underline truncate ${isDarkMode ? 'text-blue-400' : 'text-blue-600'}`}
-                >
-                  @{user.instagram}
-                </a>
-              </div>
+              <motion.a
+                href={`https://instagram.com/${user.instagram}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className={`p-3 rounded-full transition-all duration-300 hover:scale-110 ${
+                  isDarkMode 
+                    ? 'bg-slate-800/50 hover:bg-pink-600/20 text-slate-300 hover:text-pink-400' 
+                    : 'bg-gray-100 hover:bg-pink-50 text-gray-600 hover:text-pink-600'
+                }`}
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.95 }}
+                title={`@${user.instagram} on Instagram`}
+              >
+                <Instagram className="w-5 h-5" />
+              </motion.a>
             )}
           </div>
         </div>
@@ -514,11 +526,11 @@ const ProfileCard = ({ user, onUpdate }) => {
       
       {/* Platform Ranks */}
       {platformRanks.length > 0 && (
-        <div className="px-4 mb-6">
-          <h3 className={`text-sm font-semibold mb-3 ${isDarkMode ? 'text-white' : 'text-gray-900'}`}>
+        <div className="px-4 mb-4">
+          <h3 className={`text-sm font-semibold mb-2 ${isDarkMode ? 'text-white' : 'text-gray-900'}`}>
             Platform Rankings
           </h3>
-          <div className="space-y-2">
+          <div className="space-y-1.5">
             {platformRanks.map((rank, index) => {
               const Icon = rank.icon;
               return (
