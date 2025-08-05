@@ -389,88 +389,121 @@ const ProfileDashboard = () => {
               transition={{ duration: 0.3 }}
             >
               {selectedTab === 'overview' && (
-                <div className="grid grid-cols-1 xl:grid-cols-4 gap-6">
-                  {/* Left Column - Profile Card */}
+                <div className="grid grid-cols-1 xl:grid-cols-4 gap-6 h-[calc(100vh-16rem)]">
+                  {/* Left Column - Fixed Profile Card */}
                   <div className="xl:col-span-1 order-1 xl:order-1">
-                    <ProfileCard 
-                      user={profileData} 
-                      onUpdate={fetchUserProfile}
-                    />
+                    <div className="sticky top-8 h-fit max-h-[calc(100vh-12rem)] overflow-y-auto">
+                      <ProfileCard 
+                        user={profileData} 
+                        onUpdate={fetchUserProfile}
+                      />
+                    </div>
                   </div>
                   
-                  {/* Right Column - Main Content */}
-                  <div className="xl:col-span-3 order-2 xl:order-2 space-y-6">
-                    <ProfileStats user={profileData} />
-                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-                      <PlatformCards 
-                        user={profileData}
-                        onConnectPlatform={handleConnectPlatform}
-                      />
-                      <AchievementShowcase user={profileData} />
+                  {/* Right Column - Scrollable Content */}
+                  <div className="xl:col-span-3 order-2 xl:order-2">
+                    <div className="h-[calc(100vh-16rem)] overflow-y-auto pr-4 custom-scrollbar space-y-6">
+                      <ProfileStats user={profileData} />
+                      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                        <PlatformCards 
+                          user={profileData}
+                          onConnectPlatform={handleConnectPlatform}
+                        />
+                        <AchievementShowcase user={profileData} />
+                      </div>
+                      <RecentActivity user={profileData} />
+                      <ActivityHeatmap user={profileData} />
                     </div>
-                    <RecentActivity user={profileData} />
-                    <ActivityHeatmap user={profileData} />
                   </div>
                 </div>
               )}
 
               {selectedTab === 'platforms' && (
-                <div className="grid grid-cols-1 xl:grid-cols-4 gap-6">
-                  {/* Left Column - Profile Card */}
+                <div className="grid grid-cols-1 xl:grid-cols-4 gap-6 h-[calc(100vh-16rem)]">
+                  {/* Left Column - Fixed Profile Card */}
                   <div className="xl:col-span-1 order-1 xl:order-1">
-                    <ProfileCard 
-                      user={profileData} 
-                      onUpdate={fetchUserProfile}
-                    />
+                    <div className="sticky top-8 h-fit max-h-[calc(100vh-12rem)] overflow-y-auto">
+                      <ProfileCard 
+                        user={profileData} 
+                        onUpdate={fetchUserProfile}
+                      />
+                    </div>
                   </div>
                   
-                  {/* Right Column - Platform Details */}
+                  {/* Right Column - Scrollable Platform Details */}
                   <div className="xl:col-span-3 order-2 xl:order-2">
-                    <PlatformCards 
-                      user={profileData}
-                      onConnectPlatform={handleConnectPlatform}
-                      detailed={true}
-                    />
+                    <div className="h-[calc(100vh-16rem)] overflow-y-auto pr-4 custom-scrollbar">
+                      <PlatformCards 
+                        user={profileData}
+                        onConnectPlatform={handleConnectPlatform}
+                        detailed={true}
+                      />
+                    </div>
                   </div>
                 </div>
               )}
 
               {selectedTab === 'skills' && (
-                <div className="grid grid-cols-1 xl:grid-cols-4 gap-6">
-                  {/* Left Column - Profile Card */}
+                <div className="grid grid-cols-1 xl:grid-cols-4 gap-6 h-[calc(100vh-16rem)]">
+                  {/* Left Column - Fixed Profile Card */}
                   <div className="xl:col-span-1 order-1 xl:order-1">
-                    <ProfileCard 
-                      user={profileData} 
-                      onUpdate={fetchUserProfile}
-                    />
+                    <div className="sticky top-8 h-fit max-h-[calc(100vh-12rem)] overflow-y-auto">
+                      <ProfileCard 
+                        user={profileData} 
+                        onUpdate={fetchUserProfile}
+                      />
+                    </div>
                   </div>
                   
-                  {/* Right Column - Skills Content */}
+                  {/* Right Column - Scrollable Skills Content */}
                   <div className="xl:col-span-3 order-2 xl:order-2">
-                    <SkillsOverview user={profileData} />
+                    <div className="h-[calc(100vh-16rem)] overflow-y-auto pr-4 custom-scrollbar">
+                      <SkillsOverview user={profileData} />
+                    </div>
                   </div>
                 </div>
               )}
 
               {selectedTab === 'activity' && (
-                <div className="grid grid-cols-1 xl:grid-cols-4 gap-6">
-                  {/* Left Column - Profile Card */}
+                <div className="grid grid-cols-1 xl:grid-cols-4 gap-6 h-[calc(100vh-16rem)]">
+                  {/* Left Column - Fixed Profile Card */}
                   <div className="xl:col-span-1 order-1 xl:order-1">
-                    <ProfileCard 
-                      user={profileData} 
-                      onUpdate={fetchUserProfile}
-                    />
+                    <div className="sticky top-8 h-fit max-h-[calc(100vh-12rem)] overflow-y-auto">
+                      <ProfileCard 
+                        user={profileData} 
+                        onUpdate={fetchUserProfile}
+                      />
+                    </div>
                   </div>
                   
-                  {/* Right Column - Activity Content */}
+                  {/* Right Column - Scrollable Activity Content */}
                   <div className="xl:col-span-3 order-2 xl:order-2">
-                    <ActivityHeatmap user={profileData} />
+                    <div className="h-[calc(100vh-16rem)] overflow-y-auto pr-4 custom-scrollbar">
+                      <ActivityHeatmap user={profileData} />
+                    </div>
                   </div>
                 </div>
               )}
 
               {selectedTab === 'achievements' && (
-                <AchievementShowcase user={profileData} detailed={true} />
+                <div className="grid grid-cols-1 xl:grid-cols-4 gap-6 h-[calc(100vh-16rem)]">
+                  {/* Left Column - Fixed Profile Card */}
+                  <div className="xl:col-span-1 order-1 xl:order-1">
+                    <div className="sticky top-8 h-fit max-h-[calc(100vh-12rem)] overflow-y-auto">
+                      <ProfileCard 
+                        user={profileData} 
+                        onUpdate={fetchUserProfile}
+                      />
+                    </div>
+                  </div>
+                  
+                  {/* Right Column - Scrollable Achievements Content */}
+                  <div className="xl:col-span-3 order-2 xl:order-2">
+                    <div className="h-[calc(100vh-16rem)] overflow-y-auto pr-4 custom-scrollbar">
+                      <AchievementShowcase user={profileData} detailed={true} />
+                    </div>
+                  </div>
+                </div>
               )}
 
               {selectedTab === 'analytics' && (
