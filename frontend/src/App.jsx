@@ -35,6 +35,7 @@ import InterviewSeriesOverview from "./components/interview-series/InterviewSeri
 import ComputerNetworks from "./components/interview-series/ComputerNetworks";
 import OperatingSystems from "./components/interview-series/OperatingSystems";
 import ObjectOrientedProgramming from "./components/interview-series/ObjectOrientedProgramming";
+import { config } from "./config/config";
 
 // SEO Components
 import SEO from "./components/SEO/SEO";
@@ -93,7 +94,7 @@ const AppContent = () => {
     
     const attemptTrack = async (attempt = 0) => {
       try {
-        const response = await axios.post(`${config.BACKEND_URL}/api/analytics/track`, analyticsData, {
+        const response = await axios.post(`${config.API_BASE_URL}/api/analytics/track`, analyticsData, {
           timeout: 10000, // Increased timeout
           headers: {
             'Content-Type': 'application/json'
@@ -105,7 +106,7 @@ const AppContent = () => {
         const offlineAnalytics = localStorage.getItem('offlineAnalytics');
         if (offlineAnalytics && offlineAnalytics !== '[]') {
           try {
-            await axios.post(`${config.BACKEND_URL}/api/analytics/batch`, JSON.parse(offlineAnalytics), {
+            await axios.post(`${config.API_BASE_URL}/api/analytics/batch`, JSON.parse(offlineAnalytics), {
               timeout: 10000,
               withCredentials: true
             });
@@ -238,7 +239,7 @@ const AppContent = () => {
         <Route path="/contest" element={
           <>
             <SEO page="contests" />
-            <Breadcrumb items={[{ name: 'Contests', href: '/contest' }]} />
+            {/* <Breadcrumb items={[{ name: 'Contests', href: '/contest' }]} /> */}
             <TrackedContestTracker onMount={() => trackComponentView('contests')} />
           </>
         } />

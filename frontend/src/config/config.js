@@ -1,10 +1,10 @@
 // Environment configuration for payment integration
 export const config = {
   // API endpoints
-  API_BASE_URL: process.env.VITE_API_BASE_URL || 'http://localhost:3001',
+  API_BASE_URL: import.meta.env.VITE_API_BASE_URL || 'https://prepmate-kvol.onrender.com',
   
   // Payment configuration
-  RAZORPAY_KEY_ID: process.env.VITE_RAZORPAY_KEY_ID || 'your_razorpay_key_id',
+  RAZORPAY_KEY_ID: import.meta.env.VITE_RAZORPAY_KEY_ID || 'your_razorpay_key_id',
   PREPMATE_PAYMENT_LINK: 'https://razorpay.me/@prepmate',
   
   // Payment amounts (in paise for Razorpay)
@@ -37,7 +37,7 @@ export const config = {
   CONTACT_EMAIL: 'support@prepmate.site',
   
   // Development settings
-  DEBUG: process.env.NODE_ENV === 'development',
+  DEBUG: import.meta.env.MODE === 'development',
   
   // Webhook URLs (for production)
   WEBHOOK_ENDPOINTS: {
