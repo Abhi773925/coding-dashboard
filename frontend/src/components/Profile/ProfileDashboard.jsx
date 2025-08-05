@@ -27,7 +27,6 @@ import {
 import { useAuth } from '../navigation/Navigation';
 import { fetchWithWakeUp } from '../../utils/serverWakeUp';
 import { useTheme } from '../context/ThemeContext';
-import ProfileHeader from './ProfileHeader';
 import ProfileCard from './ProfileCard';
 import PlatformCards from './PlatformCards';
 import SkillsOverview from './SkillsOverview';
@@ -307,14 +306,6 @@ const ProfileDashboard = () => {
       </div>
       
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        {/* Profile Header */}
-        <ProfileHeader 
-          user={profileData} 
-          profileMode={profileMode}
-          setProfileMode={setProfileMode}
-          onUpdate={fetchUserProfile}
-        />
-
         {/* Show welcome message for new users */}
         {profileData?.isNewUser && (
           <motion.div

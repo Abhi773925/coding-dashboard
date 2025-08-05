@@ -165,7 +165,7 @@ const ProfileCard = ({ user, onUpdate }) => {
 
   return (
     <motion.div
-      className={`rounded-2xl p-6 backdrop-blur-sm border transition-all duration-300 ${
+      className={`rounded-2xl backdrop-blur-sm border transition-all duration-300 overflow-hidden ${
         isDarkMode 
           ? 'bg-slate-900/70 border-slate-700/50 shadow-xl' 
           : 'bg-white/90 border-gray-200/50 shadow-lg'
@@ -175,19 +175,51 @@ const ProfileCard = ({ user, onUpdate }) => {
       transition={{ duration: 0.5 }}
       whileHover={{ y: -2, shadow: isDarkMode ? '0 25px 50px rgba(0,0,0,0.3)' : '0 25px 50px rgba(0,0,0,0.1)' }}
     >
-      {/* Profile Picture and Basic Info */}
-      <div className="text-center mb-6">
-        <div className="relative inline-block">
-          <div className={`w-24 h-24 rounded-full mx-auto mb-4 flex items-center justify-center text-white font-bold text-2xl ${
-            isDarkMode ? 'bg-gradient-to-br from-blue-500 to-purple-600' : 'bg-gradient-to-br from-blue-400 to-purple-500'
-          }`}>
-            {user?.name ? user.name.charAt(0).toUpperCase() : 'U'}
-          </div>
-          <div className={`absolute -bottom-1 -right-1 w-8 h-8 rounded-full flex items-center justify-center cursor-pointer transition-transform hover:scale-110 ${
-            isDarkMode ? 'bg-slate-700 text-slate-300' : 'bg-gray-100 text-gray-600'
-          }`}>
-            <Camera className="w-4 h-4" />
-          </div>
+      {/* Cover Background */}
+      <div className="h-24 bg-gradient-to-r from-purple-600 via-blue-600 to-indigo-600 relative">
+        <div className="absolute inset-0 bg-black bg-opacity-10"></div>
+        <motion.div
+          className="absolute inset-0 opacity-50"
+          animate={{
+            background: [
+              'linear-gradient(45deg, rgba(139, 92, 246, 0.3), rgba(59, 130, 246, 0.3))',
+              'linear-gradient(45deg, rgba(59, 130, 246, 0.3), rgba(99, 102, 241, 0.3))',
+              'linear-gradient(45deg, rgba(99, 102, 241, 0.3), rgba(139, 92, 246, 0.3))',
+            ]
+          }}
+          transition={{ duration: 8, repeat: Infinity, repeatType: 'reverse' }}
+        />
+      </div>
+
+      <div className="px-4 pb-4">
+        {/* Profile Picture and Basic Info */}
+        <div className="relative -mt-12 mb-4">
+          <div className="flex flex-col items-center text-center">
+            <div className="relative mb-3">
+              {user?.avatar || user?.picture ? (
+                <img
+                  src={user.avatar || user.picture}
+                  alt={user?.name || 'Profile'}
+                  className="w-20 h-20 rounded-full border-4 border-white shadow-lg object-cover"
+                  onError={(e) => {
+                    e.target.style.display = 'none';
+                    e.target.nextSibling.style.display = 'flex';
+                  }}
+                />
+              ) : null}
+              <div 
+                className={`w-20 h-20 rounded-full flex items-center justify-center text-white font-bold text-xl border-4 border-white shadow-lg ${
+                  isDarkMode ? 'bg-gradient-to-br from-blue-500 to-purple-600' : 'bg-gradient-to-br from-blue-400 to-purple-500'
+                } ${(user?.avatar || user?.picture) ? 'hidden' : 'flex'}`}
+              >
+                {user?.name ? user.name.charAt(0).toUpperCase() : 'U'}
+              </div>
+              {isEditing && (
+                <div className="absolute -bottom-1 -right-1 w-6 h-6 rounded-full flex items-center justify-center cursor-pointer transition-transform hover:scale-110 bg-gradient-to-r from-purple-600 to-blue-600 text-white shadow-lg">
+                  <Camera className="w-3 h-3" />
+                </div>
+              )}
+            </div>
         </div>
 
         {isEditing ? (
@@ -531,6 +563,7 @@ const ProfileCard = ({ user, onUpdate }) => {
           />
         </div>
       </div>
+    </div>
     </motion.div>
   );
 };
