@@ -8,47 +8,49 @@
   overflow: hidden;
 }
 
-/* Custom Scrollbar */
+/* Enhanced Custom Scrollbar */
 .custom-scrollbar {
   scrollbar-width: thin;
-  scrollbar-color: rgba(156, 163, 175, 0.5) transparent;
+  scrollbar-color: rgba(156, 163, 175, 0.6) transparent;
 }
 
 .custom-scrollbar::-webkit-scrollbar {
-  width: 6px;
-  height: 6px;
+  width: 8px;
+  height: 8px;
 }
 
 .custom-scrollbar::-webkit-scrollbar-track {
   background: transparent;
+  border-radius: 4px;
 }
 
 .custom-scrollbar::-webkit-scrollbar-thumb {
-  background: rgba(156, 163, 175, 0.5);
-  border-radius: 3px;
-  transition: background 0.3s ease;
+  background: linear-gradient(135deg, rgba(156, 163, 175, 0.6), rgba(107, 114, 128, 0.8));
+  border-radius: 4px;
+  transition: all 0.3s ease;
 }
 
 .custom-scrollbar::-webkit-scrollbar-thumb:hover {
-  background: rgba(156, 163, 175, 0.8);
+  background: linear-gradient(135deg, rgba(156, 163, 175, 0.8), rgba(107, 114, 128, 1));
+  transform: scale(1.1);
 }
 
 /* Dark mode scrollbar */
 @media (prefers-color-scheme: dark) {
   .custom-scrollbar {
-    scrollbar-color: rgba(75, 85, 99, 0.5) transparent;
+    scrollbar-color: rgba(75, 85, 99, 0.6) transparent;
   }
   
   .custom-scrollbar::-webkit-scrollbar-thumb {
-    background: rgba(75, 85, 99, 0.5);
+    background: linear-gradient(135deg, rgba(75, 85, 99, 0.6), rgba(55, 65, 81, 0.8));
   }
   
   .custom-scrollbar::-webkit-scrollbar-thumb:hover {
-    background: rgba(75, 85, 99, 0.8);
+    background: linear-gradient(135deg, rgba(75, 85, 99, 0.8), rgba(55, 65, 81, 1));
   }
 }
 
-/* Mobile responsiveness improvements */
+/* Enhanced Mobile responsiveness improvements */
 @media (max-width: 768px) {
   .contest-list-view {
     width: 100%;
@@ -56,74 +58,294 @@
   }
   
   .calendar-grid {
-    grid-template-columns: repeat(7, minmax(35px, 1fr));
-    gap: 1px;
+    grid-template-columns: repeat(7, minmax(45px, 1fr));
+    gap: 4px;
   }
   
   .calendar-cell {
-    min-height: 3rem;
-    padding: 0.25rem;
+    min-height: 4rem;
+    padding: 0.5rem;
+    border-radius: 8px;
   }
   
   .min-h-16 {
-    min-height: 3rem;
+    min-height: 4rem;
   }
   
   .contest-event {
     font-size: 0.625rem;
-    padding: 0.125rem;
+    padding: 0.25rem;
+    border-radius: 4px;
   }
   
   /* Better touch targets for mobile */
   .mobile-button {
     min-height: 44px;
     min-width: 44px;
+    padding: 12px;
+  }
+
+  /* Mobile calendar improvements */
+  .mobile-calendar-day {
+    min-height: 80px;
+  }
+
+  .mobile-contest-item {
+    font-size: 0.7rem;
+    padding: 2px 4px;
+    margin-bottom: 2px;
   }
 }
 
-/* Smooth transitions */
+/* Tablet responsiveness */
+@media (min-width: 768px) and (max-width: 1024px) {
+  .calendar-grid {
+    grid-template-columns: repeat(7, minmax(80px, 1fr));
+    gap: 6px;
+  }
+  
+  .calendar-cell {
+    min-height: 6rem;
+    padding: 0.75rem;
+  }
+  
+  .contest-event {
+    font-size: 0.75rem;
+    padding: 0.375rem;
+  }
+}
+
+/* Desktop improvements */
+@media (min-width: 1024px) {
+  .calendar-grid {
+    grid-template-columns: repeat(7, minmax(120px, 1fr));
+    gap: 8px;
+  }
+  
+  .calendar-cell {
+    min-height: 8rem;
+    padding: 1rem;
+  }
+  
+  .contest-event {
+    font-size: 0.875rem;
+    padding: 0.5rem;
+  }
+}
+
+/* Smooth transitions and animations */
 .transition-colors {
   transition-property: color, background-color, border-color, text-decoration-color, fill, stroke;
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-  transition-duration: 150ms;
+  transition-duration: 200ms;
 }
 
-/* Contest event styling */
+.transition-transform {
+  transition-property: transform;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 200ms;
+}
+
+.transition-all {
+  transition-property: all;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 200ms;
+}
+
+/* Enhanced Contest event styling */
 .contest-event {
-  font-size: 0.75rem;
-  padding: 0.125rem 0.25rem;
-  border-radius: 0.25rem;
+  font-weight: 500;
+  border-radius: 8px;
   color: white;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
   cursor: pointer;
   transition: all 0.2s ease;
-}
-
-.contest-event:hover {
-  transform: scale(1.02);
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-/* Calendar cell hover effects */
+.contest-event:hover {
+  transform: translateY(-2px) scale(1.02);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Enhanced Calendar cell hover effects */
 .calendar-cell {
   transition: all 0.2s ease;
+  border-radius: 12px;
 }
 
 .calendar-cell:hover {
-  background-color: rgba(59, 130, 246, 0.05);
+  background-color: rgba(59, 130, 246, 0.08);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
-/* Platform colors */
-.leetcode-bg { background-color: #ff8c00; }
-.codeforces-bg { background-color: #1976d2; }
-.codechef-bg { background-color: #ffc107; }
-.atcoder-bg { background-color: #dc3545; }
+/* Enhanced Platform colors with gradients */
+.leetcode-bg { 
+  background: linear-gradient(135deg, #ff8c00, #ff6b00);
+}
+.codeforces-bg { 
+  background: linear-gradient(135deg, #1976d2, #1565c0);
+}
+.codechef-bg { 
+  background: linear-gradient(135deg, #ffc107, #ff9800);
+}
+.atcoder-bg { 
+  background: linear-gradient(135deg, #dc3545, #c82333);
+}
 
 /* Dark mode adjustments */
 @media (prefers-color-scheme: dark) {
   .calendar-cell:hover {
-    background-color: rgba(59, 130, 246, 0.1);
+    background-color: rgba(59, 130, 246, 0.15);
+  }
+  
+  .contest-event {
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  }
+  
+  .contest-event:hover {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+  }
+}
+
+/* Loading animations */
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.animate-pulse {
+  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+.animate-fadeIn {
+  animation: fadeIn 0.6s ease-out forwards;
+}
+
+.animate-fadeInUp {
+  animation: fadeInUp 0.6s ease-out forwards;
+  opacity: 0;
+}
+
+.animate-slideInRight {
+  animation: slideInRight 0.5s ease-out forwards;
+}
+
+/* Gradient backgrounds */
+.gradient-bg {
+  background: linear-gradient(135deg, rgba(99, 102, 241, 0.1), rgba(168, 85, 247, 0.1));
+}
+
+.gradient-bg-dark {
+  background: linear-gradient(135deg, rgba(99, 102, 241, 0.2), rgba(168, 85, 247, 0.2));
+}
+
+/* Button enhancements */
+.btn-gradient {
+  background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+  transition: all 0.3s ease;
+}
+
+.btn-gradient:hover {
+  background: linear-gradient(135deg, #2563eb, #7c3aed);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+}
+
+/* Contest card enhancements */
+.contest-card {
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  background: rgba(255, 255, 255, 0.8);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.contest-card-dark {
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  background: rgba(31, 41, 55, 0.8);
+  border: 1px solid rgba(75, 85, 99, 0.3);
+}
+
+/* Responsive typography */
+@media (max-width: 640px) {
+  .responsive-text-sm {
+    font-size: 0.75rem;
+  }
+  
+  .responsive-text-base {
+    font-size: 0.875rem;
+  }
+  
+  .responsive-text-lg {
+    font-size: 1rem;
+  }
+}
+
+@media (min-width: 641px) and (max-width: 1024px) {
+  .responsive-text-sm {
+    font-size: 0.875rem;
+  }
+  
+  .responsive-text-base {
+    font-size: 1rem;
+  }
+  
+  .responsive-text-lg {
+    font-size: 1.125rem;
+  }
+}
+
+@media (min-width: 1025px) {
+  .responsive-text-sm {
+    font-size: 0.875rem;
+  }
+  
+  .responsive-text-base {
+    font-size: 1rem;
+  }
+  
+  .responsive-text-lg {
+    font-size: 1.25rem;
   }
 }
