@@ -832,27 +832,7 @@ const CourseProgress = () => {
         transition-all duration-300
       `}
     >
-      {/* Hero Header */}
-      <div className={`
-        relative overflow-hidden p-3 sm:p-4 lg:p-6 rounded-xl sm:rounded-2xl mx-2 sm:mx-4 mb-3 sm:mb-4 lg:mb-6 border backdrop-blur-md
-        ${isDarkMode ? "bg-slate-800/70 border-slate-700/50" : "bg-white/80 border-gray-200/50"}
-        shadow-2xl
-      `}>
-        <div className="text-center">
-          <motion.h1
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            className={`text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold mb-2 sm:mb-4
-              bg-clip-text text-transparent
-              ${isDarkMode ? "bg-gradient-to-r from-purple-400 via-blue-400 to-cyan-400" : "bg-gradient-to-r from-purple-600 via-blue-600 to-indigo-600"}
-            `}
-          >
-            {course?.courseTitle || "Course Progress"}
-          </motion.h1>
-          
-        </div>
-      </div>
+      
 
       {/* Main Content Area */}
       <div className="flex-grow p-2 sm:p-3 max-w-7xl mx-auto w-full space-y-3 sm:space-y-4 lg:space-y-6">
