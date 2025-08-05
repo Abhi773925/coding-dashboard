@@ -124,40 +124,71 @@ const ProgressRing = ({ progress, size = 120, strokeWidth = 8, color = "#8B5CF6"
 const DayCard = ({ day, isSelected, onClick, isDarkMode, progress }) => (
   <motion.button
     onClick={onClick}
-    whileHover={{ scale: 1.05 }}
-    whileTap={{ scale: 0.95 }}
+    whileHover={{ scale: 1.02, y: -2 }}
+    whileTap={{ scale: 0.98 }}
     className={`
-      relative p-4 rounded-2xl min-w-[180px] border transition-all duration-300
+      relative p-6 rounded-2xl min-w-[200px] border transition-all duration-300 backdrop-blur-md
       ${
         isSelected
           ? isDarkMode
-            ? "bg-gradient-to-br from-purple-600 to-blue-600 border-purple-500 shadow-lg shadow-purple-900/30"
-            : "bg-gradient-to-br from-purple-600 to-blue-600 border-purple-500 shadow-lg shadow-purple-600/30"
+            ? "bg-gradient-to-br from-purple-600 to-blue-600 border-purple-500 shadow-xl shadow-purple-900/50"
+            : "bg-gradient-to-br from-purple-600 to-blue-600 border-purple-500 shadow-xl shadow-purple-600/30"
           : isDarkMode
-            ? "bg-slate-800/70 border-slate-700/50 hover:bg-slate-700/70"
-            : "bg-white/80 border-gray-200/50 hover:bg-gray-100/80"
+            ? "bg-slate-800/80 border-slate-700/50 hover:bg-slate-700/80 hover:border-slate-600/60"
+            : "bg-white/90 border-gray-200/50 hover:bg-gray-50/90 hover:border-gray-300/60"
       }
     `}
+    style={{
+      boxShadow: isSelected 
+        ? isDarkMode 
+          ? "0 20px 40px rgba(139, 92, 246, 0.3)" 
+          : "0 20px 40px rgba(139, 92, 246, 0.2)"
+        : isDarkMode 
+          ? "0 10px 25px rgba(0,0,0,0.3)" 
+          : "0 10px 25px rgba(0,0,0,0.1)"
+    }}
   >
-    <div className="flex items-center justify-between mb-2">
-      <h3 className={`font-bold text-lg ${isSelected ? "text-white" : isDarkMode ? "text-white" : "text-gray-900"}`}>
-        Day {day.dayNumber}
-      </h3>
+    {/* Progress indicator at top */}
+    <div className="absolute top-2 right-2">
+      <div className={`w-3 h-3 rounded-full ${progress === 100 ? 'bg-green-500' : progress > 50 ? 'bg-yellow-500' : 'bg-red-500'}`} />
+    </div>
+    
+    <div className="flex flex-col items-center space-y-4">
+      {/* Day number with progress ring */}
       <div className="relative">
         <ProgressRing 
           progress={progress} 
-          size={40} 
-          strokeWidth={4} 
+          size={60} 
+          strokeWidth={6} 
           color={isSelected ? "#FFFFFF" : "#8B5CF6"}
           isDarkMode={isDarkMode}
         />
+        <div className="absolute inset-0 flex items-center justify-center">
+          <span className={`text-sm font-bold ${isSelected ? "text-white" : isDarkMode ? "text-white" : "text-gray-900"}`}>
+            {day.dayNumber}
+          </span>
+        </div>
       </div>
-    </div>
-    <p className={`text-sm ${isSelected ? "text-blue-100" : isDarkMode ? "text-gray-400" : "text-gray-600"}`}>
-      {day.dayTitle}
-    </p>
-    <div className={`mt-2 text-xs ${isSelected ? "text-blue-200" : isDarkMode ? "text-gray-500" : "text-gray-500"}`}>
-      {day.questions.filter(q => q.status).length}/{day.questions.length} completed
+      
+      {/* Day title */}
+      <div className="text-center">
+        <h3 className={`font-bold text-lg mb-1 ${isSelected ? "text-white" : isDarkMode ? "text-white" : "text-gray-900"}`}>
+          Day {day.dayNumber}
+        </h3>
+        <p className={`text-sm leading-tight ${isSelected ? "text-blue-100" : isDarkMode ? "text-gray-400" : "text-gray-600"}`}>
+          {day.dayTitle?.length > 20 ? `${day.dayTitle?.substring(0, 20)}...` : day.dayTitle}
+        </p>
+      </div>
+      
+      {/* Progress stats */}
+      <div className={`text-center px-3 py-2 rounded-full ${isSelected ? "bg-white/20" : isDarkMode ? "bg-slate-700/50" : "bg-gray-100/80"}`}>
+        <div className={`text-xs font-medium ${isSelected ? "text-blue-100" : isDarkMode ? "text-gray-300" : "text-gray-700"}`}>
+          {day.questions?.filter(q => q.status).length || 0}/{day.questions?.length || 0} completed
+        </div>
+        <div className={`text-xs ${isSelected ? "text-blue-200" : isDarkMode ? "text-gray-400" : "text-gray-500"}`}>
+          {Math.round(progress)}% done
+        </div>
+      </div>
     </div>
   </motion.button>
 )
@@ -805,14 +836,17 @@ const CourseProgress = () => {
       `}
     >
       {/* Hero Header */}
-      <div className="relative overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-r from-purple-600/20 to-blue-600/20 backdrop-blur-3xl" />
-        <div className="relative z-10 text-center py-12 px-4">
+      <div className={`
+        relative overflow-hidden p-8 rounded-3xl mx-4 mb-8 border backdrop-blur-md
+        ${isDarkMode ? "bg-slate-800/70 border-slate-700/50" : "bg-white/80 border-gray-200/50"}
+        shadow-2xl
+      `}>
+        <div className="text-center">
           <motion.h1
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
-            className={`text-5xl sm:text-6xl md:text-7xl font-bold mb-4
+            className={`text-4xl sm:text-5xl md:text-6xl font-bold mb-4
               bg-clip-text text-transparent
               ${isDarkMode ? "bg-gradient-to-r from-purple-400 via-blue-400 to-cyan-400" : "bg-gradient-to-r from-purple-600 via-blue-600 to-indigo-600"}
             `}
@@ -824,7 +858,7 @@ const CourseProgress = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.2 }}
-            className={`text-lg ${isDarkMode ? "text-gray-300" : "text-gray-600"} max-w-2xl mx-auto`}
+            className={`text-lg ${isDarkMode ? "text-gray-300" : "text-gray-600"} max-w-2xl mx-auto mb-6`}
           >
             Track your coding journey with advanced analytics and personalized insights
           </motion.p>
@@ -834,8 +868,9 @@ const CourseProgress = () => {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.4 }}
-              className={`mt-4 inline-flex items-center px-6 py-3 rounded-full backdrop-blur-md
-                ${isDarkMode ? "bg-slate-800/70 border border-slate-700/50" : "bg-white/70 border border-gray-200/50"}
+              className={`inline-flex items-center px-6 py-3 rounded-full backdrop-blur-md
+                ${isDarkMode ? "bg-slate-700/70 border border-slate-600/50" : "bg-gray-100/70 border border-gray-300/50"}
+                shadow-lg
               `}
             >
               <Users size={20} className="mr-2 text-purple-500" />
@@ -1015,27 +1050,70 @@ const CourseProgress = () => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.4 }}
           className={`
-            p-6 rounded-2xl border backdrop-blur-md
+            p-8 rounded-3xl border backdrop-blur-md
             ${isDarkMode ? "bg-slate-800/70 border-slate-700/50" : "bg-white/80 border-gray-200/50"}
-            shadow-xl
+            shadow-2xl
           `}
+          style={{
+            boxShadow: isDarkMode ? "0 25px 50px rgba(0,0,0,0.4)" : "0 25px 50px rgba(0,0,0,0.1)",
+          }}
         >
-          <h2 className={`text-2xl font-bold mb-6 flex items-center ${isDarkMode ? "text-white" : "text-gray-900"}`}>
-            <Calendar className="mr-3 text-purple-500" size={28} />
-            Course Timeline
-          </h2>
+          <div className="flex items-center justify-between mb-8">
+            <h2 className={`text-3xl font-bold flex items-center ${isDarkMode ? "text-white" : "text-gray-900"}`}>
+              <Calendar className="mr-4 text-purple-500" size={32} />
+              Course Timeline
+            </h2>
+            <div className={`px-4 py-2 rounded-full ${isDarkMode ? "bg-slate-700/60" : "bg-gray-100/80"}`}>
+              <span className={`text-sm font-medium ${isDarkMode ? "text-gray-300" : "text-gray-600"}`}>
+                {course?.days?.length || 0} Days Total
+              </span>
+            </div>
+          </div>
           
-          <div className="flex overflow-x-auto pb-4 space-x-4">
-            {course?.days?.filter(day => day && day.dayNumber).map((day) => (
-              <DayCard
-                key={day.dayNumber}
-                day={day}
-                isSelected={selectedDay === day.dayNumber}
-                onClick={() => setSelectedDay(day.dayNumber)}
-                isDarkMode={isDarkMode}
-                progress={getDayProgress(day)}
-              />
-            ))}
+          <div className="relative">
+            {/* Timeline line */}
+            <div className={`absolute top-16 left-0 right-0 h-1 rounded-full ${isDarkMode ? "bg-slate-700" : "bg-gray-200"}`} />
+            
+            {/* Day cards container */}
+            <div className="flex overflow-x-auto pb-6 space-x-6" style={{
+              scrollbarWidth: 'none',
+              msOverflowStyle: 'none',
+              WebkitScrollbar: { display: 'none' }
+            }}>
+              {course?.days?.filter(day => day && day.dayNumber).map((day, index) => (
+                <div key={day.dayNumber} className="relative flex-shrink-0">
+                  <DayCard
+                    day={day}
+                    isSelected={selectedDay === day.dayNumber}
+                    onClick={() => setSelectedDay(day.dayNumber)}
+                    isDarkMode={isDarkMode}
+                    progress={getDayProgress(day)}
+                  />
+                  {/* Timeline connector */}
+                  {index < (course?.days?.length - 1) && (
+                    <div className={`absolute top-16 -right-3 w-6 h-1 ${
+                      getDayProgress(day) === 100 ? "bg-green-500" : isDarkMode ? "bg-slate-600" : "bg-gray-300"
+                    }`} />
+                  )}
+                </div>
+              ))}
+            </div>
+          </div>
+          
+          {/* Timeline legend */}
+          <div className="mt-8 flex items-center justify-center space-x-6">
+            <div className="flex items-center space-x-2">
+              <div className="w-3 h-3 bg-green-500 rounded-full"></div>
+              <span className={`text-sm ${isDarkMode ? "text-gray-400" : "text-gray-600"}`}>Completed</span>
+            </div>
+            <div className="flex items-center space-x-2">
+              <div className="w-3 h-3 bg-yellow-500 rounded-full"></div>
+              <span className={`text-sm ${isDarkMode ? "text-gray-400" : "text-gray-600"}`}>In Progress</span>
+            </div>
+            <div className="flex items-center space-x-2">
+              <div className="w-3 h-3 bg-red-500 rounded-full"></div>
+              <span className={`text-sm ${isDarkMode ? "text-gray-400" : "text-gray-600"}`}>Not Started</span>
+            </div>
           </div>
         </motion.div>
 
