@@ -64,6 +64,24 @@ const ContestCalendar = () => {
     fetchContests()
   }, [])
 
+  // Debug logging to help understand contest categorization
+  useEffect(() => {
+    if (contestData.contests.length > 0) {
+      console.log('=== Contest Debug Info ===')
+      console.log('Total contests:', contestData.contests.length)
+      console.log('Upcoming contests:', upcomingContests.length)
+      console.log('Past contests:', pastContests.length)
+      
+      // Log first few contests with their status
+      contestData.contests.slice(0, 5).forEach(contest => {
+        const contestDate = new Date(contest.start_time)
+        const now = new Date()
+        const isPast = contest.past === true || contestDate < now
+        console.log(`${contest.title}: ${isPast ? 'PAST' : 'UPCOMING'} (${contestDate.toLocaleDateString()})`)
+      })
+    }
+  }, [contestData.contests, upcomingContests.length, pastContests.length])
+
   // Calendar utilities
   const getMonthName = (date) => {
     return date.toLocaleDateString('en-US', { month: 'long', year: 'numeric' })
@@ -120,12 +138,20 @@ const ContestCalendar = () => {
   }, [contestData.contests, selectedPlatforms, searchTerm])
 
   const upcomingContests = filteredContests
-    .filter(contest => !contest.past)
+    .filter(contest => {
+      const contestDate = new Date(contest.start_time)
+      const now = new Date()
+      return !contest.past && contestDate > now
+    })
     .sort((a, b) => new Date(a.start_time) - new Date(b.start_time))
     .slice(0, 10) // Show only next 10 contests
 
   const pastContests = filteredContests
-    .filter(contest => contest.past || new Date(contest.start_time) < new Date())
+    .filter(contest => {
+      const contestDate = new Date(contest.start_time)
+      const now = new Date()
+      return contest.past === true || contestDate < now
+    })
     .sort((a, b) => new Date(b.start_time) - new Date(a.start_time))
     .slice(0, 15) // Show last 15 past contests
 
@@ -172,6 +198,28 @@ const ContestCalendar = () => {
       month: 'short', 
       day: 'numeric'
     })
+  }
+
+  const getTimeRemaining = (startTime) => {
+    const now = new Date()
+    const contestTime = new Date(startTime)
+    const diff = contestTime - now
+
+    if (diff <= 0) {
+      return 'Completed'
+    }
+
+    const days = Math.floor(diff / (1000 * 60 * 60 * 24))
+    const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60))
+    const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60))
+
+    if (days > 0) {
+      return `${days}d ${hours}h ${minutes}m`
+    } else if (hours > 0) {
+      return `${hours}h ${minutes}m`
+    } else {
+      return `${minutes}m`
+    }
   }
 
   if (contestData.loading) {
@@ -252,18 +300,26 @@ const ContestCalendar = () => {
             {/* Platform Filter Dropdown */}
             <div className="mt-4">
               <select 
-                multiple={false}
+                value={selectedPlatforms.length === 0 ? "" : selectedPlatforms[0]}
+                onChange={(e) => {
+                  const platform = e.target.value
+                  if (platform === "") {
+                    setSelectedPlatforms([])
+                  } else {
+                    setSelectedPlatforms([platform])
+                  }
+                }}
                 className={`w-full px-3 py-2.5 rounded-lg border transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500 ${
                   isDarkMode 
                     ? 'bg-gray-700 border-gray-600 text-white' 
                     : 'bg-white border-gray-300 text-gray-900'
                 }`}
-                defaultValue=""
               >
                 <option value="">All Platforms Selected</option>
-                <option value="leetcode">LeetCode</option>
-                <option value="codeforces">Codeforces</option>
-                <option value="codechef">CodeChef</option>
+                <option value="LeetCode">LeetCode</option>
+                <option value="Codeforces">Codeforces</option>
+                <option value="CodeChef">CodeChef</option>
+                <option value="AtCoder">AtCoder</option>
               </select>
             </div>
           </div>
@@ -274,7 +330,8 @@ const ContestCalendar = () => {
               {(activeView === 'upcoming' ? upcomingContests : pastContests).length > 0 
                 ? (activeView === 'upcoming' ? upcomingContests : pastContests).map(contest => {
                   const contestDate = new Date(contest.start_time)
-                  const isPast = contest.past || contestDate < new Date()
+                  const now = new Date()
+                  const isPast = contest.past === true || contestDate < now
                   
                   return (
                     <div
@@ -322,7 +379,7 @@ const ContestCalendar = () => {
                           </div>
                           <div className="text-xs mb-3">
                             <span className={`${isDarkMode ? 'text-gray-400' : 'text-gray-500'}`}>
-                              Starts in {isPast ? 'Completed' : '1 Day 6 Hrs 44 Mins 28 Secs'}
+                              ⏰ {getTimeRemaining(contest.start_time)}
                             </span>
                           </div>
                           <div className="text-xs mb-3">
@@ -336,15 +393,52 @@ const ContestCalendar = () => {
                             </span>
                           </div>
                           
-                          {/* Action Button */}
-                          <a
-                            href={contest.url}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="inline-block text-xs px-3 py-1.5 rounded text-blue-600 underline hover:text-blue-700 transition-colors"
-                          >
-                            Add to Calendar
-                          </a>
+                          {/* Action Buttons */}
+                          <div className="flex items-center gap-2 flex-wrap">
+                            <a
+                              href={contest.url}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="text-xs px-3 py-1.5 rounded text-blue-600 underline hover:text-blue-700 transition-colors"
+                            >
+                              {isPast ? 'View Contest' : 'Join Contest'}
+                            </a>
+                            
+                            {isPast && (
+                              <button
+                                onClick={() => {
+                                  // Open solutions/editorial based on platform
+                                  let solutionUrl = contest.url;
+                                  
+                                  if (contest.platform === 'LeetCode') {
+                                    const contestName = contest.title.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '');
+                                    solutionUrl = `https://leetcode.com/contest/${contestName}/`;
+                                  } else if (contest.platform === 'Codeforces') {
+                                    solutionUrl = `https://codeforces.com/blog/entry/solutions`;
+                                  } else if (contest.platform === 'CodeChef') {
+                                    solutionUrl = `https://discuss.codechef.com/search?q=${encodeURIComponent(contest.title)}`;
+                                  }
+                                  
+                                  window.open(solutionUrl, '_blank');
+                                }}
+                                className="text-xs px-3 py-1.5 rounded bg-green-600 text-white hover:bg-green-700 transition-colors"
+                                title="View Solutions & Editorial"
+                              >
+                                Solutions
+                              </button>
+                            )}
+                            
+                            <button
+                              onClick={() => {
+                                navigator.clipboard.writeText(contest.url);
+                                // You can add a toast notification here
+                              }}
+                              className="text-xs px-3 py-1.5 rounded bg-gray-500 text-white hover:bg-gray-600 transition-colors"
+                              title="Copy Contest Link"
+                            >
+                              Copy Link
+                            </button>
+                          </div>
                         </div>
                       </div>
                     </div>
@@ -442,21 +536,26 @@ const ContestCalendar = () => {
                         
                         <div className="space-y-1">
                           {dayContests.slice(0, 3).map(contest => {
-                            const isPast = contest.past || new Date(contest.start_time) < new Date()
+                            const contestDate = new Date(contest.start_time)
+                            const now = new Date()
+                            const isPast = contest.past === true || contestDate < now
                             const platformIcon = platformIcons[contest.platform] || '📝'
                             return (
-                              <div
+                              <a
                                 key={contest._id}
-                                className={`text-xs p-1 rounded text-white truncate cursor-pointer transition-opacity hover:opacity-80 ${
+                                href={contest.url}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className={`block text-xs p-1 rounded text-white truncate cursor-pointer transition-all duration-200 hover:opacity-80 hover:scale-105 ${
                                   platformColors[contest.platform] || 'bg-gray-500'
                                 } ${isPast ? 'opacity-60' : ''}`}
-                                title={`${contest.title} ${isPast ? '(Completed)' : ''}`}
+                                title={`${contest.title} ${isPast ? '(Completed)' : ''} - Click to view contest`}
                               >
                                 <div className="flex items-center gap-1">
                                   <span>{platformIcon}</span>
                                   <span className="truncate">{contest.title.slice(0, 12)}...</span>
                                 </div>
-                              </div>
+                              </a>
                             )
                           })}
                           {dayContests.length > 3 && (
