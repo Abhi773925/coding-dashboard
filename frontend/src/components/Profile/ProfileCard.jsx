@@ -461,17 +461,17 @@ const ProfileCard = ({ user, onUpdate }) => {
 
       {/* Social Media Links Section */}
       {(user?.github || user?.linkedin || user?.instagram) && !isEditing && (
-        <div className="px-4 mb-6">
-          <h3 className={`text-sm font-semibold mb-3 ${isDarkMode ? 'text-white' : 'text-gray-900'}`}>
+        <div className="px-3 sm:px-4 mb-4 sm:mb-6">
+          <h3 className={`text-xs sm:text-sm font-semibold mb-2 sm:mb-3 ${isDarkMode ? 'text-white' : 'text-gray-900'}`}>
             Social Links
           </h3>
-          <div className="flex items-center space-x-4 justify-center">
+          <div className="flex items-center space-x-3 sm:space-x-4 justify-center">
             {user?.github && (
               <motion.a
                 href={`https://github.com/${user.github}`}
                 target="_blank"
                 rel="noopener noreferrer"
-                className={`p-3 rounded-full transition-all duration-300 hover:scale-110 ${
+                className={`p-2 sm:p-3 rounded-full transition-all duration-300 hover:scale-110 ${
                   isDarkMode 
                     ? 'bg-slate-800/50 hover:bg-slate-700/70 text-slate-300 hover:text-white' 
                     : 'bg-gray-100 hover:bg-gray-200 text-gray-600 hover:text-gray-900'
@@ -480,7 +480,7 @@ const ProfileCard = ({ user, onUpdate }) => {
                 whileTap={{ scale: 0.95 }}
                 title={`@${user.github} on GitHub`}
               >
-                <Github className="w-5 h-5" />
+                <Github className="w-4 h-4 sm:w-5 sm:h-5" />
               </motion.a>
             )}
 
@@ -489,7 +489,7 @@ const ProfileCard = ({ user, onUpdate }) => {
                 href={`https://linkedin.com/in/${user.linkedin}`}
                 target="_blank"
                 rel="noopener noreferrer"
-                className={`p-3 rounded-full transition-all duration-300 hover:scale-110 ${
+                className={`p-2 sm:p-3 rounded-full transition-all duration-300 hover:scale-110 ${
                   isDarkMode 
                     ? 'bg-slate-800/50 hover:bg-blue-600/20 text-slate-300 hover:text-blue-400' 
                     : 'bg-gray-100 hover:bg-blue-50 text-gray-600 hover:text-blue-600'
@@ -498,7 +498,7 @@ const ProfileCard = ({ user, onUpdate }) => {
                 whileTap={{ scale: 0.95 }}
                 title={`@${user.linkedin} on LinkedIn`}
               >
-                <Linkedin className="w-5 h-5" />
+                <Linkedin className="w-4 h-4 sm:w-5 sm:h-5" />
               </motion.a>
             )}
 
@@ -507,7 +507,7 @@ const ProfileCard = ({ user, onUpdate }) => {
                 href={`https://instagram.com/${user.instagram}`}
                 target="_blank"
                 rel="noopener noreferrer"
-                className={`p-3 rounded-full transition-all duration-300 hover:scale-110 ${
+                className={`p-2 sm:p-3 rounded-full transition-all duration-300 hover:scale-110 ${
                   isDarkMode 
                     ? 'bg-slate-800/50 hover:bg-pink-600/20 text-slate-300 hover:text-pink-400' 
                     : 'bg-gray-100 hover:bg-pink-50 text-gray-600 hover:text-pink-600'
@@ -516,7 +516,7 @@ const ProfileCard = ({ user, onUpdate }) => {
                 whileTap={{ scale: 0.95 }}
                 title={`@${user.instagram} on Instagram`}
               >
-                <Instagram className="w-5 h-5" />
+                <Instagram className="w-4 h-4 sm:w-5 sm:h-5" />
               </motion.a>
             )}
           </div>
@@ -526,26 +526,26 @@ const ProfileCard = ({ user, onUpdate }) => {
       
       {/* Platform Ranks */}
       {platformRanks.length > 0 && (
-        <div className="px-4 mb-4">
-          <h3 className={`text-sm font-semibold mb-2 ${isDarkMode ? 'text-white' : 'text-gray-900'}`}>
+        <div className="px-3 sm:px-4 mb-3 sm:mb-4">
+          <h3 className={`text-xs sm:text-sm font-semibold mb-1.5 sm:mb-2 ${isDarkMode ? 'text-white' : 'text-gray-900'}`}>
             Platform Rankings
           </h3>
-          <div className="space-y-1.5">
+          <div className="space-y-1 sm:space-y-1.5">
             {platformRanks.map((rank, index) => {
               const Icon = rank.icon;
               return (
-                <div key={index} className={`flex items-center justify-between p-2 rounded-lg min-w-0 ${
+                <div key={index} className={`flex items-center justify-between p-1.5 sm:p-2 rounded-lg min-w-0 ${
                   isDarkMode ? 'bg-slate-800/30' : 'bg-gray-50/50'
                 }`}>
-                  <div className="flex items-center space-x-2 min-w-0 flex-1">
-                    <div className={`p-1.5 rounded-lg bg-gradient-to-r flex-shrink-0 ${rank.color}`}>
-                      <Icon className="w-3 h-3 text-white" />
+                  <div className="flex items-center space-x-1.5 sm:space-x-2 min-w-0 flex-1">
+                    <div className={`p-1 sm:p-1.5 rounded-lg bg-gradient-to-r flex-shrink-0 ${rank.color}`}>
+                      <Icon className="w-2.5 h-2.5 sm:w-3 sm:h-3 text-white" />
                     </div>
                     <span className={`text-xs font-medium truncate ${isDarkMode ? 'text-slate-300' : 'text-gray-700'}`}>
                       {rank.platform}
                     </span>
                   </div>
-                  <span className={`text-xs font-bold ml-2 flex-shrink-0 ${isDarkMode ? 'text-white' : 'text-gray-900'}`}>
+                  <span className={`text-xs font-bold ml-1.5 sm:ml-2 flex-shrink-0 ${isDarkMode ? 'text-white' : 'text-gray-900'}`}>
                     {rank.rank}
                   </span>
                 </div>
