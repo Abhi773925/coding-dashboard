@@ -514,7 +514,7 @@ const ProfileCard = ({ user, onUpdate }) => {
       )}
 
       {/* Quick Stats */}
-      <div className="px-4 grid grid-cols-2 gap-4 mb-6">
+      {/* <div className="px-4 grid grid-cols-2 gap-4 mb-6">
         <div className={`text-center p-3 rounded-lg ${
           isDarkMode ? 'bg-slate-800/50' : 'bg-gray-50'
         }`}>
@@ -535,7 +535,7 @@ const ProfileCard = ({ user, onUpdate }) => {
             Platforms
           </div>
         </div>
-      </div>
+      </div> */}
 
       {/* Platform Ranks */}
       {platformRanks.length > 0 && (
