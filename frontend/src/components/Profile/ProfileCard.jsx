@@ -180,7 +180,7 @@ const ProfileCard = ({ user, onUpdate }) => {
 
   return (
     <motion.div
-      className={`rounded-2xl backdrop-blur-sm border transition-all duration-300 overflow-hidden min-w-0 w-full max-w-full h-fit ${
+      className={`rounded-2xl backdrop-blur-sm border transition-all duration-300 overflow-hidden w-full max-w-sm mx-auto h-fit ${
         isDarkMode 
           ? 'bg-slate-900/70 border-slate-700/50 shadow-xl' 
           : 'bg-white/90 border-gray-200/50 shadow-lg'
@@ -191,7 +191,7 @@ const ProfileCard = ({ user, onUpdate }) => {
       whileHover={{ y: -2, shadow: isDarkMode ? '0 25px 50px rgba(0,0,0,0.3)' : '0 25px 50px rgba(0,0,0,0.1)' }}
     >
       {/* Cover Background */}
-      <div className="h-24 bg-gradient-to-r from-purple-600 via-blue-600 to-indigo-600 relative">
+      <div className="h-20 sm:h-24 bg-gradient-to-r from-purple-600 via-blue-600 to-indigo-600 relative">
         <div className="absolute inset-0 bg-black bg-opacity-10"></div>
         <motion.div
           className="absolute inset-0 opacity-50"
@@ -206,16 +206,16 @@ const ProfileCard = ({ user, onUpdate }) => {
         />
       </div>
 
-      <div className="px-4 pb-4">
+      <div className="px-3 sm:px-4 pb-3 sm:pb-4">
         {/* Profile Picture and Basic Info */}
-        <div className="relative -mt-12 mb-4">
+        <div className="relative -mt-10 sm:-mt-12 mb-3 sm:mb-4">
           <div className="flex flex-col items-center text-center">
-            <div className="relative mb-3">
+            <div className="relative mb-2 sm:mb-3">
               {user?.avatar || user?.picture ? (
                 <img
                   src={user.avatar || user.picture}
                   alt={user?.name || 'Profile'}
-                  className="w-20 h-20 rounded-full border-4 border-white shadow-lg object-cover"
+                  className="w-16 h-16 sm:w-20 sm:h-20 rounded-full border-3 sm:border-4 border-white shadow-lg object-cover"
                   onError={(e) => {
                     e.target.style.display = 'none';
                     e.target.nextSibling.style.display = 'flex';
@@ -223,15 +223,15 @@ const ProfileCard = ({ user, onUpdate }) => {
                 />
               ) : null}
               <div 
-                className={`w-20 h-20 rounded-full flex items-center justify-center text-white font-bold text-xl border-4 border-white shadow-lg ${
+                className={`w-16 h-16 sm:w-20 sm:h-20 rounded-full flex items-center justify-center text-white font-bold text-lg sm:text-xl border-3 sm:border-4 border-white shadow-lg ${
                   isDarkMode ? 'bg-gradient-to-br from-blue-500 to-purple-600' : 'bg-gradient-to-br from-blue-400 to-purple-500'
                 } ${(user?.avatar || user?.picture) ? 'hidden' : 'flex'}`}
               >
                 {user?.name ? user.name.charAt(0).toUpperCase() : 'U'}
               </div>
               {isEditing && (
-                <div className="absolute -bottom-1 -right-1 w-6 h-6 rounded-full flex items-center justify-center cursor-pointer transition-transform hover:scale-110 bg-gradient-to-r from-purple-600 to-blue-600 text-white shadow-lg">
-                  <Camera className="w-3 h-3" />
+                <div className="absolute -bottom-1 -right-1 w-5 h-5 sm:w-6 sm:h-6 rounded-full flex items-center justify-center cursor-pointer transition-transform hover:scale-110 bg-gradient-to-r from-purple-600 to-blue-600 text-white shadow-lg">
+                  <Camera className="w-2.5 h-2.5 sm:w-3 sm:h-3" />
                 </div>
               )}
             </div>
@@ -387,17 +387,17 @@ const ProfileCard = ({ user, onUpdate }) => {
           </div>
         ) : (
           <div className="group">
-            <h2 className={`text-xl font-bold mb-1 break-words ${isDarkMode ? 'text-white' : 'text-gray-900'}`}>
+            <h2 className={`text-lg sm:text-xl font-bold mb-1 break-words ${isDarkMode ? 'text-white' : 'text-gray-900'}`}>
               {user?.name || 'Your Name'}
             </h2>
-            <p className={`text-sm mb-3 break-words ${isDarkMode ? 'text-slate-400' : 'text-gray-600'}`}>
+            <p className={`text-xs sm:text-sm mb-2 sm:mb-3 break-words ${isDarkMode ? 'text-slate-400' : 'text-gray-600'}`}>
               @{user?.email?.split('@')[0] || 'username'}
             </p>
             
             {/* Bio Section - Moved here below name */}
             {user?.bio && (
-              <div className="mb-4">
-                <p className={`text-sm leading-relaxed break-words ${isDarkMode ? 'text-slate-300' : 'text-gray-600'}`}>
+              <div className="mb-3 sm:mb-4">
+                <p className={`text-xs sm:text-sm leading-relaxed break-words ${isDarkMode ? 'text-slate-300' : 'text-gray-600'}`}>
                   {user.bio}
                 </p>
               </div>
@@ -414,9 +414,9 @@ const ProfileCard = ({ user, onUpdate }) => {
           </div>
         )}
 
-        {/* Get Codolio Card Button */}
+        {/* Get PrepMate Card Button */}
         <motion.button
-          className="mt-4 w-full bg-gradient-to-r from-orange-500 to-orange-600 text-white py-2.5 px-4 rounded-lg font-semibold text-sm transition-all duration-300 hover:from-orange-600 hover:to-orange-700 shadow-lg"
+          className="mt-3 sm:mt-4 w-full bg-gradient-to-r from-orange-500 to-orange-600 text-white py-2 sm:py-2.5 px-3 sm:px-4 rounded-lg font-semibold text-xs sm:text-sm transition-all duration-300 hover:from-orange-600 hover:to-orange-700 shadow-lg"
           whileHover={{ scale: 1.02 }}
           whileTap={{ scale: 0.98 }}
         >
@@ -425,33 +425,33 @@ const ProfileCard = ({ user, onUpdate }) => {
       </div>
 
       {/* Contact Information */}
-      <div className="px-4 space-y-2 mb-4">
+      <div className="px-3 sm:px-4 space-y-1.5 sm:space-y-2 mb-3 sm:mb-4">
         {user?.email && (
-          <div className="flex items-center space-x-3 min-w-0">
-            <Mail className={`w-4 h-4 flex-shrink-0 ${isDarkMode ? 'text-slate-400' : 'text-gray-500'}`} />
-            <span className={`text-sm truncate ${isDarkMode ? 'text-slate-300' : 'text-gray-700'}`}>
+          <div className="flex items-center space-x-2 sm:space-x-3 min-w-0">
+            <Mail className={`w-3.5 h-3.5 sm:w-4 sm:h-4 flex-shrink-0 ${isDarkMode ? 'text-slate-400' : 'text-gray-500'}`} />
+            <span className={`text-xs sm:text-sm truncate ${isDarkMode ? 'text-slate-300' : 'text-gray-700'}`}>
               {user.email}
             </span>
           </div>
         )}
         
         {user?.location && (
-          <div className="flex items-center space-x-3 min-w-0">
-            <MapPin className={`w-4 h-4 flex-shrink-0 ${isDarkMode ? 'text-slate-400' : 'text-gray-500'}`} />
-            <span className={`text-sm break-words ${isDarkMode ? 'text-slate-300' : 'text-gray-700'}`}>
+          <div className="flex items-center space-x-2 sm:space-x-3 min-w-0">
+            <MapPin className={`w-3.5 h-3.5 sm:w-4 sm:h-4 flex-shrink-0 ${isDarkMode ? 'text-slate-400' : 'text-gray-500'}`} />
+            <span className={`text-xs sm:text-sm break-words ${isDarkMode ? 'text-slate-300' : 'text-gray-700'}`}>
               {user.location}
             </span>
           </div>
         )}
 
         {user?.website && !isEditing && (
-          <div className="flex items-center space-x-3 min-w-0">
-            <ExternalLink className={`w-4 h-4 flex-shrink-0 ${isDarkMode ? 'text-slate-400' : 'text-gray-500'}`} />
+          <div className="flex items-center space-x-2 sm:space-x-3 min-w-0">
+            <ExternalLink className={`w-3.5 h-3.5 sm:w-4 sm:h-4 flex-shrink-0 ${isDarkMode ? 'text-slate-400' : 'text-gray-500'}`} />
             <a 
               href={user.website.startsWith('http') ? user.website : `https://${user.website}`} 
               target="_blank" 
               rel="noopener noreferrer"
-              className={`text-sm hover:underline truncate ${isDarkMode ? 'text-blue-400' : 'text-blue-600'}`}
+              className={`text-xs sm:text-sm hover:underline truncate ${isDarkMode ? 'text-blue-400' : 'text-blue-600'}`}
             >
               {user.website}
             </a>
