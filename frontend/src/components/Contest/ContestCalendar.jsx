@@ -22,6 +22,7 @@ const ContestCalendar = () => {
   const [searchTerm, setSearchTerm] = useState("")
   const [isMobile, setIsMobile] = useState(false)
   const [isTablet, setIsTablet] = useState(false)
+  const [activeView, setActiveView] = useState('upcoming') // 'upcoming' or 'past'
 
   // Check if mobile/tablet on mount and resize
   useEffect(() => {
@@ -123,6 +124,11 @@ const ContestCalendar = () => {
     .sort((a, b) => new Date(a.start_time) - new Date(b.start_time))
     .slice(0, 10) // Show only next 10 contests
 
+  const pastContests = filteredContests
+    .filter(contest => contest.past || new Date(contest.start_time) < new Date())
+    .sort((a, b) => new Date(b.start_time) - new Date(a.start_time))
+    .slice(0, 15) // Show last 15 past contests
+
   const platformColors = {
     'LeetCode': 'bg-orange-500',
     'Codeforces': 'bg-blue-500',
@@ -174,6 +180,44 @@ const ContestCalendar = () => {
 
   return (
     <div className={`min-h-screen transition-colors duration-300 ${isDarkMode ? "bg-gray-900 text-white" : "bg-gray-50 text-gray-900"}`}>
+      
+      {/* Mobile Header for better navigation */}
+      {isMobile && (
+        <div className={`p-4 border-b bg-white dark:bg-gray-800 shadow-sm ${
+          isDarkMode ? 'border-gray-700' : 'border-gray-200'
+        }`}>
+          <div className="flex items-center justify-between">
+            <h1 className="text-xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+              Contest Calendar
+            </h1>
+            <div className="flex items-center bg-gray-100 dark:bg-gray-700 rounded-lg p-1">
+              <button
+                onClick={() => setActiveView('upcoming')}
+                className={`flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium transition-all duration-200 ${
+                  activeView === 'upcoming' 
+                    ? 'bg-white dark:bg-gray-600 text-blue-600 dark:text-blue-400 shadow-sm transform scale-105' 
+                    : 'text-gray-600 dark:text-gray-300 hover:text-gray-800 dark:hover:text-gray-100'
+                }`}
+              >
+                <Calendar size={16} />
+                <span className="hidden sm:inline">Upcoming</span>
+              </button>
+              <button
+                onClick={() => setActiveView('past')}
+                className={`flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium transition-all duration-200 ${
+                  activeView === 'past' 
+                    ? 'bg-white dark:bg-gray-600 text-blue-600 dark:text-blue-400 shadow-sm transform scale-105' 
+                    : 'text-gray-600 dark:text-gray-300 hover:text-gray-800 dark:hover:text-gray-100'
+                }`}
+              >
+                <Clock size={16} />
+                <span className="hidden sm:inline">Past</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+      
       {/* Main Content Container with improved responsive layout - positioned directly below navbar */}
       <div className="flex overflow-hidden"
            style={{ 
@@ -190,6 +234,36 @@ const ContestCalendar = () => {
           <div className={`p-4 lg:p-6 border-b bg-gradient-to-r from-blue-50 to-purple-50 dark:from-gray-800 dark:to-gray-700 ${
             isDarkMode ? 'border-gray-700' : 'border-gray-200'
           }`}>
+            {/* View Toggle */}
+            <div className="flex items-center justify-center mb-4 bg-gray-100 dark:bg-gray-700 rounded-xl p-1">
+              <button
+                onClick={() => setActiveView('upcoming')}
+                className={`flex-1 px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 ${
+                  activeView === 'upcoming'
+                    ? 'bg-white dark:bg-gray-600 text-blue-600 dark:text-blue-400 shadow-md transform scale-105'
+                    : 'text-gray-600 dark:text-gray-300 hover:text-gray-800 dark:hover:text-gray-100'
+                }`}
+              >
+                <div className="flex items-center justify-center gap-2">
+                  <Calendar size={16} />
+                  <span>Upcoming</span>
+                </div>
+              </button>
+              <button
+                onClick={() => setActiveView('past')}
+                className={`flex-1 px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 ${
+                  activeView === 'past'
+                    ? 'bg-white dark:bg-gray-600 text-blue-600 dark:text-blue-400 shadow-md transform scale-105'
+                    : 'text-gray-600 dark:text-gray-300 hover:text-gray-800 dark:hover:text-gray-100'
+                }`}
+              >
+                <div className="flex items-center justify-center gap-2">
+                  <Clock size={16} />
+                  <span>Past</span>
+                </div>
+              </button>
+            </div>
+
             {/* Search Bar with improved styling */}
             <div className="relative mb-4">
               <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 dark:text-gray-500" size={18} />
@@ -234,24 +308,28 @@ const ContestCalendar = () => {
             </div>
           </div>
 
-          {/* Enhanced Upcoming Contests List with better scrolling */}
+          {/* Enhanced Contests List with better scrolling */}
           <div className="flex-1 overflow-hidden">
             <div className="h-full overflow-y-auto custom-scrollbar">
               <div className="p-4 lg:p-6">
                 <div className="flex items-center justify-between mb-4">
                   <h2 className="text-xl lg:text-2xl font-bold text-gray-900 dark:text-white">
-                    Upcoming Contests
+                    {activeView === 'upcoming' ? 'Upcoming Contests' : 'Past Contests'}
                   </h2>
                   <div className="text-sm px-3 py-1 rounded-full bg-gradient-to-r from-green-100 to-blue-100 dark:from-green-900 dark:to-blue-900 text-green-800 dark:text-green-200 font-medium">
-                    {upcomingContests.length} contests
+                    {activeView === 'upcoming' ? upcomingContests.length : pastContests.length} contests
                   </div>
                 </div>
                 <p className="text-sm text-gray-600 dark:text-gray-400 mb-6 leading-relaxed">
-                  Stay updated with upcoming programming contests from all major platforms
+                  {activeView === 'upcoming' 
+                    ? 'Stay updated with upcoming programming contests from all major platforms'
+                    : 'Review past contests and access their solutions and editorial content'
+                  }
                 </p>
                 
                 <div className="space-y-4">
-                  {upcomingContests.length > 0 ? upcomingContests.map(contest => (
+                  {(activeView === 'upcoming' ? upcomingContests : pastContests).length > 0 
+                    ? (activeView === 'upcoming' ? upcomingContests : pastContests).map(contest => (
                     <div
                       key={contest._id}
                       className={`group p-4 lg:p-5 rounded-xl border-2 transition-all duration-300 hover:shadow-lg hover:shadow-blue-500/10 hover:-translate-y-1 ${
@@ -271,6 +349,11 @@ const ContestCalendar = () => {
                               <div className={`w-3 h-3 rounded-full ${platformColors[contest.platform]} shadow-sm`}></div>
                               <span className="text-sm font-medium text-gray-600 dark:text-gray-300">{contest.platform}</span>
                             </div>
+                            {activeView === 'past' && (
+                              <span className="text-xs px-2 py-1 rounded-full bg-red-100 dark:bg-red-900 text-red-800 dark:text-red-200 font-medium">
+                                Completed
+                              </span>
+                            )}
                           </div>
                         </div>
                       </div>
@@ -289,29 +372,84 @@ const ContestCalendar = () => {
                       
                       {/* Action Buttons */}
                       <div className="flex gap-3">
-                        <a
-                          href={contest.url}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="flex-1 bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white text-sm font-medium py-3 px-4 rounded-lg text-center transition-all duration-200 transform hover:scale-105 hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
-                        >
-                          Join Contest
-                        </a>
-                        <button
-                          onClick={() => {
-                            // Add to calendar functionality can be implemented here
-                            navigator.clipboard.writeText(contest.url)
-                          }}
-                          className="px-4 py-3 text-sm font-medium text-blue-600 dark:text-blue-400 border-2 border-blue-600 dark:border-blue-400 rounded-lg hover:bg-blue-50 dark:hover:bg-blue-900/20 transition-all duration-200 transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
-                        >
-                          <Calendar size={16} />
-                        </button>
+                        {activeView === 'upcoming' ? (
+                          <>
+                            <a
+                              href={contest.url}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="flex-1 bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white text-sm font-medium py-3 px-4 rounded-lg text-center transition-all duration-200 transform hover:scale-105 hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+                            >
+                              Join Contest
+                            </a>
+                            <button
+                              onClick={() => {
+                                navigator.clipboard.writeText(contest.url)
+                              }}
+                              className="px-4 py-3 text-sm font-medium text-blue-600 dark:text-blue-400 border-2 border-blue-600 dark:border-blue-400 rounded-lg hover:bg-blue-50 dark:hover:bg-blue-900/20 transition-all duration-200 transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+                            >
+                              <Calendar size={16} />
+                            </button>
+                          </>
+                        ) : (
+                          <>
+                            <a
+                              href={contest.url}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="flex-1 bg-gradient-to-r from-gray-600 to-gray-700 hover:from-gray-700 hover:to-gray-800 text-white text-sm font-medium py-3 px-4 rounded-lg text-center transition-all duration-200 transform hover:scale-105 hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2"
+                            >
+                              View Contest
+                            </a>
+                            <button
+                              onClick={() => {
+                                // Open solutions/editorial - can be enhanced with actual solution links
+                                const solutionUrl = contest.platform === 'LeetCode' 
+                                  ? `https://leetcode.com/contest/${contest.title.toLowerCase().replace(/\s+/g, '-')}/`
+                                  : contest.platform === 'Codeforces'
+                                  ? `https://codeforces.com/blog/entry/solutions`
+                                  : contest.url;
+                                window.open(solutionUrl, '_blank');
+                              }}
+                              className="px-4 py-3 text-sm font-medium text-green-600 dark:text-green-400 border-2 border-green-600 dark:border-green-400 rounded-lg hover:bg-green-50 dark:hover:bg-green-900/20 transition-all duration-200 transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2"
+                              title="View Solutions"
+                            >
+                              <Youtube size={16} />
+                            </button>
+                            <button
+                              onClick={() => {
+                                navigator.clipboard.writeText(contest.url)
+                              }}
+                              className="px-4 py-3 text-sm font-medium text-purple-600 dark:text-purple-400 border-2 border-purple-600 dark:border-purple-400 rounded-lg hover:bg-purple-50 dark:hover:bg-purple-900/20 transition-all duration-200 transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2"
+                              title="Copy Link"
+                            >
+                              <LinkIcon size={16} />
+                            </button>
+                          </>
+                        )}
                       </div>
+                      
+                      {/* Additional Info for Past Contests */}
+                      {activeView === 'past' && (
+                        <div className="mt-4 p-3 bg-gradient-to-r from-purple-50 to-blue-50 dark:from-purple-900/20 dark:to-blue-900/20 rounded-lg border border-purple-200 dark:border-purple-700">
+                          <div className="flex items-center justify-between text-sm">
+                            <span className="text-purple-700 dark:text-purple-300 font-medium">
+                              Contest completed • Solutions available
+                            </span>
+                            <div className="flex items-center gap-1 text-purple-600 dark:text-purple-400">
+                              <Youtube size={14} />
+                              <span className="text-xs">Editorial</span>
+                            </div>
+                          </div>
+                        </div>
+                      )}
                     </div>
                   )) : (
                     <div className="text-center py-12">
                       <Calendar size={48} className="mx-auto text-gray-400 mb-4" />
-                      <p className="text-gray-500 dark:text-gray-400">No upcoming contests found</p>
+                      <p className="text-gray-500 dark:text-gray-400">
+                        {activeView === 'upcoming' ? 'No upcoming contests found' : 'No past contests found'}
+                      </p>
                     </div>
                   )}
                 </div>
@@ -320,15 +458,21 @@ const ContestCalendar = () => {
           </div>
         </div>
 
-        {/* Enhanced Calendar Area */}
-        <div className="flex flex-1 flex-col overflow-hidden bg-white dark:bg-gray-800">
+        {/* Enhanced Calendar Area with better layout */}
+        <div className={`${isMobile ? 'hidden' : 'flex'} flex-1 flex-col overflow-hidden bg-white dark:bg-gray-800`}>
           
           {/* Calendar Header with improved design */}
           <div className={`p-4 lg:p-6 border-b ${isDarkMode ? 'border-gray-700' : 'border-gray-200'} bg-gradient-to-r from-purple-50 to-blue-50 dark:from-gray-800 dark:to-gray-700`}>
             <div className="flex items-center justify-between">
-              <h1 className="text-2xl lg:text-3xl font-bold bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent">
-                {getMonthName(currentDate)}
-              </h1>
+              <div className="flex items-center gap-4">
+                <h1 className="text-2xl lg:text-3xl font-bold bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent">
+                  {getMonthName(currentDate)}
+                </h1>
+                <div className="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-400">
+                  <div className={`w-3 h-3 rounded-full ${activeView === 'upcoming' ? 'bg-green-500' : 'bg-red-500'}`}></div>
+                  <span>{activeView === 'upcoming' ? 'Upcoming Events' : 'Past Events'}</span>
+                </div>
+              </div>
               
               <div className="flex items-center bg-white dark:bg-gray-700 rounded-xl shadow-md p-1">
                 <button
@@ -337,7 +481,7 @@ const ContestCalendar = () => {
                     isDarkMode ? 'text-gray-300 hover:bg-gray-600' : 'text-gray-600 hover:bg-gray-100'
                   }`}
                 >
-                  <ChevronLeft size={isMobile ? 18 : 20} />
+                  <ChevronLeft size={isTablet ? 18 : 20} />
                 </button>
                 <button
                   onClick={() => setCurrentDate(new Date())}
@@ -351,7 +495,7 @@ const ContestCalendar = () => {
                     isDarkMode ? 'text-gray-300 hover:bg-gray-600' : 'text-gray-600 hover:bg-gray-100'
                   }`}
                 >
-                  <ChevronRight size={isMobile ? 18 : 20} />
+                  <ChevronRight size={isTablet ? 18 : 20} />
                 </button>
               </div>
             </div>
@@ -377,6 +521,8 @@ const ContestCalendar = () => {
               {getDaysInMonth(currentDate).map((date, index) => {
                 const dayContests = date ? getContestsForDate(date) : []
                 const isToday = date && date.toDateString() === new Date().toDateString()
+                const hasUpcomingContests = dayContests.some(contest => !contest.past && new Date(contest.start_time) > new Date())
+                const hasPastContests = dayContests.some(contest => contest.past || new Date(contest.start_time) < new Date())
                 
                 return (
                   <div
@@ -389,31 +535,45 @@ const ContestCalendar = () => {
                   >
                     {date && (
                       <>
-                        <div className={`text-sm lg:text-base font-bold mb-2 ${
+                        <div className={`text-sm lg:text-base font-bold mb-2 flex items-center justify-between ${
                           isToday 
                             ? 'text-blue-600 dark:text-blue-400' 
                             : isDarkMode ? 'text-gray-200' : 'text-gray-800'
                         }`}>
-                          {date.getDate()}
+                          <span>{date.getDate()}</span>
+                          {dayContests.length > 0 && (
+                            <div className="flex gap-1">
+                              {hasUpcomingContests && <div className="w-2 h-2 bg-green-500 rounded-full"></div>}
+                              {hasPastContests && <div className="w-2 h-2 bg-red-500 rounded-full"></div>}
+                            </div>
+                          )}
                         </div>
                         
                         <div className="space-y-1">
-                          {dayContests.slice(0, isMobile ? 2 : isTablet ? 3 : 4).map(contest => (
-                            <div
-                              key={contest._id}
-                              className={`text-xs lg:text-sm p-1 lg:p-2 rounded-lg text-white font-medium transition-all duration-200 hover:scale-105 cursor-pointer shadow-sm ${
-                                platformColors[contest.platform] || 'bg-gray-500'
-                              }`}
-                              title={contest.title}
-                            >
-                              <div className="truncate">
-                                {isMobile ? contest.title.slice(0, 12) + (contest.title.length > 12 ? '...' : '') : contest.title}
+                          {dayContests.slice(0, isTablet ? 3 : 4).map(contest => {
+                            const isPast = contest.past || new Date(contest.start_time) < new Date()
+                            return (
+                              <div
+                                key={contest._id}
+                                className={`text-xs lg:text-sm p-1 lg:p-2 rounded-lg font-medium transition-all duration-200 hover:scale-105 cursor-pointer shadow-sm ${
+                                  isPast 
+                                    ? `${platformColors[contest.platform] || 'bg-gray-500'} opacity-60 border border-gray-300 dark:border-gray-600`
+                                    : `${platformColors[contest.platform] || 'bg-gray-500'} text-white`
+                                }`}
+                                title={`${contest.title} ${isPast ? '(Completed)' : ''}`}
+                              >
+                                <div className="truncate">
+                                  {contest.title.length > 15 ? contest.title.slice(0, 15) + '...' : contest.title}
+                                </div>
+                                {isPast && (
+                                  <div className="text-xs opacity-75 mt-1">✓ Completed</div>
+                                )}
                               </div>
-                            </div>
-                          ))}
-                          {dayContests.length > (isMobile ? 2 : isTablet ? 3 : 4) && (
+                            )
+                          })}
+                          {dayContests.length > (isTablet ? 3 : 4) && (
                             <div className="text-xs text-center py-1 px-2 bg-gray-400 dark:bg-gray-600 text-white rounded-lg font-medium">
-                              +{dayContests.length - (isMobile ? 2 : isTablet ? 3 : 4)} more
+                              +{dayContests.length - (isTablet ? 3 : 4)} more
                             </div>
                           )}
                         </div>
