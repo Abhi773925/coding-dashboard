@@ -131,9 +131,16 @@ const ContestCalendar = () => {
 
   const platformColors = {
     'LeetCode': 'bg-orange-500',
-    'Codeforces': 'bg-blue-500',
+    'Codeforces': 'bg-blue-500', 
     'CodeChef': 'bg-yellow-500',
     'AtCoder': 'bg-red-500'
+  }
+
+  const platformIcons = {
+    'LeetCode': '🔶',
+    'Codeforces': '🔹', 
+    'CodeChef': '🔸',
+    'AtCoder': '🔺'
   }
 
   const navigateMonth = (direction) => {
@@ -180,400 +187,283 @@ const ContestCalendar = () => {
 
   return (
     <div className={`min-h-screen transition-colors duration-300 ${isDarkMode ? "bg-gray-900 text-white" : "bg-gray-50 text-gray-900"}`}>
-      
-      {/* Mobile Header for better navigation */}
-      {isMobile && (
-        <div className={`p-4 border-b bg-white dark:bg-gray-800 shadow-sm ${
-          isDarkMode ? 'border-gray-700' : 'border-gray-200'
-        }`}>
-          <div className="flex items-center justify-between">
-            <h1 className="text-xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-              Contest Calendar
-            </h1>
-            <div className="flex items-center bg-gray-100 dark:bg-gray-700 rounded-lg p-1">
-              <button
-                onClick={() => setActiveView('upcoming')}
-                className={`flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium transition-all duration-200 ${
-                  activeView === 'upcoming' 
-                    ? 'bg-white dark:bg-gray-600 text-blue-600 dark:text-blue-400 shadow-sm transform scale-105' 
-                    : 'text-gray-600 dark:text-gray-300 hover:text-gray-800 dark:hover:text-gray-100'
-                }`}
-              >
-                <Calendar size={16} />
-                <span className="hidden sm:inline">Upcoming</span>
-              </button>
-              <button
-                onClick={() => setActiveView('past')}
-                className={`flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium transition-all duration-200 ${
-                  activeView === 'past' 
-                    ? 'bg-white dark:bg-gray-600 text-blue-600 dark:text-blue-400 shadow-sm transform scale-105' 
-                    : 'text-gray-600 dark:text-gray-300 hover:text-gray-800 dark:hover:text-gray-100'
-                }`}
-              >
-                <Clock size={16} />
-                <span className="hidden sm:inline">Past</span>
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
-      
-      {/* Main Content Container with improved responsive layout - positioned directly below navbar */}
+      {/* Main Content Container - positioned directly below navbar */}
       <div className="flex overflow-hidden"
            style={{ 
              height: 'calc(100vh - 70px)',
              marginTop: '70px'
            }}>
         
-        {/* Enhanced Sidebar with better scrolling and responsive design */}
-        <div className={`${
-          isMobile ? 'w-full' : isTablet ? 'w-96' : 'w-80 lg:w-96'
-        } border-r ${isDarkMode ? 'bg-gray-800 border-gray-700' : 'bg-white border-gray-200'} flex flex-col shadow-lg`}>
+        {/* Left Sidebar - Contest List */}
+        <div className={`${isMobile ? 'w-full' : 'w-80 lg:w-96'} border-r ${isDarkMode ? 'bg-gray-800 border-gray-700' : 'bg-white border-gray-200'} flex flex-col`}>
           
-          {/* Search and Filters Section with navbar integration */}
-          <div className={`p-4 lg:p-6 border-b bg-gradient-to-r from-blue-50 to-purple-50 dark:from-gray-800 dark:to-gray-700 ${
-            isDarkMode ? 'border-gray-700' : 'border-gray-200'
-          }`}>
-            {/* View Toggle */}
-            <div className="flex items-center justify-center mb-4 bg-gray-100 dark:bg-gray-700 rounded-xl p-1">
-              <button
-                onClick={() => setActiveView('upcoming')}
-                className={`flex-1 px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 ${
-                  activeView === 'upcoming'
-                    ? 'bg-white dark:bg-gray-600 text-blue-600 dark:text-blue-400 shadow-md transform scale-105'
-                    : 'text-gray-600 dark:text-gray-300 hover:text-gray-800 dark:hover:text-gray-100'
-                }`}
-              >
-                <div className="flex items-center justify-center gap-2">
-                  <Calendar size={16} />
-                  <span>Upcoming</span>
-                </div>
-              </button>
-              <button
-                onClick={() => setActiveView('past')}
-                className={`flex-1 px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 ${
-                  activeView === 'past'
-                    ? 'bg-white dark:bg-gray-600 text-blue-600 dark:text-blue-400 shadow-md transform scale-105'
-                    : 'text-gray-600 dark:text-gray-300 hover:text-gray-800 dark:hover:text-gray-100'
-                }`}
-              >
-                <div className="flex items-center justify-center gap-2">
-                  <Clock size={16} />
-                  <span>Past</span>
-                </div>
-              </button>
+          {/* Header Section */}
+          <div className={`p-6 border-b ${isDarkMode ? 'border-gray-700 bg-gray-800' : 'border-gray-200 bg-white'}`}>
+            <div className="flex items-center justify-between mb-4">
+              <h2 className={`text-xl font-bold ${isDarkMode ? 'text-white' : 'text-gray-900'}`}>
+                {activeView === 'upcoming' ? 'Upcoming Contests' : 'Past Contests'}
+              </h2>
+              <div className="flex items-center bg-gray-100 dark:bg-gray-700 rounded-lg p-1">
+                <button
+                  onClick={() => setActiveView('upcoming')}
+                  className={`px-3 py-1.5 rounded text-sm font-medium transition-all duration-200 ${
+                    activeView === 'upcoming'
+                      ? 'bg-white dark:bg-gray-600 text-blue-600 dark:text-blue-400 shadow-sm'
+                      : 'text-gray-600 dark:text-gray-300 hover:text-gray-800 dark:hover:text-gray-100'
+                  }`}
+                >
+                  Upcoming
+                </button>
+                <button
+                  onClick={() => setActiveView('past')}
+                  className={`px-3 py-1.5 rounded text-sm font-medium transition-all duration-200 ${
+                    activeView === 'past'
+                      ? 'bg-white dark:bg-gray-600 text-blue-600 dark:text-blue-400 shadow-sm'
+                      : 'text-gray-600 dark:text-gray-300 hover:text-gray-800 dark:hover:text-gray-100'
+                  }`}
+                >
+                  Past
+                </button>
+              </div>
             </div>
-
-            {/* Search Bar with improved styling */}
-            <div className="relative mb-4">
-              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 dark:text-gray-500" size={18} />
+            <p className={`text-sm ${isDarkMode ? 'text-gray-400' : 'text-gray-600'}`}>
+              {activeView === 'upcoming' 
+                ? "Don't miss scheduled events"
+                : 'Review completed contests and solutions'
+              }
+            </p>
+            
+            {/* Search Bar */}
+            <div className="relative mt-4">
+              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" size={16} />
               <input
                 type="text"
-                placeholder="Search contests..."
+                placeholder="Search Contests"
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                className={`w-full pl-11 pr-4 py-3 rounded-xl border-2 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent ${
+                className={`w-full pl-10 pr-4 py-2.5 rounded-lg border transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500 ${
                   isDarkMode 
-                    ? 'bg-gray-700 border-gray-600 text-white placeholder-gray-400 hover:border-gray-500' 
-                    : 'bg-white border-gray-300 text-gray-900 placeholder-gray-500 hover:border-gray-400'
-                } shadow-sm hover:shadow-md focus:shadow-lg`}
+                    ? 'bg-gray-700 border-gray-600 text-white placeholder-gray-400' 
+                    : 'bg-white border-gray-300 text-gray-900 placeholder-gray-500'
+                }`}
               />
             </div>
             
-            {/* Enhanced Platform Filter */}
-            <div className="space-y-3">
-              <div className="flex items-center justify-between">
-                <p className="text-sm font-semibold text-gray-700 dark:text-gray-300">Filter by Platform</p>
-                <span className="text-xs px-2 py-1 rounded-full bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200">
-                  {selectedPlatforms.length === 0 ? 'All' : selectedPlatforms.length}
-                </span>
-              </div>
-              <div className="flex flex-wrap gap-2">
-                {['LeetCode', 'Codeforces', 'CodeChef'].map(platform => (
-                  <button
-                    key={platform}
-                    onClick={() => togglePlatform(platform)}
-                    className={`px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 transform hover:scale-105 ${
-                      selectedPlatforms.length === 0 || selectedPlatforms.includes(platform)
-                        ? `${platformColors[platform]} text-white shadow-md hover:shadow-lg`
-                        : isDarkMode 
-                          ? 'bg-gray-700 text-gray-300 hover:bg-gray-600 border border-gray-600'
-                          : 'bg-gray-100 text-gray-600 hover:bg-gray-200 border border-gray-300'
-                    }`}
-                  >
-                    {platform}
-                  </button>
-                ))}
-              </div>
+            {/* Platform Filter Dropdown */}
+            <div className="mt-4">
+              <select 
+                multiple={false}
+                className={`w-full px-3 py-2.5 rounded-lg border transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500 ${
+                  isDarkMode 
+                    ? 'bg-gray-700 border-gray-600 text-white' 
+                    : 'bg-white border-gray-300 text-gray-900'
+                }`}
+                defaultValue=""
+              >
+                <option value="">All Platforms Selected</option>
+                <option value="leetcode">LeetCode</option>
+                <option value="codeforces">Codeforces</option>
+                <option value="codechef">CodeChef</option>
+              </select>
             </div>
           </div>
 
-          {/* Enhanced Contests List with better scrolling */}
-          <div className="flex-1 overflow-hidden">
-            <div className="h-full overflow-y-auto custom-scrollbar">
-              <div className="p-4 lg:p-6">
-                <div className="flex items-center justify-between mb-4">
-                  <h2 className="text-xl lg:text-2xl font-bold text-gray-900 dark:text-white">
-                    {activeView === 'upcoming' ? 'Upcoming Contests' : 'Past Contests'}
-                  </h2>
-                  <div className="text-sm px-3 py-1 rounded-full bg-gradient-to-r from-green-100 to-blue-100 dark:from-green-900 dark:to-blue-900 text-green-800 dark:text-green-200 font-medium">
-                    {activeView === 'upcoming' ? upcomingContests.length : pastContests.length} contests
-                  </div>
-                </div>
-                <p className="text-sm text-gray-600 dark:text-gray-400 mb-6 leading-relaxed">
-                  {activeView === 'upcoming' 
-                    ? 'Stay updated with upcoming programming contests from all major platforms'
-                    : 'Review past contests and access their solutions and editorial content'
-                  }
-                </p>
-                
-                <div className="space-y-4">
-                  {(activeView === 'upcoming' ? upcomingContests : pastContests).length > 0 
-                    ? (activeView === 'upcoming' ? upcomingContests : pastContests).map(contest => (
+          {/* Contest List */}
+          <div className="flex-1 overflow-y-auto">
+            <div className="p-4 space-y-4">
+              {(activeView === 'upcoming' ? upcomingContests : pastContests).length > 0 
+                ? (activeView === 'upcoming' ? upcomingContests : pastContests).map(contest => {
+                  const contestDate = new Date(contest.start_time)
+                  const isPast = contest.past || contestDate < new Date()
+                  
+                  return (
                     <div
                       key={contest._id}
-                      className={`group p-4 lg:p-5 rounded-xl border-2 transition-all duration-300 hover:shadow-lg hover:shadow-blue-500/10 hover:-translate-y-1 ${
+                      className={`p-4 rounded-lg border transition-all duration-200 hover:shadow-md ${
                         isDarkMode 
-                          ? 'bg-gray-700 border-gray-600 hover:border-gray-500 hover:bg-gray-650' 
-                          : 'bg-white border-gray-200 hover:border-blue-300 hover:bg-blue-50/50'
+                          ? 'bg-gray-700 border-gray-600 hover:bg-gray-650' 
+                          : 'bg-white border-gray-200 hover:bg-gray-50'
                       }`}
                     >
-                      {/* Contest Header */}
-                      <div className="flex items-start justify-between mb-3">
-                        <div className="flex-1 min-w-0">
-                          <h3 className="font-semibold text-base lg:text-lg leading-tight mb-2 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
-                            {contest.title}
-                          </h3>
-                          <div className="flex items-center gap-3">
-                            <div className="flex items-center gap-2">
-                              <div className={`w-3 h-3 rounded-full ${platformColors[contest.platform]} shadow-sm`}></div>
-                              <span className="text-sm font-medium text-gray-600 dark:text-gray-300">{contest.platform}</span>
-                            </div>
-                            {activeView === 'past' && (
-                              <span className="text-xs px-2 py-1 rounded-full bg-red-100 dark:bg-red-900 text-red-800 dark:text-red-200 font-medium">
-                                Completed
-                              </span>
-                            )}
-                          </div>
+                      {/* Date Badge */}
+                      <div className="flex items-center justify-between mb-3">
+                        <div className={`text-xs font-medium ${isDarkMode ? 'text-gray-400' : 'text-gray-500'}`}>
+                          {formatDate(contest.start_time)}
                         </div>
-                      </div>
-                      
-                      {/* Contest Details */}
-                      <div className="grid grid-cols-2 gap-4 mb-4 p-3 bg-gray-50 dark:bg-gray-800 rounded-lg">
-                        <div className="flex items-center gap-2">
-                          <Calendar size={16} className="text-blue-500" />
-                          <span className="text-sm text-gray-700 dark:text-gray-300">{formatDate(contest.start_time)}</span>
-                        </div>
-                        <div className="flex items-center gap-2">
-                          <Clock size={16} className="text-green-500" />
-                          <span className="text-sm text-gray-700 dark:text-gray-300">{formatTime(contest.start_time)}</span>
-                        </div>
-                      </div>
-                      
-                      {/* Action Buttons */}
-                      <div className="flex gap-3">
-                        {activeView === 'upcoming' ? (
-                          <>
-                            <a
-                              href={contest.url}
-                              target="_blank"
-                              rel="noopener noreferrer"
-                              className="flex-1 bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white text-sm font-medium py-3 px-4 rounded-lg text-center transition-all duration-200 transform hover:scale-105 hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
-                            >
-                              Join Contest
-                            </a>
-                            <button
-                              onClick={() => {
-                                navigator.clipboard.writeText(contest.url)
-                              }}
-                              className="px-4 py-3 text-sm font-medium text-blue-600 dark:text-blue-400 border-2 border-blue-600 dark:border-blue-400 rounded-lg hover:bg-blue-50 dark:hover:bg-blue-900/20 transition-all duration-200 transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
-                            >
-                              <Calendar size={16} />
-                            </button>
-                          </>
-                        ) : (
-                          <>
-                            <a
-                              href={contest.url}
-                              target="_blank"
-                              rel="noopener noreferrer"
-                              className="flex-1 bg-gradient-to-r from-gray-600 to-gray-700 hover:from-gray-700 hover:to-gray-800 text-white text-sm font-medium py-3 px-4 rounded-lg text-center transition-all duration-200 transform hover:scale-105 hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2"
-                            >
-                              View Contest
-                            </a>
-                            <button
-                              onClick={() => {
-                                // Open solutions/editorial - can be enhanced with actual solution links
-                                const solutionUrl = contest.platform === 'LeetCode' 
-                                  ? `https://leetcode.com/contest/${contest.title.toLowerCase().replace(/\s+/g, '-')}/`
-                                  : contest.platform === 'Codeforces'
-                                  ? `https://codeforces.com/blog/entry/solutions`
-                                  : contest.url;
-                                window.open(solutionUrl, '_blank');
-                              }}
-                              className="px-4 py-3 text-sm font-medium text-green-600 dark:text-green-400 border-2 border-green-600 dark:border-green-400 rounded-lg hover:bg-green-50 dark:hover:bg-green-900/20 transition-all duration-200 transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2"
-                              title="View Solutions"
-                            >
-                              <Youtube size={16} />
-                            </button>
-                            <button
-                              onClick={() => {
-                                navigator.clipboard.writeText(contest.url)
-                              }}
-                              className="px-4 py-3 text-sm font-medium text-purple-600 dark:text-purple-400 border-2 border-purple-600 dark:border-purple-400 rounded-lg hover:bg-purple-50 dark:hover:bg-purple-900/20 transition-all duration-200 transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2"
-                              title="Copy Link"
-                            >
-                              <LinkIcon size={16} />
-                            </button>
-                          </>
+                        {isPast && (
+                          <span className="text-xs px-2 py-1 rounded bg-red-100 text-red-600 dark:bg-red-900 dark:text-red-300">
+                            Completed
+                          </span>
                         )}
                       </div>
                       
-                      {/* Additional Info for Past Contests */}
-                      {activeView === 'past' && (
-                        <div className="mt-4 p-3 bg-gradient-to-r from-purple-50 to-blue-50 dark:from-purple-900/20 dark:to-blue-900/20 rounded-lg border border-purple-200 dark:border-purple-700">
-                          <div className="flex items-center justify-between text-sm">
-                            <span className="text-purple-700 dark:text-purple-300 font-medium">
-                              Contest completed • Solutions available
+                      {/* Contest Info */}
+                      <div className="flex items-start gap-3">
+                        <div className={`w-2 h-2 rounded-full mt-2 flex-shrink-0 ${platformColors[contest.platform]}`}></div>
+                        <div className="flex-1 min-w-0">
+                          <h3 className={`font-medium text-sm leading-tight mb-2 ${isDarkMode ? 'text-white' : 'text-gray-900'}`}>
+                            {contest.title}
+                          </h3>
+                          <div className="flex items-center gap-3 text-xs mb-3">
+                            <span className={`${isDarkMode ? 'text-gray-400' : 'text-gray-500'}`}>
+                              {formatTime(contest.start_time)} - {formatTime(new Date(new Date(contest.start_time).getTime() + 2*60*60*1000).toISOString())}
                             </span>
-                            <div className="flex items-center gap-1 text-purple-600 dark:text-purple-400">
-                              <Youtube size={14} />
-                              <span className="text-xs">Editorial</span>
-                            </div>
                           </div>
+                          <div className="flex items-center justify-between mb-3">
+                            <div className="flex items-center gap-2">
+                              <span className={`text-xs px-2 py-1 rounded flex items-center gap-1 ${isDarkMode ? 'bg-gray-600 text-gray-300' : 'bg-gray-100 text-gray-600'}`}>
+                                <span>{platformIcons[contest.platform] || '📝'}</span>
+                                Starters {Math.floor(Math.random() * 200) + 1}
+                              </span>
+                            </div>
+                            <span className={`text-xs ${isDarkMode ? 'text-gray-400' : 'text-gray-500'}`}>
+                              {contest.platform}
+                            </span>
+                          </div>
+                          <div className="text-xs mb-3">
+                            <span className={`${isDarkMode ? 'text-gray-400' : 'text-gray-500'}`}>
+                              Starts in {isPast ? 'Completed' : '1 Day 6 Hrs 44 Mins 28 Secs'}
+                            </span>
+                          </div>
+                          <div className="text-xs mb-3">
+                            <span className={`${isDarkMode ? 'text-gray-400' : 'text-gray-500'}`}>
+                              📍 {contest.url.includes('codechef') ? 'https://www.codechef.com/START198' : contest.url}
+                            </span>
+                          </div>
+                          <div className="text-xs mb-4">
+                            <span className={`${isDarkMode ? 'text-gray-400' : 'text-gray-500'}`}>
+                              🏢 {contest.platform}
+                            </span>
+                          </div>
+                          
+                          {/* Action Button */}
+                          <a
+                            href={contest.url}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="inline-block text-xs px-3 py-1.5 rounded text-blue-600 underline hover:text-blue-700 transition-colors"
+                          >
+                            Add to Calendar
+                          </a>
                         </div>
-                      )}
+                      </div>
                     </div>
-                  )) : (
-                    <div className="text-center py-12">
-                      <Calendar size={48} className="mx-auto text-gray-400 mb-4" />
-                      <p className="text-gray-500 dark:text-gray-400">
-                        {activeView === 'upcoming' ? 'No upcoming contests found' : 'No past contests found'}
-                      </p>
-                    </div>
-                  )}
-                </div>
-              </div>
+                  )
+                }) : (
+                  <div className="text-center py-12">
+                    <Calendar size={48} className="mx-auto text-gray-400 mb-4" />
+                    <p className="text-gray-500 dark:text-gray-400">
+                      {activeView === 'upcoming' ? 'No upcoming contests found' : 'No past contests found'}
+                    </p>
+                  </div>
+                )}
             </div>
           </div>
         </div>
 
-        {/* Enhanced Calendar Area with better layout */}
-        <div className={`${isMobile ? 'hidden' : 'flex'} flex-1 flex-col overflow-hidden bg-white dark:bg-gray-800`}>
+        {/* Right Side - Calendar */}
+        <div className={`${isMobile ? 'hidden' : 'flex-1'} ${isDarkMode ? 'bg-gray-800' : 'bg-white'} flex flex-col`}>
           
-          {/* Calendar Header with improved design */}
-          <div className={`p-4 lg:p-6 border-b ${isDarkMode ? 'border-gray-700' : 'border-gray-200'} bg-gradient-to-r from-purple-50 to-blue-50 dark:from-gray-800 dark:to-gray-700`}>
+          {/* Calendar Header */}
+          <div className={`p-6 border-b ${isDarkMode ? 'border-gray-700' : 'border-gray-200'}`}>
             <div className="flex items-center justify-between">
-              <div className="flex items-center gap-4">
-                <h1 className="text-2xl lg:text-3xl font-bold bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent">
-                  {getMonthName(currentDate)}
-                </h1>
-                <div className="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-400">
-                  <div className={`w-3 h-3 rounded-full ${activeView === 'upcoming' ? 'bg-green-500' : 'bg-red-500'}`}></div>
-                  <span>{activeView === 'upcoming' ? 'Upcoming Events' : 'Past Events'}</span>
-                </div>
-              </div>
+              <h1 className={`text-2xl font-bold ${isDarkMode ? 'text-white' : 'text-gray-900'}`}>
+                {getMonthName(currentDate)}
+              </h1>
               
-              <div className="flex items-center bg-white dark:bg-gray-700 rounded-xl shadow-md p-1">
+              <div className="flex items-center gap-2">
                 <button
                   onClick={() => navigateMonth(-1)}
-                  className={`p-2 lg:p-3 rounded-lg transition-all duration-200 hover:scale-110 ${
-                    isDarkMode ? 'text-gray-300 hover:bg-gray-600' : 'text-gray-600 hover:bg-gray-100'
+                  className={`p-2 rounded-lg transition-colors ${
+                    isDarkMode ? 'text-gray-300 hover:bg-gray-700' : 'text-gray-600 hover:bg-gray-100'
                   }`}
                 >
-                  <ChevronLeft size={isTablet ? 18 : 20} />
+                  <ChevronLeft size={20} />
                 </button>
                 <button
                   onClick={() => setCurrentDate(new Date())}
-                  className="px-4 lg:px-6 py-2 lg:py-3 mx-2 rounded-lg text-sm lg:text-base font-semibold text-white bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 transition-all duration-200 transform hover:scale-105 shadow-md hover:shadow-lg"
+                  className="px-4 py-2 text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 rounded-lg transition-colors"
                 >
                   Today
                 </button>
                 <button
                   onClick={() => navigateMonth(1)}
-                  className={`p-2 lg:p-3 rounded-lg transition-all duration-200 hover:scale-110 ${
-                    isDarkMode ? 'text-gray-300 hover:bg-gray-600' : 'text-gray-600 hover:bg-gray-100'
+                  className={`p-2 rounded-lg transition-colors ${
+                    isDarkMode ? 'text-gray-300 hover:bg-gray-700' : 'text-gray-600 hover:bg-gray-100'
                   }`}
                 >
-                  <ChevronRight size={isTablet ? 18 : 20} />
+                  <ChevronRight size={20} />
                 </button>
               </div>
             </div>
           </div>
 
-          {/* Enhanced Calendar Grid */}
-          <div className="flex-1 p-4 lg:p-6 overflow-y-auto custom-scrollbar">
-            {/* Days of week header with better styling */}
+          {/* Calendar Grid */}
+          <div className="flex-1 p-6 overflow-y-auto">
+            {/* Days of week header */}
             <div className="grid grid-cols-7 gap-2 mb-4">
-              {['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'].map((day, index) => (
+              {['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'].map((day, index) => (
                 <div
                   key={day}
-                  className="p-3 lg:p-4 text-center font-bold text-gray-700 dark:text-gray-300 bg-gradient-to-b from-gray-100 to-gray-200 dark:from-gray-700 dark:to-gray-600 rounded-lg shadow-sm"
+                  className={`p-3 text-center text-sm font-medium ${
+                    isDarkMode ? 'text-gray-400' : 'text-gray-500'
+                  }`}
                 >
-                  <span className="block lg:hidden text-sm">{day.slice(0, 3)}</span>
-                  <span className="hidden lg:block text-sm">{day}</span>
+                  {day}
                 </div>
               ))}
             </div>
 
-            {/* Calendar days with enhanced design */}
+            {/* Calendar days */}
             <div className="grid grid-cols-7 gap-2 auto-rows-fr">
               {getDaysInMonth(currentDate).map((date, index) => {
                 const dayContests = date ? getContestsForDate(date) : []
                 const isToday = date && date.toDateString() === new Date().toDateString()
-                const hasUpcomingContests = dayContests.some(contest => !contest.past && new Date(contest.start_time) > new Date())
-                const hasPastContests = dayContests.some(contest => contest.past || new Date(contest.start_time) < new Date())
+                const hasContests = dayContests.length > 0
                 
                 return (
                   <div
                     key={index}
-                    className={`min-h-24 lg:min-h-32 p-2 lg:p-3 border-2 rounded-xl transition-all duration-200 hover:shadow-lg hover:-translate-y-1 cursor-pointer ${
+                    className={`min-h-24 p-2 border rounded-lg transition-all duration-200 hover:shadow-md cursor-pointer ${
                       isDarkMode 
-                        ? 'border-gray-600 hover:border-gray-500 bg-gray-700 hover:bg-gray-650' 
-                        : 'border-gray-200 hover:border-blue-300 bg-white hover:bg-blue-50'
-                    } ${isToday ? (isDarkMode ? 'bg-blue-900/30 border-blue-600 shadow-lg shadow-blue-500/20' : 'bg-blue-100 border-blue-400 shadow-lg shadow-blue-500/20') : ''}`}
+                        ? 'border-gray-600 hover:border-gray-500 bg-gray-700' 
+                        : 'border-gray-200 hover:border-gray-300 bg-white'
+                    } ${isToday ? 'ring-2 ring-blue-500 bg-blue-50 dark:bg-blue-900/20' : ''}`}
                   >
                     {date && (
                       <>
-                        <div className={`text-sm lg:text-base font-bold mb-2 flex items-center justify-between ${
+                        <div className={`text-sm font-medium mb-1 ${
                           isToday 
                             ? 'text-blue-600 dark:text-blue-400' 
                             : isDarkMode ? 'text-gray-200' : 'text-gray-800'
                         }`}>
-                          <span>{date.getDate()}</span>
-                          {dayContests.length > 0 && (
-                            <div className="flex gap-1">
-                              {hasUpcomingContests && <div className="w-2 h-2 bg-green-500 rounded-full"></div>}
-                              {hasPastContests && <div className="w-2 h-2 bg-red-500 rounded-full"></div>}
-                            </div>
-                          )}
+                          {date.getDate()}
                         </div>
                         
                         <div className="space-y-1">
-                          {dayContests.slice(0, isTablet ? 3 : 4).map(contest => {
+                          {dayContests.slice(0, 3).map(contest => {
                             const isPast = contest.past || new Date(contest.start_time) < new Date()
+                            const platformIcon = platformIcons[contest.platform] || '📝'
                             return (
                               <div
                                 key={contest._id}
-                                className={`text-xs lg:text-sm p-1 lg:p-2 rounded-lg font-medium transition-all duration-200 hover:scale-105 cursor-pointer shadow-sm ${
-                                  isPast 
-                                    ? `${platformColors[contest.platform] || 'bg-gray-500'} opacity-60 border border-gray-300 dark:border-gray-600`
-                                    : `${platformColors[contest.platform] || 'bg-gray-500'} text-white`
-                                }`}
+                                className={`text-xs p-1 rounded text-white truncate cursor-pointer transition-opacity hover:opacity-80 ${
+                                  platformColors[contest.platform] || 'bg-gray-500'
+                                } ${isPast ? 'opacity-60' : ''}`}
                                 title={`${contest.title} ${isPast ? '(Completed)' : ''}`}
                               >
-                                <div className="truncate">
-                                  {contest.title.length > 15 ? contest.title.slice(0, 15) + '...' : contest.title}
+                                <div className="flex items-center gap-1">
+                                  <span>{platformIcon}</span>
+                                  <span className="truncate">{contest.title.slice(0, 12)}...</span>
                                 </div>
-                                {isPast && (
-                                  <div className="text-xs opacity-75 mt-1">✓ Completed</div>
-                                )}
                               </div>
                             )
                           })}
-                          {dayContests.length > (isTablet ? 3 : 4) && (
-                            <div className="text-xs text-center py-1 px-2 bg-gray-400 dark:bg-gray-600 text-white rounded-lg font-medium">
-                              +{dayContests.length - (isTablet ? 3 : 4)} more
+                          {dayContests.length > 3 && (
+                            <div className={`text-xs p-1 rounded text-center cursor-pointer hover:opacity-80 ${
+                              isDarkMode ? 'bg-gray-600 text-gray-300' : 'bg-gray-200 text-gray-600'
+                            }`}>
+                              +{dayContests.length - 3} more
                             </div>
                           )}
                         </div>
