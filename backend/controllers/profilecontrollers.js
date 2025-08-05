@@ -1968,6 +1968,14 @@ exports.getUserProfile = async (req, res) => {
     res.json({
       email: user.email,
       name: user.name,
+      bio: user.bio,
+      location: user.location,
+      website: user.website,
+      linkedin: user.linkedin,
+      instagram: user.instagram,
+      github: user.github,
+      avatar: user.avatar,
+      picture: user.picture,
       missingPlatforms,
       platformStats,
       cacheInfo: {

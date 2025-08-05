@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { 
   User, 
@@ -29,14 +29,29 @@ const ProfileCard = ({ user, onUpdate }) => {
   const { isDarkMode } = useTheme();
   const [isEditing, setIsEditing] = useState(false);
   const [editData, setEditData] = useState({
-    name: user?.name || '',
-    bio: user?.bio || '',
-    location: user?.location || '',
-    website: user?.website || '',
-    linkedin: user?.linkedin || '',
-    instagram: user?.instagram || '',
-    github: user?.github || ''
+    name: '',
+    bio: '',
+    location: '',
+    website: '',
+    linkedin: '',
+    instagram: '',
+    github: ''
   });
+
+  // Update editData when user data changes
+  useEffect(() => {
+    if (user) {
+      setEditData({
+        name: user?.name || '',
+        bio: user?.bio || '',
+        location: user?.location || '',
+        website: user?.website || '',
+        linkedin: user?.linkedin || '',
+        instagram: user?.instagram || '',
+        github: user?.github || ''
+      });
+    }
+  }, [user]);
 
   const handleSave = async () => {
     try {
@@ -103,7 +118,7 @@ const ProfileCard = ({ user, onUpdate }) => {
     
     // Check optional fields
     optionalFields.forEach(field => {
-      if (user?.[field] || editData[field]) completed++;
+      if (user?.[field]) completed++;
     });
     
     // Check platform connections
@@ -400,7 +415,7 @@ const ProfileCard = ({ user, onUpdate }) => {
       </div>
 
       {/* Contact Information */}
-      <div className="space-y-3 mb-6">
+      <div className="px-4 space-y-3 mb-6">
         {user?.email && (
           <div className="flex items-center space-x-3">
             <Mail className={`w-4 h-4 ${isDarkMode ? 'text-slate-400' : 'text-gray-500'}`} />
@@ -410,75 +425,75 @@ const ProfileCard = ({ user, onUpdate }) => {
           </div>
         )}
         
-        {(user?.location || editData.location) && (
+        {user?.location && (
           <div className="flex items-center space-x-3">
             <MapPin className={`w-4 h-4 ${isDarkMode ? 'text-slate-400' : 'text-gray-500'}`} />
             <span className={`text-sm ${isDarkMode ? 'text-slate-300' : 'text-gray-700'}`}>
-              {user?.location || editData.location}
+              {user.location}
             </span>
           </div>
         )}
 
-        {(user?.website || editData.website) && !isEditing && (
+        {user?.website && !isEditing && (
           <div className="flex items-center space-x-3">
             <ExternalLink className={`w-4 h-4 ${isDarkMode ? 'text-slate-400' : 'text-gray-500'}`} />
             <a 
-              href={user?.website || editData.website} 
+              href={user.website.startsWith('http') ? user.website : `https://${user.website}`} 
               target="_blank" 
               rel="noopener noreferrer"
               className={`text-sm hover:underline ${isDarkMode ? 'text-blue-400' : 'text-blue-600'}`}
             >
-              {user?.website || editData.website}
+              {user.website}
             </a>
           </div>
         )}
       </div>
 
       {/* Social Media Links Section */}
-      {((user?.github || user?.linkedin || user?.instagram) || (editData.github || editData.linkedin || editData.instagram)) && !isEditing && (
-        <div className="mb-6">
+      {(user?.github || user?.linkedin || user?.instagram) && !isEditing && (
+        <div className="px-4 mb-6">
           <h3 className={`text-sm font-semibold mb-3 ${isDarkMode ? 'text-white' : 'text-gray-900'}`}>
             Social Links
           </h3>
           <div className="space-y-3">
-            {(user?.github || editData.github) && (
+            {user?.github && (
               <div className="flex items-center space-x-3">
                 <Github className={`w-4 h-4 ${isDarkMode ? 'text-slate-400' : 'text-gray-500'}`} />
                 <a 
-                  href={`https://github.com/${user?.github || editData.github}`} 
+                  href={`https://github.com/${user.github}`} 
                   target="_blank" 
                   rel="noopener noreferrer"
                   className={`text-sm hover:underline ${isDarkMode ? 'text-blue-400' : 'text-blue-600'}`}
                 >
-                  @{user?.github || editData.github}
+                  @{user.github}
                 </a>
               </div>
             )}
 
-            {(user?.linkedin || editData.linkedin) && (
+            {user?.linkedin && (
               <div className="flex items-center space-x-3">
                 <Linkedin className={`w-4 h-4 ${isDarkMode ? 'text-slate-400' : 'text-gray-500'}`} />
                 <a 
-                  href={`https://linkedin.com/in/${user?.linkedin || editData.linkedin}`} 
+                  href={`https://linkedin.com/in/${user.linkedin}`} 
                   target="_blank" 
                   rel="noopener noreferrer"
                   className={`text-sm hover:underline ${isDarkMode ? 'text-blue-400' : 'text-blue-600'}`}
                 >
-                  @{user?.linkedin || editData.linkedin}
+                  @{user.linkedin}
                 </a>
               </div>
             )}
 
-            {(user?.instagram || editData.instagram) && (
+            {user?.instagram && (
               <div className="flex items-center space-x-3">
                 <Instagram className={`w-4 h-4 ${isDarkMode ? 'text-slate-400' : 'text-gray-500'}`} />
                 <a 
-                  href={`https://instagram.com/${user?.instagram || editData.instagram}`} 
+                  href={`https://instagram.com/${user.instagram}`} 
                   target="_blank" 
                   rel="noopener noreferrer"
                   className={`text-sm hover:underline ${isDarkMode ? 'text-blue-400' : 'text-blue-600'}`}
                 >
-                  @{user?.instagram || editData.instagram}
+                  @{user.instagram}
                 </a>
               </div>
             )}
@@ -488,18 +503,18 @@ const ProfileCard = ({ user, onUpdate }) => {
 
       {/* About Section */}
       {user?.bio && !isEditing && (
-        <div className="mb-6">
+        <div className="px-4 mb-6">
           <h3 className={`text-sm font-semibold mb-2 ${isDarkMode ? 'text-white' : 'text-gray-900'}`}>
             About
           </h3>
           <p className={`text-sm ${isDarkMode ? 'text-slate-300' : 'text-gray-600'}`}>
-            {user?.bio}
+            {user.bio}
           </p>
         </div>
       )}
 
       {/* Quick Stats */}
-      <div className="grid grid-cols-2 gap-4 mb-6">
+      <div className="px-4 grid grid-cols-2 gap-4 mb-6">
         <div className={`text-center p-3 rounded-lg ${
           isDarkMode ? 'bg-slate-800/50' : 'bg-gray-50'
         }`}>
@@ -524,7 +539,7 @@ const ProfileCard = ({ user, onUpdate }) => {
 
       {/* Platform Ranks */}
       {platformRanks.length > 0 && (
-        <div className="mb-6">
+        <div className="px-4 mb-6">
           <h3 className={`text-sm font-semibold mb-3 ${isDarkMode ? 'text-white' : 'text-gray-900'}`}>
             Platform Rankings
           </h3>
@@ -554,7 +569,7 @@ const ProfileCard = ({ user, onUpdate }) => {
       )}
 
       {/* Profile Completeness */}
-      <div className="space-y-3">
+      <div className="px-4 space-y-3">
         <div className="flex items-center justify-between">
           <span className={`text-sm font-medium ${isDarkMode ? 'text-slate-300' : 'text-gray-700'}`}>
             Profile Completeness
