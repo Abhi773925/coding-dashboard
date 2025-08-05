@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useEffect, useMemo } from "react"
+import React, { useState, useEffect, useMemo } from "react"
 import axios from "axios"
 import { ToastContainer, toast } from "react-toastify"
 import "react-toastify/dist/ReactToastify.css"
@@ -12,10 +12,32 @@ import {
 import { useTheme } from "../context/ThemeContext"
 import { useAuth } from "../navigation/Navigation"
 import { motion, AnimatePresence } from "framer-motion"
-import FilterForm from "./FilterForm" // Import the new FilterForm
+import FilterForm from "./FilterForm"
 
 // Backend URL Configuration
 const BACKEND_URL = "https://prepmate-kvol.onrender.com/api"
+
+// Calculate study streak - moved outside component to avoid re-creation
+const calculateStreak = (days) => {
+  if (!days || !Array.isArray(days)) return 0
+  
+  let streak = 0
+  
+  for (let i = days.length - 1; i >= 0; i--) {
+    const day = days[i]
+    if (!day.questions || !Array.isArray(day.questions)) continue
+    
+    const hasProgress = day.questions.some(q => q.status)
+    
+    if (hasProgress) {
+      streak++
+    } else {
+      break
+    }
+  }
+  
+  return streak
+}
 
 
 
@@ -430,61 +452,67 @@ const CourseProgress = () => {
 
   // Calculate comprehensive statistics
   const stats = useMemo(() => {
-    if (!course) return {}
-    
-    const totalQuestions = course.totalQuestions || 0
-    const completedQuestions = course.completedQuestions || 0
-    const completionRate = totalQuestions > 0 ? (completedQuestions / totalQuestions) * 100 : 0
-    
-    const questionsForRevision = course.days?.reduce((acc, day) => 
-      acc + day.questions.filter(q => q.forRevision).length, 0) || 0
-    
-    const questionsWithNotes = course.days?.reduce((acc, day) => 
-      acc + day.questions.filter(q => q.notes && q.notes.trim() !== "").length, 0) || 0
-    
-    const difficultyStats = course.days?.reduce((acc, day) => {
-      day.questions.forEach(q => {
-        acc[q.difficulty] = (acc[q.difficulty] || 0) + 1
-        if (q.status) {
-          acc[`${q.difficulty}Completed`] = (acc[`${q.difficulty}Completed`] || 0) + 1
-        }
-      })
-      return acc
-    }, {}) || {}
-    
-    const currentStreak = calculateStreak(course.days || [])
-    const avgDailyProgress = course.days?.length > 0 ? completedQuestions / course.days.length : 0
-    
-    return {
-      totalQuestions,
-      completedQuestions,
-      completionRate,
-      questionsForRevision,
-      questionsWithNotes,
-      difficultyStats,
-      currentStreak,
-      avgDailyProgress: Math.round(avgDailyProgress * 100) / 100
+    if (!course || !course.days) return {
+      totalQuestions: 0,
+      completedQuestions: 0,
+      completionRate: 0,
+      questionsForRevision: 0,
+      questionsWithNotes: 0,
+      difficultyStats: {},
+      currentStreak: 0,
+      avgDailyProgress: 0
     }
-  }, [course])
-
-  // Calculate study streak
-  const calculateStreak = (days) => {
-    let streak = 0
-    const today = new Date()
     
-    for (let i = days.length - 1; i >= 0; i--) {
-      const day = days[i]
-      const hasProgress = day.questions.some(q => q.status)
+    try {
+      const totalQuestions = course.totalQuestions || 0
+      const completedQuestions = course.completedQuestions || 0
+      const completionRate = totalQuestions > 0 ? (completedQuestions / totalQuestions) * 100 : 0
       
-      if (hasProgress) {
-        streak++
-      } else {
-        break
+      const questionsForRevision = course.days.reduce((acc, day) => 
+        acc + (day.questions ? day.questions.filter(q => q.forRevision).length : 0), 0)
+      
+      const questionsWithNotes = course.days.reduce((acc, day) => 
+        acc + (day.questions ? day.questions.filter(q => q.notes && q.notes.trim() !== "").length : 0), 0)
+      
+      const difficultyStats = course.days.reduce((acc, day) => {
+        if (day.questions) {
+          day.questions.forEach(q => {
+            acc[q.difficulty] = (acc[q.difficulty] || 0) + 1
+            if (q.status) {
+              acc[`${q.difficulty}Completed`] = (acc[`${q.difficulty}Completed`] || 0) + 1
+            }
+          })
+        }
+        return acc
+      }, {})
+      
+      const currentStreak = calculateStreak(course.days)
+      const avgDailyProgress = course.days.length > 0 ? completedQuestions / course.days.length : 0
+      
+      return {
+        totalQuestions,
+        completedQuestions,
+        completionRate,
+        questionsForRevision,
+        questionsWithNotes,
+        difficultyStats,
+        currentStreak,
+        avgDailyProgress: Math.round(avgDailyProgress * 100) / 100
+      }
+    } catch (error) {
+      console.error('Error calculating stats:', error)
+      return {
+        totalQuestions: 0,
+        completedQuestions: 0,
+        completionRate: 0,
+        questionsForRevision: 0,
+        questionsWithNotes: 0,
+        difficultyStats: {},
+        currentStreak: 0,
+        avgDailyProgress: 0
       }
     }
-    
-    return streak
-  }
+  }, [course])
 
   // Fetch Course Data
   useEffect(() => {
@@ -593,11 +621,14 @@ const CourseProgress = () => {
 
   // Filter Questions for the selected day
   const filteredQuestionsForSelectedDay = useMemo(() => {
-    if (!course) return []
-    const currentDay = course.days.find((day) => day.dayNumber === selectedDay)
-    if (!currentDay) return []
+    if (!course || !course.days || !Array.isArray(course.days)) return []
+    
+    const currentDay = course.days.find((day) => day && day.dayNumber === selectedDay)
+    if (!currentDay || !currentDay.questions || !Array.isArray(currentDay.questions)) return []
 
     return currentDay.questions.filter((question) => {
+      if (!question) return false
+      
       const difficultyMatch = filter.difficulty === "All" || question.difficulty === filter.difficulty
       const statusMatch =
         filter.status === "All" ||
@@ -611,7 +642,10 @@ const CourseProgress = () => {
 
   // Calculate day progress for navigation
   const getDayProgress = (day) => {
-    const completed = day.questions.filter(q => q.status).length
+    if (!day || !day.questions || !Array.isArray(day.questions) || day.questions.length === 0) {
+      return 0
+    }
+    const completed = day.questions.filter(q => q && q.status).length
     return (completed / day.questions.length) * 100
   }
 
@@ -815,7 +849,7 @@ const CourseProgress = () => {
       <div className="flex-grow p-4 max-w-7xl mx-auto w-full space-y-8">
         
         {/* Statistics Dashboard */}
-        {showStats && stats.totalQuestions > 0 && (
+        {showStats && stats && stats.totalQuestions > 0 && (
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
@@ -825,28 +859,28 @@ const CourseProgress = () => {
             <div className="lg:col-span-2 xl:col-span-2">
               <StatsCard
                 title="Overall Progress"
-                value={`${stats.completedQuestions}/${stats.totalQuestions}`}
-                subtitle={`${Math.round(stats.completionRate)}% Complete`}
+                value={`${stats.completedQuestions || 0}/${stats.totalQuestions || 0}`}
+                subtitle={`${Math.round(stats.completionRate || 0)}% Complete`}
                 icon={Target}
                 color="bg-gradient-to-r from-purple-600 to-purple-500"
-                trend={stats.completionRate > 50 ? 12 : -5}
+                trend={(stats.completionRate || 0) > 50 ? 12 : -5}
                 isDarkMode={isDarkMode}
               />
             </div>
             
             <StatsCard
               title="Study Streak"
-              value={`${stats.currentStreak} days`}
+              value={`${stats.currentStreak || 0} days`}
               subtitle="Keep it up!"
               icon={Flame}
               color="bg-gradient-to-r from-orange-600 to-red-500"
-              trend={stats.currentStreak > 3 ? 15 : 0}
+              trend={(stats.currentStreak || 0) > 3 ? 15 : 0}
               isDarkMode={isDarkMode}
             />
             
             <StatsCard
               title="For Revision"
-              value={stats.questionsForRevision}
+              value={stats.questionsForRevision || 0}
               subtitle="Questions marked"
               icon={RotateCcw}
               color="bg-gradient-to-r from-yellow-600 to-yellow-500"
@@ -855,7 +889,7 @@ const CourseProgress = () => {
             
             <StatsCard
               title="Notes Added"
-              value={stats.questionsWithNotes}
+              value={stats.questionsWithNotes || 0}
               subtitle="Questions documented"
               icon={Brain}
               color="bg-gradient-to-r from-green-600 to-emerald-500"
@@ -864,7 +898,7 @@ const CourseProgress = () => {
             
             <StatsCard
               title="Daily Average"
-              value={stats.avgDailyProgress}
+              value={stats.avgDailyProgress || 0}
               subtitle="Questions per day"
               icon={Activity}
               color="bg-gradient-to-r from-blue-600 to-indigo-500"
@@ -903,19 +937,19 @@ const CourseProgress = () => {
                 <div className="flex items-center space-x-3">
                   <div className="w-4 h-4 bg-green-500 rounded-full"></div>
                   <span className={`${isDarkMode ? "text-gray-300" : "text-gray-600"}`}>
-                    Easy: {stats.difficultyStats?.EasyCompleted || 0}/{stats.difficultyStats?.Easy || 0}
+                    Easy: {(stats.difficultyStats && stats.difficultyStats.EasyCompleted) || 0}/{(stats.difficultyStats && stats.difficultyStats.Easy) || 0}
                   </span>
                 </div>
                 <div className="flex items-center space-x-3">
                   <div className="w-4 h-4 bg-yellow-500 rounded-full"></div>
                   <span className={`${isDarkMode ? "text-gray-300" : "text-gray-600"}`}>
-                    Medium: {stats.difficultyStats?.MediumCompleted || 0}/{stats.difficultyStats?.Medium || 0}
+                    Medium: {(stats.difficultyStats && stats.difficultyStats.MediumCompleted) || 0}/{(stats.difficultyStats && stats.difficultyStats.Medium) || 0}
                   </span>
                 </div>
                 <div className="flex items-center space-x-3">
                   <div className="w-4 h-4 bg-red-500 rounded-full"></div>
                   <span className={`${isDarkMode ? "text-gray-300" : "text-gray-600"}`}>
-                    Hard: {stats.difficultyStats?.HardCompleted || 0}/{stats.difficultyStats?.Hard || 0}
+                    Hard: {(stats.difficultyStats && stats.difficultyStats.HardCompleted) || 0}/{(stats.difficultyStats && stats.difficultyStats.Hard) || 0}
                   </span>
                 </div>
               </div>
@@ -992,7 +1026,7 @@ const CourseProgress = () => {
           </h2>
           
           <div className="flex overflow-x-auto pb-4 space-x-4">
-            {course?.days.map((day) => (
+            {course?.days?.filter(day => day && day.dayNumber).map((day) => (
               <DayCard
                 key={day.dayNumber}
                 day={day}
@@ -1019,11 +1053,11 @@ const CourseProgress = () => {
           <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-8">
             <h2 className={`text-3xl font-bold flex items-center ${isDarkMode ? "text-white" : "text-gray-900"}`}>
               <BookOpen className="mr-3 text-purple-500" size={32} />
-              Day {selectedDay}: {course?.days.find((d) => d.dayNumber === selectedDay)?.dayTitle || "Loading..."}
+              Day {selectedDay}: {course?.days?.find((d) => d && d.dayNumber === selectedDay)?.dayTitle || "Loading..."}
             </h2>
             
             <div className={`mt-4 sm:mt-0 text-sm ${isDarkMode ? "text-gray-400" : "text-gray-600"}`}>
-              Showing {filteredQuestionsForSelectedDay.length} of {course?.days.find((d) => d.dayNumber === selectedDay)?.questions.length || 0} questions
+              Showing {filteredQuestionsForSelectedDay.length} of {course?.days?.find((d) => d && d.dayNumber === selectedDay)?.questions?.length || 0} questions
             </div>
           </div>
 
@@ -1038,11 +1072,11 @@ const CourseProgress = () => {
               `}
             >
               <AnimatePresence>
-                {filteredQuestionsForSelectedDay.map((question) => (
+                {filteredQuestionsForSelectedDay.filter(question => question && question.id).map((question) => (
                   <QuestionCard
                     key={question.id}
                     question={question}
-                    courseId={course._id}
+                    courseId={course?._id}
                     dayNumber={selectedDay}
                     updateQuestionStatus={updateQuestionStatus}
                     isDarkMode={isDarkMode}
