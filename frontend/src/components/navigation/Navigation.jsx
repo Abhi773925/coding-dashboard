@@ -409,7 +409,6 @@ const ProfileDropdown = ({ onLogin, onLogout, isMobile = false }) => {
                     className={`
                     p-6 flex items-center space-x-4
                     ${isDarkMode ? "bg-slate-800/50" : "bg-gray-50/50"}
-                    border-b ${isDarkMode ? "border-slate-700/50" : "border-gray-200/50"}
                   `}
                   >
                     <img
@@ -539,12 +538,11 @@ const MobileMenu = ({ isOpen, onClose, navigationSections }) => {
             className={`
             flex justify-between items-center p-6
             ${isDarkMode ? "bg-slate-900 text-white" : "bg-white text-black"}
-            border-b ${isDarkMode ? "border-slate-700/50" : "border-gray-200/50"}
           `}
           >
             <div className="flex items-center space-x-4">
               <div
-                className={` rounded-xl flex items-center justify-center
+                className={`rounded-xl flex items-center justify-center
                `}
               >
               <Link to="/" className="text-xl font-bold tracking-tight pl-4">
@@ -583,12 +581,12 @@ const MobileMenu = ({ isOpen, onClose, navigationSections }) => {
                 className={`
                   flex items-center justify-between p-4 rounded-xl cursor-pointer
                   transition-all duration-300 backdrop-blur-sm
-                  ${
-                    isDarkMode
-                      ? "bg-slate-800/50 text-slate-200 border border-slate-700/50"
-                      : "bg-gray-100/50 text-gray-800 border border-gray-200/50"
-                  }
+                  ${getSectionStyling(section.name).bg}
+                  ${getSectionStyling(section.name).text}
                 `}
+                style={{
+                  background: `linear-gradient(135deg, ${getSectionStyling(section.name).accent.replace('from-', '').replace(' to-', ', ')})`
+                }}
                 onClick={() => toggleSection(section.name)}
               >
                 <div className="flex items-center space-x-3">
@@ -675,6 +673,42 @@ const Navigation = () => {
     setOpenSection(openSection === sectionName ? null : sectionName)
   }
 
+  // Get section-specific styling
+  const getSectionStyling = (sectionName) => {
+    const styles = {
+      "Contest": {
+        bgHover: isDarkMode ? "hover:bg-transparent" : "hover:bg-indigo-50/60",
+        bg: isDarkMode ? "bg-transparent" : "bg-indigo-50/30",
+        text: isDarkMode ? "text-indigo-300" : "text-indigo-700",
+        accent: isDarkMode ? "from-transparent to-transparent" : "from-indigo-500/20 to-purple-500/20"
+      },
+      "Courses": {
+        bgHover: isDarkMode ? "hover:bg-transparent" : "hover:bg-blue-50/60",
+        bg: isDarkMode ? "bg-transparent" : "bg-blue-50/30",
+        text: isDarkMode ? "text-blue-300" : "text-blue-700",
+        accent: isDarkMode ? "from-transparent to-transparent" : "from-blue-500/20 to-cyan-500/20"
+      },
+      "Interview Series": {
+        bgHover: isDarkMode ? "hover:bg-transparent" : "hover:bg-purple-50/60",
+        bg: isDarkMode ? "bg-transparent" : "bg-purple-50/30",
+        text: isDarkMode ? "text-purple-300" : "text-purple-700",
+        accent: isDarkMode ? "from-transparent to-transparent" : "from-purple-500/20 to-pink-500/20"
+      },
+      "Collaboration": {
+        bgHover: isDarkMode ? "hover:bg-transparent" : "hover:bg-emerald-50/60",
+        bg: isDarkMode ? "bg-transparent" : "bg-emerald-50/30",
+        text: isDarkMode ? "text-emerald-300" : "text-emerald-700",
+        accent: isDarkMode ? "from-transparent to-transparent" : "from-emerald-500/20 to-teal-500/20"
+      }
+    }
+    return styles[sectionName] || {
+      bgHover: isDarkMode ? "hover:bg-transparent" : "hover:bg-gray-50/60",
+      bg: isDarkMode ? "bg-transparent" : "bg-gray-50/30",
+      text: isDarkMode ? "text-gray-300" : "text-gray-700",
+      accent: isDarkMode ? "from-transparent to-transparent" : "from-gray-500/20 to-slate-500/20"
+    }
+  }
+
   useEffect(() => {
     // Check for session token in URL
     const urlParams = new URLSearchParams(window.location.search)
@@ -690,11 +724,14 @@ const Navigation = () => {
     <nav
       className={`
         hidden lg:flex fixed top-0 left-0 right-0 z-40
-        ${colors.navigation.bg} ${colors.navigation.border} ${colors.navigation.text}
-        ${colors.effects.backdrop} border-b
+        bg-transparent
         items-center justify-between px-8 py-2
-        shadow-lg transition-all duration-300
+        transition-all duration-300
       `}
+      style={{
+        backgroundColor: isDarkMode ? 'transparent' : 'rgba(255, 255, 255, 0.05)',
+        backdropFilter: isDarkMode ? 'none' : 'blur(10px) saturate(180%)',
+      }}
     >
       {/* Enhanced Logo */}
       <div className="flex items-center space-x-4">
@@ -702,7 +739,7 @@ const Navigation = () => {
           className={`rounded-xl flex items-center justify-center transition-all duration-300 hover:scale-105
 `}         
         >
-            <Link to="/" className="text-xl font-bold tracking-tight pl-4">
+            <Link to="/" className={`text-xl font-bold tracking-tight pl-4 ${isDarkMode ? 'text-white' : 'text-gray-900'}`}>
               <img src={prepmateLogo} alt="Prepmate Logo" className="h-[50px] w-[50px] sm:h-15" />
             </Link>
         </div>
@@ -721,15 +758,15 @@ const Navigation = () => {
             <div
               className={`
                 flex items-center space-x-3 cursor-pointer px-5 py-3 rounded-xl
-                transition-all duration-300 transform hover:scale-105 backdrop-blur-sm
-                ${
-                  isDarkMode
-                    ? "hover:bg-slate-800/60 text-slate-300 border border-slate-700/50"
-                    : "hover:bg-white/80 text-gray-700 border border-gray-200/50"
-                }
+                transition-all duration-300 transform hover:scale-105 ${isDarkMode ? '' : 'backdrop-blur-sm'}
+                ${getSectionStyling(section.name).bgHover}
+                ${getSectionStyling(section.name).text}
+                ${openSection === section.name ? getSectionStyling(section.name).bg : ''}
               `}
               style={{
-                boxShadow: isDarkMode ? "0 4px 15px rgba(139, 92, 246, 0.1)" : "0 4px 15px rgba(139, 92, 246, 0.1)",
+                background: openSection === section.name && !isDarkMode
+                  ? `linear-gradient(135deg, ${getSectionStyling(section.name).accent.replace('from-', '').replace(' to-', ', ')})` 
+                  : 'transparent'
               }}
             >
               <section.icon className={section.color} size={20} />
@@ -748,11 +785,12 @@ const Navigation = () => {
               <div
                 className={`
                   absolute top-full left-0  w-72
-                  ${isDarkMode ? "bg-slate-800/95 text-slate-200 border-slate-700/50" : "bg-white/95 text-gray-800 border-gray-200/50"}
-                  rounded-2xl shadow-2xl border backdrop-blur-md overflow-hidden z-50
+                  ${isDarkMode ? '' : 'rounded-2xl backdrop-blur-md'} overflow-hidden z-50
                 `}
                 style={{
-                  boxShadow: isDarkMode ? "0 25px 50px rgba(0, 0, 0, 0.5)" : "0 25px 50px rgba(0, 0, 0, 0.15)",
+                  backgroundColor: isDarkMode ? 'transparent' : 'rgba(255, 255, 255, 0.2)',
+                  backdropFilter: isDarkMode ? 'none' : 'blur(15px) saturate(180%)',
+                  background: isDarkMode ? 'transparent' : `linear-gradient(135deg, ${getSectionStyling(section.name).accent.replace('from-', '').replace(' to-', ', ')})`
                 }}
               >
                 {section.subSections.map((subSection) => (
@@ -763,7 +801,6 @@ const Navigation = () => {
                       flex items-center justify-between p-4
                       cursor-pointer transition-all duration-300 group no-underline
                       ${isDarkMode ? "hover:bg-slate-700/50 text-slate-300" : "hover:bg-gray-100/50 text-gray-700"}
-                      border-b last:border-b-0 ${isDarkMode ? "border-slate-700/50" : "border-gray-200/50"}
                     `}
                   >
                     <div className="flex items-center space-x-4">
@@ -800,16 +837,13 @@ const Navigation = () => {
         <button
           onClick={toggleTheme}
           className={`
-            p-3 rounded-xl transition-all duration-300 transform hover:scale-110 backdrop-blur-sm
+            p-3 rounded-xl transition-all duration-300 transform hover:scale-110 ${isDarkMode ? '' : 'backdrop-blur-sm'}
             ${
               isDarkMode
-                ? "text-yellow-400 hover:bg-slate-800/60 border border-slate-700/50"
-                : "text-gray-600 hover:bg-white/80 border border-gray-200/50"
+                ? "text-yellow-400 hover:bg-transparent"
+                : "text-orange-500 hover:bg-orange-500/10"
             }
           `}
-          style={{
-            boxShadow: isDarkMode ? "0 4px 15px rgba(251, 191, 36, 0.1)" : "0 4px 15px rgba(156, 163, 175, 0.1)",
-          }}
         >
           {isDarkMode ? <Sun size={24} /> : <Moon size={24} />}
         </button>
@@ -826,19 +860,21 @@ const Navigation = () => {
       <nav
         className={`
           lg:hidden fixed top-0 left-0 right-0 z-40
-          ${isDarkMode ? "bg-slate-900/90 text-gray-100" : "bg-white/90 text-gray-900"}
-          backdrop-blur-md px-6 py-4 shadow-lg
-          border-b ${isDarkMode ? "border-slate-800/50" : "border-gray-200/50"}
+          px-6 py-4
         `}
+        style={{
+          backgroundColor: isDarkMode ? 'transparent' : 'rgba(255, 255, 255, 0.05)',
+          backdropFilter: isDarkMode ? 'none' : 'blur(10px) saturate(180%)',
+        }}
       >
         <div className="flex justify-between items-center">
           <div className="flex items-center space-x-3">
             <div
-              className={` rounded-xl flex items-center justify-center
+              className={`rounded-xl flex items-center justify-center
             `}
              
             >
-              <Link to="/" className="text-xl font-bold tracking-tight pl-4">
+              <Link to="/" className={`text-xl font-bold tracking-tight pl-4 ${isDarkMode ? 'text-white' : 'text-gray-900'}`}>
               <img src={prepmateLogo} alt="Prepmate Logo" className="h-[50px] w-[50px] sm:h-15" />
             </Link>
             </div>
@@ -852,8 +888,8 @@ const Navigation = () => {
             <button
               onClick={toggleTheme}
               className={`
-                p-2 rounded-xl transition-all duration-300 backdrop-blur-sm
-                ${isDarkMode ? "text-yellow-400 hover:bg-slate-800/60" : "text-gray-600 hover:bg-white/80"}
+                p-2 rounded-xl transition-all duration-300 ${isDarkMode ? '' : 'backdrop-blur-sm'}
+                ${isDarkMode ? "text-yellow-400 hover:bg-transparent" : "text-orange-500 hover:bg-orange-500/10"}
               `}
             >
               {isDarkMode ? <Sun size={22} /> : <Moon size={22} />}
@@ -862,8 +898,8 @@ const Navigation = () => {
             <button
               onClick={() => setIsMobileMenuOpen(true)}
               className={`
-                p-2 rounded-xl transition-all duration-300 backdrop-blur-sm
-                ${isDarkMode ? "text-slate-300 hover:bg-slate-800/60" : "text-gray-600 hover:bg-white/80"}
+                p-2 rounded-xl transition-all duration-300 ${isDarkMode ? '' : 'backdrop-blur-sm'}
+                ${isDarkMode ? "text-white hover:bg-transparent" : "text-gray-900 hover:bg-gray-900/10"}
               `}
             >
               <Menu size={24} />

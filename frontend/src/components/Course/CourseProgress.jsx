@@ -13,49 +13,7 @@ import FilterForm from "./FilterForm" // Import the new FilterForm
 // Backend URL Configuration
 const BACKEND_URL = "https://prepmate-kvol.onrender.com/api"
 
-// Grid Background Component (retained from previous update)
-const GridBackground = ({ isDarkMode }) => {
-  const gridColor = isDarkMode ? "rgba(255, 255, 255, 0.05)" : "rgba(0, 0, 0, 0.05)"
-  const gradientStart = isDarkMode ? "rgba(139, 92, 246, 0.05)" : "rgba(99, 102, 241, 0.05)"
-  const gradientEnd = isDarkMode ? "rgba(59, 130, 246, 0.03)" : "rgba(59, 130, 246, 0.03)"
 
-  return (
-    <div className="absolute inset-0 overflow-hidden z-0">
-      <svg className="w-full h-full" xmlns="http://www.w3.org/2000/svg">
-        <defs>
-          <pattern id="grid" width="100" height="100" patternUnits="userSpaceOnUse">
-            <path d="M 100 0 L 0 0 0 100" fill="none" stroke={gridColor} strokeWidth="1" />
-          </pattern>
-          <radialGradient id="radialGradient" cx="50%" cy="50%" r="50%" fx="50%" fy="50%">
-            <stop offset="0%" stopColor={gradientStart} />
-            <stop offset="100%" stopColor={gradientEnd} />
-          </radialGradient>
-        </defs>
-        <rect width="100%" height="100%" fill="url(#grid)" />
-        <rect width="100%" height="100%" fill="url(#radialGradient)" opacity="0.5" />
-      </svg>
-      <style jsx>{`
-        @keyframes grid-pan {
-          0% {
-            background-position: 0% 0%;
-          }
-          100% {
-            background-position: 100% 100%;
-          }
-        }
-        .animated-grid {
-          animation: grid-pan 60s linear infinite;
-        }
-      `}</style>
-      <div
-        className="absolute inset-0 animated-grid"
-        style={{
-          backgroundImage: `url('data:image/svg+xml;utf8,<svg width="100" height="100" xmlns="http://www.w3.org/2000/svg"><path d="M 100 0 L 0 0 0 100" fill="none" stroke="${encodeURIComponent(gridColor)}" strokeWidth="1"/></svg>')`,
-        }}
-      ></div>
-    </div>
-  )
-}
 
 // New QuestionCard Component
 const QuestionCard = ({ question, courseId, dayNumber, updateQuestionStatus, isDarkMode }) => {
@@ -435,17 +393,15 @@ const CourseProgress = () => {
     return (
       <div
         className={`
-          relative min-h-screen flex items-center justify-center
+          min-h-screen flex items-center justify-center
           transition-colors duration-300 p-4 pt-24
           ${isDarkMode ? "bg-slate-900" : "bg-gray-50"}
         `}
       >
-        <GridBackground isDarkMode={isDarkMode} />
         <div
           className={`
             animate-spin rounded-full h-16 w-16 md:h-32 md:w-32 border-t-4
             ${isDarkMode ? "border-indigo-400" : "border-blue-500"}
-            relative z-10
           `}
         ></div>
       </div>
@@ -457,15 +413,14 @@ const CourseProgress = () => {
     return (
       <div
         className={`
-          relative min-h-screen flex flex-col items-center justify-center
+          min-h-screen flex flex-col items-center justify-center
           transition-colors duration-300 p-4 pt-24
           ${isDarkMode ? "bg-slate-900" : "bg-gray-50"}
         `}
       >
-        <GridBackground isDarkMode={isDarkMode} />
         <div
           className={`
-            text-center p-8 rounded-2xl shadow-2xl w-full max-w-md relative z-10
+            text-center p-8 rounded-2xl shadow-2xl w-full max-w-md
             ${
               isDarkMode
                 ? "bg-slate-800/70 text-zinc-100 border border-slate-700/50"
@@ -521,15 +476,14 @@ const CourseProgress = () => {
     return (
       <div
         className={`
-          relative min-h-screen flex items-center justify-center
+          min-h-screen flex items-center justify-center
           transition-colors duration-300 p-4 pt-24
           ${isDarkMode ? "bg-slate-900" : "bg-gray-50"}
         `}
       >
-        <GridBackground isDarkMode={isDarkMode} />
         <div
           className={`
-            text-center max-w-md w-full p-8 rounded-2xl shadow-2xl relative z-10
+            text-center max-w-md w-full p-8 rounded-2xl shadow-2xl
             ${
               isDarkMode
                 ? "bg-red-900/50 border border-red-700/50 text-red-300"
@@ -584,17 +538,15 @@ const CourseProgress = () => {
   return (
     <div
       className={`
-        relative min-h-screen pt-24 flex flex-col
+        min-h-screen pt-24 flex flex-col
         ${isDarkMode ? "bg-slate-900 text-zinc-100" : "bg-gray-50 text-gray-900"}
         transition-colors duration-300
       `}
     >
-      <GridBackground isDarkMode={isDarkMode} />
-
       {/* Main Content Area */}
       <div
         className={`
-          relative z-10 flex-grow p-4 max-w-7xl mx-auto w-full
+          flex-grow p-4 max-w-7xl mx-auto w-full
         `}
       >
         <h1
