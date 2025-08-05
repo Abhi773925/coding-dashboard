@@ -47,33 +47,33 @@ const StatsCard = ({ title, value, subtitle, icon: Icon, color, trend, isDarkMod
     whileHover={{ scale: 1.02, y: -2 }}
     whileTap={{ scale: 0.98 }}
     className={`
-      p-3 sm:p-4 lg:p-6 rounded-xl sm:rounded-2xl border backdrop-blur-md
+      p-2 sm:p-3 lg:p-4 rounded-lg sm:rounded-xl border backdrop-blur-md
       ${isDarkMode ? "bg-slate-800/70 border-slate-700/50" : "bg-white/80 border-gray-200/50"}
-      shadow-lg sm:shadow-xl transition-all duration-300
+      shadow-md sm:shadow-lg transition-all duration-300
     `}
     style={{
-      boxShadow: isDarkMode ? "0 8px 25px rgba(0,0,0,0.3)" : "0 8px 25px rgba(0,0,0,0.1)",
+      boxShadow: isDarkMode ? "0 4px 15px rgba(0,0,0,0.2)" : "0 4px 15px rgba(0,0,0,0.08)",
     }}
   >
-    <div className="flex items-center justify-between mb-2 sm:mb-3 lg:mb-4">
-      <div className={`p-2 sm:p-3 rounded-lg sm:rounded-xl ${color}`}>
-        <Icon size={16} className="text-white sm:w-5 sm:h-5 lg:w-6 lg:h-6" />
+    <div className="flex items-center justify-between mb-1 sm:mb-2">
+      <div className={`p-1.5 sm:p-2 rounded-lg ${color}`}>
+        <Icon size={14} className="text-white sm:w-4 sm:h-4 lg:w-5 lg:h-5" />
       </div>
       {trend && (
-        <div className={`flex items-center text-xs sm:text-sm ${trend > 0 ? 'text-green-500' : 'text-red-500'}`}>
-          <TrendingUp size={12} className="mr-1 sm:w-4 sm:h-4" />
+        <div className={`flex items-center text-xs ${trend > 0 ? 'text-green-500' : 'text-red-500'}`}>
+          <TrendingUp size={10} className="mr-1 sm:w-3 sm:h-3" />
           {Math.abs(trend)}%
         </div>
       )}
     </div>
-    <h3 className={`text-lg sm:text-xl lg:text-2xl font-bold ${isDarkMode ? "text-white" : "text-gray-900"}`}>
+    <h3 className={`text-base sm:text-lg lg:text-xl font-bold ${isDarkMode ? "text-white" : "text-gray-900"}`}>
       {value}
     </h3>
-    <p className={`text-xs sm:text-sm ${isDarkMode ? "text-gray-400" : "text-gray-600"}`}>
+    <p className={`text-xs ${isDarkMode ? "text-gray-400" : "text-gray-600"}`}>
       {title}
     </p>
     {subtitle && (
-      <p className={`text-xs mt-1 ${isDarkMode ? "text-gray-500" : "text-gray-500"}`}>
+      <p className={`text-xs mt-0.5 ${isDarkMode ? "text-gray-500" : "text-gray-500"}`}>
         {subtitle}
       </p>
     )}
@@ -81,7 +81,7 @@ const StatsCard = ({ title, value, subtitle, icon: Icon, color, trend, isDarkMod
 )
 
 // Progress Ring Component
-const ProgressRing = ({ progress, size = 120, strokeWidth = 8, color = "#8B5CF6", isDarkMode }) => {
+const ProgressRing = ({ progress, size = 80, strokeWidth = 6, color = "#8B5CF6", isDarkMode }) => {
   const radius = (size - strokeWidth) / 2
   const circumference = radius * 2 * Math.PI
   const strokeDasharray = `${circumference} ${circumference}`
@@ -112,7 +112,7 @@ const ProgressRing = ({ progress, size = 120, strokeWidth = 8, color = "#8B5CF6"
         />
       </svg>
       <div className="absolute inset-0 flex items-center justify-center">
-        <span className={`text-xl font-bold ${isDarkMode ? "text-white" : "text-gray-900"}`}>
+        <span className={`text-base font-bold ${isDarkMode ? "text-white" : "text-gray-900"}`}>
           {Math.round(progress)}%
         </span>
       </div>
@@ -127,12 +127,12 @@ const DayCard = ({ day, isSelected, onClick, isDarkMode, progress }) => (
     whileHover={{ scale: 1.02, y: -2 }}
     whileTap={{ scale: 0.98 }}
     className={`
-      relative p-3 sm:p-4 lg:p-6 rounded-xl sm:rounded-2xl min-w-[160px] sm:min-w-[180px] lg:min-w-[200px] border transition-all duration-300 backdrop-blur-md
+      relative p-2 sm:p-3 rounded-lg sm:rounded-xl min-w-[120px] sm:min-w-[140px] border transition-all duration-300 backdrop-blur-md
       ${
         isSelected
           ? isDarkMode
-            ? "bg-gradient-to-br from-purple-600 to-blue-600 border-purple-500 shadow-xl shadow-purple-900/50"
-            : "bg-gradient-to-br from-purple-600 to-blue-600 border-purple-500 shadow-xl shadow-purple-600/30"
+            ? "bg-gradient-to-br from-purple-600 to-blue-600 border-purple-500 shadow-lg shadow-purple-900/50"
+            : "bg-gradient-to-br from-purple-600 to-blue-600 border-purple-500 shadow-lg shadow-purple-600/30"
           : isDarkMode
             ? "bg-slate-800/80 border-slate-700/50 hover:bg-slate-700/80 hover:border-slate-600/60"
             : "bg-white/90 border-gray-200/50 hover:bg-gray-50/90 hover:border-gray-300/60"
@@ -141,30 +141,30 @@ const DayCard = ({ day, isSelected, onClick, isDarkMode, progress }) => (
     style={{
       boxShadow: isSelected 
         ? isDarkMode 
-          ? "0 15px 30px rgba(139, 92, 246, 0.3)" 
-          : "0 15px 30px rgba(139, 92, 246, 0.2)"
+          ? "0 8px 20px rgba(139, 92, 246, 0.3)" 
+          : "0 8px 20px rgba(139, 92, 246, 0.2)"
         : isDarkMode 
-          ? "0 8px 20px rgba(0,0,0,0.3)" 
-          : "0 8px 20px rgba(0,0,0,0.1)"
+          ? "0 4px 15px rgba(0,0,0,0.2)" 
+          : "0 4px 15px rgba(0,0,0,0.08)"
     }}
   >
     {/* Progress indicator at top */}
-    <div className="absolute top-1 sm:top-2 right-1 sm:right-2">
-      <div className={`w-2 h-2 sm:w-3 sm:h-3 rounded-full ${progress === 100 ? 'bg-green-500' : progress > 50 ? 'bg-yellow-500' : 'bg-red-500'}`} />
+    <div className="absolute top-1 right-1">
+      <div className={`w-2 h-2 rounded-full ${progress === 100 ? 'bg-green-500' : progress > 50 ? 'bg-yellow-500' : 'bg-red-500'}`} />
     </div>
     
-    <div className="flex flex-col items-center space-y-2 sm:space-y-3 lg:space-y-4">
+    <div className="flex flex-col items-center space-y-1 sm:space-y-2">
       {/* Day number with progress ring */}
       <div className="relative">
         <ProgressRing 
           progress={progress} 
-          size={40} 
-          strokeWidth={4} 
+          size={32} 
+          strokeWidth={3} 
           color={isSelected ? "#FFFFFF" : "#8B5CF6"}
           isDarkMode={isDarkMode}
         />
         <div className="absolute inset-0 flex items-center justify-center">
-          <span className={`text-xs sm:text-sm font-bold ${isSelected ? "text-white" : isDarkMode ? "text-white" : "text-gray-900"}`}>
+          <span className={`text-xs font-bold ${isSelected ? "text-white" : isDarkMode ? "text-white" : "text-gray-900"}`}>
             {day.dayNumber}
           </span>
         </div>
@@ -172,21 +172,18 @@ const DayCard = ({ day, isSelected, onClick, isDarkMode, progress }) => (
       
       {/* Day title */}
       <div className="text-center">
-        <h3 className={`font-bold text-sm sm:text-base lg:text-lg mb-1 ${isSelected ? "text-white" : isDarkMode ? "text-white" : "text-gray-900"}`}>
+        <h3 className={`font-bold text-xs sm:text-sm mb-0.5 ${isSelected ? "text-white" : isDarkMode ? "text-white" : "text-gray-900"}`}>
           Day {day.dayNumber}
         </h3>
-        <p className={`text-xs sm:text-sm leading-tight ${isSelected ? "text-blue-100" : isDarkMode ? "text-gray-400" : "text-gray-600"}`}>
-          {day.dayTitle?.length > 15 ? `${day.dayTitle?.substring(0, 15)}...` : day.dayTitle}
+        <p className={`text-xs leading-tight ${isSelected ? "text-blue-100" : isDarkMode ? "text-gray-400" : "text-gray-600"}`}>
+          {day.dayTitle?.length > 12 ? `${day.dayTitle?.substring(0, 12)}...` : day.dayTitle}
         </p>
       </div>
       
       {/* Progress stats */}
-      <div className={`text-center px-2 sm:px-3 py-1 sm:py-2 rounded-full ${isSelected ? "bg-white/20" : isDarkMode ? "bg-slate-700/50" : "bg-gray-100/80"}`}>
+      <div className={`text-center px-1.5 py-1 rounded-full ${isSelected ? "bg-white/20" : isDarkMode ? "bg-slate-700/50" : "bg-gray-100/80"}`}>
         <div className={`text-xs font-medium ${isSelected ? "text-blue-100" : isDarkMode ? "text-gray-300" : "text-gray-700"}`}>
           {day.questions?.filter(q => q.status).length || 0}/{day.questions?.length || 0}
-        </div>
-        <div className={`text-xs ${isSelected ? "text-blue-200" : isDarkMode ? "text-gray-400" : "text-gray-500"}`}>
-          {Math.round(progress)}%
         </div>
       </div>
     </div>
@@ -229,45 +226,45 @@ const QuestionCard = ({ question, courseId, dayNumber, updateQuestionStatus, isD
       exit={{ opacity: 0, y: -20 }}
       transition={{ duration: 0.3, ease: "easeOut" }}
       className={`
-        relative border rounded-2xl p-6 shadow-xl transition-all duration-300 group
+        relative border rounded-xl p-3 sm:p-4 shadow-lg transition-all duration-300 group
         ${isDarkMode ? "bg-slate-800/70 border-slate-700/50" : "bg-white/80 border-gray-200/50"}
-        hover:shadow-2xl hover:scale-[1.02] backdrop-blur-md
+        hover:shadow-xl hover:scale-[1.01] backdrop-blur-md
       `}
       style={{
-        boxShadow: isDarkMode ? "0 10px 30px rgba(0,0,0,0.3)" : "0 10px 30px rgba(0,0,0,0.1)",
+        boxShadow: isDarkMode ? "0 6px 20px rgba(0,0,0,0.2)" : "0 6px 20px rgba(0,0,0,0.08)",
       }}
     >
       {/* Status Indicator */}
-      <div className="absolute top-4 right-4">
+      <div className="absolute top-2 right-2">
         {question.status ? (
-          <CheckCircle className="text-green-500" size={24} />
+          <CheckCircle className="text-green-500" size={20} />
         ) : (
-          <Circle className={`${isDarkMode ? "text-gray-600" : "text-gray-400"}`} size={24} />
+          <Circle className={`${isDarkMode ? "text-gray-600" : "text-gray-400"}`} size={20} />
         )}
       </div>
 
       {/* Question Header */}
-      <div className="mb-4">
-        <div className="flex items-start justify-between mb-3">
-          <h3 className={`text-lg font-bold leading-tight pr-8 ${isDarkMode ? "text-zinc-100" : "text-gray-900"}`}>
+      <div className="mb-3">
+        <div className="flex items-start justify-between mb-2">
+          <h3 className={`text-base font-bold leading-tight pr-6 ${isDarkMode ? "text-zinc-100" : "text-gray-900"}`}>
             {question.title}
           </h3>
         </div>
         
         <div className="flex items-center justify-between">
-          <span className={`px-3 py-1 rounded-full text-xs font-bold ${difficultyColors[question.difficulty]}`}>
+          <span className={`px-2 py-1 rounded-lg text-xs font-semibold ${difficultyColors[question.difficulty]}`}>
             {question.difficulty}
           </span>
           
           {question.forRevision && (
-            <Star className="text-yellow-500 fill-current" size={18} />
+            <Star className="text-yellow-500 fill-current" size={16} />
           )}
         </div>
       </div>
 
       {/* Action Links */}
-      <div className="flex justify-between items-center mb-4">
-        <div className="flex space-x-3">
+      <div className="flex justify-between items-center mb-3">
+        <div className="flex space-x-2">
           {question.links.article && (
             <motion.a
               whileHover={{ scale: 1.1 }}
@@ -276,12 +273,12 @@ const QuestionCard = ({ question, courseId, dayNumber, updateQuestionStatus, isD
               target="_blank"
               rel="noopener noreferrer"
               className={`
-                p-2 rounded-xl transition-all duration-200
+                p-1.5 rounded-lg transition-all duration-200
                 ${isDarkMode ? "bg-indigo-800 text-indigo-300 hover:bg-indigo-700" : "bg-blue-100 text-blue-600 hover:bg-blue-200"}
               `}
               title="Article"
             >
-              <FileText size={18} />
+              <FileText size={16} />
             </motion.a>
           )}
           {question.links.youtube && (
@@ -292,12 +289,12 @@ const QuestionCard = ({ question, courseId, dayNumber, updateQuestionStatus, isD
               target="_blank"
               rel="noopener noreferrer"
               className={`
-                p-2 rounded-xl transition-all duration-200
+                p-1.5 rounded-lg transition-all duration-200
                 ${isDarkMode ? "bg-red-800 text-red-300 hover:bg-red-700" : "bg-red-100 text-red-600 hover:bg-red-200"}
               `}
               title="YouTube Tutorial"
             >
-              <PlayCircle size={18} />
+              <PlayCircle size={16} />
             </motion.a>
           )}
           {question.links.practice && (
@@ -308,18 +305,18 @@ const QuestionCard = ({ question, courseId, dayNumber, updateQuestionStatus, isD
               target="_blank"
               rel="noopener noreferrer"
               className={`
-                p-2 rounded-xl transition-all duration-200
+                p-1.5 rounded-lg transition-all duration-200
                 ${isDarkMode ? "bg-green-800 text-green-300 hover:bg-green-700" : "bg-green-100 text-green-600 hover:bg-green-200"}
               `}
               title="Problem Link"
             >
-              <LinkIcon size={18} />
+              <LinkIcon size={16} />
             </motion.a>
           )}
         </div>
 
         {/* Quick Actions */}
-        <div className="flex items-center space-x-2">
+        <div className="flex items-center space-x-1">
           <motion.button
             whileHover={{ scale: 1.1 }}
             whileTap={{ scale: 0.9 }}
@@ -342,7 +339,7 @@ const QuestionCard = ({ question, courseId, dayNumber, updateQuestionStatus, isD
             `}
             title="Mark for Revision"
           >
-            <Star size={18} />
+            <Star size={16} />
           </motion.button>
           
           <motion.button
@@ -363,21 +360,21 @@ const QuestionCard = ({ question, courseId, dayNumber, updateQuestionStatus, isD
             `}
             title="Mark as Complete"
           >
-            <CheckSquare size={18} />
+            <CheckSquare size={16} />
           </motion.button>
         </div>
       </div>
 
       {/* Notes Section */}
       <div className={`
-        p-4 rounded-xl border
+        p-3 rounded-lg border
         ${isDarkMode ? "bg-slate-700/50 border-slate-600/50" : "bg-gray-50/70 border-gray-200/50"}
       `}>
-        <div className="flex justify-between items-center mb-3">
-          <h4 className={`text-sm font-semibold ${isDarkMode ? "text-zinc-200" : "text-gray-700"}`}>
+        <div className="flex justify-between items-center mb-2">
+          <h4 className={`text-xs font-semibold ${isDarkMode ? "text-zinc-200" : "text-gray-700"}`}>
             Notes
           </h4>
-          <div className="flex space-x-2">
+          <div className="flex space-x-1">
             {!isEditingNotes ? (
               <>
                 <motion.button
@@ -444,15 +441,15 @@ const QuestionCard = ({ question, courseId, dayNumber, updateQuestionStatus, isD
             value={tempNotes}
             onChange={(e) => setTempNotes(e.target.value)}
             className={`
-              w-full p-3 rounded-lg text-sm resize-none
+              w-full p-2 rounded-lg text-xs resize-none
               ${isDarkMode ? "bg-slate-600 text-zinc-100 border-slate-500" : "bg-white text-gray-800 border-gray-300"}
               border focus:outline-none focus:ring-2 focus:ring-purple-500
             `}
-            rows={3}
+            rows={2}
             placeholder="Add your notes here..."
           />
         ) : (
-          <p className={`text-sm ${isDarkMode ? "text-zinc-300" : "text-gray-600"}`}>
+          <p className={`text-xs ${isDarkMode ? "text-zinc-300" : "text-gray-600"}`}>
             {question.notes || "No notes added"}
           </p>
         )}
@@ -837,7 +834,7 @@ const CourseProgress = () => {
     >
       {/* Hero Header */}
       <div className={`
-        relative overflow-hidden p-4 sm:p-6 lg:p-8 rounded-2xl sm:rounded-3xl mx-2 sm:mx-4 mb-4 sm:mb-6 lg:mb-8 border backdrop-blur-md
+        relative overflow-hidden p-3 sm:p-4 lg:p-6 rounded-xl sm:rounded-2xl mx-2 sm:mx-4 mb-3 sm:mb-4 lg:mb-6 border backdrop-blur-md
         ${isDarkMode ? "bg-slate-800/70 border-slate-700/50" : "bg-white/80 border-gray-200/50"}
         shadow-2xl
       `}>
@@ -854,19 +851,11 @@ const CourseProgress = () => {
             {course?.courseTitle || "Course Progress"}
           </motion.h1>
           
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-            className={`text-sm sm:text-base lg:text-lg ${isDarkMode ? "text-gray-300" : "text-gray-600"} max-w-xl lg:max-w-2xl mx-auto px-4`}
-          >
-            Track your coding journey with advanced analytics and personalized insights
-          </motion.p>
         </div>
       </div>
 
       {/* Main Content Area */}
-      <div className="flex-grow p-2 sm:p-4 max-w-7xl mx-auto w-full space-y-4 sm:space-y-6 lg:space-y-8">
+      <div className="flex-grow p-2 sm:p-3 max-w-7xl mx-auto w-full space-y-3 sm:space-y-4 lg:space-y-6">
         
         {/* Statistics Dashboard */}
         {showStats && stats && stats.totalQuestions > 0 && (
@@ -874,7 +863,7 @@ const CourseProgress = () => {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
-            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-3 sm:gap-4 lg:gap-6"
+            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-2 sm:gap-3 lg:gap-4"
           >
             <div className="sm:col-span-2 lg:col-span-1 xl:col-span-2">
               <StatsCard
@@ -1138,8 +1127,8 @@ const CourseProgress = () => {
               layout 
               className={`
                 ${viewMode === 'grid' 
-                  ? "grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3 sm:gap-4 lg:gap-6" 
-                  : "space-y-3 sm:space-y-4"
+                  ? "grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-5 gap-2 sm:gap-3" 
+                  : "space-y-2 sm:space-y-3"
                 }
               `}
             >
