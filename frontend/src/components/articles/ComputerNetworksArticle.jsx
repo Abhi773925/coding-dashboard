@@ -12,6 +12,7 @@ const ComputerNetworksArticle = () => {
         : "bg-gradient-to-br from-gray-50 via-white to-gray-100 text-gray-900"
     }`}>
       {/* Article Header */}
+      {/* dkdkdkdk */}
       <div className="max-w-4xl mx-auto px-6 pt-24 pb-8">
         <div className="text-center mb-8">
           <h1 className={`text-4xl md:text-5xl font-bold mb-4 ${
