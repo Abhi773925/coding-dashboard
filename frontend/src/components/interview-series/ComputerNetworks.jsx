@@ -40,124 +40,340 @@ const computerNetworkingData = {
     color: "from-blue-500 to-cyan-500",
     content: {
       "Introduction to Networks": {
-        definition: "A network is a collection of devices connected to each other through physical media to allow the sharing of data. In a network, two or more nodes are connected by a physical link, or two or more networks are connected by one or more nodes.",
+        definition: "A computer network is a collection of interconnected devices that can communicate and share resources with each other. These devices include computers, servers, routers, switches, and other networking equipment connected through wired or wireless transmission media.",
         keyPoints: [
-          "Enables resource sharing between devices",
-          "Facilitates communication and data exchange", 
-          "Provides centralized data management",
-          "Supports collaborative work environments"
+          "Enables resource sharing between devices (printers, files, internet connection)",
+          "Facilitates communication and data exchange across distances", 
+          "Provides centralized data management and backup solutions",
+          "Supports collaborative work environments and remote access",
+          "Reduces costs by sharing expensive resources among multiple users",
+          "Enables scalability and flexibility in adding new devices"
+        ],
+        advantages: [
+          "Resource Sharing: Multiple users can share hardware, software, and data",
+          "Communication: Email, instant messaging, video conferencing capabilities",
+          "Cost Effectiveness: Shared resources reduce individual costs",
+          "Centralized Management: Easier administration and maintenance",
+          "Backup and Recovery: Centralized data backup and disaster recovery",
+          "Scalability: Easy to add or remove devices from the network"
+        ],
+        disadvantages: [
+          "Security Vulnerabilities: Networks are susceptible to various attacks",
+          "Dependency: Network failure affects all connected devices",
+          "Cost of Setup: Initial infrastructure investment can be high",
+          "Maintenance: Requires skilled personnel for network management",
+          "Performance Issues: Network congestion can slow down operations"
         ]
       },
       "Network Types": {
-        definition: "Networks are classified based on their geographical coverage and scope.",
+        definition: "Networks are classified based on their geographical coverage, ownership, and connection methods.",
         types: [
           {
             name: "PAN (Personal Area Network)",
-            range: "Up to 10 meters",
-            description: "Created for personal use to connect devices like computers, telephones, fax, printers, etc."
+            range: "1-10 meters",
+            description: "A network for personal devices within a small area, typically around an individual person.",
+            examples: "Bluetooth connections between smartphone and headphones, USB connections",
+            advantages: ["Low cost", "Easy to set up", "Portable"],
+            disadvantages: ["Limited range", "Low data transfer rates"]
           },
           {
             name: "LAN (Local Area Network)", 
-            description: "Used for a small geographical location like an office, hospital, or school."
-          },
-          {
-            name: "HAN (House Area Network)",
-            description: "A LAN used within a house to connect personal computers, phones, printers, etc."
-          },
-          {
-            name: "CAN (Campus Area Network)",
-            description: "Connects devices within a campus area, linking different departments of an organization."
+            range: "10 meters to 1 kilometer",
+            description: "A network that connects devices within a limited geographical area like an office, school, or building.",
+            examples: "Office networks, school computer labs, home Wi-Fi networks",
+            advantages: ["High data transfer rates", "Low cost", "Easy to manage"],
+            disadvantages: ["Limited geographical coverage", "Requires physical infrastructure"]
           },
           {
             name: "MAN (Metropolitan Area Network)",
-            description: "Connects devices that span large cities or a wide geographical area."
+            range: "5-50 kilometers",
+            description: "A network that spans a city or large campus, connecting multiple LANs.",
+            examples: "City-wide Wi-Fi networks, cable TV networks, university campus networks",
+            advantages: ["Covers larger area than LAN", "High bandwidth"],
+            disadvantages: ["Higher cost than LAN", "Complex management"]
           },
           {
             name: "WAN (Wide Area Network)",
-            description: "Used over a wide geographical location that may range from connecting cities to countries."
+            range: "Unlimited (countries/continents)",
+            description: "A network that covers a large geographical area, often spanning cities, countries, or continents.",
+            examples: "Internet, corporate networks spanning multiple cities, satellite networks",
+            advantages: ["Global connectivity", "Resource sharing across distances"],
+            disadvantages: ["High cost", "Complex setup", "Security challenges"]
+          },
+          {
+            name: "CAN (Campus Area Network)",
+            range: "1-5 kilometers",
+            description: "A network that connects multiple buildings within a campus or corporate facility.",
+            examples: "University campus networks, corporate campuses, hospital networks"
+          },
+          {
+            name: "HAN (Home Area Network)",
+            range: "Within a home",
+            description: "A network connecting devices within a home environment.",
+            examples: "Smart home devices, home Wi-Fi, IoT devices"
           },
           {
             name: "GAN (Global Area Network)",
-            description: "Uses satellites to connect devices over a global area."
+            range: "Worldwide",
+            description: "A network that spans multiple WANs across the globe, often using satellite communications.",
+            examples: "Satellite internet, global mobile networks"
           }
         ]
       },
       "Network Topologies": {
-        definition: "Network topology specifies the layout of a computer network, showing how devices and cables are connected to each other.",
+        definition: "Network topology refers to the physical and logical arrangement of devices and connections in a computer network. It defines how different nodes in a network are connected and communicate with each other.",
+        importance: "Understanding network topology is crucial for network design, troubleshooting, performance optimization, and security planning.",
         topologies: [
           {
             name: "Star Topology",
-            imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/2/23/Star_network.svg/1200px-Star_network.svg.png",
-            description: "In a Star topology, all nodes are connected to a single central device.",
+            description: "All devices are connected to a central hub or switch. Data passes through the central device to reach its destination.",
             characteristics: [
-              "Requires more cable compared to other topologies",
-              "It is more robust, as a failure in one cable will only disconnect a specific computer",
-              "If the central device is damaged, the whole network fails",
-              "It is very easy to install, manage, and troubleshoot",
-              "Commonly used in office and home networks"
-            ]
+              "Central point of failure - if hub fails, entire network goes down",
+              "Easy to install and manage",
+              "Easy to detect faults and troubleshoot",
+              "Individual device failure doesn't affect the network",
+              "Requires more cable length compared to other topologies",
+              "Performance depends on the central device capacity"
+            ],
+            advantages: [
+              "Easy to set up and configure",
+              "Centralized management",
+              "Easy to add or remove devices",
+              "Good performance with moderate traffic"
+            ],
+            disadvantages: [
+              "Single point of failure at the hub",
+              "Higher cable cost",
+              "Hub/switch capacity limits performance"
+            ],
+            applications: ["Office networks", "Home networks", "Small to medium enterprises"]
           },
           {
             name: "Ring Topology",
-            imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/c/ce/Ring_network.svg/1200px-Ring_network.svg.png",
-            description: "In a Ring topology, nodes are connected to exactly two other nodes, forming a single continuous path for data transmission.",
+            description: "Devices are connected in a circular fashion where each device is connected to exactly two other devices, forming a ring.",
             characteristics: [
-              "Does not need a central server to control connectivity",
-              "If a single node is damaged, the entire network fails",
-              "It is very rarely used as it is expensive and difficult to install and manage",
-              "Examples include SONET and SDH networks"
-            ]
+              "Data travels in one or both directions around the ring",
+              "Each device acts as a repeater",
+              "No collision detection needed",
+              "Equal access to the network for all devices",
+              "Difficult to troubleshoot",
+              "Adding/removing devices affects the entire network"
+            ],
+            advantages: [
+              "No collision detection required",
+              "Equal access for all nodes",
+              "Can handle high traffic loads",
+              "Predictable performance"
+            ],
+            disadvantages: [
+              "Single point of failure in the ring",
+              "Difficult to add or remove devices",
+              "Troubleshooting is complex",
+              "Higher latency for distant nodes"
+            ],
+            applications: ["Token Ring networks", "FDDI networks", "Some industrial networks"]
           },
           {
             name: "Bus Topology",
-            imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/1/13/Bus_network.svg/1200px-Bus_network.svg.png",
-            description: "In a Bus topology, all nodes are connected to a single central cable known as the bus.",
+            description: "All devices are connected to a single central cable (backbone) that serves as a shared communication medium.",
             characteristics: [
-              "Acts as a shared communication medium; data sent over the bus is received by all attached devices",
-              "Useful for a small number of devices",
-              "If the central bus is damaged, the entire network fails"
-            ]
+              "Uses a single backbone cable",
+              "Terminators at both ends prevent signal reflection",
+              "All devices share the same communication medium",
+              "Uses CSMA/CD for collision detection",
+              "Limited cable length and number of devices",
+              "Difficult to isolate faults"
+            ],
+            advantages: [
+              "Cost-effective for small networks",
+              "Easy to set up",
+              "Requires less cable than star topology",
+              "Easy to extend"
+            ],
+            disadvantages: [
+              "Single point of failure at the backbone",
+              "Performance degrades with more devices",
+              "Difficult to troubleshoot",
+              "Collision domain issues"
+            ],
+            applications: ["Early Ethernet networks", "Small office networks"]
           },
           {
             name: "Mesh Topology",
-            imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/9/96/Mesh_network.svg/1200px-Mesh_network.svg.png",
-            description: "In a Mesh topology, all nodes are individually connected to other nodes.",
+            description: "Devices are interconnected, with multiple paths between any two devices. Can be full mesh or partial mesh.",
             types: [
               {
-                name: "Fully Connected Mesh",
-                description: "In this topology, all the nodes are connected to each other."
+                name: "Full Mesh",
+                description: "Every device is connected to every other device",
+                formula: "For n nodes: n(n-1)/2 connections required"
               },
               {
-                name: "Partially Connected Mesh",
-                description: "In this topology, all the nodes are not connected to each other."
+                name: "Partial Mesh",
+                description: "Some devices are connected to multiple devices, but not all"
               }
             ],
             characteristics: [
-              "Does not need any central switch or hub",
-              "It is robust, as a failure in one cable will only disconnect the specific computer connected to it",
-              "Rarely used because installation and configuration are difficult as connectivity increases",
-              "Cabling cost is high due to the amount of wiring required"
-            ]
+              "Multiple paths between devices provide redundancy",
+              "Self-healing capabilities",
+              "Complex wiring and configuration",
+              "High reliability and fault tolerance",
+              "Expensive due to multiple connections",
+              "Difficult to manage and maintain"
+            ],
+            advantages: [
+              "High reliability and redundancy",
+              "Multiple paths prevent single point of failure",
+              "Good performance and load distribution",
+              "Security through multiple paths"
+            ],
+            disadvantages: [
+              "Very expensive to implement",
+              "Complex installation and maintenance",
+              "Requires more physical space",
+              "Difficult to configure"
+            ],
+            applications: ["Critical military networks", "Backbone internet infrastructure", "High-availability systems"]
           },
           {
             name: "Tree Topology",
-            imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/9/91/Tree_network.svg/1200px-Tree_network.svg.png",
-            description: "A Tree topology is a combination of star and bus topologies, also known as an expanded star topology. All star networks are connected to a single bus.",
+            description: "A hybrid topology combining characteristics of star and bus topologies. Also known as hierarchical topology.",
             characteristics: [
-              "Uses the Ethernet protocol",
-              "The network is divided into segments (star networks) which can be easily maintained",
-              "If one segment is damaged, there is no effect on other segments",
-              "The entire network depends on the 'main bus'; if it breaks, the whole network gets damaged"
-            ]
+              "Hierarchical structure with root node at top",
+              "Parent-child relationship between nodes",
+              "Uses hub, switch, or router as intermediate nodes",
+              "Scalable architecture",
+              "Point-to-point wiring for individual segments",
+              "Easy to expand and manage"
+            ],
+            advantages: [
+              "Hierarchical organization is intuitive",
+              "Easy to expand and manage",
+              "Error detection and correction is easy",
+              "Fault isolation is possible"
+            ],
+            disadvantages: [
+              "If root/backbone fails, network segments get isolated",
+              "More cable required than bus or ring",
+              "Difficult to configure",
+              "Dependence on root hub"
+            ],
+            applications: ["Large corporate networks", "WAN connections", "Cable TV networks"]
           },
           {
             name: "Hybrid Topology",
-            description: "A Hybrid topology is a combination of different topologies to form a new resulting topology.",
+            description: "A combination of two or more different topologies to form a resulting topology that has good points of all constituent topologies.",
             characteristics: [
-              "If a star topology is connected with another star topology, it remains a star topology",
-              "If a star topology is connected with a different topology, it becomes a Hybrid topology",
-              "It provides flexibility as it can be implemented in different network environments"
+              "Combines benefits of different topologies",
+              "Flexible and scalable",
+              "Complex design and implementation",
+              "Can be customized based on requirements",
+              "Expensive to implement",
+              "Requires expertise to design and maintain"
+            ],
+            examples: [
+              "Star-Bus: Multiple star networks connected via bus",
+              "Star-Ring: Multiple star networks connected in ring fashion",
+              "Tree-Star: Tree topology with star sub-networks"
+            ],
+            advantages: [
+              "Flexible and reliable",
+              "Fault tolerance",
+              "Scalable",
+              "Combines best features"
+            ],
+            disadvantages: [
+              "Complex design",
+              "Expensive",
+              "Difficult to manage",
+              "Requires skilled technicians"
             ]
+          }
+        ]
+      },
+      "Network Components": {
+        definition: "Essential hardware and software components that enable network communication and functionality.",
+        components: [
+          {
+            name: "Network Interface Card (NIC)",
+            description: "A hardware component that connects a computer to a network",
+            functions: [
+              "Converts data between computer and network formats",
+              "Provides unique MAC address identification",
+              "Handles physical layer communication",
+              "Manages data transmission speeds"
+            ],
+            types: ["Ethernet NIC", "Wireless NIC", "USB NIC", "PCIe NIC"]
+          },
+          {
+            name: "Hub",
+            description: "A basic networking device that connects multiple devices in a star topology",
+            characteristics: [
+              "Operates at Physical Layer (Layer 1)",
+              "Creates single collision domain",
+              "Half-duplex communication",
+              "No MAC address table",
+              "Broadcasts data to all ports"
+            ],
+            types: ["Active Hub", "Passive Hub", "Intelligent Hub"]
+          },
+          {
+            name: "Switch",
+            description: "An intelligent networking device that connects devices and makes forwarding decisions based on MAC addresses",
+            characteristics: [
+              "Operates at Data Link Layer (Layer 2)",
+              "Creates separate collision domains",
+              "Full-duplex communication",
+              "Maintains MAC address table",
+              "Forwards data only to intended recipient"
+            ],
+            advantages: [
+              "Eliminates collisions",
+              "Better performance than hubs",
+              "Security through unicast transmission",
+              "VLAN support"
+            ]
+          },
+          {
+            name: "Router",
+            description: "A network device that forwards data packets between different networks based on IP addresses",
+            characteristics: [
+              "Operates at Network Layer (Layer 3)",
+              "Connects different networks",
+              "Makes routing decisions",
+              "Maintains routing table",
+              "Provides NAT functionality"
+            ],
+            functions: [
+              "Packet forwarding between networks",
+              "Path determination using routing protocols",
+              "Network address translation (NAT)",
+              "Firewall capabilities",
+              "DHCP server functionality"
+            ]
+          },
+          {
+            name: "Gateway",
+            description: "A device that acts as an entry/exit point between two networks using different protocols",
+            types: [
+              "Protocol Gateway: Converts between different protocols",
+              "Application Gateway: Operates at application layer",
+              "Circuit Gateway: Operates at session layer"
+            ]
+          },
+          {
+            name: "Repeater",
+            description: "A device that amplifies and regenerates signals to extend network range",
+            functions: [
+              "Signal amplification",
+              "Signal regeneration",
+              "Distance extension",
+              "Noise reduction"
+            ]
+          },
+          {
+            name: "Bridge",
+            description: "A device that connects two or more network segments and filters traffic based on MAC addresses",
+            types: ["Transparent Bridge", "Source Routing Bridge", "Translation Bridge"]
           }
         ]
       }
@@ -168,86 +384,325 @@ const computerNetworkingData = {
     color: "from-purple-500 to-pink-500",
     content: {
       "OSI Model Overview": {
-        definition: "A network architecture model based on ISO standards. It's called the OSI model because it deals with connecting systems that are open for communication with other systems. It has seven layers.",
+        definition: "The Open Systems Interconnection (OSI) model is a conceptual framework that standardizes the functions of a communication system into seven distinct layers. Developed by the International Organization for Standardization (ISO), it provides a reference for understanding network communication.",
+        purpose: [
+          "Standardize network communication protocols",
+          "Enable interoperability between different vendors",
+          "Simplify network troubleshooting and development",
+          "Provide a common reference for network professionals"
+        ],
         principles: [
           "Create a new layer if a different abstraction is needed",
           "Each layer should have a well-defined function",
-          "The function of each layer is chosen based on internationally standardized protocols"
+          "Layer boundaries should be chosen to minimize information flow",
+          "The number of layers should be large enough for distinct functions but small enough to keep the architecture manageable",
+          "Each layer should interact only with adjacent layers"
+        ],
+        benefits: [
+          "Modular approach to network design",
+          "Easier troubleshooting and fault isolation",
+          "Standardized interfaces between layers",
+          "Technology independence at each layer",
+          "Reduced complexity through layered approach"
         ]
       },
-      "OSI Layers (1-4)": {
-        definition: "The lower four layers of the OSI model handle data transmission and network connectivity.",
-        layers: [
+      "Physical Layer (Layer 1)": {
+        definition: "The lowest layer of the OSI model responsible for the actual physical transmission of raw data bits over a physical medium.",
+        functions: [
+          "Bit transmission: Converting digital data into electrical, optical, or radio signals",
+          "Physical topology: Defining the physical layout of the network",
+          "Hardware specifications: Defining cables, connectors, and network cards",
+          "Data encoding: Converting bits into signals",
+          "Synchronization: Ensuring sender and receiver are synchronized"
+        ],
+        characteristics: [
+          "Deals with raw bit stream transmission",
+          "Defines electrical and physical specifications",
+          "No error detection or correction",
+          "Transmission medium dependent",
+          "Hardware-focused layer"
+        ],
+        components: [
+          "Cables (Copper, Fiber optic, Wireless)",
+          "Connectors (RJ45, BNC, SC, ST)",
+          "Network Interface Cards (NICs)",
+          "Hubs and Repeaters",
+          "Modems and Transceivers"
+        ],
+        protocols: ["Ethernet physical standards", "Wi-Fi physical specifications", "Bluetooth", "USB"],
+        transmissionMedia: [
           {
-            layer: 1,
-            name: "Physical Layer",
-            description: "The lowest layer, used for the transmission of an unstructured raw bit stream over a physical medium. It transmits data in electrical, optical, or mechanical form and handles the physical connection between devices.",
-            media: "twisted-pair cable, fibre-optic, wireless transmission"
+            type: "Guided Media",
+            examples: ["Twisted Pair Cable", "Coaxial Cable", "Fiber Optic Cable"]
           },
           {
-            layer: 2,
-            name: "DataLink Layer", 
-            description: "Used for transferring data from one node to another. It receives data from the network layer, converts it into data frames, attaches the physical address, and sends it to the physical layer. It enables error-free data transfer.",
-            functions: [
-              "Frame synchronization: Ensures the destination can recognize the start and end of each frame",
-              "Flow control: Controls the data flow within the network",
-              "Error control: Detects and corrects errors during transmission",
-              "Addressing: Attaches the physical address (MAC) to data frames",
-              "Link management: Manages the initiation, maintenance, and termination of the link"
-            ]
-          },
-          {
-            layer: 3,
-            name: "Network Layer",
-            description: "Converts the logical address into a physical address and determines the best route for packets to travel from source to destination.",
-            functions: [
-              "Routing: Determines the best route from source to destination",
-              "Logical addressing: Defines an addressing scheme to uniquely identify each device",
-              "Packetizing: Converts data from the upper layer into packets",
-              "Internetworking: Provides a logical connection between different types of networks",
-              "Fragmentation: Divides packets into smaller fragments"
-            ]
-          },
-          {
-            layer: 4,
-            name: "Transport Layer",
-            description: "Delivers the message through the network and provides error checking so that no error occurs during the transfer of data.",
-            services: [
-              {
-                type: "Connection-oriented transmission",
-                description: "The receiver sends an acknowledgement to the sender after a packet is received"
-              },
-              {
-                type: "Connectionless transmission", 
-                description: "The receiver does not send an acknowledgement"
-              }
-            ]
+            type: "Unguided Media", 
+            examples: ["Radio Waves", "Microwaves", "Infrared", "Satellite"]
           }
         ]
       },
-      "OSI Layers (5-7)": {
-        definition: "The upper three layers of the OSI model handle application-level services and user interfaces.",
+      "Data Link Layer (Layer 2)": {
+        definition: "Responsible for reliable data transfer between two directly connected nodes and provides error detection and correction for the physical layer.",
+        functions: [
+          "Frame synchronization: Identifying frame boundaries",
+          "Error detection and correction: Using checksums and CRC",
+          "Flow control: Managing data transmission rate",
+          "Access control: Managing shared medium access",
+          "Physical addressing: Using MAC addresses"
+        ],
+        subLayers: [
+          {
+            name: "Logical Link Control (LLC)",
+            description: "Manages communication between upper layers and MAC sublayer",
+            functions: ["Flow control", "Error control", "Multiplexing"]
+          },
+          {
+            name: "Media Access Control (MAC)",
+            description: "Controls access to the transmission medium",
+            functions: ["Frame creation", "Physical addressing", "Channel access"]
+          }
+        ],
+        protocols: ["Ethernet", "Wi-Fi (802.11)", "PPP", "HDLC", "Frame Relay"],
+        devices: ["Switches", "Bridges", "Network Interface Cards"],
+        errorDetection: [
+          "Parity Check: Simple odd/even bit counting",
+          "Checksum: Sum of data bytes",
+          "Cyclic Redundancy Check (CRC): Polynomial division"
+        ],
+        frameStructure: [
+          "Preamble: Synchronization pattern",
+          "Destination Address: Target MAC address",
+          "Source Address: Sender MAC address", 
+          "Length/Type: Frame size or protocol type",
+          "Data: Actual payload",
+          "Frame Check Sequence: Error detection"
+        ]
+      },
+      "Network Layer (Layer 3)": {
+        definition: "Responsible for routing data packets between different networks and providing logical addressing through IP addresses.",
+        functions: [
+          "Logical addressing: Using IP addresses for identification",
+          "Routing: Determining best path for data packets",
+          "Path determination: Finding optimal routes",
+          "Packet forwarding: Moving packets toward destination",
+          "Fragmentation and reassembly: Breaking large packets into smaller ones",
+          "Congestion control: Managing network traffic"
+        ],
+        protocols: [
+          {
+            name: "IP (Internet Protocol)",
+            versions: ["IPv4: 32-bit addressing", "IPv6: 128-bit addressing"]
+          },
+          {
+            name: "ICMP (Internet Control Message Protocol)",
+            purpose: "Error reporting and diagnostics"
+          },
+          {
+            name: "ARP (Address Resolution Protocol)",
+            purpose: "Maps IP addresses to MAC addresses"
+          },
+          {
+            name: "OSPF (Open Shortest Path First)",
+            purpose: "Link-state routing protocol"
+          },
+          {
+            name: "BGP (Border Gateway Protocol)",
+            purpose: "Inter-domain routing protocol"
+          }
+        ],
+        devices: ["Routers", "Layer 3 Switches", "Multilayer Switches"],
+        routingAlgorithms: [
+          "Distance Vector: Uses hop count (RIP)",
+          "Link State: Uses network topology (OSPF)",
+          "Path Vector: Uses path information (BGP)"
+        ],
+        addressingSchemes: [
+          "Classful Addressing: Traditional IP classes (A, B, C, D, E)",
+          "Classless Addressing: CIDR notation",
+          "Subnetting: Dividing networks into smaller subnets",
+          "VLSM: Variable Length Subnet Masking"
+        ]
+      },
+      "Transport Layer (Layer 4)": {
+        definition: "Provides reliable data delivery services to upper layers and manages end-to-end communication between applications.",
+        functions: [
+          "Segmentation and reassembly: Breaking data into manageable segments",
+          "Connection management: Establishing and terminating connections",
+          "Error detection and recovery: Ensuring data integrity",
+          "Flow control: Managing data transmission rate",
+          "Multiplexing: Multiple applications sharing network connection"
+        ],
+        protocols: [
+          {
+            name: "TCP (Transmission Control Protocol)",
+            characteristics: [
+              "Connection-oriented protocol",
+              "Reliable data delivery",
+              "Error detection and correction",
+              "Flow control and congestion control",
+              "Ordered data delivery",
+              "Full-duplex communication"
+            ],
+            features: [
+              "Three-way handshake for connection establishment",
+              "Sequence numbers for ordering",
+              "Acknowledgments for reliability",
+              "Sliding window for flow control"
+            ]
+          },
+          {
+            name: "UDP (User Datagram Protocol)",
+            characteristics: [
+              "Connectionless protocol",
+              "Fast transmission",
+              "No guarantee of delivery",
+              "No error recovery",
+              "Minimal overhead",
+              "Best-effort delivery"
+            ],
+            applications: ["DNS queries", "DHCP", "Streaming media", "Online gaming"]
+          }
+        ],
+        portNumbers: [
+          "Well-known ports: 0-1023 (HTTP: 80, HTTPS: 443, FTP: 21)",
+          "Registered ports: 1024-49151",
+          "Dynamic/Private ports: 49152-65535"
+        ],
+        connectionTypes: [
+          "Connection-oriented: Reliable, ordered delivery (TCP)",
+          "Connectionless: Fast, no guarantees (UDP)"
+        ]
+      },
+      "Upper OSI Layers (5-7)": {
+        definition: "The upper three layers of the OSI model focus on application-level services, data presentation, and user interaction.",
         layers: [
           {
             layer: 5,
             name: "Session Layer",
-            description: "Responsible for beginning, maintaining, and ending the communication between devices. It establishes and maintains the session and reports errors from upper layers."
+            description: "Manages sessions between applications and provides dialog control services.",
+            functions: [
+              "Session establishment, maintenance, and termination",
+              "Dialog management (half-duplex or full-duplex)",
+              "Session checkpointing and recovery",
+              "Authentication and authorization",
+              "Data synchronization"
+            ],
+            protocols: ["NetBIOS", "RPC", "SQL", "NFS", "SMB"],
+            services: [
+              "Full-duplex: Both directions simultaneously",
+              "Half-duplex: One direction at a time",
+              "Simplex: One direction only"
+            ],
+            examples: [
+              "Web browser session with web server",
+              "Database connection sessions",
+              "Video conferencing sessions"
+            ]
           },
           {
             layer: 6,
             name: "Presentation Layer",
-            description: "Also known as the Translation layer. It translates data from the application layer format to a common format on the sender's side, and from the common format to the application layer format on the receiver's side.",
+            description: "Handles data formatting, encryption, compression, and translation between different data representations.",
             functions: [
-              "Character code translation",
-              "Data conversion",
-              "Data compression",
-              "Data encryption"
+              "Data encryption and decryption",
+              "Data compression and decompression",
+              "Character set translation (ASCII, EBCDIC, Unicode)",
+              "Data format conversion",
+              "Syntax conversion"
+            ],
+            protocols: ["SSL/TLS", "MIME", "XDR", "JPEG", "MPEG", "GIF"],
+            services: [
+              "Encryption: Securing data transmission",
+              "Compression: Reducing data size",
+              "Translation: Converting between formats"
+            ],
+            examples: [
+              "HTTPS encryption",
+              "File compression (ZIP, RAR)",
+              "Image format conversion",
+              "Character encoding"
             ]
           },
           {
             layer: 7,
             name: "Application Layer",
-            description: "The topmost layer that enables the user to access the network. It includes protocols like FTP, SMTP, and DNS. The most widely used protocol is HTTP, which users use to send requests for web pages."
+            description: "Provides network services directly to end-users and applications.",
+            functions: [
+              "Network virtual terminal",
+              "File transfer and management",
+              "Electronic mail services",
+              "Directory services",
+              "Network management"
+            ],
+            protocols: [
+              "HTTP/HTTPS: Web browsing",
+              "SMTP: Email sending",
+              "POP3/IMAP: Email retrieval",
+              "FTP/SFTP: File transfer",
+              "DNS: Domain name resolution",
+              "DHCP: IP address assignment",
+              "SNMP: Network management",
+              "Telnet/SSH: Remote access"
+            ],
+            services: [
+              "Email services",
+              "File sharing",
+              "Web browsing",
+              "Remote access",
+              "Network management"
+            ]
+          }
+        ]
+      },
+      "OSI vs TCP/IP Comparison": {
+        definition: "A comparison between the theoretical OSI model and the practical TCP/IP model used in real networks.",
+        differences: [
+          {
+            aspect: "Number of Layers",
+            osi: "7 layers",
+            tcpip: "4 layers"
+          },
+          {
+            aspect: "Development",
+            osi: "Theoretical model by ISO",
+            tcpip: "Practical model by DARPA"
+          },
+          {
+            aspect: "Approach",
+            osi: "Top-down approach",
+            tcpip: "Bottom-up approach"
+          },
+          {
+            aspect: "Usage",
+            osi: "Reference model",
+            tcpip: "Implementation model"
+          },
+          {
+            aspect: "Protocols",
+            osi: "Generic protocols",
+            tcpip: "Specific protocols"
+          }
+        ],
+        layerMapping: [
+          {
+            tcpLayer: "Application",
+            osiLayers: ["Application", "Presentation", "Session"],
+            description: "Combines top three OSI layers"
+          },
+          {
+            tcpLayer: "Transport",
+            osiLayers: ["Transport"],
+            description: "Direct mapping"
+          },
+          {
+            tcpLayer: "Internet",
+            osiLayers: ["Network"],
+            description: "Direct mapping"
+          },
+          {
+            tcpLayer: "Link",
+            osiLayers: ["Data Link", "Physical"],
+            description: "Combines bottom two OSI layers"
           }
         ]
       }
@@ -258,79 +713,358 @@ const computerNetworkingData = {
     color: "from-green-500 to-emerald-500",
     content: {
       "TCP/IP Overview": {
-        definition: "A compressed version of the OSI model with only 4 layers, developed by the US Department of Defence (DoD). Its name is based on two standard protocols: TCP and IP.",
+        definition: "The TCP/IP model, also known as the Internet Protocol Suite, is a practical networking model that forms the foundation of the modern internet. Developed by DARPA, it consists of four layers and focuses on end-to-end connectivity and internetworking.",
+        history: [
+          "Developed by DARPA in the 1970s",
+          "Based on practical implementation rather than theory",
+          "Became the standard for internet communication",
+          "Continuously evolved with internet growth"
+        ],
         layers: [
           {
-            name: "Link",
-            description: "Decides which links, such as serial lines or classic Ethernet, must be used to meet the needs of the connectionless internet layer.",
-            examples: "SONET, Ethernet"
+            name: "Application Layer",
+            description: "Combines the functionality of OSI Application, Presentation, and Session layers. Provides network services directly to user applications.",
+            protocols: [
+              "HTTP/HTTPS: Web communication",
+              "SMTP: Email transmission",
+              "POP3/IMAP: Email retrieval", 
+              "FTP/SFTP: File transfer",
+              "DNS: Domain name resolution",
+              "DHCP: Dynamic IP assignment",
+              "SNMP: Network management",
+              "Telnet/SSH: Remote access"
+            ],
+            functions: [
+              "Application communication",
+              "Data formatting and encryption",
+              "Session management",
+              "User interface provision"
+            ]
           },
           {
-            name: "Internet",
-            description: "The most important layer, holding the whole architecture together. It delivers IP packets where they are supposed to be delivered.",
-            examples: "IP, ICMP"
+            name: "Transport Layer",
+            description: "Provides end-to-end communication services and data flow control. Maps directly to OSI Transport layer.",
+            protocols: [
+              "TCP: Reliable, connection-oriented communication",
+              "UDP: Fast, connectionless communication",
+              "SCTP: Stream Control Transmission Protocol"
+            ],
+            functions: [
+              "Segmentation and reassembly",
+              "Error detection and recovery",
+              "Flow control",
+              "Multiplexing"
+            ]
           },
           {
-            name: "Transport",
-            description: "Functionality is almost the same as the OSI transport layer. It enables peer entities on the network to carry on a conversation.",
-            examples: "TCP, UDP"
+            name: "Internet Layer",
+            description: "Handles logical addressing and routing of packets across networks. Equivalent to OSI Network layer.",
+            protocols: [
+              "IP: Internet Protocol (IPv4/IPv6)",
+              "ICMP: Internet Control Message Protocol",
+              "ARP: Address Resolution Protocol",
+              "RARP: Reverse Address Resolution Protocol"
+            ],
+            functions: [
+              "Logical addressing",
+              "Routing and path determination",
+              "Packet forwarding",
+              "Fragmentation and reassembly"
+            ]
           },
           {
-            name: "Application",
-            description: "Contains all the higher-level protocols.",
-            examples: "HTTP, SMTP, RTP, DNS"
+            name: "Network Access Layer",
+            description: "Combines OSI Physical and Data Link layers. Handles physical transmission and local network access.",
+            protocols: [
+              "Ethernet: Wired LAN standard",
+              "Wi-Fi: Wireless LAN standard",
+              "PPP: Point-to-Point Protocol",
+              "Frame Relay: WAN protocol"
+            ],
+            functions: [
+              "Physical addressing (MAC)",
+              "Frame formatting",
+              "Error detection",
+              "Media access control"
+            ]
           }
         ]
       },
-      "TCP vs UDP": {
-        title: "TCP vs UDP",
-        tcp: {
-          name: "Transmission Control Protocol",
-          connectionType: "Connection-oriented",
-          speed: "Comparatively slower than UDP",
-          errorChecking: "Provides extensive error checking mechanisms, flow control, and acknowledgment of data",
-          reliability: "Retransmission of lost data packets is only possible with TCP"
-        },
-        udp: {
-          name: "User Datagram Protocol",
-          connectionType: "Connectionless",
-          speed: "A much faster, simpler, and efficient protocol",
-          errorChecking: "Has only the basic error checking mechanism using checksums",
-          reliability: "Retransmission of lost data packets is not possible"
-        }
-      },
-      "IPv4 Addressing": {
-        definition: "An IP address is a 32-bit dynamic address of a node in the network. An IPv4 address has 4 octets of 8-bits each, with each number having a value up to 255. Classes are differentiated based on the number of hosts the network supports.",
-        classes: [
+      "TCP Protocol Details": {
+        definition: "Transmission Control Protocol (TCP) is a connection-oriented, reliable transport layer protocol that ensures ordered and error-free delivery of data.",
+        characteristics: [
+          "Connection-oriented: Requires connection establishment",
+          "Reliable: Guarantees data delivery",
+          "Ordered: Data arrives in correct sequence",
+          "Flow control: Manages transmission rate",
+          "Error recovery: Retransmits lost data",
+          "Full-duplex: Bidirectional communication"
+        ],
+        features: [
           {
-            class: "A",
-            startAddress: "0.0.0.0",
-            endAddress: "127.255.255.255",
-            usage: "Used for Large Network"
+            name: "Three-Way Handshake",
+            description: "Connection establishment process",
+            steps: [
+              "Client sends SYN packet",
+              "Server responds with SYN-ACK",
+              "Client sends ACK to complete connection"
+            ]
           },
           {
-            class: "B",
-            startAddress: "128.0.0.0",
-            endAddress: "191.255.255.255",
-            usage: "Used for Medium Size Network"
+            name: "Sequence Numbers",
+            description: "Used for ordering and acknowledging data segments"
+          },
+          {
+            name: "Sliding Window",
+            description: "Flow control mechanism that manages data transmission rate"
+          },
+          {
+            name: "Congestion Control",
+            description: "Algorithms to prevent network congestion"
+          }
+        ],
+        applications: [
+          "Web browsing (HTTP/HTTPS)",
+          "Email (SMTP, POP3, IMAP)",
+          "File transfer (FTP)",
+          "Remote access (SSH, Telnet)"
+        ]
+      },
+      "UDP Protocol Details": {
+        definition: "User Datagram Protocol (UDP) is a connectionless, lightweight transport layer protocol that provides fast but unreliable data transmission.",
+        characteristics: [
+          "Connectionless: No connection establishment required",
+          "Unreliable: No guarantee of data delivery",
+          "Fast: Minimal overhead",
+          "Simple: Basic functionality",
+          "No flow control: Sends data at maximum rate",
+          "No error recovery: Lost data is not retransmitted"
+        ],
+        advantages: [
+          "Low latency",
+          "Minimal protocol overhead",
+          "Suitable for real-time applications",
+          "Broadcast and multicast support",
+          "Simple implementation"
+        ],
+        disadvantages: [
+          "No reliability guarantees",
+          "No flow control",
+          "No congestion control",
+          "No ordering guarantees",
+          "No error recovery"
+        ],
+        applications: [
+          "DNS queries",
+          "DHCP configuration",
+          "Video streaming",
+          "Online gaming",
+          "Voice over IP (VoIP)",
+          "Network management (SNMP)"
+        ]
+      },
+      "TCP vs UDP Comparison": {
+        definition: "A detailed comparison between TCP and UDP protocols, highlighting their differences in reliability, performance, and use cases.",
+        comparison: [
+          {
+            feature: "Connection Type",
+            tcp: "Connection-oriented (requires handshake)",
+            udp: "Connectionless (no handshake required)"
+          },
+          {
+            feature: "Reliability",
+            tcp: "Reliable (guarantees delivery)",
+            udp: "Unreliable (best-effort delivery)"
+          },
+          {
+            feature: "Speed",
+            tcp: "Slower due to overhead",
+            udp: "Faster with minimal overhead"
+          },
+          {
+            feature: "Error Checking",
+            tcp: "Extensive error checking and recovery",
+            udp: "Basic error checking only"
+          },
+          {
+            feature: "Data Ordering",
+            tcp: "Maintains data order",
+            udp: "No ordering guarantee"
+          },
+          {
+            feature: "Flow Control",
+            tcp: "Implements flow control",
+            udp: "No flow control"
+          },
+          {
+            feature: "Congestion Control",
+            tcp: "Implements congestion control",
+            udp: "No congestion control"
+          },
+          {
+            feature: "Header Size",
+            tcp: "20-60 bytes (larger)",
+            udp: "8 bytes (smaller)"
+          },
+          {
+            feature: "Broadcasting",
+            tcp: "Not supported",
+            udp: "Supports broadcast/multicast"
+          }
+        ],
+        useCases: [
+          {
+            protocol: "TCP",
+            scenarios: [
+              "Web browsing (HTTP/HTTPS)",
+              "Email transmission",
+              "File transfers",
+              "Database connections",
+              "Any application requiring reliability"
+            ]
+          },
+          {
+            protocol: "UDP",
+            scenarios: [
+              "Video/audio streaming",
+              "Online gaming",
+              "DNS queries",
+              "DHCP",
+              "Real-time applications"
+            ]
+          }
+        ]
+      },
+      "IP Addressing": {
+        definition: "Internet Protocol (IP) addressing is a logical addressing scheme used to identify devices on a network. It enables routing of data packets across interconnected networks.",
+        versions: [
+          {
+            version: "IPv4",
+            addressLength: "32 bits",
+            format: "Dotted decimal notation (e.g., 192.168.1.1)",
+            totalAddresses: "4.3 billion (2^32)",
+            headerSize: "20-60 bytes"
+          },
+          {
+            version: "IPv6", 
+            addressLength: "128 bits",
+            format: "Hexadecimal notation (e.g., 2001:db8::1)",
+            totalAddresses: "340 undecillion (2^128)",
+            headerSize: "40 bytes (fixed)"
+          }
+        ],
+        ipv4Classes: [
+          {
+            class: "A",
+            range: "1.0.0.0 to 126.255.255.255",
+            networkBits: "8 bits",
+            hostBits: "24 bits",
+            defaultMask: "255.0.0.0 (/8)",
+            networks: "126",
+            hostsPerNetwork: "16,777,214",
+            usage: "Large organizations and ISPs"
+          },
+          {
+            class: "B", 
+            range: "128.0.0.0 to 191.255.255.255",
+            networkBits: "16 bits",
+            hostBits: "16 bits",
+            defaultMask: "255.255.0.0 (/16)",
+            networks: "16,384",
+            hostsPerNetwork: "65,534",
+            usage: "Medium-sized organizations"
           },
           {
             class: "C",
-            startAddress: "192.0.0.0",
-            endAddress: "223.255.255.255",
-            usage: "Used for Local Area Network"
+            range: "192.0.0.0 to 223.255.255.255", 
+            networkBits: "24 bits",
+            hostBits: "8 bits",
+            defaultMask: "255.255.255.0 (/24)",
+            networks: "2,097,152",
+            hostsPerNetwork: "254",
+            usage: "Small networks and LANs"
           },
           {
             class: "D",
-            startAddress: "224.0.0.0",
-            endAddress: "239.255.255.255",
-            usage: "Reserved for Multicasting"
+            range: "224.0.0.0 to 239.255.255.255",
+            usage: "Multicast addressing",
+            description: "Reserved for multicast group communications"
           },
           {
             class: "E",
-            startAddress: "240.0.0.0",
-            endAddress: "255.255.255.254",
-            usage: "Study and R&D"
+            range: "240.0.0.0 to 255.255.255.255",
+            usage: "Experimental and research",
+            description: "Reserved for future use and research"
+          }
+        ],
+        specialAddresses: [
+          {
+            address: "0.0.0.0",
+            purpose: "Default route or unknown address"
+          },
+          {
+            address: "127.0.0.1",
+            purpose: "Loopback address (localhost)"
+          },
+          {
+            address: "255.255.255.255",
+            purpose: "Limited broadcast address"
+          },
+          {
+            address: "169.254.x.x",
+            purpose: "Link-local addresses (APIPA)"
+          }
+        ],
+        privateAddresses: [
+          {
+            class: "A",
+            range: "10.0.0.0 to 10.255.255.255",
+            cidr: "10.0.0.0/8"
+          },
+          {
+            class: "B", 
+            range: "172.16.0.0 to 172.31.255.255",
+            cidr: "172.16.0.0/12"
+          },
+          {
+            class: "C",
+            range: "192.168.0.0 to 192.168.255.255",
+            cidr: "192.168.0.0/16"
+          }
+        ]
+      },
+      "Subnetting": {
+        definition: "Subnetting is the process of dividing a single network into multiple smaller sub-networks (subnets). It improves network efficiency, security, and management.",
+        benefits: [
+          "Improved network performance by reducing broadcast traffic",
+          "Enhanced security through network segmentation",
+          "Better resource utilization",
+          "Easier network management and troubleshooting",
+          "Efficient IP address allocation"
+        ],
+        concepts: [
+          {
+            term: "Subnet Mask",
+            definition: "A 32-bit number that identifies the network and host portions of an IP address"
+          },
+          {
+            term: "CIDR Notation",
+            definition: "Classless Inter-Domain Routing notation using /n to indicate network bits"
+          },
+          {
+            term: "VLSM",
+            definition: "Variable Length Subnet Masking allows different subnet sizes within the same network"
+          }
+        ],
+        examples: [
+          {
+            network: "192.168.1.0/24",
+            subnets: [
+              "192.168.1.0/26 (64 hosts)",
+              "192.168.1.64/26 (64 hosts)", 
+              "192.168.1.128/26 (64 hosts)",
+              "192.168.1.192/26 (64 hosts)"
+            ]
           }
         ]
       }
@@ -340,78 +1074,235 @@ const computerNetworkingData = {
     icon: FileText,
     color: "from-orange-500 to-red-500",
     content: {
-      "Protocol Basics": {
-        definition: "A protocol is a set of rules used to govern all the aspects of information communication.",
+      "Protocol Fundamentals": {
+        definition: "A network protocol is a set of established rules and conventions that determine how devices in a network communicate with each other. Protocols define the format, timing, sequencing, and error control of data transmission.",
+        importance: [
+          "Enables interoperability between different devices and vendors",
+          "Ensures reliable and efficient data communication",
+          "Provides standardization across networks",
+          "Facilitates troubleshooting and network management"
+        ],
         elements: [
           {
             name: "Syntax",
-            description: "Specifies the structure or format of the data and the order in which they are presented."
+            description: "Defines the structure and format of data, including bit patterns, signal levels, and frame formats"
           },
           {
-            name: "Semantics",
-            description: "Specifies the meaning of each section of bits."
+            name: "Semantics", 
+            description: "Specifies the meaning of each section of bits and the actions to be taken"
           },
           {
             name: "Timing",
-            description: "Specifies two characteristics: When data should be sent and how fast it can be sent."
+            description: "Defines when data should be sent, how fast it can be sent, and synchronization requirements"
           }
+        ],
+        characteristics: [
+          "Well-defined message format and rules",
+          "Agreed-upon procedures for communication", 
+          "Error detection and correction mechanisms",
+          "Flow control and congestion management",
+          "Security and authentication features"
         ]
       },
-      "Web Protocols": {
-        definition: "Protocols used for web communication and data transfer.",
+      "Application Layer Protocols": {
+        definition: "Protocols that provide network services directly to end-users and applications.",
         protocols: [
           {
             name: "HTTP",
             fullName: "HyperText Transfer Protocol",
-            description: "Defines the set of rules and standards for how information can be transmitted on the World Wide Web (WWW). It helps web browsers and web servers to communicate. It is a 'stateless protocol' where each command is independent. It is an application layer protocol built on TCP.",
-            port: 80
+            port: 80,
+            description: "Foundation of data communication on the World Wide Web. Stateless protocol for transferring hypertext documents.",
+            features: [
+              "Request-response model",
+              "Stateless communication",
+              "Support for various media types",
+              "Caching mechanisms",
+              "Virtual hosting"
+            ],
+            methods: ["GET", "POST", "PUT", "DELETE", "HEAD", "OPTIONS", "PATCH"]
           },
           {
             name: "HTTPS",
-            fullName: "HyperText Transfer Protocol Secure",
-            description: "An advanced and secured version of HTTP. It uses SSL/TLS protocol on top of HTTP to provide security. It enables secure transactions by encrypting communication and helps identify network servers securely.",
-            port: 443
-          },
-          {
-            name: "DNS",
-            fullName: "Domain Name System",
-            introduction: "Introduced by Paul Mockapetris and Jon Postel in 1983. It is a naming system for all resources over the internet, including physical nodes and applications, used to locate resources easily.",
-            function: "An internet service that maps domain names to their associated IP addresses. Without DNS, users would need to know the IP address of the web page they want to access.",
-            working: "When a user types a domain name (e.g., https://www.shaurya.com), the DNS translates it into an IP address that the computer can interpret to locate the requested web page.",
-            forwarder: "A DNS forwarder is used with a DNS server to forward DNS queries that cannot be resolved locally to external DNS servers for resolution."
-          }
-        ]
-      },
-      "System Protocols": {
-        definition: "Core protocols for network operations and system communication.",
-        protocols: [
-          {
-            name: "SMTP",
-            fullName: "Simple Mail Transfer Protocol",
-            description: "Sets the rules for communication between servers, helping software to transmit emails over the internet. It supports both End-to-End and Store-and-Forward methods.",
-            port: 25,
-            mode: "Always-listening"
-          },
-          {
-            name: "DHCP",
-            fullName: "Dynamic Host Configuration Protocol",
-            layer: "Application Layer",
-            description: "Used to auto-configure devices on IP networks, enabling them to use TCP and UDP-based protocols. DHCP servers auto-assign IPs, subnet masks, and other network configurations, and help resolve DNS.",
-            port: 67
+            fullName: "HyperText Transfer Protocol Secure", 
+            port: 443,
+            description: "Secure version of HTTP that uses SSL/TLS encryption for secure communication.",
+            features: [
+              "End-to-end encryption",
+              "Data integrity verification",
+              "Server authentication",
+              "Client authentication (optional)",
+              "Protection against eavesdropping"
+            ]
           },
           {
             name: "FTP",
             fullName: "File Transfer Protocol",
-            layer: "Application Layer",
-            description: "Used to transfer files and data reliably and efficiently between hosts. It can also be used to download files from remote servers to your computer.",
-            port: 27
+            ports: "20 (data), 21 (control)",
+            description: "Protocol for transferring files between computers over a network.",
+            modes: [
+              "Active Mode: Server initiates data connection",
+              "Passive Mode: Client initiates data connection"
+            ],
+            features: [
+              "Binary and ASCII transfer modes",
+              "Directory navigation",
+              "User authentication",
+              "Resume capability"
+            ]
           },
           {
-            name: "ICMP",
-            fullName: "Internet Control Message Protocol",
-            layer: "Network Layer",
-            description: "Used for error handling. It is mainly used by network devices like routers for diagnosing network connection issues and is crucial for error reporting and testing if data is reaching the preferred destination in time.",
-            port: 7
+            name: "SMTP",
+            fullName: "Simple Mail Transfer Protocol",
+            port: 25,
+            description: "Protocol for sending email messages between servers.",
+            process: [
+              "Connection establishment",
+              "Sender identification", 
+              "Recipient specification",
+              "Message transmission",
+              "Connection termination"
+            ],
+            commands: ["HELO/EHLO", "MAIL FROM", "RCPT TO", "DATA", "QUIT"]
+          },
+          {
+            name: "POP3",
+            fullName: "Post Office Protocol version 3",
+            port: 110,
+            description: "Protocol for retrieving email from a mail server to a client.",
+            characteristics: [
+              "Download-and-delete model",
+              "Single device access",
+              "Offline email reading",
+              "Limited server storage"
+            ]
+          },
+          {
+            name: "IMAP",
+            fullName: "Internet Message Access Protocol",
+            port: 143,
+            description: "Protocol for accessing email messages stored on a mail server.",
+            advantages: [
+              "Multi-device synchronization",
+              "Server-side message storage",
+              "Selective downloading",
+              "Folder management"
+            ]
+          },
+          {
+            name: "DNS",
+            fullName: "Domain Name System",
+            port: 53,
+            description: "Hierarchical naming system that translates domain names to IP addresses.",
+            recordTypes: [
+              "A: Maps domain to IPv4 address",
+              "AAAA: Maps domain to IPv6 address",
+              "CNAME: Canonical name alias",
+              "MX: Mail exchange server",
+              "NS: Name server",
+              "PTR: Reverse DNS lookup"
+            ],
+            hierarchy: ["Root servers", "TLD servers", "Authoritative servers", "Local DNS servers"]
+          }
+        ]
+      },
+      "Network Management Protocols": {
+        definition: "Protocols used for monitoring, configuring, and managing network devices and services.",
+        protocols: [
+          {
+            name: "SNMP",
+            fullName: "Simple Network Management Protocol",
+            port: 161,
+            description: "Protocol for collecting and organizing information about managed devices on IP networks.",
+            components: [
+              "SNMP Manager: Monitoring system",
+              "SNMP Agent: Software on managed device",
+              "MIB: Management Information Base"
+            ],
+            versions: [
+              "SNMPv1: Basic functionality, community-based security",
+              "SNMPv2c: Enhanced performance, same security",
+              "SNMPv3: Advanced security with authentication and encryption"
+            ]
+          },
+          {
+            name: "DHCP",
+            fullName: "Dynamic Host Configuration Protocol",
+            ports: "67 (server), 68 (client)",
+            description: "Protocol that automatically assigns IP addresses and network configuration to devices.",
+            process: [
+              "DHCP Discover: Client requests configuration",
+              "DHCP Offer: Server offers configuration",
+              "DHCP Request: Client requests specific offer",
+              "DHCP Acknowledgment: Server confirms assignment"
+            ],
+            options: [
+              "IP address assignment",
+              "Subnet mask configuration",
+              "Default gateway setting",
+              "DNS server assignment",
+              "Lease time management"
+            ]
+          },
+          {
+            name: "NTP",
+            fullName: "Network Time Protocol",
+            port: 123,
+            description: "Protocol for synchronizing clocks of computer systems over packet-switched networks.",
+            features: [
+              "Hierarchical time synchronization",
+              "Accuracy within milliseconds",
+              "Fault tolerance",
+              "Security mechanisms"
+            ]
+          }
+        ]
+      },
+      "Security Protocols": {
+        definition: "Protocols designed to provide secure communication and data protection in networks.",
+        protocols: [
+          {
+            name: "SSL/TLS",
+            fullName: "Secure Sockets Layer / Transport Layer Security",
+            description: "Cryptographic protocols for secure communication over networks.",
+            features: [
+              "Data encryption in transit",
+              "Server authentication",
+              "Data integrity verification",
+              "Perfect forward secrecy"
+            ],
+            handshake: [
+              "Client Hello",
+              "Server Hello",
+              "Certificate exchange",
+              "Key exchange",
+              "Finished messages"
+            ]
+          },
+          {
+            name: "SSH",
+            fullName: "Secure Shell",
+            port: 22,
+            description: "Protocol for secure remote access and command execution.",
+            features: [
+              "Encrypted communication",
+              "Strong authentication",
+              "Data integrity",
+              "Port forwarding",
+              "File transfer capability"
+            ]
+          },
+          {
+            name: "IPSec",
+            fullName: "Internet Protocol Security",
+            description: "Suite of protocols for securing IP communications through authentication and encryption.",
+            modes: [
+              "Transport Mode: Encrypts payload only",
+              "Tunnel Mode: Encrypts entire IP packet"
+            ],
+            protocols: [
+              "AH: Authentication Header",
+              "ESP: Encapsulating Security Payload"
+            ]
           }
         ]
       }
@@ -421,6 +1312,161 @@ const computerNetworkingData = {
     icon: Shield,
     color: "from-red-500 to-pink-500",
     content: {
+      "Security Fundamentals": {
+        definition: "Network security encompasses all activities designed to protect the integrity, confidentiality, and availability of computer networks and the data transmitted over them.",
+        goals: [
+          {
+            name: "Confidentiality",
+            description: "Ensuring that information is accessible only to authorized users"
+          },
+          {
+            name: "Integrity", 
+            description: "Maintaining accuracy and completeness of data during transmission and storage"
+          },
+          {
+            name: "Availability",
+            description: "Ensuring that network resources are accessible to authorized users when needed"
+          },
+          {
+            name: "Authentication",
+            description: "Verifying the identity of users and devices accessing the network"
+          },
+          {
+            name: "Non-repudiation",
+            description: "Preventing denial of actions performed by authenticated users"
+          }
+        ],
+        threats: [
+          "Unauthorized access and data breaches",
+          "Malware and virus infections",
+          "Denial of Service (DoS) attacks",
+          "Man-in-the-middle attacks",
+          "Social engineering attacks",
+          "Insider threats",
+          "Advanced Persistent Threats (APTs)"
+        ]
+      },
+      "Common Network Attacks": {
+        definition: "Various methods used by attackers to compromise network security and gain unauthorized access to systems and data.",
+        attacks: [
+          {
+            name: "DoS/DDoS Attacks",
+            fullName: "Denial of Service / Distributed Denial of Service",
+            description: "Attacks designed to overwhelm network resources and make services unavailable to legitimate users.",
+            types: [
+              "Volume-based: Consume bandwidth with massive traffic",
+              "Protocol-based: Exploit protocol weaknesses",
+              "Application-based: Target specific applications or services"
+            ],
+            mitigation: [
+              "Rate limiting and traffic filtering",
+              "DDoS protection services",
+              "Load balancing and redundancy",
+              "Network monitoring and alerting"
+            ]
+          },
+          {
+            name: "Man-in-the-Middle (MITM)",
+            description: "Attacker intercepts and potentially alters communication between two parties.",
+            methods: [
+              "ARP spoofing",
+              "DNS spoofing",
+              "SSL/TLS interception",
+              "Rogue access points"
+            ],
+            prevention: [
+              "Strong encryption protocols",
+              "Certificate pinning",
+              "VPN usage",
+              "Network monitoring"
+            ]
+          },
+          {
+            name: "Phishing and Social Engineering",
+            description: "Attacks that manipulate humans to divulge confidential information or perform actions that compromise security.",
+            types: [
+              "Email phishing",
+              "Spear phishing",
+              "Whaling (targeting executives)",
+              "Vishing (voice phishing)",
+              "Smishing (SMS phishing)"
+            ],
+            prevention: [
+              "Security awareness training",
+              "Email filtering systems",
+              "Multi-factor authentication",
+              "Verification procedures"
+            ]
+          },
+          {
+            name: "Malware Attacks",
+            description: "Malicious software designed to damage, disrupt, or gain unauthorized access to computer systems.",
+            types: [
+              "Viruses: Self-replicating code that attaches to files",
+              "Worms: Self-propagating malware that spreads across networks",
+              "Trojans: Malicious software disguised as legitimate programs",
+              "Ransomware: Encrypts data and demands payment for decryption",
+              "Rootkits: Hide malicious activity at the system level"
+            ],
+            protection: [
+              "Antivirus and anti-malware software",
+              "Regular system updates",
+              "Network segmentation",
+              "Backup and recovery procedures"
+            ]
+          }
+        ]
+      },
+      "Security Technologies": {
+        definition: "Hardware and software solutions designed to protect networks from various security threats.",
+        technologies: [
+          {
+            name: "Firewalls",
+            description: "Network security devices that monitor and filter incoming and outgoing network traffic based on predetermined security rules.",
+            types: [
+              "Packet-filtering: Examines packets based on source/destination addresses and ports",
+              "Stateful inspection: Tracks connection states and context",
+              "Application-level: Deep packet inspection at application layer",
+              "Next-generation: Advanced threat detection and prevention"
+            ],
+            deployment: [
+              "Network firewalls: Protect entire network segments",
+              "Host-based firewalls: Protect individual devices",
+              "Cloud firewalls: Protect cloud-based resources"
+            ]
+          },
+          {
+            name: "Intrusion Detection Systems (IDS)",
+            description: "Security tools that monitor network traffic and system activities for malicious activity and policy violations.",
+            types: [
+              "Network-based IDS (NIDS): Monitors network traffic",
+              "Host-based IDS (HIDS): Monitors individual hosts",
+              "Signature-based: Detects known attack patterns",
+              "Anomaly-based: Detects deviations from normal behavior"
+            ],
+            limitations: [
+              "Cannot prevent attacks (detection only)",
+              "May generate false positives",
+              "Requires regular signature updates"
+            ]
+          },
+          {
+            name: "Intrusion Prevention Systems (IPS)",
+            description: "Active security devices that can detect and automatically block suspicious activities in real-time.",
+            advantages: [
+              "Real-time attack prevention",
+              "Automated response capabilities",
+              "Integration with other security tools",
+              "Reduced response time"
+            ],
+            deployment: [
+              "Inline deployment for active blocking",
+              "Out-of-band for monitoring only",
+              "Hybrid approaches for flexibility"
+            ]
+          }
+        ]
+      },
       "VPN Technology": {
         definition: "A private Wide Area Network (WAN) built on the internet. It allows the creation of a secured tunnel between different networks using the public internet. By using a VPN, a client can connect to an organization's network remotely.",
         advantages: [
@@ -450,16 +1496,68 @@ const computerNetworkingData = {
           }
         ]
       },
-      "Network Security Devices": {
-        definition: "Hardware and software components that protect network infrastructure.",
-        devices: [
+      "Encryption and Authentication": {
+        definition: "Cryptographic methods and identity verification systems used to secure network communications.",
+        encryption: [
           {
-            name: "Firewall",
-            description: "The firewall is a network security system that is used to monitor the incoming and outgoing traffic and blocks the same based on the firewall security policies. It acts as a wall between the internet (public network) and the networking devices (a private network). It is either a hardware device, software program, or a combination of both."
+            name: "Symmetric Encryption",
+            description: "Uses the same key for both encryption and decryption.",
+            advantages: [
+              "Fast processing speed",
+              "Efficient for large data volumes",
+              "Lower computational requirements"
+            ],
+            disadvantages: [
+              "Key distribution challenges",
+              "Key management complexity",
+              "Scalability issues"
+            ],
+            algorithms: ["AES", "DES", "3DES", "Blowfish"]
           },
           {
-            name: "NIC (Network Interface Card)",
-            description: "It is a peripheral card attached to the PC to connect to a network. Every NIC has its own MAC address that identifies the PC on the network. It provides a wireless connection to a local area network."
+            name: "Asymmetric Encryption",
+            description: "Uses a pair of keys (public and private) for encryption and decryption.",
+            advantages: [
+              "Secure key exchange",
+              "Digital signatures",
+              "Better scalability",
+              "No pre-shared keys needed"
+            ],
+            disadvantages: [
+              "Slower processing",
+              "Higher computational overhead",
+              "More complex implementation"
+            ],
+            algorithms: ["RSA", "ECC", "DSA", "ElGamal"]
+          }
+        ],
+        authentication: [
+          {
+            name: "Single-Factor Authentication",
+            description: "Uses one method to verify identity.",
+            methods: ["Password", "PIN", "Smart card", "Biometrics"]
+          },
+          {
+            name: "Multi-Factor Authentication (MFA)",
+            description: "Uses multiple independent methods to verify identity.",
+            factors: [
+              "Something you know (password, PIN)",
+              "Something you have (token, smart card)",
+              "Something you are (biometrics)",
+              "Somewhere you are (location-based)",
+              "Something you do (behavioral patterns)"
+            ]
+          },
+          {
+            name: "Digital Certificates",
+            description: "Electronic documents that verify the identity of entities in digital communications.",
+            components: [
+              "Subject information",
+              "Public key",
+              "Digital signature",
+              "Validity period",
+              "Certificate authority details"
+            ]
           }
         ]
       },
@@ -496,7 +1594,7 @@ const computerNetworkingData = {
     color: "from-indigo-500 to-purple-500",
     content: {
       "Network Devices Comparison": {
-        definition: "Understanding the differences between key networking devices.",
+        definition: "Understanding the differences between key networking devices and their operational characteristics.",
         comparisons: [
           {
             title: "Hub vs Switch",
@@ -504,67 +1602,338 @@ const computerNetworkingData = {
               description: "A networking device which is used to transmit the signal to each port (except one port) to respond from which the signal was received.",
               layer: "Physical Layer",
               filtering: "In this packet filtering is not available",
-              types: "Active Hub, Passive Hub"
+              types: "Active Hub, Passive Hub",
+              characteristics: [
+                "Operates in half-duplex mode",
+                "Single collision domain",
+                "Broadcasts to all ports",
+                "No MAC address table",
+                "Cannot prevent collisions"
+              ],
+              limitations: [
+                "High collision rates",
+                "Poor security",
+                "Limited bandwidth sharing",
+                "No VLAN support"
+              ]
             },
             switch: {
               description: "Switch is a network device which is used to enable the connection establishment and connection termination on the basis of need.",
               layer: "Data link layer", 
               filtering: "In this packet filtering is available",
               mode: "Full duplex transmission mode",
-              aka: "An efficient bridge"
+              aka: "An efficient bridge",
+              characteristics: [
+                "Maintains MAC address table",
+                "Each port is separate collision domain",
+                "Unicast, multicast, and broadcast support",
+                "VLAN support available",
+                "Store-and-forward operation"
+              ],
+              advantages: [
+                "Eliminates collisions",
+                "Better security",
+                "Efficient bandwidth utilization",
+                "Port-based VLANs"
+              ]
             }
           },
           {
-            title: "Gateway vs Router",
-            sharedFunction: "A node that is connected to two or more networks is commonly known as a gateway. It is also known as a router. It is used to forward messages from one network to another and regulate traffic in the network.",
-            difference: "A router sends the data between two similar networks while gateway sends the data between two dissimilar networks."
+            title: "Router vs Gateway",
+            router: {
+              description: "A networking device that forwards data packets between computer networks. It operates at the Network Layer (Layer 3).",
+              functions: [
+                "Path determination",
+                "Packet forwarding",
+                "Network segmentation",
+                "Protocol translation"
+              ],
+              types: [
+                "Static routing: Manual route configuration",
+                "Dynamic routing: Automatic route discovery",
+                "Default routing: Route of last resort"
+              ]
+            },
+            gateway: {
+              description: "A node that is connected to two or more networks and serves as an entry/exit point. It can operate at multiple layers.",
+              difference: "A router sends the data between two similar networks while gateway sends the data between two dissimilar networks.",
+              functions: [
+                "Protocol conversion",
+                "Data format translation",
+                "Network interconnection",
+                "Security enforcement"
+              ]
+            }
+          },
+          {
+            title: "Bridge vs Router",
+            bridge: {
+              description: "A network device that connects two or more network segments at the Data Link Layer.",
+              characteristics: [
+                "Operates at Layer 2",
+                "MAC address-based forwarding",
+                "Transparent to network protocols",
+                "Learning bridge functionality"
+              ]
+            },
+            router: {
+              description: "Operates at Layer 3, making routing decisions based on IP addresses.",
+              characteristics: [
+                "IP address-based forwarding",
+                "Logical addressing",
+                "Routing protocol support",
+                "Network layer services"
+              ]
+            }
           }
         ]
       },
-      "Network Utilities": {
-        definition: "Command-line tools for network troubleshooting and configuration.",
+      "Network Troubleshooting Tools": {
+        definition: "Command-line and software tools used for network diagnosis, configuration, and monitoring.",
         utilities: [
           {
             title: "ipconfig vs ifconfig",
             ipconfig: {
               name: "Internet Protocol Configuration",
-              os: "Microsoft operating systems",
-              purpose: "To view and configure network interfaces."
+              os: "Microsoft operating systems (Windows)",
+              purpose: "To view and configure network interfaces",
+              commands: [
+                "ipconfig: Display basic IP configuration",
+                "ipconfig /all: Display detailed configuration",
+                "ipconfig /release: Release IP address",
+                "ipconfig /renew: Renew IP address",
+                "ipconfig /flushdns: Clear DNS cache"
+              ]
             },
             ifconfig: {
               name: "Interface Configuration", 
               os: "MAC, Linux, UNIX operating systems",
-              purpose: "To view and configure network interfaces."
+              purpose: "To view and configure network interfaces",
+              commands: [
+                "ifconfig: Display all interfaces",
+                "ifconfig eth0: Display specific interface",
+                "ifconfig eth0 up: Enable interface",
+                "ifconfig eth0 down: Disable interface",
+                "ifconfig eth0 192.168.1.10: Assign IP address"
+              ]
             }
           },
           {
-            name: "Netstat",
-            description: "It is a command line utility program. It gives useful information about the current TCP/IP setting of a connection."
+            name: "Ping",
+            description: "The 'ping' is a utility program that allows you to check the connectivity between the network devices. You can ping devices using its IP address or name.",
+            functionality: [
+              "Tests network connectivity",
+              "Measures round-trip time",
+              "Checks packet loss",
+              "Verifies DNS resolution"
+            ],
+            options: [
+              "ping -t: Continuous ping",
+              "ping -n count: Specify number of packets",
+              "ping -l size: Specify packet size",
+              "ping -f: Don't fragment packets"
+            ]
           },
           {
-            name: "Ping",
-            description: "The 'ping' is a utility program that allows you to check the connectivity between the network devices. You can ping devices using its IP address or name."
+            name: "Traceroute/Tracert",
+            description: "Shows the path that packets take from source to destination, including all intermediate hops.",
+            purpose: [
+              "Identify network path",
+              "Locate network bottlenecks",
+              "Troubleshoot routing issues",
+              "Measure hop-by-hop latency"
+            ],
+            operation: [
+              "Sends packets with increasing TTL values",
+              "Records each router that responds",
+              "Shows hop-by-hop timing information",
+              "Identifies routing loops"
+            ]
+          },
+          {
+            name: "Netstat",
+            description: "It is a command line utility program. It gives useful information about the current TCP/IP setting of a connection.",
+            capabilities: [
+              "Display active connections",
+              "Show listening ports",
+              "Display routing table",
+              "Show network interface statistics"
+            ],
+            options: [
+              "netstat -a: Show all connections",
+              "netstat -n: Show numerical addresses",
+              "netstat -r: Display routing table",
+              "netstat -s: Show protocol statistics"
+            ]
+          },
+          {
+            name: "Nslookup/Dig",
+            description: "DNS lookup tools for querying domain name system records.",
+            functions: [
+              "Forward DNS lookup (domain to IP)",
+              "Reverse DNS lookup (IP to domain)",
+              "Query specific record types",
+              "Test DNS server functionality"
+            ],
+            recordTypes: [
+              "A: IPv4 address",
+              "AAAA: IPv6 address", 
+              "MX: Mail exchange",
+              "NS: Name server",
+              "CNAME: Canonical name"
+            ]
+          },
+          {
+            name: "Wireshark/TCPDump",
+            description: "Network packet analyzers for capturing and examining network traffic.",
+            capabilities: [
+              "Real-time packet capture",
+              "Protocol analysis",
+              "Traffic pattern identification",
+              "Security analysis"
+            ],
+            uses: [
+              "Network troubleshooting",
+              "Performance analysis",
+              "Security monitoring",
+              "Protocol development"
+            ]
           }
         ]
       },
       "Data Transmission Types": {
-        definition: "Different methods of sending data across networks.",
+        definition: "Different methods of sending data across networks based on the number of recipients.",
         types: [
           {
             name: "Unicasting",
-            description: "If the message is sent to a single node from the source then it is known as unicasting. This is commonly used in networks to establish a new connection."
-          },
-          {
-            name: "Anycasting",
-            description: "If the message is sent to any of the nodes from the source then it is known as anycasting. It is mainly used to get the content from any of the servers in the Content Delivery System."
-          },
-          {
-            name: "Multicasting",
-            description: "If the message is sent to a subset of nodes from the source then it is known as multicasting. Used to send the same data to multiple receivers."
+            description: "If the message is sent to a single node from the source then it is known as unicasting. This is commonly used in networks to establish a new connection.",
+            characteristics: [
+              "One-to-one communication",
+              "Most common transmission type",
+              "Efficient bandwidth usage",
+              "Direct point-to-point delivery"
+            ],
+            examples: [
+              "Web browsing (HTTP requests)",
+              "Email transmission",
+              "File transfers (FTP)",
+              "Remote access (SSH, Telnet)"
+            ]
           },
           {
             name: "Broadcasting",
-            description: "If the message is sent to all the nodes in a network from a source then it is known as broadcasting. DHCP and ARP in the local network use broadcasting."
+            description: "If the message is sent to all the nodes in a network from a source then it is known as broadcasting. DHCP and ARP in the local network use broadcasting.",
+            characteristics: [
+              "One-to-all communication",
+              "Limited to local network segment",
+              "High network overhead",
+              "Not routed across subnets"
+            ],
+            examples: [
+              "DHCP discovery messages",
+              "ARP requests",
+              "Wake-on-LAN packets",
+              "Network announcements"
+            ],
+            limitations: [
+              "Creates network congestion",
+              "Security concerns",
+              "Scalability issues",
+              "Broadcast storms possible"
+            ]
+          },
+          {
+            name: "Multicasting",
+            description: "If the message is sent to a subset of nodes from the source then it is known as multicasting. Used to send the same data to multiple receivers.",
+            characteristics: [
+              "One-to-many communication",
+              "Efficient for group communication",
+              "Reduces network traffic",
+              "Requires multicast-enabled infrastructure"
+            ],
+            applications: [
+              "Video streaming",
+              "Audio conferencing",
+              "Stock market data feeds",
+              "Software updates"
+            ],
+            protocols: [
+              "IGMP: Internet Group Management Protocol",
+              "PIM: Protocol Independent Multicast",
+              "DVMRP: Distance Vector Multicast Routing"
+            ]
+          },
+          {
+            name: "Anycasting",
+            description: "If the message is sent to any of the nodes from the source then it is known as anycasting. It is mainly used to get the content from any of the servers in the Content Delivery System.",
+            characteristics: [
+              "One-to-nearest communication",
+              "Automatic failover capability",
+              "Load distribution",
+              "Geographic optimization"
+            ],
+            uses: [
+              "Content Delivery Networks (CDNs)",
+              "DNS root servers",
+              "Load balancing",
+              "Service discovery"
+            ],
+            benefits: [
+              "Improved performance",
+              "High availability",
+              "Fault tolerance",
+              "Reduced latency"
+            ]
+          }
+        ]
+      },
+      "Network Performance Monitoring": {
+        definition: "Tools and techniques for measuring and optimizing network performance.",
+        metrics: [
+          {
+            name: "Bandwidth",
+            description: "The maximum amount of data that can be transmitted over a network connection in a given time period.",
+            measurement: "Measured in bits per second (bps), kilobits per second (Kbps), megabits per second (Mbps), or gigabits per second (Gbps)",
+            factors: [
+              "Physical medium capacity",
+              "Network congestion",
+              "Protocol overhead",
+              "Hardware limitations"
+            ]
+          },
+          {
+            name: "Latency",
+            description: "The time delay between sending a packet and receiving a response.",
+            types: [
+              "Propagation delay: Time for signal to travel",
+              "Processing delay: Time for packet processing",
+              "Queuing delay: Time spent in buffers",
+              "Transmission delay: Time to send packet"
+            ],
+            measurement: "Measured in milliseconds (ms)",
+            impact: "Affects real-time applications like VoIP and video conferencing"
+          },
+          {
+            name: "Throughput",
+            description: "The actual amount of data successfully transmitted over a network in a given time period.",
+            difference: "Throughput is often less than bandwidth due to network overhead and congestion",
+            factors: [
+              "Network congestion",
+              "Protocol efficiency",
+              "Error rates",
+              "Hardware performance"
+            ]
+          },
+          {
+            name: "Packet Loss",
+            description: "The percentage of packets that fail to reach their destination.",
+            causes: [
+              "Network congestion",
+              "Hardware failures",
+              "Buffer overflow",
+              "Routing errors"
+            ],
+            impact: "Affects application performance and user experience"
           }
         ]
       }
@@ -574,74 +1943,328 @@ const computerNetworkingData = {
     icon: TrendingUp,
     color: "from-emerald-500 to-teal-500",
     content: {
-      "Google Search Process": {
-        title: "What happens when you enter google.com in the web browser?",
-        steps: [
-          "Check the browser cache first if the content is fresh and present in the cache display the same",
-          "If not, the browser checks if the IP of the URL is present in the cache (browser and OS)",
-          "if not then requests the OS to do a DNS lookup using UDP to get the corresponding IP address of the URL from the DNS server to establish a new TCP connection",
-          "A new TCP connection is set between the browser and the server using three-way handshaking",
-          "An HTTP request is sent to the server using the TCP connection",
-          "The web servers running on the Servers handle the incoming HTTP request and send the HTTP response",
-          "The browser processes the HTTP response sent by the server and may close the TCP connection or reuse the same for future requests",
-          "If the response data is cacheable then browsers cache the same",
-          "Browser decodes the response and renders the content"
+      "Modern Networking Technologies": {
+        definition: "Contemporary networking concepts and technologies that are shaping the future of network communications.",
+        technologies: [
+          {
+            name: "Software-Defined Networking (SDN)",
+            description: "An approach to networking that uses software-based controllers or APIs to communicate with underlying hardware infrastructure and direct traffic on a network.",
+            characteristics: [
+              "Centralized network control",
+              "Programmable network behavior",
+              "Separation of control and data planes",
+              "Dynamic network configuration"
+            ],
+            benefits: [
+              "Improved network flexibility",
+              "Simplified network management",
+              "Reduced operational costs",
+              "Enhanced automation capabilities"
+            ]
+          },
+          {
+            name: "Network Function Virtualization (NFV)",
+            description: "A network architecture concept that virtualizes entire classes of network node functions into building blocks that can be connected together.",
+            applications: [
+              "Virtual firewalls",
+              "Virtual load balancers",
+              "Virtual routers",
+              "Virtual network appliances"
+            ],
+            advantages: [
+              "Reduced hardware costs",
+              "Faster service deployment",
+              "Improved scalability",
+              "Enhanced service agility"
+            ]
+          },
+          {
+            name: "Edge Computing",
+            description: "A distributed computing paradigm that brings computation and data storage closer to sources of data.",
+            benefits: [
+              "Reduced latency",
+              "Improved bandwidth efficiency",
+              "Enhanced security",
+              "Better user experience"
+            ],
+            applications: [
+              "IoT data processing",
+              "Content delivery",
+              "Real-time analytics",
+              "Autonomous vehicles"
+            ]
+          },
+          {
+            name: "5G Networks",
+            description: "Fifth-generation wireless technology that provides faster speeds, lower latency, and greater connectivity than previous generations.",
+            features: [
+              "Enhanced mobile broadband (eMBB)",
+              "Ultra-reliable low-latency communications (URLLC)",
+              "Massive machine-type communications (mMTC)",
+              "Network slicing capabilities"
+            ],
+            specifications: [
+              "Speeds up to 10 Gbps",
+              "Latency as low as 1ms",
+              "Connection density up to 1 million devices per km²",
+              "99.999% reliability"
+            ]
+          }
         ]
       },
-      "Network Quality Metrics": {
-        definition: "Factors that determine network reliability and effectiveness.",
+      "Cloud Networking": {
+        definition: "Network infrastructure and services delivered through cloud computing platforms.",
+        concepts: [
+          {
+            name: "Virtual Private Cloud (VPC)",
+            description: "A logically isolated section of the cloud where you can launch resources in a virtual network that you define.",
+            components: [
+              "Subnets: Subdivisions of IP address ranges",
+              "Route tables: Define traffic routing rules",
+              "Security groups: Virtual firewalls",
+              "Network ACLs: Subnet-level security"
+            ]
+          },
+          {
+            name: "Content Delivery Network (CDN)",
+            description: "A geographically distributed group of servers that work together to provide fast delivery of internet content.",
+            benefits: [
+              "Reduced latency",
+              "Improved website performance",
+              "Decreased server load",
+              "Enhanced availability"
+            ],
+            components: [
+              "Edge servers",
+              "Origin servers",
+              "Pop (Point of Presence)",
+              "Caching mechanisms"
+            ]
+          },
+          {
+            name: "Load Balancing",
+            description: "The process of distributing network traffic across multiple servers to ensure optimal resource utilization.",
+            types: [
+              "Layer 4 (Transport): Based on IP and port",
+              "Layer 7 (Application): Based on content",
+              "Global: Across multiple data centers",
+              "Regional: Within a geographic area"
+            ],
+            algorithms: [
+              "Round Robin",
+              "Least Connections",
+              "Weighted Round Robin",
+              "IP Hash"
+            ]
+          }
+        ]
+      },
+      "Network Quality and Performance": {
+        definition: "Factors that determine network reliability, effectiveness, and user experience.",
         reliability: [
           {
             name: "Downtime",
-            description: "The downtime is defined as the required time to recover."
+            description: "The downtime is defined as the required time to recover from failures or maintenance activities."
           },
           {
             name: "Failure Frequency",
-            description: "It is the frequency when it fails to work the way it is intended."
+            description: "It is the frequency when the network fails to work as intended, affecting service availability."
           },
           {
-            name: "Catastrophe",
-            description: "It indicates that the network has been attacked by some unexpected event such as fire, earthquake."
+            name: "Catastrophe Recovery",
+            description: "The network's ability to recover from unexpected events such as natural disasters, cyber attacks, or major hardware failures."
+          },
+          {
+            name: "Mean Time Between Failures (MTBF)",
+            description: "Average time between system failures, indicating reliability."
+          },
+          {
+            name: "Mean Time To Repair (MTTR)",
+            description: "Average time required to repair a failed system and restore service."
           }
         ],
         effectiveness: [
           {
             name: "Performance",
-            description: "performance can be measured in many ways like transmit time and response time."
+            description: "Performance can be measured in many ways like transmit time, response time, throughput, and bandwidth utilization.",
+            metrics: [
+              "Throughput: Data transfer rate",
+              "Latency: Response time",
+              "Jitter: Variation in packet delay",
+              "Packet loss: Failed transmissions"
+            ]
           },
           {
             name: "Reliability",
-            description: "reliability is measured by frequency of failure."
+            description: "Reliability is measured by frequency of failure and system uptime.",
+            measurements: [
+              "Availability percentage (99.9%, 99.99%)",
+              "Error rates",
+              "Service level agreements (SLAs)",
+              "Redundancy factors"
+            ]
           },
           {
             name: "Robustness",
-            description: "robustness specifies the quality or condition of being strong and in good condition."
+            description: "Robustness specifies the quality or condition of being strong and resilient under various conditions.",
+            factors: [
+              "Fault tolerance",
+              "Load handling capacity",
+              "Recovery mechanisms",
+              "Scalability"
+            ]
           },
           {
             name: "Security",
-            description: "It specifies how to protect data from unauthorized access and viruses."
+            description: "It specifies how to protect data from unauthorized access, viruses, and other security threats.",
+            aspects: [
+              "Data encryption",
+              "Access control",
+              "Threat detection",
+              "Incident response"
+            ]
           }
         ]
       },
-      "Advanced Technologies": {
-        definition: "Modern networking concepts and technologies.",
+      "Web Request Process": {
+        title: "What happens when you enter google.com in the web browser?",
+        description: "Detailed breakdown of the complete process from URL entry to page rendering.",
+        steps: [
+          {
+            step: 1,
+            action: "URL Parsing and Cache Check",
+            description: "Browser parses the URL and checks if the content is fresh and present in the browser cache. If found and valid, displays the cached content."
+          },
+          {
+            step: 2,
+            action: "DNS Resolution",
+            description: "If not cached, browser checks if the IP address of the URL is present in local DNS cache (browser and OS). If not found, requests the OS to perform DNS lookup."
+          },
+          {
+            step: 3,
+            action: "DNS Query Process",
+            description: "DNS resolver queries DNS servers hierarchically (root servers → TLD servers → authoritative servers) to get the IP address corresponding to the domain name."
+          },
+          {
+            step: 4,
+            action: "TCP Connection Establishment",
+            description: "Browser establishes a new TCP connection with the server using three-way handshaking (SYN → SYN-ACK → ACK)."
+          },
+          {
+            step: 5,
+            action: "TLS Handshake (for HTTPS)",
+            description: "If HTTPS, browser and server perform TLS handshake to establish secure encrypted communication."
+          },
+          {
+            step: 6,
+            action: "HTTP Request",
+            description: "Browser sends HTTP request to the server using the established TCP connection, including headers, methods, and any data."
+          },
+          {
+            step: 7,
+            action: "Server Processing",
+            description: "Web servers handle the incoming HTTP request, process it (may involve application servers, databases), and prepare HTTP response."
+          },
+          {
+            step: 8,
+            action: "HTTP Response",
+            description: "Server sends HTTP response back to the browser, including status codes, headers, and content (HTML, CSS, JavaScript)."
+          },
+          {
+            step: 9,
+            action: "Content Processing",
+            description: "Browser processes the HTTP response, may cache the data if cacheable, and begins parsing the content."
+          },
+          {
+            step: 10,
+            action: "Rendering",
+            description: "Browser decodes the response, constructs DOM tree, applies CSS, executes JavaScript, and renders the final webpage."
+          }
+        ],
+        additionalConcepts: [
+          "Keep-alive connections for reusing TCP connections",
+          "HTTP/2 multiplexing for concurrent requests",
+          "Content compression (gzip, brotli)",
+          "Progressive loading and lazy loading"
+        ]
+      },
+      "Advanced Network Concepts": {
+        definition: "Specialized networking concepts essential for modern network operations.",
         concepts: [
           {
-            name: "Subnet",
-            description: "A subnet is a network inside a network achieved by the process called subnetting which helps divide a network into subnets. It is used for getting a higher routing efficiency and enhances the security of the network. It reduces the time to extract the host address from the routing table."
+            name: "Subnetting and VLSM",
+            fullName: "Variable Length Subnet Masking",
+            description: "A subnet is a network inside a network achieved by the process called subnetting which helps divide a network into subnets. VLSM allows for different subnet sizes within the same network.",
+            benefits: [
+              "Efficient IP address utilization",
+              "Improved routing efficiency",
+              "Enhanced network security",
+              "Better network organization"
+            ],
+            concepts: [
+              "Subnet masks and CIDR notation",
+              "Supernetting and route aggregation",
+              "Hierarchical addressing",
+              "Address space optimization"
+            ]
           },
           {
-            name: "Node and Link",
-            description: "A network is a connection setup of two or more computers directly connected by some physical mediums like optical fiber or coaxial cable. This physical medium of connection is known as a link, and the computers that it is connected to are known as nodes."
+            name: "Network Address Translation (NAT)",
+            description: "A method of remapping one IP address space into another by modifying network address information in packet headers.",
+            types: [
+              "Static NAT: One-to-one mapping",
+              "Dynamic NAT: Pool of public addresses",
+              "PAT (Port Address Translation): Many-to-one with ports",
+              "Double NAT: Multiple NAT layers"
+            ],
+            benefits: [
+              "IP address conservation",
+              "Enhanced security",
+              "Network isolation",
+              "Simplified network management"
+            ]
           },
           {
-            name: "RAID",
+            name: "Quality of Service (QoS)",
+            description: "A set of technologies that work on a network to guarantee its ability to dependably run high-priority applications and traffic.",
+            mechanisms: [
+              "Traffic classification and marking",
+              "Queuing and scheduling",
+              "Traffic shaping and policing",
+              "Congestion avoidance"
+            ],
+            models: [
+              "Best Effort: No guarantees",
+              "Integrated Services (IntServ): Per-flow reservations",
+              "Differentiated Services (DiffServ): Class-based treatment"
+            ]
+          },
+          {
+            name: "RAID Technology",
             fullName: "Redundant Array of Inexpensive/Independent Disks",
-            description: "It is a method to provide Fault Tolerance by using multiple Hard Disc Drives."
+            description: "It is a method to provide Fault Tolerance by using multiple Hard Disc Drives for data redundancy and performance improvement.",
+            levels: [
+              "RAID 0: Striping (performance, no redundancy)",
+              "RAID 1: Mirroring (redundancy, no performance gain)",
+              "RAID 5: Striping with parity (performance + redundancy)",
+              "RAID 10: Combination of mirroring and striping"
+            ]
           },
           {
-            name: "Peer-to-Peer (P2P)",
-            description: "The processes on each machine that communicate at a given layer are called peer-peer processes."
+            name: "Peer-to-Peer Networks",
+            description: "Network model where each node (peer) acts as both client and server, sharing resources directly with other peers.",
+            characteristics: [
+              "Decentralized architecture",
+              "Resource sharing among peers",
+              "Self-organizing network",
+              "Fault tolerance through redundancy"
+            ],
+            applications: [
+              "File sharing networks",
+              "Blockchain networks",
+              "Distributed computing",
+              "Communication systems"
+            ]
           }
         ]
       }

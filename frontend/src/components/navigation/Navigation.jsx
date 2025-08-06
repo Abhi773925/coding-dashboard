@@ -32,7 +32,9 @@ import {
   Code2,
   MessageSquare,
   Brain,
-  Network
+  Network,
+  Cpu,
+  Box
 } from "lucide-react"
 import { motion, AnimatePresence } from "framer-motion"
 import config from '../../config/api'
@@ -60,13 +62,15 @@ const navigationSections = [
     ],
   },
   {
-    name: "Interview Series",
+    name: "Technical Articles",
     icon: Brain,
     bgColor: "bg-purple-100",
     color: "text-purple-600",
     subSections: [
-      { name: "Computer Networks", icon: Network, route: "/interview-series/computer-networks" },
-      { name: "All Series", icon: BookOpen, route: "/interview-series" },
+      { name: "Computer Networks", icon: Network, route: "/articles/computer-networks" },
+      { name: "Operating Systems", icon: Cpu, route: "/articles/operating-systems" },
+      { name: "OOP Concepts", icon: Box, route: "/articles/oops" },
+      { name: "All Articles", icon: BookOpen, route: "/interview-series" },
     ],
   },
  

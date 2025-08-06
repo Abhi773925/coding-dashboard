@@ -32,10 +32,12 @@ import InterviewMode from "./components/Collaboration/InterviewMode";
 import ThemeDemo from "./components/ThemeDemo";
 import ThemeShowcase from "./pages/ThemeShowcase";
 import { Analytics } from "@vercel/analytics/react"
-import InterviewSeriesOverview from "./components/interview-series/InterviewSeriesOverview";
-import ComputerNetworks from "./components/interview-series/ComputerNetworks";
-import OperatingSystems from "./components/interview-series/OperatingSystems";
-import ObjectOrientedProgramming from "./components/interview-series/ObjectOrientedProgramming";
+import { 
+  OOPArticle, 
+  ComputerNetworksArticle, 
+  OperatingSystemsArticle,
+  ArticlesOverview 
+} from "./components/articles";
 import { config } from "./config/config";
 
 // SEO Components
@@ -57,10 +59,10 @@ const TrackedJavaScriptLearning = withTracking(JavaScriptLearning);
 const TrackedFullStack = withTracking(FullStack);
 const TrackedContestTracker = withTracking(ContestTracker);
 const TrackedKnowledgePathGame = withTracking(KnowledgePathGame);
-const TrackedInterviewSeriesOverview = withTracking(InterviewSeriesOverview);
-const TrackedComputerNetworks = withTracking(ComputerNetworks);
-const TrackedOperatingSystems = withTracking(OperatingSystems);
-const TrackedObjectOrientedProgramming = withTracking(ObjectOrientedProgramming);
+const TrackedOOPArticle = withTracking(OOPArticle);
+const TrackedComputerNetworksArticle = withTracking(ComputerNetworksArticle);
+const TrackedOperatingSystemsArticle = withTracking(OperatingSystemsArticle);
+const TrackedArticlesOverview = withTracking(ArticlesOverview);
 const AppContent = () => {
   const location = useLocation();
   const hideNavigationRoutes = ['/collaborate', '/interview','/terminal', '/coding-advanced'];
@@ -308,57 +310,91 @@ const AppContent = () => {
         <Route path="/interview-series" element={
           <>
             <SEO 
-              title="Interview Series - Technical Interview Preparation"
-              description="Comprehensive technical interview preparation series covering computer networks, operating systems, databases, and more."
-              keywords="technical interview, computer science fundamentals, networking, operating systems, database systems, system design"
+              title="Technical Articles - Computer Science Fundamentals"
+              description="Comprehensive technical articles covering computer networks, operating systems, object-oriented programming, and more."
+              keywords="technical articles, computer science fundamentals, networking, operating systems, programming concepts"
             />
-            <Breadcrumb items={[{ name: 'Interview Series', href: '/interview-series' }]} />
-            <TrackedInterviewSeriesOverview onMount={() => trackComponentView('interviewSeries')} />
+            <Breadcrumb items={[{ name: 'Technical Articles', href: '/interview-series' }]} />
+            <TrackedArticlesOverview onMount={() => trackComponentView('articles')} />
           </>
         } />
         
         <Route path="/interview-series/computer-networks" element={
           <>
             <SEO 
-              title="Computer Networks - Interview Preparation Guide"
-              description="Master computer networking concepts for technical interviews. Learn OSI model, TCP/IP, routing, switching, and network security."
-              keywords="computer networks, networking interview, OSI model, TCP/IP, routing protocols, network security, technical interview"
+              title="Computer Networks - Technical Article"
+              description="Learn computer networking concepts including OSI model, TCP/IP, routing, switching, and network security in an easy-to-read format."
+              keywords="computer networks, networking, OSI model, TCP/IP, routing protocols, network security, technical article"
             />
             <Breadcrumb items={[
-              { name: 'Interview Series', href: '/interview-series' },
+              { name: 'Technical Articles', href: '/interview-series' },
               { name: 'Computer Networks', href: '/interview-series/computer-networks' }
             ]} />
-            <TrackedComputerNetworks onMount={() => trackComponentView('computerNetworks')} />
+            <TrackedComputerNetworksArticle onMount={() => trackComponentView('computerNetworksArticle')} />
           </>
         } />
 
         <Route path="/interview-series/oops" element={
           <>
             <SEO 
-              title="OOPS - Interview Preparation Guide"
-              description="Master object-oriented programming concepts for technical interviews. Learn inheritance, polymorphism, abstraction, encapsulation, and design patterns."
-              keywords="OOPS, object-oriented programming, inheritance, polymorphism, abstraction, encapsulation, design patterns, technical interview"
+              title="Object-Oriented Programming - Technical Article"
+              description="Master OOP concepts including classes, objects, inheritance, polymorphism, abstraction, and encapsulation with clear explanations."
+              keywords="OOPS, object-oriented programming, inheritance, polymorphism, abstraction, encapsulation, classes, objects, technical article"
             />
             <Breadcrumb items={[
-              { name: 'Interview Series', href: '/interview-series' },
-              { name: 'OOPS', href: '/interview-series/oops' }
+              { name: 'Technical Articles', href: '/interview-series' },
+              { name: 'OOP', href: '/interview-series/oops' }
             ]} />
-            <TrackedObjectOrientedProgramming onMount={() => trackComponentView('oops')} />
+            <TrackedOOPArticle onMount={() => trackComponentView('oopArticle')} />
           </>
         } />
 
         <Route path="/interview-series/operating-systems" element={
           <>
             <SEO 
-              title="Operating Systems - Interview Preparation Guide"
-              description="Master operating system concepts for technical interviews. Learn processes, threads, memory management, scheduling, synchronization, and deadlocks."
-              keywords="operating systems, OS interview, processes, threads, memory management, CPU scheduling, synchronization, deadlocks, technical interview"
+              title="Operating Systems - Technical Article"
+              description="Understand operating system concepts including processes, threads, memory management, scheduling, synchronization, and file systems."
+              keywords="operating systems, OS, processes, threads, memory management, CPU scheduling, synchronization, file systems, technical article"
             />
             <Breadcrumb items={[
-              { name: 'Interview Series', href: '/interview-series' },
+              { name: 'Technical Articles', href: '/interview-series' },
               { name: 'Operating Systems', href: '/interview-series/operating-systems' }
             ]} />
-            <TrackedOperatingSystems onMount={() => trackComponentView('operatingSystems')} />
+            <TrackedOperatingSystemsArticle onMount={() => trackComponentView('operatingSystemsArticle')} />
+          </>
+        } />
+
+        {/* New article routes with cleaner URLs */}
+        <Route path="/articles/computer-networks" element={
+          <>
+            <SEO 
+              title="Computer Networks - Technical Article"
+              description="Learn computer networking concepts including OSI model, TCP/IP, routing, switching, and network security in an easy-to-read format."
+              keywords="computer networks, networking, OSI model, TCP/IP, routing protocols, network security, technical article"
+            />
+            <TrackedComputerNetworksArticle onMount={() => trackComponentView('computerNetworksArticle')} />
+          </>
+        } />
+
+        <Route path="/articles/oops" element={
+          <>
+            <SEO 
+              title="Object-Oriented Programming - Technical Article"
+              description="Master OOP concepts including classes, objects, inheritance, polymorphism, abstraction, and encapsulation with clear explanations."
+              keywords="OOPS, object-oriented programming, inheritance, polymorphism, abstraction, encapsulation, classes, objects, technical article"
+            />
+            <TrackedOOPArticle onMount={() => trackComponentView('oopArticle')} />
+          </>
+        } />
+
+        <Route path="/articles/operating-systems" element={
+          <>
+            <SEO 
+              title="Operating Systems - Technical Article"
+              description="Understand operating system concepts including processes, threads, memory management, scheduling, synchronization, and file systems."
+              keywords="operating systems, OS, processes, threads, memory management, CPU scheduling, synchronization, file systems, technical article"
+            />
+            <TrackedOperatingSystemsArticle onMount={() => trackComponentView('operatingSystemsArticle')} />
           </>
         } />
         
