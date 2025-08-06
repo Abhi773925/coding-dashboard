@@ -658,7 +658,10 @@ const MobileMenu = ({ isOpen, onClose, navigationSections }) => {
                         className={`
                           flex items-center justify-between p-3 rounded-lg
                           cursor-pointer transition-all duration-300 group no-underline
-                          ${isDarkMode ? "hover:bg-slate-800/50 text-slate-300" : "hover:bg-gray-100/50 text-gray-700"}
+                          ${isDarkMode 
+                            ? "text-slate-300 hover:bg-slate-800 hover:text-white" 
+                            : "text-gray-700 hover:bg-gray-50 hover:text-gray-900"}
+                          border ${isDarkMode ? "border-slate-700/50" : "border-gray-200/50"}
                         `}
                       >
                         <div className="flex items-center space-x-3">
@@ -824,13 +827,15 @@ const Navigation = () => {
             {openSection === section.name && (
               <div
                 className={`
-                  absolute top-full left-0  w-72
-                  ${isDarkMode ? '' : 'rounded-2xl backdrop-blur-md'} overflow-hidden z-50
+                  absolute top-full left-0 w-72 rounded-2xl overflow-hidden z-50
+                  ${isDarkMode ? 'bg-slate-800/90' : 'bg-white/90'} backdrop-blur-md
+                  shadow-xl border
+                  ${isDarkMode ? 'border-slate-700/50' : 'border-gray-200/50'}
                 `}
                 style={{
-                  backgroundColor: isDarkMode ? 'transparent' : 'rgba(255, 255, 255, 0.2)',
-                  backdropFilter: isDarkMode ? 'none' : 'blur(15px) saturate(180%)',
-                  background: isDarkMode ? 'transparent' : `linear-gradient(135deg, ${getSectionStyling(section.name).accent.replace('from-', '').replace(' to-', ', ')})`
+                  boxShadow: isDarkMode 
+                    ? '0 8px 32px rgba(0, 0, 0, 0.3)' 
+                    : '0 8px 32px rgba(0, 0, 0, 0.1)'
                 }}
               >
                 {section.subSections.map((subSection) => (
@@ -840,7 +845,9 @@ const Navigation = () => {
                     className={`
                       flex items-center justify-between p-4
                       cursor-pointer transition-all duration-300 group no-underline
-                      ${isDarkMode ? "hover:bg-slate-700/50 text-slate-300" : "hover:bg-gray-100/50 text-gray-700"}
+                      ${isDarkMode 
+                        ? "text-slate-300 hover:bg-slate-700/50 hover:text-white" 
+                        : "text-gray-700 hover:bg-gray-50 hover:text-gray-900"}
                     `}
                   >
                     <div className="flex items-center space-x-4">

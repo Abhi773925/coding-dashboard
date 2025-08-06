@@ -314,7 +314,7 @@ const AppContent = () => {
               description="Comprehensive technical articles covering computer networks, operating systems, object-oriented programming, and more."
               keywords="technical articles, computer science fundamentals, networking, operating systems, programming concepts"
             />
-            <Breadcrumb items={[{ name: 'Technical Articles', href: '/interview-series' }]} />
+            <Navigation />
             <TrackedArticlesOverview onMount={() => trackComponentView('articles')} />
           </>
         } />
