@@ -1,5 +1,11 @@
 /* Global Theme CSS Variables and Utilities */
 
+/* Apply bg-zinc-900 to the entire document */
+html, body, #root {
+  background-color: #18181b !important; /* zinc-900 */
+  min-height: 100vh;
+}
+
 :root {
   /* Light theme colors - codeconnecto exact match */
   --color-primary: #3B82F6;

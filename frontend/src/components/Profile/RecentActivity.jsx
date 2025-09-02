@@ -232,8 +232,8 @@ const RecentActivity = ({ user }) => {
 
   if (activities.length === 0) {
     return (
-      <div className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-lg">
-        <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">Recent Activity</h3>
+      <div className="bg-white dark:bg-zinc-900 rounded-xl p-6 shadow-lg">
+        <h3 className="text-lg font-semibold text-gray-900 dark:text-slate-300 mb-4">Recent Activity</h3>
         <div className="text-center py-8">
           <Activity className="w-12 h-12 text-gray-400 mx-auto mb-4" />
           <p className="text-gray-600 dark:text-gray-400">
@@ -245,9 +245,9 @@ const RecentActivity = ({ user }) => {
   }
 
   return (
-    <div className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-lg">
+    <div className="bg-white dark:bg-zinc-900 rounded-xl p-6 shadow-lg">
       <div className="flex items-center justify-between mb-6">
-        <h3 className="text-lg font-semibold text-gray-900 dark:text-white">Recent Activity</h3>
+        <h3 className="text-lg font-semibold text-gray-900 dark:text-slate-300">Recent Activity</h3>
         <TrendingUp className="w-5 h-5 text-green-500" />
       </div>
 
@@ -259,7 +259,7 @@ const RecentActivity = ({ user }) => {
           return (
             <motion.div
               key={activity.id}
-              className="flex items-start space-x-4 p-4 rounded-lg bg-gray-50 dark:bg-gray-700/50 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors duration-200"
+              className="flex items-start space-x-4 p-4 rounded-lg bg-gray-50 dark:bg-zinc-900/50 hover:bg-gray-100 dark:hover:bg-zinc-900 transition-colors duration-200"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.3, delay: index * 0.05 }}
@@ -271,12 +271,12 @@ const RecentActivity = ({ user }) => {
                 activity.platform === 'geeksforgeeks' ? 'from-green-500 to-emerald-600' :
                 'from-purple-500 to-indigo-600'
               } flex-shrink-0`}>
-                <Icon className="w-4 h-4 text-white" />
+                <Icon className="w-4 h-4 text-slate-300" />
               </div>
               
               <div className="flex-1 min-w-0">
                 <div className="flex items-center space-x-2 mb-1">
-                  <h4 className="text-sm font-medium text-gray-900 dark:text-white truncate">
+                  <h4 className="text-sm font-medium text-gray-900 dark:text-slate-300 truncate">
                     {activity.title}
                   </h4>
                   <div className="flex items-center space-x-1">

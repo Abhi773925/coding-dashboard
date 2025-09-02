@@ -244,7 +244,7 @@ const TestimonialSection = () => {
                 absolute w-full h-full rounded-3xl overflow-hidden
                 transform-gpu transition-all duration-500 ease-in-out
                 border-2 group
-                ${isDarkMode ? `bg-slate-800/70 border-slate-700/50` : `bg-white/80 border-gray-200/50`}
+                ${isDarkMode ? `bg-slate-800/70 bg-zinc-900` : `bg-white/80 border-gray-200/50`}
                 shadow-xl hover:shadow-2xl
               `}
               style={{
@@ -286,7 +286,7 @@ const TestimonialSection = () => {
                     transition={{ delay: 0.3 }}
                     className={`
                       text-2xl font-bold mt-4 mb-1
-                      ${isDarkMode ? "text-white" : "text-gray-900"}
+                      ${isDarkMode ? "text-slate-300" : "text-gray-900"}
                     `}
                   >
                     {currentTestimonial.name}
@@ -309,7 +309,7 @@ const TestimonialSection = () => {
                     transition={{ delay: 0.5 }}
                     className={`
                       mt-2 px-3 py-1 rounded-full text-sm inline-flex items-center
-                      ${isDarkMode ? "bg-slate-900/30 text-slate-400 border border-slate-800" : "bg-gray-100 text-gray-600 border border-gray-200"}
+                      ${isDarkMode ? "bg-zinc-900/30 text-slate-400 border border-slate-800" : "bg-gray-100 text-gray-600 border border-gray-200"}
                     `}
                   >
                     <Sparkles className="h-4 w-4 mr-2" />
@@ -325,7 +325,7 @@ const TestimonialSection = () => {
                     transition={{ delay: 0.6 }}
                     className={`
                       text-xl italic mb-6 p-6 relative
-                      ${isDarkMode ? "text-white bg-slate-900/50 rounded-xl border border-slate-800" : "text-gray-700 bg-gray-50 rounded-xl border border-gray-200"}
+                      ${isDarkMode ? "text-slate-300 bg-zinc-900/50 rounded-xl border border-slate-800" : "text-gray-700 bg-gray-50 rounded-xl border border-gray-200"}
                     `}
                   >
                     <Quote
@@ -346,7 +346,7 @@ const TestimonialSection = () => {
                   >
                     <div className={`text-sm mb-2 ${isDarkMode ? "text-slate-400" : "text-gray-600"}`}>
                       Program:{" "}
-                      <span className={`font-semibold ${isDarkMode ? "text-white" : "text-gray-900"}`}>
+                      <span className={`font-semibold ${isDarkMode ? "text-slate-300" : "text-gray-900"}`}>
                         {currentTestimonial.program}
                       </span>
                     </div>
@@ -379,7 +379,7 @@ const TestimonialSection = () => {
             onClick={handlePrev}
             className={`
               p-3 rounded-full flex items-center transition-all duration-300
-              ${isDarkMode ? "bg-slate-900/70 text-slate-300 hover:bg-slate-800/90" : "bg-white/70 text-gray-700 hover:bg-white/90"}
+              ${isDarkMode ? "bg-zinc-900/70 text-slate-300 hover:bg-zinc-900" : "bg-white/70 text-gray-700 hover:bg-white/90"}
               backdrop-blur-sm shadow-lg
             `}
             whileHover={{ scale: 1.1, x: -5 }}
@@ -392,7 +392,7 @@ const TestimonialSection = () => {
             onClick={handleNext}
             className={`
               p-3 rounded-full flex items-center transition-all duration-300
-              ${isDarkMode ? "bg-slate-900/70 text-slate-300 hover:bg-slate-800/90" : "bg-white/70 text-gray-700 hover:bg-white/90"}
+              ${isDarkMode ? "bg-zinc-900/70 text-slate-300 hover:bg-zinc-900" : "bg-white/70 text-gray-700 hover:bg-white/90"}
               backdrop-blur-sm shadow-lg
             `}
             whileHover={{ scale: 1.1, x: 5 }}
@@ -431,7 +431,7 @@ const TestimonialSection = () => {
             variants={childItemVariants}
             className={`
               text-3xl font-bold mb-6
-              ${isDarkMode ? "text-white" : "text-gray-900"}
+              ${isDarkMode ? "text-slate-300" : "text-gray-900"}
             `}
           >
             Ready to write your own success story?
@@ -440,7 +440,7 @@ const TestimonialSection = () => {
             variants={childItemVariants}
             className={`
               inline-flex items-center justify-center px-8 py-4 rounded-xl group
-              ${isDarkMode ? "bg-gradient-to-r from-green-600 to-cyan-600 text-white hover:from-green-500 hover:to-cyan-500" : "bg-gradient-to-r from-green-600 to-cyan-600 text-white hover:from-green-700 hover:to-cyan-700"}
+              ${isDarkMode ? "bg-gradient-to-r from-green-600 to-cyan-600 text-slate-300 hover:from-green-500 hover:to-cyan-500" : "bg-gradient-to-r from-green-600 to-cyan-600 text-slate-300 hover:from-green-700 hover:to-cyan-700"}
               transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105
             `}
           >

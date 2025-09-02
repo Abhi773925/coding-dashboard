@@ -229,7 +229,7 @@ const PlatformCards = ({ user, onConnectPlatform, detailed = false }) => {
                       key={idx}
                       className={`px-2 py-1 text-xs rounded-full ${
                         isDarkMode 
-                          ? 'bg-slate-800/60 text-slate-300' 
+                          ? 'bg-zinc-900/60 text-slate-300' 
                           : 'bg-gray-100/80 text-gray-700'
                       }`}
                     >
@@ -359,7 +359,7 @@ const PlatformCards = ({ user, onConnectPlatform, detailed = false }) => {
                     </span>
                   ))}
                   {stats.badges.length > 4 && (
-                    <span className="px-2 py-1 bg-gray-100 dark:bg-gray-800 text-xs rounded-full text-gray-600 dark:text-gray-400">
+                    <span className="px-2 py-1 bg-gray-100 dark:bg-zinc-900 text-xs rounded-full text-gray-600 dark:text-gray-400">
                       +{stats.badges.length - 4} more
                     </span>
                   )}
@@ -461,7 +461,7 @@ const PlatformCards = ({ user, onConnectPlatform, detailed = false }) => {
                     </span>
                   ))}
                   {(stats.achievements || stats.stats?.badges || []).length > 4 && (
-                    <span className="px-2 py-1 bg-gray-100 dark:bg-gray-800 text-xs rounded-full text-gray-600 dark:text-gray-400">
+                    <span className="px-2 py-1 bg-gray-100 dark:bg-zinc-900 text-xs rounded-full text-gray-600 dark:text-gray-400">
                       +{(stats.achievements || stats.stats?.badges || []).length - 4} more
                     </span>
                   )}
@@ -513,7 +513,7 @@ const PlatformCards = ({ user, onConnectPlatform, detailed = false }) => {
   if (detailed) {
     return (
       <div className={`min-h-screen py-8 px-4 ${
-        isDarkMode ? 'bg-slate-950' : 'bg-white'
+        isDarkMode ? 'bg-zinc-900' : 'bg-white'
       }`}>
         <div className="max-w-7xl mx-auto">
           <div className="flex items-center justify-between mb-8">
@@ -524,18 +524,18 @@ const PlatformCards = ({ user, onConnectPlatform, detailed = false }) => {
                 <Trophy className={`w-8 h-8 ${isDarkMode ? 'text-indigo-400' : 'text-indigo-600'}`} />
               </div>
               <div>
-                <h2 className={`text-3xl font-bold ${isDarkMode ? 'text-slate-200' : 'text-gray-800'}`}>
+                <h2 className={`text-3xl font-bold ${isDarkMode ? 'text-slate-300' : 'text-slate-700'}`}>
                   Platform Connections
                 </h2>
-                <p className={`text-sm mt-1 ${isDarkMode ? 'text-slate-400' : 'text-gray-600'}`}>
+                <p className={`text-sm mt-1 ${isDarkMode ? 'text-slate-300' : 'text-slate-700'}`}>
                   Connect your coding profiles to track progress
                 </p>
               </div>
             </div>
             <div className={`px-4 py-2 rounded-full backdrop-blur-md border ${
               isDarkMode 
-                ? 'bg-slate-900/95 border-slate-700/50 text-slate-300' 
-                : 'bg-white/95 border-gray-200/50 text-gray-600'
+                ? 'border-neutral-800 bg-neutral-900 text-slate-300' 
+                : 'border-neutral-200 bg-neutral-100 text-slate-700'
             }`}
             style={{
               boxShadow: isDarkMode ? "0 8px 25px rgba(0, 0, 0, 0.3)" : "0 8px 25px rgba(0, 0, 0, 0.1)",
@@ -554,10 +554,10 @@ const PlatformCards = ({ user, onConnectPlatform, detailed = false }) => {
               return (
                 <motion.div
                   key={platform.id}
-                  className={`rounded-xl p-6 backdrop-blur-md border transition-all duration-300 hover:scale-[1.02] ${
+                  className={`rounded-3xl p-6 backdrop-blur-md border transition-all duration-300 hover:scale-[1.02] shadow-md ${
                     isDarkMode 
-                      ? 'bg-slate-900/95 border-slate-700/50 hover:bg-slate-800/60' 
-                      : 'bg-white/95 border-gray-200/50 hover:bg-white'
+                      ? 'border-neutral-800 bg-neutral-900 hover:bg-zinc-900/60' 
+                      : 'border-neutral-200 bg-neutral-100 hover:bg-white'
                   }`}
                   style={{
                     boxShadow: isDarkMode ? "0 25px 50px rgba(0, 0, 0, 0.5)" : "0 25px 50px rgba(0, 0, 0, 0.15)",
@@ -570,11 +570,11 @@ const PlatformCards = ({ user, onConnectPlatform, detailed = false }) => {
                   <div className="flex items-center justify-between mb-6">
                     <div className="flex items-center space-x-3">
                       <div className={`p-3 rounded-lg bg-gradient-to-r ${platform.color} shadow-lg transition-transform duration-300`}>
-                        <Icon className="w-6 h-6 text-white" />
+                        <Icon className="w-6 h-6 text-slate-300" />
                       </div>
                       <div>
-                        <h3 className={`font-semibold ${isDarkMode ? 'text-slate-200' : 'text-gray-800'}`}>{platform.name}</h3>
-                        <p className={`text-xs ${isDarkMode ? 'text-slate-400' : 'text-gray-500'}`}>{platform.description}</p>
+                        <h3 className={`font-semibold ${isDarkMode ? 'text-slate-300' : 'text-slate-700'}`}>{platform.name}</h3>
+                        <p className={`text-xs ${isDarkMode ? 'text-slate-300' : 'text-slate-700'}`}>{platform.description}</p>
                       </div>
                     </div>
                     
@@ -615,8 +615,8 @@ const PlatformCards = ({ user, onConnectPlatform, detailed = false }) => {
                         onClick={() => onConnectPlatform(platform.id)}
                         className={`group flex items-center justify-center space-x-2 w-full px-6 py-3 rounded-lg transition-all duration-300 transform hover:scale-105 ${
                           isDarkMode
-                            ? 'bg-gradient-to-r from-indigo-600 to-purple-600 text-white hover:from-indigo-500 hover:to-purple-500'
-                            : 'bg-gradient-to-r from-indigo-600 to-purple-600 text-white hover:from-indigo-700 hover:to-purple-700'
+                            ? 'bg-white text-black hover:bg-gray-200'
+                            : 'bg-zinc-900 text-slate-300 hover:bg-zinc-900'
                         }`}
                         style={{
                           boxShadow: isDarkMode 
@@ -639,20 +639,20 @@ const PlatformCards = ({ user, onConnectPlatform, detailed = false }) => {
   }
 
   return (
-    <div className={`${
+    <div className={`rounded-3xl p-4 sm:p-6 backdrop-blur-md border shadow-md transition-all duration-300 ${
       isDarkMode 
-        ? 'bg-slate-900/95 border-slate-700/50' 
-        : 'bg-white/95 border-gray-200/50'
-    } rounded-xl p-4 sm:p-6 backdrop-blur-md border shadow-2xl transition-all duration-300`}
+        ? 'border-neutral-800 bg-neutral-900' 
+        : 'border-neutral-200 bg-neutral-100'
+    }`}
     style={{
       boxShadow: isDarkMode ? "0 25px 50px rgba(0, 0, 0, 0.5)" : "0 25px 50px rgba(0, 0, 0, 0.15)",
     }}>
       <div className="flex items-center justify-between mb-4 sm:mb-6">
-        <h3 className={`text-lg sm:text-xl font-semibold ${isDarkMode ? 'text-slate-200' : 'text-gray-800'}`}>Platform Connections</h3>
+        <h3 className={`text-lg sm:text-xl font-semibold ${isDarkMode ? 'text-slate-300' : 'text-slate-700'}`}>Platform Connections</h3>
         <span className={`text-xs sm:text-sm px-3 py-1 rounded-full ${
           isDarkMode 
-            ? 'bg-slate-800/60 text-slate-400 border border-slate-700/50' 
-            : 'bg-gray-100/80 text-gray-500 border border-gray-200/50'
+            ? 'bg-zinc-900/60 text-slate-300 border border-neutral-800' 
+            : 'bg-gray-100/80 text-slate-700 border border-neutral-200'
         }`}>
           {Object.keys(user?.platformStats || {}).length}/{platforms.length} Connected
         </span>
@@ -668,8 +668,8 @@ const PlatformCards = ({ user, onConnectPlatform, detailed = false }) => {
               key={platform.id}
               className={`group flex items-center justify-between p-3 sm:p-4 rounded-lg ${platform.bgGradient} border transition-all duration-300 hover:scale-[1.02] ${
                 isDarkMode 
-                  ? 'border-slate-700/50 hover:bg-slate-800/50 hover:border-slate-600/50' 
-                  : 'border-gray-200/50 hover:bg-white/80 hover:border-gray-300/50'
+                  ? 'border-neutral-800 hover:border-slate-600/50' 
+                  : 'border-neutral-200 hover:bg-white/80 hover:border-gray-300/50'
               }`}
               style={{
                 boxShadow: isDarkMode ? "0 4px 15px rgba(0, 0, 0, 0.2)" : "0 4px 15px rgba(0, 0, 0, 0.1)",
@@ -679,16 +679,16 @@ const PlatformCards = ({ user, onConnectPlatform, detailed = false }) => {
             >
               <div className="flex items-center space-x-3 sm:space-x-4 min-w-0 flex-1">
                 <div className={`p-2 sm:p-3 rounded-lg bg-gradient-to-r ${platform.color} shadow-md transition-transform duration-300 group-hover:scale-110 flex-shrink-0`}>
-                  <Icon className="w-4 h-4 sm:w-5 sm:h-5 text-white" />
+                  <Icon className="w-4 h-4 sm:w-5 sm:h-5 text-slate-300" />
                 </div>
                 <div className="min-w-0 flex-1">
-                  <p className={`font-semibold text-sm sm:text-base ${isDarkMode ? 'text-slate-200' : 'text-gray-800'} transition-colors duration-300 truncate`}>{platform.name}</p>
+                  <p className={`font-semibold text-sm sm:text-base ${isDarkMode ? 'text-slate-300' : 'text-slate-700'} transition-colors duration-300 truncate`}>{platform.name}</p>
                   {connected ? (
-                    <p className={`text-xs sm:text-sm ${isDarkMode ? 'text-slate-400' : 'text-gray-500'} truncate`}>
+                    <p className={`text-xs sm:text-sm ${isDarkMode ? 'text-slate-300' : 'text-slate-700'} truncate`}>
                       @{user.platformStats[platform.id].username}
                     </p>
                   ) : (
-                    <p className={`text-xs ${isDarkMode ? 'text-slate-400' : 'text-gray-500'} truncate`}>
+                    <p className={`text-xs ${isDarkMode ? 'text-slate-300' : 'text-slate-700'} truncate`}>
                       {platform.description}
                     </p>
                   )}
@@ -705,8 +705,8 @@ const PlatformCards = ({ user, onConnectPlatform, detailed = false }) => {
                   onClick={() => onConnectPlatform(platform.id)}
                   className={`group flex items-center space-x-1 sm:space-x-2 px-2 sm:px-4 py-1 sm:py-2 rounded-lg transition-all duration-300 transform hover:scale-105 flex-shrink-0 ${
                     isDarkMode
-                      ? 'bg-gradient-to-r from-indigo-600 to-purple-600 text-white hover:from-indigo-500 hover:to-purple-500'
-                      : 'bg-gradient-to-r from-indigo-600 to-purple-600 text-white hover:from-indigo-700 hover:to-purple-700'
+                      ? 'bg-gradient-to-r from-indigo-600 to-purple-600 text-slate-300 hover:from-indigo-500 hover:to-purple-500'
+                      : 'bg-gradient-to-r from-indigo-600 to-purple-600 text-slate-300 hover:from-indigo-700 hover:to-purple-700'
                   }`}
                   style={{
                     boxShadow: isDarkMode 
@@ -726,7 +726,7 @@ const PlatformCards = ({ user, onConnectPlatform, detailed = false }) => {
       <button
         className={`w-full mt-4 sm:mt-6 px-4 py-2 sm:py-3 text-sm font-medium rounded-lg transition-all duration-300 transform hover:scale-[1.02] backdrop-blur-sm ${
           isDarkMode 
-            ? 'text-indigo-400 hover:bg-slate-800/60 border border-slate-700/50 hover:border-slate-600/50' 
+            ? 'text-indigo-400 bg-zinc-900border bg-zinc-900 hover:border-slate-600/50' 
             : 'text-indigo-600 hover:bg-white/80 border border-gray-200/50 hover:border-gray-300/50'
         }`}
         style={{

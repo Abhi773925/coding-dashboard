@@ -83,7 +83,7 @@ export class PaymentHandler {
   showPaymentModal(response) {
     const modal = document.createElement('div');
     modal.innerHTML = `
-      <div class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+      <div class="fixed inset-0 bg-zinc-900 bg-opacity-50 flex items-center justify-center z-50">
         <div class="bg-white rounded-lg p-6 max-w-md w-full mx-4">
           <h3 class="text-lg font-bold mb-4">Payment Options</h3>
           <div class="space-y-3">
@@ -104,11 +104,11 @@ export class PaymentHandler {
           </div>
           <div class="flex gap-2 mt-4">
             <button onclick="window.open('${response.paymentLink}', '_blank')" 
-                    class="flex-1 bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700">
+                    class="flex-1 bg-blue-600 text-slate-300 px-4 py-2 rounded-lg hover:bg-blue-700">
               Pay with Razorpay
             </button>
             <button onclick="window.open('${response.prepmateLinkQR}', '_blank')" 
-                    class="flex-1 bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700">
+                    class="flex-1 bg-green-600 text-slate-300 px-4 py-2 rounded-lg hover:bg-green-700">
               Pay Direct
             </button>
           </div>

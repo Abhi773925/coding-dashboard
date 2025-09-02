@@ -194,7 +194,7 @@ const IdeaStormGame = () => {
     <div
       className={`
         min-h-screen py-12 px-4 sm:px-6 lg:px-8
-        ${isDarkMode ? "bg-slate-900 text-gray-100" : "bg-gray-50 text-gray-900"}
+        ${isDarkMode ? "bg-zinc-900 text-gray-100" : "bg-gray-50 text-gray-900"}
         transition-colors duration-300
       `}
     >
@@ -217,7 +217,7 @@ const IdeaStormGame = () => {
           <div
             className={`
               p-8 rounded-2xl shadow-2xl backdrop-blur-md
-              ${isDarkMode ? "bg-slate-800/70 border border-slate-700/50" : "bg-white/80 border border-gray-200/50"}
+              ${isDarkMode ? "bg-slate-800/70 border bg-zinc-900" : "bg-white/80 border border-gray-200/50"}
               transform transition-all duration-300 hover:scale-[1.02]
             `}
             style={{
@@ -232,7 +232,7 @@ const IdeaStormGame = () => {
                   boxShadow: isDarkMode ? "0 8px 25px rgba(139, 92, 246, 0.3)" : "0 8px 25px rgba(139, 92, 246, 0.2)",
                 }}
               >
-                <Lightbulb size={36} className="text-white" strokeWidth={1.5} />
+                <Lightbulb size={36} className="text-slate-300" strokeWidth={1.5} />
               </div>
 
               <h3 className="text-2xl font-bold mb-4">Rapid Idea Generation</h3>
@@ -245,7 +245,7 @@ const IdeaStormGame = () => {
               <button
                 onClick={startGame}
                 className={`
-                  py-3 px-8 rounded-xl font-semibold text-lg text-white
+                  py-3 px-8 rounded-xl font-semibold text-lg text-slate-300
                   bg-gradient-to-r from-purple-600 to-blue-600
                   hover:from-purple-500 hover:to-blue-500
                   transform transition-all duration-300 hover:scale-105 hover:shadow-lg
@@ -266,7 +266,7 @@ const IdeaStormGame = () => {
             <div
               className={`
                 p-6 rounded-2xl shadow-lg col-span-1 md:col-span-1
-                ${isDarkMode ? "bg-slate-800/70 border border-slate-700/50" : "bg-white/80 border border-gray-200/50"}
+                ${isDarkMode ? "bg-slate-800/70 border bg-zinc-900" : "bg-white/80 border border-gray-200/50"}
                 relative overflow-hidden
               `}
               style={{
@@ -319,7 +319,7 @@ const IdeaStormGame = () => {
             <div
               className={`
                 p-6 rounded-2xl shadow-lg col-span-1 md:col-span-2
-                ${isDarkMode ? "bg-slate-800/70 border border-slate-700/50" : "bg-white/80 border border-gray-200/50"}
+                ${isDarkMode ? "bg-slate-800/70 border bg-zinc-900" : "bg-white/80 border border-gray-200/50"}
                 flex flex-col
               `}
               style={{
@@ -338,7 +338,7 @@ const IdeaStormGame = () => {
                       flex-grow p-3 rounded-l-lg outline-none
                       ${
                         isDarkMode
-                          ? "bg-slate-700 border border-slate-600 text-white placeholder-slate-400"
+                          ? "bg-slate-700 border border-slate-600 text-slate-300 placeholder-slate-400"
                           : "bg-gray-100 border border-gray-200 text-gray-800 placeholder-gray-500"
                       }
                     `}
@@ -348,7 +348,7 @@ const IdeaStormGame = () => {
                     className={`
                       p-3 rounded-r-lg
                       bg-gradient-to-r from-purple-600 to-blue-600
-                      text-white font-medium hover:opacity-90 transition-opacity
+                      text-slate-300 font-medium hover:opacity-90 transition-opacity
                     `}
                   >
                     Add
@@ -399,7 +399,7 @@ const IdeaStormGame = () => {
                         flex justify-between items-start
                       `}
                     >
-                      <p className={isDarkMode ? "text-white" : "text-gray-800"}>{idea.text}</p>
+                      <p className={isDarkMode ? "text-slate-300" : "text-gray-800"}>{idea.text}</p>
                       <span
                         className={`
                           ml-3 px-2 py-1 rounded-full text-xs font-medium whitespace-nowrap
@@ -420,7 +420,7 @@ const IdeaStormGame = () => {
           <div
             className={`
               p-8 rounded-2xl shadow-2xl backdrop-blur-md
-              ${isDarkMode ? "bg-slate-800/70 border border-slate-700/50" : "bg-white/80 border border-gray-200/50"}
+              ${isDarkMode ? "bg-slate-800/70 border bg-zinc-900" : "bg-white/80 border border-gray-200/50"}
               transform transition-all duration-300 hover:scale-[1.02]
             `}
             style={{
@@ -435,7 +435,7 @@ const IdeaStormGame = () => {
                   boxShadow: isDarkMode ? "0 8px 25px rgba(139, 92, 246, 0.3)" : "0 8px 25px rgba(139, 92, 246, 0.2)",
                 }}
               >
-                <Lightbulb size={36} className="text-white" strokeWidth={1.5} />
+                <Lightbulb size={36} className="text-slate-300" strokeWidth={1.5} />
               </div>
 
               <h3 className="text-2xl font-bold mb-2">Brainstorming Complete!</h3>
@@ -466,7 +466,7 @@ const IdeaStormGame = () => {
 
               {ideas.length > 0 && (
                 <div className="mb-8">
-                  <h4 className={`font-bold mb-3 ${isDarkMode ? "text-white" : "text-gray-900"}`}>Your Best Ideas:</h4>
+                  <h4 className={`font-bold mb-3 ${isDarkMode ? "text-slate-300" : "text-gray-900"}`}>Your Best Ideas:</h4>
                   <div className="max-w-2xl mx-auto">
                     {[...ideas]
                       .sort((a, b) => b.points - a.points)
@@ -481,7 +481,7 @@ const IdeaStormGame = () => {
                           `}
                         >
                           <div className="flex justify-between">
-                            <p className={isDarkMode ? "text-white" : "text-gray-800"}>{idea.text}</p>
+                            <p className={isDarkMode ? "text-slate-300" : "text-gray-800"}>{idea.text}</p>
                             <span
                               className={`
                                 ml-3 px-2 py-1 rounded-full text-xs font-medium whitespace-nowrap
@@ -500,7 +500,7 @@ const IdeaStormGame = () => {
               <button
                 onClick={startGame}
                 className={`
-                  py-3 px-8 rounded-xl font-semibold text-lg text-white flex items-center justify-center mx-auto
+                  py-3 px-8 rounded-xl font-semibold text-lg text-slate-300 flex items-center justify-center mx-auto
                   bg-gradient-to-r from-purple-600 to-blue-600
                   hover:from-purple-500 hover:to-blue-500
                   transform transition-all duration-300 hover:scale-105

@@ -129,9 +129,9 @@ const SubscriptionManager = () => {
   }
 
   return (
-    <div className={`min-h-screen ${isDarkMode ? 'bg-gray-900 text-white' : 'bg-gray-50 text-gray-900'}`}>
+    <div className={`min-h-screen ${isDarkMode ? 'bg-zinc-900 text-slate-300' : 'bg-gray-50 text-gray-900'}`}>
       {/* Header */}
-      <div className={`${isDarkMode ? 'bg-gray-800' : 'bg-white'} border-b`}>
+      <div className={`${isDarkMode ? 'bg-zinc-900' : 'bg-white'} border-b`}>
         <div className="max-w-7xl mx-auto px-4 py-8">
           <h1 className="text-3xl font-bold mb-2">My Subscriptions</h1>
           <p className="text-gray-600">Manage your mentorship subscriptions and billing</p>
@@ -141,25 +141,25 @@ const SubscriptionManager = () => {
       <div className="max-w-7xl mx-auto px-4 py-8">
         {/* Subscription Summary */}
         <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
-          <div className={`p-6 rounded-xl ${isDarkMode ? 'bg-gray-800' : 'bg-white'} border`}>
+          <div className={`p-6 rounded-xl ${isDarkMode ? 'bg-zinc-900' : 'bg-white'} border`}>
             <div className="text-2xl font-bold text-blue-600 mb-2">
               {subscriptions.filter(s => s.status === 'active').length}
             </div>
             <div className="text-sm text-gray-500">Active Subscriptions</div>
           </div>
-          <div className={`p-6 rounded-xl ${isDarkMode ? 'bg-gray-800' : 'bg-white'} border`}>
+          <div className={`p-6 rounded-xl ${isDarkMode ? 'bg-zinc-900' : 'bg-white'} border`}>
             <div className="text-2xl font-bold text-green-600 mb-2">
               ${subscriptions.filter(s => s.status === 'active').reduce((sum, s) => sum + s.plan.price, 0)}
             </div>
             <div className="text-sm text-gray-500">Monthly Spend</div>
           </div>
-          <div className={`p-6 rounded-xl ${isDarkMode ? 'bg-gray-800' : 'bg-white'} border`}>
+          <div className={`p-6 rounded-xl ${isDarkMode ? 'bg-zinc-900' : 'bg-white'} border`}>
             <div className="text-2xl font-bold text-purple-600 mb-2">
               {subscriptions.reduce((sum, s) => sum + s.sessionsUsed, 0)}
             </div>
             <div className="text-sm text-gray-500">Sessions Completed</div>
           </div>
-          <div className={`p-6 rounded-xl ${isDarkMode ? 'bg-gray-800' : 'bg-white'} border`}>
+          <div className={`p-6 rounded-xl ${isDarkMode ? 'bg-zinc-900' : 'bg-white'} border`}>
             <div className="text-2xl font-bold text-orange-600 mb-2">
               {subscriptions.filter(s => s.status === 'active').reduce((sum, s) => sum + (s.plan.sessionsIncluded - s.sessionsUsed), 0)}
             </div>
@@ -172,7 +172,7 @@ const SubscriptionManager = () => {
           {subscriptions.map((subscription) => (
             <div
               key={subscription._id}
-              className={`p-6 rounded-xl border ${isDarkMode ? 'bg-gray-800 border-gray-700' : 'bg-white border-gray-200'}`}
+              className={`p-6 rounded-xl border ${isDarkMode ? 'bg-zinc-900 border-gray-700' : 'bg-white border-gray-200'}`}
             >
               <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between">
                 {/* Mentor Info */}
@@ -214,7 +214,7 @@ const SubscriptionManager = () => {
                       <span>Sessions Used</span>
                       <span>{subscription.sessionsUsed}/{subscription.plan.sessionsIncluded}</span>
                     </div>
-                    <div className={`w-full rounded-full h-2 ${isDarkMode ? 'bg-gray-700' : 'bg-gray-200'}`}>
+                    <div className={`w-full rounded-full h-2 ${isDarkMode ? 'bg-zinc-900' : 'bg-gray-200'}`}>
                       <div
                         className="bg-blue-600 h-2 rounded-full"
                         style={{ 
@@ -271,7 +271,7 @@ const SubscriptionManager = () => {
                         >
                           Cancel
                         </button>
-                        <button className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 text-sm">
+                        <button className="px-4 py-2 bg-blue-600 text-slate-300 rounded-lg hover:bg-blue-700 text-sm">
                           Manage
                         </button>
                       </>
@@ -279,7 +279,7 @@ const SubscriptionManager = () => {
                     {subscription.status === 'cancelled' && (
                       <button
                         onClick={() => renewSubscription(subscription._id)}
-                        className="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 text-sm"
+                        className="px-4 py-2 bg-green-600 text-slate-300 rounded-lg hover:bg-green-700 text-sm"
                       >
                         Renew
                       </button>
@@ -303,7 +303,7 @@ const SubscriptionManager = () => {
 
               {/* Next Billing */}
               {subscription.status === 'active' && subscription.billing?.nextBillingDate && (
-                <div className={`mt-4 p-3 rounded-lg ${isDarkMode ? 'bg-gray-700' : 'bg-gray-100'}`}>
+                <div className={`mt-4 p-3 rounded-lg ${isDarkMode ? 'bg-zinc-900' : 'bg-gray-100'}`}>
                   <div className="flex items-center gap-2 text-sm">
                     <Calendar className="w-4 h-4 text-blue-600" />
                     <span>Next billing: {formatDate(subscription.billing.nextBillingDate)}</span>
@@ -315,11 +315,11 @@ const SubscriptionManager = () => {
           ))}
 
           {subscriptions.length === 0 && (
-            <div className={`p-12 text-center rounded-xl border ${isDarkMode ? 'bg-gray-800 border-gray-700' : 'bg-white border-gray-200'}`}>
+            <div className={`p-12 text-center rounded-xl border ${isDarkMode ? 'bg-zinc-900 border-gray-700' : 'bg-white border-gray-200'}`}>
               <CreditCard className="w-16 h-16 mx-auto mb-4 opacity-50" />
               <h3 className="text-xl font-medium mb-2">No subscriptions yet</h3>
               <p className="text-gray-500 mb-6">Start your mentorship journey by subscribing to a mentor</p>
-              <button className="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
+              <button className="px-6 py-3 bg-blue-600 text-slate-300 rounded-lg hover:bg-blue-700">
                 Browse Mentors
               </button>
             </div>
@@ -328,7 +328,7 @@ const SubscriptionManager = () => {
 
         {/* Billing History */}
         {subscriptions.length > 0 && (
-          <div className={`mt-12 p-6 rounded-xl border ${isDarkMode ? 'bg-gray-800 border-gray-700' : 'bg-white border-gray-200'}`}>
+          <div className={`mt-12 p-6 rounded-xl border ${isDarkMode ? 'bg-zinc-900 border-gray-700' : 'bg-white border-gray-200'}`}>
             <div className="flex items-center justify-between mb-6">
               <h2 className="text-xl font-bold">Billing History</h2>
               <button className="flex items-center gap-2 px-4 py-2 border rounded-lg hover:bg-gray-50">
@@ -381,8 +381,8 @@ const SubscriptionManager = () => {
 
       {/* Cancel Subscription Modal */}
       {showCancelModal && selectedSubscription && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-          <div className={`max-w-md w-full mx-4 p-6 rounded-xl ${isDarkMode ? 'bg-gray-800' : 'bg-white'}`}>
+        <div className="fixed inset-0 bg-zinc-900 bg-opacity-50 flex items-center justify-center z-50">
+          <div className={`max-w-md w-full mx-4 p-6 rounded-xl ${isDarkMode ? 'bg-zinc-900' : 'bg-white'}`}>
             <div className="flex items-center gap-3 mb-4">
               <AlertCircle className="w-6 h-6 text-red-600" />
               <h2 className="text-xl font-bold">Cancel Subscription</h2>
@@ -393,7 +393,7 @@ const SubscriptionManager = () => {
               You'll lose access to all benefits at the end of your current billing period.
             </p>
 
-            <div className={`p-4 rounded-lg mb-6 ${isDarkMode ? 'bg-gray-700' : 'bg-gray-100'}`}>
+            <div className={`p-4 rounded-lg mb-6 ${isDarkMode ? 'bg-zinc-900' : 'bg-gray-100'}`}>
               <h4 className="font-medium mb-2">What happens when you cancel:</h4>
               <ul className="text-sm space-y-1 text-gray-600">
                 <li>• Access continues until {formatDate(selectedSubscription.endDate)}</li>
@@ -412,7 +412,7 @@ const SubscriptionManager = () => {
               </button>
               <button
                 onClick={() => cancelSubscription(selectedSubscription._id)}
-                className="px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700"
+                className="px-4 py-2 bg-red-600 text-slate-300 rounded-lg hover:bg-red-700"
               >
                 Cancel Subscription
               </button>

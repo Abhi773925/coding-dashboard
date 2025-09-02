@@ -4,10 +4,10 @@
 export const getButtonClasses = (isDarkMode, variant = 'primary') => {
   const variants = {
     primary: isDarkMode
-      ? "bg-gradient-to-r from-purple-600 to-blue-600 text-white hover:from-purple-500 hover:to-blue-500"
-      : "bg-gradient-to-r from-purple-600 to-blue-600 text-white hover:from-purple-700 hover:to-blue-700",
+      ? "bg-gradient-to-r from-purple-600 to-blue-600 text-slate-300 hover:from-purple-500 hover:to-blue-500"
+      : "bg-gradient-to-r from-purple-600 to-blue-600 text-slate-300 hover:from-purple-700 hover:to-blue-700",
     secondary: isDarkMode
-      ? "bg-slate-800/70 text-zinc-100 hover:bg-slate-700/70 border border-slate-700/50"
+      ? "bg-slate-800/70 text-zinc-100 hover:bg-slate-700/70 border bg-zinc-900"
       : "bg-gray-100/70 text-gray-900 hover:bg-gray-200/70 border border-gray-200/50",
     outline: isDarkMode
       ? "border-slate-600/40 text-slate-300 hover:bg-slate-800/40 hover:border-indigo-500/40"
@@ -19,13 +19,13 @@ export const getButtonClasses = (isDarkMode, variant = 'primary') => {
 
 export const getCardClasses = (isDarkMode) => {
   return isDarkMode
-    ? "bg-slate-800/70 border-slate-700/50 shadow-2xl shadow-black/40"
+    ? "bg-slate-800/70 bg-zinc-900 shadow-2xl shadow-black/40"
     : "bg-white/80 border-gray-200/50 shadow-xl";
 };
 
 export const getTextClasses = (isDarkMode, variant = 'primary') => {
   const variants = {
-    primary: isDarkMode ? "text-white" : "text-gray-900",
+    primary: isDarkMode ? "text-slate-300" : "text-gray-900",
     secondary: isDarkMode ? "text-slate-400" : "text-gray-600",
     accent: isDarkMode ? "text-indigo-400" : "text-indigo-600",
     muted: isDarkMode ? "text-slate-500" : "text-gray-500"
@@ -41,7 +41,7 @@ export const getBrandGradient = (isDarkMode) => {
 };
 
 export const getPageBackground = (isDarkMode) => {
-  return isDarkMode ? "bg-slate-900 text-gray-100" : "bg-gray-50 text-gray-900";
+  return isDarkMode ? "bg-zinc-900 text-gray-100" : "bg-gray-50 text-gray-900";
 };
 
 export const getDifficultyColors = (difficulty, isDarkMode) => {
@@ -88,7 +88,7 @@ export const getPlatformColors = (platform, isDarkMode) => {
       light: {
         iconBg: "bg-blue-100", 
         iconText: "text-gray-700",
-        progress: "bg-gray-700",
+        progress: "bg-zinc-900",
         border: "border-gray-200/50"
       },
       dark: {

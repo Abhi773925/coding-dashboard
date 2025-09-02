@@ -55,7 +55,7 @@ export default function NotesOverview() {
   return (
     <div
       className={`w-full min-h-screen flex flex-col items-center justify-start py-12 px-4 transition-all duration-500 ${
-        isDarkMode ? "bg-slate-900 text-gray-100" : "bg-gray-50 text-gray-900"
+        isDarkMode ? "bg-zinc-900 text-gray-100" : "bg-gray-50 text-gray-900"
       }`}
     //   style={{
     //     backgroundImage: `
@@ -109,7 +109,7 @@ export default function NotesOverview() {
             <Card
               key={category.title}
               className={`relative overflow-hidden transition-transform duration-300 hover:scale-105 ${
-                isDarkMode ? "bg-gray-800/80 border-gray-700" : "bg-white/80 border-gray-200"
+                isDarkMode ? "bg-zinc-900/80 border-gray-700" : "bg-white/80 border-gray-200"
               }`}
             >
               {category.status === "available" ? (

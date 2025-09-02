@@ -566,10 +566,10 @@ const EnhancedCollaborativeEditor = ({ sessionId, userId, userName, initialRole 
   const canEdit = role === 'owner' || role === 'editor';
 
   return (
-    <div className={`h-screen flex flex-col ${isDarkMode ? 'bg-gray-900 text-white' : 'bg-white text-gray-900'}`}>
+    <div className={`h-screen flex flex-col ${isDarkMode ? 'bg-zinc-900 text-slate-300' : 'bg-white text-gray-900'}`}>
       {/* Header */}
       <div className={`h-12 border-b flex items-center justify-between px-4 ${
-        isDarkMode ? 'bg-gray-800 border-gray-700' : 'bg-gray-50 border-gray-200'
+        isDarkMode ? 'bg-zinc-900 border-gray-700' : 'bg-gray-50 border-gray-200'
       }`}>
         <div className="flex items-center space-x-4">
           <div className="flex items-center space-x-2">
@@ -597,7 +597,7 @@ const EnhancedCollaborativeEditor = ({ sessionId, userId, userName, initialRole 
             disabled={!canEdit || !activeFile}
             className={`p-2 rounded text-sm font-medium flex items-center space-x-1 ${
               canEdit && activeFile
-                ? 'bg-blue-600 hover:bg-blue-700 text-white'
+                ? 'bg-blue-600 hover:bg-blue-700 text-slate-300'
                 : 'bg-gray-400 text-gray-200 cursor-not-allowed'
             }`}
             title="Save (Ctrl+S)"
@@ -610,7 +610,7 @@ const EnhancedCollaborativeEditor = ({ sessionId, userId, userName, initialRole 
             disabled={!canEdit || isExecuting || !activeFile}
             className={`p-2 rounded text-sm font-medium flex items-center space-x-1 ${
               canEdit && activeFile && !isExecuting
-                ? 'bg-green-600 hover:bg-green-700 text-white'
+                ? 'bg-green-600 hover:bg-green-700 text-slate-300'
                 : 'bg-gray-400 text-gray-200 cursor-not-allowed'
             }`}
             title="Run Code (Ctrl+Enter)"
@@ -620,7 +620,7 @@ const EnhancedCollaborativeEditor = ({ sessionId, userId, userName, initialRole 
 
           <button
             onClick={() => setShowChat(!showChat)}
-            className={`p-2 rounded ${showChat ? 'bg-blue-600 text-white' : 'bg-gray-200 text-gray-700'}`}
+            className={`p-2 rounded ${showChat ? 'bg-blue-600 text-slate-300' : 'bg-gray-200 text-gray-700'}`}
             title="Toggle Chat"
           >
             <MessageCircle className="w-4 h-4" />
@@ -628,7 +628,7 @@ const EnhancedCollaborativeEditor = ({ sessionId, userId, userName, initialRole 
 
           <button
             onClick={() => setShowLivePreview(!showLivePreview)}
-            className={`p-2 rounded ${showLivePreview ? 'bg-blue-600 text-white' : 'bg-gray-200 text-gray-700'}`}
+            className={`p-2 rounded ${showLivePreview ? 'bg-blue-600 text-slate-300' : 'bg-gray-200 text-gray-700'}`}
             title="Toggle Live Preview"
           >
             <Monitor className="w-4 h-4" />
@@ -648,7 +648,7 @@ const EnhancedCollaborativeEditor = ({ sessionId, userId, userName, initialRole 
         {/* Sidebar */}
         {!sidebarCollapsed && (
           <div className={`w-64 border-r flex flex-col ${
-            isDarkMode ? 'bg-gray-800 border-gray-700' : 'bg-gray-50 border-gray-200'
+            isDarkMode ? 'bg-zinc-900 border-gray-700' : 'bg-gray-50 border-gray-200'
           }`}>
             {/* File Explorer */}
             <div className="flex-1 overflow-y-auto">
@@ -781,12 +781,12 @@ const EnhancedCollaborativeEditor = ({ sessionId, userId, userName, initialRole 
 
           {/* Terminal */}
           {showTerminal && (
-            <div className={`h-64 border-t ${isDarkMode ? 'bg-gray-900 border-gray-700' : 'bg-black border-gray-200'}`}>
-              <div className="flex items-center justify-between p-2 bg-gray-800 text-white">
+            <div className={`h-64 border-t ${isDarkMode ? 'bg-zinc-900 border-gray-700' : 'bg-zinc-900 border-gray-200'}`}>
+              <div className="flex items-center justify-between p-2 bg-zinc-900 text-slate-300">
                 <span className="font-semibold">Terminal</span>
                 <button
                   onClick={() => setShowTerminal(false)}
-                  className="text-gray-400 hover:text-white"
+                  className="text-gray-400 hover:text-slate-300"
                 >
                   <X className="w-4 h-4" />
                 </button>
@@ -811,7 +811,7 @@ const EnhancedCollaborativeEditor = ({ sessionId, userId, userName, initialRole 
           {/* Output Panel */}
           {output && (
             <div className={`h-32 border-t p-4 overflow-y-auto ${
-              isDarkMode ? 'bg-gray-800 border-gray-700' : 'bg-gray-50 border-gray-200'
+              isDarkMode ? 'bg-zinc-900 border-gray-700' : 'bg-gray-50 border-gray-200'
             }`}>
               <div className="flex items-center justify-between mb-2">
                 <span className="font-semibold">Output</span>
@@ -830,19 +830,19 @@ const EnhancedCollaborativeEditor = ({ sessionId, userId, userName, initialRole 
         {/* Right Panel */}
         {!rightPanelCollapsed && (
           <div className={`w-80 border-l flex flex-col ${
-            isDarkMode ? 'bg-gray-800 border-gray-700' : 'bg-gray-50 border-gray-200'
+            isDarkMode ? 'bg-zinc-900 border-gray-700' : 'bg-gray-50 border-gray-200'
           }`}>
             {/* Tab Headers */}
             <div className="flex border-b">
               <button
                 onClick={() => setShowChat(true)}
-                className={`flex-1 p-2 text-sm ${showChat ? 'bg-blue-600 text-white' : 'hover:bg-gray-200'}`}
+                className={`flex-1 p-2 text-sm ${showChat ? 'bg-blue-600 text-slate-300' : 'hover:bg-gray-200'}`}
               >
                 <MessageCircle className="w-4 h-4 mx-auto" />
               </button>
               <button
                 onClick={() => setShowLivePreview(true)}
-                className={`flex-1 p-2 text-sm ${showLivePreview ? 'bg-blue-600 text-white' : 'hover:bg-gray-200'}`}
+                className={`flex-1 p-2 text-sm ${showLivePreview ? 'bg-blue-600 text-slate-300' : 'hover:bg-gray-200'}`}
               >
                 <Monitor className="w-4 h-4 mx-auto" />
               </button>
@@ -856,7 +856,7 @@ const EnhancedCollaborativeEditor = ({ sessionId, userId, userName, initialRole 
                     <div key={msg.id} className={`${msg.isSystem ? 'text-center text-gray-500 text-sm' : ''}`}>
                       {!msg.isSystem && (
                         <div className="flex items-start space-x-2">
-                          <div className="w-8 h-8 rounded-full bg-blue-500 flex items-center justify-center text-white text-sm">
+                          <div className="w-8 h-8 rounded-full bg-blue-500 flex items-center justify-center text-slate-300 text-sm">
                             {msg.userName[0].toUpperCase()}
                           </div>
                           <div className="flex-1">
@@ -887,7 +887,7 @@ const EnhancedCollaborativeEditor = ({ sessionId, userId, userName, initialRole 
                     <button
                       onClick={sendChatMessage}
                       disabled={!newMessage.trim()}
-                      className="px-3 py-2 bg-blue-600 text-white rounded-lg disabled:opacity-50"
+                      className="px-3 py-2 bg-blue-600 text-slate-300 rounded-lg disabled:opacity-50"
                     >
                       <Send className="w-4 h-4" />
                     </button>
@@ -936,8 +936,8 @@ const EnhancedCollaborativeEditor = ({ sessionId, userId, userName, initialRole 
 
       {/* Settings Modal */}
       {showSettings && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-          <div className={`w-96 p-6 rounded-lg ${isDarkMode ? 'bg-gray-800' : 'bg-white'}`}>
+        <div className="fixed inset-0 bg-zinc-900 bg-opacity-50 flex items-center justify-center z-50">
+          <div className={`w-96 p-6 rounded-lg ${isDarkMode ? 'bg-zinc-900' : 'bg-white'}`}>
             <div className="flex items-center justify-between mb-4">
               <h3 className="text-lg font-semibold">Editor Settings</h3>
               <button
@@ -1011,7 +1011,7 @@ const EnhancedCollaborativeEditor = ({ sessionId, userId, userName, initialRole 
 
       {/* Bottom Status Bar */}
       <div className={`h-6 border-t flex items-center justify-between px-4 text-xs ${
-        isDarkMode ? 'bg-gray-800 border-gray-700 text-gray-400' : 'bg-gray-100 border-gray-200 text-gray-600'
+        isDarkMode ? 'bg-zinc-900 border-gray-700 text-gray-400' : 'bg-gray-100 border-gray-200 text-gray-600'
       }`}>
         <div className="flex items-center space-x-4">
           <span>{activeFile ? `${getFileType(activeFile.name)} • ${activeFile.name}` : 'No file'}</span>

@@ -33,14 +33,14 @@ const DebugProfile = () => {
     <div className="p-8 max-w-4xl mx-auto">
       <h1 className="text-2xl font-bold mb-6">Profile Debug Information</h1>
       
-      <div className="bg-gray-100 dark:bg-gray-800 p-4 rounded-lg mb-4">
+      <div className="bg-gray-100 dark:bg-zinc-900 p-4 rounded-lg mb-4">
         <h2 className="text-lg font-semibold mb-2">Authentication Status</h2>
         <p><strong>Logged In:</strong> {isLoggedIn ? '✅ Yes' : '❌ No'}</p>
         <p><strong>User Object:</strong> {user ? '✅ Present' : '❌ Missing'}</p>
       </div>
 
       {user && (
-        <div className="bg-gray-100 dark:bg-gray-800 p-4 rounded-lg mb-4">
+        <div className="bg-gray-100 dark:bg-zinc-900 p-4 rounded-lg mb-4">
           <h2 className="text-lg font-semibold mb-2">User Details</h2>
           <p><strong>Name:</strong> {user.name || 'Not provided'}</p>
           <p><strong>Email:</strong> {user.email || 'Not provided'}</p>

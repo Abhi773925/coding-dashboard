@@ -70,7 +70,7 @@ const JavaScriptLearning = () => {
   }, [isDragging, handleMouseMove, handleMouseUp])
 
   return (
-    <div className={`w-full min-h-screen pt-18 flex flex-col ${isDarkMode ? "bg-slate-900 text-slate-300" : "bg-gray-50 text-gray-900"}`}>
+    <div className={`w-full min-h-screen pt-18 flex flex-col ${isDarkMode ? "bg-zinc-900 text-slate-300" : "bg-gray-50 text-gray-900"}`}>
       <div className="flex-1 w-full h-[calc(100vh-4rem)] p-4 overflow-hidden">
         <div className="flex gap-1 h-full w-full relative main-container">
           {/* Syllabus Navigation - Resizable width */}
@@ -126,7 +126,7 @@ const JavaScriptLearning = () => {
                         {/* Expanded Topic Content */}
                         {expandedTopic?.id === topic.id && (
                           <div
-                            className={`mt-1 ml-2 p-2 ${isDarkMode ? "bg-slate-900/50" : "bg-gray-50/50"} rounded-lg`}
+                            className={`mt-1 ml-2 p-2 ${isDarkMode ? "bg-zinc-900/50" : "bg-gray-50/50"} rounded-lg`}
                           >
                             {/* Subtopics */}
                             <div className="mb-3">
@@ -190,8 +190,8 @@ const JavaScriptLearning = () => {
                                       onClick={() => handleQuestionSelect(question)}
                                       className={`px-2 py-1 rounded text-xs transition-colors ${
                                         selectedQuestion?.id === question.id
-                                          ? "bg-indigo-700 text-white"
-                                          : "bg-indigo-600 text-white hover:bg-indigo-700"
+                                          ? "bg-indigo-700 text-slate-300"
+                                          : "bg-indigo-600 text-slate-300 hover:bg-indigo-700"
                                       }`}
                                     >
                                       {selectedQuestion?.id === question.id ? "Selected" : "Practice"}
@@ -228,8 +228,8 @@ const JavaScriptLearning = () => {
                                   onClick={() => handleQuestionSelect(topic.miscQuestion)}
                                   className={`px-2 py-1 rounded text-xs transition-colors ${
                                     selectedQuestion?.id === topic.miscQuestion.id
-                                      ? "bg-indigo-700 text-white"
-                                      : "bg-indigo-600 text-white hover:bg-indigo-700"
+                                      ? "bg-indigo-700 text-slate-300"
+                                      : "bg-indigo-600 text-slate-300 hover:bg-indigo-700"
                                   }`}
                                 >
                                   {selectedQuestion?.id === topic.miscQuestion.id ? "Selected" : "Challenge"}

@@ -35,7 +35,7 @@ export const colorTheme = {
       indigo: "text-indigo-400",
       // Background variants
       bg: {
-        primary: "bg-slate-900",
+        primary: "bg-zinc-900",
         secondary: "bg-slate-800",
         accent: "bg-slate-800/70"
       }
@@ -54,7 +54,7 @@ export const colorTheme = {
       },
       dark: {
         bg: "bg-slate-800/70", 
-        border: "border-slate-700/50",
+        border: "bg-zinc-900",
         shadow: "shadow-2xl shadow-black/40",
         hover: "hover:bg-slate-700/70"
       }
@@ -63,12 +63,12 @@ export const colorTheme = {
     // Buttons
     button: {
       primary: {
-        light: "bg-gradient-to-r from-purple-600 to-blue-600 text-white hover:from-purple-700 hover:to-blue-700",
-        dark: "bg-gradient-to-r from-purple-600 to-blue-600 text-white hover:from-purple-500 hover:to-blue-500"
+        light: "bg-gradient-to-r from-purple-600 to-blue-600 text-slate-300 hover:from-purple-700 hover:to-blue-700",
+        dark: "bg-gradient-to-r from-purple-600 to-blue-600 text-slate-300 hover:from-purple-500 hover:to-blue-500"
       },
       secondary: {
         light: "bg-gray-100/70 text-gray-900 hover:bg-gray-200/70 border border-gray-200/50",
-        dark: "bg-slate-800/70 text-zinc-100 hover:bg-slate-700/70 border border-slate-700/50"
+        dark: "bg-slate-800/70 text-zinc-100 hover:bg-slate-700/70 border bg-zinc-900"
       }
     },
 
@@ -84,7 +84,7 @@ export const colorTheme = {
         bg: "bg-[#0f172b]",
         border: "border-gray-700/50", 
         text: "text-gray-100",
-        hover: "hover:bg-gray-700/30"
+        hover: "hover:bg-zinc-900/30"
       }
     },
 
@@ -96,7 +96,7 @@ export const colorTheme = {
         accent: "text-indigo-600"
       },
       dark: {
-        primary: "text-white",
+        primary: "text-slate-300",
         secondary: "text-slate-400",
         accent: "text-indigo-400"
       }
@@ -134,14 +134,14 @@ export const colorTheme = {
       },
       dark: {
         header: {
-          bg: "bg-slate-800/90",
-          border: "border-slate-700/50",
+          bg: "bg-zinc-900",
+          border: "bg-zinc-900",
           shadow: "shadow-2xl shadow-black/40",
           coverGradient: "bg-gradient-to-r from-purple-400 via-blue-400 to-cyan-400"
         },
         card: {
           bg: "bg-slate-800/70",
-          border: "border-slate-700/50",
+          border: "bg-zinc-900",
           shadow: "shadow-xl shadow-black/20 hover:shadow-2xl hover:shadow-black/30",
           hover: "hover:bg-slate-700/70"
         },
@@ -152,7 +152,7 @@ export const colorTheme = {
           success: "bg-gradient-to-r from-emerald-500 to-green-600"
         },
         text: {
-          primary: "text-white",
+          primary: "text-slate-300",
           secondary: "text-slate-400",
           accent: "text-purple-400"
         }
@@ -209,7 +209,7 @@ export const colorTheme = {
         light: {
           iconBg: "bg-blue-100",
           iconText: "text-gray-700",
-          progress: "bg-gray-700",
+          progress: "bg-zinc-900",
           border: "border-gray-200/50"
         },
         dark: {
@@ -323,14 +323,14 @@ export const colorSchemes = {
     : "bg-gradient-to-r from-purple-600 via-blue-600 to-indigo-600",
     
   cardBackground: (isDarkMode) => isDarkMode
-    ? "bg-slate-800/70 border-slate-700/50"
+    ? "bg-slate-800/70 bg-zinc-900"
     : "bg-white/80 border-gray-200/50",
     
   primaryButton: (isDarkMode) => isDarkMode
-    ? "bg-gradient-to-r from-purple-600 to-blue-600 text-white hover:from-purple-500 hover:to-blue-500"
-    : "bg-gradient-to-r from-purple-600 to-blue-600 text-white hover:from-purple-700 hover:to-blue-700",
+    ? "bg-gradient-to-r from-purple-600 to-blue-600 text-slate-300 hover:from-purple-500 hover:to-blue-500"
+    : "bg-gradient-to-r from-purple-600 to-blue-600 text-slate-300 hover:from-purple-700 hover:to-blue-700",
     
   pageBackground: (isDarkMode) => isDarkMode
-    ? "bg-slate-900 text-gray-100"
+    ? "bg-zinc-900 text-gray-100"
     : "bg-gray-50 text-gray-900"
 };

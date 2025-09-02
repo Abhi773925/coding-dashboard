@@ -573,7 +573,7 @@ const OperatingSystems = () => {
                 ? 'bg-gradient-to-br from-blue-600/80 to-purple-600/80' 
                 : 'bg-gradient-to-br from-blue-600 to-purple-600'
               }
-              text-white p-6 rounded-2xl shadow-lg
+              text-slate-300 p-6 rounded-2xl shadow-lg
             `}>
               <h4 className="text-xl font-bold mb-4 flex items-center">
                 <BookOpen className="w-6 h-6 mr-3" />
@@ -586,7 +586,7 @@ const OperatingSystems = () => {
 
             {/* Key Functions Grid */}
             <div>
-              <h4 className={`text-xl font-semibold mb-4 ${isDarkMode ? 'text-white' : 'text-gray-900'}`}>
+              <h4 className={`text-xl font-semibold mb-4 ${isDarkMode ? 'text-slate-300' : 'text-gray-900'}`}>
                 Core Functions of Operating Systems
               </h4>
               <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -599,7 +599,7 @@ const OperatingSystems = () => {
                   { name: "User Interface", icon: "🖥️", color: "from-indigo-500 to-blue-600" }
                 ].map((func, idx) => (
                   <div key={idx} className={`
-                    bg-gradient-to-r ${func.color} text-white p-4 rounded-xl
+                    bg-gradient-to-r ${func.color} text-slate-300 p-4 rounded-xl
                     transform hover:scale-105 transition-all duration-300 cursor-pointer
                     shadow-lg hover:shadow-xl
                   `}>
@@ -621,7 +621,7 @@ const OperatingSystems = () => {
                 ? 'bg-gradient-to-br from-green-600/80 to-teal-600/80' 
                 : 'bg-gradient-to-br from-green-600 to-teal-600'
               }
-              text-white p-6 rounded-2xl shadow-lg
+              text-slate-300 p-6 rounded-2xl shadow-lg
             `}>
               <h4 className="text-xl font-bold mb-2">Types of Operating Systems</h4>
               <p className="text-lg opacity-90">
@@ -634,7 +634,7 @@ const OperatingSystems = () => {
               {osData.osTypes.map((osType, index) => (
                 <div key={index} className={`
                   ${isDarkMode 
-                    ? 'bg-slate-800/70 border border-slate-700/50' 
+                    ? 'bg-slate-800/70 border bg-zinc-900' 
                     : 'bg-white border border-gray-200'
                   }
                   p-6 rounded-2xl shadow-lg hover:shadow-xl transform hover:scale-[1.02] 
@@ -642,7 +642,7 @@ const OperatingSystems = () => {
                 `}>
                   <div className={`
                     w-12 h-12 rounded-xl bg-gradient-to-r from-green-500 to-teal-600 
-                    flex items-center justify-center text-white font-bold text-lg mb-4
+                    flex items-center justify-center text-slate-300 font-bold text-lg mb-4
                     group-hover:rotate-12 transition-transform duration-300
                   `}>
                     {index + 1}
@@ -668,7 +668,7 @@ const OperatingSystems = () => {
                 ? 'bg-gradient-to-br from-orange-600/80 to-red-600/80' 
                 : 'bg-gradient-to-br from-orange-600 to-red-600'
               }
-              text-white p-6 rounded-2xl shadow-lg
+              text-slate-300 p-6 rounded-2xl shadow-lg
             `}>
               <h4 className="text-xl font-bold mb-2 flex items-center">
                 <Cpu className="w-6 h-6 mr-3" />
@@ -682,13 +682,13 @@ const OperatingSystems = () => {
             {/* Process Section */}
             <div className={`
               ${isDarkMode 
-                ? 'bg-slate-800/70 border border-slate-700/50' 
+                ? 'bg-slate-800/70 border bg-zinc-900' 
                 : 'bg-white border border-gray-200'
               }
               p-6 rounded-2xl shadow-lg
             `}>
               <div className="flex items-center mb-4">
-                <div className="w-10 h-10 rounded-lg bg-gradient-to-r from-orange-500 to-red-600 flex items-center justify-center text-white font-bold mr-4">
+                <div className="w-10 h-10 rounded-lg bg-gradient-to-r from-orange-500 to-red-600 flex items-center justify-center text-slate-300 font-bold mr-4">
                   P
                 </div>
                 <h5 className={`text-xl font-bold ${isDarkMode ? 'text-orange-400' : 'text-orange-600'}`}>
@@ -703,13 +703,13 @@ const OperatingSystems = () => {
             {/* Thread Section */}
             <div className={`
               ${isDarkMode 
-                ? 'bg-slate-800/70 border border-slate-700/50' 
+                ? 'bg-slate-800/70 border bg-zinc-900' 
                 : 'bg-white border border-gray-200'
               }
               p-6 rounded-2xl shadow-lg
             `}>
               <div className="flex items-center mb-4">
-                <div className="w-10 h-10 rounded-lg bg-gradient-to-r from-teal-500 to-blue-600 flex items-center justify-center text-white font-bold mr-4">
+                <div className="w-10 h-10 rounded-lg bg-gradient-to-r from-teal-500 to-blue-600 flex items-center justify-center text-slate-300 font-bold mr-4">
                   T
                 </div>
                 <h5 className={`text-xl font-bold ${isDarkMode ? 'text-teal-400' : 'text-teal-600'}`}>
@@ -780,7 +780,7 @@ const OperatingSystems = () => {
                   ? 'bg-gradient-to-r from-indigo-600/80 to-purple-600/80' 
                   : 'bg-gradient-to-r from-indigo-600 to-purple-600'
                 }
-                text-white p-4 rounded-xl
+                text-slate-300 p-4 rounded-xl
               `}>
                 <h6 className="font-bold mb-2 flex items-center">
                   <Zap className="w-4 h-4 mr-2" />
@@ -803,7 +803,7 @@ const OperatingSystems = () => {
                 ? 'bg-gradient-to-br from-purple-600/80 to-pink-600/80' 
                 : 'bg-gradient-to-br from-purple-600 to-pink-600'
               }
-              text-white p-6 rounded-2xl shadow-lg
+              text-slate-300 p-6 rounded-2xl shadow-lg
             `}>
               <h4 className="text-xl font-bold mb-2 flex items-center">
                 <Zap className="w-6 h-6 mr-3" />
@@ -816,7 +816,7 @@ const OperatingSystems = () => {
 
             {/* Scheduling Metrics */}
             <div>
-              <h5 className={`text-xl font-bold mb-4 ${isDarkMode ? 'text-white' : 'text-gray-900'}`}>
+              <h5 className={`text-xl font-bold mb-4 ${isDarkMode ? 'text-slate-300' : 'text-gray-900'}`}>
                 📊 Process Scheduling Metrics
               </h5>
               <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -826,7 +826,7 @@ const OperatingSystems = () => {
                       ? 'bg-gradient-to-br from-purple-600/80 to-blue-600/80' 
                       : 'bg-gradient-to-br from-purple-600 to-blue-600'
                     }
-                    text-white p-5 rounded-xl shadow-lg
+                    text-slate-300 p-5 rounded-xl shadow-lg
                     transform hover:scale-105 transition-all duration-300 cursor-pointer
                   `}>
                     <h6 className="font-bold text-lg mb-3">{metric.name}</h6>
@@ -845,14 +845,14 @@ const OperatingSystems = () => {
 
             {/* Scheduling Algorithms */}
             <div>
-              <h5 className={`text-xl font-bold mb-4 ${isDarkMode ? 'text-white' : 'text-gray-900'}`}>
+              <h5 className={`text-xl font-bold mb-4 ${isDarkMode ? 'text-slate-300' : 'text-gray-900'}`}>
                 🔄 Scheduling Algorithms
               </h5>
               <div className="grid md:grid-cols-2 gap-6">
                 {osData.scheduling.schedulingAlgorithms.map((algorithm, index) => (
                   <div key={index} className={`
                     ${isDarkMode 
-                      ? 'bg-slate-800/70 border border-slate-700/50' 
+                      ? 'bg-slate-800/70 border bg-zinc-900' 
                       : 'bg-white border border-gray-200'
                     }
                     p-6 rounded-2xl shadow-lg hover:shadow-xl transform hover:scale-[1.02] 
@@ -860,7 +860,7 @@ const OperatingSystems = () => {
                   `}>
                     <div className={`
                       w-8 h-8 rounded-lg bg-gradient-to-r from-orange-500 to-red-600 
-                      flex items-center justify-center text-white font-bold text-sm mb-4
+                      flex items-center justify-center text-slate-300 font-bold text-sm mb-4
                       group-hover:rotate-12 transition-transform duration-300
                     `}>
                       {index + 1}
@@ -895,7 +895,7 @@ const OperatingSystems = () => {
                 ? 'bg-gradient-to-br from-red-600/80 to-rose-600/80' 
                 : 'bg-gradient-to-br from-red-600 to-rose-600'
               }
-              text-white p-6 rounded-2xl shadow-lg
+              text-slate-300 p-6 rounded-2xl shadow-lg
             `}>
               <h4 className="text-xl font-bold mb-2 flex items-center">
                 <Lock className="w-6 h-6 mr-3" />
@@ -909,7 +909,7 @@ const OperatingSystems = () => {
             {/* Critical Section Problem */}
             <div className={`
               ${isDarkMode 
-                ? 'bg-slate-800/70 border border-slate-700/50' 
+                ? 'bg-slate-800/70 border bg-zinc-900' 
                 : 'bg-white border border-gray-200'
               }
               p-6 rounded-2xl shadow-lg
@@ -958,7 +958,7 @@ const OperatingSystems = () => {
 
             {/* Synchronization Tools */}
             <div>
-              <h5 className={`text-xl font-bold mb-4 ${isDarkMode ? 'text-white' : 'text-gray-900'}`}>
+              <h5 className={`text-xl font-bold mb-4 ${isDarkMode ? 'text-slate-300' : 'text-gray-900'}`}>
                 🛠️ Synchronization Tools
               </h5>
               <div className="grid md:grid-cols-2 gap-6">
@@ -968,7 +968,7 @@ const OperatingSystems = () => {
                       ? 'bg-gradient-to-br from-purple-600/80 to-blue-600/80' 
                       : 'bg-gradient-to-br from-purple-600 to-blue-600'
                     }
-                    text-white p-6 rounded-2xl shadow-lg
+                    text-slate-300 p-6 rounded-2xl shadow-lg
                   `}>
                     <h6 className="font-bold text-lg mb-3">{tool.name}</h6>
                     <p className="text-sm leading-relaxed mb-4 opacity-90">
@@ -1001,7 +1001,7 @@ const OperatingSystems = () => {
                 ? 'bg-gradient-to-br from-indigo-600/80 to-blue-600/80' 
                 : 'bg-gradient-to-br from-indigo-600 to-blue-600'
               }
-              text-white p-6 rounded-2xl shadow-lg
+              text-slate-300 p-6 rounded-2xl shadow-lg
             `}>
               <h4 className="text-xl font-bold mb-2 flex items-center">
                 <HardDrive className="w-6 h-6 mr-3" />
@@ -1014,14 +1014,14 @@ const OperatingSystems = () => {
 
             {/* Techniques */}
             <div>
-              <h5 className={`text-xl font-bold mb-4 ${isDarkMode ? 'text-white' : 'text-gray-900'}`}>
+              <h5 className={`text-xl font-bold mb-4 ${isDarkMode ? 'text-slate-300' : 'text-gray-900'}`}>
                 🔧 Memory Management Techniques
               </h5>
               <div className="grid md:grid-cols-2 gap-6">
                 {osData.memoryManagement.techniques.map((technique, idx) => (
                   <div key={idx} className={`
                     ${isDarkMode 
-                      ? 'bg-slate-800/70 border border-slate-700/50' 
+                      ? 'bg-slate-800/70 border bg-zinc-900' 
                       : 'bg-white border border-gray-200'
                     }
                     p-6 rounded-2xl shadow-lg hover:shadow-xl transform hover:scale-[1.02] 
@@ -1029,7 +1029,7 @@ const OperatingSystems = () => {
                   `}>
                     <div className={`
                       w-10 h-10 rounded-lg bg-gradient-to-r from-orange-500 to-red-600 
-                      flex items-center justify-center text-white font-bold mb-4
+                      flex items-center justify-center text-slate-300 font-bold mb-4
                     `}>
                       {idx + 1}
                     </div>
@@ -1046,7 +1046,7 @@ const OperatingSystems = () => {
 
             {/* Advanced Techniques */}
             <div>
-              <h5 className={`text-xl font-bold mb-4 ${isDarkMode ? 'text-white' : 'text-gray-900'}`}>
+              <h5 className={`text-xl font-bold mb-4 ${isDarkMode ? 'text-slate-300' : 'text-gray-900'}`}>
                 🚀 Advanced Techniques
               </h5>
               <div className="grid md:grid-cols-2 gap-6">
@@ -1056,7 +1056,7 @@ const OperatingSystems = () => {
                       ? 'bg-gradient-to-br from-teal-600/80 to-blue-600/80' 
                       : 'bg-gradient-to-br from-teal-600 to-blue-600'
                     }
-                    text-white p-6 rounded-2xl shadow-lg
+                    text-slate-300 p-6 rounded-2xl shadow-lg
                   `}>
                     <h6 className="font-bold text-lg mb-3">{technique.name}</h6>
                     <p className="text-sm leading-relaxed opacity-90">
@@ -1078,7 +1078,7 @@ const OperatingSystems = () => {
                 ? 'bg-gradient-to-br from-teal-600/80 to-cyan-600/80' 
                 : 'bg-gradient-to-br from-teal-600 to-cyan-600'
               }
-              text-white p-6 rounded-2xl shadow-lg
+              text-slate-300 p-6 rounded-2xl shadow-lg
             `}>
               <h4 className="text-xl font-bold mb-2 flex items-center">
                 <HardDrive className="w-6 h-6 mr-3" />
@@ -1091,14 +1091,14 @@ const OperatingSystems = () => {
 
             {/* Metrics */}
             <div>
-              <h5 className={`text-xl font-bold mb-4 ${isDarkMode ? 'text-white' : 'text-gray-900'}`}>
+              <h5 className={`text-xl font-bold mb-4 ${isDarkMode ? 'text-slate-300' : 'text-gray-900'}`}>
                 📈 Disk Scheduling Metrics
               </h5>
               <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
                 {osData.diskScheduling.metrics.map((metric, idx) => (
                   <div key={idx} className={`
                     ${isDarkMode 
-                      ? 'bg-slate-800/70 border border-slate-700/50' 
+                      ? 'bg-slate-800/70 border bg-zinc-900' 
                       : 'bg-white border border-gray-200'
                     }
                     p-5 rounded-xl shadow-lg hover:shadow-xl transform hover:scale-[1.02] 
@@ -1125,7 +1125,7 @@ const OperatingSystems = () => {
 
             {/* Algorithms */}
             <div>
-              <h5 className={`text-xl font-bold mb-4 ${isDarkMode ? 'text-white' : 'text-gray-900'}`}>
+              <h5 className={`text-xl font-bold mb-4 ${isDarkMode ? 'text-slate-300' : 'text-gray-900'}`}>
                 🔄 Disk Scheduling Algorithms
               </h5>
               <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -1135,7 +1135,7 @@ const OperatingSystems = () => {
                       ? 'bg-gradient-to-br from-orange-600/80 to-red-600/80' 
                       : 'bg-gradient-to-br from-orange-600 to-red-600'
                     }
-                    text-white p-5 rounded-xl shadow-lg transform hover:scale-105 
+                    text-slate-300 p-5 rounded-xl shadow-lg transform hover:scale-105 
                     transition-all duration-300 cursor-pointer
                   `}>
                     <h6 className="font-bold text-lg mb-3">{algorithm.name}</h6>
@@ -1158,7 +1158,7 @@ const OperatingSystems = () => {
                 ? 'bg-gradient-to-br from-cyan-600/80 to-blue-600/80' 
                 : 'bg-gradient-to-br from-cyan-600 to-blue-600'
               }
-              text-white p-6 rounded-2xl shadow-lg
+              text-slate-300 p-6 rounded-2xl shadow-lg
             `}>
               <h4 className="text-xl font-bold mb-2 flex items-center">
                 <Network className="w-6 h-6 mr-3" />
@@ -1171,7 +1171,7 @@ const OperatingSystems = () => {
 
             {/* Network Types */}
             <div>
-              <h5 className={`text-xl font-bold mb-4 ${isDarkMode ? 'text-white' : 'text-gray-900'}`}>
+              <h5 className={`text-xl font-bold mb-4 ${isDarkMode ? 'text-slate-300' : 'text-gray-900'}`}>
                 🌐 Network Types
               </h5>
               <div className="grid md:grid-cols-2 gap-6">
@@ -1183,7 +1183,7 @@ const OperatingSystems = () => {
                 ].map((network, idx) => (
                   <div key={idx} className={`
                     ${isDarkMode 
-                      ? 'bg-slate-800/70 border border-slate-700/50' 
+                      ? 'bg-slate-800/70 border bg-zinc-900' 
                       : 'bg-white border border-gray-200'
                     }
                     p-6 rounded-2xl shadow-lg hover:shadow-xl transform hover:scale-[1.02] 
@@ -1196,7 +1196,7 @@ const OperatingSystems = () => {
                     `}>
                       {network.icon}
                     </div>
-                    <h6 className={`font-bold text-lg mb-3 ${isDarkMode ? 'text-white' : 'text-gray-900'}`}>
+                    <h6 className={`font-bold text-lg mb-3 ${isDarkMode ? 'text-slate-300' : 'text-gray-900'}`}>
                       {network.name}
                     </h6>
                     <p className={`leading-relaxed mb-4 ${isDarkMode ? 'text-gray-300' : 'text-gray-700'}`}>
@@ -1204,7 +1204,7 @@ const OperatingSystems = () => {
                     </p>
                     <span className={`
                       inline-block px-3 py-1 rounded-full text-xs font-medium
-                      ${isDarkMode ? 'bg-indigo-600 text-white' : 'bg-indigo-100 text-indigo-700'}
+                      ${isDarkMode ? 'bg-indigo-600 text-slate-300' : 'bg-indigo-100 text-indigo-700'}
                     `}>
                       Range: {network.range}
                     </span>
@@ -1215,7 +1215,7 @@ const OperatingSystems = () => {
 
             {/* OSI Model */}
             <div>
-              <h5 className={`text-xl font-bold mb-4 ${isDarkMode ? 'text-white' : 'text-gray-900'}`}>
+              <h5 className={`text-xl font-bold mb-4 ${isDarkMode ? 'text-slate-300' : 'text-gray-900'}`}>
                 📊 OSI Model (7 Layers)
               </h5>
               <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
@@ -1229,7 +1229,7 @@ const OperatingSystems = () => {
                   { layer: 1, name: "Physical Layer", color: "from-gray-500 to-gray-600", icon: "🔌" }
                 ].reverse().map((layer, idx) => (
                   <div key={idx} className={`
-                    bg-gradient-to-r ${layer.color} text-white p-4 rounded-xl
+                    bg-gradient-to-r ${layer.color} text-slate-300 p-4 rounded-xl
                     transform hover:scale-105 transition-all duration-300 cursor-pointer
                     shadow-lg hover:shadow-xl
                   `}>
@@ -1248,7 +1248,7 @@ const OperatingSystems = () => {
 
             {/* Key Protocols */}
             <div>
-              <h5 className={`text-xl font-bold mb-4 ${isDarkMode ? 'text-white' : 'text-gray-900'}`}>
+              <h5 className={`text-xl font-bold mb-4 ${isDarkMode ? 'text-slate-300' : 'text-gray-900'}`}>
                 🔒 Key Protocols & Security
               </h5>
               <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
@@ -1259,7 +1259,7 @@ const OperatingSystems = () => {
                   { name: "VPN", description: "Virtual Private Network security", icon: "🔒", color: "from-red-600 to-orange-600" }
                 ].map((protocol, idx) => (
                   <div key={idx} className={`
-                    bg-gradient-to-r ${protocol.color} text-white p-4 rounded-xl
+                    bg-gradient-to-r ${protocol.color} text-slate-300 p-4 rounded-xl
                     transform hover:scale-105 transition-all duration-300 cursor-pointer
                     shadow-lg hover:shadow-xl
                   `}>
@@ -1282,7 +1282,7 @@ const OperatingSystems = () => {
                 ? 'bg-gradient-to-br from-violet-600/80 to-purple-600/80' 
                 : 'bg-gradient-to-br from-violet-600 to-purple-600'
               }
-              text-white p-6 rounded-2xl shadow-lg
+              text-slate-300 p-6 rounded-2xl shadow-lg
             `}>
               <h4 className="text-xl font-bold mb-2 flex items-center">
                 <BookOpen className="w-6 h-6 mr-3" />
@@ -1298,7 +1298,7 @@ const OperatingSystems = () => {
               {osData.keyTerms.map((term, idx) => (
                 <div key={idx} className={`
                   ${isDarkMode 
-                    ? 'bg-slate-800/70 border border-slate-700/50' 
+                    ? 'bg-slate-800/70 border bg-zinc-900' 
                     : 'bg-white border border-gray-200'
                   }
                   p-5 rounded-xl shadow-lg hover:shadow-xl transform hover:scale-[1.02] 
@@ -1306,7 +1306,7 @@ const OperatingSystems = () => {
                 `}>
                   <div className={`
                     w-8 h-8 rounded-lg bg-gradient-to-r from-violet-500 to-purple-600 
-                    flex items-center justify-center text-white font-bold text-sm mb-4
+                    flex items-center justify-center text-slate-300 font-bold text-sm mb-4
                     group-hover:rotate-12 transition-transform duration-300
                   `}>
                     {idx + 1}
@@ -1335,7 +1335,7 @@ const OperatingSystems = () => {
 
   const SectionCard = ({ title, children, sectionId }) => (
     <div className={`
-      ${isDarkMode ? 'bg-slate-800/70 border-slate-700/50' : 'bg-white/80 border-gray-200/50'}
+      ${isDarkMode ? 'bg-slate-800/70 bg-zinc-900' : 'bg-white/80 border-gray-200/50'}
       border rounded-xl shadow-xl backdrop-blur-sm
       mb-5 overflow-hidden transition-all duration-300
     `}>
@@ -1343,12 +1343,12 @@ const OperatingSystems = () => {
         onClick={() => toggleSection(sectionId)}
         className={`
           cursor-pointer flex justify-between items-center p-4
-          ${expandedSections[sectionId] ? (isDarkMode ? 'border-b border-slate-700/50' : 'border-b border-gray-200/50') : ''}
+          ${expandedSections[sectionId] ? (isDarkMode ? 'border-b bg-zinc-900' : 'border-b border-gray-200/50') : ''}
           ${isDarkMode ? 'bg-slate-700/30 hover:bg-slate-600/30' : 'bg-gray-50/50 hover:bg-gray-100/50'}
           transition-colors duration-200
         `}
       >
-        <h3 className={`text-xl font-semibold m-0 ${isDarkMode ? 'text-white' : 'text-gray-900'}`}>
+        <h3 className={`text-xl font-semibold m-0 ${isDarkMode ? 'text-slate-300' : 'text-gray-900'}`}>
           {title}
         </h3>
         <span className={`text-lg transition-transform duration-200 ${
@@ -1371,7 +1371,7 @@ const OperatingSystems = () => {
         ? 'bg-gradient-to-r from-purple-600 to-blue-600' 
         : 'bg-gradient-to-r from-indigo-600 to-blue-600'
       }
-      p-4 rounded-xl my-3 text-white font-mono text-center text-base font-bold
+      p-4 rounded-xl my-3 text-slate-300 font-mono text-center text-base font-bold
       shadow-lg transform hover:scale-105 transition-all duration-200
     `}>
       {formula}
@@ -1381,7 +1381,7 @@ const OperatingSystems = () => {
   return (
     <div className={`min-h-screen transition-all duration-500 ${schemes.pageBackground(isDarkMode)}`}>
       {/* Floating Header */}
-      <div className={`sticky top-0 z-50 ${isDarkMode ? 'bg-slate-900/80' : 'bg-white/80'} backdrop-blur-xl border-b ${isDarkMode ? 'border-slate-700/50' : 'border-gray-200/50'}`}>
+      <div className={`sticky top-0 z-50 ${isDarkMode ? 'bg-zinc-900/80' : 'bg-white/80'} backdrop-blur-xl border-b ${isDarkMode ? 'bg-zinc-900' : 'border-gray-200/50'}`}>
         <div className="max-w-7xl mx-auto px-4 py-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-4">
@@ -1402,8 +1402,8 @@ const OperatingSystems = () => {
                   onClick={() => setViewMode('grid')}
                   className={`p-2 rounded-md transition-all duration-200 ${
                     viewMode === 'grid' 
-                      ? (isDarkMode ? 'bg-indigo-600 text-white' : 'bg-indigo-600 text-white')
-                      : (isDarkMode ? 'text-gray-400 hover:text-white' : 'text-gray-600 hover:text-gray-900')
+                      ? (isDarkMode ? 'bg-indigo-600 text-slate-300' : 'bg-indigo-600 text-slate-300')
+                      : (isDarkMode ? 'text-gray-400 hover:text-slate-300' : 'text-gray-600 hover:text-gray-900')
                   }`}
                 >
                   <Grid3X3 className="w-4 h-4" />
@@ -1412,8 +1412,8 @@ const OperatingSystems = () => {
                   onClick={() => setViewMode('list')}
                   className={`p-2 rounded-md transition-all duration-200 ${
                     viewMode === 'list' 
-                      ? (isDarkMode ? 'bg-indigo-600 text-white' : 'bg-indigo-600 text-white')
-                      : (isDarkMode ? 'text-gray-400 hover:text-white' : 'text-gray-600 hover:text-gray-900')
+                      ? (isDarkMode ? 'bg-indigo-600 text-slate-300' : 'bg-indigo-600 text-slate-300')
+                      : (isDarkMode ? 'text-gray-400 hover:text-slate-300' : 'text-gray-600 hover:text-gray-900')
                   }`}
                 >
                   <List className="w-4 h-4" />
@@ -1425,8 +1425,8 @@ const OperatingSystems = () => {
                 onClick={() => setShowFilters(!showFilters)}
                 className={`p-2 rounded-lg transition-all duration-200 ${
                   showFilters 
-                    ? (isDarkMode ? 'bg-indigo-600 text-white' : 'bg-indigo-600 text-white')
-                    : (isDarkMode ? 'bg-slate-800 text-gray-400 hover:text-white' : 'bg-gray-100 text-gray-600 hover:text-gray-900')
+                    ? (isDarkMode ? 'bg-indigo-600 text-slate-300' : 'bg-indigo-600 text-slate-300')
+                    : (isDarkMode ? 'bg-slate-800 text-gray-400 hover:text-slate-300' : 'bg-gray-100 text-gray-600 hover:text-gray-900')
                 }`}
               >
                 <Filter className="w-4 h-4" />
@@ -1454,7 +1454,7 @@ const OperatingSystems = () => {
               onChange={(e) => setSearchTerm(e.target.value)}
               className={`w-full pl-12 pr-4 py-3 rounded-xl transition-all duration-300 ${
                 isDarkMode 
-                  ? 'bg-slate-800/50 border border-slate-600/50 text-white placeholder-gray-400 focus:border-indigo-500 focus:bg-slate-800' 
+                  ? 'bg-slate-800/50 border border-slate-600/50 text-slate-300 placeholder-gray-400 focus:border-indigo-500 focus:bg-slate-800' 
                   : 'bg-white/50 border border-gray-200/50 text-gray-900 placeholder-gray-500 focus:border-indigo-500 focus:bg-white'
               } backdrop-blur-sm focus:outline-none focus:ring-2 focus:ring-indigo-500/20`}
             />
@@ -1468,7 +1468,7 @@ const OperatingSystems = () => {
                 onClick={() => setActiveTab(tab.id)}
                 className={`px-4 py-2 rounded-lg font-medium transition-all duration-200 ${
                   activeTab === tab.id
-                    ? (isDarkMode ? 'bg-indigo-600 text-white' : 'bg-indigo-600 text-white')
+                    ? (isDarkMode ? 'bg-indigo-600 text-slate-300' : 'bg-indigo-600 text-slate-300')
                     : (isDarkMode ? 'bg-slate-800/50 text-gray-300 hover:bg-slate-700' : 'bg-gray-100/50 text-gray-600 hover:bg-gray-200')
                 }`}
               >
@@ -1490,8 +1490,8 @@ const OperatingSystems = () => {
       <div className="max-w-7xl mx-auto px-4 py-8">
         {/* Filters Panel */}
         {showFilters && (
-          <div className={`mb-6 p-4 rounded-xl ${isDarkMode ? 'bg-slate-800/50' : 'bg-white/50'} backdrop-blur-sm border ${isDarkMode ? 'border-slate-700/50' : 'border-gray-200/50'} animate-slideInUp`}>
-            <h3 className={`text-lg font-semibold mb-3 ${isDarkMode ? 'text-white' : 'text-gray-900'}`}>Filters</h3>
+          <div className={`mb-6 p-4 rounded-xl ${isDarkMode ? 'bg-slate-800/50' : 'bg-white/50'} backdrop-blur-sm border ${isDarkMode ? 'bg-zinc-900' : 'border-gray-200/50'} animate-slideInUp`}>
+            <h3 className={`text-lg font-semibold mb-3 ${isDarkMode ? 'text-slate-300' : 'text-gray-900'}`}>Filters</h3>
             <div className="flex flex-wrap gap-3">
               {['easy', 'medium', 'hard'].map((difficulty) => (
                 <button
@@ -1518,7 +1518,7 @@ const OperatingSystems = () => {
               style={{ animationDelay: `${index * 100}ms` }}
             >
               <div className={`
-                ${isDarkMode ? 'bg-slate-800/70 border-slate-700/50' : 'bg-white/80 border-gray-200/50'}
+                ${isDarkMode ? 'bg-slate-800/70 bg-zinc-900' : 'bg-white/80 border-gray-200/50'}
                 border rounded-2xl backdrop-blur-sm transition-all duration-300
                 ${viewMode === 'list' ? 'w-full flex items-center p-4' : 'p-6'}
                 hover:shadow-2xl hover:scale-105 cursor-pointer
@@ -1529,7 +1529,7 @@ const OperatingSystems = () => {
                   <div className={`${viewMode === 'list' ? 'flex items-center space-x-4 flex-1' : ''}`}>
                     {/* Icon and Gradient */}
                     <div className={`
-                      w-12 h-12 rounded-xl flex items-center justify-center text-white
+                      w-12 h-12 rounded-xl flex items-center justify-center text-slate-300
                       bg-gradient-to-r ${section.color} shadow-lg
                       ${viewMode === 'list' ? '' : 'mb-4'}
                     `}>
@@ -1538,7 +1538,7 @@ const OperatingSystems = () => {
 
                     {/* Title and Difficulty */}
                     <div className={viewMode === 'list' ? 'flex-1' : ''}>
-                      <h3 className={`text-xl font-bold ${isDarkMode ? 'text-white' : 'text-gray-900'} ${viewMode === 'list' ? '' : 'mb-2'}`}>
+                      <h3 className={`text-xl font-bold ${isDarkMode ? 'text-slate-300' : 'text-gray-900'} ${viewMode === 'list' ? '' : 'mb-2'}`}>
                         {section.title}
                       </h3>
                       <div className="flex items-center space-x-2">
@@ -1571,7 +1571,7 @@ const OperatingSystems = () => {
                     <button
                       onClick={() => toggleSection(section.id)}
                       className={`p-2 rounded-lg transition-all duration-200 ${
-                        isDarkMode ? 'text-gray-400 hover:text-white bg-slate-700/50' : 'text-gray-500 hover:text-gray-900 bg-gray-100/50'
+                        isDarkMode ? 'text-gray-400 hover:text-slate-300 bg-zinc-900' : 'text-gray-500 hover:text-gray-900 bg-gray-100/50'
                       }`}
                     >
                       {expandedSections[section.id] ? <ChevronDown className="w-4 h-4" /> : <ChevronRight className="w-4 h-4" />}
@@ -1583,7 +1583,7 @@ const OperatingSystems = () => {
                 {expandedSections[section.id] && (
                   <div className={`${viewMode === 'list' ? 'w-full mt-4' : 'mt-6'} animate-slideInUp`}>
                     <div className={`
-                      p-4 rounded-xl ${isDarkMode ? 'bg-slate-700/50' : 'bg-gray-50/50'}
+                      p-4 rounded-xl ${isDarkMode ? 'bg-zinc-900' : 'bg-gray-50/50'}
                       ${viewMode === 'list' ? 'w-full' : ''}
                     `}>
                       {renderSectionContent(section.id)}
@@ -1601,7 +1601,7 @@ const OperatingSystems = () => {
             <div className={`w-20 h-20 rounded-full ${isDarkMode ? 'bg-slate-800' : 'bg-gray-100'} flex items-center justify-center mx-auto mb-4`}>
               <Search className={`w-8 h-8 ${isDarkMode ? 'text-gray-600' : 'text-gray-400'}`} />
             </div>
-            <h3 className={`text-xl font-semibold ${isDarkMode ? 'text-white' : 'text-gray-900'} mb-2`}>
+            <h3 className={`text-xl font-semibold ${isDarkMode ? 'text-slate-300' : 'text-gray-900'} mb-2`}>
               No topics found
             </h3>
             <p className={`${isDarkMode ? 'text-gray-400' : 'text-gray-500'}`}>

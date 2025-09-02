@@ -183,8 +183,8 @@ const RazorpayPayment = ({
         disabled={disabled || loading || !amount}
         className={`w-full py-3 px-4 rounded-lg font-medium transition-all flex items-center justify-center gap-2 ${
           disabled || loading || !amount
-            ? 'bg-gray-400 text-white cursor-not-allowed'
-            : 'bg-blue-600 hover:bg-blue-700 text-white shadow-lg hover:shadow-xl'
+            ? 'bg-gray-400 text-slate-300 cursor-not-allowed'
+            : 'bg-blue-600 hover:bg-blue-700 text-slate-300 shadow-lg hover:shadow-xl'
         }`}
       >
         {loading ? (
@@ -202,7 +202,7 @@ const RazorpayPayment = ({
       </button>
 
       {/* Payment Security Info */}
-      <div className={`mt-4 p-3 rounded-lg ${isDarkMode ? 'bg-gray-800' : 'bg-gray-50'}`}>
+      <div className={`mt-4 p-3 rounded-lg ${isDarkMode ? 'bg-zinc-900' : 'bg-gray-50'}`}>
         <div className="flex items-center justify-center gap-4 text-sm text-gray-600">
           <div className="flex items-center gap-1">
             <Shield className="w-4 h-4 text-green-600" />

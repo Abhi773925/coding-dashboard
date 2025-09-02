@@ -28,13 +28,6 @@ exports.getCourseByName = asyncHandler(async (req, res) => {
   try {
     const courseName = decodeURIComponent(req.params.name);
     const userEmail = req.query.userEmail; // Get from query params
-    
-    if (!userEmail) {
-      return res.status(400).json({
-        success: false,
-        message: 'User email is required'
-      });
-    }
 
     const course = await Course.findOne({ 
       name: { $regex: new RegExp(`^${courseName}$`, 'i') } 

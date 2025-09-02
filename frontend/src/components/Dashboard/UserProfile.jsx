@@ -199,10 +199,10 @@ const UserProfile = () => {
         ${
           isActive
             ? isDarkMode
-              ? "text-white bg-gradient-to-r from-purple-600 to-blue-600"
-              : "text-white bg-gradient-to-r from-purple-600 to-blue-600"
+              ? "text-slate-300 bg-gradient-to-r from-purple-600 to-blue-600"
+              : "text-slate-300 bg-gradient-to-r from-purple-600 to-blue-600"
             : isDarkMode
-              ? "text-slate-400 hover:text-white hover:bg-slate-700/50"
+              ? "text-slate-400 hover:text-slate-300 hover:bg-zinc-900"
               : "text-gray-600 hover:text-gray-900 hover:bg-gray-100"
         }
       `}
@@ -242,7 +242,7 @@ const UserProfile = () => {
               w-full pl-10 pr-4 py-3 rounded-xl transition-all duration-300 resize-none
               ${
                 isDarkMode
-                  ? "bg-slate-800/50 text-slate-100 border border-slate-700/50 focus:border-purple-500/50"
+                  ? "bg-slate-800/50 text-slate-100 border bg-zinc-900 focus:border-purple-500/50"
                   : "bg-white border border-gray-200 text-gray-900 focus:border-purple-500/50"
               }
               ${disabled ? "cursor-not-allowed opacity-70" : "focus:ring-2 focus:ring-purple-500/20"}
@@ -260,7 +260,7 @@ const UserProfile = () => {
               w-full pl-10 pr-4 py-3 rounded-xl transition-all duration-300
               ${
                 isDarkMode
-                  ? "bg-slate-800/50 text-slate-100 border border-slate-700/50 focus:border-purple-500/50"
+                  ? "bg-slate-800/50 text-slate-100 border bg-zinc-900 focus:border-purple-500/50"
                   : "bg-white border border-gray-200 text-gray-900 focus:border-purple-500/50"
               }
               ${disabled ? "cursor-not-allowed opacity-70" : "focus:ring-2 focus:ring-purple-500/20"}
@@ -277,7 +277,7 @@ const UserProfile = () => {
         relative group rounded-2xl overflow-hidden transition-all duration-500 transform hover:scale-105
         ${
           isDarkMode
-            ? `bg-gradient-to-br ${platform.darkBgGradient} border border-slate-700/50`
+            ? `bg-gradient-to-br ${platform.darkBgGradient} border bg-zinc-900`
             : `bg-gradient-to-br ${platform.bgGradient} border border-gray-200`
         }
       `}
@@ -289,10 +289,10 @@ const UserProfile = () => {
         <div className="flex items-center justify-between mb-4">
           <div className="flex items-center space-x-3">
             <div className={`p-3 rounded-xl bg-gradient-to-r ${platform.color} shadow-lg`}>
-              <platform.icon className="w-5 h-5 text-white" />
+              <platform.icon className="w-5 h-5 text-slate-300" />
             </div>
             <div>
-              <h3 className={`font-bold ${isDarkMode ? "text-white" : "text-gray-900"}`}>{platform.name}</h3>
+              <h3 className={`font-bold ${isDarkMode ? "text-slate-300" : "text-gray-900"}`}>{platform.name}</h3>
               <p className={`text-sm ${isDarkMode ? "text-slate-400" : "text-gray-500"}`}>Connect your profile</p>
             </div>
           </div>
@@ -319,7 +319,7 @@ const UserProfile = () => {
                 w-full py-2 px-3 rounded-lg text-sm transition-all duration-300
                 ${
                   isDarkMode
-                    ? "bg-slate-800/50 text-slate-100 border border-slate-700/50 focus:border-purple-500/50"
+                    ? "bg-slate-800/50 text-slate-100 border bg-zinc-900 focus:border-purple-500/50"
                     : "bg-white border border-gray-200 text-gray-900 focus:border-purple-500/50"
                 }
               `}
@@ -347,7 +347,7 @@ const UserProfile = () => {
       <div
         className={`
           fixed top-4 right-4 z-50 p-4 rounded-lg shadow-lg max-w-md transform transition-all duration-300
-          ${type === "error" ? "bg-red-500 text-white" : "bg-green-500 text-white"}
+          ${type === "error" ? "bg-red-500 text-slate-300" : "bg-green-500 text-slate-300"}
         `}
       >
         <div className="flex items-center justify-between">
@@ -389,7 +389,7 @@ const UserProfile = () => {
           </span>
           <button
             onClick={fetchUserProfile}
-            className="mt-4 px-6 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition-colors"
+            className="mt-4 px-6 py-2 bg-purple-600 text-slate-300 rounded-lg hover:bg-purple-700 transition-colors"
           >
             Retry
           </button>
@@ -468,9 +468,9 @@ const UserProfile = () => {
         return (
           <div className="space-y-6">
             <div
-              className={`p-6 rounded-2xl border ${isDarkMode ? "bg-slate-800/50 border-slate-700/50" : "bg-white border-gray-200"}`}
+              className={`p-6 rounded-2xl border ${isDarkMode ? "bg-slate-800/50 bg-zinc-900" : "bg-white border-gray-200"}`}
             >
-              <h3 className={`text-lg font-semibold mb-4 ${isDarkMode ? "text-white" : "text-gray-900"}`}>
+              <h3 className={`text-lg font-semibold mb-4 ${isDarkMode ? "text-slate-300" : "text-gray-900"}`}>
                 Account Settings
               </h3>
               <div className="space-y-4">
@@ -512,7 +512,7 @@ const UserProfile = () => {
         min-h-screen transition-all duration-700
         ${
           isDarkMode
-            ? "bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900"
+            ? "bg-zinc-900"
             : "bg-gradient-to-br from-gray-50 via-white to-gray-50"
         }
       `}
@@ -542,12 +542,12 @@ const UserProfile = () => {
         {/* Header */}
         <div className="text-center mb-8">
           <div className="relative inline-block">
-            <div className="w-24 h-24 rounded-full bg-gradient-to-r from-purple-600 to-blue-600 flex items-center justify-center text-3xl font-bold text-white mb-4 mx-auto shadow-2xl hover:scale-110 transition-transform">
+            <div className="w-24 h-24 rounded-full bg-gradient-to-r from-purple-600 to-blue-600 flex items-center justify-center text-3xl font-bold text-slate-300 mb-4 mx-auto shadow-2xl hover:scale-110 transition-transform">
               {profile.name ? profile.name.charAt(0).toUpperCase() : "👤"}
             </div>
             <div className="absolute -top-2 -right-2 w-6 h-6 bg-green-500 rounded-full border-2 border-white animate-pulse" />
           </div>
-          <h1 className={`text-3xl font-bold mb-2 ${isDarkMode ? "text-white" : "text-gray-900"}`}>
+          <h1 className={`text-3xl font-bold mb-2 ${isDarkMode ? "text-slate-300" : "text-gray-900"}`}>
             {profile.name || "Your Name"}
           </h1>
           <p className={`text-lg ${isDarkMode ? "text-slate-400" : "text-gray-600"}`}>
@@ -565,7 +565,7 @@ const UserProfile = () => {
           <div
             className={`
               flex space-x-1 p-1 rounded-2xl backdrop-blur-sm
-              ${isDarkMode ? "bg-slate-800/50 border border-slate-700/50" : "bg-white/50 border border-gray-200"}
+              ${isDarkMode ? "bg-slate-800/50 border bg-zinc-900" : "bg-white/50 border border-gray-200"}
             `}
           >
             {tabs.map((tab) => (
@@ -583,7 +583,7 @@ const UserProfile = () => {
         <div
           className={`
             rounded-3xl p-8 backdrop-blur-sm border transition-all duration-300
-            ${isDarkMode ? "bg-slate-800/30 border-slate-700/50" : "bg-white/50 border-gray-200"}
+            ${isDarkMode ? "bg-slate-800/30 bg-zinc-900" : "bg-white/50 border-gray-200"}
           `}
         >
           <div key={activeTab} className="transition-all duration-300">
@@ -599,7 +599,7 @@ const UserProfile = () => {
                     setIsEditing(true)
                     setFormData(profile)
                   }}
-                  className="flex items-center px-8 py-3 bg-gradient-to-r from-purple-600 to-blue-600 text-white rounded-xl font-semibold shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105"
+                  className="flex items-center px-8 py-3 bg-gradient-to-r from-purple-600 to-blue-600 text-slate-300 rounded-xl font-semibold shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105"
                 >
                   <Edit2 className="w-4 h-4 mr-2" />
                   Edit Profile
@@ -629,7 +629,7 @@ const UserProfile = () => {
                     onClick={handleSubmit}
                     disabled={saving}
                     className={`
-                      flex items-center px-6 py-3 bg-gradient-to-r from-emerald-600 to-teal-600 text-white rounded-xl font-semibold shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105
+                      flex items-center px-6 py-3 bg-gradient-to-r from-emerald-600 to-teal-600 text-slate-300 rounded-xl font-semibold shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105
                       ${saving ? "opacity-50 cursor-not-allowed" : ""}
                     `}
                   >

@@ -36,14 +36,14 @@ const ArticlesOverview = () => {
   return (
     <div className={`min-h-screen ${
       isDarkMode 
-        ? "bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 text-gray-100" 
+        ? "bg-zinc-900 text-gray-100" 
         : "bg-gradient-to-br from-gray-50 via-white to-gray-100 text-gray-900"
     }`}>
       {/* Header */}
       <div className="max-w-6xl mx-auto px-6 pt-24 pb-12">
         <div className="text-center mb-12">
           <h1 className={`text-4xl md:text-5xl font-bold mb-4 ${
-            isDarkMode ? "text-white" : "text-gray-900"
+            isDarkMode ? "text-slate-300" : "text-gray-900"
           }`}>
             Technical Articles
           </h1>
@@ -88,14 +88,14 @@ const ArticlesOverview = () => {
                   h-full p-6 rounded-xl border transition-all duration-300
                   transform group-hover:scale-105 group-hover:shadow-xl
                   ${isDarkMode 
-                    ? "bg-gray-800/50 border-gray-700 hover:bg-gray-800" 
+                    ? "bg-zinc-900/50 border-gray-700 hover:bg-zinc-900" 
                     : "bg-white/70 border-gray-200 hover:bg-white hover:shadow-lg"
                   }
                 `}>
                   {/* Article Icon */}
                   <div className={`
                     inline-flex p-3 rounded-lg mb-4
-                    bg-gradient-to-br ${color} text-white shadow-lg
+                    bg-gradient-to-br ${color} text-slate-300 shadow-lg
                   `}>
                     <Icon size={24} />
                   </div>
@@ -103,7 +103,7 @@ const ArticlesOverview = () => {
                   {/* Article Title */}
                   <h3 className={`
                     text-xl font-bold mb-3 group-hover:text-blue-500 transition-colors
-                    ${isDarkMode ? "text-white" : "text-gray-900"}
+                    ${isDarkMode ? "text-slate-300" : "text-gray-900"}
                   `}>
                     {article.title}
                   </h3>
@@ -141,9 +141,9 @@ const ArticlesOverview = () => {
       <div className="max-w-4xl mx-auto px-6 pb-20 text-center">
         <div className={`
           p-8 rounded-xl border
-          ${isDarkMode ? "bg-gray-800/50 border-gray-700" : "bg-white/70 border-gray-200"}
+          ${isDarkMode ? "bg-zinc-900 border-gray-700" : "bg-white/70 border-gray-200"}
         `}>
-          <h2 className={`text-2xl font-bold mb-4 ${isDarkMode ? "text-white" : "text-gray-900"}`}>
+          <h2 className={`text-2xl font-bold mb-4 ${isDarkMode ? "text-slate-300" : "text-gray-900"}`}>
             Start Your Learning Journey
           </h2>
           <p className={`text-base mb-6 ${isDarkMode ? "text-gray-300" : "text-gray-600"}`}>

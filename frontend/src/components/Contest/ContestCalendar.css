@@ -389,14 +389,16 @@
 .contest-card {
   -webkit-backdrop-filter: blur(10px);
   backdrop-filter: blur(10px);
-  background: rgba(255, 255, 255, 0.8);
+  background: rgb(24, 24, 27); /* bg-zinc-900 */
+  color: rgb(203, 213, 225); /* text-slate-300 */
   border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
 .contest-card-dark {
   -webkit-backdrop-filter: blur(10px);
   backdrop-filter: blur(10px);
-  background: rgba(31, 41, 55, 0.8);
+  background: rgb(24, 24, 27); /* bg-zinc-900 */
+  color: rgb(203, 213, 225); /* text-slate-300 */
   border: 1px solid rgba(75, 85, 99, 0.3);
 }
 

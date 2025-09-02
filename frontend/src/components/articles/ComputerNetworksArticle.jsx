@@ -8,7 +8,7 @@ const ComputerNetworksArticle = () => {
   return (
     <div className={`min-h-screen ${
       isDarkMode 
-        ? "bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 text-gray-100" 
+        ? "bg-zinc-900 text-gray-100" 
         : "bg-gradient-to-br from-gray-50 via-white to-gray-100 text-gray-900"
     }`}>
       {/* Article Header */}
@@ -16,7 +16,7 @@ const ComputerNetworksArticle = () => {
       <div className="max-w-4xl mx-auto px-6 pt-24 pb-8">
         <div className="text-center mb-8">
           <h1 className={`text-4xl md:text-5xl font-bold mb-4 ${
-            isDarkMode ? "text-white" : "text-gray-900"
+            isDarkMode ? "text-slate-300" : "text-gray-900"
           }`}>
             Computer Networks
           </h1>
@@ -52,7 +52,7 @@ const ComputerNetworksArticle = () => {
           
           {/* Introduction */}
           <section className="mb-8">
-            <h2 className={`text-2xl font-bold mb-4 ${isDarkMode ? "text-white" : "text-gray-900"}`}>
+            <h2 className={`text-2xl font-bold mb-4 ${isDarkMode ? "text-slate-300" : "text-gray-900"}`}>
               What are Computer Networks?
             </h2>
             <p className={`text-base leading-relaxed mb-4 ${isDarkMode ? "text-gray-300" : "text-gray-700"}`}>
@@ -67,7 +67,7 @@ const ComputerNetworksArticle = () => {
 
           {/* OSI Model */}
           <section className="mb-8">
-            <h2 className={`text-2xl font-bold mb-4 ${isDarkMode ? "text-white" : "text-gray-900"}`}>
+            <h2 className={`text-2xl font-bold mb-4 ${isDarkMode ? "text-slate-300" : "text-gray-900"}`}>
               The OSI Model
             </h2>
             <p className={`text-base leading-relaxed mb-6 ${isDarkMode ? "text-gray-300" : "text-gray-700"}`}>
@@ -75,7 +75,7 @@ const ComputerNetworksArticle = () => {
             </p>
             
             <div className="space-y-4">
-              <div className={`p-4 rounded-lg border ${isDarkMode ? "bg-gray-800 border-gray-700" : "bg-blue-50 border-blue-200"}`}>
+              <div className={`p-4 rounded-lg border ${isDarkMode ? "bg-zinc-900 border-gray-700" : "bg-blue-50 border-blue-200"}`}>
                 <h3 className={`text-lg font-semibold mb-2 ${isDarkMode ? "text-blue-400" : "text-blue-600"}`}>
                   Layer 7: Application Layer
                 </h3>
@@ -84,7 +84,7 @@ const ComputerNetworksArticle = () => {
                 </p>
               </div>
 
-              <div className={`p-4 rounded-lg border ${isDarkMode ? "bg-gray-800 border-gray-700" : "bg-green-50 border-green-200"}`}>
+              <div className={`p-4 rounded-lg border ${isDarkMode ? "bg-zinc-900 border-gray-700" : "bg-green-50 border-green-200"}`}>
                 <h3 className={`text-lg font-semibold mb-2 ${isDarkMode ? "text-green-400" : "text-green-600"}`}>
                   Layer 6: Presentation Layer
                 </h3>
@@ -93,7 +93,7 @@ const ComputerNetworksArticle = () => {
                 </p>
               </div>
 
-              <div className={`p-4 rounded-lg border ${isDarkMode ? "bg-gray-800 border-gray-700" : "bg-purple-50 border-purple-200"}`}>
+              <div className={`p-4 rounded-lg border ${isDarkMode ? "bg-zinc-900 border-gray-700" : "bg-purple-50 border-purple-200"}`}>
                 <h3 className={`text-lg font-semibold mb-2 ${isDarkMode ? "text-purple-400" : "text-purple-600"}`}>
                   Layer 5: Session Layer
                 </h3>
@@ -102,7 +102,7 @@ const ComputerNetworksArticle = () => {
                 </p>
               </div>
 
-              <div className={`p-4 rounded-lg border ${isDarkMode ? "bg-gray-800 border-gray-700" : "bg-orange-50 border-orange-200"}`}>
+              <div className={`p-4 rounded-lg border ${isDarkMode ? "bg-zinc-900 border-gray-700" : "bg-orange-50 border-orange-200"}`}>
                 <h3 className={`text-lg font-semibold mb-2 ${isDarkMode ? "text-orange-400" : "text-orange-600"}`}>
                   Layer 4: Transport Layer
                 </h3>
@@ -111,7 +111,7 @@ const ComputerNetworksArticle = () => {
                 </p>
               </div>
 
-              <div className={`p-4 rounded-lg border ${isDarkMode ? "bg-gray-800 border-gray-700" : "bg-red-50 border-red-200"}`}>
+              <div className={`p-4 rounded-lg border ${isDarkMode ? "bg-zinc-900 border-gray-700" : "bg-red-50 border-red-200"}`}>
                 <h3 className={`text-lg font-semibold mb-2 ${isDarkMode ? "text-red-400" : "text-red-600"}`}>
                   Layer 3: Network Layer
                 </h3>
@@ -120,7 +120,7 @@ const ComputerNetworksArticle = () => {
                 </p>
               </div>
 
-              <div className={`p-4 rounded-lg border ${isDarkMode ? "bg-gray-800 border-gray-700" : "bg-yellow-50 border-yellow-200"}`}>
+              <div className={`p-4 rounded-lg border ${isDarkMode ? "bg-zinc-900 border-gray-700" : "bg-yellow-50 border-yellow-200"}`}>
                 <h3 className={`text-lg font-semibold mb-2 ${isDarkMode ? "text-yellow-400" : "text-yellow-600"}`}>
                   Layer 2: Data Link Layer
                 </h3>
@@ -129,7 +129,7 @@ const ComputerNetworksArticle = () => {
                 </p>
               </div>
 
-              <div className={`p-4 rounded-lg border ${isDarkMode ? "bg-gray-800 border-gray-700" : "bg-gray-50 border-gray-200"}`}>
+              <div className={`p-4 rounded-lg border ${isDarkMode ? "bg-zinc-900 border-gray-700" : "bg-gray-50 border-gray-200"}`}>
                 <h3 className={`text-lg font-semibold mb-2 ${isDarkMode ? "text-gray-400" : "text-gray-600"}`}>
                   Layer 1: Physical Layer
                 </h3>
@@ -142,7 +142,7 @@ const ComputerNetworksArticle = () => {
 
           {/* TCP/IP Model */}
           <section className="mb-8">
-            <h2 className={`text-2xl font-bold mb-4 ${isDarkMode ? "text-white" : "text-gray-900"}`}>
+            <h2 className={`text-2xl font-bold mb-4 ${isDarkMode ? "text-slate-300" : "text-gray-900"}`}>
               TCP/IP Protocol Suite
             </h2>
             
@@ -155,7 +155,7 @@ const ComputerNetworksArticle = () => {
                   TCP is a connection-oriented protocol that ensures reliable data transmission. It provides error checking, 
                   flow control, and guarantees that data arrives in the correct order.
                 </p>
-                <div className={`mt-3 p-4 rounded-lg ${isDarkMode ? "bg-gray-800" : "bg-gray-100"}`}>
+                <div className={`mt-3 p-4 rounded-lg ${isDarkMode ? "bg-zinc-900" : "bg-gray-100"}`}>
                   <p className={`text-sm ${isDarkMode ? "text-gray-400" : "text-gray-600"}`}>
                     <strong>Key Features:</strong> Connection-oriented, reliable delivery, error correction, flow control
                   </p>
@@ -170,7 +170,7 @@ const ComputerNetworksArticle = () => {
                   IP is responsible for addressing and routing data packets across networks. It provides a unique address 
                   for each device and determines the best path for data to travel.
                 </p>
-                <div className={`mt-3 p-4 rounded-lg ${isDarkMode ? "bg-gray-800" : "bg-gray-100"}`}>
+                <div className={`mt-3 p-4 rounded-lg ${isDarkMode ? "bg-zinc-900" : "bg-gray-100"}`}>
                   <p className={`text-sm ${isDarkMode ? "text-gray-400" : "text-gray-600"}`}>
                     <strong>Versions:</strong> IPv4 (32-bit addresses) and IPv6 (128-bit addresses)
                   </p>
@@ -185,7 +185,7 @@ const ComputerNetworksArticle = () => {
                   UDP is a connectionless protocol that provides fast, but unreliable data transmission. 
                   It's ideal for applications where speed is more important than reliability.
                 </p>
-                <div className={`mt-3 p-4 rounded-lg ${isDarkMode ? "bg-gray-800" : "bg-gray-100"}`}>
+                <div className={`mt-3 p-4 rounded-lg ${isDarkMode ? "bg-zinc-900" : "bg-gray-100"}`}>
                   <p className={`text-sm ${isDarkMode ? "text-gray-400" : "text-gray-600"}`}>
                     <strong>Use Cases:</strong> Video streaming, online gaming, DNS queries, live broadcasts
                   </p>
@@ -196,12 +196,12 @@ const ComputerNetworksArticle = () => {
 
           {/* Network Devices */}
           <section className="mb-8">
-            <h2 className={`text-2xl font-bold mb-4 ${isDarkMode ? "text-white" : "text-gray-900"}`}>
+            <h2 className={`text-2xl font-bold mb-4 ${isDarkMode ? "text-slate-300" : "text-gray-900"}`}>
               Network Devices
             </h2>
             
             <div className="grid md:grid-cols-2 gap-6">
-              <div className={`p-4 rounded-lg border ${isDarkMode ? "bg-gray-800 border-gray-700" : "bg-gray-50 border-gray-200"}`}>
+              <div className={`p-4 rounded-lg border ${isDarkMode ? "bg-zinc-900 border-gray-700" : "bg-gray-50 border-gray-200"}`}>
                 <h3 className={`text-lg font-semibold mb-2 ${isDarkMode ? "text-blue-400" : "text-blue-600"}`}>
                   Router
                 </h3>
@@ -211,7 +211,7 @@ const ComputerNetworksArticle = () => {
                 </p>
               </div>
               
-              <div className={`p-4 rounded-lg border ${isDarkMode ? "bg-gray-800 border-gray-700" : "bg-gray-50 border-gray-200"}`}>
+              <div className={`p-4 rounded-lg border ${isDarkMode ? "bg-zinc-900 border-gray-700" : "bg-gray-50 border-gray-200"}`}>
                 <h3 className={`text-lg font-semibold mb-2 ${isDarkMode ? "text-green-400" : "text-green-600"}`}>
                   Switch
                 </h3>
@@ -221,7 +221,7 @@ const ComputerNetworksArticle = () => {
                 </p>
               </div>
               
-              <div className={`p-4 rounded-lg border ${isDarkMode ? "bg-gray-800 border-gray-700" : "bg-gray-50 border-gray-200"}`}>
+              <div className={`p-4 rounded-lg border ${isDarkMode ? "bg-zinc-900 border-gray-700" : "bg-gray-50 border-gray-200"}`}>
                 <h3 className={`text-lg font-semibold mb-2 ${isDarkMode ? "text-purple-400" : "text-purple-600"}`}>
                   Hub
                 </h3>
@@ -231,7 +231,7 @@ const ComputerNetworksArticle = () => {
                 </p>
               </div>
               
-              <div className={`p-4 rounded-lg border ${isDarkMode ? "bg-gray-800 border-gray-700" : "bg-gray-50 border-gray-200"}`}>
+              <div className={`p-4 rounded-lg border ${isDarkMode ? "bg-zinc-900 border-gray-700" : "bg-gray-50 border-gray-200"}`}>
                 <h3 className={`text-lg font-semibold mb-2 ${isDarkMode ? "text-orange-400" : "text-orange-600"}`}>
                   Firewall
                 </h3>
@@ -245,7 +245,7 @@ const ComputerNetworksArticle = () => {
 
           {/* Network Topologies */}
           <section className="mb-8">
-            <h2 className={`text-2xl font-bold mb-4 ${isDarkMode ? "text-white" : "text-gray-900"}`}>
+            <h2 className={`text-2xl font-bold mb-4 ${isDarkMode ? "text-slate-300" : "text-gray-900"}`}>
               Network Topologies
             </h2>
             
@@ -275,24 +275,24 @@ const ComputerNetworksArticle = () => {
 
           {/* Common Protocols */}
           <section className="mb-8">
-            <h2 className={`text-2xl font-bold mb-4 ${isDarkMode ? "text-white" : "text-gray-900"}`}>
+            <h2 className={`text-2xl font-bold mb-4 ${isDarkMode ? "text-slate-300" : "text-gray-900"}`}>
               Common Network Protocols
             </h2>
             
             <div className="grid md:grid-cols-2 gap-4">
-              <div className={`p-3 rounded-lg ${isDarkMode ? "bg-gray-800" : "bg-gray-100"}`}>
+              <div className={`p-3 rounded-lg ${isDarkMode ? "bg-zinc-900" : "bg-gray-100"}`}>
                 <h4 className={`font-semibold ${isDarkMode ? "text-blue-400" : "text-blue-600"}`}>HTTP/HTTPS</h4>
                 <p className={`text-sm ${isDarkMode ? "text-gray-400" : "text-gray-600"}`}>Web browsing and data transfer</p>
               </div>
-              <div className={`p-3 rounded-lg ${isDarkMode ? "bg-gray-800" : "bg-gray-100"}`}>
+              <div className={`p-3 rounded-lg ${isDarkMode ? "bg-zinc-900" : "bg-gray-100"}`}>
                 <h4 className={`font-semibold ${isDarkMode ? "text-green-400" : "text-green-600"}`}>FTP/SFTP</h4>
                 <p className={`text-sm ${isDarkMode ? "text-gray-400" : "text-gray-600"}`}>File transfer between systems</p>
               </div>
-              <div className={`p-3 rounded-lg ${isDarkMode ? "bg-gray-800" : "bg-gray-100"}`}>
+              <div className={`p-3 rounded-lg ${isDarkMode ? "bg-zinc-900" : "bg-gray-100"}`}>
                 <h4 className={`font-semibold ${isDarkMode ? "text-purple-400" : "text-purple-600"}`}>SMTP/POP3/IMAP</h4>
                 <p className={`text-sm ${isDarkMode ? "text-gray-400" : "text-gray-600"}`}>Email communication</p>
               </div>
-              <div className={`p-3 rounded-lg ${isDarkMode ? "bg-gray-800" : "bg-gray-100"}`}>
+              <div className={`p-3 rounded-lg ${isDarkMode ? "bg-zinc-900" : "bg-gray-100"}`}>
                 <h4 className={`font-semibold ${isDarkMode ? "text-orange-400" : "text-orange-600"}`}>DNS</h4>
                 <p className={`text-sm ${isDarkMode ? "text-gray-400" : "text-gray-600"}`}>Domain name resolution</p>
               </div>
@@ -301,7 +301,7 @@ const ComputerNetworksArticle = () => {
 
           {/* Conclusion */}
           <section className="mb-8">
-            <h2 className={`text-2xl font-bold mb-4 ${isDarkMode ? "text-white" : "text-gray-900"}`}>
+            <h2 className={`text-2xl font-bold mb-4 ${isDarkMode ? "text-slate-300" : "text-gray-900"}`}>
               Key Takeaways
             </h2>
             <p className={`text-base leading-relaxed ${isDarkMode ? "text-gray-300" : "text-gray-700"}`}>

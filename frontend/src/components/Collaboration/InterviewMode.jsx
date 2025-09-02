@@ -217,10 +217,10 @@ console.log(solution());`);
   };
 
   return (
-    <div className={`h-screen flex flex-col ${isDarkMode ? 'bg-gray-900' : 'bg-gray-50'}`}>
+    <div className={`h-screen flex flex-col ${isDarkMode ? 'bg-zinc-900' : 'bg-gray-50'}`}>
       {/* Interview Header */}
       <div className={`h-16 border-b flex items-center justify-between px-6 ${
-        isDarkMode ? 'bg-gray-800 border-gray-700' : 'bg-white border-gray-200'
+        isDarkMode ? 'bg-zinc-900 border-gray-700' : 'bg-white border-gray-200'
       }`}>
         <div className="flex items-center space-x-6">
           {/* Timer */}
@@ -235,7 +235,7 @@ console.log(solution());`);
               {!isTimerRunning ? (
                 <button
                   onClick={startTimer}
-                  className="p-2 bg-green-600 hover:bg-green-700 text-white rounded"
+                  className="p-2 bg-green-600 hover:bg-green-700 text-slate-300 rounded"
                   title="Start timer"
                 >
                   <Play className="w-4 h-4" />
@@ -243,7 +243,7 @@ console.log(solution());`);
               ) : (
                 <button
                   onClick={pauseTimer}
-                  className="p-2 bg-yellow-600 hover:bg-yellow-700 text-white rounded"
+                  className="p-2 bg-yellow-600 hover:bg-yellow-700 text-slate-300 rounded"
                   title="Pause timer"
                 >
                   <Pause className="w-4 h-4" />
@@ -251,7 +251,7 @@ console.log(solution());`);
               )}
               <button
                 onClick={resetTimer}
-                className="p-2 bg-gray-600 hover:bg-gray-700 text-white rounded"
+                className="p-2 bg-gray-600 hover:bg-zinc-900 text-slate-300 rounded"
                 title="Reset timer"
               >
                 <Square className="w-4 h-4" />
@@ -288,7 +288,7 @@ console.log(solution());`);
           <button
             onClick={() => setIsMicOn(!isMicOn)}
             className={`p-2 rounded ${
-              isMicOn ? 'bg-green-600 text-white' : 'bg-gray-300 text-gray-600'
+              isMicOn ? 'bg-green-600 text-slate-300' : 'bg-gray-300 text-gray-600'
             }`}
           >
             {isMicOn ? <Mic className="w-4 h-4" /> : <MicOff className="w-4 h-4" />}
@@ -297,7 +297,7 @@ console.log(solution());`);
           <button
             onClick={() => setIsCameraOn(!isCameraOn)}
             className={`p-2 rounded ${
-              isCameraOn ? 'bg-green-600 text-white' : 'bg-gray-300 text-gray-600'
+              isCameraOn ? 'bg-green-600 text-slate-300' : 'bg-gray-300 text-gray-600'
             }`}
           >
             {isCameraOn ? <Video className="w-4 h-4" /> : <VideoOff className="w-4 h-4" />}
@@ -306,7 +306,7 @@ console.log(solution());`);
           <button
             onClick={() => setIsRecording(!isRecording)}
             className={`p-2 rounded ${
-              isRecording ? 'bg-red-600 text-white' : 'bg-gray-300 text-gray-600'
+              isRecording ? 'bg-red-600 text-slate-300' : 'bg-gray-300 text-gray-600'
             }`}
             title={isRecording ? 'Stop recording' : 'Start recording'}
           >
@@ -316,7 +316,7 @@ console.log(solution());`);
           {/* Toggle Panels */}
           <button
             onClick={() => setShowProblemPanel(!showProblemPanel)}
-            className={`p-2 rounded ${isDarkMode ? 'hover:bg-gray-700' : 'hover:bg-gray-200'}`}
+            className={`p-2 rounded ${isDarkMode ? 'hover:bg-zinc-900' : 'hover:bg-gray-200'}`}
             title="Toggle problem panel"
           >
             <FileText className="w-4 h-4" />
@@ -325,7 +325,7 @@ console.log(solution());`);
           {role === 'interviewer' && (
             <button
               onClick={() => setShowNotes(!showNotes)}
-              className={`p-2 rounded ${isDarkMode ? 'hover:bg-gray-700' : 'hover:bg-gray-200'}`}
+              className={`p-2 rounded ${isDarkMode ? 'hover:bg-zinc-900' : 'hover:bg-gray-200'}`}
               title="Toggle notes panel"
             >
               <MessageSquare className="w-4 h-4" />
@@ -334,7 +334,7 @@ console.log(solution());`);
 
           <button
             onClick={onEndInterview}
-            className="px-4 py-2 bg-red-600 hover:bg-red-700 text-white rounded font-medium"
+            className="px-4 py-2 bg-red-600 hover:bg-red-700 text-slate-300 rounded font-medium"
           >
             End Interview
           </button>
@@ -346,10 +346,10 @@ console.log(solution());`);
         {/* Problem Panel */}
         {showProblemPanel && (
           <div className={`w-96 border-r flex flex-col ${
-            isDarkMode ? 'bg-gray-800 border-gray-700' : 'bg-white border-gray-200'
+            isDarkMode ? 'bg-zinc-900 border-gray-700' : 'bg-white border-gray-200'
           }`}>
             <div className="p-4 border-b border-gray-700">
-              <h2 className={`text-lg font-bold ${isDarkMode ? 'text-white' : 'text-gray-900'}`}>
+              <h2 className={`text-lg font-bold ${isDarkMode ? 'text-slate-300' : 'text-gray-900'}`}>
                 Interview Problems
               </h2>
               
@@ -364,7 +364,7 @@ console.log(solution());`);
                           onClick={() => selectProblem(difficulty, index)}
                           className={`px-2 py-1 text-xs rounded ${
                             currentProblem?.id === problem.id
-                              ? 'bg-blue-600 text-white'
+                              ? 'bg-blue-600 text-slate-300'
                               : difficulty === 'easy' ? 'bg-green-100 text-green-800' :
                                 difficulty === 'medium' ? 'bg-yellow-100 text-yellow-800' :
                                 'bg-red-100 text-red-800'
@@ -384,7 +384,7 @@ console.log(solution());`);
                 <div className="space-y-4">
                   <div>
                     <div className="flex items-center justify-between mb-2">
-                      <h3 className={`text-lg font-semibold ${isDarkMode ? 'text-white' : 'text-gray-900'}`}>
+                      <h3 className={`text-lg font-semibold ${isDarkMode ? 'text-slate-300' : 'text-gray-900'}`}>
                         {currentProblem.title}
                       </h3>
                       <span className={`px-2 py-1 text-xs rounded ${
@@ -402,12 +402,12 @@ console.log(solution());`);
 
                   {currentProblem.examples && (
                     <div>
-                      <h4 className={`font-medium mb-2 ${isDarkMode ? 'text-white' : 'text-gray-900'}`}>
+                      <h4 className={`font-medium mb-2 ${isDarkMode ? 'text-slate-300' : 'text-gray-900'}`}>
                         Examples:
                       </h4>
                       {currentProblem.examples.map((example, index) => (
                         <div key={index} className={`p-3 rounded text-sm ${
-                          isDarkMode ? 'bg-gray-700' : 'bg-gray-100'
+                          isDarkMode ? 'bg-zinc-900' : 'bg-gray-100'
                         }`}>
                           <div><strong>Input:</strong> {example.input}</div>
                           <div><strong>Output:</strong> {example.output}</div>
@@ -421,7 +421,7 @@ console.log(solution());`);
 
                   {currentProblem.constraints && (
                     <div>
-                      <h4 className={`font-medium mb-2 ${isDarkMode ? 'text-white' : 'text-gray-900'}`}>
+                      <h4 className={`font-medium mb-2 ${isDarkMode ? 'text-slate-300' : 'text-gray-900'}`}>
                         Constraints:
                       </h4>
                       <ul className={`text-sm space-y-1 ${isDarkMode ? 'text-gray-300' : 'text-gray-700'}`}>
@@ -434,7 +434,7 @@ console.log(solution());`);
 
                   {currentProblem.hints && role === 'interviewer' && (
                     <div>
-                      <h4 className={`font-medium mb-2 ${isDarkMode ? 'text-white' : 'text-gray-900'}`}>
+                      <h4 className={`font-medium mb-2 ${isDarkMode ? 'text-slate-300' : 'text-gray-900'}`}>
                         Hints (Interviewer Only):
                       </h4>
                       <ul className={`text-sm space-y-1 ${isDarkMode ? 'text-gray-300' : 'text-gray-700'}`}>
@@ -453,22 +453,22 @@ console.log(solution());`);
         {/* Code Editor */}
         <div className="flex-1 flex flex-col">
           <div className={`h-10 border-b flex items-center justify-between px-4 ${
-            isDarkMode ? 'bg-gray-800 border-gray-700' : 'bg-gray-50 border-gray-200'
+            isDarkMode ? 'bg-zinc-900 border-gray-700' : 'bg-gray-50 border-gray-200'
           }`}>
-            <span className={`text-sm font-medium ${isDarkMode ? 'text-white' : 'text-gray-900'}`}>
+            <span className={`text-sm font-medium ${isDarkMode ? 'text-slate-300' : 'text-gray-900'}`}>
               Code Editor
             </span>
             <div className="flex space-x-2">
               <button
                 onClick={executeCode}
-                className="px-3 py-1 bg-green-600 hover:bg-green-700 text-white rounded text-sm"
+                className="px-3 py-1 bg-green-600 hover:bg-green-700 text-slate-300 rounded text-sm"
               >
                 Run Code
               </button>
               {role === 'interviewer' && interviewPhase === 'discussion' && (
                 <button
                   onClick={() => setInterviewPhase('feedback')}
-                  className="px-3 py-1 bg-blue-600 hover:bg-blue-700 text-white rounded text-sm"
+                  className="px-3 py-1 bg-blue-600 hover:bg-blue-700 text-slate-300 rounded text-sm"
                 >
                   Start Feedback
                 </button>
@@ -498,10 +498,10 @@ console.log(solution());`);
         {/* Notes/Feedback Panel */}
         {showNotes && role === 'interviewer' && (
           <div className={`w-80 border-l flex flex-col ${
-            isDarkMode ? 'bg-gray-800 border-gray-700' : 'bg-white border-gray-200'
+            isDarkMode ? 'bg-zinc-900 border-gray-700' : 'bg-white border-gray-200'
           }`}>
             <div className="p-4 border-b border-gray-700">
-              <h3 className={`font-medium ${isDarkMode ? 'text-white' : 'text-gray-900'}`}>
+              <h3 className={`font-medium ${isDarkMode ? 'text-slate-300' : 'text-gray-900'}`}>
                 Interview Notes
               </h3>
             </div>
@@ -538,7 +538,7 @@ console.log(solution());`);
                   placeholder="Observations about the candidate's approach, communication, problem-solving skills..."
                   className={`w-full h-32 px-3 py-2 text-sm rounded border ${
                     isDarkMode 
-                      ? 'bg-gray-700 border-gray-600 text-white placeholder-gray-400' 
+                      ? 'bg-zinc-900 border-gray-600 text-slate-300 placeholder-gray-400' 
                       : 'bg-white border-gray-300 text-gray-900 placeholder-gray-500'
                   } resize-none`}
                 />
@@ -556,7 +556,7 @@ console.log(solution());`);
                     placeholder="Constructive feedback to share with the candidate..."
                     className={`w-full h-32 px-3 py-2 text-sm rounded border ${
                       isDarkMode 
-                        ? 'bg-gray-700 border-gray-600 text-white placeholder-gray-400' 
+                        ? 'bg-zinc-900 border-gray-600 text-slate-300 placeholder-gray-400' 
                         : 'bg-white border-gray-300 text-gray-900 placeholder-gray-500'
                     } resize-none`}
                   />
@@ -566,7 +566,7 @@ console.log(solution());`);
               <div className="space-y-2">
                 <button
                   onClick={saveNotes}
-                  className="w-full px-3 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded text-sm"
+                  className="w-full px-3 py-2 bg-blue-600 hover:bg-blue-700 text-slate-300 rounded text-sm"
                 >
                   Save Notes
                 </button>
@@ -574,7 +574,7 @@ console.log(solution());`);
                 {interviewPhase === 'feedback' && (
                   <button
                     onClick={submitFeedback}
-                    className="w-full px-3 py-2 bg-green-600 hover:bg-green-700 text-white rounded text-sm"
+                    className="w-full px-3 py-2 bg-green-600 hover:bg-green-700 text-slate-300 rounded text-sm"
                   >
                     Submit Feedback
                   </button>
@@ -588,7 +588,7 @@ console.log(solution());`);
       {/* Phase Controls */}
       {role === 'interviewer' && (
         <div className={`h-12 border-t flex items-center justify-center space-x-4 ${
-          isDarkMode ? 'bg-gray-800 border-gray-700' : 'bg-gray-50 border-gray-200'
+          isDarkMode ? 'bg-zinc-900 border-gray-700' : 'bg-gray-50 border-gray-200'
         }`}>
           {Object.entries(phases).map(([phase, config]) => (
             <button
@@ -596,8 +596,8 @@ console.log(solution());`);
               onClick={() => setInterviewPhase(phase)}
               className={`px-4 py-1 rounded text-sm font-medium ${
                 interviewPhase === phase
-                  ? `bg-${config.color}-600 text-white`
-                  : isDarkMode ? 'text-gray-400 hover:text-white' : 'text-gray-600 hover:text-gray-900'
+                  ? `bg-${config.color}-600 text-slate-300`
+                  : isDarkMode ? 'text-gray-400 hover:text-slate-300' : 'text-gray-600 hover:text-gray-900'
               }`}
             >
               {config.label}

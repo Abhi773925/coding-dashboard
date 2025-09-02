@@ -21,8 +21,8 @@ const JavaScriptLearning = () => {
       <div className="container mx-auto px-4 py-8">
         <div className="flex gap-6 h-[calc(100vh-4rem)]">
           {/* Syllabus Navigation - Fixed width, scrollable */}
-          <div className="w-1/4 bg-white/80 dark:bg-gray-800/80 rounded-lg backdrop-blur-sm flex flex-col">
-            <h2 className="text-2xl font-bold p-4 bg-gradient-to-r from-indigo-600 to-blue-600 bg-clip-text text-transparent sticky top-0 bg-white/80 dark:bg-gray-800/80 border-b border-indigo-100 dark:border-indigo-900">
+          <div className="w-1/4 bg-white/80 dark:bg-zinc-900/80 rounded-lg backdrop-blur-sm flex flex-col">
+            <h2 className="text-2xl font-bold p-4 bg-gradient-to-r from-indigo-600 to-blue-600 bg-clip-text text-transparent sticky top-0 bg-white/80 dark:bg-zinc-900/80 border-b border-indigo-100 dark:border-indigo-900">
               JavaScript Syllabus
             </h2>
             
@@ -56,10 +56,10 @@ const JavaScriptLearning = () => {
           {/* Main Content Area - Flex layout for content and compiler */}
           <div className="flex-1 flex gap-6">
             {/* Topic Content - Scrollable */}
-            <div className="w-1/2 bg-white/80 dark:bg-gray-800/80 rounded-lg backdrop-blur-sm flex flex-col">
+            <div className="w-1/2 bg-white/80 dark:bg-zinc-900/80 rounded-lg backdrop-blur-sm flex flex-col">
               {selectedTopic ? (
                 <>
-                  <h2 className="text-2xl font-bold p-4 bg-gradient-to-r from-indigo-600 to-blue-600 bg-clip-text text-transparent sticky top-0 bg-white/80 dark:bg-gray-800/80 border-b border-indigo-100 dark:border-indigo-900">
+                  <h2 className="text-2xl font-bold p-4 bg-gradient-to-r from-indigo-600 to-blue-600 bg-clip-text text-transparent sticky top-0 bg-white/80 dark:bg-zinc-900/80 border-b border-indigo-100 dark:border-indigo-900">
                     {selectedTopic.name}
                   </h2>
                   <div className="overflow-y-auto flex-1 p-4">
@@ -113,8 +113,8 @@ const JavaScriptLearning = () => {
                               onClick={() => handleQuestionSelect(question)}
                               className={`px-4 py-2 rounded-md transition-colors ${
                                 selectedQuestion?.id === question.id
-                                ? 'bg-indigo-700 text-white'
-                                : 'bg-indigo-600 text-white hover:bg-indigo-700'
+                                ? 'bg-indigo-700 text-slate-300'
+                                : 'bg-indigo-600 text-slate-300 hover:bg-indigo-700'
                               }`}
                             >
                               {selectedQuestion?.id === question.id ? 'Currently Selected' : 'Practice Now'}
@@ -144,8 +144,8 @@ const JavaScriptLearning = () => {
                           onClick={() => handleQuestionSelect(selectedTopic.miscQuestion)}
                           className={`px-4 py-2 rounded-md transition-colors ${
                             selectedQuestion?.id === selectedTopic.miscQuestion.id
-                            ? 'bg-indigo-700 text-white'
-                            : 'bg-indigo-600 text-white hover:bg-indigo-700'
+                            ? 'bg-indigo-700 text-slate-300'
+                            : 'bg-indigo-600 text-slate-300 hover:bg-indigo-700'
                           }`}
                         >
                           {selectedQuestion?.id === selectedTopic.miscQuestion.id ? 'Currently Selected' : 'Try Challenge'}
@@ -164,7 +164,7 @@ const JavaScriptLearning = () => {
             </div>
 
             {/* Code Compiler - Fixed height */}
-            <div className="w-1/2 bg-white/80 dark:bg-gray-800/80 rounded-lg backdrop-blur-sm flex flex-col">
+            <div className="w-1/2 bg-white/80 dark:bg-zinc-900/80 rounded-lg backdrop-blur-sm flex flex-col">
               {selectedQuestion ? (
                 <>
                   <div className="p-4 border-b border-indigo-100 dark:border-indigo-900">

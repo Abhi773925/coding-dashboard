@@ -28,7 +28,7 @@ const NotFoundPage = () => {
       className={`
         relative min-h-screen flex items-center justify-center
         px-4 py-20 transition-colors duration-300
-        ${isDarkMode ? "bg-slate-900 text-gray-100" : "bg-gray-50 text-gray-900"}
+        ${isDarkMode ? "bg-zinc-900 text-gray-100" : "bg-gray-50 text-gray-900"}
       `}
     >
       {/* Flowing Background */}
@@ -40,7 +40,7 @@ const NotFoundPage = () => {
           rounded-2xl shadow-2xl p-8 sm:p-12 md:p-16
           transform transition-all duration-300 hover:scale-[1.02]
           backdrop-blur-md
-          ${isDarkMode ? "bg-slate-800/70 border border-slate-700/50" : "bg-white/80 border border-gray-200/50"}
+          ${isDarkMode ? "bg-slate-800/70 border bg-zinc-900" : "bg-white/80 border border-gray-200/50"}
         `}
         style={{
           boxShadow: isDarkMode ? "0 25px 50px rgba(0, 0, 0, 0.5)" : "0 25px 50px rgba(0, 0, 0, 0.15)",
@@ -57,7 +57,7 @@ const NotFoundPage = () => {
           <h1
             className={`
               text-4xl sm:text-5xl font-bold
-              ${isDarkMode ? "text-white" : "text-gray-900"}
+              ${isDarkMode ? "text-slate-300" : "text-gray-900"}
             `}
           >
             404 - Page Not Found
@@ -91,8 +91,8 @@ const NotFoundPage = () => {
               transition-all duration-300 transform hover:scale-105
               ${
                 isDarkMode
-                  ? "bg-gradient-to-r from-indigo-600 to-blue-600 text-white hover:from-indigo-500 hover:to-blue-500"
-                  : "bg-gradient-to-r from-indigo-600 to-blue-600 text-white hover:from-indigo-700 hover:to-blue-700"
+                  ? "bg-gradient-to-r from-indigo-600 to-blue-600 text-slate-300 hover:from-indigo-500 hover:to-blue-500"
+                  : "bg-gradient-to-r from-indigo-600 to-blue-600 text-slate-300 hover:from-indigo-700 hover:to-blue-700"
               }
             `}
             style={{
@@ -109,7 +109,7 @@ const NotFoundPage = () => {
               backdrop-blur-sm transition-all duration-300 transform hover:scale-105
               ${
                 isDarkMode
-                  ? "border-slate-600 text-slate-300 hover:border-purple-400 hover:text-purple-300 hover:bg-slate-800/60"
+                  ? "border-slate-600 text-slate-300 hover:border-purple-400 hover:text-purple-300 hover:bg-zinc-900/60"
                   : "border-gray-300 text-gray-700 hover:border-purple-500 hover:text-purple-700 hover:bg-white/80"
               }
             `}
@@ -137,7 +137,7 @@ const NotFoundPage = () => {
                 transition-all duration-300 transform hover:scale-105 backdrop-blur-sm
                 ${
                   isDarkMode
-                    ? "bg-slate-800/60 text-purple-300 hover:bg-slate-800/80 border border-slate-700/50"
+                    ? "bg-zinc-900/60 text-purple-300 hover:bg-slate-800/80 border bg-zinc-900"
                     : "bg-purple-50/80 text-purple-600 hover:bg-purple-100/80 border border-purple-200/50"
                 }
               `}
@@ -152,7 +152,7 @@ const NotFoundPage = () => {
                 transition-all duration-300 transform hover:scale-105 backdrop-blur-sm
                 ${
                   isDarkMode
-                    ? "bg-slate-800/60 text-emerald-300 hover:bg-slate-800/80 border border-slate-700/50"
+                    ? "bg-zinc-900/60 text-emerald-300 hover:bg-slate-800/80 border bg-zinc-900"
                     : "bg-emerald-50/80 text-emerald-600 hover:bg-emerald-100/80 border border-emerald-200/50"
                 }
               `}

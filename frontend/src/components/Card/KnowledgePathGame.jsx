@@ -268,7 +268,7 @@ const FlexboxMasteryGame = () => {
     const borderClasses = isUserContainer
       ? (darkMode ? "border-indigo-600" : "border-indigo-500")
       : (darkMode ? "border-purple-600" : "border-purple-500");
-    const bgClasses = darkMode ? "bg-zinc-800" : "bg-white";
+    const bgClasses = darkMode ? "bg-zinc-900" : "bg-white";
     return `${baseClasses} ${borderClasses} ${bgClasses}`;
   };
 
@@ -317,7 +317,7 @@ const FlexboxMasteryGame = () => {
           <button 
             onClick={toggleDarkMode}
             className={`absolute top-0 right-0 p-2 rounded-full transition-colors duration-300 ${
-              darkMode ? 'bg-zinc-800 text-yellow-400 hover:bg-zinc-700' : 'bg-gray-200 text-indigo-700 hover:bg-gray-300'
+              darkMode ? 'bg-zinc-900 text-yellow-400 hover:bg-zinc-700' : 'bg-gray-200 text-indigo-700 hover:bg-gray-300'
             }`}
             aria-label={darkMode ? 'Switch to Light Mode' : 'Switch to Dark Mode'}
           >
@@ -394,7 +394,7 @@ const FlexboxMasteryGame = () => {
         <div className="flex justify-between items-center mb-6">
           <div className={`flex items-center gap-2 text-lg font-bold ${gameState.timeRemaining < 30 ? 'text-red-500' : ''}`}>
             <div className="w-20 text-center">{formatTime(gameState.timeRemaining)}</div>
-            <div className="w-48 bg-gray-700 rounded-full h-2.5">
+            <div className="w-48 bg-zinc-900 rounded-full h-2.5">
               <div 
                 className="h-2.5 rounded-full progress-bar bg-gradient-to-r from-indigo-500 to-purple-500" 
                 style={{ width: `${(gameState.timeRemaining / currentLevel.timeLimit) * 100}%` }}
@@ -410,8 +410,8 @@ const FlexboxMasteryGame = () => {
                 className={`
                   px-4 py-2 rounded-md flex items-center gap-2 font-medium
                   ${activeLevel >= levelData.length - 1 
-                    ? 'bg-gray-700 text-gray-400 cursor-not-allowed' 
-                    : 'bg-gradient-to-r from-indigo-600 to-purple-600 text-white hover:from-indigo-700 hover:to-purple-700'}
+                    ? 'bg-zinc-900 text-gray-400 cursor-not-allowed' 
+                    : 'bg-gradient-to-r from-indigo-600 to-purple-600 text-slate-300 hover:from-indigo-700 hover:to-purple-700'}
                 `}
               >
                 Next Level <ArrowRight size={16} />
@@ -419,21 +419,21 @@ const FlexboxMasteryGame = () => {
             ) : gameState.started ? (
               <button
                 onClick={pauseGame}
-                className="px-4 py-2 rounded-md bg-amber-600 text-white hover:bg-amber-700 flex items-center gap-2 font-medium"
+                className="px-4 py-2 rounded-md bg-amber-600 text-slate-300 hover:bg-amber-700 flex items-center gap-2 font-medium"
               >
                 Pause <PauseCircle size={16} />
               </button>
             ) : (
               <button
                 onClick={startGame}
-                className="px-4 py-2 rounded-md bg-green-600 text-white hover:bg-green-700 flex items-center gap-2 font-medium"
+                className="px-4 py-2 rounded-md bg-green-600 text-slate-300 hover:bg-green-700 flex items-center gap-2 font-medium"
               >
                 {gameState.timeRemaining === currentLevel.timeLimit ? 'Start' : 'Resume'} <Play size={16} />
               </button>
             )}
             <button
               onClick={resetGame}
-              className="px-4 py-2 rounded-md bg-gray-700 text-white hover:bg-gray-600 flex items-center gap-2 font-medium"
+              className="px-4 py-2 rounded-md bg-zinc-900 text-slate-300 hover:bg-gray-600 flex items-center gap-2 font-medium"
             >
               Reset <RotateCcw size={16} />
             </button>
@@ -442,8 +442,8 @@ const FlexboxMasteryGame = () => {
               className={`
                 px-4 py-2 rounded-md flex items-center gap-2 font-medium
                 ${gameState.showHint 
-                  ? 'bg-purple-600 text-white hover:bg-purple-700' 
-                  : 'bg-zinc-700 text-white hover:bg-zinc-600'}
+                  ? 'bg-purple-600 text-slate-300 hover:bg-purple-700' 
+                  : 'bg-zinc-700 text-slate-300 hover:bg-zinc-600'}
               `}
             >
               {gameState.showHint ? 'Hide Hint' : 'Show Hint'} <Info size={16} />
@@ -457,7 +457,7 @@ const FlexboxMasteryGame = () => {
             <span className={`text-sm font-medium ${darkMode ? 'text-zinc-400' : 'text-gray-600'}`}>Progress: {progressPercentage}%</span>
             <span className={`text-sm font-medium ${darkMode ? 'text-zinc-400' : 'text-gray-600'}`}>Attempts: {gameState.attempts}</span>
           </div>
-          <div className="w-full bg-gray-700 rounded-full h-2.5">
+          <div className="w-full bg-zinc-900 rounded-full h-2.5">
             <div 
               className="h-2.5 rounded-full progress-bar bg-gradient-to-r from-indigo-500 to-purple-500" 
               style={{ width: `${progressPercentage}%` }}
@@ -466,7 +466,7 @@ const FlexboxMasteryGame = () => {
         </div>
 
         {/* Level Information */}
-        <div className={`mb-6 p-4 rounded-lg ${darkMode ? 'bg-zinc-800' : 'bg-gray-100'}`}>
+        <div className={`mb-6 p-4 rounded-lg ${darkMode ? 'bg-zinc-900' : 'bg-gray-100'}`}>
           <div className="flex items-start gap-4">
             <div 
               className={`
@@ -596,11 +596,11 @@ const FlexboxMasteryGame = () => {
               Congratulations! You successfully matched the target layout!
             </p>
             <div className="grid grid-cols-2 gap-4">
-              <div className={`p-4 rounded-lg ${darkMode ? 'bg-zinc-800/70' : 'bg-white'}`}>
+              <div className={`p-4 rounded-lg ${darkMode ? 'bg-zinc-900/70' : 'bg-white'}`}>
                 <p className="text-sm font-medium text-zinc-400 mb-1">Score</p>
                 <p className="text-2xl font-bold text-green-500">{gameState.score}</p>
               </div>
-              <div className={`p-4 rounded-lg ${darkMode ? 'bg-zinc-800/70' : 'bg-white'}`}>
+              <div className={`p-4 rounded-lg ${darkMode ? 'bg-zinc-900/70' : 'bg-white'}`}>
                 <p className="text-sm font-medium text-zinc-400 mb-1">Time Remaining</p>
                 <p className="text-2xl font-bold text-indigo-400">{formatTime(gameState.timeRemaining)}</p>
               </div>
@@ -610,7 +610,7 @@ const FlexboxMasteryGame = () => {
 
 
         {/* Flexbox Properties Controls */}
-        <div className={`p-6 rounded-xl ${darkMode ? 'bg-zinc-800' : 'bg-gray-100'} mb-6`}>
+        <div className={`p-6 rounded-xl ${darkMode ? 'bg-zinc-900' : 'bg-gray-100'} mb-6`}>
           <h3 className="text-lg font-bold mb-4">Flexbox Properties</h3>
           
           <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
@@ -657,7 +657,7 @@ const FlexboxMasteryGame = () => {
                 w-full py-3 rounded-lg font-medium text-center
                 ${!gameState.started || gameState.completed
                   ? 'bg-gray-600 text-gray-400 cursor-not-allowed' 
-                  : 'bg-gradient-to-r from-indigo-600 to-purple-600 text-white hover:from-indigo-700 hover:to-purple-700 shadow-lg'}
+                  : 'bg-gradient-to-r from-indigo-600 to-purple-600 text-slate-300 hover:from-indigo-700 hover:to-purple-700 shadow-lg'}
                 transition-all duration-300
               `}
             >
@@ -666,7 +666,7 @@ const FlexboxMasteryGame = () => {
           </div>
         </div>
         {/* CSS Code Output */}
-        <div className={`p-6 rounded-xl ${darkMode ? 'bg-zinc-800' : 'bg-gray-100'}`}>
+        <div className={`p-6 rounded-xl ${darkMode ? 'bg-zinc-900' : 'bg-gray-100'}`}>
           <h3 className="text-lg font-bold mb-4">CSS Code</h3>
           <div className={`p-4 rounded-lg ${darkMode ? 'bg-zinc-900 text-gray-300' : 'bg-gray-200 text-gray-800'} font-mono text-sm overflow-auto`}>
             <pre>{`.container {
@@ -681,7 +681,7 @@ const FlexboxMasteryGame = () => {
         </div>
 
         {/* Game Explanation */}
-        <div className={`mt-8 p-6 rounded-xl ${darkMode ? 'bg-zinc-800/60' : 'bg-gray-50'}`}>
+        <div className={`mt-8 p-6 rounded-xl ${darkMode ? 'bg-zinc-900/60' : 'bg-gray-50'}`}>
           <div className="flex items-start gap-3 mb-4">
             <FileCheck className={darkMode ? 'text-indigo-400' : 'text-indigo-600'} size={24} />
             <h3 className="text-lg font-bold">How to Play</h3>

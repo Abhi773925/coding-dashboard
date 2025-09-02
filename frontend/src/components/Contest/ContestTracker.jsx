@@ -196,10 +196,10 @@ const ContestTracker = () => {
   }, [contestData.contests, upcomingContests.length, pastContests.length])
 
   const platformColors = {
-    'LeetCode': 'bg-orange-500',
-    'Codeforces': 'bg-blue-500', 
-    'CodeChef': 'bg-yellow-500',
-    'AtCoder': 'bg-red-500'
+    'LeetCode': isDarkMode ? 'bg-orange-600' : 'bg-orange-500',
+    'Codeforces': isDarkMode ? 'bg-blue-600' : 'bg-blue-500', 
+    'CodeChef': isDarkMode ? 'bg-green-600' : 'bg-green-500',
+    'AtCoder': isDarkMode ? 'bg-purple-600' : 'bg-purple-500'
   }
 
   const platformIcons = {
@@ -275,17 +275,25 @@ const ContestTracker = () => {
 
   if (contestData.loading) {
     return (
-      <div className={`min-h-screen flex items-center justify-center ${colors?.primary?.bg?.primary || (isDarkMode ? 'bg-slate-900' : 'bg-gray-50')}`}>
+      <div className={`min-h-screen flex items-center justify-center ${
+        isDarkMode ? 'bg-zinc-900' : 'bg-white'
+      }`}>
         <div className="flex flex-col items-center space-y-4">
-          <Loader2 className={`animate-spin w-12 h-12 ${getTextClasses(isDarkMode, 'accent')}`} />
-          <p className={`${getTextClasses(isDarkMode, 'secondary')} text-lg font-medium`}>Loading contests...</p>
+          <Loader2 className={`animate-spin w-12 h-12 ${
+            isDarkMode ? 'text-indigo-400' : 'text-indigo-600'
+          }`} />
+          <p className={`${
+            isDarkMode ? 'text-slate-300' : 'text-slate-700'
+          } text-lg font-medium`}>Loading contests...</p>
         </div>
       </div>
     )
   }
 
   return (
-    <div className={`min-h-screen transition-colors duration-300 ${colors?.primary?.bg?.primary || getPageBackground(isDarkMode)}`}>
+    <div className={`min-h-screen transition-colors duration-300 ${
+      isDarkMode ? 'bg-zinc-900' : 'bg-white'
+    }`}>
       {/* Main Content Container - positioned directly below navbar */}
       <div className="flex overflow-hidden"
            style={{ 
@@ -294,12 +302,22 @@ const ContestTracker = () => {
            }}>
         
         {/* Left Sidebar - Contest List */}
-        <div className={`${isMobile ? 'w-full' : 'w-80 lg:w-96'} border-r ${colors?.navigation?.bg || (isDarkMode ? 'bg-slate-800/90' : 'bg-white/90')} ${colors?.navigation?.border || (isDarkMode ? 'border-slate-700/50' : 'border-gray-200/50')} ${colors?.effects?.backdrop || 'backdrop-blur-sm'} flex flex-col ${getShadowClasses(isDarkMode, 'heavy')}`}>
+        <div className={`${isMobile ? 'w-full' : 'w-80 lg:w-96'} border-r ${
+          isDarkMode 
+            ? 'bg-neutral-900 border-neutral-800' 
+            : 'bg-white border-neutral-200'
+        } backdrop-blur-sm flex flex-col ${getShadowClasses(isDarkMode, 'heavy')}`}>
           
           {/* Header Section */}
-          <div className={`p-6 border-b ${colors?.navigation?.border || (isDarkMode ? 'border-slate-700/50' : 'border-gray-200/50')} ${colors?.navigation?.bg || (isDarkMode ? 'bg-slate-800/90' : 'bg-white/90')} ${colors?.effects?.backdrop || 'backdrop-blur-sm'}`}>
+          <div className={`p-6 border-b ${
+            isDarkMode 
+              ? 'border-neutral-800 bg-neutral-900' 
+              : 'border-neutral-200 bg-white'
+          } backdrop-blur-sm`}>
             <div className="flex items-center justify-between mb-4">
-              <h2 className={`text-xl font-bold ${getTextClasses(isDarkMode, 'primary')}`}>
+              <h2 className={`text-xl font-bold ${
+                isDarkMode ? 'text-slate-300' : 'text-slate-700'
+              }`}>
                 {activeView === 'upcoming' ? 'Upcoming Contests' : 'Past Contests'}
               </h2>
               <div className="flex items-center gap-2">
@@ -329,7 +347,9 @@ const ContestTracker = () => {
                   </button>
                 )}
                 {/* View Toggle */}
-                <div className={`flex items-center rounded-lg p-1 ${colors?.card?.bg || getCardClasses(isDarkMode)}`}>
+                <div className={`flex items-center rounded-lg p-1 ${
+                  isDarkMode ? 'bg-neutral-800' : 'bg-neutral-100'
+                }`}>
                   <button
                     onClick={() => setActiveView('upcoming')}
                     className={`px-3 py-1.5 rounded text-sm font-medium transition-all duration-200 ${
@@ -353,7 +373,9 @@ const ContestTracker = () => {
                 </div>
               </div>
             </div>
-            <p className={`text-sm ${getTextClasses(isDarkMode, 'muted')}`}>
+            <p className={`text-sm ${
+              isDarkMode ? 'text-slate-300' : 'text-slate-700'
+            }`}>
               {activeView === 'upcoming' 
                 ? "Don't miss scheduled events"
                 : 'Review completed contests and solutions'
@@ -366,15 +388,19 @@ const ContestTracker = () => {
             }`}>
               {/* Search Bar */}
               <div className="relative mb-4">
-                <Search className={`absolute left-3 top-1/2 transform -translate-y-1/2 ${getTextClasses(isDarkMode, 'muted')}`} size={16} />
+                <Search className={`absolute left-3 top-1/2 transform -translate-y-1/2 ${
+                  isDarkMode ? 'text-slate-300' : 'text-slate-700'
+                }`} size={16} />
                 <input
                   type="text"
                   placeholder="Search Contests"
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
-                  className={`w-full pl-10 pr-4 py-2.5 rounded-lg border transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-purple-500 ${
-                    colors?.card?.bg || getCardClasses(isDarkMode)
-                  } ${colors?.card?.border || (isDarkMode ? 'border-slate-600/50' : 'border-gray-300/50')} ${getTextClasses(isDarkMode, 'primary')} placeholder:${getTextClasses(isDarkMode, 'muted')} ${colors?.effects?.backdrop || 'backdrop-blur-sm'}`}
+                  className={`w-full pl-10 pr-4 py-2.5 rounded-lg border transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-indigo-500 ${
+                    isDarkMode 
+                      ? 'bg-neutral-800 border-neutral-700 text-slate-300 placeholder:text-slate-400' 
+                      : 'bg-neutral-100 border-neutral-300 text-slate-700 placeholder:text-slate-500'
+                  } backdrop-blur-sm`}
                 />
               </div>
               
@@ -390,9 +416,11 @@ const ContestTracker = () => {
                       setSelectedPlatforms([platform])
                     }
                   }}
-                  className={`w-full px-3 py-2.5 rounded-lg border transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-purple-500 ${
-                    colors?.card?.bg || getCardClasses(isDarkMode)
-                  } ${colors?.card?.border || (isDarkMode ? 'border-slate-600/50' : 'border-gray-300/50')} ${getTextClasses(isDarkMode, 'primary')} ${colors?.effects?.backdrop || 'backdrop-blur-sm'}`}
+                  className={`w-full px-3 py-2.5 rounded-lg border transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-indigo-500 ${
+                    isDarkMode 
+                      ? 'bg-neutral-800 border-neutral-700 text-slate-300' 
+                      : 'bg-neutral-100 border-neutral-300 text-slate-700'
+                  } backdrop-blur-sm`}
                 >
                   <option value="">All Platforms Selected</option>
                   <option value="LeetCode">LeetCode</option>
@@ -418,12 +446,16 @@ const ContestTracker = () => {
                     <div
                       key={contest._id}
                       className={`p-4 rounded-xl border transition-all duration-200 hover:shadow-lg transform hover:-translate-y-1 ${
-                        colors?.card?.bg || getCardClasses(isDarkMode)
-                      } ${colors?.card?.border || (isDarkMode ? 'border-slate-600/50' : 'border-gray-200/50')} ${colors?.card?.hover || (isDarkMode ? 'hover:bg-slate-700/70' : 'hover:bg-white')} ${colors?.effects?.backdrop || 'backdrop-blur-sm'} ${getShadowClasses(isDarkMode, 'normal')}`}
+                        isDarkMode 
+                          ? 'bg-neutral-800 border-neutral-700 hover:bg-neutral-700/70' 
+                          : 'bg-neutral-100 border-neutral-200 hover:bg-white'
+                      } backdrop-blur-sm ${getShadowClasses(isDarkMode, 'normal')}`}
                     >
                       {/* Date Badge */}
                       <div className="flex items-center justify-between mb-3">
-                        <div className={`text-xs font-medium ${getTextClasses(isDarkMode, 'muted')}`}>
+                        <div className={`text-xs font-medium ${
+                          isDarkMode ? 'text-slate-300' : 'text-slate-700'
+                        }`}>
                           {formatDate(contest.start_time)}
                         </div>
                         {isPast && (
@@ -437,39 +469,45 @@ const ContestTracker = () => {
                       <div className="flex items-start gap-3">
                         <div className={`w-3 h-3 rounded-full mt-2 flex-shrink-0 ${platformTheme?.iconBg || platformColors[contest.platform]}`}></div>
                         <div className="flex-1 min-w-0">
-                          <h3 className={`font-medium text-sm leading-tight mb-2 ${getTextClasses(isDarkMode, 'primary')}`}>
+                          <h3 className={`font-medium text-sm leading-tight mb-2 ${
+                            isDarkMode ? 'text-slate-300' : 'text-slate-700'
+                          }`}>
                             {contest.title}
                           </h3>
                           <div className="flex items-center gap-3 text-xs mb-3">
-                            <span className={getTextClasses(isDarkMode, 'secondary')}>
+                            <span className={isDarkMode ? 'text-slate-300' : 'text-slate-700'}>
                               {formatTime(contest.start_time)} - {formatTime(new Date(new Date(contest.start_time).getTime() + 2*60*60*1000).toISOString())}
                             </span>
                           </div>
                           <div className="flex items-center justify-between mb-3">
                             <div className="flex items-center gap-2">
                               <span className={`text-xs px-2 py-1 rounded-lg flex items-center gap-1 ${
-                                colors?.card?.bg || (isDarkMode ? 'bg-slate-700/50' : 'bg-gray-100')
-                              } ${platformTheme?.iconText || getTextClasses(isDarkMode, 'secondary')}`}>
+                                isDarkMode ? 'bg-zinc-800' : 'bg-gray-100'
+                              } ${platformTheme?.iconText || (isDarkMode ? 'text-slate-300' : 'text-slate-700')}`}>
                                 <span>{platformIcons[contest.platform] || '📝'}</span>
                                 {contest.platform}
                               </span>
                             </div>
-                            <span className={`text-xs ${getTextClasses(isDarkMode, 'muted')}`}>
+                            <span className={`text-xs ${
+                              isDarkMode ? 'text-slate-300' : 'text-slate-700'
+                            }`}>
                               {contest.platform}
                             </span>
                           </div>
                           <div className="text-xs mb-3">
-                            <span className={getTextClasses(isDarkMode, 'secondary')}>
+                            <span className={isDarkMode ? 'text-slate-300' : 'text-slate-700'}>
                               ⏰ {getTimeRemaining(contest.start_time)}
                             </span>
                           </div>
                           <div className="text-xs mb-3">
-                            <span className={`${getTextClasses(isDarkMode, 'secondary')} truncate block`}>
+                            <span className={`${
+                              isDarkMode ? 'text-slate-300' : 'text-slate-700'
+                            } truncate block`}>
                               📍 {contest.url.includes('codechef') ? 'https://www.codechef.com/START198' : contest.url}
                             </span>
                           </div>
                           <div className="text-xs mb-4">
-                            <span className={getTextClasses(isDarkMode, 'secondary')}>
+                            <span className={isDarkMode ? 'text-slate-300' : 'text-slate-700'}>
                               🏢 {contest.platform}
                             </span>
                           </div>
@@ -497,8 +535,8 @@ const ContestTracker = () => {
                                     rel="noopener noreferrer"
                                     className={`text-xs px-3 py-1.5 rounded-lg transition-all duration-200 flex items-center gap-1 hover:scale-105 ${
                                       isDarkMode 
-                                        ? 'bg-red-600 text-white hover:bg-red-500' 
-                                        : 'bg-red-600 text-white hover:bg-red-700'
+                                        ? 'bg-red-600 text-slate-300 hover:bg-red-500' 
+                                        : 'bg-red-600 text-slate-300 hover:bg-red-700'
                                     }`}
                                     title="Watch Solution Video"
                                   >
@@ -509,7 +547,7 @@ const ContestTracker = () => {
                                   <span className={`text-xs px-3 py-1.5 rounded-lg cursor-not-allowed ${
                                     isDarkMode 
                                       ? 'bg-slate-600 text-slate-400' 
-                                      : 'bg-gray-400 text-white'
+                                      : 'bg-gray-400 text-slate-300'
                                   }`}>
                                     Video Soon
                                   </span>
@@ -536,8 +574,8 @@ const ContestTracker = () => {
                                   }}
                                   className={`text-xs px-3 py-1.5 rounded-lg transition-all duration-200 hover:scale-105 ${
                                     isDarkMode 
-                                      ? 'bg-emerald-600 text-white hover:bg-emerald-500' 
-                                      : 'bg-emerald-600 text-white hover:bg-emerald-700'
+                                      ? 'bg-emerald-600 text-slate-300 hover:bg-emerald-500' 
+                                      : 'bg-emerald-600 text-slate-300 hover:bg-emerald-700'
                                   }`}
                                   title="View Solutions & Editorial"
                                 >
@@ -563,8 +601,10 @@ const ContestTracker = () => {
                   )
                 }) : (
                   <div className="text-center py-12">
-                    <Calendar size={48} className={`mx-auto ${getTextClasses(isDarkMode, 'muted')} mb-4`} />
-                    <p className={getTextClasses(isDarkMode, 'secondary')}>
+                    <Calendar size={48} className={`mx-auto ${
+                      isDarkMode ? 'text-slate-400' : 'text-slate-500'
+                    } mb-4`} />
+                    <p className={isDarkMode ? 'text-slate-300' : 'text-slate-700'}>
                       {activeView === 'upcoming' ? 'No upcoming contests found' : 'No past contests found'}
                     </p>
                   </div>
@@ -574,12 +614,20 @@ const ContestTracker = () => {
         </div>
 
         {/* Right Side - Calendar */}
-        <div className={`${isMobile ? 'hidden' : 'flex-1'} ${colors?.navigation?.bg || (isDarkMode ? 'bg-slate-800/90' : 'bg-white/90')} ${colors?.effects?.backdrop || 'backdrop-blur-sm'} flex flex-col ${getShadowClasses(isDarkMode, 'heavy')}`}>
+        <div className={`${isMobile ? 'hidden' : 'flex-1'} ${
+          isDarkMode 
+            ? 'bg-neutral-900' 
+            : 'bg-white'
+        } backdrop-blur-sm flex flex-col ${getShadowClasses(isDarkMode, 'heavy')}`}>
           
           {/* Calendar Header */}
-          <div className={`p-6 border-b ${colors?.navigation?.border || (isDarkMode ? 'border-slate-700/50' : 'border-gray-200/50')}`}>
+          <div className={`p-6 border-b ${
+            isDarkMode ? 'border-neutral-800' : 'border-neutral-200'
+          }`}>
             <div className="flex items-center justify-between">
-              <h1 className={`text-2xl font-bold ${getTextClasses(isDarkMode, 'primary')}`}>
+              <h1 className={`text-2xl font-bold ${
+                isDarkMode ? 'text-slate-300' : 'text-slate-700'
+              }`}>
                 {getMonthName(currentDate)}
               </h1>
               
@@ -592,7 +640,11 @@ const ContestTracker = () => {
                 </button>
                 <button
                   onClick={() => setCurrentDate(new Date())}
-                  className={`px-4 py-2 text-sm font-medium rounded-lg transition-all duration-200 transform hover:scale-105 ${getButtonClasses(isDarkMode, 'primary')} ${getShadowClasses(isDarkMode, 'normal')}`}
+                  className={`px-4 py-2 text-sm font-medium rounded-lg transition-all duration-200 transform hover:scale-105 ${
+                    isDarkMode 
+                      ? 'bg-indigo-600 text-white hover:bg-indigo-500' 
+                      : 'bg-indigo-600 text-white hover:bg-indigo-700'
+                  } ${getShadowClasses(isDarkMode, 'normal')}`}
                 >
                   Today
                 </button>
@@ -613,7 +665,9 @@ const ContestTracker = () => {
               {['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'].map((day, index) => (
                 <div
                   key={day}
-                  className={`p-3 text-center text-sm font-medium ${getTextClasses(isDarkMode, 'muted')}`}
+                  className={`p-3 text-center text-sm font-medium ${
+                    isDarkMode ? 'text-slate-300' : 'text-slate-700'
+                  }`}
                 >
                   {day}
                 </div>
@@ -631,17 +685,17 @@ const ContestTracker = () => {
                   <div
                     key={index}
                     className={`min-h-24 p-2 border rounded-lg transition-all duration-200 hover:shadow-md cursor-pointer ${
-                      colors?.card?.bg || getCardClasses(isDarkMode)
-                    } ${colors?.card?.border || (isDarkMode ? 'border-slate-600/50' : 'border-gray-200/50')} ${
-                      colors?.card?.hover || (isDarkMode ? 'hover:border-slate-500/50' : 'hover:border-gray-300/50')
-                    } ${isToday ? `ring-2 ring-purple-500 ${isDarkMode ? 'bg-purple-900/20' : 'bg-purple-50'}` : ''}`}
+                      isDarkMode 
+                        ? 'bg-neutral-800 border-neutral-700 hover:border-neutral-600' 
+                        : 'bg-neutral-100 border-neutral-200 hover:border-neutral-300'
+                    } ${isToday ? `ring-2 ring-indigo-500 ${isDarkMode ? 'bg-indigo-900/20' : 'bg-indigo-50'}` : ''}`}
                   >
                     {date && (
                       <>
                         <div className={`text-sm font-medium mb-1 ${
                           isToday 
-                            ? getTextClasses(isDarkMode, 'accent') 
-                            : getTextClasses(isDarkMode, 'primary')
+                            ? (isDarkMode ? 'text-indigo-400' : 'text-indigo-600')
+                            : (isDarkMode ? 'text-slate-300' : 'text-slate-700')
                         }`}>
                           {date.getDate()}
                         </div>
@@ -659,7 +713,7 @@ const ContestTracker = () => {
                                 href={contest.url}
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                className={`block text-xs p-1 rounded-lg text-white truncate cursor-pointer transition-all duration-200 hover:opacity-80 hover:scale-105 ${
+                                className={`block text-xs p-1 rounded-lg text-slate-300 truncate cursor-pointer transition-all duration-200 hover:opacity-80 hover:scale-105 ${
                                   platformTheme?.progress || platformColors[contest.platform] || 'bg-gray-500'
                                 } ${isPast ? 'opacity-60' : ''}`}
                                 title={`${contest.title} ${isPast ? '(Completed)' : ''} - Click to view contest`}
@@ -673,8 +727,10 @@ const ContestTracker = () => {
                           })}
                           {dayContests.length > 3 && (
                             <div className={`text-xs p-1 rounded-lg text-center cursor-pointer hover:opacity-80 transition-all duration-200 ${
-                              colors?.card?.bg || (isDarkMode ? 'bg-slate-600/50' : 'bg-gray-200')
-                            } ${getTextClasses(isDarkMode, 'secondary')}`}>
+                              isDarkMode 
+                                ? 'bg-neutral-700/50 text-slate-300' 
+                                : 'bg-gray-200 text-slate-700'
+                            }`}>
                               +{dayContests.length - 3} more
                             </div>
                           )}

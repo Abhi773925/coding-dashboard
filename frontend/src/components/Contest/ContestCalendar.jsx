@@ -188,8 +188,15 @@ const ContestCalendar = () => {
   const platformColors = {
     'LeetCode': 'bg-orange-500',
     'Codeforces': 'bg-blue-500', 
-    'CodeChef': 'bg-yellow-500',
+    'CodeChef': 'bg-amber-500',
     'AtCoder': 'bg-red-500'
+  }
+
+  const platformGradients = {
+    'LeetCode': 'bg-gradient-to-r from-orange-500 to-orange-600',
+    'Codeforces': 'bg-gradient-to-r from-blue-500 to-blue-600', 
+    'CodeChef': 'bg-gradient-to-r from-amber-500 to-yellow-600',
+    'AtCoder': 'bg-gradient-to-r from-red-500 to-red-600'
   }
 
   const platformIcons = {
@@ -254,17 +261,17 @@ const ContestCalendar = () => {
 
   if (contestData.loading) {
     return (
-      <div className={`min-h-screen flex items-center justify-center ${isDarkMode ? 'bg-gray-900' : 'bg-gray-50'}`}>
+      <div className={`min-h-screen flex items-center justify-center ${isDarkMode ? 'bg-zinc-900' : 'bg-gradient-to-br from-slate-50 via-white to-blue-50'}`}>
         <div className="flex flex-col items-center">
-          <Loader2 className={`animate-spin text-4xl ${isDarkMode ? "text-indigo-400" : "text-indigo-600"} mb-4`} />
-          <p className={isDarkMode ? "text-slate-300" : "text-gray-700"}>Loading contests...</p>
+          <Loader2 className={`animate-spin text-4xl ${isDarkMode ? "text-blue-400" : "text-blue-600"} mb-4`} />
+          <p className={isDarkMode ? "text-slate-300" : "text-slate-700"}>Loading contests...</p>
         </div>
       </div>
     )
   }
 
   return (
-    <div className={`min-h-screen transition-colors duration-300 ${isDarkMode ? "bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 text-white" : "bg-gradient-to-br from-blue-50 via-white to-purple-50 text-gray-900"}`}>
+    <div className={`min-h-screen transition-colors duration-300 ${isDarkMode ? "bg-zinc-900 text-slate-300" : "bg-gradient-to-br from-slate-50 via-white to-blue-50 text-gray-900"}`}>
       {/* Main Content Container - positioned directly below navbar */}
       <div className="flex overflow-hidden"
            style={{ 
@@ -273,12 +280,12 @@ const ContestCalendar = () => {
            }}>
         
         {/* Left Sidebar - Contest List */}
-        <div className={`${isMobile ? 'w-full' : 'w-80 lg:w-96'} border-r ${isDarkMode ? 'bg-gray-800/90 border-gray-700 backdrop-blur-sm' : 'bg-white/90 border-gray-200 backdrop-blur-sm'} flex flex-col shadow-xl`}>
+        <div className={`${isMobile ? 'w-full' : 'w-80 lg:w-96'} border-r ${isDarkMode ? 'bg-zinc-800/95 border-zinc-700 backdrop-blur-md' : 'bg-white/95 border-slate-200 backdrop-blur-md'} flex flex-col shadow-2xl`}>
           
           {/* Header Section */}
-          <div className={`p-6 border-b ${isDarkMode ? 'border-gray-700 bg-gray-800/90 backdrop-blur-sm' : 'border-gray-200 bg-white/90 backdrop-blur-sm'}`}>
+          <div className={`p-6 border-b ${isDarkMode ? 'border-zinc-700 bg-zinc-800/90 backdrop-blur-md' : 'border-slate-200 bg-white/90 backdrop-blur-md'}`}>
             <div className="flex items-center justify-between mb-4">
-              <h2 className={`text-xl font-bold ${isDarkMode ? 'text-white' : 'text-gray-900'}`}>
+              <h2 className={`text-xl font-bold ${isDarkMode ? 'text-slate-200' : 'text-gray-900'}`}>
                 {activeView === 'upcoming' ? 'Upcoming Contests' : 'Past Contests'}
               </h2>
               <div className="flex items-center gap-2">
@@ -287,8 +294,8 @@ const ContestCalendar = () => {
                   onClick={activeView === 'past' ? refreshSolutionVideos : fetchContests}
                   className={`p-2 rounded-lg transition-all duration-200 ${
                     isDarkMode 
-                      ? 'bg-gray-700 text-gray-300 hover:bg-gray-600' 
-                      : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+                      ? 'bg-zinc-700 text-slate-300 hover:bg-zinc-600 hover:scale-105' 
+                      : 'bg-slate-100 text-slate-600 hover:bg-slate-200 hover:scale-105'
                   }`}
                   title={activeView === 'past' ? 'Refresh Solution Videos' : 'Refresh Contests'}
                 >
@@ -303,10 +310,10 @@ const ContestCalendar = () => {
                     onClick={() => setShowMobileFilters(!showMobileFilters)}
                     className={`p-2 rounded-lg transition-all duration-200 ${
                       showMobileFilters
-                        ? 'bg-blue-600 text-white'
+                        ? 'bg-blue-600 text-white shadow-lg scale-105'
                         : isDarkMode 
-                          ? 'bg-gray-700 text-gray-300 hover:bg-gray-600' 
-                          : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+                          ? 'bg-zinc-700 text-slate-300 hover:bg-zinc-600 hover:scale-105' 
+                          : 'bg-slate-100 text-slate-600 hover:bg-slate-200 hover:scale-105'
                     }`}
                     title="Toggle Search & Filters"
                   >
@@ -314,13 +321,15 @@ const ContestCalendar = () => {
                   </button>
                 )}
                 {/* View Toggle */}
-                <div className="flex items-center bg-gray-100 dark:bg-gray-700 rounded-lg p-1">
+                <div className={`flex items-center ${isDarkMode ? 'bg-zinc-700' : 'bg-slate-100'} rounded-lg p-1 shadow-inner`}>
                   <button
                     onClick={() => setActiveView('upcoming')}
                     className={`px-3 py-1.5 rounded text-sm font-medium transition-all duration-200 ${
                       activeView === 'upcoming'
-                        ? 'bg-white dark:bg-gray-600 text-blue-600 dark:text-blue-400 shadow-sm'
-                        : 'text-gray-600 dark:text-gray-300 hover:text-gray-800 dark:hover:text-gray-100'
+                        ? 'bg-blue-600 text-white shadow-md transform scale-105'
+                        : isDarkMode 
+                          ? 'text-slate-300 hover:text-slate-100 hover:bg-zinc-600' 
+                          : 'text-slate-600 hover:text-slate-800 hover:bg-slate-200'
                     }`}
                   >
                     Upcoming
@@ -329,8 +338,10 @@ const ContestCalendar = () => {
                     onClick={() => setActiveView('past')}
                     className={`px-3 py-1.5 rounded text-sm font-medium transition-all duration-200 ${
                       activeView === 'past'
-                        ? 'bg-white dark:bg-gray-600 text-blue-600 dark:text-blue-400 shadow-sm'
-                        : 'text-gray-600 dark:text-gray-300 hover:text-gray-800 dark:hover:text-gray-100'
+                        ? 'bg-blue-600 text-white shadow-md transform scale-105'
+                        : isDarkMode 
+                          ? 'text-slate-300 hover:text-slate-100 hover:bg-zinc-600' 
+                          : 'text-slate-600 hover:text-slate-800 hover:bg-slate-200'
                     }`}
                   >
                     Past
@@ -338,7 +349,7 @@ const ContestCalendar = () => {
                 </div>
               </div>
             </div>
-            <p className={`text-sm ${isDarkMode ? 'text-gray-400' : 'text-gray-600'}`}>
+            <p className={`text-sm ${isDarkMode ? 'text-slate-400' : 'text-slate-600'}`}>
               {activeView === 'upcoming' 
                 ? "Don't miss scheduled events"
                 : 'Review completed contests and solutions'
@@ -351,17 +362,17 @@ const ContestCalendar = () => {
             }`}>
               {/* Search Bar */}
               <div className="relative mb-4">
-                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" size={16} />
+                <Search className={`absolute left-3 top-1/2 transform -translate-y-1/2 ${isDarkMode ? 'text-slate-400' : 'text-slate-400'}`} size={16} />
                 <input
                   type="text"
                   placeholder="Search Contests"
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
-                  className={`w-full pl-10 pr-4 py-2.5 rounded-lg border transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500 ${
+                  className={`w-full pl-10 pr-4 py-2.5 rounded-lg border transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 ${
                     isDarkMode 
-                      ? 'bg-gray-700/80 border-gray-600 text-white placeholder-gray-400' 
-                      : 'bg-white/80 border-gray-300 text-gray-900 placeholder-gray-500'
-                  } backdrop-blur-sm`}
+                      ? 'bg-zinc-700/80 border-zinc-600 text-slate-200 placeholder-slate-400' 
+                      : 'bg-white/90 border-slate-300 text-slate-900 placeholder-slate-500'
+                  } backdrop-blur-sm shadow-sm`}
                 />
               </div>
               
@@ -377,11 +388,11 @@ const ContestCalendar = () => {
                       setSelectedPlatforms([platform])
                     }
                   }}
-                  className={`w-full px-3 py-2.5 rounded-lg border transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500 ${
+                  className={`w-full px-3 py-2.5 rounded-lg border transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 ${
                     isDarkMode 
-                      ? 'bg-gray-700/80 border-gray-600 text-white' 
-                      : 'bg-white/80 border-gray-300 text-gray-900'
-                  } backdrop-blur-sm`}
+                      ? 'bg-zinc-700/80 border-zinc-600 text-slate-200' 
+                      : 'bg-white/90 border-slate-300 text-slate-900'
+                  } backdrop-blur-sm shadow-sm`}
                 >
                   <option value="">All Platforms Selected</option>
                   <option value="LeetCode">LeetCode</option>
@@ -405,19 +416,19 @@ const ContestCalendar = () => {
                   return (
                     <div
                       key={contest._id}
-                      className={`p-4 rounded-xl border transition-all duration-200 hover:shadow-lg transform hover:-translate-y-1 ${
+                      className={`p-4 rounded-xl border transition-all duration-300 hover:shadow-xl transform hover:-translate-y-1 hover:scale-[1.02] ${
                         isDarkMode 
-                          ? 'bg-gray-700/80 border-gray-600 hover:bg-gray-700 hover:border-gray-500 backdrop-blur-sm' 
-                          : 'bg-white/80 border-gray-200 hover:bg-white hover:border-gray-300 backdrop-blur-sm'
-                      }`}
+                          ? 'bg-zinc-800/80 border-zinc-700 hover:bg-zinc-800 hover:border-zinc-600 backdrop-blur-md' 
+                          : 'bg-white/90 border-slate-200 hover:bg-white hover:border-slate-300 backdrop-blur-md'
+                      } shadow-lg`}
                     >
                       {/* Date Badge */}
                       <div className="flex items-center justify-between mb-3">
-                        <div className={`text-xs font-medium ${isDarkMode ? 'text-gray-400' : 'text-gray-500'}`}>
+                        <div className={`text-xs font-medium ${isDarkMode ? 'text-slate-400' : 'text-slate-500'}`}>
                           {formatDate(contest.start_time)}
                         </div>
                         {isPast && (
-                          <span className="text-xs px-2 py-1 rounded bg-red-100 text-red-600 dark:bg-red-900 dark:text-red-300">
+                          <span className="text-xs px-2 py-1 rounded-full bg-red-100 text-red-600 dark:bg-red-900/50 dark:text-red-300 font-medium">
                             Completed
                           </span>
                         )}
@@ -425,39 +436,39 @@ const ContestCalendar = () => {
                       
                       {/* Contest Info */}
                       <div className="flex items-start gap-3">
-                        <div className={`w-2 h-2 rounded-full mt-2 flex-shrink-0 ${platformColors[contest.platform]}`}></div>
+                        <div className={`w-3 h-3 rounded-full mt-2 flex-shrink-0 ${platformGradients[contest.platform]} shadow-md`}></div>
                         <div className="flex-1 min-w-0">
-                          <h3 className={`font-medium text-sm leading-tight mb-2 ${isDarkMode ? 'text-white' : 'text-gray-900'}`}>
+                          <h3 className={`font-medium text-sm leading-tight mb-2 ${isDarkMode ? 'text-slate-200' : 'text-slate-900'}`}>
                             {contest.title}
                           </h3>
                           <div className="flex items-center gap-3 text-xs mb-3">
-                            <span className={`${isDarkMode ? 'text-gray-400' : 'text-gray-500'}`}>
+                            <span className={`${isDarkMode ? 'text-slate-400' : 'text-slate-500'}`}>
                               {formatTime(contest.start_time)} - {formatTime(new Date(new Date(contest.start_time).getTime() + 2*60*60*1000).toISOString())}
                             </span>
                           </div>
                           <div className="flex items-center justify-between mb-3">
                             <div className="flex items-center gap-2">
-                              <span className={`text-xs px-2 py-1 rounded flex items-center gap-1 ${isDarkMode ? 'bg-gray-600 text-gray-300' : 'bg-gray-100 text-gray-600'}`}>
+                              <span className={`text-xs px-2 py-1 rounded flex items-center gap-1 ${isDarkMode ? 'bg-zinc-700 text-slate-300' : 'bg-slate-100 text-slate-600'} shadow-sm`}>
                                 <span>{platformIcons[contest.platform] || '📝'}</span>
                                 Starters {Math.floor(Math.random() * 200) + 1}
                               </span>
                             </div>
-                            <span className={`text-xs ${isDarkMode ? 'text-gray-400' : 'text-gray-500'}`}>
+                            <span className={`text-xs ${isDarkMode ? 'text-slate-400' : 'text-slate-500'} font-medium`}>
                               {contest.platform}
                             </span>
                           </div>
                           <div className="text-xs mb-3">
-                            <span className={`${isDarkMode ? 'text-gray-400' : 'text-gray-500'}`}>
+                            <span className={`${isDarkMode ? 'text-slate-400' : 'text-slate-500'}`}>
                               ⏰ {getTimeRemaining(contest.start_time)}
                             </span>
                           </div>
                           <div className="text-xs mb-3">
-                            <span className={`${isDarkMode ? 'text-gray-400' : 'text-gray-500'}`}>
+                            <span className={`${isDarkMode ? 'text-slate-400' : 'text-slate-500'}`}>
                               📍 {contest.url.includes('codechef') ? 'https://www.codechef.com/START198' : contest.url}
                             </span>
                           </div>
                           <div className="text-xs mb-4">
-                            <span className={`${isDarkMode ? 'text-gray-400' : 'text-gray-500'}`}>
+                            <span className={`${isDarkMode ? 'text-slate-400' : 'text-slate-500'}`}>
                               🏢 {contest.platform}
                             </span>
                           </div>
@@ -468,7 +479,7 @@ const ContestCalendar = () => {
                               href={contest.url}
                               target="_blank"
                               rel="noopener noreferrer"
-                              className="text-xs px-3 py-1.5 rounded text-blue-600 underline hover:text-blue-700 transition-colors"
+                              className="text-xs px-3 py-1.5 rounded-lg text-blue-600 underline hover:text-blue-700 transition-colors font-medium"
                             >
                               {isPast ? 'View Contest' : 'Join Contest'}
                             </a>
@@ -481,14 +492,14 @@ const ContestCalendar = () => {
                                     href={contest.solution_link}
                                     target="_blank"
                                     rel="noopener noreferrer"
-                                    className="text-xs px-3 py-1.5 rounded bg-red-600 text-white hover:bg-red-700 transition-colors flex items-center gap-1"
+                                    className="text-xs px-3 py-1.5 rounded-lg bg-red-600 text-white hover:bg-red-700 transition-all duration-200 flex items-center gap-1 shadow-md hover:shadow-lg transform hover:scale-105"
                                     title="Watch Solution Video"
                                   >
                                     <Youtube size={12} />
                                     Video
                                   </a>
                                 ) : (
-                                  <span className="text-xs px-3 py-1.5 rounded bg-gray-400 text-white cursor-not-allowed">
+                                  <span className="text-xs px-3 py-1.5 rounded-lg bg-gray-400 text-white cursor-not-allowed">
                                     Video Soon
                                   </span>
                                 )}
@@ -512,7 +523,7 @@ const ContestCalendar = () => {
                                     
                                     window.open(solutionUrl, '_blank');
                                   }}
-                                  className="text-xs px-3 py-1.5 rounded bg-green-600 text-white hover:bg-green-700 transition-colors"
+                                  className="text-xs px-3 py-1.5 rounded-lg bg-green-600 text-white hover:bg-green-700 transition-all duration-200 shadow-md hover:shadow-lg transform hover:scale-105"
                                   title="View Solutions & Editorial"
                                 >
                                   Editorial
@@ -525,7 +536,7 @@ const ContestCalendar = () => {
                                 navigator.clipboard.writeText(contest.url);
                                 // You can add a toast notification here
                               }}
-                              className="text-xs px-3 py-1.5 rounded bg-gray-500 text-white hover:bg-gray-600 transition-colors"
+                              className="text-xs px-3 py-1.5 rounded-lg bg-gray-500 text-white hover:bg-gray-600 transition-all duration-200 shadow-md hover:shadow-lg transform hover:scale-105"
                               title="Copy Contest Link"
                             >
                               Copy Link
@@ -537,8 +548,8 @@ const ContestCalendar = () => {
                   )
                 }) : (
                   <div className="text-center py-12">
-                    <Calendar size={48} className="mx-auto text-gray-400 mb-4" />
-                    <p className="text-gray-500 dark:text-gray-400">
+                    <Calendar size={48} className={`mx-auto ${isDarkMode ? 'text-slate-400' : 'text-slate-400'} mb-4`} />
+                    <p className={`${isDarkMode ? 'text-slate-400' : 'text-slate-500'}`}>
                       {activeView === 'upcoming' ? 'No upcoming contests found' : 'No past contests found'}
                     </p>
                   </div>
@@ -548,34 +559,34 @@ const ContestCalendar = () => {
         </div>
 
         {/* Right Side - Calendar */}
-        <div className={`${isMobile ? 'hidden' : 'flex-1'} ${isDarkMode ? 'bg-gray-800/90 backdrop-blur-sm' : 'bg-white/90 backdrop-blur-sm'} flex flex-col shadow-xl`}>
+        <div className={`${isMobile ? 'hidden' : 'flex-1'} ${isDarkMode ? 'bg-zinc-800/95 backdrop-blur-md' : 'bg-white/95 backdrop-blur-md'} flex flex-col shadow-2xl`}>
           
           {/* Calendar Header */}
-          <div className={`p-6 border-b ${isDarkMode ? 'border-gray-700' : 'border-gray-200'}`}>
+          <div className={`p-6 border-b ${isDarkMode ? 'border-zinc-700' : 'border-slate-200'}`}>
             <div className="flex items-center justify-between">
-              <h1 className={`text-2xl font-bold ${isDarkMode ? 'text-white' : 'text-gray-900'}`}>
+              <h1 className={`text-2xl font-bold ${isDarkMode ? 'text-slate-200' : 'text-slate-900'}`}>
                 {getMonthName(currentDate)}
               </h1>
               
               <div className="flex items-center gap-2">
                 <button
                   onClick={() => navigateMonth(-1)}
-                  className={`p-2 rounded-lg transition-colors hover:scale-110 ${
-                    isDarkMode ? 'text-gray-300 hover:bg-gray-700' : 'text-gray-600 hover:bg-gray-100'
+                  className={`p-2 rounded-lg transition-all duration-200 hover:scale-110 ${
+                    isDarkMode ? 'text-slate-300 hover:bg-zinc-700' : 'text-slate-600 hover:bg-slate-100'
                   }`}
                 >
                   <ChevronLeft size={20} />
                 </button>
                 <button
                   onClick={() => setCurrentDate(new Date())}
-                  className="px-4 py-2 text-sm font-medium text-white bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 rounded-lg transition-all duration-200 transform hover:scale-105 shadow-md"
+                  className="px-4 py-2 text-sm font-medium text-white bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 rounded-lg transition-all duration-200 transform hover:scale-105 shadow-lg hover:shadow-xl"
                 >
                   Today
                 </button>
                 <button
                   onClick={() => navigateMonth(1)}
-                  className={`p-2 rounded-lg transition-colors hover:scale-110 ${
-                    isDarkMode ? 'text-gray-300 hover:bg-gray-700' : 'text-gray-600 hover:bg-gray-100'
+                  className={`p-2 rounded-lg transition-all duration-200 hover:scale-110 ${
+                    isDarkMode ? 'text-slate-300 hover:bg-zinc-700' : 'text-slate-600 hover:bg-slate-100'
                   }`}
                 >
                   <ChevronRight size={20} />
@@ -592,7 +603,7 @@ const ContestCalendar = () => {
                 <div
                   key={day}
                   className={`p-3 text-center text-sm font-medium ${
-                    isDarkMode ? 'text-gray-400' : 'text-gray-500'
+                    isDarkMode ? 'text-slate-400' : 'text-slate-500'
                   }`}
                 >
                   {day}
@@ -610,18 +621,18 @@ const ContestCalendar = () => {
                 return (
                   <div
                     key={index}
-                    className={`min-h-24 p-2 border rounded-lg transition-all duration-200 hover:shadow-md cursor-pointer ${
+                    className={`min-h-24 p-2 border rounded-lg transition-all duration-300 hover:shadow-lg cursor-pointer transform hover:scale-[1.02] ${
                       isDarkMode 
-                        ? 'border-gray-600 hover:border-gray-500 bg-gray-700' 
-                        : 'border-gray-200 hover:border-gray-300 bg-white'
-                    } ${isToday ? 'ring-2 ring-blue-500 bg-blue-50 dark:bg-blue-900/20' : ''}`}
+                        ? 'border-zinc-600 hover:border-zinc-500 bg-zinc-800/80' 
+                        : 'border-slate-200 hover:border-slate-300 bg-white/80'
+                    } ${isToday ? 'ring-2 ring-blue-500 bg-blue-50 dark:bg-blue-900/20 shadow-lg' : ''} backdrop-blur-sm`}
                   >
                     {date && (
                       <>
                         <div className={`text-sm font-medium mb-1 ${
                           isToday 
                             ? 'text-blue-600 dark:text-blue-400' 
-                            : isDarkMode ? 'text-gray-200' : 'text-gray-800'
+                            : isDarkMode ? 'text-slate-200' : 'text-slate-800'
                         }`}>
                           {date.getDate()}
                         </div>
@@ -638,7 +649,7 @@ const ContestCalendar = () => {
                                 href={contest.url}
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                className={`block text-xs p-1 rounded text-white truncate cursor-pointer transition-all duration-200 hover:opacity-80 hover:scale-105 ${
+                                className={`block text-xs p-1 rounded text-white truncate cursor-pointer transition-all duration-200 hover:opacity-80 hover:scale-105 shadow-sm ${
                                   platformColors[contest.platform] || 'bg-gray-500'
                                 } ${isPast ? 'opacity-60' : ''}`}
                                 title={`${contest.title} ${isPast ? '(Completed)' : ''} - Click to view contest`}
@@ -651,8 +662,8 @@ const ContestCalendar = () => {
                             )
                           })}
                           {dayContests.length > 3 && (
-                            <div className={`text-xs p-1 rounded text-center cursor-pointer hover:opacity-80 ${
-                              isDarkMode ? 'bg-gray-600 text-gray-300' : 'bg-gray-200 text-gray-600'
+                            <div className={`text-xs p-1 rounded text-center cursor-pointer hover:opacity-80 transition-all duration-200 ${
+                              isDarkMode ? 'bg-zinc-600 text-slate-300' : 'bg-slate-200 text-slate-600'
                             }`}>
                               +{dayContests.length - 3} more
                             </div>

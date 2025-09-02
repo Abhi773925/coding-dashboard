@@ -64,33 +64,33 @@ const Analytics = () => {
   }, []);
 
   return (
-    <div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg">
-      <h2 className="text-2xl font-bold mb-6 text-gray-800 dark:text-white">Analytics Dashboard</h2>
+    <div className="bg-white dark:bg-zinc-900 p-6 rounded-lg shadow-lg">
+      <h2 className="text-2xl font-bold mb-6 text-gray-800 dark:text-slate-300">Analytics Dashboard</h2>
       
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
         {/* Active Users Card */}
-        <div className="bg-blue-50 dark:bg-gray-700 p-4 rounded-lg">
+        <div className="bg-blue-50 dark:bg-zinc-900 p-4 rounded-lg">
           <h3 className="text-lg font-semibold text-blue-600 dark:text-blue-400">Active Users</h3>
           <p className="text-3xl font-bold text-blue-800 dark:text-blue-300">{analyticsData.activeUsers}</p>
           <p className="text-sm text-blue-600 dark:text-blue-400">Currently Online</p>
         </div>
 
         {/* Page Views Card */}
-        <div className="bg-green-50 dark:bg-gray-700 p-4 rounded-lg">
+        <div className="bg-green-50 dark:bg-zinc-900 p-4 rounded-lg">
           <h3 className="text-lg font-semibold text-green-600 dark:text-green-400">Page Views</h3>
           <p className="text-3xl font-bold text-green-800 dark:text-green-300">{analyticsData.pageViews}</p>
           <p className="text-sm text-green-600 dark:text-green-400">Total Views Today</p>
         </div>
 
         {/* Daily Active Users Card */}
-        <div className="bg-purple-50 dark:bg-gray-700 p-4 rounded-lg">
+        <div className="bg-purple-50 dark:bg-zinc-900 p-4 rounded-lg">
           <h3 className="text-lg font-semibold text-purple-600 dark:text-purple-400">Daily Active Users</h3>
           <p className="text-3xl font-bold text-purple-800 dark:text-purple-300">{analyticsData.dailyActiveUsers}</p>
           <p className="text-sm text-purple-600 dark:text-purple-400">Users Today</p>
         </div>
 
         {/* Total Users Card */}
-        <div className="bg-orange-50 dark:bg-gray-700 p-4 rounded-lg">
+        <div className="bg-orange-50 dark:bg-zinc-900 p-4 rounded-lg">
           <h3 className="text-lg font-semibold text-orange-600 dark:text-orange-400">Total Users</h3>
           <p className="text-3xl font-bold text-orange-800 dark:text-orange-300">{analyticsData.totalUsers}</p>
           <p className="text-sm text-orange-600 dark:text-orange-400">Registered Users</p>
@@ -99,10 +99,10 @@ const Analytics = () => {
 
       {/* Component Usage Statistics */}
       <div className="mt-8">
-        <h3 className="text-xl font-bold mb-4 text-gray-800 dark:text-white">Component Usage Statistics</h3>
+        <h3 className="text-xl font-bold mb-4 text-gray-800 dark:text-slate-300">Component Usage Statistics</h3>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
           {Object.entries(analyticsData.componentStats || {}).map(([component, stats]) => (
-            <div key={component} className="bg-indigo-50 dark:bg-gray-700 p-4 rounded-lg">
+            <div key={component} className="bg-indigo-50 dark:bg-zinc-900 p-4 rounded-lg">
               <h4 className="text-lg font-semibold text-indigo-600 dark:text-indigo-400 capitalize">
                 {component.replace(/([A-Z])/g, ' $1').trim()}
               </h4>

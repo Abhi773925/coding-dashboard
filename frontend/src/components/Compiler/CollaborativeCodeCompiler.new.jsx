@@ -688,16 +688,16 @@ const CollaborativeCodeCompiler = ({ sessionId: propSessionId }) => {
   const canEdit = role === 'owner' || role === 'editor';
 
   return (
-    <div className={`h-screen flex flex-col ${isDarkMode ? 'bg-gray-900 text-white' : 'bg-white text-gray-900'}`}>
+    <div className={`h-screen flex flex-col ${isDarkMode ? 'bg-zinc-900 text-slate-300' : 'bg-white text-gray-900'}`}>
       {/* Top Toolbar - Enhanced like original CodeCompiler */}
       <div className={`h-14 border-b flex items-center justify-between px-4 ${
-        isDarkMode ? 'bg-gray-800 border-gray-700' : 'bg-gray-50 border-gray-200'
+        isDarkMode ? 'bg-zinc-900 border-gray-700' : 'bg-gray-50 border-gray-200'
       }`}>
         <div className="flex items-center space-x-4">
           {/* Sidebar Toggle */}
           <button
             onClick={() => setSidebarOpen(!sidebarOpen)}
-            className={`p-2 rounded ${isDarkMode ? 'hover:bg-gray-700' : 'hover:bg-gray-200'}`}
+            className={`p-2 rounded ${isDarkMode ? 'hover:bg-zinc-900' : 'hover:bg-gray-200'}`}
           >
             <Layout className="w-4 h-4" />
           </button>
@@ -712,7 +712,7 @@ const CollaborativeCodeCompiler = ({ sessionId: propSessionId }) => {
             }}
             className={`px-3 py-2 rounded border min-w-48 ${
               isDarkMode 
-                ? 'bg-gray-700 text-white border-gray-600' 
+                ? 'bg-zinc-900 text-slate-300 border-gray-600' 
                 : 'bg-white text-gray-900 border-gray-300'
             }`}
           >
@@ -731,7 +731,7 @@ const CollaborativeCodeCompiler = ({ sessionId: propSessionId }) => {
             placeholder="Enter filename..."
             className={`px-3 py-2 rounded border w-48 ${
               isDarkMode 
-                ? 'bg-gray-700 text-white border-gray-600' 
+                ? 'bg-zinc-900 text-slate-300 border-gray-600' 
                 : 'bg-white text-gray-900 border-gray-300'
             }`}
           />
@@ -742,7 +742,7 @@ const CollaborativeCodeCompiler = ({ sessionId: propSessionId }) => {
           {/* Theme Toggle */}
           <button
             onClick={toggleTheme}
-            className={`p-2 rounded ${isDarkMode ? 'hover:bg-gray-700' : 'hover:bg-gray-200'}`}
+            className={`p-2 rounded ${isDarkMode ? 'hover:bg-zinc-900' : 'hover:bg-gray-200'}`}
           >
             {isDarkMode ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />}
           </button>
@@ -751,7 +751,7 @@ const CollaborativeCodeCompiler = ({ sessionId: propSessionId }) => {
           <button
             onClick={() => fileInputRef.current?.click()}
             className={`px-4 py-2 rounded flex items-center space-x-2 ${
-              isDarkMode ? 'bg-gray-700 hover:bg-gray-600' : 'bg-gray-200 hover:bg-gray-300'
+              isDarkMode ? 'bg-zinc-900 hover:bg-gray-600' : 'bg-gray-200 hover:bg-gray-300'
             }`}
           >
             <Upload className="w-4 h-4" />
@@ -764,7 +764,7 @@ const CollaborativeCodeCompiler = ({ sessionId: propSessionId }) => {
             disabled={isExecuting}
             className={`px-4 py-2 rounded flex items-center space-x-2 font-medium ${
               !isExecuting
-                ? 'bg-green-600 hover:bg-green-700 text-white'
+                ? 'bg-green-600 hover:bg-green-700 text-slate-300'
                 : 'bg-gray-600 text-gray-300 cursor-not-allowed'
             }`}
           >
@@ -778,7 +778,7 @@ const CollaborativeCodeCompiler = ({ sessionId: propSessionId }) => {
             disabled={!code.trim()}
             className={`px-4 py-2 rounded flex items-center space-x-2 font-medium ${
               code.trim()
-                ? 'bg-blue-600 hover:bg-blue-700 text-white'
+                ? 'bg-blue-600 hover:bg-blue-700 text-slate-300'
                 : 'bg-gray-600 text-gray-300 cursor-not-allowed'
             }`}
           >
@@ -791,8 +791,8 @@ const CollaborativeCodeCompiler = ({ sessionId: propSessionId }) => {
             onClick={copyCode}
             className={`px-4 py-2 rounded flex items-center space-x-2 ${
               copied
-                ? 'bg-green-600 text-white'
-                : isDarkMode ? 'bg-gray-700 hover:bg-gray-600' : 'bg-gray-200 hover:bg-gray-300'
+                ? 'bg-green-600 text-slate-300'
+                : isDarkMode ? 'bg-zinc-900 hover:bg-gray-600' : 'bg-gray-200 hover:bg-gray-300'
             }`}
           >
             <Copy className="w-4 h-4" />
@@ -803,7 +803,7 @@ const CollaborativeCodeCompiler = ({ sessionId: propSessionId }) => {
           <button
             onClick={downloadCode}
             className={`px-4 py-2 rounded flex items-center space-x-2 ${
-              isDarkMode ? 'bg-gray-700 hover:bg-gray-600' : 'bg-gray-200 hover:bg-gray-300'
+              isDarkMode ? 'bg-zinc-900 hover:bg-gray-600' : 'bg-gray-200 hover:bg-gray-300'
             }`}
           >
             <Download className="w-4 h-4" />
@@ -815,8 +815,8 @@ const CollaborativeCodeCompiler = ({ sessionId: propSessionId }) => {
             onClick={() => setShowTerminal(!showTerminal)}
             className={`p-2 rounded ${
               showTerminal
-                ? 'bg-blue-600 text-white'
-                : isDarkMode ? 'hover:bg-gray-700' : 'hover:bg-gray-200'
+                ? 'bg-blue-600 text-slate-300'
+                : isDarkMode ? 'hover:bg-zinc-900' : 'hover:bg-gray-200'
             }`}
           >
             <Terminal className="w-4 h-4" />
@@ -839,7 +839,7 @@ const CollaborativeCodeCompiler = ({ sessionId: propSessionId }) => {
         {/* Left Sidebar - File Explorer */}
         {sidebarOpen && (
           <div className={`w-80 border-r flex flex-col ${
-            isDarkMode ? 'bg-gray-800 border-gray-700' : 'bg-gray-50 border-gray-200'
+            isDarkMode ? 'bg-zinc-900 border-gray-700' : 'bg-gray-50 border-gray-200'
           }`}>
             {/* Search */}
             <div className="p-4 border-b">
@@ -852,7 +852,7 @@ const CollaborativeCodeCompiler = ({ sessionId: propSessionId }) => {
                   onChange={(e) => setSearchQuery(e.target.value)}
                   className={`w-full pl-10 pr-4 py-2 rounded border text-sm ${
                     isDarkMode 
-                      ? 'bg-gray-700 border-gray-600 text-white' 
+                      ? 'bg-zinc-900 border-gray-600 text-slate-300' 
                       : 'bg-white border-gray-300'
                   }`}
                 />
@@ -1010,14 +1010,14 @@ const CollaborativeCodeCompiler = ({ sessionId: propSessionId }) => {
           {/* Tabs */}
           {openTabs.length > 0 && (
             <div className={`border-b flex overflow-x-auto ${
-              isDarkMode ? 'bg-gray-800 border-gray-700' : 'bg-gray-50 border-gray-200'
+              isDarkMode ? 'bg-zinc-900 border-gray-700' : 'bg-gray-50 border-gray-200'
             }`}>
               {openTabs.map((tab) => (
                 <div
                   key={tab.id}
                   className={`flex items-center space-x-2 px-4 py-2 border-r cursor-pointer hover:bg-opacity-10 hover:bg-blue-500 ${
                     activeFile?.id === tab.data.id 
-                      ? isDarkMode ? 'bg-gray-700' : 'bg-white'
+                      ? isDarkMode ? 'bg-zinc-900' : 'bg-white'
                       : ''
                   }`}
                   onClick={() => openFile(tab.data, tab.type)}
@@ -1065,12 +1065,12 @@ const CollaborativeCodeCompiler = ({ sessionId: propSessionId }) => {
 
             {/* Right Panel - Input and Output */}
             <div className={`w-96 border-l flex flex-col ${
-              isDarkMode ? 'bg-gray-800 border-gray-700' : 'bg-gray-50 border-gray-200'
+              isDarkMode ? 'bg-zinc-900 border-gray-700' : 'bg-gray-50 border-gray-200'
             }`}>
               {/* Input Section */}
               <div className="h-1/2 border-b border-gray-700">
                 <div className={`h-10 border-b flex items-center justify-between px-4 ${
-                  isDarkMode ? 'bg-gray-700 border-gray-600' : 'bg-gray-200 border-gray-300'
+                  isDarkMode ? 'bg-zinc-900 border-gray-600' : 'bg-gray-200 border-gray-300'
                 }`}>
                   <span className="text-sm font-medium">📥 Input Terminal</span>
                   <div className="flex items-center gap-2">
@@ -1097,7 +1097,7 @@ const CollaborativeCodeCompiler = ({ sessionId: propSessionId }) => {
                     placeholder="Enter input for your program (if required)..."
                     className={`w-full h-full p-3 border rounded resize-none font-mono text-sm ${
                       isDarkMode 
-                        ? 'bg-gray-900 text-white border-gray-600' 
+                        ? 'bg-zinc-900 text-slate-300 border-gray-600' 
                         : 'bg-white text-gray-900 border-gray-300'
                     }`}
                     style={{ minHeight: '200px' }}
@@ -1108,7 +1108,7 @@ const CollaborativeCodeCompiler = ({ sessionId: propSessionId }) => {
               {/* Output Section */}
               <div className="h-1/2">
                 <div className={`h-10 border-b flex items-center justify-between px-4 ${
-                  isDarkMode ? 'bg-gray-700 border-gray-600' : 'bg-gray-200 border-gray-300'
+                  isDarkMode ? 'bg-zinc-900 border-gray-600' : 'bg-gray-200 border-gray-300'
                 }`}>
                   <div className="flex items-center space-x-3">
                     <Code2 className="w-4 h-4" />
@@ -1123,7 +1123,7 @@ const CollaborativeCodeCompiler = ({ sessionId: propSessionId }) => {
                   <div className="flex space-x-2">
                     <button
                       onClick={() => navigator.clipboard.writeText(output)}
-                      className={`text-gray-400 transition-colors ${isDarkMode ? 'hover:text-white' : 'hover:text-gray-600'}`}
+                      className={`text-gray-400 transition-colors ${isDarkMode ? 'hover:text-slate-300' : 'hover:text-gray-600'}`}
                       title="Copy output"
                     >
                       <Copy className="w-4 h-4" />
@@ -1133,7 +1133,7 @@ const CollaborativeCodeCompiler = ({ sessionId: propSessionId }) => {
                         setOutput('');
                         setExecutionDetails(null);
                       }}
-                      className={`text-gray-400 transition-colors ${isDarkMode ? 'hover:text-white' : 'hover:text-gray-600'}`}
+                      className={`text-gray-400 transition-colors ${isDarkMode ? 'hover:text-slate-300' : 'hover:text-gray-600'}`}
                       title="Clear output"
                     >
                       <X className="w-4 h-4" />
@@ -1150,12 +1150,12 @@ const CollaborativeCodeCompiler = ({ sessionId: propSessionId }) => {
                   {/* Execution Details */}
                   {executionDetails && (
                     <div className={`mt-4 p-3 border rounded ${
-                      isDarkMode ? 'bg-gray-900 border-gray-600' : 'bg-gray-100 border-gray-300'
+                      isDarkMode ? 'bg-zinc-900 border-gray-600' : 'bg-gray-100 border-gray-300'
                     }`}>
                       <div className="flex items-center space-x-3 text-xs">
                         <span className={`px-2 py-1 rounded ${
                           executionDetails.status === 'Accepted' ? 'bg-green-600' : 'bg-red-600'
-                        } text-white`}>
+                        } text-slate-300`}>
                           {executionDetails.status}
                         </span>
                         <span className="text-gray-400">
@@ -1186,13 +1186,13 @@ const CollaborativeCodeCompiler = ({ sessionId: propSessionId }) => {
       {/* Terminal */}
       {showTerminal && (
         <div className={`h-64 border-t ${
-          isDarkMode ? 'bg-gray-900 border-gray-700' : 'bg-black border-gray-200'
+          isDarkMode ? 'bg-zinc-900 border-gray-700' : 'bg-zinc-900 border-gray-200'
         }`}>
-          <div className="flex items-center justify-between p-2 bg-gray-800 text-white">
+          <div className="flex items-center justify-between p-2 bg-zinc-900 text-slate-300">
             <span className="font-semibold">Terminal - {currentDirectory}</span>
             <button
               onClick={() => setShowTerminal(false)}
-              className="text-gray-400 hover:text-white"
+              className="text-gray-400 hover:text-slate-300"
             >
               <X className="w-4 h-4" />
             </button>
@@ -1216,7 +1216,7 @@ const CollaborativeCodeCompiler = ({ sessionId: propSessionId }) => {
 
       {/* Status Bar */}
       <div className={`h-6 border-t flex items-center justify-between px-4 text-xs ${
-        isDarkMode ? 'bg-gray-800 border-gray-700' : 'bg-gray-50 border-gray-200'
+        isDarkMode ? 'bg-zinc-900 border-gray-700' : 'bg-gray-50 border-gray-200'
       }`}>
         <div className="flex items-center space-x-4">
           <span>{selectedLang.name}</span>

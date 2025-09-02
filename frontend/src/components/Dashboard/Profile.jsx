@@ -110,7 +110,7 @@ const Profile = () => {
         variants={sectionVariants}
         className={`
           rounded-2xl shadow-xl p-6 sm:p-8 mb-6 transition-all duration-300
-          ${isDarkMode ? "bg-slate-800/70 border border-slate-700/50" : "bg-white/80 border border-gray-200/50"}
+          ${isDarkMode ? "bg-slate-800/70 border bg-zinc-900" : "bg-white/80 border border-gray-200/50"}
           ${getPlatformColor(sectionId, "border")}
         `}
         style={{
@@ -127,7 +127,7 @@ const Profile = () => {
               />
             )}
             <div>
-              <h3 className={`text-2xl font-bold ${isDarkMode ? "text-white" : "text-gray-900"}`}>
+              <h3 className={`text-2xl font-bold ${isDarkMode ? "text-slate-300" : "text-gray-900"}`}>
                 {stats.profile.realName || stats.username}
               </h3>
               <p className={`text-sm ${isDarkMode ? "text-slate-400" : "text-gray-500"}`}>@{stats.username}</p>
@@ -167,7 +167,7 @@ const Profile = () => {
                   variants={itemVariants}
                   className={`p-4 rounded-lg ${isDarkMode ? "bg-slate-700" : "bg-gray-100"}`}
                 >
-                  <h4 className={`font-semibold ${isDarkMode ? "text-white" : "text-gray-900"}`}>Problem Solving</h4>
+                  <h4 className={`font-semibold ${isDarkMode ? "text-slate-300" : "text-gray-900"}`}>Problem Solving</h4>
                   <div className="mt-2 space-y-1">
                     <p className={`flex justify-between ${isDarkMode ? "text-slate-300" : "text-gray-700"}`}>
                       <span>Total Solved:</span>
@@ -239,7 +239,7 @@ const Profile = () => {
                   variants={itemVariants}
                   className={`p-4 rounded-lg ${isDarkMode ? "bg-slate-700" : "bg-gray-100"}`}
                 >
-                  <h4 className={`font-semibold ${isDarkMode ? "text-white" : "text-gray-900"}`}>Contest Stats</h4>
+                  <h4 className={`font-semibold ${isDarkMode ? "text-slate-300" : "text-gray-900"}`}>Contest Stats</h4>
                   {stats.contestStats ? (
                     <div className="mt-2 space-y-1">
                       <p className={`flex justify-between ${isDarkMode ? "text-slate-300" : "text-gray-700"}`}>
@@ -272,7 +272,7 @@ const Profile = () => {
                   variants={itemVariants}
                   className={`p-4 rounded-lg ${isDarkMode ? "bg-slate-700" : "bg-gray-100"}`}
                 >
-                  <h4 className={`font-semibold ${isDarkMode ? "text-white" : "text-gray-900"}`}>Activity</h4>
+                  <h4 className={`font-semibold ${isDarkMode ? "text-slate-300" : "text-gray-900"}`}>Activity</h4>
                   <div className="mt-2 space-y-1">
                     <p className={`flex justify-between ${isDarkMode ? "text-slate-300" : "text-gray-700"}`}>
                       <span>Current Streak:</span>
@@ -308,7 +308,7 @@ const Profile = () => {
               </div>
 
               <motion.div variants={itemVariants} className="mt-6">
-                <h4 className={`font-semibold ${isDarkMode ? "text-white" : "text-gray-900"} mb-2`}>Top Skills</h4>
+                <h4 className={`font-semibold ${isDarkMode ? "text-slate-300" : "text-gray-900"} mb-2`}>Top Skills</h4>
                 <div className="flex flex-wrap gap-2">
                   {stats.problemStats.byTags.fundamental
                     .sort((a, b) => b.problemsSolved - a.problemsSolved)
@@ -345,7 +345,7 @@ const Profile = () => {
         variants={sectionVariants}
         className={`
           rounded-2xl shadow-xl p-6 sm:p-8 mb-6 transition-all duration-300
-          ${isDarkMode ? "bg-slate-800/70 border border-slate-700/50" : "bg-white/80 border border-gray-200/50"}
+          ${isDarkMode ? "bg-slate-800/70 border bg-zinc-900" : "bg-white/80 border border-gray-200/50"}
           ${getPlatformColor(sectionId, "border")}
         `}
         style={{
@@ -362,7 +362,7 @@ const Profile = () => {
               />
             )}
             <div>
-              <h3 className={`text-2xl font-bold ${isDarkMode ? "text-white" : "text-gray-900"}`}>
+              <h3 className={`text-2xl font-bold ${isDarkMode ? "text-slate-300" : "text-gray-900"}`}>
                 {stats.profile.name || stats.username}
               </h3>
               <p className={`text-sm ${isDarkMode ? "text-slate-400" : "text-gray-500"}`}>@{stats.profile.login}</p>
@@ -400,7 +400,7 @@ const Profile = () => {
                   variants={itemVariants}
                   className={`p-4 rounded-lg ${isDarkMode ? "bg-slate-700" : "bg-gray-100"}`}
                 >
-                  <h4 className={`font-semibold ${isDarkMode ? "text-white" : "text-gray-900"}`}>Profile Stats</h4>
+                  <h4 className={`font-semibold ${isDarkMode ? "text-slate-300" : "text-gray-900"}`}>Profile Stats</h4>
                   <div className="mt-2 space-y-1">
                     <p className={`flex justify-between ${isDarkMode ? "text-slate-300" : "text-gray-700"}`}>
                       <span>Public Repos:</span>
@@ -425,7 +425,7 @@ const Profile = () => {
                   variants={itemVariants}
                   className={`p-4 rounded-lg ${isDarkMode ? "bg-slate-700" : "bg-gray-100"}`}
                 >
-                  <h4 className={`font-semibold ${isDarkMode ? "text-white" : "text-gray-900"}`}>Location & Contact</h4>
+                  <h4 className={`font-semibold ${isDarkMode ? "text-slate-300" : "text-gray-900"}`}>Location & Contact</h4>
                   <div className="mt-2 space-y-1">
                     {stats.profile.location ? (
                       <p className={`flex justify-between ${isDarkMode ? "text-slate-300" : "text-gray-700"}`}>
@@ -463,7 +463,7 @@ const Profile = () => {
 
               {stats.repositories && stats.repositories.length > 0 && (
                 <motion.div variants={itemVariants} className="mt-6">
-                  <h4 className={`font-semibold ${isDarkMode ? "text-white" : "text-gray-900"} mb-2`}>Repositories</h4>
+                  <h4 className={`font-semibold ${isDarkMode ? "text-slate-300" : "text-gray-900"} mb-2`}>Repositories</h4>
                   <div className="overflow-x-auto rounded-lg border">
                     <table
                       className={`min-w-full divide-y ${isDarkMode ? "divide-slate-700 border-slate-700" : "divide-gray-200 border-gray-200"}`}
@@ -504,7 +504,7 @@ const Profile = () => {
                           .map((repo) => (
                             <tr
                               key={repo.name}
-                              className={`border-t ${isDarkMode ? "border-slate-700" : "border-gray-200"} hover:${isDarkMode ? "bg-slate-700/50" : "bg-gray-50"}`}
+                              className={`border-t ${isDarkMode ? "border-slate-700" : "border-gray-200"} hover:${isDarkMode ? "bg-zinc-900" : "bg-gray-50"}`}
                             >
                               <td className="px-4 py-3">
                                 <a
@@ -538,7 +538,7 @@ const Profile = () => {
 
               {stats.languages && stats.languages.length > 0 && (
                 <motion.div variants={itemVariants} className="mt-6">
-                  <h4 className={`font-semibold ${isDarkMode ? "text-white" : "text-gray-900"} mb-2`}>Top Languages</h4>
+                  <h4 className={`font-semibold ${isDarkMode ? "text-slate-300" : "text-gray-900"} mb-2`}>Top Languages</h4>
                   <div className="flex flex-wrap gap-2">
                     {stats.languages.slice(0, 5).map((lang) => (
                       <span
@@ -573,7 +573,7 @@ const Profile = () => {
         variants={sectionVariants}
         className={`
           rounded-2xl shadow-xl p-6 sm:p-8 mb-6 transition-all duration-300
-          ${isDarkMode ? "bg-slate-800/70 border border-slate-700/50" : "bg-white/80 border border-gray-200/50"}
+          ${isDarkMode ? "bg-slate-800/70 border bg-zinc-900" : "bg-white/80 border border-gray-200/50"}
           ${getPlatformColor(sectionId, "border")}
         `}
         style={{
@@ -590,7 +590,7 @@ const Profile = () => {
               />
             )}
             <div>
-              <h3 className={`text-2xl font-bold ${isDarkMode ? "text-white" : "text-gray-900"}`}>
+              <h3 className={`text-2xl font-bold ${isDarkMode ? "text-slate-300" : "text-gray-900"}`}>
                 {stats.profile.name}
               </h3>
               <p className={`text-sm ${isDarkMode ? "text-slate-400" : "text-gray-500"}`}>{stats.profile.institute}</p>
@@ -628,7 +628,7 @@ const Profile = () => {
                   variants={itemVariants}
                   className={`p-4 rounded-lg ${isDarkMode ? "bg-slate-700" : "bg-gray-100"}`}
                 >
-                  <h4 className={`font-semibold ${isDarkMode ? "text-white" : "text-gray-900"}`}>Problem Stats</h4>
+                  <h4 className={`font-semibold ${isDarkMode ? "text-slate-300" : "text-gray-900"}`}>Problem Stats</h4>
                   <div className="mt-2 space-y-1">
                     {Object.entries(stats.problemStats || {}).map(([category, count]) => (
                       <p
@@ -646,7 +646,7 @@ const Profile = () => {
                   variants={itemVariants}
                   className={`p-4 rounded-lg ${isDarkMode ? "bg-slate-700" : "bg-gray-100"}`}
                 >
-                  <h4 className={`font-semibold ${isDarkMode ? "text-white" : "text-gray-900"}`}>Coding Scores</h4>
+                  <h4 className={`font-semibold ${isDarkMode ? "text-slate-300" : "text-gray-900"}`}>Coding Scores</h4>
                   <div className="mt-2 space-y-1">
                     {Object.entries(stats.codingScores || {}).map(([score, value]) => (
                       <p
@@ -663,7 +663,7 @@ const Profile = () => {
 
               {stats.badges && stats.badges.length > 0 && (
                 <motion.div variants={itemVariants} className="mt-6">
-                  <h4 className={`font-semibold ${isDarkMode ? "text-white" : "text-gray-900"} mb-2`}>Badges</h4>
+                  <h4 className={`font-semibold ${isDarkMode ? "text-slate-300" : "text-gray-900"} mb-2`}>Badges</h4>
                   <div className="flex flex-wrap gap-2">
                     {stats.badges.map((badge) => (
                       <span
@@ -679,7 +679,7 @@ const Profile = () => {
 
               {stats.monthlyActivity && Object.keys(stats.monthlyActivity).length > 0 && (
                 <motion.div variants={itemVariants} className="mt-6">
-                  <h4 className={`font-semibold ${isDarkMode ? "text-white" : "text-gray-900"} mb-2`}>
+                  <h4 className={`font-semibold ${isDarkMode ? "text-slate-300" : "text-gray-900"} mb-2`}>
                     Recent Activity
                   </h4>
                   <div className={`p-4 rounded-lg ${isDarkMode ? "bg-slate-700" : "bg-gray-100"}`}>
@@ -735,7 +735,7 @@ const Profile = () => {
         variants={sectionVariants}
         className={`
           rounded-2xl shadow-xl p-6 sm:p-8 mb-8 transition-all duration-300
-          ${isDarkMode ? "bg-slate-800/70 border border-slate-700/50" : "bg-white/80 border border-gray-200/50"}
+          ${isDarkMode ? "bg-slate-800/70 border bg-zinc-900" : "bg-white/80 border border-gray-200/50"}
         `}
         style={{
           boxShadow: isDarkMode ? "0 15px 40px rgba(0,0,0,0.4)" : "0 15px 40px rgba(0,0,0,0.1)",
@@ -752,7 +752,7 @@ const Profile = () => {
         <motion.div
           variants={itemVariants}
           className={`
-            bg-gradient-to-r from-purple-600 to-blue-600 rounded-xl p-6 text-white shadow-lg
+            bg-gradient-to-r from-purple-600 to-blue-600 rounded-xl p-6 text-slate-300 shadow-lg
             ${isDarkMode ? "shadow-purple-900/30" : "shadow-purple-600/30"}
           `}
         >
@@ -817,7 +817,7 @@ const Profile = () => {
         variants={sectionVariants}
         className={`
           rounded-2xl shadow-xl p-6 sm:p-8 mb-8 transition-all duration-300
-          ${isDarkMode ? "bg-slate-800/70 border border-slate-700/50" : "bg-white/80 border border-gray-200/50"}
+          ${isDarkMode ? "bg-slate-800/70 border bg-zinc-900" : "bg-white/80 border border-gray-200/50"}
         `}
         style={{
           boxShadow: isDarkMode ? "0 15px 40px rgba(0,0,0,0.4)" : "0 15px 40px rgba(0,0,0,0.1)",
@@ -846,7 +846,7 @@ const Profile = () => {
               whileTap={{ scale: 0.97 }}
               className={`
                 border rounded-xl p-6 text-center transition-all duration-300
-                ${isDarkMode ? "border-slate-700 bg-slate-700/50" : "border-gray-200 bg-gray-50/50"}
+                ${isDarkMode ? "border-slate-700 bg-zinc-900" : "border-gray-200 bg-gray-50/50"}
               `}
             >
               <div
@@ -876,7 +876,7 @@ const Profile = () => {
                       : "Connect your coding profile."}
               </p>
               <button
-                className={`w-full py-3 px-4 rounded-lg text-white font-semibold text-base
+                className={`w-full py-3 px-4 rounded-lg text-slate-300 font-semibold text-base
                   transition-all duration-300 hover:scale-[1.02]
                   ${isDarkMode ? "bg-purple-600 hover:bg-purple-700" : "bg-blue-600 hover:bg-blue-700"}
                   shadow-md hover:shadow-lg`}
@@ -939,7 +939,7 @@ const Profile = () => {
           <button
             onClick={() => window.location.reload()}
             className={`
-              px-6 py-3 rounded-xl text-white font-semibold
+              px-6 py-3 rounded-xl text-slate-300 font-semibold
               transition-all duration-300 transform hover:scale-105
               ${isDarkMode ? "bg-purple-600 hover:bg-purple-700" : "bg-blue-600 hover:bg-blue-700"}
               shadow-lg
@@ -960,14 +960,14 @@ const Profile = () => {
         <div
           className={`
             text-center p-8 rounded-2xl shadow-xl w-full max-w-md
-            ${isDarkMode ? "bg-slate-800/70 border border-slate-700/50 text-slate-300" : "bg-white/80 border border-gray-200/50 text-gray-900"}
+            ${isDarkMode ? "bg-slate-800/70 border bg-zinc-900 text-slate-300" : "bg-white/80 border border-gray-200/50 text-gray-900"}
           `}
           style={{
             boxShadow: isDarkMode ? "0 25px 50px rgba(0,0,0,0.5)" : "0 25px 50px rgba(0,0,0,0.15)",
           }}
         >
           <UserCircle size={48} className="mx-auto mb-4 text-purple-500" />
-          <h3 className={`text-xl font-bold mb-2 ${isDarkMode ? "text-white" : "text-gray-900"}`}>
+          <h3 className={`text-xl font-bold mb-2 ${isDarkMode ? "text-slate-300" : "text-gray-900"}`}>
             No profile data available
           </h3>
           <p className={`${isDarkMode ? "text-slate-400" : "text-gray-500"} mb-4`}>
@@ -978,7 +978,7 @@ const Profile = () => {
               /* navigate to settings or provide instructions */
             }}
             className={`
-              px-6 py-3 rounded-xl text-white font-semibold
+              px-6 py-3 rounded-xl text-slate-300 font-semibold
               transition-all duration-300 transform hover:scale-105
               ${isDarkMode ? "bg-purple-600 hover:bg-purple-700" : "bg-blue-600 hover:bg-blue-700"}
               shadow-lg
@@ -996,7 +996,7 @@ const Profile = () => {
         min-h-screen transition-all duration-700
         ${
           isDarkMode
-            ? "bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900"
+            ? "bg-zinc-900"
             : "bg-gradient-to-br from-gray-50 via-white to-gray-50"
         }
       `}
@@ -1030,7 +1030,7 @@ const Profile = () => {
           animate="visible"
           variants={sectionVariants}
           className={`
-            bg-gradient-to-r from-purple-600 to-blue-600 rounded-2xl shadow-xl p-6 sm:p-8 mb-8 text-white
+            bg-gradient-to-r from-purple-600 to-blue-600 rounded-2xl shadow-xl p-6 sm:p-8 mb-8 text-slate-300
             ${isDarkMode ? "shadow-purple-900/30" : "shadow-purple-600/30"}
           `}
         >
@@ -1073,7 +1073,7 @@ const Profile = () => {
               <div key={platform}>
                 <h2
                   className={`text-2xl sm:text-3xl font-bold mb-6 pb-3 border-b
-                    ${isDarkMode ? "text-white border-slate-700" : "text-gray-900 border-gray-200"}
+                    ${isDarkMode ? "text-slate-300 border-slate-700" : "text-gray-900 border-gray-200"}
                     bg-clip-text text-transparent
                     ${
                       platform === "leetcode"

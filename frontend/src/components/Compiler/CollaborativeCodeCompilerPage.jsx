@@ -1634,7 +1634,7 @@ const CollaborativeCodeCompiler = ({ sessionId: propSessionId }) => {
                   onChange={(e) => setSearchQuery(e.target.value)}
                   className={`w-full pl-10 pr-4 py-2 border rounded transition-colors ${
                     isDarkMode
-                      ? "bg-gray-700 text-white border-gray-600 focus:border-blue-500"
+                      ? "bg-zinc-900 text-slate-300 border-gray-600 focus:border-blue-500"
                       : "bg-white text-gray-900 border-gray-300 focus:border-blue-500"
                   } focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50`}
                 />
@@ -1652,7 +1652,7 @@ const CollaborativeCodeCompiler = ({ sessionId: propSessionId }) => {
                   disabled={!code.trim()}
                   className={`flex items-center space-x-2 px-3 py-2 rounded-lg text-sm font-medium transition-colors ${
                     code.trim()
-                      ? "bg-green-600 hover:bg-green-700 text-white"
+                      ? "bg-green-600 hover:bg-green-700 text-slate-300"
                       : `${isDarkMode ? "bg-gray-600 text-gray-300" : "bg-gray-300 text-gray-500"} cursor-not-allowed`
                   }`}
                 >
@@ -1666,7 +1666,7 @@ const CollaborativeCodeCompiler = ({ sessionId: propSessionId }) => {
               {/* Language Templates */}
               <div className={`${
                 isDarkMode 
-                  ? "bg-gray-700 border-gray-600" 
+                  ? "bg-zinc-900 border-gray-600" 
                   : "bg-white border-gray-300"
               } rounded-lg border overflow-hidden`}>
                 <button
@@ -1726,7 +1726,7 @@ const CollaborativeCodeCompiler = ({ sessionId: propSessionId }) => {
               {uploadedFiles.length > 0 && (
                 <div className={`${
                   isDarkMode 
-                    ? "bg-gray-700 border-gray-600" 
+                    ? "bg-zinc-900 border-gray-600" 
                     : "bg-white border-gray-300"
                 } rounded-lg border overflow-hidden`}>
                   <button
@@ -1809,7 +1809,7 @@ const CollaborativeCodeCompiler = ({ sessionId: propSessionId }) => {
               {/* Saved Code Snippets */}
               <div className={`${
                 isDarkMode 
-                  ? "bg-gray-700 border-gray-600" 
+                  ? "bg-zinc-900 border-gray-600" 
                   : "bg-white border-gray-300"
               } rounded-lg border overflow-hidden`}>
                 <button
@@ -1944,7 +1944,7 @@ const CollaborativeCodeCompiler = ({ sessionId: propSessionId }) => {
                 <div className="space-y-4">
                   <div>
                     <h3 className="font-semibold mb-2">Session Info</h3>
-                    <div className="text-xs font-mono bg-gray-700 p-2 rounded break-all overflow-hidden">{sessionId}</div>
+                    <div className="text-xs font-mono bg-zinc-900 p-2 rounded break-all overflow-hidden">{sessionId}</div>
                     <div
                       className={`text-xs flex items-center space-x-2 mt-2 ${isConnected ? "text-green-500" : "text-red-500"}`}
                     >
@@ -1957,7 +1957,7 @@ const CollaborativeCodeCompiler = ({ sessionId: propSessionId }) => {
                     <button
                       onClick={copySessionLink}
                       className={`w-full px-3 py-2 text-xs rounded flex items-center space-x-2 ${
-                        isDarkMode ? "bg-gray-700 hover:bg-gray-600" : "bg-gray-200 hover:bg-gray-300"
+                        isDarkMode ? "bg-zinc-900 hover:bg-gray-600" : "bg-gray-200 hover:bg-gray-300"
                       }`}
                     >
                       <Link className="w-3 h-3" />
@@ -1982,7 +1982,7 @@ const CollaborativeCodeCompiler = ({ sessionId: propSessionId }) => {
                       users.map((user) => (
                         <div
                           key={user.id}
-                          className="flex items-center justify-between text-sm group p-2 rounded hover:bg-gray-700 min-w-0"
+                          className="flex items-center justify-between text-sm group p-2 rounded hover:bg-zinc-900 min-w-0"
                         >
                           <div className="flex items-center space-x-2 flex-1 min-w-0">
                             <div className={`w-2 h-2 rounded-full flex-shrink-0 ${user.isActive ? "bg-green-500" : "bg-gray-400"}`} />
@@ -2009,7 +2009,7 @@ const CollaborativeCodeCompiler = ({ sessionId: propSessionId }) => {
                               <select
                                 value={user.role}
                                 onChange={(e) => updateUserRole(user.id, e.target.value)}
-                                className="text-xs bg-gray-600 text-white rounded px-1 py-1"
+                                className="text-xs bg-gray-600 text-slate-300 rounded px-1 py-1"
                               >
                                 <option value="viewer">Viewer</option>
                                 <option value="editor">Editor</option>
@@ -2038,7 +2038,7 @@ const CollaborativeCodeCompiler = ({ sessionId: propSessionId }) => {
               <div className="text-sm text-gray-400">Current directory: {currentDirectory}</div>
             </div>
 
-            <div className="flex-1 bg-black text-green-400 font-mono text-sm p-4 overflow-y-auto">
+            <div className="flex-1 bg-zinc-900 text-green-400 font-mono text-sm p-4 overflow-y-auto">
               <pre className="whitespace-pre-wrap">{terminalOutput || "Terminal ready..."}</pre>
               <div className="flex items-center mt-2">
                 <span className="text-blue-400">$ </span> 
@@ -2080,7 +2080,7 @@ const CollaborativeCodeCompiler = ({ sessionId: propSessionId }) => {
                     <button
                       key={snippet._id}
                       onClick={() => loadSavedSnippet(snippet)}
-                      className="w-full flex items-center space-x-3 p-3 bg-gray-700 hover:bg-gray-600 rounded-lg transition-colors text-left"
+                      className="w-full flex items-center space-x-3 p-3 bg-zinc-900 hover:bg-gray-600 rounded-lg transition-colors text-left"
                     >
                       <Star className="w-4 h-4 text-yellow-500" />
                       <div className="flex-1 min-w-0">
@@ -2112,7 +2112,7 @@ const CollaborativeCodeCompiler = ({ sessionId: propSessionId }) => {
                 <div className="space-y-2">
                   <button
                     onClick={toggleTheme}
-                    className="w-full flex items-center justify-between p-3 bg-gray-700 hover:bg-gray-600 rounded-lg transition-colors group"
+                    className="w-full flex items-center justify-between p-3 bg-zinc-900 hover:bg-gray-600 rounded-lg transition-colors group"
                     title={isDarkMode ? "Switch to Light Mode" : "Switch to Dark Mode"}
                   >
                     <div className="flex items-center space-x-3">
@@ -2126,7 +2126,7 @@ const CollaborativeCodeCompiler = ({ sessionId: propSessionId }) => {
                         </div>
                       </div>
                     </div>
-                    <div className="text-gray-400 group-hover:text-white transition-colors">
+                    <div className="text-gray-400 group-hover:text-slate-300 transition-colors">
                       <span className="text-xs">Toggle</span>
                     </div>
                   </button>
@@ -2142,7 +2142,7 @@ const CollaborativeCodeCompiler = ({ sessionId: propSessionId }) => {
                     className={`w-full flex items-center justify-between p-3 rounded-lg transition-colors group ${
                       rightPanelOpen 
                         ? "bg-blue-600 hover:bg-blue-700" 
-                        : "bg-gray-700 hover:bg-gray-600"
+                        : "bg-zinc-900 hover:bg-gray-600"
                     }`}
                     title={rightPanelOpen ? "Hide Input/Output Panel" : "Show Input/Output Panel"}
                   >
@@ -2179,14 +2179,14 @@ const CollaborativeCodeCompiler = ({ sessionId: propSessionId }) => {
                     disabled={!code.trim()}
                     className={`w-full flex items-center justify-between p-3 rounded-lg transition-colors group ${
                       code.trim()
-                        ? "bg-gray-700 hover:bg-gray-600"
-                        : "bg-gray-800 cursor-not-allowed opacity-50"
+                        ? "bg-zinc-900 hover:bg-gray-600"
+                        : "bg-zinc-900 cursor-not-allowed opacity-50"
                     }`}
                     title={code.trim() ? "Copy current code to clipboard" : "No code to copy"}
                   >
                     <div className="flex items-center space-x-3">
                       <div className={`w-8 h-8 rounded-lg flex items-center justify-center ${
-                        code.trim() ? "bg-gray-600" : "bg-gray-700"
+                        code.trim() ? "bg-gray-600" : "bg-zinc-900"
                       }`}>
                         <Copy className="w-4 h-4 text-green-400" />
                       </div>
@@ -2197,7 +2197,7 @@ const CollaborativeCodeCompiler = ({ sessionId: propSessionId }) => {
                         </div>
                       </div>
                     </div>
-                    <div className="text-gray-400 group-hover:text-white transition-colors">
+                    <div className="text-gray-400 group-hover:text-slate-300 transition-colors">
                       <span className="text-xs">Ctrl+C</span>
                     </div>
                   </button>
@@ -2207,14 +2207,14 @@ const CollaborativeCodeCompiler = ({ sessionId: propSessionId }) => {
                     disabled={!code.trim()}
                     className={`w-full flex items-center justify-between p-3 rounded-lg transition-colors group ${
                       code.trim()
-                        ? "bg-gray-700 hover:bg-gray-600"
-                        : "bg-gray-800 cursor-not-allowed opacity-50"
+                        ? "bg-zinc-900 hover:bg-gray-600"
+                        : "bg-zinc-900 cursor-not-allowed opacity-50"
                     }`}
                     title={code.trim() ? "Download code as file" : "No code to download"}
                   >
                     <div className="flex items-center space-x-3">
                       <div className={`w-8 h-8 rounded-lg flex items-center justify-center ${
-                        code.trim() ? "bg-gray-600" : "bg-gray-700"
+                        code.trim() ? "bg-gray-600" : "bg-zinc-900"
                       }`}>
                         <Download className="w-4 h-4 text-purple-400" />
                       </div>
@@ -2225,7 +2225,7 @@ const CollaborativeCodeCompiler = ({ sessionId: propSessionId }) => {
                         </div>
                       </div>
                     </div>
-                    <div className="text-gray-400 group-hover:text-white transition-colors">
+                    <div className="text-gray-400 group-hover:text-slate-300 transition-colors">
                       <span className="text-xs">Ctrl+S</span>
                     </div>
                   </button>
@@ -2235,14 +2235,14 @@ const CollaborativeCodeCompiler = ({ sessionId: propSessionId }) => {
                     disabled={!code.trim()}
                     className={`w-full flex items-center justify-between p-3 rounded-lg transition-colors group ${
                       code.trim()
-                        ? "bg-gray-700 hover:bg-gray-600"
-                        : "bg-gray-800 cursor-not-allowed opacity-50"
+                        ? "bg-zinc-900 hover:bg-gray-600"
+                        : "bg-zinc-900 cursor-not-allowed opacity-50"
                     }`}
                     title={code.trim() ? "Save code to your snippets" : "No code to save"}
                   >
                     <div className="flex items-center space-x-3">
                       <div className={`w-8 h-8 rounded-lg flex items-center justify-center ${
-                        code.trim() ? "bg-gray-600" : "bg-gray-700"
+                        code.trim() ? "bg-gray-600" : "bg-zinc-900"
                       }`}>
                         <Save className="w-4 h-4 text-yellow-400" />
                       </div>
@@ -2253,7 +2253,7 @@ const CollaborativeCodeCompiler = ({ sessionId: propSessionId }) => {
                         </div>
                       </div>
                     </div>
-                    <div className="text-gray-400 group-hover:text-white transition-colors">
+                    <div className="text-gray-400 group-hover:text-slate-300 transition-colors">
                       <span className="text-xs">Ctrl+Shift+S</span>
                     </div>
                   </button>
@@ -2264,7 +2264,7 @@ const CollaborativeCodeCompiler = ({ sessionId: propSessionId }) => {
               <div>
                 <h3 className="font-semibold mb-3 text-gray-300">Editor</h3>
                 <div className="space-y-2">
-                  <div className="w-full flex items-center justify-between p-3 bg-gray-700 rounded-lg">
+                  <div className="w-full flex items-center justify-between p-3 bg-zinc-900 rounded-lg">
                     <div className="flex items-center space-x-3">
                       <div className="w-8 h-8 rounded-lg bg-gray-600 flex items-center justify-center">
                         <Code2 className="w-4 h-4 text-blue-400" />
@@ -2281,7 +2281,7 @@ const CollaborativeCodeCompiler = ({ sessionId: propSessionId }) => {
                     </div>
                   </div>
 
-                  <div className="w-full flex items-center justify-between p-3 bg-gray-700 rounded-lg">
+                  <div className="w-full flex items-center justify-between p-3 bg-zinc-900 rounded-lg">
                     <div className="flex items-center space-x-3">
                       <div className="w-8 h-8 rounded-lg bg-gray-600 flex items-center justify-center">
                         <FileText className="w-4 h-4 text-green-400" />
@@ -2322,8 +2322,8 @@ const CollaborativeCodeCompiler = ({ sessionId: propSessionId }) => {
                         onClick={() => setCurrentTool("pen")}
                         className={`flex items-center space-x-2 p-2 rounded-lg text-sm transition-colors ${
                           currentTool === "pen" 
-                            ? "bg-blue-600 text-white" 
-                            : "bg-gray-700 hover:bg-gray-600 text-gray-300"
+                            ? "bg-blue-600 text-slate-300" 
+                            : "bg-zinc-900 hover:bg-gray-600 text-gray-300"
                         }`}
                       >
                         <MousePointer className="w-4 h-4" />
@@ -2333,8 +2333,8 @@ const CollaborativeCodeCompiler = ({ sessionId: propSessionId }) => {
                         onClick={() => setCurrentTool("brush")}
                         className={`flex items-center space-x-2 p-2 rounded-lg text-sm transition-colors ${
                           currentTool === "brush" 
-                            ? "bg-blue-600 text-white" 
-                            : "bg-gray-700 hover:bg-gray-600 text-gray-300"
+                            ? "bg-blue-600 text-slate-300" 
+                            : "bg-zinc-900 hover:bg-gray-600 text-gray-300"
                         }`}
                       >
                         <Brush className="w-4 h-4" />
@@ -2344,8 +2344,8 @@ const CollaborativeCodeCompiler = ({ sessionId: propSessionId }) => {
                         onClick={() => setCurrentTool("rectangle")}
                         className={`flex items-center space-x-2 p-2 rounded-lg text-sm transition-colors ${
                           currentTool === "rectangle" 
-                            ? "bg-blue-600 text-white" 
-                            : "bg-gray-700 hover:bg-gray-600 text-gray-300"
+                            ? "bg-blue-600 text-slate-300" 
+                            : "bg-zinc-900 hover:bg-gray-600 text-gray-300"
                         }`}
                       >
                         <Square className="w-4 h-4" />
@@ -2355,8 +2355,8 @@ const CollaborativeCodeCompiler = ({ sessionId: propSessionId }) => {
                         onClick={() => setCurrentTool("circle")}
                         className={`flex items-center space-x-2 p-2 rounded-lg text-sm transition-colors ${
                           currentTool === "circle" 
-                            ? "bg-blue-600 text-white" 
-                            : "bg-gray-700 hover:bg-gray-600 text-gray-300"
+                            ? "bg-blue-600 text-slate-300" 
+                            : "bg-zinc-900 hover:bg-gray-600 text-gray-300"
                         }`}
                       >
                         <Circle className="w-4 h-4" />
@@ -2366,8 +2366,8 @@ const CollaborativeCodeCompiler = ({ sessionId: propSessionId }) => {
                         onClick={() => setCurrentTool("line")}
                         className={`flex items-center space-x-2 p-2 rounded-lg text-sm transition-colors ${
                           currentTool === "line" 
-                            ? "bg-blue-600 text-white" 
-                            : "bg-gray-700 hover:bg-gray-600 text-gray-300"
+                            ? "bg-blue-600 text-slate-300" 
+                            : "bg-zinc-900 hover:bg-gray-600 text-gray-300"
                         }`}
                       >
                         <Minus className="w-4 h-4" />
@@ -2377,8 +2377,8 @@ const CollaborativeCodeCompiler = ({ sessionId: propSessionId }) => {
                         onClick={() => setCurrentTool("text")}
                         className={`flex items-center space-x-2 p-2 rounded-lg text-sm transition-colors ${
                           currentTool === "text" 
-                            ? "bg-blue-600 text-white" 
-                            : "bg-gray-700 hover:bg-gray-600 text-gray-300"
+                            ? "bg-blue-600 text-slate-300" 
+                            : "bg-zinc-900 hover:bg-gray-600 text-gray-300"
                         }`}
                       >
                         <Type className="w-4 h-4" />
@@ -2438,8 +2438,8 @@ const CollaborativeCodeCompiler = ({ sessionId: propSessionId }) => {
                         disabled={whiteboardElements.length === 0}
                         className={`flex items-center space-x-2 p-2 rounded-lg text-sm transition-colors ${
                           whiteboardElements.length > 0
-                            ? "bg-yellow-600 hover:bg-yellow-700 text-white"
-                            : "bg-gray-700 text-gray-400 cursor-not-allowed"
+                            ? "bg-yellow-600 hover:bg-yellow-700 text-slate-300"
+                            : "bg-zinc-900 text-gray-400 cursor-not-allowed"
                         }`}
                       >
                         <RotateCcw className="w-4 h-4" />
@@ -2450,8 +2450,8 @@ const CollaborativeCodeCompiler = ({ sessionId: propSessionId }) => {
                         disabled={whiteboardElements.length === 0}
                         className={`flex items-center space-x-2 p-2 rounded-lg text-sm transition-colors ${
                           whiteboardElements.length > 0
-                            ? "bg-red-600 hover:bg-red-700 text-white"
-                            : "bg-gray-700 text-gray-400 cursor-not-allowed"
+                            ? "bg-red-600 hover:bg-red-700 text-slate-300"
+                            : "bg-zinc-900 text-gray-400 cursor-not-allowed"
                         }`}
                       >
                         <Trash2 className="w-4 h-4" />
@@ -2567,7 +2567,7 @@ const CollaborativeCodeCompiler = ({ sessionId: propSessionId }) => {
                             top: cursor.y,
                           }}
                         >
-                          <div className="absolute top-4 left-4 bg-blue-500 text-white text-xs px-1 py-0.5 rounded whitespace-nowrap">
+                          <div className="absolute top-4 left-4 bg-blue-500 text-slate-300 text-xs px-1 py-0.5 rounded whitespace-nowrap">
                             {cursor.userName}
                           </div>
                         </div>
@@ -2588,7 +2588,7 @@ const CollaborativeCodeCompiler = ({ sessionId: propSessionId }) => {
   return (
     <div className={`h-screen w-screen max-h-screen max-w-screen overflow-hidden flex ${
       isDarkMode 
-        ? "bg-gray-900 text-white" 
+        ? "bg-zinc-900 text-slate-300" 
         : "bg-gray-50 text-gray-900"
     }`}>
       {/* Hidden File Input */}
@@ -2604,7 +2604,7 @@ const CollaborativeCodeCompiler = ({ sessionId: propSessionId }) => {
       {/* Vertical Sidebar */}
       <div className={`w-16 min-w-16 max-w-16 h-full max-h-full ${
         isDarkMode 
-          ? "bg-gray-800 border-gray-700" 
+          ? "bg-zinc-900 border-gray-700" 
           : "bg-white border-gray-300"
       } border-r flex flex-col items-center py-4 space-y-2 flex-shrink-0`}>
         {/* Logo/Brand - Back to Home */}
@@ -2613,7 +2613,7 @@ const CollaborativeCodeCompiler = ({ sessionId: propSessionId }) => {
           className="w-10 h-10 bg-blue-600 hover:bg-blue-700 rounded-lg flex items-center justify-center mb-4 flex-shrink-0 transition-colors"
           title="Back to Home"
         >
-          <Code2 className="w-6 h-6 text-white" />
+          <Code2 className="w-6 h-6 text-slate-300" />
         </button>
 
         {/* Sidebar Items */}
@@ -2624,22 +2624,22 @@ const CollaborativeCodeCompiler = ({ sessionId: propSessionId }) => {
               disabled={item.disabled}
               className={`w-12 h-12 rounded-lg flex items-center justify-center transition-all duration-200 relative ${
                 item.active
-                  ? "bg-blue-600 text-white shadow-lg"
+                  ? "bg-blue-600 text-slate-300 shadow-lg"
                   : item.disabled
                     ? `${isDarkMode ? "text-gray-500" : "text-gray-400"} cursor-not-allowed`
-                    : `${isDarkMode ? "text-gray-400 hover:text-white hover:bg-gray-700" : "text-gray-600 hover:text-gray-800 hover:bg-gray-200"}`
+                    : `${isDarkMode ? "text-gray-400 hover:text-slate-300 hover:bg-zinc-900" : "text-gray-600 hover:text-gray-800 hover:bg-gray-200"}`
               }`}
             >
               <item.icon className="w-5 h-5" />
               {item.badge > 0 && (
-                <span className="absolute -top-1 -right-1 w-5 h-5 bg-red-500 text-white text-xs rounded-full flex items-center justify-center">
+                <span className="absolute -top-1 -right-1 w-5 h-5 bg-red-500 text-slate-300 text-xs rounded-full flex items-center justify-center">
                   {item.badge}
                 </span>
               )}
             </button>
 
             {/* Tooltip */}
-            <div className="absolute left-16 top-1/2 transform -translate-y-1/2 bg-gray-700 text-white px-2 py-1 rounded text-sm opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none whitespace-nowrap z-50">
+            <div className="absolute left-16 top-1/2 transform -translate-y-1/2 bg-zinc-900 text-slate-300 px-2 py-1 rounded text-sm opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none whitespace-nowrap z-50">
               {item.label}
             </div>
           </div>
@@ -2655,7 +2655,7 @@ const CollaborativeCodeCompiler = ({ sessionId: propSessionId }) => {
         {activePanel && !isMobile && (
           <div className={`${isTablet ? "w-80 min-w-80 max-w-80" : "w-96 min-w-96 max-w-96"} h-full max-h-full ${
             isDarkMode 
-              ? "bg-gray-800 border-gray-700" 
+              ? "bg-zinc-900 border-gray-700" 
               : "bg-white border-gray-300"
           } border-r flex flex-col overflow-hidden overflow-x-hidden flex-shrink-0`}>
             {renderPanelContent()}
@@ -2665,10 +2665,10 @@ const CollaborativeCodeCompiler = ({ sessionId: propSessionId }) => {
         {/* Mobile Panel Overlay */}
         {activePanel && isMobile && (
           <>
-            <div className="fixed inset-0 bg-black bg-opacity-50 z-40" onClick={() => closePanelSynchronized(activePanel)} />
+            <div className="fixed inset-0 bg-zinc-900 bg-opacity-50 z-40" onClick={() => closePanelSynchronized(activePanel)} />
             <div className={`fixed left-16 top-0 bottom-0 w-80 min-w-80 max-w-80 ${
               isDarkMode 
-                ? "bg-gray-800 border-gray-700" 
+                ? "bg-zinc-900 border-gray-700" 
                 : "bg-white border-gray-300"
             } border-r z-50 flex flex-col overflow-hidden overflow-x-hidden flex-shrink-0`}>
               <div className={`flex items-center justify-between p-4 ${
@@ -2681,7 +2681,7 @@ const CollaborativeCodeCompiler = ({ sessionId: propSessionId }) => {
                   onClick={() => closePanelSynchronized(activePanel)} 
                   className={`${
                     isDarkMode 
-                      ? "text-gray-400 hover:text-white" 
+                      ? "text-gray-400 hover:text-slate-300" 
                       : "text-gray-600 hover:text-gray-800"
                   } flex-shrink-0`}
                   aria-label="Close panel"
@@ -2715,7 +2715,7 @@ const CollaborativeCodeCompiler = ({ sessionId: propSessionId }) => {
           }}
           className={`p-2 rounded-lg ${
             isDarkMode 
-              ? "text-gray-400 hover:text-white hover:bg-gray-700" 
+              ? "text-gray-400 hover:text-slate-300 hover:bg-zinc-900" 
               : "text-gray-600 hover:text-gray-800 hover:bg-gray-200"
           } transition-colors flex-shrink-0`}
         >
@@ -2736,7 +2736,7 @@ const CollaborativeCodeCompiler = ({ sessionId: propSessionId }) => {
           }}
           className={`px-2 sm:px-3 py-2 ${
             isDarkMode 
-              ? "bg-gray-700 border-gray-600 text-white" 
+              ? "bg-zinc-900 border-gray-600 text-slate-300" 
               : "bg-white border-gray-300 text-gray-900"
           } border rounded-lg text-sm focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 min-w-0 max-w-32 sm:max-w-none`}
         >
@@ -2760,7 +2760,7 @@ const CollaborativeCodeCompiler = ({ sessionId: propSessionId }) => {
           placeholder="filename"
           className={`px-2 sm:px-3 py-2 ${
             isDarkMode 
-              ? "bg-gray-700 border-gray-600 text-white" 
+              ? "bg-zinc-900 border-gray-600 text-slate-300" 
               : "bg-white border-gray-300 text-gray-900"
           } border rounded-lg text-sm w-20 sm:w-32 md:w-48 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500`}
         />
@@ -2801,7 +2801,7 @@ const CollaborativeCodeCompiler = ({ sessionId: propSessionId }) => {
             }
             setShowSessionModal(true)
           }}
-          className="px-3 py-1.5 rounded-lg flex items-center space-x-2 font-medium bg-gradient-to-r from-purple-600 to-purple-700 hover:from-purple-700 hover:to-purple-800 text-white text-sm transition-all duration-200 shadow-lg hover:shadow-xl"
+          className="px-3 py-1.5 rounded-lg flex items-center space-x-2 font-medium bg-gradient-to-r from-purple-600 to-purple-700 hover:from-purple-700 hover:to-purple-800 text-slate-300 text-sm transition-all duration-200 shadow-lg hover:shadow-xl"
         >
           <Users className="w-4 h-4" />
           <span className="hidden sm:inline">Collaborate</span>
@@ -2823,8 +2823,8 @@ const CollaborativeCodeCompiler = ({ sessionId: propSessionId }) => {
             onClick={() => setShowChat(!showChat)}
             className={`p-2 rounded-lg transition-colors ${
               showChat 
-                ? "bg-blue-600 text-white shadow-lg" 
-                : "text-gray-400 hover:text-white hover:bg-gray-700"
+                ? "bg-blue-600 text-slate-300 shadow-lg" 
+                : "text-gray-400 hover:text-slate-300 hover:bg-zinc-900"
             }`}
             title="Toggle Chat"
           >
@@ -2848,7 +2848,7 @@ const CollaborativeCodeCompiler = ({ sessionId: propSessionId }) => {
           disabled={isExecuting || !code.trim()}
           className={`px-4 py-2 rounded-lg flex items-center space-x-2 font-medium text-sm transition-all duration-200 ${
             !isExecuting && code.trim()
-              ? "bg-gradient-to-r from-green-600 to-green-700 hover:from-green-700 hover:to-green-800 text-white shadow-lg hover:shadow-xl"
+              ? "bg-gradient-to-r from-green-600 to-green-700 hover:from-green-700 hover:to-green-800 text-slate-300 shadow-lg hover:shadow-xl"
               : "bg-gray-600 text-gray-300 cursor-not-allowed"
           }`}
         >
@@ -2869,8 +2869,8 @@ const CollaborativeCodeCompiler = ({ sessionId: propSessionId }) => {
           onClick={() => setRightPanelOpen(!rightPanelOpen)}
           className={`p-2 rounded-lg transition-all duration-200 ${
             rightPanelOpen 
-              ? "bg-blue-600 text-white shadow-lg" 
-              : "text-gray-400 hover:text-white hover:bg-gray-700"
+              ? "bg-blue-600 text-slate-300 shadow-lg" 
+              : "text-gray-400 hover:text-slate-300 hover:bg-zinc-900"
           }`}
           title="Toggle I/O Panel"
         >
@@ -2882,12 +2882,12 @@ const CollaborativeCodeCompiler = ({ sessionId: propSessionId }) => {
 
   {/* Tabs */}
   {openTabs.length > 0 && (
-    <div className="border-b border-gray-700 flex overflow-x-auto bg-gray-800 scrollbar-thin scrollbar-thumb-gray-600 scrollbar-track-gray-800">
+    <div className="border-b border-gray-700 flex overflow-x-auto bg-zinc-900 scrollbar-thin scrollbar-thumb-gray-600 scrollbar-track-gray-800">
       {openTabs.map((tab) => (
         <div
           key={tab.id}
-          className={`flex items-center space-x-2 px-4 py-2 border-r border-gray-700 cursor-pointer hover:bg-gray-700 transition-colors flex-shrink-0 ${
-            activeFile?.id === tab.data.id ? "bg-gray-700 border-b-2 border-blue-500" : ""
+          className={`flex items-center space-x-2 px-4 py-2 border-r border-gray-700 cursor-pointer hover:bg-zinc-900 transition-colors flex-shrink-0 ${
+            activeFile?.id === tab.data.id ? "bg-zinc-900 border-b-2 border-blue-500" : ""
           }`}
           onClick={() => openFile(tab.data, tab.type)}
         >
@@ -2942,14 +2942,14 @@ const CollaborativeCodeCompiler = ({ sessionId: propSessionId }) => {
       isMobile ? "fixed inset-y-0 right-0 w-full z-40 max-w-full" : isTablet ? "w-80 min-w-80 max-w-80" : "w-96 min-w-96 max-w-96"
     } ${
       isDarkMode 
-        ? "bg-gray-800 border-gray-700" 
+        ? "bg-zinc-900 border-gray-700" 
         : "bg-white border-gray-300"
     } border-l flex flex-col overflow-hidden h-full max-h-full flex-shrink-0`}
   >
     {/* Panel Header */}
     <div className={`h-12 ${
       isDarkMode 
-        ? "bg-gray-700 border-gray-600" 
+        ? "bg-zinc-900 border-gray-600" 
         : "bg-gray-100 border-gray-300"
     } border-b flex items-center justify-between px-4 flex-shrink-0`}>
       <div className="flex items-center space-x-2">
@@ -2961,7 +2961,7 @@ const CollaborativeCodeCompiler = ({ sessionId: propSessionId }) => {
           onClick={() => setShowInputTerminal(!showInputTerminal)}
           className={`px-2 py-1 text-xs rounded transition-colors ${
             showInputTerminal 
-              ? "bg-blue-600 text-white" 
+              ? "bg-blue-600 text-slate-300" 
               : `${isDarkMode ? "bg-gray-600 text-gray-300 hover:bg-gray-500" : "bg-gray-300 text-gray-600 hover:bg-gray-400"}`
           }`}
         >
@@ -2971,7 +2971,7 @@ const CollaborativeCodeCompiler = ({ sessionId: propSessionId }) => {
           onClick={() => setShowOutputTerminal(!showOutputTerminal)}
           className={`px-2 py-1 text-xs rounded transition-colors ${
             showOutputTerminal 
-              ? "bg-green-600 text-white" 
+              ? "bg-green-600 text-slate-300" 
               : `${isDarkMode ? "bg-gray-600 text-gray-300 hover:bg-gray-500" : "bg-gray-300 text-gray-600 hover:bg-gray-400"}`
           }`}
         >
@@ -2982,7 +2982,7 @@ const CollaborativeCodeCompiler = ({ sessionId: propSessionId }) => {
             onClick={() => setRightPanelOpen(false)}
             className={`${
               isDarkMode 
-                ? "text-gray-400 hover:text-white" 
+                ? "text-gray-400 hover:text-slate-300" 
                 : "text-gray-600 hover:text-gray-800"
             } ml-2`}
           >
@@ -3017,7 +3017,7 @@ const CollaborativeCodeCompiler = ({ sessionId: propSessionId }) => {
               )}
               <button
                 onClick={() => setShowInputTerminal(false)}
-                className="text-gray-400 hover:text-white transition-colors"
+                className="text-gray-400 hover:text-slate-300 transition-colors"
               >
                 <X className="w-3 h-3" />
               </button>
@@ -3028,7 +3028,7 @@ const CollaborativeCodeCompiler = ({ sessionId: propSessionId }) => {
               value={stdin}
               onChange={(e) => setStdin(e.target.value)}
               placeholder="Enter program input here..."
-              className="w-full h-full bg-gray-900 border border-gray-600 rounded-md p-3 text-white font-mono text-sm resize-none focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 overflow-auto"
+              className="w-full h-full bg-zinc-900 border border-gray-600 rounded-md p-3 text-slate-300 font-mono text-sm resize-none focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 overflow-auto"
               style={{ minHeight: "120px" }}
             />
           </div>
@@ -3052,7 +3052,7 @@ const CollaborativeCodeCompiler = ({ sessionId: propSessionId }) => {
             <div className="flex items-center space-x-1">
               <button
                 onClick={() => navigator.clipboard.writeText(output)}
-                className="text-xs text-gray-400 hover:text-white transition-colors"
+                className="text-xs text-gray-400 hover:text-slate-300 transition-colors"
                 title="Copy output"
               >
                 Copy
@@ -3062,14 +3062,14 @@ const CollaborativeCodeCompiler = ({ sessionId: propSessionId }) => {
                   setOutput("")
                   setExecutionDetails(null)
                 }}
-                className="text-xs text-gray-400 hover:text-white transition-colors"
+                className="text-xs text-gray-400 hover:text-slate-300 transition-colors"
                 title="Clear output"
               >
                 Clear
               </button>
               <button
                 onClick={() => setShowOutputTerminal(false)}
-                className="text-gray-400 hover:text-white transition-colors"
+                className="text-gray-400 hover:text-slate-300 transition-colors"
               >
                 <X className="w-3 h-3" />
               </button>
@@ -3092,10 +3092,10 @@ const CollaborativeCodeCompiler = ({ sessionId: propSessionId }) => {
 
               {/* Execution Details */}
               {executionDetails && (
-                <div className="mt-4 p-3 bg-gray-900 border border-gray-600 rounded-md">
+                <div className="mt-4 p-3 bg-zinc-900 border border-gray-600 rounded-md">
                   <div className="flex flex-wrap items-center gap-2 text-xs">
                     <span
-                      className={`px-2 py-1 rounded-full text-white font-medium ${
+                      className={`px-2 py-1 rounded-full text-slate-300 font-medium ${
                         executionDetails.status === "Accepted" 
                           ? "bg-green-600" 
                           : executionDetails.status?.includes("Error") || executionDetails.status?.includes("Failed")
@@ -3105,10 +3105,10 @@ const CollaborativeCodeCompiler = ({ sessionId: propSessionId }) => {
                     >
                       {executionDetails.status}
                     </span>
-                    <span className="text-gray-400 bg-gray-800 px-2 py-1 rounded">
+                    <span className="text-gray-400 bg-zinc-900 px-2 py-1 rounded">
                       ⏱️ {executionDetails.time}ms
                     </span>
-                    <span className="text-gray-400 bg-gray-800 px-2 py-1 rounded">
+                    <span className="text-gray-400 bg-zinc-900 px-2 py-1 rounded">
                       💾 {executionDetails.memory}KB
                     </span>
                   </div>
@@ -3144,7 +3144,7 @@ const CollaborativeCodeCompiler = ({ sessionId: propSessionId }) => {
       {!showInputTerminal && !showOutputTerminal && (
         <div className="flex-1 flex items-center justify-center p-6">
           <div className="text-center space-y-4">
-            <div className="w-16 h-16 bg-gray-700 rounded-full flex items-center justify-center mx-auto">
+            <div className="w-16 h-16 bg-zinc-900 rounded-full flex items-center justify-center mx-auto">
               <Terminal className="w-8 h-8 text-gray-400" />
             </div>
             <div>
@@ -3175,12 +3175,12 @@ const CollaborativeCodeCompiler = ({ sessionId: propSessionId }) => {
 )}
       {/* Terminal */}
       {showTerminal && (
-        <div className="h-64 border-t bg-gray-900 border-gray-700">
-          <div className="flex items-center justify-between p-2 bg-gray-800 text-white">
+        <div className="h-64 border-t bg-zinc-900 border-gray-700">
+          <div className="flex items-center justify-between p-2 bg-zinc-900 text-slate-300">
             <span className="font-semibold">Terminal - {currentDirectory}</span>
             <button 
               onClick={() => setShowTerminal(false)} 
-              className="text-gray-400 hover:text-white"
+              className="text-gray-400 hover:text-slate-300"
               aria-label="Close terminal"
             >
               <X className="w-4 h-4" />
@@ -3227,9 +3227,9 @@ const CollaborativeCodeCompiler = ({ sessionId: propSessionId }) => {
         </div>
         {role && (
           <span className={`px-2 py-0.5 rounded text-xs font-medium ${
-            role === "owner" ? "bg-yellow-600 text-white" :
-            role === "editor" ? "bg-blue-600 text-white" :
-            "bg-gray-600 text-white"
+            role === "owner" ? "bg-yellow-600 text-slate-300" :
+            role === "editor" ? "bg-blue-600 text-slate-300" :
+            "bg-gray-600 text-slate-300"
           }`}>
             {role}
           </span>
@@ -3259,11 +3259,11 @@ const CollaborativeCodeCompiler = ({ sessionId: propSessionId }) => {
 
       {/* Session Management Modal */}
       {showSessionModal && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
-          <div className="w-full max-w-md bg-gray-800 rounded-lg p-6">
+        <div className="fixed inset-0 bg-zinc-900 bg-opacity-50 flex items-center justify-center z-50 p-4">
+          <div className="w-full max-w-md bg-zinc-900 rounded-lg p-6">
             <div className="flex items-center justify-between mb-4">
               <h3 className="text-lg font-semibold">Collaboration Session</h3>
-              <button onClick={() => setShowSessionModal(false)} className="text-gray-400 hover:text-white">
+              <button onClick={() => setShowSessionModal(false)} className="text-gray-400 hover:text-slate-300">
                 <X className="w-5 h-5" />
               </button>
             </div>
@@ -3279,7 +3279,7 @@ const CollaborativeCodeCompiler = ({ sessionId: propSessionId }) => {
                   className={`w-full px-4 py-2 rounded flex items-center justify-center space-x-2 font-medium ${
                     isCreatingSession
                       ? "bg-gray-600 text-gray-300 cursor-not-allowed"
-                      : "bg-purple-600 hover:bg-purple-700 text-white"
+                      : "bg-purple-600 hover:bg-purple-700 text-slate-300"
                   }`}
                 >
                   <Users className="w-4 h-4" />
@@ -3296,7 +3296,7 @@ const CollaborativeCodeCompiler = ({ sessionId: propSessionId }) => {
                     value={joinSessionId}
                     onChange={(e) => setJoinSessionId(e.target.value)}
                     placeholder="Enter session ID..."
-                    className="w-full px-3 py-2 bg-gray-700 border border-gray-600 rounded text-white focus:outline-none focus:border-blue-500"
+                    className="w-full px-3 py-2 bg-zinc-900 border border-gray-600 rounded text-slate-300 focus:outline-none focus:border-blue-500"
                   />
                   <button
                     onClick={joinSession}
@@ -3304,7 +3304,7 @@ const CollaborativeCodeCompiler = ({ sessionId: propSessionId }) => {
                     className={`w-full px-4 py-2 rounded flex items-center justify-center space-x-2 font-medium ${
                       isJoiningSession || !joinSessionId.trim()
                         ? "bg-gray-600 text-gray-300 cursor-not-allowed"
-                        : "bg-blue-600 hover:bg-blue-700 text-white"
+                        : "bg-blue-600 hover:bg-blue-700 text-slate-300"
                     }`}
                   >
                     <UserPlus className="w-4 h-4" />
@@ -3321,14 +3321,14 @@ const CollaborativeCodeCompiler = ({ sessionId: propSessionId }) => {
 
       {/* Chat Panel */}
       {showChat && sessionId && (
-        <div className="fixed right-4 bottom-4 w-80 h-96 bg-gray-800 border border-gray-700 rounded-lg shadow-2xl z-50 flex flex-col">
-          <div className="h-12 bg-gray-700 border-b border-gray-600 flex items-center justify-between px-4 rounded-t-lg">
+        <div className="fixed right-4 bottom-4 w-80 h-96 bg-zinc-900 border border-gray-700 rounded-lg shadow-2xl z-50 flex flex-col">
+          <div className="h-12 bg-zinc-900 border-b border-gray-600 flex items-center justify-between px-4 rounded-t-lg">
             <div className="flex items-center space-x-2">
               <MessageCircle className="w-4 h-4" />
               <span className="text-sm font-medium">Chat ({users?.length || 0} users)</span>
               {isConnected && <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse" />}
             </div>
-            <button onClick={() => setShowChat(false)} className="text-gray-400 hover:text-white">
+            <button onClick={() => setShowChat(false)} className="text-gray-400 hover:text-slate-300">
               <X className="w-4 h-4" />
             </button>
           </div>
@@ -3342,7 +3342,7 @@ const CollaborativeCodeCompiler = ({ sessionId: propSessionId }) => {
                 chatMessages.map((msg) => (
                   <div key={msg.id} className={`${msg.type === "system" ? "text-center" : ""}`}>
                     {msg.type === "system" ? (
-                      <div className="text-xs text-gray-500 italic bg-gray-100 dark:bg-gray-700 px-2 py-1 rounded">
+                      <div className="text-xs text-gray-500 italic bg-gray-100 dark:bg-zinc-900 px-2 py-1 rounded">
                         {msg.message}
                       </div>
                     ) : (
@@ -3354,8 +3354,8 @@ const CollaborativeCodeCompiler = ({ sessionId: propSessionId }) => {
                         <div
                           className={`text-sm p-2 rounded max-w-xs ${
                             msg.userId === localStorage.getItem("userEmail")
-                              ? "bg-blue-600 text-white ml-auto"
-                              : "bg-gray-700"
+                              ? "bg-blue-600 text-slate-300 ml-auto"
+                              : "bg-zinc-900"
                           }`}
                         >
                           {msg.message}
@@ -3385,7 +3385,7 @@ const CollaborativeCodeCompiler = ({ sessionId: propSessionId }) => {
                 className={`flex-1 px-3 py-2 text-sm rounded border ${
                   !isConnected || !socket
                     ? "bg-gray-300 text-gray-500 cursor-not-allowed"
-                    : "bg-gray-700 text-white border-gray-600 focus:outline-none focus:border-blue-500"
+                    : "bg-zinc-900 text-slate-300 border-gray-600 focus:outline-none focus:border-blue-500"
                 }`}
               />
               <button
@@ -3393,7 +3393,7 @@ const CollaborativeCodeCompiler = ({ sessionId: propSessionId }) => {
                 disabled={!chatInput.trim() || !isConnected || !socket}
                 className={`px-3 py-2 rounded ${
                   chatInput.trim() && isConnected && socket
-                    ? "bg-blue-600 hover:bg-blue-700 text-white"
+                    ? "bg-blue-600 hover:bg-blue-700 text-slate-300"
                     : "bg-gray-600 text-gray-300 cursor-not-allowed"
                 }`}
               >
@@ -3418,18 +3418,18 @@ const CollaborativeCodeCompiler = ({ sessionId: propSessionId }) => {
               key={notification.id}
               className={`px-4 py-3 rounded-lg shadow-lg flex items-center justify-between min-w-72 ${
                 notification.type === "success"
-                  ? "bg-green-600 text-white"
+                  ? "bg-green-600 text-slate-300"
                   : notification.type === "error"
-                    ? "bg-red-600 text-white"
+                    ? "bg-red-600 text-slate-300"
                     : notification.type === "warning"
-                      ? "bg-yellow-600 text-white"
-                      : "bg-blue-600 text-white"
+                      ? "bg-yellow-600 text-slate-300"
+                      : "bg-blue-600 text-slate-300"
               }`}
             >
               <span className="text-sm">{notification.message}</span>
               <button
                 onClick={() => removeNotification(notification.id)}
-                className="ml-3 text-white hover:text-gray-200"
+                className="ml-3 text-slate-300 hover:text-gray-200"
               >
                 <X className="w-4 h-4" />
               </button>

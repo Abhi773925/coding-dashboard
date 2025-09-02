@@ -8,14 +8,14 @@ const OperatingSystemsArticle = () => {
   return (
     <div className={`min-h-screen ${
       isDarkMode 
-        ? "bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 text-gray-100" 
+        ? "bg-zinc-900 text-gray-100" 
         : "bg-gradient-to-br from-gray-50 via-white to-gray-100 text-gray-900"
     }`}>
       {/* Article Header */}
       <div className="max-w-4xl mx-auto px-6 pt-24 pb-8">
         <div className="text-center mb-8">
           <h1 className={`text-4xl md:text-5xl font-bold mb-4 ${
-            isDarkMode ? "text-white" : "text-gray-900"
+            isDarkMode ? "text-slate-300" : "text-gray-900"
           }`}>
             Operating Systems
           </h1>
@@ -52,7 +52,7 @@ const OperatingSystemsArticle = () => {
           {/* Table of Contents */}
           <section className="mb-8">
             <div className={`p-6 rounded-xl border ${
-              isDarkMode ? "bg-gray-800 border-gray-700" : "bg-blue-50 border-blue-200"
+              isDarkMode ? "bg-zinc-900 border-gray-700" : "bg-blue-50 border-blue-200"
             }`}>
               <h3 className={`text-xl font-semibold mb-4 ${isDarkMode ? "text-blue-400" : "text-blue-600"}`}>
                 📚 Table of Contents
@@ -84,7 +84,7 @@ const OperatingSystemsArticle = () => {
 
           {/* Introduction */}
           <section className="mb-8">
-            <h2 className={`text-2xl font-bold mb-4 ${isDarkMode ? "text-white" : "text-gray-900"}`}>
+            <h2 className={`text-2xl font-bold mb-4 ${isDarkMode ? "text-slate-300" : "text-gray-900"}`}>
               1. Introduction to Operating Systems
             </h2>
             
@@ -97,7 +97,7 @@ const OperatingSystemsArticle = () => {
               making the computer system convenient to use.
             </p>
 
-            <div className={`mt-4 p-4 rounded-lg ${isDarkMode ? "bg-gray-800" : "bg-gray-100"}`}>
+            <div className={`mt-4 p-4 rounded-lg ${isDarkMode ? "bg-zinc-900" : "bg-gray-100"}`}>
               <h4 className={`font-semibold mb-2 ${isDarkMode ? "text-green-400" : "text-green-600"}`}>
                 Key Definitions:
               </h4>
@@ -113,7 +113,7 @@ const OperatingSystemsArticle = () => {
               Functions of Operating System
             </h3>
             <div className="grid md:grid-cols-2 gap-4">
-              <div className={`p-4 rounded-lg border ${isDarkMode ? "bg-gray-800 border-gray-700" : "bg-gray-50 border-gray-200"}`}>
+              <div className={`p-4 rounded-lg border ${isDarkMode ? "bg-zinc-900 border-gray-700" : "bg-gray-50 border-gray-200"}`}>
                 <h4 className={`font-semibold mb-2 ${isDarkMode ? "text-blue-400" : "text-blue-600"}`}>
                   <Cpu className="inline mr-2" size={16} />
                   Process Management
@@ -122,7 +122,7 @@ const OperatingSystemsArticle = () => {
                   Creating, scheduling, terminating processes, and handling process synchronization and communication.
                 </p>
               </div>
-              <div className={`p-4 rounded-lg border ${isDarkMode ? "bg-gray-800 border-gray-700" : "bg-gray-50 border-gray-200"}`}>
+              <div className={`p-4 rounded-lg border ${isDarkMode ? "bg-zinc-900 border-gray-700" : "bg-gray-50 border-gray-200"}`}>
                 <h4 className={`font-semibold mb-2 ${isDarkMode ? "text-green-400" : "text-green-600"}`}>
                   <HardDrive className="inline mr-2" size={16} />
                   Memory Management
@@ -131,7 +131,7 @@ const OperatingSystemsArticle = () => {
                   Allocating and deallocating memory space, keeping track of memory usage, and implementing virtual memory.
                 </p>
               </div>
-              <div className={`p-4 rounded-lg border ${isDarkMode ? "bg-gray-800 border-gray-700" : "bg-gray-50 border-gray-200"}`}>
+              <div className={`p-4 rounded-lg border ${isDarkMode ? "bg-zinc-900 border-gray-700" : "bg-gray-50 border-gray-200"}`}>
                 <h4 className={`font-semibold mb-2 ${isDarkMode ? "text-purple-400" : "text-purple-600"}`}>
                   <HardDrive className="inline mr-2" size={16} />
                   File Management
@@ -140,7 +140,7 @@ const OperatingSystemsArticle = () => {
                   Creating, deleting, reading, writing files and directories, and managing file permissions and security.
                 </p>
               </div>
-              <div className={`p-4 rounded-lg border ${isDarkMode ? "bg-gray-800 border-gray-700" : "bg-gray-50 border-gray-200"}`}>
+              <div className={`p-4 rounded-lg border ${isDarkMode ? "bg-zinc-900 border-gray-700" : "bg-gray-50 border-gray-200"}`}>
                 <h4 className={`font-semibold mb-2 ${isDarkMode ? "text-orange-400" : "text-orange-600"}`}>
                   <Settings className="inline mr-2" size={16} />
                   Device Management
@@ -154,7 +154,7 @@ const OperatingSystemsArticle = () => {
 
           {/* Types of Operating Systems */}
           <section className="mb-8">
-            <h2 className={`text-2xl font-bold mb-4 ${isDarkMode ? "text-white" : "text-gray-900"}`}>
+            <h2 className={`text-2xl font-bold mb-4 ${isDarkMode ? "text-slate-300" : "text-gray-900"}`}>
               2. Types of Operating Systems
             </h2>
             
@@ -164,7 +164,7 @@ const OperatingSystemsArticle = () => {
                   Based on User Interface
                 </h3>
                 <div className="grid md:grid-cols-2 gap-4">
-                  <div className={`p-4 rounded-lg ${isDarkMode ? "bg-gray-800" : "bg-gray-100"}`}>
+                  <div className={`p-4 rounded-lg ${isDarkMode ? "bg-zinc-900" : "bg-gray-100"}`}>
                     <h4 className={`font-semibold mb-2 ${isDarkMode ? "text-green-400" : "text-green-600"}`}>
                       Command Line Interface (CLI)
                     </h4>
@@ -174,7 +174,7 @@ const OperatingSystemsArticle = () => {
                       <br /><strong>Disadvantages:</strong> Difficult for beginners, requires memorizing commands
                     </p>
                   </div>
-                  <div className={`p-4 rounded-lg ${isDarkMode ? "bg-gray-800" : "bg-gray-100"}`}>
+                  <div className={`p-4 rounded-lg ${isDarkMode ? "bg-zinc-900" : "bg-gray-100"}`}>
                     <h4 className={`font-semibold mb-2 ${isDarkMode ? "text-purple-400" : "text-purple-600"}`}>
                       Graphical User Interface (GUI)
                     </h4>
@@ -192,7 +192,7 @@ const OperatingSystemsArticle = () => {
                   Based on Processing
                 </h3>
                 <div className="space-y-4">
-                  <div className={`p-4 rounded-lg border-l-4 border-blue-500 ${isDarkMode ? "bg-gray-800" : "bg-blue-50"}`}>
+                  <div className={`p-4 rounded-lg border-l-4 border-blue-500 ${isDarkMode ? "bg-zinc-900" : "bg-blue-50"}`}>
                     <h4 className={`font-semibold mb-2 ${isDarkMode ? "text-blue-400" : "text-blue-600"}`}>
                       Batch Operating System
                     </h4>
@@ -203,7 +203,7 @@ const OperatingSystemsArticle = () => {
                     </p>
                   </div>
                   
-                  <div className={`p-4 rounded-lg border-l-4 border-green-500 ${isDarkMode ? "bg-gray-800" : "bg-green-50"}`}>
+                  <div className={`p-4 rounded-lg border-l-4 border-green-500 ${isDarkMode ? "bg-zinc-900" : "bg-green-50"}`}>
                     <h4 className={`font-semibold mb-2 ${isDarkMode ? "text-green-400" : "text-green-600"}`}>
                       Time-Sharing Operating System
                     </h4>
@@ -214,7 +214,7 @@ const OperatingSystemsArticle = () => {
                     </p>
                   </div>
                   
-                  <div className={`p-4 rounded-lg border-l-4 border-purple-500 ${isDarkMode ? "bg-gray-800" : "bg-purple-50"}`}>
+                  <div className={`p-4 rounded-lg border-l-4 border-purple-500 ${isDarkMode ? "bg-zinc-900" : "bg-purple-50"}`}>
                     <h4 className={`font-semibold mb-2 ${isDarkMode ? "text-purple-400" : "text-purple-600"}`}>
                       Real-Time Operating System (RTOS)
                     </h4>
@@ -226,7 +226,7 @@ const OperatingSystemsArticle = () => {
                     </p>
                   </div>
                   
-                  <div className={`p-4 rounded-lg border-l-4 border-orange-500 ${isDarkMode ? "bg-gray-800" : "bg-orange-50"}`}>
+                  <div className={`p-4 rounded-lg border-l-4 border-orange-500 ${isDarkMode ? "bg-zinc-900" : "bg-orange-50"}`}>
                     <h4 className={`font-semibold mb-2 ${isDarkMode ? "text-orange-400" : "text-orange-600"}`}>
                       Distributed Operating System
                     </h4>
@@ -243,7 +243,7 @@ const OperatingSystemsArticle = () => {
 
           {/* Process Management */}
           <section className="mb-8">
-            <h2 className={`text-2xl font-bold mb-4 ${isDarkMode ? "text-white" : "text-gray-900"}`}>
+            <h2 className={`text-2xl font-bold mb-4 ${isDarkMode ? "text-slate-300" : "text-gray-900"}`}>
               3. Process Management
             </h2>
             
@@ -255,7 +255,7 @@ const OperatingSystemsArticle = () => {
               stack, data section, and heap. A process is more than just program code (text section).
             </p>
 
-            <div className={`mt-4 p-4 rounded-lg ${isDarkMode ? "bg-gray-800" : "bg-gray-100"}`}>
+            <div className={`mt-4 p-4 rounded-lg ${isDarkMode ? "bg-zinc-900" : "bg-gray-100"}`}>
               <h4 className={`font-semibold mb-2 ${isDarkMode ? "text-green-400" : "text-green-600"}`}>
                 Process vs Program:
               </h4>
@@ -289,19 +289,19 @@ const OperatingSystemsArticle = () => {
             </p>
             
             <div className="space-y-3">
-              <div className={`p-3 rounded-lg border-l-4 border-blue-500 ${isDarkMode ? "bg-gray-800" : "bg-blue-50"}`}>
+              <div className={`p-3 rounded-lg border-l-4 border-blue-500 ${isDarkMode ? "bg-zinc-900" : "bg-blue-50"}`}>
                 <strong>New:</strong> Process is being created and initialized
               </div>
-              <div className={`p-3 rounded-lg border-l-4 border-green-500 ${isDarkMode ? "bg-gray-800" : "bg-green-50"}`}>
+              <div className={`p-3 rounded-lg border-l-4 border-green-500 ${isDarkMode ? "bg-zinc-900" : "bg-green-50"}`}>
                 <strong>Ready:</strong> Process is ready to run but waiting for CPU allocation
               </div>
-              <div className={`p-3 rounded-lg border-l-4 border-yellow-500 ${isDarkMode ? "bg-gray-800" : "bg-yellow-50"}`}>
+              <div className={`p-3 rounded-lg border-l-4 border-yellow-500 ${isDarkMode ? "bg-zinc-900" : "bg-yellow-50"}`}>
                 <strong>Running:</strong> Process is currently being executed by CPU
               </div>
-              <div className={`p-3 rounded-lg border-l-4 border-red-500 ${isDarkMode ? "bg-gray-800" : "bg-red-50"}`}>
+              <div className={`p-3 rounded-lg border-l-4 border-red-500 ${isDarkMode ? "bg-zinc-900" : "bg-red-50"}`}>
                 <strong>Blocked/Waiting:</strong> Process is waiting for some event (I/O completion, signal)
               </div>
-              <div className={`p-3 rounded-lg border-l-4 border-gray-500 ${isDarkMode ? "bg-gray-800" : "bg-gray-50"}`}>
+              <div className={`p-3 rounded-lg border-l-4 border-gray-500 ${isDarkMode ? "bg-zinc-900" : "bg-gray-50"}`}>
                 <strong>Terminated:</strong> Process has finished execution and is being removed
               </div>
             </div>
@@ -314,7 +314,7 @@ const OperatingSystemsArticle = () => {
             </p>
             
             <div className="grid md:grid-cols-2 gap-4">
-              <div className={`p-4 rounded-lg ${isDarkMode ? "bg-gray-800" : "bg-gray-100"}`}>
+              <div className={`p-4 rounded-lg ${isDarkMode ? "bg-zinc-900" : "bg-gray-100"}`}>
                 <h4 className={`font-semibold mb-2 ${isDarkMode ? "text-blue-400" : "text-blue-600"}`}>Process Identification</h4>
                 <ul className={`text-sm space-y-1 ${isDarkMode ? "text-gray-300" : "text-gray-700"}`}>
                   <li>• Process ID (PID)</li>
@@ -323,7 +323,7 @@ const OperatingSystemsArticle = () => {
                   <li>• Group ID</li>
                 </ul>
               </div>
-              <div className={`p-4 rounded-lg ${isDarkMode ? "bg-gray-800" : "bg-gray-100"}`}>
+              <div className={`p-4 rounded-lg ${isDarkMode ? "bg-zinc-900" : "bg-gray-100"}`}>
                 <h4 className={`font-semibold mb-2 ${isDarkMode ? "text-green-400" : "text-green-600"}`}>Process State Information</h4>
                 <ul className={`text-sm space-y-1 ${isDarkMode ? "text-gray-300" : "text-gray-700"}`}>
                   <li>• Current state</li>
@@ -332,7 +332,7 @@ const OperatingSystemsArticle = () => {
                   <li>• Stack pointer</li>
                 </ul>
               </div>
-              <div className={`p-4 rounded-lg ${isDarkMode ? "bg-gray-800" : "bg-gray-100"}`}>
+              <div className={`p-4 rounded-lg ${isDarkMode ? "bg-zinc-900" : "bg-gray-100"}`}>
                 <h4 className={`font-semibold mb-2 ${isDarkMode ? "text-purple-400" : "text-purple-600"}`}>Process Control Information</h4>
                 <ul className={`text-sm space-y-1 ${isDarkMode ? "text-gray-300" : "text-gray-700"}`}>
                   <li>• Priority</li>
@@ -341,7 +341,7 @@ const OperatingSystemsArticle = () => {
                   <li>• I/O status information</li>
                 </ul>
               </div>
-              <div className={`p-4 rounded-lg ${isDarkMode ? "bg-gray-800" : "bg-gray-100"}`}>
+              <div className={`p-4 rounded-lg ${isDarkMode ? "bg-zinc-900" : "bg-gray-100"}`}>
                 <h4 className={`font-semibold mb-2 ${isDarkMode ? "text-orange-400" : "text-orange-600"}`}>Resource Information</h4>
                 <ul className={`text-sm space-y-1 ${isDarkMode ? "text-gray-300" : "text-gray-700"}`}>
                   <li>• Open files</li>
@@ -355,7 +355,7 @@ const OperatingSystemsArticle = () => {
 
           {/* Process Scheduling */}
           <section className="mb-8">
-            <h2 className={`text-2xl font-bold mb-4 ${isDarkMode ? "text-white" : "text-gray-900"}`}>
+            <h2 className={`text-2xl font-bold mb-4 ${isDarkMode ? "text-slate-300" : "text-gray-900"}`}>
               4. Process Scheduling
             </h2>
             
@@ -369,7 +369,7 @@ const OperatingSystemsArticle = () => {
             </h3>
             
             <div className="space-y-4">
-              <div className={`p-4 rounded-lg border ${isDarkMode ? "bg-gray-800 border-gray-700" : "bg-blue-50 border-blue-200"}`}>
+              <div className={`p-4 rounded-lg border ${isDarkMode ? "bg-zinc-900 border-gray-700" : "bg-blue-50 border-blue-200"}`}>
                 <h4 className={`font-semibold mb-2 ${isDarkMode ? "text-blue-400" : "text-blue-600"}`}>
                   Long-Term Scheduler (Job Scheduler)
                 </h4>
@@ -379,7 +379,7 @@ const OperatingSystemsArticle = () => {
                 </p>
               </div>
               
-              <div className={`p-4 rounded-lg border ${isDarkMode ? "bg-gray-800 border-gray-700" : "bg-green-50 border-green-200"}`}>
+              <div className={`p-4 rounded-lg border ${isDarkMode ? "bg-zinc-900 border-gray-700" : "bg-green-50 border-green-200"}`}>
                 <h4 className={`font-semibold mb-2 ${isDarkMode ? "text-green-400" : "text-green-600"}`}>
                   Short-Term Scheduler (CPU Scheduler)
                 </h4>
@@ -389,7 +389,7 @@ const OperatingSystemsArticle = () => {
                 </p>
               </div>
               
-              <div className={`p-4 rounded-lg border ${isDarkMode ? "bg-gray-800 border-gray-700" : "bg-purple-50 border-purple-200"}`}>
+              <div className={`p-4 rounded-lg border ${isDarkMode ? "bg-zinc-900 border-gray-700" : "bg-purple-50 border-purple-200"}`}>
                 <h4 className={`font-semibold mb-2 ${isDarkMode ? "text-purple-400" : "text-purple-600"}`}>
                   Medium-Term Scheduler
                 </h4>
@@ -405,7 +405,7 @@ const OperatingSystemsArticle = () => {
             </h3>
             
             <div className="space-y-4">
-              <div className={`p-4 rounded-lg border-l-4 border-blue-500 ${isDarkMode ? "bg-gray-800" : "bg-blue-50"}`}>
+              <div className={`p-4 rounded-lg border-l-4 border-blue-500 ${isDarkMode ? "bg-zinc-900" : "bg-blue-50"}`}>
                 <h4 className={`font-semibold mb-2 ${isDarkMode ? "text-blue-400" : "text-blue-600"}`}>
                   First-Come, First-Served (FCFS)
                 </h4>
@@ -419,7 +419,7 @@ const OperatingSystemsArticle = () => {
                 </div>
               </div>
               
-              <div className={`p-4 rounded-lg border-l-4 border-green-500 ${isDarkMode ? "bg-gray-800" : "bg-green-50"}`}>
+              <div className={`p-4 rounded-lg border-l-4 border-green-500 ${isDarkMode ? "bg-zinc-900" : "bg-green-50"}`}>
                 <h4 className={`font-semibold mb-2 ${isDarkMode ? "text-green-400" : "text-green-600"}`}>
                   Shortest Job First (SJF)
                 </h4>
@@ -434,7 +434,7 @@ const OperatingSystemsArticle = () => {
                 </div>
               </div>
               
-              <div className={`p-4 rounded-lg border-l-4 border-purple-500 ${isDarkMode ? "bg-gray-800" : "bg-purple-50"}`}>
+              <div className={`p-4 rounded-lg border-l-4 border-purple-500 ${isDarkMode ? "bg-zinc-900" : "bg-purple-50"}`}>
                 <h4 className={`font-semibold mb-2 ${isDarkMode ? "text-purple-400" : "text-purple-600"}`}>
                   Round Robin (RR)
                 </h4>
@@ -448,7 +448,7 @@ const OperatingSystemsArticle = () => {
                 </div>
               </div>
               
-              <div className={`p-4 rounded-lg border-l-4 border-orange-500 ${isDarkMode ? "bg-gray-800" : "bg-orange-50"}`}>
+              <div className={`p-4 rounded-lg border-l-4 border-orange-500 ${isDarkMode ? "bg-zinc-900" : "bg-orange-50"}`}>
                 <h4 className={`font-semibold mb-2 ${isDarkMode ? "text-orange-400" : "text-orange-600"}`}>
                   Priority Scheduling
                 </h4>
@@ -463,7 +463,7 @@ const OperatingSystemsArticle = () => {
                 </div>
               </div>
               
-              <div className={`p-4 rounded-lg border-l-4 border-red-500 ${isDarkMode ? "bg-gray-800" : "bg-red-50"}`}>
+              <div className={`p-4 rounded-lg border-l-4 border-red-500 ${isDarkMode ? "bg-zinc-900" : "bg-red-50"}`}>
                 <h4 className={`font-semibold mb-2 ${isDarkMode ? "text-red-400" : "text-red-600"}`}>
                   Multilevel Queue Scheduling
                 </h4>
@@ -478,7 +478,7 @@ const OperatingSystemsArticle = () => {
                 </div>
               </div>
               
-              <div className={`p-4 rounded-lg border-l-4 border-indigo-500 ${isDarkMode ? "bg-gray-800" : "bg-indigo-50"}`}>
+              <div className={`p-4 rounded-lg border-l-4 border-indigo-500 ${isDarkMode ? "bg-zinc-900" : "bg-indigo-50"}`}>
                 <h4 className={`font-semibold mb-2 ${isDarkMode ? "text-indigo-400" : "text-indigo-600"}`}>
                   Multilevel Feedback Queue
                 </h4>
@@ -498,7 +498,7 @@ const OperatingSystemsArticle = () => {
           
           {/* Inter-Process Communication */}
           <section className="mb-8">
-            <h2 className={`text-2xl font-bold mb-4 ${isDarkMode ? "text-white" : "text-gray-900"}`}>
+            <h2 className={`text-2xl font-bold mb-4 ${isDarkMode ? "text-slate-300" : "text-gray-900"}`}>
               5. Inter-Process Communication (IPC)
             </h2>
             
@@ -508,7 +508,7 @@ const OperatingSystemsArticle = () => {
             </p>
 
             <div className="grid md:grid-cols-2 gap-4">
-              <div className={`p-4 rounded-lg border ${isDarkMode ? "bg-gray-800 border-gray-700" : "bg-gray-50 border-gray-200"}`}>
+              <div className={`p-4 rounded-lg border ${isDarkMode ? "bg-zinc-900 border-gray-700" : "bg-gray-50 border-gray-200"}`}>
                 <h4 className={`font-semibold mb-2 ${isDarkMode ? "text-blue-400" : "text-blue-600"}`}>
                   Shared Memory
                 </h4>
@@ -518,7 +518,7 @@ const OperatingSystemsArticle = () => {
                 </p>
               </div>
               
-              <div className={`p-4 rounded-lg border ${isDarkMode ? "bg-gray-800 border-gray-700" : "bg-gray-50 border-gray-200"}`}>
+              <div className={`p-4 rounded-lg border ${isDarkMode ? "bg-zinc-900 border-gray-700" : "bg-gray-50 border-gray-200"}`}>
                 <h4 className={`font-semibold mb-2 ${isDarkMode ? "text-green-400" : "text-green-600"}`}>
                   Message Passing
                 </h4>
@@ -528,7 +528,7 @@ const OperatingSystemsArticle = () => {
                 </p>
               </div>
               
-              <div className={`p-4 rounded-lg border ${isDarkMode ? "bg-gray-800 border-gray-700" : "bg-gray-50 border-gray-200"}`}>
+              <div className={`p-4 rounded-lg border ${isDarkMode ? "bg-zinc-900 border-gray-700" : "bg-gray-50 border-gray-200"}`}>
                 <h4 className={`font-semibold mb-2 ${isDarkMode ? "text-purple-400" : "text-purple-600"}`}>
                   Pipes
                 </h4>
@@ -538,7 +538,7 @@ const OperatingSystemsArticle = () => {
                 </p>
               </div>
               
-              <div className={`p-4 rounded-lg border ${isDarkMode ? "bg-gray-800 border-gray-700" : "bg-gray-50 border-gray-200"}`}>
+              <div className={`p-4 rounded-lg border ${isDarkMode ? "bg-zinc-900 border-gray-700" : "bg-gray-50 border-gray-200"}`}>
                 <h4 className={`font-semibold mb-2 ${isDarkMode ? "text-orange-400" : "text-orange-600"}`}>
                   Sockets
                 </h4>
@@ -552,7 +552,7 @@ const OperatingSystemsArticle = () => {
 
           {/* Threads */}
           <section className="mb-8">
-            <h2 className={`text-2xl font-bold mb-4 ${isDarkMode ? "text-white" : "text-gray-900"}`}>
+            <h2 className={`text-2xl font-bold mb-4 ${isDarkMode ? "text-slate-300" : "text-gray-900"}`}>
               6. Threads and Multithreading
             </h2>
             
@@ -564,7 +564,7 @@ const OperatingSystemsArticle = () => {
               sharing the same memory space but having separate execution paths.
             </p>
 
-            <div className={`mt-4 p-4 rounded-lg ${isDarkMode ? "bg-gray-800" : "bg-gray-100"}`}>
+            <div className={`mt-4 p-4 rounded-lg ${isDarkMode ? "bg-zinc-900" : "bg-gray-100"}`}>
               <h4 className={`font-semibold mb-2 ${isDarkMode ? "text-green-400" : "text-green-600"}`}>
                 Thread Components:
               </h4>
@@ -580,25 +580,25 @@ const OperatingSystemsArticle = () => {
               Benefits of Multithreading
             </h3>
             <div className="grid md:grid-cols-2 gap-4">
-              <div className={`p-4 rounded-lg ${isDarkMode ? "bg-gray-800" : "bg-gray-100"}`}>
+              <div className={`p-4 rounded-lg ${isDarkMode ? "bg-zinc-900" : "bg-gray-100"}`}>
                 <h4 className={`font-semibold mb-2 ${isDarkMode ? "text-blue-400" : "text-blue-600"}`}>Responsiveness</h4>
                 <p className={`text-sm ${isDarkMode ? "text-gray-300" : "text-gray-700"}`}>
                   Program can continue running even if part of it is blocked or performing lengthy operations.
                 </p>
               </div>
-              <div className={`p-4 rounded-lg ${isDarkMode ? "bg-gray-800" : "bg-gray-100"}`}>
+              <div className={`p-4 rounded-lg ${isDarkMode ? "bg-zinc-900" : "bg-gray-100"}`}>
                 <h4 className={`font-semibold mb-2 ${isDarkMode ? "text-green-400" : "text-green-600"}`}>Resource Sharing</h4>
                 <p className={`text-sm ${isDarkMode ? "text-gray-300" : "text-gray-700"}`}>
                   Threads share memory and resources of the process, making communication easier and faster.
                 </p>
               </div>
-              <div className={`p-4 rounded-lg ${isDarkMode ? "bg-gray-800" : "bg-gray-100"}`}>
+              <div className={`p-4 rounded-lg ${isDarkMode ? "bg-zinc-900" : "bg-gray-100"}`}>
                 <h4 className={`font-semibold mb-2 ${isDarkMode ? "text-purple-400" : "text-purple-600"}`}>Economy</h4>
                 <p className={`text-sm ${isDarkMode ? "text-gray-300" : "text-gray-700"}`}>
                   Creating and switching threads is cheaper than creating and switching processes.
                 </p>
               </div>
-              <div className={`p-4 rounded-lg ${isDarkMode ? "bg-gray-800" : "bg-gray-100"}`}>
+              <div className={`p-4 rounded-lg ${isDarkMode ? "bg-zinc-900" : "bg-gray-100"}`}>
                 <h4 className={`font-semibold mb-2 ${isDarkMode ? "text-orange-400" : "text-orange-600"}`}>Scalability</h4>
                 <p className={`text-sm ${isDarkMode ? "text-gray-300" : "text-gray-700"}`}>
                   Multithreading can take advantage of multicore architectures for parallel execution.
@@ -609,7 +609,7 @@ const OperatingSystemsArticle = () => {
 
           {/* Memory Management */}
           <section className="mb-8">
-            <h2 className={`text-2xl font-bold mb-4 ${isDarkMode ? "text-white" : "text-gray-900"}`}>
+            <h2 className={`text-2xl font-bold mb-4 ${isDarkMode ? "text-slate-300" : "text-gray-900"}`}>
               9. Memory Management
             </h2>
             
@@ -623,7 +623,7 @@ const OperatingSystemsArticle = () => {
             </h3>
             
             <div className="space-y-4">
-              <div className={`p-4 rounded-lg border-l-4 border-blue-500 ${isDarkMode ? "bg-gray-800" : "bg-blue-50"}`}>
+              <div className={`p-4 rounded-lg border-l-4 border-blue-500 ${isDarkMode ? "bg-zinc-900" : "bg-blue-50"}`}>
                 <h4 className={`font-semibold mb-2 ${isDarkMode ? "text-blue-400" : "text-blue-600"}`}>
                   Contiguous Memory Allocation
                 </h4>
@@ -637,7 +637,7 @@ const OperatingSystemsArticle = () => {
                 </div>
               </div>
               
-              <div className={`p-4 rounded-lg border-l-4 border-green-500 ${isDarkMode ? "bg-gray-800" : "bg-green-50"}`}>
+              <div className={`p-4 rounded-lg border-l-4 border-green-500 ${isDarkMode ? "bg-zinc-900" : "bg-green-50"}`}>
                 <h4 className={`font-semibold mb-2 ${isDarkMode ? "text-green-400" : "text-green-600"}`}>
                   Paging
                 </h4>
@@ -651,7 +651,7 @@ const OperatingSystemsArticle = () => {
                 </div>
               </div>
               
-              <div className={`p-4 rounded-lg border-l-4 border-purple-500 ${isDarkMode ? "bg-gray-800" : "bg-purple-50"}`}>
+              <div className={`p-4 rounded-lg border-l-4 border-purple-500 ${isDarkMode ? "bg-zinc-900" : "bg-purple-50"}`}>
                 <h4 className={`font-semibold mb-2 ${isDarkMode ? "text-purple-400" : "text-purple-600"}`}>
                   Segmentation
                 </h4>
@@ -675,7 +675,7 @@ const OperatingSystemsArticle = () => {
             </p>
 
             <div className="grid md:grid-cols-2 gap-4">
-              <div className={`p-4 rounded-lg border ${isDarkMode ? "bg-gray-800 border-gray-700" : "bg-gray-50 border-gray-200"}`}>
+              <div className={`p-4 rounded-lg border ${isDarkMode ? "bg-zinc-900 border-gray-700" : "bg-gray-50 border-gray-200"}`}>
                 <h4 className={`font-semibold mb-2 ${isDarkMode ? "text-blue-400" : "text-blue-600"}`}>
                   Demand Paging
                 </h4>
@@ -685,7 +685,7 @@ const OperatingSystemsArticle = () => {
                 </p>
               </div>
               
-              <div className={`p-4 rounded-lg border ${isDarkMode ? "bg-gray-800 border-gray-700" : "bg-gray-50 border-gray-200"}`}>
+              <div className={`p-4 rounded-lg border ${isDarkMode ? "bg-zinc-900 border-gray-700" : "bg-gray-50 border-gray-200"}`}>
                 <h4 className={`font-semibold mb-2 ${isDarkMode ? "text-green-400" : "text-green-600"}`}>
                   Page Replacement
                 </h4>
@@ -699,7 +699,7 @@ const OperatingSystemsArticle = () => {
 
           {/* File Systems */}
           <section className="mb-8">
-            <h2 className={`text-2xl font-bold mb-4 ${isDarkMode ? "text-white" : "text-gray-900"}`}>
+            <h2 className={`text-2xl font-bold mb-4 ${isDarkMode ? "text-slate-300" : "text-gray-900"}`}>
               11. File Systems
             </h2>
             
@@ -713,7 +713,7 @@ const OperatingSystemsArticle = () => {
             </h3>
             
             <div className="space-y-4">
-              <div className={`p-4 rounded-lg ${isDarkMode ? "bg-gray-800" : "bg-gray-100"}`}>
+              <div className={`p-4 rounded-lg ${isDarkMode ? "bg-zinc-900" : "bg-gray-100"}`}>
                 <h4 className={`font-semibold mb-2 ${isDarkMode ? "text-green-400" : "text-green-600"}`}>
                   File Allocation Methods:
                 </h4>
@@ -750,7 +750,7 @@ const OperatingSystemsArticle = () => {
               Directory Structure
             </h3>
             <div className="grid md:grid-cols-2 gap-4">
-              <div className={`p-4 rounded-lg border ${isDarkMode ? "bg-gray-800 border-gray-700" : "bg-gray-50 border-gray-200"}`}>
+              <div className={`p-4 rounded-lg border ${isDarkMode ? "bg-zinc-900 border-gray-700" : "bg-gray-50 border-gray-200"}`}>
                 <h4 className={`font-semibold mb-2 ${isDarkMode ? "text-blue-400" : "text-blue-600"}`}>
                   Single-Level Directory
                 </h4>
@@ -759,7 +759,7 @@ const OperatingSystemsArticle = () => {
                 </p>
               </div>
               
-              <div className={`p-4 rounded-lg border ${isDarkMode ? "bg-gray-800 border-gray-700" : "bg-gray-50 border-gray-200"}`}>
+              <div className={`p-4 rounded-lg border ${isDarkMode ? "bg-zinc-900 border-gray-700" : "bg-gray-50 border-gray-200"}`}>
                 <h4 className={`font-semibold mb-2 ${isDarkMode ? "text-green-400" : "text-green-600"}`}>
                   Two-Level Directory
                 </h4>
@@ -768,7 +768,7 @@ const OperatingSystemsArticle = () => {
                 </p>
               </div>
               
-              <div className={`p-4 rounded-lg border ${isDarkMode ? "bg-gray-800 border-gray-700" : "bg-gray-50 border-gray-200"}`}>
+              <div className={`p-4 rounded-lg border ${isDarkMode ? "bg-zinc-900 border-gray-700" : "bg-gray-50 border-gray-200"}`}>
                 <h4 className={`font-semibold mb-2 ${isDarkMode ? "text-purple-400" : "text-purple-600"}`}>
                   Tree-Structured Directory
                 </h4>
@@ -777,7 +777,7 @@ const OperatingSystemsArticle = () => {
                 </p>
               </div>
               
-              <div className={`p-4 rounded-lg border ${isDarkMode ? "bg-gray-800 border-gray-700" : "bg-gray-50 border-gray-200"}`}>
+              <div className={`p-4 rounded-lg border ${isDarkMode ? "bg-zinc-900 border-gray-700" : "bg-gray-50 border-gray-200"}`}>
                 <h4 className={`font-semibold mb-2 ${isDarkMode ? "text-orange-400" : "text-orange-600"}`}>
                   Acyclic-Graph Directory
                 </h4>
@@ -790,7 +790,7 @@ const OperatingSystemsArticle = () => {
 
           {/* Security and Protection */}
           <section className="mb-8">
-            <h2 className={`text-2xl font-bold mb-4 ${isDarkMode ? "text-white" : "text-gray-900"}`}>
+            <h2 className={`text-2xl font-bold mb-4 ${isDarkMode ? "text-slate-300" : "text-gray-900"}`}>
               13. Security and Protection
             </h2>
             
@@ -829,12 +829,12 @@ const OperatingSystemsArticle = () => {
 
           {/* Modern OS Trends */}
           <section className="mb-8">
-            <h2 className={`text-2xl font-bold mb-4 ${isDarkMode ? "text-white" : "text-gray-900"}`}>
+            <h2 className={`text-2xl font-bold mb-4 ${isDarkMode ? "text-slate-300" : "text-gray-900"}`}>
               16. Modern Operating System Trends
             </h2>
             
             <div className="grid md:grid-cols-2 gap-4">
-              <div className={`p-4 rounded-lg border ${isDarkMode ? "bg-gray-800 border-gray-700" : "bg-gray-50 border-gray-200"}`}>
+              <div className={`p-4 rounded-lg border ${isDarkMode ? "bg-zinc-900 border-gray-700" : "bg-gray-50 border-gray-200"}`}>
                 <h4 className={`font-semibold mb-2 ${isDarkMode ? "text-blue-400" : "text-blue-600"}`}>
                   Virtualization
                 </h4>
@@ -843,7 +843,7 @@ const OperatingSystemsArticle = () => {
                 </p>
               </div>
               
-              <div className={`p-4 rounded-lg border ${isDarkMode ? "bg-gray-800 border-gray-700" : "bg-gray-50 border-gray-200"}`}>
+              <div className={`p-4 rounded-lg border ${isDarkMode ? "bg-zinc-900 border-gray-700" : "bg-gray-50 border-gray-200"}`}>
                 <h4 className={`font-semibold mb-2 ${isDarkMode ? "text-green-400" : "text-green-600"}`}>
                   Mobile Operating Systems
                 </h4>
@@ -852,7 +852,7 @@ const OperatingSystemsArticle = () => {
                 </p>
               </div>
               
-              <div className={`p-4 rounded-lg border ${isDarkMode ? "bg-gray-800 border-gray-700" : "bg-gray-50 border-gray-200"}`}>
+              <div className={`p-4 rounded-lg border ${isDarkMode ? "bg-zinc-900 border-gray-700" : "bg-gray-50 border-gray-200"}`}>
                 <h4 className={`font-semibold mb-2 ${isDarkMode ? "text-purple-400" : "text-purple-600"}`}>
                   Cloud Computing
                 </h4>
@@ -861,7 +861,7 @@ const OperatingSystemsArticle = () => {
                 </p>
               </div>
               
-              <div className={`p-4 rounded-lg border ${isDarkMode ? "bg-gray-800 border-gray-700" : "bg-gray-50 border-gray-200"}`}>
+              <div className={`p-4 rounded-lg border ${isDarkMode ? "bg-zinc-900 border-gray-700" : "bg-gray-50 border-gray-200"}`}>
                 <h4 className={`font-semibold mb-2 ${isDarkMode ? "text-orange-400" : "text-orange-600"}`}>
                   Microkernel Architecture
                 </h4>
@@ -874,7 +874,7 @@ const OperatingSystemsArticle = () => {
 
           {/* Conclusion */}
           <section className="mb-8">
-            <h2 className={`text-2xl font-bold mb-4 ${isDarkMode ? "text-white" : "text-gray-900"}`}>
+            <h2 className={`text-2xl font-bold mb-4 ${isDarkMode ? "text-slate-300" : "text-gray-900"}`}>
               Key Takeaways
             </h2>
             <p className={`text-base leading-relaxed ${isDarkMode ? "text-gray-300" : "text-gray-700"}`}>
@@ -889,7 +889,7 @@ const OperatingSystemsArticle = () => {
             </p>
             
             <div className={`mt-6 p-6 rounded-xl border ${
-              isDarkMode ? "bg-gray-800 border-gray-700" : "bg-blue-50 border-blue-200"
+              isDarkMode ? "bg-zinc-900 border-gray-700" : "bg-blue-50 border-blue-200"
             }`}>
               <h3 className={`text-lg font-semibold mb-3 ${isDarkMode ? "text-blue-400" : "text-blue-600"}`}>
                 🎯 Study Tips for Operating Systems

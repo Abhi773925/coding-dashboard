@@ -8,14 +8,14 @@ const OOPArticle = () => {
   return (
     <div className={`min-h-screen ${
       isDarkMode 
-        ? "bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 text-gray-100" 
+        ? "bg-zinc-900 text-gray-100" 
         : "bg-gradient-to-br from-gray-50 via-white to-gray-100 text-gray-900"
     }`}>
       {/* Article Header */}
       <div className="max-w-4xl mx-auto px-6 pt-24 pb-8">
         <div className="text-center mb-8">
           <h1 className={`text-4xl md:text-5xl font-bold mb-4 ${
-            isDarkMode ? "text-white" : "text-gray-900"
+            isDarkMode ? "text-slate-300" : "text-gray-900"
           }`}>
             Object-Oriented Programming
           </h1>
@@ -51,7 +51,7 @@ const OOPArticle = () => {
           
           {/* Introduction */}
           <section className="mb-8">
-            <h2 className={`text-2xl font-bold mb-4 ${isDarkMode ? "text-white" : "text-gray-900"}`}>
+            <h2 className={`text-2xl font-bold mb-4 ${isDarkMode ? "text-slate-300" : "text-gray-900"}`}>
               What is Object-Oriented Programming?
             </h2>
             <p className={`text-base leading-relaxed mb-4 ${isDarkMode ? "text-gray-300" : "text-gray-700"}`}>
@@ -65,7 +65,7 @@ const OOPArticle = () => {
               with other pieces to create complex structures. This approach makes code more organized, reusable, and easier to understand.
             </p>
             
-            <div className={`mt-6 p-4 rounded-lg border-l-4 border-blue-500 ${isDarkMode ? "bg-gray-800 border-gray-700" : "bg-blue-50 border-blue-200"}`}>
+            <div className={`mt-6 p-4 rounded-lg border-l-4 border-blue-500 ${isDarkMode ? "bg-zinc-900 border-gray-700" : "bg-blue-50 border-blue-200"}`}>
               <h4 className={`font-semibold mb-2 ${isDarkMode ? "text-blue-400" : "text-blue-600"}`}>
                 Key Benefits of OOP:
               </h4>
@@ -80,7 +80,7 @@ const OOPArticle = () => {
 
           {/* Class Concept */}
           <section className="mb-8">
-            <h2 className={`text-2xl font-bold mb-4 ${isDarkMode ? "text-white" : "text-gray-900"}`}>
+            <h2 className={`text-2xl font-bold mb-4 ${isDarkMode ? "text-slate-300" : "text-gray-900"}`}>
               Understanding Classes
             </h2>
             <p className={`text-base leading-relaxed mb-4 ${isDarkMode ? "text-gray-300" : "text-gray-700"}`}>
@@ -88,7 +88,7 @@ const OOPArticle = () => {
               representation of data. A class does not occupy any memory space until an object is instantiated.
             </p>
             
-            <div className={`mt-4 p-4 rounded-lg ${isDarkMode ? "bg-gray-800" : "bg-gray-100"}`}>
+            <div className={`mt-4 p-4 rounded-lg ${isDarkMode ? "bg-zinc-900" : "bg-gray-100"}`}>
               <h4 className={`font-semibold mb-2 ${isDarkMode ? "text-green-400" : "text-green-600"}`}>
                 Real-World Analogy:
               </h4>
@@ -103,7 +103,7 @@ const OOPArticle = () => {
                 Class Components:
               </h3>
               <div className="grid md:grid-cols-2 gap-4">
-                <div className={`p-4 rounded-lg border ${isDarkMode ? "bg-gray-800 border-gray-700" : "bg-gray-50 border-gray-200"}`}>
+                <div className={`p-4 rounded-lg border ${isDarkMode ? "bg-zinc-900 border-gray-700" : "bg-gray-50 border-gray-200"}`}>
                   <h4 className={`font-semibold mb-2 ${isDarkMode ? "text-blue-400" : "text-blue-600"}`}>
                     Data Members (Attributes)
                   </h4>
@@ -111,7 +111,7 @@ const OOPArticle = () => {
                     Variables that store the state of an object. They represent the properties or characteristics of the class.
                   </p>
                 </div>
-                <div className={`p-4 rounded-lg border ${isDarkMode ? "bg-gray-800 border-gray-700" : "bg-gray-50 border-gray-200"}`}>
+                <div className={`p-4 rounded-lg border ${isDarkMode ? "bg-zinc-900 border-gray-700" : "bg-gray-50 border-gray-200"}`}>
                   <h4 className={`font-semibold mb-2 ${isDarkMode ? "text-green-400" : "text-green-600"}`}>
                     Member Functions (Methods)
                   </h4>
@@ -125,7 +125,7 @@ const OOPArticle = () => {
 
           {/* Objects */}
           <section className="mb-8">
-            <h2 className={`text-2xl font-bold mb-4 ${isDarkMode ? "text-white" : "text-gray-900"}`}>
+            <h2 className={`text-2xl font-bold mb-4 ${isDarkMode ? "text-slate-300" : "text-gray-900"}`}>
               Understanding Objects
             </h2>
             <p className={`text-base leading-relaxed mb-4 ${isDarkMode ? "text-gray-300" : "text-gray-700"}`}>
@@ -133,7 +133,7 @@ const OOPArticle = () => {
               of that class is created. Objects are the actual entities that exist in memory and can perform operations.
             </p>
             
-            <div className={`mt-4 p-4 rounded-lg ${isDarkMode ? "bg-gray-800" : "bg-gray-100"}`}>
+            <div className={`mt-4 p-4 rounded-lg ${isDarkMode ? "bg-zinc-900" : "bg-gray-100"}`}>
               <h4 className={`font-semibold mb-2 ${isDarkMode ? "text-purple-400" : "text-purple-600"}`}>
                 Object Characteristics:
               </h4>
@@ -148,7 +148,7 @@ const OOPArticle = () => {
 
           {/* Core Principles */}
           <section className="mb-8">
-            <h2 className={`text-2xl font-bold mb-4 ${isDarkMode ? "text-white" : "text-gray-900"}`}>
+            <h2 className={`text-2xl font-bold mb-4 ${isDarkMode ? "text-slate-300" : "text-gray-900"}`}>
               The Four Pillars of OOP
             </h2>
             
@@ -164,7 +164,7 @@ const OOPArticle = () => {
                 </p>
                 
                 <div className={`grid md:grid-cols-2 gap-4 mb-4`}>
-                  <div className={`p-4 rounded-lg ${isDarkMode ? "bg-gray-800" : "bg-green-50"}`}>
+                  <div className={`p-4 rounded-lg ${isDarkMode ? "bg-zinc-900" : "bg-green-50"}`}>
                     <h4 className={`font-semibold mb-2 ${isDarkMode ? "text-green-400" : "text-green-600"}`}>
                       Advantages:
                     </h4>
@@ -175,7 +175,7 @@ const OOPArticle = () => {
                       <li>• Code reusability</li>
                     </ul>
                   </div>
-                  <div className={`p-4 rounded-lg ${isDarkMode ? "bg-gray-800" : "bg-blue-50"}`}>
+                  <div className={`p-4 rounded-lg ${isDarkMode ? "bg-zinc-900" : "bg-blue-50"}`}>
                     <h4 className={`font-semibold mb-2 ${isDarkMode ? "text-blue-400" : "text-blue-600"}`}>
                       Implementation:
                     </h4>
@@ -188,7 +188,7 @@ const OOPArticle = () => {
                   </div>
                 </div>
 
-                <div className={`p-4 rounded-lg ${isDarkMode ? "bg-gray-800" : "bg-gray-100"}`}>
+                <div className={`p-4 rounded-lg ${isDarkMode ? "bg-zinc-900" : "bg-gray-100"}`}>
                   <p className={`text-sm ${isDarkMode ? "text-gray-400" : "text-gray-600"}`}>
                     <strong>Real-world Example:</strong> A bank account class that keeps the balance private and only allows access through deposit() and withdraw() methods. 
                     The internal implementation of how balance is stored and calculated is hidden from the user.
@@ -206,7 +206,7 @@ const OOPArticle = () => {
                 </p>
 
                 <div className="space-y-4">
-                  <div className={`p-4 rounded-lg border ${isDarkMode ? "bg-gray-800 border-gray-700" : "bg-gray-50 border-gray-200"}`}>
+                  <div className={`p-4 rounded-lg border ${isDarkMode ? "bg-zinc-900 border-gray-700" : "bg-gray-50 border-gray-200"}`}>
                     <h4 className={`font-semibold mb-2 ${isDarkMode ? "text-green-400" : "text-green-600"}`}>
                       Types of Inheritance:
                     </h4>
@@ -230,7 +230,7 @@ const OOPArticle = () => {
                     </div>
                   </div>
 
-                  <div className={`p-4 rounded-lg ${isDarkMode ? "bg-gray-800" : "bg-gray-100"}`}>
+                  <div className={`p-4 rounded-lg ${isDarkMode ? "bg-zinc-900" : "bg-gray-100"}`}>
                     <p className={`text-sm ${isDarkMode ? "text-gray-400" : "text-gray-600"}`}>
                       <strong>Example:</strong> Vehicle (parent) → Car (child). Car inherits properties like speed, fuel from Vehicle, 
                       while adding car-specific features like number of doors, air conditioning.
@@ -251,7 +251,7 @@ const OOPArticle = () => {
 
                 <div className="space-y-4">
                   <div className={`grid md:grid-cols-2 gap-4`}>
-                    <div className={`p-4 rounded-lg border ${isDarkMode ? "bg-gray-800 border-gray-700" : "bg-purple-50 border-purple-200"}`}>
+                    <div className={`p-4 rounded-lg border ${isDarkMode ? "bg-zinc-900 border-gray-700" : "bg-purple-50 border-purple-200"}`}>
                       <h4 className={`font-semibold mb-2 ${isDarkMode ? "text-purple-400" : "text-purple-600"}`}>
                         Abstract Classes:
                       </h4>
@@ -262,7 +262,7 @@ const OOPArticle = () => {
                         <li>• Provide partial implementation</li>
                       </ul>
                     </div>
-                    <div className={`p-4 rounded-lg border ${isDarkMode ? "bg-gray-800 border-gray-700" : "bg-blue-50 border-blue-200"}`}>
+                    <div className={`p-4 rounded-lg border ${isDarkMode ? "bg-zinc-900 border-gray-700" : "bg-blue-50 border-blue-200"}`}>
                       <h4 className={`font-semibold mb-2 ${isDarkMode ? "text-blue-400" : "text-blue-600"}`}>
                         Interfaces:
                       </h4>
@@ -275,7 +275,7 @@ const OOPArticle = () => {
                     </div>
                   </div>
 
-                  <div className={`p-4 rounded-lg ${isDarkMode ? "bg-gray-800" : "bg-gray-100"}`}>
+                  <div className={`p-4 rounded-lg ${isDarkMode ? "bg-zinc-900" : "bg-gray-100"}`}>
                     <p className={`text-sm ${isDarkMode ? "text-gray-400" : "text-gray-600"}`}>
                       <strong>Example:</strong> TV remote control - you press buttons (interface) without knowing the internal 
                       electronics (implementation). Shape abstract class defining draw() method implemented differently by Circle, Rectangle, Triangle.
@@ -296,7 +296,7 @@ const OOPArticle = () => {
 
                 <div className="space-y-4">
                   <div className={`grid md:grid-cols-2 gap-4`}>
-                    <div className={`p-4 rounded-lg border ${isDarkMode ? "bg-gray-800 border-gray-700" : "bg-orange-50 border-orange-200"}`}>
+                    <div className={`p-4 rounded-lg border ${isDarkMode ? "bg-zinc-900 border-gray-700" : "bg-orange-50 border-orange-200"}`}>
                       <h4 className={`font-semibold mb-2 ${isDarkMode ? "text-orange-400" : "text-orange-600"}`}>
                         Compile-time Polymorphism:
                       </h4>
@@ -307,7 +307,7 @@ const OOPArticle = () => {
                         <li>• Static binding</li>
                       </ul>
                     </div>
-                    <div className={`p-4 rounded-lg border ${isDarkMode ? "bg-gray-800 border-gray-700" : "bg-red-50 border-red-200"}`}>
+                    <div className={`p-4 rounded-lg border ${isDarkMode ? "bg-zinc-900 border-gray-700" : "bg-red-50 border-red-200"}`}>
                       <h4 className={`font-semibold mb-2 ${isDarkMode ? "text-red-400" : "text-red-600"}`}>
                         Runtime Polymorphism:
                       </h4>
@@ -320,7 +320,7 @@ const OOPArticle = () => {
                     </div>
                   </div>
 
-                  <div className={`p-4 rounded-lg ${isDarkMode ? "bg-gray-800" : "bg-gray-100"}`}>
+                  <div className={`p-4 rounded-lg ${isDarkMode ? "bg-zinc-900" : "bg-gray-100"}`}>
                     <p className={`text-sm ${isDarkMode ? "text-gray-400" : "text-gray-600"}`}>
                       <strong>Example:</strong> Animal class with makeSound() method. Dog class overrides it to bark(), 
                       Cat class overrides it to meow(), Bird class overrides it to chirp(). Same method name, different behaviors.
@@ -333,7 +333,7 @@ const OOPArticle = () => {
 
           {/* Classes and Objects */}
           <section className="mb-8">
-            <h2 className={`text-2xl font-bold mb-4 ${isDarkMode ? "text-white" : "text-gray-900"}`}>
+            <h2 className={`text-2xl font-bold mb-4 ${isDarkMode ? "text-slate-300" : "text-gray-900"}`}>
               Classes and Objects in Detail
             </h2>
             
@@ -347,13 +347,13 @@ const OOPArticle = () => {
                   that the objects will have. Think of it as a cookie cutter - it defines the shape, but doesn't create the actual cookie.
                 </p>
                 
-                <div className={`p-4 rounded-lg border ${isDarkMode ? "bg-gray-800 border-gray-700" : "bg-blue-50 border-blue-200"}`}>
+                <div className={`p-4 rounded-lg border ${isDarkMode ? "bg-zinc-900 border-gray-700" : "bg-blue-50 border-blue-200"}`}>
                   <h4 className={`font-semibold mb-3 ${isDarkMode ? "text-blue-400" : "text-blue-600"}`}>
                     Class Components:
                   </h4>
                   <div className="space-y-3">
                     <div>
-                      <p className={`font-medium ${isDarkMode ? "text-white" : "text-gray-900"}`}>1. Access Modifiers:</p>
+                      <p className={`font-medium ${isDarkMode ? "text-slate-300" : "text-gray-900"}`}>1. Access Modifiers:</p>
                       <ul className={`text-sm ml-4 space-y-1 ${isDarkMode ? "text-gray-300" : "text-gray-700"}`}>
                         <li>• <strong>Public:</strong> Accessible from anywhere</li>
                         <li>• <strong>Private:</strong> Accessible only within the same class</li>
@@ -361,14 +361,14 @@ const OOPArticle = () => {
                       </ul>
                     </div>
                     <div>
-                      <p className={`font-medium ${isDarkMode ? "text-white" : "text-gray-900"}`}>2. Data Members:</p>
+                      <p className={`font-medium ${isDarkMode ? "text-slate-300" : "text-gray-900"}`}>2. Data Members:</p>
                       <ul className={`text-sm ml-4 space-y-1 ${isDarkMode ? "text-gray-300" : "text-gray-700"}`}>
                         <li>• Instance variables (unique to each object)</li>
                         <li>• Static/Class variables (shared by all objects)</li>
                       </ul>
                     </div>
                     <div>
-                      <p className={`font-medium ${isDarkMode ? "text-white" : "text-gray-900"}`}>3. Member Functions:</p>
+                      <p className={`font-medium ${isDarkMode ? "text-slate-300" : "text-gray-900"}`}>3. Member Functions:</p>
                       <ul className={`text-sm ml-4 space-y-1 ${isDarkMode ? "text-gray-300" : "text-gray-700"}`}>
                         <li>• Constructors (initialize objects)</li>
                         <li>• Destructors (cleanup when object is destroyed)</li>
@@ -389,7 +389,7 @@ const OOPArticle = () => {
                 </p>
                 
                 <div className={`grid md:grid-cols-2 gap-4`}>
-                  <div className={`p-4 rounded-lg border ${isDarkMode ? "bg-gray-800 border-gray-700" : "bg-green-50 border-green-200"}`}>
+                  <div className={`p-4 rounded-lg border ${isDarkMode ? "bg-zinc-900 border-gray-700" : "bg-green-50 border-green-200"}`}>
                     <h4 className={`font-semibold mb-2 ${isDarkMode ? "text-green-400" : "text-green-600"}`}>
                       Object Creation Steps:
                     </h4>
@@ -400,7 +400,7 @@ const OOPArticle = () => {
                       <li>4. Reference assignment</li>
                     </ol>
                   </div>
-                  <div className={`p-4 rounded-lg border ${isDarkMode ? "bg-gray-800 border-gray-700" : "bg-red-50 border-red-200"}`}>
+                  <div className={`p-4 rounded-lg border ${isDarkMode ? "bg-zinc-900 border-gray-700" : "bg-red-50 border-red-200"}`}>
                     <h4 className={`font-semibold mb-2 ${isDarkMode ? "text-red-400" : "text-red-600"}`}>
                       Object Destruction:
                     </h4>
@@ -418,7 +418,7 @@ const OOPArticle = () => {
 
           {/* Constructors and Destructors */}
           <section className="mb-8">
-            <h2 className={`text-2xl font-bold mb-4 ${isDarkMode ? "text-white" : "text-gray-900"}`}>
+            <h2 className={`text-2xl font-bold mb-4 ${isDarkMode ? "text-slate-300" : "text-gray-900"}`}>
               Constructors and Destructors
             </h2>
             
@@ -433,27 +433,27 @@ const OOPArticle = () => {
                 </p>
                 
                 <div className="space-y-4">
-                  <div className={`p-4 rounded-lg border ${isDarkMode ? "bg-gray-800 border-gray-700" : "bg-blue-50 border-blue-200"}`}>
+                  <div className={`p-4 rounded-lg border ${isDarkMode ? "bg-zinc-900 border-gray-700" : "bg-blue-50 border-blue-200"}`}>
                     <h4 className={`font-semibold mb-3 ${isDarkMode ? "text-blue-400" : "text-blue-600"}`}>
                       Types of Constructors:
                     </h4>
                     <div className="grid md:grid-cols-3 gap-3">
                       <div>
-                        <p className={`font-medium ${isDarkMode ? "text-white" : "text-gray-900"}`}>Default Constructor:</p>
+                        <p className={`font-medium ${isDarkMode ? "text-slate-300" : "text-gray-900"}`}>Default Constructor:</p>
                         <p className={`text-sm ${isDarkMode ? "text-gray-400" : "text-gray-600"}`}>No parameters, provides default values</p>
                       </div>
                       <div>
-                        <p className={`font-medium ${isDarkMode ? "text-white" : "text-gray-900"}`}>Parameterized Constructor:</p>
+                        <p className={`font-medium ${isDarkMode ? "text-slate-300" : "text-gray-900"}`}>Parameterized Constructor:</p>
                         <p className={`text-sm ${isDarkMode ? "text-gray-400" : "text-gray-600"}`}>Takes parameters to initialize with specific values</p>
                       </div>
                       <div>
-                        <p className={`font-medium ${isDarkMode ? "text-white" : "text-gray-900"}`}>Copy Constructor:</p>
+                        <p className={`font-medium ${isDarkMode ? "text-slate-300" : "text-gray-900"}`}>Copy Constructor:</p>
                         <p className={`text-sm ${isDarkMode ? "text-gray-400" : "text-gray-600"}`}>Creates object by copying another object</p>
                       </div>
                     </div>
                   </div>
 
-                  <div className={`p-4 rounded-lg ${isDarkMode ? "bg-gray-800" : "bg-gray-100"}`}>
+                  <div className={`p-4 rounded-lg ${isDarkMode ? "bg-zinc-900" : "bg-gray-100"}`}>
                     <h4 className={`font-semibold mb-2 ${isDarkMode ? "text-blue-400" : "text-blue-600"}`}>
                       Constructor Rules:
                     </h4>
@@ -477,7 +477,7 @@ const OOPArticle = () => {
                   It performs cleanup operations and deallocates resources used by the object.
                 </p>
                 
-                <div className={`p-4 rounded-lg border ${isDarkMode ? "bg-gray-800 border-gray-700" : "bg-red-50 border-red-200"}`}>
+                <div className={`p-4 rounded-lg border ${isDarkMode ? "bg-zinc-900 border-gray-700" : "bg-red-50 border-red-200"}`}>
                   <h4 className={`font-semibold mb-2 ${isDarkMode ? "text-red-400" : "text-red-600"}`}>
                     Destructor Characteristics:
                   </h4>
@@ -495,12 +495,12 @@ const OOPArticle = () => {
 
           {/* Method Overloading and Overriding */}
           <section className="mb-8">
-            <h2 className={`text-2xl font-bold mb-4 ${isDarkMode ? "text-white" : "text-gray-900"}`}>
+            <h2 className={`text-2xl font-bold mb-4 ${isDarkMode ? "text-slate-300" : "text-gray-900"}`}>
               Method Overloading vs Method Overriding
             </h2>
             
             <div className="grid md:grid-cols-2 gap-6">
-              <div className={`p-6 rounded-lg border ${isDarkMode ? "bg-gray-800 border-gray-700" : "bg-blue-50 border-blue-200"}`}>
+              <div className={`p-6 rounded-lg border ${isDarkMode ? "bg-zinc-900 border-gray-700" : "bg-blue-50 border-blue-200"}`}>
                 <h3 className={`text-xl font-semibold mb-3 ${isDarkMode ? "text-blue-400" : "text-blue-600"}`}>
                   Method Overloading
                 </h3>
@@ -518,7 +518,7 @@ const OOPArticle = () => {
                 </ul>
                 
                 <h4 className={`font-semibold mb-2 ${isDarkMode ? "text-blue-300" : "text-blue-500"}`}>Example:</h4>
-                <div className={`text-xs p-3 rounded ${isDarkMode ? "bg-gray-900" : "bg-white"} ${isDarkMode ? "text-green-300" : "text-gray-800"}`}>
+                <div className={`text-xs p-3 rounded ${isDarkMode ? "bg-zinc-900" : "bg-white"} ${isDarkMode ? "text-green-300" : "text-gray-800"}`}>
                   <code>
                     add(int a, int b)<br/>
                     add(float a, float b)<br/>
@@ -527,7 +527,7 @@ const OOPArticle = () => {
                 </div>
               </div>
 
-              <div className={`p-6 rounded-lg border ${isDarkMode ? "bg-gray-800 border-gray-700" : "bg-green-50 border-green-200"}`}>
+              <div className={`p-6 rounded-lg border ${isDarkMode ? "bg-zinc-900 border-gray-700" : "bg-green-50 border-green-200"}`}>
                 <h3 className={`text-xl font-semibold mb-3 ${isDarkMode ? "text-green-400" : "text-green-600"}`}>
                   Method Overriding
                 </h3>
@@ -545,7 +545,7 @@ const OOPArticle = () => {
                 </ul>
                 
                 <h4 className={`font-semibold mb-2 ${isDarkMode ? "text-green-300" : "text-green-500"}`}>Example:</h4>
-                <div className={`text-xs p-3 rounded ${isDarkMode ? "bg-gray-900" : "bg-white"} ${isDarkMode ? "text-green-300" : "text-gray-800"}`}>
+                <div className={`text-xs p-3 rounded ${isDarkMode ? "bg-zinc-900" : "bg-white"} ${isDarkMode ? "text-green-300" : "text-gray-800"}`}>
                   <code>
                     Animal: makeSound()<br/>
                     Dog: makeSound() // bark<br/>
@@ -558,7 +558,7 @@ const OOPArticle = () => {
 
           {/* Benefits */}
           <section className="mb-8">
-            <h2 className={`text-2xl font-bold mb-4 ${isDarkMode ? "text-white" : "text-gray-900"}`}>
+            <h2 className={`text-2xl font-bold mb-4 ${isDarkMode ? "text-slate-300" : "text-gray-900"}`}>
               Comprehensive Benefits of OOP
             </h2>
             
@@ -612,7 +612,7 @@ const OOPArticle = () => {
               </div>
             </div>
 
-            <div className={`p-4 rounded-lg border-l-4 border-green-500 ${isDarkMode ? "bg-gray-800" : "bg-green-50"}`}>
+            <div className={`p-4 rounded-lg border-l-4 border-green-500 ${isDarkMode ? "bg-zinc-900" : "bg-green-50"}`}>
               <h4 className={`font-semibold mb-2 ${isDarkMode ? "text-green-400" : "text-green-600"}`}>
                 Why OOP is Industry Standard:
               </h4>
@@ -626,13 +626,13 @@ const OOPArticle = () => {
 
           {/* Design Patterns */}
           <section className="mb-8">
-            <h2 className={`text-2xl font-bold mb-4 ${isDarkMode ? "text-white" : "text-gray-900"}`}>
+            <h2 className={`text-2xl font-bold mb-4 ${isDarkMode ? "text-slate-300" : "text-gray-900"}`}>
               Common OOP Design Patterns
             </h2>
             
             <div className="space-y-6">
               <div className="grid md:grid-cols-3 gap-4">
-                <div className={`p-4 rounded-lg border ${isDarkMode ? "bg-gray-800 border-gray-700" : "bg-blue-50 border-blue-200"}`}>
+                <div className={`p-4 rounded-lg border ${isDarkMode ? "bg-zinc-900 border-gray-700" : "bg-blue-50 border-blue-200"}`}>
                   <h3 className={`text-lg font-semibold mb-2 ${isDarkMode ? "text-blue-400" : "text-blue-600"}`}>
                     Singleton Pattern
                   </h3>
@@ -642,7 +642,7 @@ const OOPArticle = () => {
                   </p>
                 </div>
                 
-                <div className={`p-4 rounded-lg border ${isDarkMode ? "bg-gray-800 border-gray-700" : "bg-green-50 border-green-200"}`}>
+                <div className={`p-4 rounded-lg border ${isDarkMode ? "bg-zinc-900 border-gray-700" : "bg-green-50 border-green-200"}`}>
                   <h3 className={`text-lg font-semibold mb-2 ${isDarkMode ? "text-green-400" : "text-green-600"}`}>
                     Factory Pattern
                   </h3>
@@ -652,7 +652,7 @@ const OOPArticle = () => {
                   </p>
                 </div>
                 
-                <div className={`p-4 rounded-lg border ${isDarkMode ? "bg-gray-800 border-gray-700" : "bg-purple-50 border-purple-200"}`}>
+                <div className={`p-4 rounded-lg border ${isDarkMode ? "bg-zinc-900 border-gray-700" : "bg-purple-50 border-purple-200"}`}>
                   <h3 className={`text-lg font-semibold mb-2 ${isDarkMode ? "text-purple-400" : "text-purple-600"}`}>
                     Observer Pattern
                   </h3>
@@ -664,7 +664,7 @@ const OOPArticle = () => {
               </div>
 
               <div className="grid md:grid-cols-2 gap-4">
-                <div className={`p-4 rounded-lg border ${isDarkMode ? "bg-gray-800 border-gray-700" : "bg-orange-50 border-orange-200"}`}>
+                <div className={`p-4 rounded-lg border ${isDarkMode ? "bg-zinc-900 border-gray-700" : "bg-orange-50 border-orange-200"}`}>
                   <h3 className={`text-lg font-semibold mb-2 ${isDarkMode ? "text-orange-400" : "text-orange-600"}`}>
                     Strategy Pattern
                   </h3>
@@ -674,7 +674,7 @@ const OOPArticle = () => {
                   </p>
                 </div>
                 
-                <div className={`p-4 rounded-lg border ${isDarkMode ? "bg-gray-800 border-gray-700" : "bg-red-50 border-red-200"}`}>
+                <div className={`p-4 rounded-lg border ${isDarkMode ? "bg-zinc-900 border-gray-700" : "bg-red-50 border-red-200"}`}>
                   <h3 className={`text-lg font-semibold mb-2 ${isDarkMode ? "text-red-400" : "text-red-600"}`}>
                     Decorator Pattern
                   </h3>
@@ -689,12 +689,12 @@ const OOPArticle = () => {
 
           {/* SOLID Principles */}
           <section className="mb-8">
-            <h2 className={`text-2xl font-bold mb-4 ${isDarkMode ? "text-white" : "text-gray-900"}`}>
+            <h2 className={`text-2xl font-bold mb-4 ${isDarkMode ? "text-slate-300" : "text-gray-900"}`}>
               SOLID Principles of OOP
             </h2>
             
             <div className="space-y-4">
-              <div className={`p-4 rounded-lg border ${isDarkMode ? "bg-gray-800 border-gray-700" : "bg-blue-50 border-blue-200"}`}>
+              <div className={`p-4 rounded-lg border ${isDarkMode ? "bg-zinc-900 border-gray-700" : "bg-blue-50 border-blue-200"}`}>
                 <h3 className={`text-lg font-semibold mb-2 ${isDarkMode ? "text-blue-400" : "text-blue-600"}`}>
                   S - Single Responsibility Principle
                 </h3>
@@ -703,7 +703,7 @@ const OOPArticle = () => {
                 </p>
               </div>
 
-              <div className={`p-4 rounded-lg border ${isDarkMode ? "bg-gray-800 border-gray-700" : "bg-green-50 border-green-200"}`}>
+              <div className={`p-4 rounded-lg border ${isDarkMode ? "bg-zinc-900 border-gray-700" : "bg-green-50 border-green-200"}`}>
                 <h3 className={`text-lg font-semibold mb-2 ${isDarkMode ? "text-green-400" : "text-green-600"}`}>
                   O - Open/Closed Principle
                 </h3>
@@ -712,7 +712,7 @@ const OOPArticle = () => {
                 </p>
               </div>
 
-              <div className={`p-4 rounded-lg border ${isDarkMode ? "bg-gray-800 border-gray-700" : "bg-purple-50 border-purple-200"}`}>
+              <div className={`p-4 rounded-lg border ${isDarkMode ? "bg-zinc-900 border-gray-700" : "bg-purple-50 border-purple-200"}`}>
                 <h3 className={`text-lg font-semibold mb-2 ${isDarkMode ? "text-purple-400" : "text-purple-600"}`}>
                   L - Liskov Substitution Principle
                 </h3>
@@ -721,7 +721,7 @@ const OOPArticle = () => {
                 </p>
               </div>
 
-              <div className={`p-4 rounded-lg border ${isDarkMode ? "bg-gray-800 border-gray-700" : "bg-orange-50 border-orange-200"}`}>
+              <div className={`p-4 rounded-lg border ${isDarkMode ? "bg-zinc-900 border-gray-700" : "bg-orange-50 border-orange-200"}`}>
                 <h3 className={`text-lg font-semibold mb-2 ${isDarkMode ? "text-orange-400" : "text-orange-600"}`}>
                   I - Interface Segregation Principle
                 </h3>
@@ -730,7 +730,7 @@ const OOPArticle = () => {
                 </p>
               </div>
 
-              <div className={`p-4 rounded-lg border ${isDarkMode ? "bg-gray-800 border-gray-700" : "bg-red-50 border-red-200"}`}>
+              <div className={`p-4 rounded-lg border ${isDarkMode ? "bg-zinc-900 border-gray-700" : "bg-red-50 border-red-200"}`}>
                 <h3 className={`text-lg font-semibold mb-2 ${isDarkMode ? "text-red-400" : "text-red-600"}`}>
                   D - Dependency Inversion Principle
                 </h3>
@@ -743,13 +743,13 @@ const OOPArticle = () => {
 
           {/* Real-world Examples */}
           <section className="mb-8">
-            <h2 className={`text-2xl font-bold mb-4 ${isDarkMode ? "text-white" : "text-gray-900"}`}>
+            <h2 className={`text-2xl font-bold mb-4 ${isDarkMode ? "text-slate-300" : "text-gray-900"}`}>
               Comprehensive Real-World Applications
             </h2>
             
             <div className="space-y-6">
               <div className="grid md:grid-cols-2 gap-6">
-                <div className={`p-4 rounded-lg border ${isDarkMode ? "bg-gray-800 border-gray-700" : "bg-gray-50 border-gray-200"}`}>
+                <div className={`p-4 rounded-lg border ${isDarkMode ? "bg-zinc-900 border-gray-700" : "bg-gray-50 border-gray-200"}`}>
                   <h3 className={`text-lg font-semibold mb-2 ${isDarkMode ? "text-blue-400" : "text-blue-600"}`}>
                     Banking System
                   </h3>
@@ -762,7 +762,7 @@ const OOPArticle = () => {
                   </div>
                 </div>
                 
-                <div className={`p-4 rounded-lg border ${isDarkMode ? "bg-gray-800 border-gray-700" : "bg-gray-50 border-gray-200"}`}>
+                <div className={`p-4 rounded-lg border ${isDarkMode ? "bg-zinc-900 border-gray-700" : "bg-gray-50 border-gray-200"}`}>
                   <h3 className={`text-lg font-semibold mb-2 ${isDarkMode ? "text-green-400" : "text-green-600"}`}>
                     E-commerce Platform
                   </h3>
@@ -775,7 +775,7 @@ const OOPArticle = () => {
                   </div>
                 </div>
                 
-                <div className={`p-4 rounded-lg border ${isDarkMode ? "bg-gray-800 border-gray-700" : "bg-gray-50 border-gray-200"}`}>
+                <div className={`p-4 rounded-lg border ${isDarkMode ? "bg-zinc-900 border-gray-700" : "bg-gray-50 border-gray-200"}`}>
                   <h3 className={`text-lg font-semibold mb-2 ${isDarkMode ? "text-purple-400" : "text-purple-600"}`}>
                     Game Development
                   </h3>
@@ -788,7 +788,7 @@ const OOPArticle = () => {
                   </div>
                 </div>
                 
-                <div className={`p-4 rounded-lg border ${isDarkMode ? "bg-gray-800 border-gray-700" : "bg-gray-50 border-gray-200"}`}>
+                <div className={`p-4 rounded-lg border ${isDarkMode ? "bg-zinc-900 border-gray-700" : "bg-gray-50 border-gray-200"}`}>
                   <h3 className={`text-lg font-semibold mb-2 ${isDarkMode ? "text-orange-400" : "text-orange-600"}`}>
                     Social Media Platform
                   </h3>
@@ -803,7 +803,7 @@ const OOPArticle = () => {
               </div>
 
               <div className="grid md:grid-cols-3 gap-4">
-                <div className={`p-4 rounded-lg border ${isDarkMode ? "bg-gray-800 border-gray-700" : "bg-yellow-50 border-yellow-200"}`}>
+                <div className={`p-4 rounded-lg border ${isDarkMode ? "bg-zinc-900 border-gray-700" : "bg-yellow-50 border-yellow-200"}`}>
                   <h3 className={`text-lg font-semibold mb-2 ${isDarkMode ? "text-yellow-400" : "text-yellow-600"}`}>
                     Healthcare System
                   </h3>
@@ -812,7 +812,7 @@ const OOPArticle = () => {
                   </p>
                 </div>
                 
-                <div className={`p-4 rounded-lg border ${isDarkMode ? "bg-gray-800 border-gray-700" : "bg-pink-50 border-pink-200"}`}>
+                <div className={`p-4 rounded-lg border ${isDarkMode ? "bg-zinc-900 border-gray-700" : "bg-pink-50 border-pink-200"}`}>
                   <h3 className={`text-lg font-semibold mb-2 ${isDarkMode ? "text-pink-400" : "text-pink-600"}`}>
                     Inventory Management
                   </h3>
@@ -821,7 +821,7 @@ const OOPArticle = () => {
                   </p>
                 </div>
                 
-                <div className={`p-4 rounded-lg border ${isDarkMode ? "bg-gray-800 border-gray-700" : "bg-indigo-50 border-indigo-200"}`}>
+                <div className={`p-4 rounded-lg border ${isDarkMode ? "bg-zinc-900 border-gray-700" : "bg-indigo-50 border-indigo-200"}`}>
                   <h3 className={`text-lg font-semibold mb-2 ${isDarkMode ? "text-indigo-400" : "text-indigo-600"}`}>
                     Educational Platform
                   </h3>
@@ -835,13 +835,13 @@ const OOPArticle = () => {
 
           {/* Advanced Concepts */}
           <section className="mb-8">
-            <h2 className={`text-2xl font-bold mb-4 ${isDarkMode ? "text-white" : "text-gray-900"}`}>
+            <h2 className={`text-2xl font-bold mb-4 ${isDarkMode ? "text-slate-300" : "text-gray-900"}`}>
               Advanced OOP Concepts
             </h2>
             
             <div className="space-y-6">
               <div className="grid md:grid-cols-2 gap-6">
-                <div className={`p-4 rounded-lg border ${isDarkMode ? "bg-gray-800 border-gray-700" : "bg-blue-50 border-blue-200"}`}>
+                <div className={`p-4 rounded-lg border ${isDarkMode ? "bg-zinc-900 border-gray-700" : "bg-blue-50 border-blue-200"}`}>
                   <h3 className={`text-lg font-semibold mb-3 ${isDarkMode ? "text-blue-400" : "text-blue-600"}`}>
                     Composition vs Inheritance
                   </h3>
@@ -861,7 +861,7 @@ const OOPArticle = () => {
                   </div>
                 </div>
 
-                <div className={`p-4 rounded-lg border ${isDarkMode ? "bg-gray-800 border-gray-700" : "bg-green-50 border-green-200"}`}>
+                <div className={`p-4 rounded-lg border ${isDarkMode ? "bg-zinc-900 border-gray-700" : "bg-green-50 border-green-200"}`}>
                   <h3 className={`text-lg font-semibold mb-3 ${isDarkMode ? "text-green-400" : "text-green-600"}`}>
                     Association vs Aggregation
                   </h3>
@@ -882,7 +882,7 @@ const OOPArticle = () => {
                 </div>
               </div>
 
-              <div className={`p-4 rounded-lg border ${isDarkMode ? "bg-gray-800 border-gray-700" : "bg-purple-50 border-purple-200"}`}>
+              <div className={`p-4 rounded-lg border ${isDarkMode ? "bg-zinc-900 border-gray-700" : "bg-purple-50 border-purple-200"}`}>
                 <h3 className={`text-lg font-semibold mb-3 ${isDarkMode ? "text-purple-400" : "text-purple-600"}`}>
                   Static vs Instance Members
                 </h3>
@@ -912,12 +912,12 @@ const OOPArticle = () => {
 
           {/* Programming Languages and OOP */}
           <section className="mb-8">
-            <h2 className={`text-2xl font-bold mb-4 ${isDarkMode ? "text-white" : "text-gray-900"}`}>
+            <h2 className={`text-2xl font-bold mb-4 ${isDarkMode ? "text-slate-300" : "text-gray-900"}`}>
               OOP in Different Programming Languages
             </h2>
             
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
-              <div className={`p-4 rounded-lg border ${isDarkMode ? "bg-gray-800 border-gray-700" : "bg-blue-50 border-blue-200"}`}>
+              <div className={`p-4 rounded-lg border ${isDarkMode ? "bg-zinc-900 border-gray-700" : "bg-blue-50 border-blue-200"}`}>
                 <h3 className={`text-lg font-semibold mb-2 ${isDarkMode ? "text-blue-400" : "text-blue-600"}`}>
                   Java
                 </h3>
@@ -929,7 +929,7 @@ const OOPArticle = () => {
                 </ul>
               </div>
 
-              <div className={`p-4 rounded-lg border ${isDarkMode ? "bg-gray-800 border-gray-700" : "bg-green-50 border-green-200"}`}>
+              <div className={`p-4 rounded-lg border ${isDarkMode ? "bg-zinc-900 border-gray-700" : "bg-green-50 border-green-200"}`}>
                 <h3 className={`text-lg font-semibold mb-2 ${isDarkMode ? "text-green-400" : "text-green-600"}`}>
                   C++
                 </h3>
@@ -941,7 +941,7 @@ const OOPArticle = () => {
                 </ul>
               </div>
 
-              <div className={`p-4 rounded-lg border ${isDarkMode ? "bg-gray-800 border-gray-700" : "bg-purple-50 border-purple-200"}`}>
+              <div className={`p-4 rounded-lg border ${isDarkMode ? "bg-zinc-900 border-gray-700" : "bg-purple-50 border-purple-200"}`}>
                 <h3 className={`text-lg font-semibold mb-2 ${isDarkMode ? "text-purple-400" : "text-purple-600"}`}>
                   Python
                 </h3>
@@ -953,7 +953,7 @@ const OOPArticle = () => {
                 </ul>
               </div>
 
-              <div className={`p-4 rounded-lg border ${isDarkMode ? "bg-gray-800 border-gray-700" : "bg-orange-50 border-orange-200"}`}>
+              <div className={`p-4 rounded-lg border ${isDarkMode ? "bg-zinc-900 border-gray-700" : "bg-orange-50 border-orange-200"}`}>
                 <h3 className={`text-lg font-semibold mb-2 ${isDarkMode ? "text-orange-400" : "text-orange-600"}`}>
                   C#
                 </h3>
@@ -965,7 +965,7 @@ const OOPArticle = () => {
                 </ul>
               </div>
 
-              <div className={`p-4 rounded-lg border ${isDarkMode ? "bg-gray-800 border-gray-700" : "bg-red-50 border-red-200"}`}>
+              <div className={`p-4 rounded-lg border ${isDarkMode ? "bg-zinc-900 border-gray-700" : "bg-red-50 border-red-200"}`}>
                 <h3 className={`text-lg font-semibold mb-2 ${isDarkMode ? "text-red-400" : "text-red-600"}`}>
                   JavaScript
                 </h3>
@@ -977,7 +977,7 @@ const OOPArticle = () => {
                 </ul>
               </div>
 
-              <div className={`p-4 rounded-lg border ${isDarkMode ? "bg-gray-800 border-gray-700" : "bg-yellow-50 border-yellow-200"}`}>
+              <div className={`p-4 rounded-lg border ${isDarkMode ? "bg-zinc-900 border-gray-700" : "bg-yellow-50 border-yellow-200"}`}>
                 <h3 className={`text-lg font-semibold mb-2 ${isDarkMode ? "text-yellow-400" : "text-yellow-600"}`}>
                   Ruby
                 </h3>
@@ -993,7 +993,7 @@ const OOPArticle = () => {
 
           {/* Conclusion */}
           <section className="mb-8">
-            <h2 className={`text-2xl font-bold mb-4 ${isDarkMode ? "text-white" : "text-gray-900"}`}>
+            <h2 className={`text-2xl font-bold mb-4 ${isDarkMode ? "text-slate-300" : "text-gray-900"}`}>
               Key Takeaways
             </h2>
             <p className={`text-base leading-relaxed ${isDarkMode ? "text-gray-300" : "text-gray-700"}`}>

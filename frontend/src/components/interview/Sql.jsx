@@ -255,14 +255,14 @@ const Sql = () => {
         <div
           className={`relative backdrop-blur-sm border rounded-xl p-6 transition-all duration-300 ${
             isDarkMode
-              ? "bg-gray-800/80 border-gray-700/50 hover:bg-gray-800/90"
+              ? "bg-zinc-900/80 border-gray-700/50 hover:bg-zinc-900"
               : "bg-white/80 border-gray-200/50 hover:bg-white/90"
           }`}
         >
           {/* Header */}
           <div className="flex items-center justify-between mb-4">
             <div className="flex items-center gap-3">
-              <div className={`p-2 rounded-lg bg-gradient-to-br ${gradient} text-white shadow-lg`}>
+              <div className={`p-2 rounded-lg bg-gradient-to-br ${gradient} text-slate-300 shadow-lg`}>
                 <Icon size={20} />
               </div>
               <h3 className={`text-xl font-bold bg-gradient-to-r ${gradient} bg-clip-text text-transparent`}>
@@ -289,7 +289,7 @@ const Sql = () => {
                     <div
                       key={index}
                       className={`flex items-start gap-2 p-2 rounded-lg transition-colors ${
-                        isDarkMode ? "hover:bg-gray-700/50" : "hover:bg-gray-50"
+                        isDarkMode ? "hover:bg-zinc-900/50" : "hover:bg-gray-50"
                       }`}
                     >
                       <div className={`w-2 h-2 rounded-full bg-gradient-to-br ${gradient} mt-2 flex-shrink-0`} />
@@ -313,7 +313,7 @@ const Sql = () => {
                           toggleAccordion(`${title}-${key}`)
                         }}
                         className={`w-full text-left p-3 flex items-center justify-between transition-all ${
-                          isDarkMode ? "hover:bg-gray-700/50 text-gray-200" : "hover:bg-gray-50 text-gray-800"
+                          isDarkMode ? "hover:bg-zinc-900/50 text-gray-200" : "hover:bg-gray-50 text-gray-800"
                         }`}
                       >
                         <span className="font-medium">{key}</span>
@@ -328,7 +328,7 @@ const Sql = () => {
                         <div
                           className={`p-4 border-t ${
                             isDarkMode
-                              ? "bg-gray-800/50 border-gray-700 text-gray-300"
+                              ? "bg-zinc-900/50 border-gray-700 text-gray-300"
                               : "bg-gray-50/50 border-gray-200 text-gray-700"
                           }`}
                         >
@@ -403,7 +403,7 @@ const Sql = () => {
     <div
       className={`min-h-screen transition-all duration-500 relative overflow-hidden ${
         isDarkMode
-          ? "bg-gradient-to-br from-slate-900 via-slate-900 to-slate-900"
+          ? "bg-zinc-900"
           : "bg-gradient-to-br from-gray-50 via-white to-gray-100"
       }`}
       // style={{
@@ -429,7 +429,7 @@ const Sql = () => {
       {/* Header */}
       <div className={`relative z-10 pt-20 pb-12 ${
             isDarkMode
-              ? "bg-slate-900"
+              ? "bg-zinc-900"
               : "bg-white/80"
           } `}>
         <div className="text-center">

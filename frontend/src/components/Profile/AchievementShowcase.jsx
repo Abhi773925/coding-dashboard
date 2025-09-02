@@ -309,18 +309,18 @@ const AchievementShowcase = ({ user, detailed = false }) => {
 
   const getRarityBadge = (rarity) => {
     const badges = {
-      legendary: { text: 'Legendary', color: 'bg-yellow-500 text-white' },
-      epic: { text: 'Epic', color: 'bg-purple-500 text-white' },
-      rare: { text: 'Rare', color: 'bg-blue-500 text-white' },
-      common: { text: 'Common', color: 'bg-gray-500 text-white' }
+      legendary: { text: 'Legendary', color: 'bg-yellow-500 text-slate-300' },
+      epic: { text: 'Epic', color: 'bg-purple-500 text-slate-300' },
+      rare: { text: 'Rare', color: 'bg-blue-500 text-slate-300' },
+      common: { text: 'Common', color: 'bg-gray-500 text-slate-300' }
     };
     return badges[rarity] || badges.common;
   };
 
   if (achievements.length === 0) {
     return (
-      <div className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-lg">
-        <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">Achievements</h3>
+      <div className="bg-white dark:bg-zinc-900 rounded-xl p-6 shadow-lg">
+        <h3 className="text-lg font-semibold text-gray-900 dark:text-slate-300 mb-4">Achievements</h3>
         <div className="text-center py-8">
           <Trophy className="w-12 h-12 text-gray-400 mx-auto mb-4" />
           <p className="text-gray-600 dark:text-gray-400">
@@ -335,7 +335,7 @@ const AchievementShowcase = ({ user, detailed = false }) => {
     return (
       <div className="space-y-6">
         <div className="flex items-center justify-between">
-          <h2 className="text-2xl font-bold text-gray-900 dark:text-white">Achievements & Badges</h2>
+          <h2 className="text-2xl font-bold text-gray-900 dark:text-slate-300">Achievements & Badges</h2>
           <div className="text-sm text-gray-600 dark:text-gray-400">
             {achievements.length} achievement{achievements.length !== 1 ? 's' : ''} unlocked
           </div>
@@ -358,14 +358,14 @@ const AchievementShowcase = ({ user, detailed = false }) => {
               >
                 <div className="flex items-start justify-between mb-4">
                   <div className={`p-3 rounded-lg bg-gradient-to-r ${achievement.color}`}>
-                    <Icon className="w-6 h-6 text-white" />
+                    <Icon className="w-6 h-6 text-slate-300" />
                   </div>
                   <span className={`px-2 py-1 rounded-full text-xs font-medium ${rarityBadge.color}`}>
                     {rarityBadge.text}
                   </span>
                 </div>
 
-                <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">
+                <h3 className="text-lg font-semibold text-gray-900 dark:text-slate-300 mb-2">
                   {achievement.title}
                 </h3>
                 <p className="text-sm text-gray-600 dark:text-gray-400 mb-3">
@@ -389,7 +389,7 @@ const AchievementShowcase = ({ user, detailed = false }) => {
                       <span>Progress</span>
                       <span>{achievement.progress.toLocaleString()}</span>
                     </div>
-                    <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-1.5">
+                    <div className="w-full bg-gray-200 dark:bg-zinc-900 rounded-full h-1.5">
                       <div 
                         className={`bg-gradient-to-r ${achievement.color} h-1.5 rounded-full`}
                         style={{ width: '100%' }}
@@ -411,12 +411,12 @@ const AchievementShowcase = ({ user, detailed = false }) => {
             return (
               <motion.div
                 key={rarity}
-                className="bg-white dark:bg-gray-800 rounded-lg p-4 shadow-lg text-center"
+                className="bg-white dark:bg-zinc-900 rounded-lg p-4 shadow-lg text-center"
                 initial={{ opacity: 0, scale: 0.8 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 0.3 }}
               >
-                <div className="text-3xl font-bold text-gray-900 dark:text-white mb-1">
+                <div className="text-3xl font-bold text-gray-900 dark:text-slate-300 mb-1">
                   {count}
                 </div>
                 <div className={`inline-flex px-2 py-1 rounded-full text-xs font-medium ${rarityBadge.color}`}>
@@ -431,9 +431,9 @@ const AchievementShowcase = ({ user, detailed = false }) => {
   }
 
   return (
-    <div className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-lg">
+    <div className="bg-white dark:bg-zinc-900 rounded-xl p-6 shadow-lg">
       <div className="flex items-center justify-between mb-4">
-        <h3 className="text-lg font-semibold text-gray-900 dark:text-white">Recent Achievements</h3>
+        <h3 className="text-lg font-semibold text-gray-900 dark:text-slate-300">Recent Achievements</h3>
         <Trophy className="w-5 h-5 text-yellow-500" />
       </div>
 
@@ -445,17 +445,17 @@ const AchievementShowcase = ({ user, detailed = false }) => {
           return (
             <motion.div
               key={achievement.id}
-              className="flex items-center space-x-3 p-3 rounded-lg bg-gray-50 dark:bg-gray-700/50 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors duration-200"
+              className="flex items-center space-x-3 p-3 rounded-lg bg-gray-50 dark:bg-zinc-900/50 hover:bg-gray-100 dark:hover:bg-zinc-900 transition-colors duration-200"
               initial={{ opacity: 0, x: -20 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.3, delay: index * 0.1 }}
               whileHover={{ x: 5 }}
             >
               <div className={`p-2 rounded-lg bg-gradient-to-r ${achievement.color} flex-shrink-0`}>
-                <Icon className="w-4 h-4 text-white" />
+                <Icon className="w-4 h-4 text-slate-300" />
               </div>
               <div className="flex-1 min-w-0">
-                <p className="font-medium text-gray-900 dark:text-white text-sm truncate">
+                <p className="font-medium text-gray-900 dark:text-slate-300 text-sm truncate">
                   {achievement.title}
                 </p>
                 <p className="text-xs text-gray-600 dark:text-gray-400 truncate">

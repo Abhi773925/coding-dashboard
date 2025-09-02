@@ -534,20 +534,20 @@ const handleclicker=()=>{
   const subTextColorClass = isDarkMode ? "text-gray-300" : "text-gray-600"
   const placeholderColorClass = isDarkMode ? "placeholder-gray-500" : "placeholder-gray-400"
   const borderColorClass = isDarkMode ? "border-gray-700/50" : "border-indigo-200/50"
-  const hoverBgClass = isDarkMode ? "hover:bg-gray-700/30" : "hover:bg-indigo-50/60"
+  const hoverBgClass = isDarkMode ? "hover:bg-zinc-900/30" : "hover:bg-indigo-50/60"
   const activeTabBgClass = isDarkMode
-    ? "bg-gray-700/50 border-b-2 border-indigo-500"
+    ? "bg-zinc-900/50 border-b-2 border-indigo-500"
     : "bg-indigo-50/50 border-b-2 border-blue-600"
   const buttonPrimaryClass = isDarkMode
-    ? "bg-gradient-to-r from-indigo-500 to-blue-600 text-white hover:from-indigo-600 hover:to-blue-700"
-    : "bg-gradient-to-r from-indigo-600 to-blue-600 text-white hover:from-indigo-700 hover:to-blue-700"
+    ? "bg-gradient-to-r from-indigo-500 to-blue-600 text-slate-300 hover:from-indigo-600 hover:to-blue-700"
+    : "bg-gradient-to-r from-indigo-600 to-blue-600 text-slate-300 hover:from-indigo-700 hover:to-blue-700"
   const buttonSecondaryClass = isDarkMode
-    ? "bg-gray-700/50 hover:bg-gray-700/70 text-gray-300"
+    ? "bg-zinc-900/50 hover:bg-zinc-900/70 text-gray-300"
     : "bg-indigo-100/50 hover:bg-indigo-200/70 text-gray-700"
   const selectClass = isDarkMode
-    ? "bg-gray-700/50 text-gray-100 focus:ring-indigo-500/50"
+    ? "bg-zinc-900/50 text-gray-100 focus:ring-indigo-500/50"
     : "bg-indigo-100/50 text-gray-800 focus:ring-blue-500/50"
-  const statBgClass = isDarkMode ? "bg-gray-800/30" : "bg-indigo-100"
+  const statBgClass = isDarkMode ? "bg-zinc-900/30" : "bg-indigo-100"
   const statTextColorClass = isDarkMode ? "text-gray-400" : "text-gray-600"
   const statValueColorClass = (color) => (isDarkMode ? color : color.replace("-400", "-600"))
   const buttonBaseClass = "flex items-center justify-center gap-1 sm:gap-2 px-2 sm:px-3 py-1 sm:py-1.5 rounded-lg transition-all text-xs sm:text-sm"
@@ -562,7 +562,7 @@ const handleclicker=()=>{
             : saveStatus.includes('updated')
             ? 'bg-blue-500'
             : 'bg-green-500'
-        } text-white`}>
+        } text-slate-300`}>
           <p className="flex items-center gap-2">
             {saveStatus.includes('error') || saveStatus.includes('cancelled') ? (
               <X className="w-4 h-4" />
@@ -651,14 +651,14 @@ const handleclicker=()=>{
             {sidebarOpen && (
               <div className="flex items-center gap-2 cursor-pointer " onClick={handleclicker}>
                 <div className="w-8 h-8 rounded-lg bg-gradient-to-r from-indigo-500 to-purple-500 flex items-center justify-center">
-                  <Code2 className="w-4 h-4 text-white" />
+                  <Code2 className="w-4 h-4 text-slate-300" />
                 </div>
                 
               </div>
             )}
             <button
               onClick={() => setSidebarOpen(!sidebarOpen)}
-              className={`p-1.5 rounded-md ${isDarkMode ? "hover:bg-slate-700/50" : "hover:bg-gray-200/50"} transition-colors`}
+              className={`p-1.5 rounded-md ${isDarkMode ? "hover:bg-zinc-900" : "hover:bg-gray-200/50"} transition-colors`}
             >
               <Layout className="w-4 h-4" />
             </button>
@@ -672,7 +672,7 @@ const handleclicker=()=>{
                   <input
                     type="text"
                     placeholder="Search files..."
-                    className={`w-full ${isDarkMode ? "bg-slate-700/50 text-white" : "bg-gray-200/50 text-gray-800"} p-2 pl-8 rounded-lg text-sm focus:outline-none focus:ring-2 ${isDarkMode ? "focus:ring-indigo-500/50" : "focus:ring-indigo-600/50"} ${placeholderColorClass}`}
+                    className={`w-full ${isDarkMode ? "bg-zinc-900 text-slate-300" : "bg-gray-200/50 text-gray-800"} p-2 pl-8 rounded-lg text-sm focus:outline-none focus:ring-2 ${isDarkMode ? "focus:ring-indigo-500/50" : "focus:ring-indigo-600/50"} ${placeholderColorClass}`}
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
                   />
@@ -737,7 +737,7 @@ const handleclicker=()=>{
                                       style={{ paddingLeft: (depth * 1) + 'rem' }}
                                     >
                                       <span className="text-lg">⏳</span>
-                                      <div className="h-4 bg-gray-200 dark:bg-gray-700 rounded w-24"></div>
+                                      <div className="h-4 bg-gray-200 dark:bg-zinc-900 rounded w-24"></div>
                                     </div>
                                   );
                                 }
@@ -786,7 +786,7 @@ const handleclicker=()=>{
                 {uploadedFiles.length > 0 && (
                   <button
                     onClick={clearUploadedFiles}
-                    className={`flex items-center justify-center gap-2 px-3 py-1.5 rounded-lg transition-all text-sm ${isDarkMode ? "bg-red-700/50 hover:bg-red-700 text-white" : "bg-red-200/50 hover:bg-red-300 text-red-800"}`}
+                    className={`flex items-center justify-center gap-2 px-3 py-1.5 rounded-lg transition-all text-sm ${isDarkMode ? "bg-red-700/50 hover:bg-red-700 text-slate-300" : "bg-red-200/50 hover:bg-red-300 text-red-800"}`}
                   >
                     <X size={16} />
                     Clear Uploaded
@@ -911,7 +911,7 @@ const handleclicker=()=>{
               {activeTab === "backend" ? (
                 <button
                   onClick={runBackendCode}
-                  className={`${buttonBaseClass} bg-gradient-to-r from-green-500 to-emerald-500 hover:from-green-600 hover:to-emerald-600 text-white font-medium`}
+                  className={`${buttonBaseClass} bg-gradient-to-r from-green-500 to-emerald-500 hover:from-green-600 hover:to-emerald-600 text-slate-300 font-medium`}
                   disabled={loading}
                 >
                   <Play className="w-4 h-4 sm:w-5 sm:h-5" />
@@ -920,7 +920,7 @@ const handleclicker=()=>{
               ) : (
                 <button
                   onClick={() => {}} // TODO: Add live preview functionality
-                  className={`${buttonBaseClass} bg-gradient-to-r from-blue-500 to-indigo-500 hover:from-blue-600 hover:to-indigo-600 text-white font-medium`}
+                  className={`${buttonBaseClass} bg-gradient-to-r from-blue-500 to-indigo-500 hover:from-blue-600 hover:to-indigo-600 text-slate-300 font-medium`}
                   disabled={loading}
                 >
                   <Layout className="w-4 h-4 sm:w-5 sm:h-5" />
@@ -959,7 +959,7 @@ const handleclicker=()=>{
             </div>
             <button
               onClick={toggleTheme}
-              className={`p-1.5 rounded-md ${isDarkMode ? "hover:bg-slate-700/50" : "hover:bg-gray-200/50"} transition-colors`}
+              className={`p-1.5 rounded-md ${isDarkMode ? "hover:bg-zinc-900" : "hover:bg-gray-200/50"} transition-colors`}
               aria-label="Toggle theme"
             >
               {isDarkMode ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />}

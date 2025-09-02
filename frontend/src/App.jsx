@@ -49,6 +49,7 @@ import { withTracking } from './components/hoc/withTracking';
 import seoAnalytics from './utils/seoAnalytics';
 import { runSEOTest } from './utils/seoTester';
 import faqStructuredData from './config/faqStructuredData';
+import Lovebabbar from "./components/Course/Lovebabbar";
 
 // Wrap components with tracking
 const TrackedCodeCompiler = withTracking(CodeCompiler);
@@ -188,7 +189,7 @@ const AppContent = () => {
       {!isCollaborationRoute && <Navigation />}
       <Toast />
       
-      <main role="main" id="main-content">
+      <main role="main" id="main-content" className="pt-20">
         <Routes>
         <Route path="/" element={
           <>
@@ -233,7 +234,18 @@ const AppContent = () => {
             <CourseProgress />
           </>
         } />
-        
+         <Route path="/courses/lovebabbar" element={
+          <>
+            <SEO 
+              page="courses" 
+              title="Data Structures Course - Master the Fundamentals"
+              description="Learn essential data structures including arrays, linked lists, trees, graphs, and more. Perfect for coding interview preparation."
+              keywords="data structures, arrays, linked lists, trees, graphs, coding interview, computer science"
+            />
+            
+            <Lovebabbar/>
+          </>
+        } />
         <Route path="/contest" element={
           <>
             <SEO page="contests" />
@@ -486,13 +498,15 @@ const AppContent = () => {
 
 function App() {
   return (
-    <AuthProvider>
-      <ThemeProvider>
-        <Router>
-          <AppContent />
-        </Router>
-      </ThemeProvider>
-    </AuthProvider>
+    <div className="min-h-screen">
+      <AuthProvider>
+        <ThemeProvider>
+          <Router>
+            <AppContent />
+          </Router>
+        </ThemeProvider>
+      </AuthProvider>
+    </div>
   );
 }
 

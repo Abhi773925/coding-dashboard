@@ -351,9 +351,9 @@ const EnhancedSessionManager = ({ onJoinSession, onCreateSession }) => {
   };
 
   return (
-    <div className={`min-h-screen ${isDarkMode ? 'bg-gray-900 text-white' : 'bg-gray-50 text-gray-900'}`}>
+    <div className={`min-h-screen ${isDarkMode ? 'bg-zinc-900 text-slate-300' : 'bg-gray-50 text-gray-900'}`}>
       {/* Header */}
-      <div className={`border-b ${isDarkMode ? 'border-gray-700 bg-gray-800' : 'border-gray-200 bg-white'}`}>
+      <div className={`border-b ${isDarkMode ? 'border-gray-700 bg-zinc-900' : 'border-gray-200 bg-white'}`}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
           <div className="flex items-center justify-between">
             <div>
@@ -370,7 +370,7 @@ const EnhancedSessionManager = ({ onJoinSession, onCreateSession }) => {
               </button>
               <button
                 onClick={() => setShowCreateModal(true)}
-                className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 flex items-center space-x-2"
+                className="px-4 py-2 bg-blue-600 text-slate-300 rounded-lg hover:bg-blue-700 flex items-center space-x-2"
               >
                 <Plus className="w-4 h-4" />
                 <span>Create Session</span>
@@ -392,7 +392,7 @@ const EnhancedSessionManager = ({ onJoinSession, onCreateSession }) => {
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
               className={`w-full pl-10 pr-4 py-2 border rounded-lg ${
-                isDarkMode ? 'bg-gray-800 border-gray-600' : 'bg-white border-gray-300'
+                isDarkMode ? 'bg-zinc-900 border-gray-600' : 'bg-white border-gray-300'
               }`}
             />
           </div>
@@ -403,7 +403,7 @@ const EnhancedSessionManager = ({ onJoinSession, onCreateSession }) => {
               value={filterRole}
               onChange={(e) => setFilterRole(e.target.value)}
               className={`px-3 py-2 border rounded-lg ${
-                isDarkMode ? 'bg-gray-800 border-gray-600' : 'bg-white border-gray-300'
+                isDarkMode ? 'bg-zinc-900 border-gray-600' : 'bg-white border-gray-300'
               }`}
             >
               <option value="all">All Sessions</option>
@@ -415,7 +415,7 @@ const EnhancedSessionManager = ({ onJoinSession, onCreateSession }) => {
               value={filterLanguage}
               onChange={(e) => setFilterLanguage(e.target.value)}
               className={`px-3 py-2 border rounded-lg ${
-                isDarkMode ? 'bg-gray-800 border-gray-600' : 'bg-white border-gray-300'
+                isDarkMode ? 'bg-zinc-900 border-gray-600' : 'bg-white border-gray-300'
               }`}
             >
               {languages.map(lang => (
@@ -429,7 +429,7 @@ const EnhancedSessionManager = ({ onJoinSession, onCreateSession }) => {
               value={sortBy}
               onChange={(e) => setSortBy(e.target.value)}
               className={`px-3 py-2 border rounded-lg ${
-                isDarkMode ? 'bg-gray-800 border-gray-600' : 'bg-white border-gray-300'
+                isDarkMode ? 'bg-zinc-900 border-gray-600' : 'bg-white border-gray-300'
               }`}
             >
               <option value="lastActivity">Last Activity</option>
@@ -442,7 +442,7 @@ const EnhancedSessionManager = ({ onJoinSession, onCreateSession }) => {
             <div className="flex border rounded-lg overflow-hidden">
               <button
                 onClick={() => setViewMode('grid')}
-                className={`px-3 py-2 ${viewMode === 'grid' ? 'bg-blue-600 text-white' : 'bg-gray-200'}`}
+                className={`px-3 py-2 ${viewMode === 'grid' ? 'bg-blue-600 text-slate-300' : 'bg-gray-200'}`}
               >
                 <div className="grid grid-cols-2 gap-1 w-4 h-4">
                   <div className="bg-current rounded-sm"></div>
@@ -453,7 +453,7 @@ const EnhancedSessionManager = ({ onJoinSession, onCreateSession }) => {
               </button>
               <button
                 onClick={() => setViewMode('list')}
-                className={`px-3 py-2 ${viewMode === 'list' ? 'bg-blue-600 text-white' : 'bg-gray-200'}`}
+                className={`px-3 py-2 ${viewMode === 'list' ? 'bg-blue-600 text-slate-300' : 'bg-gray-200'}`}
               >
                 <div className="space-y-1 w-4 h-4">
                   <div className="bg-current h-1 rounded"></div>
@@ -472,7 +472,7 @@ const EnhancedSessionManager = ({ onJoinSession, onCreateSession }) => {
               <div
                 key={session.id}
                 className={`border rounded-lg p-6 hover:shadow-lg transition-shadow ${
-                  isDarkMode ? 'bg-gray-800 border-gray-600' : 'bg-white border-gray-200'
+                  isDarkMode ? 'bg-zinc-900 border-gray-600' : 'bg-white border-gray-200'
                 }`}
               >
                 <div className="flex items-start justify-between mb-4">
@@ -534,7 +534,7 @@ const EnhancedSessionManager = ({ onJoinSession, onCreateSession }) => {
                 <div className="flex space-x-2">
                   <button
                     onClick={() => handleJoinSession(session.id, 'viewer')}
-                    className="flex-1 px-3 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 text-sm"
+                    className="flex-1 px-3 py-2 bg-blue-600 text-slate-300 rounded hover:bg-blue-700 text-sm"
                   >
                     Join Session
                   </button>
@@ -555,7 +555,7 @@ const EnhancedSessionManager = ({ onJoinSession, onCreateSession }) => {
               <div
                 key={session.id}
                 className={`border rounded-lg p-4 hover:shadow-md transition-shadow ${
-                  isDarkMode ? 'bg-gray-800 border-gray-600' : 'bg-white border-gray-200'
+                  isDarkMode ? 'bg-zinc-900 border-gray-600' : 'bg-white border-gray-200'
                 }`}
               >
                 <div className="flex items-center justify-between">
@@ -577,7 +577,7 @@ const EnhancedSessionManager = ({ onJoinSession, onCreateSession }) => {
                     </div>
                     <button
                       onClick={() => handleJoinSession(session.id, 'viewer')}
-                      className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
+                      className="px-4 py-2 bg-blue-600 text-slate-300 rounded hover:bg-blue-700"
                     >
                       Join
                     </button>
@@ -595,7 +595,7 @@ const EnhancedSessionManager = ({ onJoinSession, onCreateSession }) => {
             <p className="text-gray-500 mb-4">Try adjusting your filters or create a new session</p>
             <button
               onClick={() => setShowCreateModal(true)}
-              className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700"
+              className="px-4 py-2 bg-blue-600 text-slate-300 rounded-lg hover:bg-blue-700"
             >
               Create New Session
             </button>
@@ -605,9 +605,9 @@ const EnhancedSessionManager = ({ onJoinSession, onCreateSession }) => {
 
       {/* Create Session Modal */}
       {showCreateModal && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+        <div className="fixed inset-0 bg-zinc-900 bg-opacity-50 flex items-center justify-center z-50 p-4">
           <div className={`w-full max-w-2xl max-h-[90vh] overflow-y-auto rounded-lg ${
-            isDarkMode ? 'bg-gray-800' : 'bg-white'
+            isDarkMode ? 'bg-zinc-900' : 'bg-white'
           }`}>
             <div className="p-6">
               <div className="flex items-center justify-between mb-6">
@@ -630,7 +630,7 @@ const EnhancedSessionManager = ({ onJoinSession, onCreateSession }) => {
                     onChange={(e) => setNewSessionData(prev => ({ ...prev, name: e.target.value }))}
                     placeholder="Enter session name..."
                     className={`w-full px-3 py-2 border rounded-lg ${
-                      isDarkMode ? 'bg-gray-700 border-gray-600' : 'bg-white border-gray-300'
+                      isDarkMode ? 'bg-zinc-900 border-gray-600' : 'bg-white border-gray-300'
                     }`}
                   />
                 </div>
@@ -643,7 +643,7 @@ const EnhancedSessionManager = ({ onJoinSession, onCreateSession }) => {
                     placeholder="Describe your session..."
                     rows={3}
                     className={`w-full px-3 py-2 border rounded-lg ${
-                      isDarkMode ? 'bg-gray-700 border-gray-600' : 'bg-white border-gray-300'
+                      isDarkMode ? 'bg-zinc-900 border-gray-600' : 'bg-white border-gray-300'
                     }`}
                   />
                 </div>
@@ -682,7 +682,7 @@ const EnhancedSessionManager = ({ onJoinSession, onCreateSession }) => {
                       value={newSessionData.language}
                       onChange={(e) => setNewSessionData(prev => ({ ...prev, language: e.target.value }))}
                       className={`w-full px-3 py-2 border rounded-lg ${
-                        isDarkMode ? 'bg-gray-700 border-gray-600' : 'bg-white border-gray-300'
+                        isDarkMode ? 'bg-zinc-900 border-gray-600' : 'bg-white border-gray-300'
                       }`}
                     >
                       {languages.filter(l => l.id !== 'all').map(lang => (
@@ -700,7 +700,7 @@ const EnhancedSessionManager = ({ onJoinSession, onCreateSession }) => {
                       value={newSessionData.maxUsers}
                       onChange={(e) => setNewSessionData(prev => ({ ...prev, maxUsers: parseInt(e.target.value) }))}
                       className={`w-full px-3 py-2 border rounded-lg ${
-                        isDarkMode ? 'bg-gray-700 border-gray-600' : 'bg-white border-gray-300'
+                        isDarkMode ? 'bg-zinc-900 border-gray-600' : 'bg-white border-gray-300'
                       }`}
                     />
                   </div>
@@ -782,7 +782,7 @@ const EnhancedSessionManager = ({ onJoinSession, onCreateSession }) => {
                       value={newSessionData.password}
                       onChange={(e) => setNewSessionData(prev => ({ ...prev, password: e.target.value }))}
                       className={`mt-2 w-full px-3 py-2 border rounded-lg ${
-                        isDarkMode ? 'bg-gray-700 border-gray-600' : 'bg-white border-gray-300'
+                        isDarkMode ? 'bg-zinc-900 border-gray-600' : 'bg-white border-gray-300'
                       }`}
                     />
                   )}
@@ -799,7 +799,7 @@ const EnhancedSessionManager = ({ onJoinSession, onCreateSession }) => {
                   <button
                     onClick={handleCreateSession}
                     disabled={!newSessionData.name.trim()}
-                    className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 disabled:opacity-50"
+                    className="px-4 py-2 bg-blue-600 text-slate-300 rounded-lg hover:bg-blue-700 disabled:opacity-50"
                   >
                     Create Session
                   </button>
@@ -812,9 +812,9 @@ const EnhancedSessionManager = ({ onJoinSession, onCreateSession }) => {
 
       {/* Join Session Modal */}
       {showJoinModal && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+        <div className="fixed inset-0 bg-zinc-900 bg-opacity-50 flex items-center justify-center z-50 p-4">
           <div className={`w-full max-w-md rounded-lg p-6 ${
-            isDarkMode ? 'bg-gray-800' : 'bg-white'
+            isDarkMode ? 'bg-zinc-900' : 'bg-white'
           }`}>
             <div className="flex items-center justify-between mb-4">
               <h2 className="text-xl font-bold">Join Session</h2>
@@ -835,7 +835,7 @@ const EnhancedSessionManager = ({ onJoinSession, onCreateSession }) => {
                   onChange={(e) => setJoinSessionId(e.target.value)}
                   placeholder="Enter session ID or paste link..."
                   className={`w-full px-3 py-2 border rounded-lg ${
-                    isDarkMode ? 'bg-gray-700 border-gray-600' : 'bg-white border-gray-300'
+                    isDarkMode ? 'bg-zinc-900 border-gray-600' : 'bg-white border-gray-300'
                   }`}
                 />
               </div>
@@ -850,7 +850,7 @@ const EnhancedSessionManager = ({ onJoinSession, onCreateSession }) => {
                 <button
                   onClick={handleJoinByCode}
                   disabled={!joinSessionId.trim()}
-                  className="flex-1 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 disabled:opacity-50"
+                  className="flex-1 px-4 py-2 bg-blue-600 text-slate-300 rounded-lg hover:bg-blue-700 disabled:opacity-50"
                 >
                   Join
                 </button>

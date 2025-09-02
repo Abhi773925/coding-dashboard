@@ -119,7 +119,7 @@ const ProfileHeader = ({ user, profileMode, setProfileMode, onUpdate, isDarkMode
     >
       {/* Cover Background */}
       <div className={`h-32 ${themeColors.profile.header.coverGradient} relative`}>
-        <div className="absolute inset-0 bg-black bg-opacity-10"></div>
+        <div className="absolute inset-0 bg-zinc-900 bg-opacity-10"></div>
         <motion.div
           className="absolute inset-0 opacity-50"
           animate={{
@@ -151,7 +151,7 @@ const ProfileHeader = ({ user, profileMode, setProfileMode, onUpdate, isDarkMode
               )}
             </div>
             {profileMode === 'edit' && (
-              <button className="absolute bottom-2 right-2 bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white p-2 rounded-full shadow-lg transition-all duration-200 transform hover:scale-105">
+              <button className="absolute bottom-2 right-2 bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-slate-300 p-2 rounded-full shadow-lg transition-all duration-200 transform hover:scale-105">
                 <Camera className="w-4 h-4" />
               </button>
             )}
@@ -167,7 +167,7 @@ const ProfileHeader = ({ user, profileMode, setProfileMode, onUpdate, isDarkMode
                   </h1>
                   <button
                     onClick={() => setProfileMode('edit')}
-                    className="flex items-center space-x-2 px-4 py-2 bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white rounded-lg transition-all duration-200 transform hover:scale-105"
+                    className="flex items-center space-x-2 px-4 py-2 bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-slate-300 rounded-lg transition-all duration-200 transform hover:scale-105"
                   >
                     <Edit3 className="w-4 h-4" />
                     <span>Edit Profile</span>
@@ -210,14 +210,14 @@ const ProfileHeader = ({ user, profileMode, setProfileMode, onUpdate, isDarkMode
                   <div className="flex items-center space-x-2">
                     <button
                       onClick={handleSave}
-                      className="flex items-center space-x-2 px-4 py-2 bg-gradient-to-r from-emerald-500 to-green-600 hover:from-emerald-600 hover:to-green-700 text-white rounded-lg transition-all duration-200 transform hover:scale-105"
+                      className="flex items-center space-x-2 px-4 py-2 bg-gradient-to-r from-emerald-500 to-green-600 hover:from-emerald-600 hover:to-green-700 text-slate-300 rounded-lg transition-all duration-200 transform hover:scale-105"
                     >
                       <Save className="w-4 h-4" />
                       <span>Save</span>
                     </button>
                     <button
                       onClick={() => setProfileMode('view')}
-                      className={`flex items-center space-x-2 px-4 py-2 ${isDarkMode ? 'bg-slate-600 hover:bg-slate-700' : 'bg-gray-500 hover:bg-gray-600'} text-white rounded-lg transition-all duration-200 transform hover:scale-105`}
+                      className={`flex items-center space-x-2 px-4 py-2 ${isDarkMode ? 'bg-slate-600 hover:bg-slate-700' : 'bg-gray-500 hover:bg-gray-600'} text-slate-300 rounded-lg transition-all duration-200 transform hover:scale-105`}
                     >
                       <X className="w-4 h-4" />
                       <span>Cancel</span>
@@ -257,7 +257,7 @@ const ProfileHeader = ({ user, profileMode, setProfileMode, onUpdate, isDarkMode
         {/* Stats Cards */}
         <div className="mt-6 grid grid-cols-2 sm:grid-cols-4 gap-4">
           <motion.div
-            className={`${themeColors.profile.stats.primary} rounded-lg p-4 text-white shadow-lg`}
+            className={`${themeColors.profile.stats.primary} rounded-lg p-4 text-slate-300 shadow-lg`}
             whileHover={{ scale: 1.05, boxShadow: "0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)" }}
             transition={{ duration: 0.2 }}
           >
@@ -271,7 +271,7 @@ const ProfileHeader = ({ user, profileMode, setProfileMode, onUpdate, isDarkMode
           </motion.div>
 
           <motion.div
-            className={`${themeColors.profile.stats.success} rounded-lg p-4 text-white shadow-lg`}
+            className={`${themeColors.profile.stats.success} rounded-lg p-4 text-slate-300 shadow-lg`}
             whileHover={{ scale: 1.05, boxShadow: "0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)" }}
             transition={{ duration: 0.2 }}
           >
@@ -285,7 +285,7 @@ const ProfileHeader = ({ user, profileMode, setProfileMode, onUpdate, isDarkMode
           </motion.div>
 
           <motion.div
-            className={`${themeColors.profile.stats.accent} rounded-lg p-4 text-white shadow-lg`}
+            className={`${themeColors.profile.stats.accent} rounded-lg p-4 text-slate-300 shadow-lg`}
             whileHover={{ scale: 1.05, boxShadow: "0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)" }}
             transition={{ duration: 0.2 }}
           >
@@ -299,7 +299,7 @@ const ProfileHeader = ({ user, profileMode, setProfileMode, onUpdate, isDarkMode
           </motion.div>
 
           <motion.div
-            className={`${themeColors.profile.stats.secondary} rounded-lg p-4 text-white shadow-lg`}
+            className={`${themeColors.profile.stats.secondary} rounded-lg p-4 text-slate-300 shadow-lg`}
             whileHover={{ scale: 1.05, boxShadow: "0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)" }}
             transition={{ duration: 0.2 }}
           >

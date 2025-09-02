@@ -229,7 +229,7 @@ const FileManager = ({
           className={`flex items-center px-2 py-1 cursor-pointer rounded transition-colors ${
             isSelected 
               ? isDarkMode ? 'bg-blue-900' : 'bg-blue-100'
-              : isDarkMode ? 'hover:bg-gray-700' : 'hover:bg-gray-100'
+              : isDarkMode ? 'hover:bg-zinc-900' : 'hover:bg-gray-100'
           }`}
           style={{ paddingLeft: `${depth * 20 + 8}px` }}
           onClick={() => {
@@ -265,14 +265,14 @@ const FileManager = ({
           </div>
           
           <span className={`text-sm truncate ${
-            isDarkMode ? 'text-white' : 'text-gray-900'
+            isDarkMode ? 'text-slate-300' : 'text-gray-900'
           }`}>
             {node.isRoot ? 'Workspace' : node.name}
           </span>
           
           {node.type === 'file' && node.language && (
             <span className={`ml-auto text-xs px-1 py-0.5 rounded ${
-              isDarkMode ? 'bg-gray-700 text-gray-300' : 'bg-gray-200 text-gray-600'
+              isDarkMode ? 'bg-zinc-900 text-gray-300' : 'bg-gray-200 text-gray-600'
             }`}>
               {node.language}
             </span>
@@ -297,11 +297,11 @@ const FileManager = ({
   });
 
   return (
-    <div className={`h-full flex flex-col ${isDarkMode ? 'bg-gray-800' : 'bg-white'}`}>
+    <div className={`h-full flex flex-col ${isDarkMode ? 'bg-zinc-900' : 'bg-white'}`}>
       {/* Header */}
       <div className={`p-3 border-b ${isDarkMode ? 'border-gray-700' : 'border-gray-200'}`}>
         <div className="flex items-center justify-between mb-3">
-          <h3 className={`font-medium ${isDarkMode ? 'text-white' : 'text-gray-900'}`}>
+          <h3 className={`font-medium ${isDarkMode ? 'text-slate-300' : 'text-gray-900'}`}>
             File Explorer
           </h3>
           
@@ -309,21 +309,21 @@ const FileManager = ({
             <div className="flex space-x-1">
               <button
                 onClick={() => setShowNewFileModal(true)}
-                className={`p-1 rounded ${isDarkMode ? 'hover:bg-gray-700' : 'hover:bg-gray-200'}`}
+                className={`p-1 rounded ${isDarkMode ? 'hover:bg-zinc-900' : 'hover:bg-gray-200'}`}
                 title="New File"
               >
                 <Plus className="w-4 h-4" />
               </button>
               <button
                 onClick={() => setShowNewFolderModal(true)}
-                className={`p-1 rounded ${isDarkMode ? 'hover:bg-gray-700' : 'hover:bg-gray-200'}`}
+                className={`p-1 rounded ${isDarkMode ? 'hover:bg-zinc-900' : 'hover:bg-gray-200'}`}
                 title="New Folder"
               >
                 <Folder className="w-4 h-4" />
               </button>
               <button
                 onClick={() => fileInputRef.current?.click()}
-                className={`p-1 rounded ${isDarkMode ? 'hover:bg-gray-700' : 'hover:bg-gray-200'}`}
+                className={`p-1 rounded ${isDarkMode ? 'hover:bg-zinc-900' : 'hover:bg-gray-200'}`}
                 title="Upload File"
               >
                 <Upload className="w-4 h-4" />
@@ -344,7 +344,7 @@ const FileManager = ({
             onChange={(e) => setSearchTerm(e.target.value)}
             className={`w-full pl-7 pr-3 py-1.5 text-sm rounded border ${
               isDarkMode 
-                ? 'bg-gray-700 border-gray-600 text-white placeholder-gray-400' 
+                ? 'bg-zinc-900 border-gray-600 text-slate-300 placeholder-gray-400' 
                 : 'bg-white border-gray-300 text-gray-900 placeholder-gray-500'
             } focus:ring-1 focus:ring-blue-500 focus:border-transparent`}
           />
@@ -369,7 +369,7 @@ const FileManager = ({
       {contextMenu.visible && (
         <div
           className={`fixed z-50 py-1 rounded-lg shadow-lg border ${
-            isDarkMode ? 'bg-gray-800 border-gray-700' : 'bg-white border-gray-200'
+            isDarkMode ? 'bg-zinc-900 border-gray-700' : 'bg-white border-gray-200'
           }`}
           style={{ left: contextMenu.x, top: contextMenu.y }}
           onClick={hideContextMenu}
@@ -378,21 +378,21 @@ const FileManager = ({
             <>
               <button
                 onClick={() => handleRename(contextMenu.item)}
-                className={`w-full px-3 py-2 text-left text-sm hover:bg-gray-700 flex items-center space-x-2`}
+                className={`w-full px-3 py-2 text-left text-sm hover:bg-zinc-900 flex items-center space-x-2`}
               >
                 <Edit3 className="w-3 h-3" />
                 <span>Rename</span>
               </button>
               <button
                 onClick={() => handleDuplicate(contextMenu.item)}
-                className={`w-full px-3 py-2 text-left text-sm hover:bg-gray-700 flex items-center space-x-2`}
+                className={`w-full px-3 py-2 text-left text-sm hover:bg-zinc-900 flex items-center space-x-2`}
               >
                 <Copy className="w-3 h-3" />
                 <span>Duplicate</span>
               </button>
               <button
                 onClick={() => handleDelete(contextMenu.item)}
-                className={`w-full px-3 py-2 text-left text-sm hover:bg-red-600 text-red-500 hover:text-white flex items-center space-x-2`}
+                className={`w-full px-3 py-2 text-left text-sm hover:bg-red-600 text-red-500 hover:text-slate-300 flex items-center space-x-2`}
               >
                 <Trash2 className="w-3 h-3" />
                 <span>Delete</span>
@@ -404,11 +404,11 @@ const FileManager = ({
 
       {/* New File Modal */}
       {showNewFileModal && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
+        <div className="fixed inset-0 bg-zinc-900 bg-opacity-50 flex items-center justify-center p-4 z-50">
           <div className={`rounded-lg p-4 w-full max-w-sm ${
-            isDarkMode ? 'bg-gray-800' : 'bg-white'
+            isDarkMode ? 'bg-zinc-900' : 'bg-white'
           }`}>
-            <h3 className={`font-medium mb-3 ${isDarkMode ? 'text-white' : 'text-gray-900'}`}>
+            <h3 className={`font-medium mb-3 ${isDarkMode ? 'text-slate-300' : 'text-gray-900'}`}>
               Create New File
             </h3>
             <input
@@ -418,7 +418,7 @@ const FileManager = ({
               onChange={(e) => setNewItemName(e.target.value)}
               className={`w-full px-3 py-2 rounded border mb-3 ${
                 isDarkMode 
-                  ? 'bg-gray-700 border-gray-600 text-white' 
+                  ? 'bg-zinc-900 border-gray-600 text-slate-300' 
                   : 'bg-white border-gray-300 text-gray-900'
               } focus:ring-2 focus:ring-blue-500 focus:border-transparent`}
               autoFocus
@@ -428,7 +428,7 @@ const FileManager = ({
                 onClick={() => setShowNewFileModal(false)}
                 className={`flex-1 px-3 py-2 rounded text-sm ${
                   isDarkMode 
-                    ? 'bg-gray-700 hover:bg-gray-600 text-gray-300' 
+                    ? 'bg-zinc-900 hover:bg-gray-600 text-gray-300' 
                     : 'bg-gray-200 hover:bg-gray-300 text-gray-700'
                 }`}
               >
@@ -436,7 +436,7 @@ const FileManager = ({
               </button>
               <button
                 onClick={handleCreateFile}
-                className="flex-1 px-3 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded text-sm"
+                className="flex-1 px-3 py-2 bg-blue-600 hover:bg-blue-700 text-slate-300 rounded text-sm"
               >
                 Create
               </button>
@@ -447,11 +447,11 @@ const FileManager = ({
 
       {/* New Folder Modal */}
       {showNewFolderModal && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
+        <div className="fixed inset-0 bg-zinc-900 bg-opacity-50 flex items-center justify-center p-4 z-50">
           <div className={`rounded-lg p-4 w-full max-w-sm ${
-            isDarkMode ? 'bg-gray-800' : 'bg-white'
+            isDarkMode ? 'bg-zinc-900' : 'bg-white'
           }`}>
-            <h3 className={`font-medium mb-3 ${isDarkMode ? 'text-white' : 'text-gray-900'}`}>
+            <h3 className={`font-medium mb-3 ${isDarkMode ? 'text-slate-300' : 'text-gray-900'}`}>
               Create New Folder
             </h3>
             <input
@@ -461,7 +461,7 @@ const FileManager = ({
               onChange={(e) => setNewItemName(e.target.value)}
               className={`w-full px-3 py-2 rounded border mb-3 ${
                 isDarkMode 
-                  ? 'bg-gray-700 border-gray-600 text-white' 
+                  ? 'bg-zinc-900 border-gray-600 text-slate-300' 
                   : 'bg-white border-gray-300 text-gray-900'
               } focus:ring-2 focus:ring-blue-500 focus:border-transparent`}
               autoFocus
@@ -471,7 +471,7 @@ const FileManager = ({
                 onClick={() => setShowNewFolderModal(false)}
                 className={`flex-1 px-3 py-2 rounded text-sm ${
                   isDarkMode 
-                    ? 'bg-gray-700 hover:bg-gray-600 text-gray-300' 
+                    ? 'bg-zinc-900 hover:bg-gray-600 text-gray-300' 
                     : 'bg-gray-200 hover:bg-gray-300 text-gray-700'
                 }`}
               >
@@ -479,7 +479,7 @@ const FileManager = ({
               </button>
               <button
                 onClick={handleCreateFolder}
-                className="flex-1 px-3 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded text-sm"
+                className="flex-1 px-3 py-2 bg-blue-600 hover:bg-blue-700 text-slate-300 rounded text-sm"
               >
                 Create
               </button>

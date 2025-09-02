@@ -36,9 +36,9 @@ const SEODashboard = () => {
   };
 
   return (
-    <div className="max-w-6xl mx-auto p-6 bg-white dark:bg-gray-800 rounded-lg shadow-lg">
+    <div className="max-w-6xl mx-auto p-6 bg-white dark:bg-zinc-900 rounded-lg shadow-lg">
       <div className="mb-6">
-        <h1 className="text-3xl font-bold text-gray-900 dark:text-white mb-2">
+        <h1 className="text-3xl font-bold text-gray-900 dark:text-slate-300 mb-2">
           SEO Dashboard
         </h1>
         <p className="text-gray-600 dark:text-gray-300">
@@ -113,7 +113,7 @@ const SEODashboard = () => {
             </div>
           </div>
 
-          <div className="bg-gray-50 dark:bg-gray-700 p-6 rounded-lg">
+          <div className="bg-gray-50 dark:bg-zinc-900 p-6 rounded-lg">
             <h2 className="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-4">
               Quick Actions
             </h2>
@@ -121,19 +121,19 @@ const SEODashboard = () => {
               <button
                 onClick={runTest}
                 disabled={isLoading}
-                className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 disabled:opacity-50"
+                className="bg-blue-600 text-slate-300 px-4 py-2 rounded-lg hover:bg-blue-700 disabled:opacity-50"
               >
                 {isLoading ? 'Running...' : 'Run SEO Test'}
               </button>
               <button
                 onClick={() => window.checkMetaTags && window.checkMetaTags()}
-                className="bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700"
+                className="bg-green-600 text-slate-300 px-4 py-2 rounded-lg hover:bg-green-700"
               >
                 Check Meta Tags
               </button>
               <button
                 onClick={() => window.checkPerformance && window.checkPerformance()}
-                className="bg-purple-600 text-white px-4 py-2 rounded-lg hover:bg-purple-700"
+                className="bg-purple-600 text-slate-300 px-4 py-2 rounded-lg hover:bg-purple-700"
               >
                 Check Performance
               </button>
@@ -146,13 +146,13 @@ const SEODashboard = () => {
       {activeTab === 'test' && (
         <div className="space-y-6">
           <div className="flex justify-between items-center">
-            <h2 className="text-2xl font-bold text-gray-900 dark:text-white">
+            <h2 className="text-2xl font-bold text-gray-900 dark:text-slate-300">
               SEO Audit Results
             </h2>
             <button
               onClick={runTest}
               disabled={isLoading}
-              className="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 disabled:opacity-50"
+              className="bg-blue-600 text-slate-300 px-6 py-2 rounded-lg hover:bg-blue-700 disabled:opacity-50"
             >
               {isLoading ? 'Running Test...' : 'Run New Test'}
             </button>
@@ -160,9 +160,9 @@ const SEODashboard = () => {
 
           {testResults && (
             <div className="space-y-6">
-              <div className="bg-white dark:bg-gray-700 p-6 rounded-lg border">
+              <div className="bg-white dark:bg-zinc-900 p-6 rounded-lg border">
                 <div className="flex items-center justify-between mb-4">
-                  <h3 className="text-xl font-semibold text-gray-900 dark:text-white">
+                  <h3 className="text-xl font-semibold text-gray-900 dark:text-slate-300">
                     Overall Score
                   </h3>
                   <div className="text-right">
@@ -236,12 +236,12 @@ const SEODashboard = () => {
       {/* Analytics Tab */}
       {activeTab === 'analytics' && (
         <div className="space-y-6">
-          <h2 className="text-2xl font-bold text-gray-900 dark:text-white">
+          <h2 className="text-2xl font-bold text-gray-900 dark:text-slate-300">
             Analytics Overview
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div className="bg-white dark:bg-gray-700 p-6 rounded-lg border">
-              <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">
+            <div className="bg-white dark:bg-zinc-900 p-6 rounded-lg border">
+              <h3 className="text-lg font-semibold text-gray-900 dark:text-slate-300 mb-4">
                 Page Performance
               </h3>
               <div className="space-y-3">
@@ -260,8 +260,8 @@ const SEODashboard = () => {
               </div>
             </div>
 
-            <div className="bg-white dark:bg-gray-700 p-6 rounded-lg border">
-              <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">
+            <div className="bg-white dark:bg-zinc-900 p-6 rounded-lg border">
+              <h3 className="text-lg font-semibold text-gray-900 dark:text-slate-300 mb-4">
                 SEO Status
               </h3>
               <div className="space-y-3">
@@ -288,13 +288,13 @@ const SEODashboard = () => {
       {/* Tools Tab */}
       {activeTab === 'tools' && (
         <div className="space-y-6">
-          <h2 className="text-2xl font-bold text-gray-900 dark:text-white">
+          <h2 className="text-2xl font-bold text-gray-900 dark:text-slate-300">
             SEO Tools & Resources
           </h2>
           
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div className="bg-white dark:bg-gray-700 p-6 rounded-lg border">
-              <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">
+            <div className="bg-white dark:bg-zinc-900 p-6 rounded-lg border">
+              <h3 className="text-lg font-semibold text-gray-900 dark:text-slate-300 mb-4">
                 Testing Tools
               </h3>
               <div className="space-y-3">
@@ -322,21 +322,21 @@ const SEODashboard = () => {
               </div>
             </div>
 
-            <div className="bg-white dark:bg-gray-700 p-6 rounded-lg border">
-              <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">
+            <div className="bg-white dark:bg-zinc-900 p-6 rounded-lg border">
+              <h3 className="text-lg font-semibold text-gray-900 dark:text-slate-300 mb-4">
                 Console Commands
               </h3>
               <div className="space-y-3 text-sm">
-                <div className="bg-gray-100 dark:bg-gray-800 p-3 rounded font-mono">
+                <div className="bg-gray-100 dark:bg-zinc-900 p-3 rounded font-mono">
                   runSEOTest()
                 </div>
-                <div className="bg-gray-100 dark:bg-gray-800 p-3 rounded font-mono">
+                <div className="bg-gray-100 dark:bg-zinc-900 p-3 rounded font-mono">
                   checkSEO()
                 </div>
-                <div className="bg-gray-100 dark:bg-gray-800 p-3 rounded font-mono">
+                <div className="bg-gray-100 dark:bg-zinc-900 p-3 rounded font-mono">
                   checkPerformance()
                 </div>
-                <div className="bg-gray-100 dark:bg-gray-800 p-3 rounded font-mono">
+                <div className="bg-gray-100 dark:bg-zinc-900 p-3 rounded font-mono">
                   checkMetaTags()
                 </div>
               </div>

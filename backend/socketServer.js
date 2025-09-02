@@ -9,7 +9,7 @@ class CollaborationServer {
     
     this.io = new Server(httpServer, {
       cors: {
-        origin: ["https://www.prepmate.site", "http://localhost:5173"],
+        origin: ["https://www.prepmate.site", "http://172.20.10.3:5173"],
         methods: ["GET", "POST"],
         credentials: true,
         allowedHeaders: ["*"],

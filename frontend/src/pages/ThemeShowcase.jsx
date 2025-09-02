@@ -156,12 +156,12 @@ const ThemeShowcase = () => {
               </div>
             </div>
             <div className="theme-glass p-8 rounded-xl theme-gradient-shift">
-              <h4 className="text-2xl font-bold text-white mb-4">Animated Gradient</h4>
-              <p className="text-white/90 mb-4">
+              <h4 className="text-2xl font-bold text-slate-300 mb-4">Animated Gradient</h4>
+              <p className="text-slate-300/90 mb-4">
                 This card showcases the animated gradient background effect 
                 that smoothly transitions between theme colors.
               </p>
-              <button className="bg-white/20 text-white px-6 py-2 rounded-lg hover:bg-white/30 transition-all">
+              <button className="bg-white/20 text-slate-300 px-6 py-2 rounded-lg hover:bg-white/30 transition-all">
                 Explore More
               </button>
             </div>

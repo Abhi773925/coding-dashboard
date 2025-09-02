@@ -8,14 +8,14 @@ const SQLArticle = () => {
   return (
     <div className={`min-h-screen ${
       isDarkMode 
-        ? "bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 text-gray-100" 
+        ? "bg-zinc-900 text-gray-100" 
         : "bg-gradient-to-br from-gray-50 via-white to-gray-100 text-gray-900"
     }`}>
       {/* Article Header */}
       <div className="max-w-4xl mx-auto px-6 pt-24 pb-8">
         <div className="text-center mb-8">
           <h1 className={`text-4xl md:text-5xl font-bold mb-4 ${
-            isDarkMode ? "text-white" : "text-gray-900"
+            isDarkMode ? "text-slate-300" : "text-gray-900"
           }`}>
             SQL and Database Management
           </h1>
@@ -51,7 +51,7 @@ const SQLArticle = () => {
           
           {/* Introduction to SQL */}
           <section className="mb-8">
-            <h2 className={`text-2xl font-bold mb-4 ${isDarkMode ? "text-white" : "text-gray-900"}`}>
+            <h2 className={`text-2xl font-bold mb-4 ${isDarkMode ? "text-slate-300" : "text-gray-900"}`}>
               Introduction to SQL
             </h2>
             <p className={`text-base leading-relaxed mb-4 ${isDarkMode ? "text-gray-300" : "text-gray-700"}`}>
@@ -59,7 +59,7 @@ const SQLArticle = () => {
               It's essential for data management, analysis, and application development.
             </p>
 
-            <div className={`mt-6 p-4 rounded-lg border-l-4 border-blue-500 ${isDarkMode ? "bg-gray-800 border-gray-700" : "bg-blue-50 border-blue-200"}`}>
+            <div className={`mt-6 p-4 rounded-lg border-l-4 border-blue-500 ${isDarkMode ? "bg-zinc-900 border-gray-700" : "bg-blue-50 border-blue-200"}`}>
               <h4 className={`font-semibold mb-2 ${isDarkMode ? "text-blue-400" : "text-blue-600"}`}>
                 Key SQL Operations:
               </h4>
@@ -74,7 +74,7 @@ const SQLArticle = () => {
 
           {/* Database Design */}
           <section className="mb-8">
-            <h2 className={`text-2xl font-bold mb-4 ${isDarkMode ? "text-white" : "text-gray-900"}`}>
+            <h2 className={`text-2xl font-bold mb-4 ${isDarkMode ? "text-slate-300" : "text-gray-900"}`}>
               Database Design Concepts
             </h2>
             <p className={`text-base leading-relaxed mb-4 ${isDarkMode ? "text-gray-300" : "text-gray-700"}`}>
@@ -83,7 +83,7 @@ const SQLArticle = () => {
             </p>
 
             <div className="grid md:grid-cols-2 gap-4 mb-6">
-              <div className={`p-4 rounded-lg border ${isDarkMode ? "bg-gray-800 border-gray-700" : "bg-blue-50 border-blue-200"}`}>
+              <div className={`p-4 rounded-lg border ${isDarkMode ? "bg-zinc-900 border-gray-700" : "bg-blue-50 border-blue-200"}`}>
                 <h3 className={`font-semibold mb-2 ${isDarkMode ? "text-blue-400" : "text-blue-600"}`}>
                   Entity Relationship Model
                 </h3>
@@ -95,7 +95,7 @@ const SQLArticle = () => {
                 </ul>
               </div>
               
-              <div className={`p-4 rounded-lg border ${isDarkMode ? "bg-gray-800 border-gray-700" : "bg-green-50 border-green-200"}`}>
+              <div className={`p-4 rounded-lg border ${isDarkMode ? "bg-zinc-900 border-gray-700" : "bg-green-50 border-green-200"}`}>
                 <h3 className={`font-semibold mb-2 ${isDarkMode ? "text-green-400" : "text-green-600"}`}>
                   Normalization Forms
                 </h3>
@@ -111,12 +111,12 @@ const SQLArticle = () => {
 
           {/* SQL Queries */}
           <section className="mb-8">
-            <h2 className={`text-2xl font-bold mb-4 ${isDarkMode ? "text-white" : "text-gray-900"}`}>
+            <h2 className={`text-2xl font-bold mb-4 ${isDarkMode ? "text-slate-300" : "text-gray-900"}`}>
               SQL Query Types
             </h2>
             
             <div className="space-y-6">
-              <div className={`p-4 rounded-lg border ${isDarkMode ? "bg-gray-800 border-gray-700" : "bg-blue-50 border-blue-200"}`}>
+              <div className={`p-4 rounded-lg border ${isDarkMode ? "bg-zinc-900 border-gray-700" : "bg-blue-50 border-blue-200"}`}>
                 <h3 className={`font-semibold mb-3 ${isDarkMode ? "text-blue-400" : "text-blue-600"}`}>
                   Basic Queries
                 </h3>
@@ -136,7 +136,7 @@ const SQLArticle = () => {
                 </div>
               </div>
 
-              <div className={`p-4 rounded-lg border ${isDarkMode ? "bg-gray-800 border-gray-700" : "bg-green-50 border-green-200"}`}>
+              <div className={`p-4 rounded-lg border ${isDarkMode ? "bg-zinc-900 border-gray-700" : "bg-green-50 border-green-200"}`}>
                 <h3 className={`font-semibold mb-3 ${isDarkMode ? "text-green-400" : "text-green-600"}`}>
                   Advanced Queries
                 </h3>
@@ -160,13 +160,13 @@ const SQLArticle = () => {
 
           {/* Database Management */}
           <section className="mb-8">
-            <h2 className={`text-2xl font-bold mb-4 ${isDarkMode ? "text-white" : "text-gray-900"}`}>
+            <h2 className={`text-2xl font-bold mb-4 ${isDarkMode ? "text-slate-300" : "text-gray-900"}`}>
               Database Management System (DBMS)
             </h2>
             
             <div className="space-y-6">
               <div className="grid md:grid-cols-2 gap-4">
-                <div className={`p-4 rounded-lg border ${isDarkMode ? "bg-gray-800 border-gray-700" : "bg-purple-50 border-purple-200"}`}>
+                <div className={`p-4 rounded-lg border ${isDarkMode ? "bg-zinc-900 border-gray-700" : "bg-purple-50 border-purple-200"}`}>
                   <h3 className={`font-semibold mb-2 ${isDarkMode ? "text-purple-400" : "text-purple-600"}`}>
                     ACID Properties
                   </h3>
@@ -178,7 +178,7 @@ const SQLArticle = () => {
                   </ul>
                 </div>
 
-                <div className={`p-4 rounded-lg border ${isDarkMode ? "bg-gray-800 border-gray-700" : "bg-orange-50 border-orange-200"}`}>
+                <div className={`p-4 rounded-lg border ${isDarkMode ? "bg-zinc-900 border-gray-700" : "bg-orange-50 border-orange-200"}`}>
                   <h3 className={`font-semibold mb-2 ${isDarkMode ? "text-orange-400" : "text-orange-600"}`}>
                     Concurrency Control
                   </h3>
@@ -195,12 +195,12 @@ const SQLArticle = () => {
 
           {/* Database Security */}
           <section className="mb-8">
-            <h2 className={`text-2xl font-bold mb-4 ${isDarkMode ? "text-white" : "text-gray-900"}`}>
+            <h2 className={`text-2xl font-bold mb-4 ${isDarkMode ? "text-slate-300" : "text-gray-900"}`}>
               Database Security
             </h2>
             
             <div className="grid md:grid-cols-2 gap-6">
-              <div className={`p-4 rounded-lg border ${isDarkMode ? "bg-gray-800 border-gray-700" : "bg-red-50 border-red-200"}`}>
+              <div className={`p-4 rounded-lg border ${isDarkMode ? "bg-zinc-900 border-gray-700" : "bg-red-50 border-red-200"}`}>
                 <h3 className={`font-semibold mb-2 ${isDarkMode ? "text-red-400" : "text-red-600"}`}>
                   Access Control
                 </h3>
@@ -212,7 +212,7 @@ const SQLArticle = () => {
                 </ul>
               </div>
 
-              <div className={`p-4 rounded-lg border ${isDarkMode ? "bg-gray-800 border-gray-700" : "bg-yellow-50 border-yellow-200"}`}>
+              <div className={`p-4 rounded-lg border ${isDarkMode ? "bg-zinc-900 border-gray-700" : "bg-yellow-50 border-yellow-200"}`}>
                 <h3 className={`font-semibold mb-2 ${isDarkMode ? "text-yellow-400" : "text-yellow-600"}`}>
                   Data Protection
                 </h3>
@@ -228,12 +228,12 @@ const SQLArticle = () => {
 
           {/* Database Performance */}
           <section className="mb-8">
-            <h2 className={`text-2xl font-bold mb-4 ${isDarkMode ? "text-white" : "text-gray-900"}`}>
+            <h2 className={`text-2xl font-bold mb-4 ${isDarkMode ? "text-slate-300" : "text-gray-900"}`}>
               Performance Optimization
             </h2>
             
             <div className="space-y-4">
-              <div className={`p-4 rounded-lg border ${isDarkMode ? "bg-gray-800 border-gray-700" : "bg-blue-50 border-blue-200"}`}>
+              <div className={`p-4 rounded-lg border ${isDarkMode ? "bg-zinc-900 border-gray-700" : "bg-blue-50 border-blue-200"}`}>
                 <h3 className={`font-semibold mb-2 ${isDarkMode ? "text-blue-400" : "text-blue-600"}`}>
                   Query Optimization
                 </h3>
@@ -245,7 +245,7 @@ const SQLArticle = () => {
                 </ul>
               </div>
 
-              <div className={`p-4 rounded-lg border ${isDarkMode ? "bg-gray-800 border-gray-700" : "bg-green-50 border-green-200"}`}>
+              <div className={`p-4 rounded-lg border ${isDarkMode ? "bg-zinc-900 border-gray-700" : "bg-green-50 border-green-200"}`}>
                 <h3 className={`font-semibold mb-2 ${isDarkMode ? "text-green-400" : "text-green-600"}`}>
                   Database Tuning
                 </h3>
@@ -261,12 +261,12 @@ const SQLArticle = () => {
 
           {/* NoSQL and Modern Trends */}
           <section className="mb-8">
-            <h2 className={`text-2xl font-bold mb-4 ${isDarkMode ? "text-white" : "text-gray-900"}`}>
+            <h2 className={`text-2xl font-bold mb-4 ${isDarkMode ? "text-slate-300" : "text-gray-900"}`}>
               Modern Database Trends
             </h2>
             
             <div className="grid md:grid-cols-2 gap-4">
-              <div className={`p-4 rounded-lg border ${isDarkMode ? "bg-gray-800 border-gray-700" : "bg-purple-50 border-purple-200"}`}>
+              <div className={`p-4 rounded-lg border ${isDarkMode ? "bg-zinc-900 border-gray-700" : "bg-purple-50 border-purple-200"}`}>
                 <h3 className={`font-semibold mb-2 ${isDarkMode ? "text-purple-400" : "text-purple-600"}`}>
                   NoSQL Databases
                 </h3>
@@ -278,7 +278,7 @@ const SQLArticle = () => {
                 </ul>
               </div>
 
-              <div className={`p-4 rounded-lg border ${isDarkMode ? "bg-gray-800 border-gray-700" : "bg-indigo-50 border-indigo-200"}`}>
+              <div className={`p-4 rounded-lg border ${isDarkMode ? "bg-zinc-900 border-gray-700" : "bg-indigo-50 border-indigo-200"}`}>
                 <h3 className={`font-semibold mb-2 ${isDarkMode ? "text-indigo-400" : "text-indigo-600"}`}>
                   Modern Features
                 </h3>
@@ -294,7 +294,7 @@ const SQLArticle = () => {
 
           {/* Conclusion */}
           <section className="mb-8">
-            <h2 className={`text-2xl font-bold mb-4 ${isDarkMode ? "text-white" : "text-gray-900"}`}>
+            <h2 className={`text-2xl font-bold mb-4 ${isDarkMode ? "text-slate-300" : "text-gray-900"}`}>
               Key Takeaways
             </h2>
             <p className={`text-base leading-relaxed ${isDarkMode ? "text-gray-300" : "text-gray-700"}`}>

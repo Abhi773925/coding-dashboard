@@ -47,7 +47,7 @@ const Toast = () => {
                 <div className="ml-4 flex-1">
                   <div className="flex items-start justify-between">
                     <div>
-                      <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
+                      <h3 className="text-lg font-semibold text-gray-900 dark:text-slate-300">
                         New Feature Added! 🎉
                       </h3>
                       <div className="mt-1 text-sm text-gray-600 dark:text-gray-300">
@@ -68,7 +68,7 @@ const Toast = () => {
                   <div className="mt-4">
                     <button
                       onClick={handleExplore}
-                      className="inline-flex items-center px-4 py-2 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white text-sm font-medium rounded-lg transition-all duration-300 transform hover:scale-105"
+                      className="inline-flex items-center px-4 py-2 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-slate-300 text-sm font-medium rounded-lg transition-all duration-300 transform hover:scale-105"
                     >
                       Explore Now
                     </button>

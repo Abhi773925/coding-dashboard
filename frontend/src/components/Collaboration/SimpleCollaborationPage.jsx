@@ -98,7 +98,7 @@ const SimpleCollaborationPage = ({ onMount }) => {
   if (!isLoggedIn) {
     return (
       <div className={`min-h-screen flex items-center justify-center ${
-        isDarkMode ? 'bg-gray-900 text-white' : 'bg-gray-50 text-gray-900'
+        isDarkMode ? 'bg-zinc-900 text-slate-300' : 'bg-gray-50 text-gray-900'
       }`}>
         <div className="text-center max-w-md mx-auto p-8">
           <div className="mb-6">
@@ -123,7 +123,7 @@ const SimpleCollaborationPage = ({ onMount }) => {
           <div className="space-y-4">
             <button
               onClick={() => navigate('/login')}
-              className="w-full px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-medium transition-colors"
+              className="w-full px-6 py-3 bg-blue-600 hover:bg-blue-700 text-slate-300 rounded-lg font-medium transition-colors"
             >
               Sign In to Continue
             </button>
@@ -140,7 +140,7 @@ const SimpleCollaborationPage = ({ onMount }) => {
   if (isLoading) {
     return (
       <div className={`min-h-screen flex items-center justify-center ${
-        isDarkMode ? 'bg-gray-900 text-white' : 'bg-gray-50 text-gray-900'
+        isDarkMode ? 'bg-zinc-900 text-slate-300' : 'bg-gray-50 text-gray-900'
       }`}>
         <div className="text-center">
           <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto mb-4"></div>

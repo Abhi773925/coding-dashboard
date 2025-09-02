@@ -127,9 +127,9 @@ const PlatformModal = ({ isOpen, onClose, platform, onSubmit, existingUsername }
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+    <div className="fixed inset-0 bg-zinc-900 bg-opacity-50 flex items-center justify-center z-50 p-4">
       <motion.div
-        className="bg-white dark:bg-gray-800 rounded-xl shadow-2xl w-full max-w-md"
+        className="bg-white dark:bg-zinc-900 rounded-xl shadow-2xl w-full max-w-md"
         initial={{ opacity: 0, scale: 0.9, y: 20 }}
         animate={{ opacity: 1, scale: 1, y: 0 }}
         exit={{ opacity: 0, scale: 0.9, y: 20 }}
@@ -137,12 +137,12 @@ const PlatformModal = ({ isOpen, onClose, platform, onSubmit, existingUsername }
       >
         {/* Header */}
         <div className="flex items-center justify-between p-6 border-b border-gray-200 dark:border-gray-700">
-          <h2 className="text-xl font-semibold text-gray-900 dark:text-white">
+          <h2 className="text-xl font-semibold text-gray-900 dark:text-slate-300">
             Connect {currentPlatform.name}
           </h2>
           <button
             onClick={onClose}
-            className="p-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition-colors"
+            className="p-2 hover:bg-gray-100 dark:hover:bg-zinc-900 rounded-lg transition-colors"
           >
             <X className="w-5 h-5 text-gray-500" />
           </button>
@@ -151,7 +151,7 @@ const PlatformModal = ({ isOpen, onClose, platform, onSubmit, existingUsername }
         {/* Content */}
         <form onSubmit={handleSubmit} className="p-6 space-y-6">
           {/* Platform Info */}
-          <div className={`p-4 rounded-lg border-2 border-dashed ${getColorClasses(currentPlatform.color)} dark:bg-gray-700/50 dark:border-gray-600`}>
+          <div className={`p-4 rounded-lg border-2 border-dashed ${getColorClasses(currentPlatform.color)} dark:bg-zinc-900/50 dark:border-gray-600`}>
             <p className="text-sm dark:text-gray-300">{currentPlatform.description}</p>
             <div className="mt-2 flex items-center space-x-2 text-xs text-gray-600 dark:text-gray-400">
               <span>Example:</span>
@@ -182,7 +182,7 @@ const PlatformModal = ({ isOpen, onClose, platform, onSubmit, existingUsername }
                   setError('');
                 }}
                 placeholder={currentPlatform.placeholder}
-                className={`w-full px-4 py-3 border rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:outline-none focus:ring-2 transition-colors ${
+                className={`w-full px-4 py-3 border rounded-lg bg-white dark:bg-zinc-900 text-gray-900 dark:text-slate-300 focus:outline-none focus:ring-2 transition-colors ${
                   validationResult === 'valid' 
                     ? 'border-green-500 focus:ring-green-500' 
                     : validationResult === 'invalid' || error
@@ -219,7 +219,7 @@ const PlatformModal = ({ isOpen, onClose, platform, onSubmit, existingUsername }
 
           {/* Profile Preview */}
           {username && !error && (
-            <div className="p-4 bg-gray-50 dark:bg-gray-700 rounded-lg">
+            <div className="p-4 bg-gray-50 dark:bg-zinc-900 rounded-lg">
               <p className="text-sm text-gray-600 dark:text-gray-400 mb-2">Profile will be linked to:</p>
               <a 
                 href={currentPlatform.exampleUrl?.replace('username', username)}
@@ -238,7 +238,7 @@ const PlatformModal = ({ isOpen, onClose, platform, onSubmit, existingUsername }
             <button
               type="button"
               onClick={onClose}
-              className="flex-1 px-4 py-2 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors"
+              className="flex-1 px-4 py-2 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 rounded-lg hover:bg-gray-50 dark:hover:bg-zinc-900 transition-colors"
             >
               Cancel
             </button>
@@ -246,7 +246,7 @@ const PlatformModal = ({ isOpen, onClose, platform, onSubmit, existingUsername }
             {validationResult === 'valid' ? (
               <button
                 type="submit"
-                className="flex-1 px-4 py-2 bg-blue-500 hover:bg-blue-600 text-white rounded-lg transition-colors"
+                className="flex-1 px-4 py-2 bg-blue-500 hover:bg-blue-600 text-slate-300 rounded-lg transition-colors"
               >
                 Connect Platform
               </button>
@@ -255,7 +255,7 @@ const PlatformModal = ({ isOpen, onClose, platform, onSubmit, existingUsername }
                 type="button"
                 onClick={validateUsername}
                 disabled={!username.trim() || isValidating}
-                className="flex-1 px-4 py-2 bg-blue-500 hover:bg-blue-600 disabled:bg-gray-400 disabled:cursor-not-allowed text-white rounded-lg transition-colors flex items-center justify-center space-x-2"
+                className="flex-1 px-4 py-2 bg-blue-500 hover:bg-blue-600 disabled:bg-gray-400 disabled:cursor-not-allowed text-slate-300 rounded-lg transition-colors flex items-center justify-center space-x-2"
               >
                 {isValidating ? (
                   <>

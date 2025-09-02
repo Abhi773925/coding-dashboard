@@ -328,13 +328,13 @@ const Learning = () => {
 
   return (
     <div
-      className={`relative min-h-screen w-full pt-12 transition-colors duration-300 ${isDarkMode ? "bg-slate-900 text-gray-100" : "bg-gray-50 text-gray-900"}`}
+      className={`relative min-h-screen w-full pt-12 transition-colors duration-300 ${isDarkMode ? "bg-zinc-900 text-gray-100" : "bg-gray-50 text-gray-900"}`}
     >
       <FlowingBackground />
       <div className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
         {/* Header */}
         <div className="text-center mb-12">
-          <h1 className={`text-4xl md:text-5xl font-bold mb-4 ${isDarkMode ? "text-white" : "text-gray-900"}`}>
+          <h1 className={`text-4xl md:text-5xl font-bold mb-4 ${isDarkMode ? "text-slate-300" : "text-gray-900"}`}>
             Your{" "}
             <span
               className={`bg-clip-text text-transparent ${isDarkMode ? "bg-gradient-to-r from-purple-400 to-blue-400" : "bg-gradient-to-r from-purple-600 to-blue-600"}`}
@@ -362,10 +362,10 @@ const Learning = () => {
                 ${
                   activeTab === tab.id
                     ? isDarkMode
-                      ? "bg-gradient-to-r from-purple-600 to-blue-600 text-white shadow-lg shadow-purple-900/30"
-                      : "bg-gradient-to-r from-purple-600 to-blue-600 text-white shadow-lg shadow-purple-600/30"
+                      ? "bg-gradient-to-r from-purple-600 to-blue-600 text-slate-300 shadow-lg shadow-purple-900/30"
+                      : "bg-gradient-to-r from-purple-600 to-blue-600 text-slate-300 shadow-lg shadow-purple-600/30"
                     : isDarkMode
-                      ? "bg-slate-800/50 text-slate-300 hover:bg-slate-800/80 border border-slate-700/50"
+                      ? "bg-slate-800/50 text-slate-300 hover:bg-slate-800/80 border bg-zinc-900"
                       : "bg-white/80 text-gray-700 hover:bg-gray-100/80 border border-gray-200/50"
                 }
               `}
@@ -384,7 +384,7 @@ const Learning = () => {
               className={`border rounded-2xl overflow-hidden transition-all duration-300 transform hover:scale-[1.005]
                 ${
                   isDarkMode
-                    ? "border-slate-700/50 bg-slate-800/70 shadow-2xl shadow-black/40"
+                    ? "bg-zinc-900 bg-slate-800/70 shadow-2xl shadow-black/40"
                     : "border-gray-200/50 bg-white/80 shadow-2xl shadow-gray-200/80"
                 }
               `}
@@ -406,7 +406,7 @@ const Learning = () => {
                   >
                     {section.icon}
                   </div>
-                  <h3 className={`font-semibold text-lg ${isDarkMode ? "text-white" : "text-gray-900"}`}>
+                  <h3 className={`font-semibold text-lg ${isDarkMode ? "text-slate-300" : "text-gray-900"}`}>
                     {section.title}
                   </h3>
                 </div>
@@ -422,7 +422,7 @@ const Learning = () => {
               {expandedSections[activeTab].includes(sectionIndex) && (
                 <div
                   className={`p-5 border-t
-                    ${isDarkMode ? "border-slate-700/50 bg-slate-900/70" : "border-gray-100/50 bg-gray-50/70"}
+                    ${isDarkMode ? "bg-zinc-900 bg-zinc-900/70" : "border-gray-100/50 bg-gray-50/70"}
                   `}
                 >
                   <ul className={`space-y-3 ${isDarkMode ? "text-slate-300" : "text-gray-700"}`}>
@@ -453,7 +453,7 @@ const Learning = () => {
           }}
         >
           <div className="p-6 sm:p-8">
-            <h2 className={`text-2xl font-bold mb-6 ${isDarkMode ? "text-white" : "text-gray-900"}`}>
+            <h2 className={`text-2xl font-bold mb-6 ${isDarkMode ? "text-slate-300" : "text-gray-900"}`}>
               Recommended Resources
             </h2>
 
@@ -464,7 +464,7 @@ const Learning = () => {
                   className={`p-5 rounded-xl transition-all duration-300 transform hover:scale-[1.02]
                     ${
                       isDarkMode
-                        ? "bg-slate-700/50 hover:bg-slate-700/80 shadow-lg shadow-black/30"
+                        ? "bg-zinc-900 hover:bg-slate-700/80 shadow-lg shadow-black/30"
                         : "bg-gray-50/80 hover:bg-gray-100/80 shadow-lg shadow-gray-200/80"
                     }
                   `}
@@ -477,7 +477,7 @@ const Learning = () => {
                     >
                       {resource.icon}
                     </div>
-                    <h3 className={`font-semibold ${isDarkMode ? "text-white" : "text-gray-900"}`}>{resource.title}</h3>
+                    <h3 className={`font-semibold ${isDarkMode ? "text-slate-300" : "text-gray-900"}`}>{resource.title}</h3>
                   </div>
                   <ul className={`space-y-2 ${isDarkMode ? "text-slate-300" : "text-gray-700"}`}>
                     {resource.items.map((item, j) => (
@@ -498,7 +498,7 @@ const Learning = () => {
         {/* Progress tracker */}
         <div
           className={`mt-12 rounded-2xl overflow-hidden
-            ${isDarkMode ? "bg-slate-900/60 shadow-xl shadow-black/20" : "bg-white/60 shadow-xl shadow-gray-200/50"}
+            ${isDarkMode ? "bg-zinc-900/60 shadow-xl shadow-black/20" : "bg-white/60 shadow-xl shadow-gray-200/50"}
             backdrop-blur-lg border ${isDarkMode ? "border-slate-700/40" : "border-gray-200/40"}
           `}
           style={{
@@ -508,7 +508,7 @@ const Learning = () => {
           <div className="p-8">
             <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-6">
               <div className="md:w-2/3">
-                <h2 className={`text-2xl font-bold mb-4 ${isDarkMode ? "text-white" : "text-gray-900"}`}>
+                <h2 className={`text-2xl font-bold mb-4 ${isDarkMode ? "text-slate-300" : "text-gray-900"}`}>
                   Track Your Progress
                 </h2>
                 <p className={`mb-4 ${isDarkMode ? "text-slate-300" : "text-gray-700"}`}>
@@ -558,8 +558,8 @@ const Learning = () => {
                     shadow-xl
                     ${
                       isDarkMode
-                        ? "bg-gradient-to-r from-purple-600 to-blue-600 text-white shadow-purple-900/30"
-                        : "bg-gradient-to-r from-purple-600 to-blue-600 text-white shadow-purple-600/40"
+                        ? "bg-gradient-to-r from-purple-600 to-blue-600 text-slate-300 shadow-purple-900/30"
+                        : "bg-gradient-to-r from-purple-600 to-blue-600 text-slate-300 shadow-purple-600/40"
                     }
                   `}
                 >

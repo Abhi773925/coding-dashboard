@@ -293,7 +293,7 @@ const ActivityHeatmap = ({ user }) => {
     // GitHub-style colors when viewing GitHub data
     if (selectedPlatform === 'github') {
       const githubColors = [
-        'bg-gray-100 dark:bg-gray-800', // 0 - no activity
+        'bg-gray-100 dark:bg-zinc-900', // 0 - no activity
         'bg-green-200 dark:bg-green-900/40', // 1 - low activity
         'bg-green-400 dark:bg-green-700/60', // 2 - medium activity
         'bg-green-600 dark:bg-green-600/80', // 3 - high activity
@@ -304,7 +304,7 @@ const ActivityHeatmap = ({ user }) => {
     
     // Default colors for other platforms
     const colors = [
-      'bg-gray-100 dark:bg-gray-800', // 0 - no activity
+      'bg-gray-100 dark:bg-zinc-900', // 0 - no activity
       'bg-green-100 dark:bg-green-900/30', // 1 - low activity
       'bg-green-300 dark:bg-green-700/50', // 2 - medium activity
       'bg-green-500 dark:bg-green-600/70', // 3 - high activity
@@ -440,7 +440,7 @@ const ActivityHeatmap = ({ user }) => {
   return (
     <div className={`space-y-6 p-6 rounded-xl ${
       isDarkMode 
-        ? 'bg-slate-900/50 border border-slate-700/50' 
+        ? 'bg-zinc-900/50 border bg-zinc-900' 
         : 'bg-white border border-gray-200'
     }`}>
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
@@ -508,12 +508,12 @@ const ActivityHeatmap = ({ user }) => {
               <p className={`text-sm font-medium ${isDarkMode ? 'text-blue-300' : 'text-blue-700'}`}>
                 Total Activity
               </p>
-              <p className={`text-2xl font-bold ${isDarkMode ? 'text-white' : 'text-gray-900'}`}>
+              <p className={`text-2xl font-bold ${isDarkMode ? 'text-slate-300' : 'text-gray-900'}`}>
                 {totalActivity.toLocaleString()}
               </p>
             </div>
             <div className="p-2 bg-gradient-to-r from-blue-500 to-cyan-500 rounded-lg">
-              <Activity className="w-5 h-5 text-white" />
+              <Activity className="w-5 h-5 text-slate-300" />
             </div>
           </div>
         </motion.div>
@@ -532,14 +532,14 @@ const ActivityHeatmap = ({ user }) => {
           <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
             <div className="text-center sm:text-left">
               <p className="text-xs sm:text-sm font-medium text-black dark:text-gray-300">Active Days</p>
-              <p className="text-lg sm:text-xl lg:text-2xl font-bold text-black dark:text-white">{activeDays.toLocaleString()}</p>
+              <p className="text-lg sm:text-xl lg:text-2xl font-bold text-black dark:text-slate-300">{activeDays.toLocaleString()}</p>
             </div>
             <Calendar className="w-6 h-6 sm:w-7 sm:h-7 lg:w-8 lg:h-8 text-green-500 mx-auto sm:mx-0" />
           </div>
         </motion.div>
 
         <motion.div
-          className="bg-white dark:bg-gray-800 rounded-lg p-3 sm:p-4 shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-200 dark:border-gray-700"
+          className="bg-white dark:bg-zinc-900 rounded-lg p-3 sm:p-4 shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-200 dark:border-gray-700"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.3, delay: 0.2 }}
@@ -548,14 +548,14 @@ const ActivityHeatmap = ({ user }) => {
           <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
             <div className="text-center sm:text-left">
               <p className="text-xs sm:text-sm font-medium text-black dark:text-gray-300">Current Streak</p>
-              <p className="text-lg sm:text-xl lg:text-2xl font-bold text-black dark:text-white">{currentStreak.toLocaleString()}</p>
+              <p className="text-lg sm:text-xl lg:text-2xl font-bold text-black dark:text-slate-300">{currentStreak.toLocaleString()}</p>
             </div>
             <TrendingUp className="w-6 h-6 sm:w-7 sm:h-7 lg:w-8 lg:h-8 text-orange-500 mx-auto sm:mx-0" />
           </div>
         </motion.div>
 
         <motion.div
-          className="bg-white dark:bg-gray-800 rounded-lg p-3 sm:p-4 shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-200 dark:border-gray-700"
+          className="bg-white dark:bg-zinc-900 rounded-lg p-3 sm:p-4 shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-200 dark:border-gray-700"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.3, delay: 0.3 }}
@@ -564,7 +564,7 @@ const ActivityHeatmap = ({ user }) => {
           <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
             <div className="text-center sm:text-left">
               <p className="text-xs sm:text-sm font-medium text-black dark:text-gray-300">Best Streak</p>
-              <p className="text-lg sm:text-xl lg:text-2xl font-bold text-black dark:text-white">{longestStreak.toLocaleString()}</p>
+              <p className="text-lg sm:text-xl lg:text-2xl font-bold text-black dark:text-slate-300">{longestStreak.toLocaleString()}</p>
             </div>
             <Trophy className="w-6 h-6 sm:w-7 sm:h-7 lg:w-8 lg:h-8 text-purple-500 mx-auto sm:mx-0" />
           </div>
@@ -572,9 +572,9 @@ const ActivityHeatmap = ({ user }) => {
       </div>
 
       {/* Heatmap - Enhanced Responsive Design */}
-      <div className="bg-white dark:bg-gray-800 rounded-xl p-4 sm:p-6 shadow-lg border border-gray-200 dark:border-gray-700">
+      <div className="bg-white dark:bg-zinc-900 rounded-xl p-4 sm:p-6 shadow-lg border border-gray-200 dark:border-gray-700">
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-4 sm:mb-6 gap-4">
-          <h3 className="text-base sm:text-lg lg:text-xl font-semibold text-black dark:text-white">
+          <h3 className="text-base sm:text-lg lg:text-xl font-semibold text-black dark:text-slate-300">
             {selectedYear} {selectedPlatform === 'github' ? 'GitHub Contribution' : selectedPlatform === 'all' ? 'Activity' : `${selectedPlatform.charAt(0).toUpperCase() + selectedPlatform.slice(1)} Activity`} Heatmap
           </h3>
           <div className="flex items-center space-x-2 text-xs sm:text-sm text-black dark:text-gray-300">
@@ -659,8 +659,8 @@ const ActivityHeatmap = ({ user }) => {
 
       {/* Activity Trends */}
       {totalActivity > 0 && (
-        <div className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-lg">
-          <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">
+        <div className="bg-white dark:bg-zinc-900 rounded-xl p-6 shadow-lg">
+          <h3 className="text-lg font-semibold text-gray-900 dark:text-slate-300 mb-4">
             Activity Insights
           </h3>
           <div className="space-y-4">

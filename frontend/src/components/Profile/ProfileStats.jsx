@@ -61,10 +61,14 @@ const ProfileStats = ({ user, detailed = false }) => {
 
   if (!stats) {
     return (
-      <div className={`${themeColors.profile.card.bg} ${themeColors.profile.card.border} rounded-xl p-6 ${themeColors.profile.card.shadow} border backdrop-blur-sm`}>
-        <h3 className={`text-lg font-semibold ${themeColors.profile.text.primary} mb-4`}>Statistics</h3>
+      <div className={`rounded-3xl p-6 shadow-md border backdrop-blur-sm ${
+        isDarkMode 
+          ? 'border-neutral-800 bg-neutral-900' 
+          : 'border-neutral-200 bg-neutral-100'
+      }`}>
+        <h3 className={`text-lg font-semibold mb-4 ${isDarkMode ? 'text-slate-300' : 'text-slate-700'}`}>Statistics</h3>
         <div className="text-center py-8">
-          <p className={`${themeColors.profile.text.secondary}`}>
+          <p className={`${isDarkMode ? 'text-slate-300' : 'text-slate-700'}`}>
             Connect platforms to see your statistics
           </p>
         </div>
@@ -131,13 +135,13 @@ const ProfileStats = ({ user, detailed = false }) => {
 
   if (detailed) {
     return (
-      <div className={`space-y-8 p-6 rounded-xl ${
+      <div className={`space-y-8 p-6 rounded-3xl shadow-md border ${
         isDarkMode 
-          ? 'bg-slate-900/50 border border-slate-700/50' 
-          : 'bg-white border border-gray-200'
+          ? 'border-neutral-800 bg-neutral-900' 
+          : 'border-neutral-200 bg-neutral-100'
       }`}>
         <div className="flex items-center gap-3">
-          <h2 className={`text-2xl font-bold ${isDarkMode ? 'text-slate-200' : 'text-gray-900'}`}>
+          <h2 className={`text-2xl font-bold ${isDarkMode ? 'text-slate-300' : 'text-slate-700'}`}>
             Performance Analytics
           </h2>
         </div>
@@ -160,7 +164,7 @@ const ProfileStats = ({ user, detailed = false }) => {
                       {item.label}
                     </p>
                     <p className={`text-xl sm:text-2xl lg:text-3xl font-bold mt-1 ${
-                      isDarkMode ? 'text-white' : 'text-gray-900'
+                      isDarkMode ? 'text-slate-300' : 'text-slate-700'
                     }`}>
                       {item.value.toLocaleString()}
                     </p>
@@ -172,12 +176,12 @@ const ProfileStats = ({ user, detailed = false }) => {
         </div>
 
         {/* Platform Breakdown */}
-        <div className={`rounded-xl p-6 ${
+        <div className={`rounded-3xl p-6 shadow-md border ${
           isDarkMode 
-            ? 'bg-slate-800/50 border border-slate-700/50' 
-            : 'bg-white border border-gray-200'
+            ? 'border-neutral-800 bg-neutral-900' 
+            : 'border-neutral-200 bg-neutral-100'
         }`}>
-          <h3 className={`text-lg font-semibold mb-6 ${isDarkMode ? 'text-slate-200' : 'text-gray-900'}`}>
+          <h3 className={`text-lg font-semibold mb-6 ${isDarkMode ? 'text-slate-300' : 'text-slate-700'}`}>
             Platform Breakdown
           </h3>
           <div className="space-y-4">
@@ -220,19 +224,19 @@ const ProfileStats = ({ user, detailed = false }) => {
               return (
                 <div key={platform} className="border border-gray-200 dark:border-gray-700 rounded-lg p-4">
                   <div className="flex items-center justify-between mb-3">
-                    <h4 className="font-medium text-gray-900 dark:text-white capitalize">
+                    <h4 className="font-medium text-gray-900 dark:text-slate-300 capitalize">
                       {platform}
                     </h4>
                     <div className="text-right">
-                      <p className="text-sm text-gray-600 dark:text-gray-400">Score</p>
+                      <p className="text-sm text-gray-600 dark:text-slate-300">Score</p>
                       <p className="font-bold text-lg">{platformScore.toLocaleString()}</p>
                     </div>
                   </div>
                   <div className="grid grid-cols-3 gap-4">
                     {metrics.map((metric, idx) => (
                       <div key={idx} className="text-center">
-                        <p className="text-sm text-gray-600 dark:text-gray-400">{metric.label}</p>
-                        <p className="font-semibold text-gray-900 dark:text-white">{metric.value}</p>
+                        <p className="text-sm text-gray-600 dark:text-slate-300">{metric.label}</p>
+                        <p className="font-semibold text-gray-900 dark:text-slate-300">{metric.value}</p>
                       </div>
                     ))}
                   </div>
@@ -246,13 +250,13 @@ const ProfileStats = ({ user, detailed = false }) => {
   }
 
   return (
-    <div className={`p-4 rounded-xl backdrop-blur-sm ${
+    <div className={`p-4 rounded-3xl backdrop-blur-sm shadow-md border ${
       isDarkMode 
-        ? 'bg-slate-900/50 border border-slate-700/50' 
-        : 'bg-white/80 border border-gray-200'
+        ? 'border-neutral-800 bg-neutral-900' 
+        : 'border-neutral-200 bg-neutral-100'
     }`}>
       <div className="flex items-center gap-2 mb-4">
-        <h3 className={`text-lg font-semibold ${isDarkMode ? 'text-slate-200' : 'text-gray-900'}`}>
+        <h3 className={`text-lg font-semibold ${isDarkMode ? 'text-slate-300' : 'text-slate-700'}`}>
           Quick Stats
         </h3>
       </div>
@@ -268,10 +272,10 @@ const ProfileStats = ({ user, detailed = false }) => {
               transition={{ duration: 0.3, delay: index * 0.1 }}
               whileHover={{ scale: 1.02, y: -1 }}
             >
-              <p className={`text-xl font-bold ${isDarkMode ? 'text-white' : 'text-gray-900'}`}>
+              <p className={`text-xl font-bold ${isDarkMode ? 'text-slate-300' : 'text-slate-700'}`}>
                 {item.value.toLocaleString()}
               </p>
-              <p className={`text-xs ${item.textColor || (isDarkMode ? 'text-gray-400' : 'text-gray-600')}`}>
+              <p className={`text-xs ${item.textColor || (isDarkMode ? 'text-slate-300' : 'text-slate-700')}`}>
                 {item.label}
               </p>
             </motion.div>
@@ -282,10 +286,10 @@ const ProfileStats = ({ user, detailed = false }) => {
       {/* Progress Indicators */}
       <div className="mt-4 space-y-3">
         <div className="flex items-center justify-between">
-          <span className={`text-sm ${isDarkMode ? 'text-gray-400' : 'text-gray-600'}`}>
+          <span className={`text-sm ${isDarkMode ? 'text-slate-300' : 'text-slate-700'}`}>
             Overall Progress
           </span>
-          <span className={`text-sm font-medium ${isDarkMode ? 'text-slate-200' : 'text-gray-900'}`}>
+          <span className={`text-sm font-medium ${isDarkMode ? 'text-slate-300' : 'text-slate-700'}`}>
             {Math.min(100, Math.round((stats.totalProblems + stats.totalRepositories) / 10))}%
           </span>
         </div>

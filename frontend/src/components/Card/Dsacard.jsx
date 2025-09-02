@@ -1,105 +1,180 @@
 "use client"
 
-import React, { useState } from "react"
+import React, { useState, createContext, useContext, useRef, useEffect } from "react"
 import { useTheme } from "../context/ThemeContext"
 import { useNavigate } from "react-router-dom"
 import { Code, Server, Briefcase, ArrowRight, FileCode } from "lucide-react"
-import { motion } from "framer-motion" // Import motion for animations
+import { motion } from "framer-motion"
+
+// 3D Card Components
+const MouseEnterContext = createContext(undefined);
+
+const CardContainer = ({ children, className, containerClassName }) => {
+  const containerRef = useRef(null);
+  const [isMouseEntered, setIsMouseEntered] = useState(false);
+
+  const handleMouseMove = (e) => {
+    if (!containerRef.current) return;
+    const { left, top, width, height } = containerRef.current.getBoundingClientRect();
+    const x = (e.clientX - left - width / 2) / 25;
+    const y = (e.clientY - top - height / 2) / 25;
+    containerRef.current.style.transform = `rotateY(${x}deg) rotateX(${y}deg)`;
+  };
+
+  const handleMouseEnter = (e) => {
+    setIsMouseEntered(true);
+    if (!containerRef.current) return;
+  };
+
+  const handleMouseLeave = (e) => {
+    if (!containerRef.current) return;
+    setIsMouseEntered(false);
+    containerRef.current.style.transform = `rotateY(0deg) rotateX(0deg)`;
+  };
+
+  return (
+    <MouseEnterContext.Provider value={[isMouseEntered, setIsMouseEntered]}>
+      <div
+        className={`${containerClassName} flex items-center justify-center`}
+        style={{
+          perspective: "1000px",
+        }}
+      >
+        <div
+          ref={containerRef}
+          onMouseEnter={handleMouseEnter}
+          onMouseMove={handleMouseMove}
+          onMouseLeave={handleMouseLeave}
+          className={`${className} flex items-center justify-center relative transition-all duration-200 ease-linear`}
+          style={{
+            transformStyle: "preserve-3d",
+          }}
+        >
+          {children}
+        </div>
+      </div>
+    </MouseEnterContext.Provider>
+  );
+};
+
+const CardBody = ({ children, className }) => {
+  return (
+    <div
+      className={`w-full max-w-sm h-auto [transform-style:preserve-3d] [&>*]:[transform-style:preserve-3d] ${className}`}
+    >
+      {children}
+    </div>
+  );
+};
+
+const CardItem = ({
+  as: Tag = "div",
+  children,
+  className,
+  translateX = 0,
+  translateY = 0,
+  translateZ = 0,
+  rotateX = 0,
+  rotateY = 0,
+  rotateZ = 0,
+  ...rest
+}) => {
+  const ref = useRef(null);
+  const [isMouseEntered] = useContext(MouseEnterContext);
+
+  useEffect(() => {
+    handleAnimations();
+  }, [isMouseEntered]);
+
+  const handleAnimations = () => {
+    if (!ref.current) return;
+    if (isMouseEntered) {
+      ref.current.style.transform = `translateX(${translateX}px) translateY(${translateY}px) translateZ(${translateZ}px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) rotateZ(${rotateZ}deg)`;
+    } else {
+      ref.current.style.transform = `translateX(0px) translateY(0px) translateZ(0px) rotateX(0deg) rotateY(0deg) rotateZ(0deg)`;
+    }
+  };
+
+  return (
+    <Tag
+      ref={ref}
+      className={`${className} w-fit transition duration-200 ease-linear`}
+      {...rest}
+    >
+      {children}
+    </Tag>
+  );
+};
 
 const courseData = [
   {
-    title: "JavaScript Mastery",
-    description: "Learn JavaScript from basics to advanced concepts with hands-on practice",
-    level: "All Levels",
-    icon: <FileCode />,
-    color: "blue", // Using blue for variety
-    skills: ["ES6+", "DOM", "Async/Await", "Projects"],
-    route: "/learning/javascript",
-  },
-  {
-    title: "Data Structures Fundamentals",
-    description: "Master the core building blocks of efficient programming",
-    level: "Beginner",
+    title: "SDE Striver Sheet",
+    description: "Comprehensive DSA preparation course by Striver for Software Engineering roles",
+    level: "Intermediate",
     icon: <Code />,
-    color: "indigo", // Used for accent colors
-    skills: ["Arrays", "Linked Lists", "Stacks"],
+    color: "indigo",
+    skills: ["Arrays", "Graphs", "DP", "Trees", "180+ Problems"],
     route: "/courses/data-structures",
   },
   {
-    title: "Full Stack Web Development",
-    description: "Comprehensive journey through modern web technologies",
-    level: "Intermediate",
-    icon: <Server />,
-    color: "indigo", // Used for accent colors
-    skills: ["React", "Node.js", "MongoDB", "Express"],
-    route: "/courses/fullstack",
-  },
+    title: "Love Babbar DSA Sheet",
+    description: "Complete DSA course covering all essential topics for coding interviews",
+    level: "All Levels",
+    icon: <Briefcase />,
+    color: "blue",
+    skills: ["450 Problems", "Arrays", "Strings", "Recursion", "DP"],
+    route: "/courses/lovebabbar",
+  }, 
+  
   {
     title: "Technical Interview Preparation",
     description: "Strategies and practice for acing technical interviews",
     level: "Advanced",
-    icon: <Briefcase />,
-    color: "indigo", // Used for accent colors
+    icon: <Server />,
+    color: "indigo",
     skills: ["Problem Solving", "Algorithmic Thinking", "Mock Interviews"],
     route: "/courses/interview-prep",
   },
 ]
 
 const DsaCard = () => {
-  const { isDarkMode, colors, schemes } = useTheme()
-  const [hoveredCard, setHoveredCard] = useState(null)
+  const { isDarkMode, schemes } = useTheme()
   const navigate = useNavigate()
 
   const handleExplore = (route) => {
     navigate(route)
   }
 
-  // Helper function to get accent colors based on theme and course color
+  // Helper function to get accent colors based on theme and course color - simplified like HeroSection
   const getAccentColor = (baseColor, type) => {
-    const colors = {
-      indigo: {
-        text: isDarkMode ? "text-indigo-300" : "text-indigo-600",
-        "bg-light": "bg-indigo-100",
-        "bg-dark": "bg-indigo-900/30",
-        "gradient-from-light": "from-indigo-600",
-        "gradient-to-light": "to-blue-600",
-        "gradient-from-dark": "from-indigo-400",
-        "gradient-to-dark": "to-blue-400",
-        "orb-dark": "rgba(99, 102, 241, 0.4)", // indigo-400
-        "orb-light": "rgba(99, 102, 241, 0.2)", // indigo-600
-      },
-      blue: {
-        text: isDarkMode ? "text-blue-300" : "text-blue-600",
-        "bg-light": "bg-blue-100",
-        "bg-dark": "bg-blue-900/30",
-        "gradient-from-light": "from-blue-600",
-        "gradient-to-light": "to-indigo-600",
-        "gradient-from-dark": "from-blue-400",
-        "gradient-to-dark": "to-indigo-400",
-        "orb-dark": "rgba(59, 130, 246, 0.4)", // blue-400
-        "orb-light": "rgba(37, 99, 235, 0.2)", // blue-600
-      },
+    // Simplified color system matching HeroSection approach
+    const colorVariants = {
+      indigo: isDarkMode ? "text-indigo-400" : "text-indigo-600",
+      blue: isDarkMode ? "text-blue-400" : "text-blue-600", 
+      zinc: isDarkMode ? "text-zinc-400" : "text-zinc-600",
     }
-    const colorMap = colors[baseColor]
-    if (!colorMap) return ""
+
+    const bgVariants = {
+      indigo: isDarkMode ? "bg-indigo-900/30" : "bg-indigo-100",
+      blue: isDarkMode ? "bg-blue-900/30" : "bg-blue-100",
+      zinc: isDarkMode ? "bg-zinc-900/30" : "bg-zinc-100",
+    }
+
+    const gradientVariants = {
+      indigo: isDarkMode ? "from-indigo-400 to-blue-400" : "from-indigo-600 to-blue-600",
+      blue: isDarkMode ? "from-blue-400 to-indigo-400" : "from-blue-600 to-indigo-600",
+      zinc: isDarkMode ? "from-zinc-400 to-gray-400" : "from-zinc-600 to-gray-600",
+    }
 
     switch (type) {
       case "text":
-        return colorMap.text
-      case "bg-light":
-        return colorMap["bg-light"]
-      case "bg-dark":
-        return colorMap["bg-dark"]
-      case "gradient-from":
-        return isDarkMode ? colorMap["gradient-from-dark"] : colorMap["gradient-from-light"]
-      case "gradient-to":
-        return isDarkMode ? colorMap["gradient-to-dark"] : colorMap["gradient-to-light"]
-      case "orb-dark":
-        return colorMap["orb-dark"]
-      case "orb-light":
-        return colorMap["orb-light"]
+        return colorVariants[baseColor] || colorVariants.indigo
+      case "bg":
+        return bgVariants[baseColor] || bgVariants.indigo
+      case "gradient":
+        return gradientVariants[baseColor] || gradientVariants.indigo
       default:
-        return ""
+        return colorVariants[baseColor] || colorVariants.indigo
     }
   }
 
@@ -107,7 +182,7 @@ const DsaCard = () => {
     <div
       className={`
         min-h-screen py-24 px-4 sm:px-6 lg:px-8
-        ${schemes.pageBackground(isDarkMode)}
+        ${isDarkMode ? 'bg-zinc-900' : 'bg-white'}
         transition-colors duration-300
       `}
     >
@@ -115,147 +190,116 @@ const DsaCard = () => {
         <h2
           className={`
             text-4xl sm:text-5xl md:text-6xl font-bold text-center mb-16
-            ${schemes.brandGradient(isDarkMode)} bg-clip-text text-transparent
+            ${isDarkMode ? 'text-slate-300' : 'text-slate-700'}
           `}
         >
-          Explore Our Courses
+          DSA Practice Sheets
         </h2>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {courseData.map((course, index) => (
-            <div
-              key={index}
-              className={`
-                relative overflow-hidden rounded-2xl
-                transform transition-all duration-500 ease-in-out
-                border group cursor-pointer
-                ${hoveredCard === index ? "scale-[1.02] shadow-2xl" : "scale-100 shadow-lg"}
-                ${schemes.cardBackground(isDarkMode)} hover:border-purple-400/50
-              `}
-              onMouseEnter={() => setHoveredCard(index)}
-              onMouseLeave={() => setHoveredCard(null)}
-              style={{
-                boxShadow:
-                  hoveredCard === index
-                    ? colors.effects.shadow
-                    : isDarkMode
-                      ? "0 8px 20px rgba(0,0,0,0.2)"
-                      : "0 5px 15px rgba(0,0,0,0.08)",
-              }}
-            >
-              {/* Animated Orb Background on Hover */}
-              <motion.div
-                className={`absolute inset-0 rounded-full pointer-events-none`}
-                initial={{ opacity: 0, scale: 0 }}
-                animate={hoveredCard === index ? { opacity: 0.2, scale: 1.5 } : { opacity: 0, scale: 0 }}
-                transition={{ duration: 0.5, ease: "easeOut" }}
-                style={{
-                  background: isDarkMode
-                    ? `radial-gradient(circle at center, ${getAccentColor(course.color, "orb-dark")} 0%, transparent 70%)`
-                    : `radial-gradient(circle at center, ${getAccentColor(course.color, "orb-light")} 0%, transparent 70%)`,
-                }}
-              />
-
-              <div className="relative p-6 sm:p-8 z-10">
+            <CardContainer key={index} className="inter-var w-full">
+              <CardBody
+                className={`
+                  relative group/card w-full h-auto rounded-xl p-6 border
+                  ${isDarkMode 
+                    ? "bg-neutral-900 border-neutral-800 hover:bg-neutral-800" 
+                    : "bg-neutral-100 border-neutral-200 hover:bg-white hover:shadow-lg"
+                  }
+                  transition-all duration-300 transform hover:scale-105 hover:shadow-xl
+                `}
+              >
                 {/* Icon Container */}
-                <div
+                <CardItem
+                  translateZ="50"
                   className={`
-                    mb-6 w-16 h-16 sm:w-20 sm:h-20 rounded-full flex items-center justify-center
-                    ${isDarkMode ? getAccentColor(course.color, "bg-dark") : getAccentColor(course.color, "bg-light")}
-                    ${isDarkMode ? getAccentColor(course.color, "text") : getAccentColor(course.color, "text")}
+                    mb-4 w-14 h-14 rounded-full flex items-center justify-center
+                    ${getAccentColor(course.color, "bg")}
+                    ${getAccentColor(course.color, "text")}
                     transition-transform duration-500
-                    transform
-                    ${hoveredCard === index ? "rotate-12 scale-110 shadow-lg" : "rotate-0 scale-100"}
                   `}
-                  style={{
-                    boxShadow: isDarkMode ? "0 0 25px rgba(0,0,0,0.3)" : "0 0 15px rgba(0,0,0,0.1)",
-                  }}
                 >
                   {React.cloneElement(course.icon, {
-                    size: 32, // Adjusted icon size for better fit
-                    strokeWidth: hoveredCard === index ? 1.5 : 1,
+                    size: 28,
+                    strokeWidth: 1.5,
                   })}
-                </div>
+                </CardItem>
 
                 {/* Course Title */}
-                <h3
+                <CardItem
+                  translateZ="50"
                   className={`
-                    text-xl sm:text-2xl font-bold mb-3
-                    transition-colors duration-300
-                    ${isDarkMode ? "text-white group-hover:text-opacity-90" : "text-gray-900 group-hover:text-opacity-90"}
+                    text-lg font-bold mb-3
+                    ${isDarkMode ? "text-slate-300" : "text-slate-700"}
                   `}
                 >
                   {course.title}
-                </h3>
+                </CardItem>
 
                 {/* Course Description */}
-                <p
+                <CardItem
+                  as="p"
+                  translateZ="60"
                   className={`
-                    mb-6 text-sm sm:text-base
-                    ${isDarkMode ? "text-slate-300" : "text-gray-600"}
-                    transition-all duration-300
-                    group-hover:text-opacity-80
+                    mb-4 text-sm
+                    ${isDarkMode ? "text-slate-300" : "text-slate-700"}
                   `}
                 >
                   {course.description}
-                </p>
+                </CardItem>
 
                 {/* Skills Tags */}
-                <div className="flex flex-wrap gap-2 mb-6">
-                  {course.skills.map((skill, skillIndex) => (
-                    <span
-                      key={skillIndex}
-                      className={`
-                        px-3 py-1 rounded-full text-xs font-medium
-                        ${isDarkMode ? getAccentColor(course.color, "bg-dark") : getAccentColor(course.color, "bg-light")}
-                        ${isDarkMode ? getAccentColor(course.color, "text") : getAccentColor(course.color, "text")}
-                      `}
-                    >
-                      {skill}
-                    </span>
-                  ))}
-                </div>
+                <CardItem translateZ="70" className="w-full mb-6">
+                  <div className="flex flex-wrap gap-1.5">
+                    {course.skills.map((skill, skillIndex) => (
+                      <span
+                        key={skillIndex}
+                        className={`
+                          px-2 py-1 rounded-full text-xs font-medium
+                          ${getAccentColor(course.color, "bg")}
+                          ${getAccentColor(course.color, "text")}
+                        `}
+                      >
+                        {skill}
+                      </span>
+                    ))}
+                  </div>
+                </CardItem>
 
                 {/* Footer */}
-                <div
-                  className={`
-                    flex items-center justify-between mt-4
-                    ${isDarkMode ? "text-slate-400" : "text-gray-500"}
-                  `}
-                >
-                  <span
+                <div className="flex justify-between items-center mt-auto">
+                  <CardItem
+                    translateZ={20}
                     className={`
-                      px-3 py-1 rounded-full text-sm font-medium
-                      ${isDarkMode ? getAccentColor(course.color, "bg-dark") : getAccentColor(course.color, "bg-light")}
-                      ${isDarkMode ? getAccentColor(course.color, "text") : getAccentColor(course.color, "text")}
+                      px-2.5 py-1 rounded-full text-xs font-medium
+                      ${getAccentColor(course.color, "bg")}
+                      ${getAccentColor(course.color, "text")}
                     `}
                   >
                     {course.level}
-                  </span>
-                  <button
+                  </CardItem>
+                  <CardItem
+                    translateZ={20}
+                    as="button"
                     onClick={() => handleExplore(course.route)}
                     className={`
-                      flex items-center group px-4 py-2 rounded-lg font-semibold text-sm
+                      flex items-center group px-3 py-1.5 rounded-lg font-semibold text-xs
                       transition-all duration-300 transform hover:scale-105
-                      ${
-                        isDarkMode
-                          ? `bg-gradient-to-r ${getAccentColor(course.color, "gradient-from")} ${getAccentColor(course.color, "gradient-to")} text-white hover:${getAccentColor(course.color, "gradient-from")}/90 hover:${getAccentColor(course.color, "gradient-to")}/90`
-                          : `bg-gradient-to-r ${getAccentColor(course.color, "gradient-from")} ${getAccentColor(course.color, "gradient-to")} text-white hover:${getAccentColor(course.color, "gradient-from")}/90 hover:${getAccentColor(course.color, "gradient-to")}/90`
+                      ${isDarkMode 
+                        ? 'bg-white text-black hover:bg-gray-200' 
+                        : 'bg-zinc-900 text-slate-300 hover:bg-zinc-900'
                       }
                     `}
-                    style={{
-                      boxShadow: isDarkMode ? "0 4px 15px rgba(0,0,0,0.2)" : "0 4px 15px rgba(0,0,0,0.1)",
-                    }}
                   >
-                    <span className="mr-2 group-hover:mr-3 transition-all">Explore Course</span>
+                    <span className="mr-1 group-hover:mr-2 transition-all">Explore</span>
                     <ArrowRight
                       className="transform transition-transform group-hover:translate-x-1"
-                      size={18} // Adjusted icon size
+                      size={14}
                     />
-                  </button>
+                  </CardItem>
                 </div>
-              </div>
-            </div>
+              </CardBody>
+            </CardContainer>
           ))}
         </div>
       </div>

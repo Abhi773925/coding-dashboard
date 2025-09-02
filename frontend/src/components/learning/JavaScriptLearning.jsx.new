@@ -21,8 +21,8 @@ const JavaScriptLearning = () => {
       <div className="container mx-auto px-4 py-8">
         <div className="flex gap-6 h-[calc(100vh-4rem)]">
           {/* Syllabus Navigation */}
-          <div className="w-1/4 bg-white/80 dark:bg-gray-800/80 rounded-lg p-4 backdrop-blur-sm overflow-y-auto">
-            <h2 className="text-2xl font-bold mb-6 bg-gradient-to-r from-indigo-600 to-blue-600 bg-clip-text text-transparent sticky top-0 bg-white/80 dark:bg-gray-800/80 pt-2 z-10">
+          <div className="w-1/4 bg-white/80 dark:bg-zinc-900/80 rounded-lg p-4 backdrop-blur-sm overflow-y-auto">
+            <h2 className="text-2xl font-bold mb-6 bg-gradient-to-r from-indigo-600 to-blue-600 bg-clip-text text-transparent sticky top-0 bg-white/80 dark:bg-zinc-900/80 pt-2 z-10">
               JavaScript Syllabus
             </h2>
             
@@ -55,10 +55,10 @@ const JavaScriptLearning = () => {
           {/* Content and Compiler Area */}
           <div className="flex-1 flex gap-6">
             {/* Topic Content */}
-            <div className="flex-1 bg-white/80 dark:bg-gray-800/80 rounded-lg backdrop-blur-sm flex flex-col overflow-hidden">
+            <div className="flex-1 bg-white/80 dark:bg-zinc-900/80 rounded-lg backdrop-blur-sm flex flex-col overflow-hidden">
               {selectedTopic ? (
                 <>
-                  <h2 className="text-2xl font-bold p-6 bg-gradient-to-r from-indigo-600 to-blue-600 bg-clip-text text-transparent sticky top-0 bg-white/80 dark:bg-gray-800/80 border-b border-indigo-100 dark:border-indigo-900">
+                  <h2 className="text-2xl font-bold p-6 bg-gradient-to-r from-indigo-600 to-blue-600 bg-clip-text text-transparent sticky top-0 bg-white/80 dark:bg-zinc-900/80 border-b border-indigo-100 dark:border-indigo-900">
                     {selectedTopic.name}
                   </h2>
                   <div className="p-6 overflow-y-auto flex-1">
@@ -106,7 +106,7 @@ const JavaScriptLearning = () => {
                             </p>
                             <button
                               onClick={() => handleQuestionSelect(question)}
-                              className="bg-indigo-600 text-white px-4 py-2 rounded-md hover:bg-indigo-700 transition-colors"
+                              className="bg-indigo-600 text-slate-300 px-4 py-2 rounded-md hover:bg-indigo-700 transition-colors"
                             >
                               Practice Now
                             </button>
@@ -129,7 +129,7 @@ const JavaScriptLearning = () => {
                         </p>
                         <button
                           onClick={() => handleQuestionSelect(selectedTopic.miscQuestion)}
-                          className="bg-indigo-600 text-white px-4 py-2 rounded-md hover:bg-indigo-700 transition-colors"
+                          className="bg-indigo-600 text-slate-300 px-4 py-2 rounded-md hover:bg-indigo-700 transition-colors"
                         >
                           Try Challenge
                         </button>
@@ -147,7 +147,7 @@ const JavaScriptLearning = () => {
             </div>
 
             {/* Code Compiler */}
-            <div className="w-1/2 bg-white/80 dark:bg-gray-800/80 rounded-lg backdrop-blur-sm flex flex-col overflow-hidden">
+            <div className="w-1/2 bg-white/80 dark:bg-zinc-900/80 rounded-lg backdrop-blur-sm flex flex-col overflow-hidden">
               {selectedQuestion ? (
                 <>
                   <div className="p-4 border-b border-indigo-100 dark:border-indigo-900">

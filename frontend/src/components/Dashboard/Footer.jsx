@@ -10,7 +10,7 @@ const Footer = () => {
     <footer
        className={`
         max-h-fit py-6 px-2 sm:px-6 lg:px-8
-        ${schemes.pageBackground(isDarkMode)}
+        ${isDarkMode ? 'bg-zinc-900' : 'bg-white'}
         transition-colors duration-300
       `}
     >
@@ -26,7 +26,7 @@ const Footer = () => {
                 whileTap={{ scale: 0.95 }}
                 className={`
                   text-base font-medium transition-all duration-300
-                  ${colors.text.secondary} hover:${colors.text.accent}
+                  ${isDarkMode ? 'text-slate-300 hover:text-slate-100' : 'text-slate-700 hover:text-slate-900'}
                 `}
               >
                 {link}
@@ -42,7 +42,7 @@ const Footer = () => {
               whileTap={{ scale: 0.9 }}
               className={`
                 p-3 rounded-full flex items-center justify-center
-                ${isDarkMode ? "bg-slate-800/70 text-blue-400 hover:bg-blue-900/50" : "bg-blue-50/70 text-blue-600 hover:bg-blue-100/70"}
+                ${isDarkMode ? "bg-zinc-800/50 text-blue-400 hover:bg-zinc-700/50" : "bg-gray-100/50 text-blue-600 hover:bg-gray-200/50"}
                 transition-all duration-300 shadow-md hover:shadow-lg
               `}
               aria-label="LinkedIn"
@@ -55,7 +55,7 @@ const Footer = () => {
               whileTap={{ scale: 0.9 }}
               className={`
                 p-3 rounded-full flex items-center justify-center
-                ${isDarkMode ? "bg-slate-800/70 text-gray-200 hover:bg-gray-700/50" : "bg-gray-100/70 text-gray-800 hover:bg-gray-200/70"}
+                ${isDarkMode ? "bg-zinc-800/50 text-slate-300 hover:bg-zinc-700/50" : "bg-gray-100/50 text-slate-700 hover:bg-gray-200/50"}
                 transition-all duration-300 shadow-md hover:shadow-lg
               `}
               aria-label="X (Twitter)"
@@ -68,7 +68,7 @@ const Footer = () => {
               whileTap={{ scale: 0.9 }}
               className={`
                 p-3 rounded-full flex items-center justify-center
-                ${isDarkMode ? "bg-slate-800/70 text-pink-400 hover:bg-pink-900/50" : "bg-pink-50/70 text-pink-600 hover:bg-pink-100/70"}
+                ${isDarkMode ? "bg-zinc-800/50 text-pink-400 hover:bg-zinc-700/50" : "bg-gray-100/50 text-pink-600 hover:bg-gray-200/50"}
                 transition-all duration-300 shadow-md hover:shadow-lg
               `}
               aria-label="Instagram"
@@ -82,8 +82,7 @@ const Footer = () => {
             <p
               className={`
                 text-sm sm:text-base font-medium
-                bg-clip-text text-transparent
-                ${isDarkMode ? "bg-gradient-to-r from-indigo-400 to-blue-400" : "bg-gradient-to-r from-indigo-600 to-blue-600"}
+                ${isDarkMode ? "text-slate-300" : "text-slate-700"}
               `}
             >
               © {new Date().getFullYear()} PrepMate, Inc. All rights reserved.

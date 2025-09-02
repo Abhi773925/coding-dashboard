@@ -147,7 +147,7 @@ const SkillsOverview = ({ user }) => {
   return (
     <div className="space-y-6">
       <div className="flex items-center justify-between">
-        <h2 className="text-2xl font-bold text-gray-900 dark:text-white">Skills & Technologies</h2>
+        <h2 className="text-2xl font-bold text-gray-900 dark:text-slate-300">Skills & Technologies</h2>
         <div className="text-sm text-gray-600 dark:text-gray-400">
           Based on platform activity
         </div>
@@ -155,8 +155,8 @@ const SkillsOverview = ({ user }) => {
 
       {/* Top Languages */}
       {topLanguages.length > 0 && (
-        <div className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-lg">
-          <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4 flex items-center">
+        <div className="bg-white dark:bg-zinc-900 rounded-xl p-6 shadow-lg">
+          <h3 className="text-lg font-semibold text-gray-900 dark:text-slate-300 mb-4 flex items-center">
             <Code2 className="w-5 h-5 mr-2 text-blue-500" />
             Programming Languages
           </h3>
@@ -177,7 +177,7 @@ const SkillsOverview = ({ user }) => {
                   {language}
                 </div>
                 <div className="mt-2">
-                  <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-1.5">
+                  <div className="w-full bg-gray-200 dark:bg-zinc-900 rounded-full h-1.5">
                     <div 
                       className="bg-blue-500 h-1.5 rounded-full transition-all duration-500"
                       style={{ width: `${Math.min(100, (count / Math.max(...topLanguages.map(([,c]) => c))) * 100)}%` }}
@@ -192,8 +192,8 @@ const SkillsOverview = ({ user }) => {
 
       {/* Algorithm Topics */}
       {topTopics.length > 0 && (
-        <div className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-lg">
-          <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4 flex items-center">
+        <div className="bg-white dark:bg-zinc-900 rounded-xl p-6 shadow-lg">
+          <h3 className="text-lg font-semibold text-gray-900 dark:text-slate-300 mb-4 flex items-center">
             <Brain className="w-5 h-5 mr-2 text-purple-500" />
             Algorithm Topics
           </h3>
@@ -215,7 +215,7 @@ const SkillsOverview = ({ user }) => {
                     {count}
                   </span>
                 </div>
-                <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2">
+                <div className="w-full bg-gray-200 dark:bg-zinc-900 rounded-full h-2">
                   <div 
                     className="bg-gradient-to-r from-purple-500 to-pink-500 h-2 rounded-full transition-all duration-500"
                     style={{ width: `${Math.min(100, (count / Math.max(...topTopics.map(([,c]) => c))) * 100)}%` }}
@@ -228,8 +228,8 @@ const SkillsOverview = ({ user }) => {
       )}
 
       {/* Technology Stack */}
-      <div className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-lg">
-        <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-6 flex items-center">
+      <div className="bg-white dark:bg-zinc-900 rounded-xl p-6 shadow-lg">
+        <h3 className="text-lg font-semibold text-gray-900 dark:text-slate-300 mb-6 flex items-center">
           <Layers className="w-5 h-5 mr-2 text-green-500" />
           Technology Stack
         </h3>
@@ -246,9 +246,9 @@ const SkillsOverview = ({ user }) => {
               >
                 <div className="flex items-center space-x-3">
                   <div className={`p-2 rounded-lg bg-gradient-to-r ${category.color}`}>
-                    <Icon className="w-5 h-5 text-white" />
+                    <Icon className="w-5 h-5 text-slate-300" />
                   </div>
-                  <h4 className="text-md font-semibold text-gray-900 dark:text-white">
+                  <h4 className="text-md font-semibold text-gray-900 dark:text-slate-300">
                     {category.category}
                   </h4>
                 </div>
@@ -261,7 +261,7 @@ const SkillsOverview = ({ user }) => {
                         className={`p-3 rounded-lg border transition-all duration-200 ${
                           level > 0 
                             ? 'bg-green-50 dark:bg-green-900/20 border-green-200 dark:border-green-800' 
-                            : 'bg-gray-50 dark:bg-gray-700/50 border-gray-200 dark:border-gray-600'
+                            : 'bg-gray-50 dark:bg-zinc-900/50 border-gray-200 dark:border-gray-600'
                         }`}
                         initial={{ opacity: 0, scale: 0.8 }}
                         animate={{ opacity: 1, scale: 1 }}
@@ -292,7 +292,7 @@ const SkillsOverview = ({ user }) => {
                           )}
                         </div>
                         {level > 0 && (
-                          <div className="mt-2 w-full bg-gray-200 dark:bg-gray-700 rounded-full h-1">
+                          <div className="mt-2 w-full bg-gray-200 dark:bg-zinc-900 rounded-full h-1">
                             <div 
                               className="bg-green-500 h-1 rounded-full transition-all duration-500"
                               style={{ width: `${(level / 5) * 100}%` }}
@@ -312,7 +312,7 @@ const SkillsOverview = ({ user }) => {
       {/* Skills Summary */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         <motion.div
-          className="bg-gradient-to-br from-blue-500 to-blue-600 rounded-xl p-6 text-white"
+          className="bg-gradient-to-br from-blue-500 to-blue-600 rounded-xl p-6 text-slate-300"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.3 }}
@@ -327,7 +327,7 @@ const SkillsOverview = ({ user }) => {
         </motion.div>
 
         <motion.div
-          className="bg-gradient-to-br from-purple-500 to-purple-600 rounded-xl p-6 text-white"
+          className="bg-gradient-to-br from-purple-500 to-purple-600 rounded-xl p-6 text-slate-300"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.3, delay: 0.1 }}
@@ -342,7 +342,7 @@ const SkillsOverview = ({ user }) => {
         </motion.div>
 
         <motion.div
-          className="bg-gradient-to-br from-green-500 to-green-600 rounded-xl p-6 text-white"
+          className="bg-gradient-to-br from-green-500 to-green-600 rounded-xl p-6 text-slate-300"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.3, delay: 0.2 }}

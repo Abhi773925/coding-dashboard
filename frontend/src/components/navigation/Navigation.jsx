@@ -281,7 +281,7 @@ const StreakDisplay = () => {
       <div
         className={`flex items-center space-x-2 px-4 py-2 rounded-full backdrop-blur-sm transition-all duration-300 ${
           isDarkMode
-            ? "bg-slate-800/60 text-slate-400 border border-slate-700/50"
+            ? "bg-zinc-900/60 text-slate-400 border border-slate-700/50"
             : "bg-gray-100/80 text-gray-600 border border-gray-200/50"
         }`}
       >
@@ -297,7 +297,7 @@ const StreakDisplay = () => {
       <div
         className={`flex items-center space-x-2 px-4 py-2 rounded-full backdrop-blur-sm transition-all duration-300 ${
           isDarkMode
-            ? "bg-slate-800/60 text-gray-400 border border-slate-700/50"
+            ? "bg-zinc-900/60 text-gray-400 border border-slate-700/50"
             : "bg-gray-100/80 text-gray-600 border border-gray-200/50"
         }`}
         title="Streak service is temporarily unavailable. Your progress is still being tracked."
@@ -312,7 +312,7 @@ const StreakDisplay = () => {
     <div
       className={`flex items-center space-x-2 px-4 py-2 rounded-full backdrop-blur-sm transition-all duration-300 transform hover:scale-105 ${
         isDarkMode
-          ? "bg-slate-800/60 text-orange-400 border border-slate-700/50"
+          ? "bg-zinc-900/60 text-orange-400 border border-slate-700/50"
           : "bg-orange-100/80 text-orange-600 border border-orange-200/50"
       }`}
       style={{
@@ -359,7 +359,7 @@ const ProfileDropdown = ({ onLogin, onLogout, isMobile = false }) => {
               transition-all duration-300 group backdrop-blur-sm
               ${
                 isDarkMode
-                  ? "hover:bg-slate-800/60 border border-slate-700/50"
+                  ? "hover:bg-zinc-900/60 border border-slate-700/50"
                   : "hover:bg-white/80 border border-gray-200/50"
               }
             `}
@@ -399,7 +399,7 @@ const ProfileDropdown = ({ onLogin, onLogout, isMobile = false }) => {
                 exit={{ opacity: 0, y: isMobile ? 20 : -20, scale: 0.95 }}
                 className={`
                   fixed ${dropdownPosition} w-full sm:w-80
-                  ${isDarkMode ? "bg-slate-900/95 border-slate-700/50" : "bg-white/95 border-gray-200/50"}
+                  ${isDarkMode ? "bg-zinc-900/60 border-none" : "bg-white/95 border-gray-200/50"}
                   border rounded-2xl shadow-2xl backdrop-blur-md
                   overflow-hidden z-50
                 `}
@@ -412,7 +412,7 @@ const ProfileDropdown = ({ onLogin, onLogout, isMobile = false }) => {
                   <div
                     className={`
                     p-6 flex items-center space-x-4
-                    ${isDarkMode ? "bg-slate-800/50" : "bg-gray-50/50"}
+                    ${isDarkMode ? "bg-zinc-900/60" : "bg-gray-50/50"}
                   `}
                   >
                     <img
@@ -459,7 +459,7 @@ const ProfileDropdown = ({ onLogin, onLogout, isMobile = false }) => {
                       flex items-center space-x-4 p-4 cursor-pointer
                       transition-all duration-300 group no-underline
                       border-t ${isDarkMode ? "border-slate-700/50" : "border-gray-200/50"}
-                      ${isDarkMode ? "hover:bg-slate-800/50 text-slate-300" : "hover:bg-gray-50/50 text-gray-800"}
+                      ${isDarkMode ? "hover:bg-zinc-900/60 text-slate-300" : "hover:bg-gray-50/50 text-gray-800"}
                     `}
                   >
                     <item.icon className={`${item.color} group-hover:scale-110 transition-transform`} size={22} />
@@ -527,35 +527,35 @@ const MobileMenu = ({ isOpen, onClose, navigationSections }) => {
   const getSectionStyling = (sectionName) => {
     const styles = {
       "Contest": {
-        bgHover: isDarkMode ? "hover:bg-transparent" : "hover:bg-indigo-50/60",
-        bg: isDarkMode ? "bg-transparent" : "bg-indigo-50/30",
-        text: isDarkMode ? "text-indigo-300" : "text-indigo-700",
-        accent: isDarkMode ? "from-transparent to-transparent" : "from-indigo-500/20 to-purple-500/20"
+        bgHover: isDarkMode ? "hover:bg-zinc-800/50" : "hover:bg-gray-100/50",
+        bg: isDarkMode ? "bg-zinc-800/30" : "bg-gray-100/30",
+        text: isDarkMode ? "text-slate-300" : "text-slate-700",
+        accent: isDarkMode ? "from-transparent to-transparent" : "from-gray-500/10 to-slate-500/10"
       },
       "Courses": {
-        bgHover: isDarkMode ? "hover:bg-transparent" : "hover:bg-blue-50/60",
-        bg: isDarkMode ? "bg-transparent" : "bg-blue-50/30",
-        text: isDarkMode ? "text-blue-300" : "text-blue-700",
-        accent: isDarkMode ? "from-transparent to-transparent" : "from-blue-500/20 to-cyan-500/20"
+        bgHover: isDarkMode ? "hover:bg-zinc-800/50" : "hover:bg-gray-100/50",
+        bg: isDarkMode ? "bg-zinc-800/30" : "bg-gray-100/30",
+        text: isDarkMode ? "text-slate-300" : "text-slate-700",
+        accent: isDarkMode ? "from-transparent to-transparent" : "from-gray-500/10 to-slate-500/10"
       },
-      "Interview Series": {
-        bgHover: isDarkMode ? "hover:bg-transparent" : "hover:bg-purple-50/60",
-        bg: isDarkMode ? "bg-transparent" : "bg-purple-50/30",
-        text: isDarkMode ? "text-purple-300" : "text-purple-700",
-        accent: isDarkMode ? "from-transparent to-transparent" : "from-purple-500/20 to-pink-500/20"
+      "Technical Articles": {
+        bgHover: isDarkMode ? "hover:bg-zinc-800/50" : "hover:bg-gray-100/50",
+        bg: isDarkMode ? "bg-zinc-800/30" : "bg-gray-100/30",
+        text: isDarkMode ? "text-slate-300" : "text-slate-700",
+        accent: isDarkMode ? "from-transparent to-transparent" : "from-gray-500/10 to-slate-500/10"
       },
       "Collaboration": {
-        bgHover: isDarkMode ? "hover:bg-transparent" : "hover:bg-emerald-50/60",
-        bg: isDarkMode ? "bg-transparent" : "bg-emerald-50/30",
-        text: isDarkMode ? "text-emerald-300" : "text-emerald-700",
-        accent: isDarkMode ? "from-transparent to-transparent" : "from-emerald-500/20 to-teal-500/20"
+        bgHover: isDarkMode ? "hover:bg-zinc-800/50" : "hover:bg-gray-100/50",
+        bg: isDarkMode ? "bg-zinc-800/30" : "bg-gray-100/30",
+        text: isDarkMode ? "text-slate-300" : "text-slate-700",
+        accent: isDarkMode ? "from-transparent to-transparent" : "from-gray-500/10 to-slate-500/10"
       }
     }
     return styles[sectionName] || {
-      bgHover: isDarkMode ? "hover:bg-transparent" : "hover:bg-gray-50/60",
-      bg: isDarkMode ? "bg-transparent" : "bg-gray-50/30",
-      text: isDarkMode ? "text-gray-300" : "text-gray-700",
-      accent: isDarkMode ? "from-transparent to-transparent" : "from-gray-500/20 to-slate-500/20"
+      bgHover: isDarkMode ? "hover:bg-zinc-800/50" : "hover:bg-gray-100/50",
+      bg: isDarkMode ? "bg-zinc-800/30" : "bg-gray-100/30",
+      text: isDarkMode ? "text-slate-300" : "text-slate-700",
+      accent: isDarkMode ? "from-transparent to-transparent" : "from-gray-500/10 to-slate-500/10"
     }
   }
 
@@ -569,7 +569,7 @@ const MobileMenu = ({ isOpen, onClose, navigationSections }) => {
           transition={{ type: "tween", duration: 0.3 }}
           className={`
             fixed inset-0 z-50 overflow-y-auto
-            ${isDarkMode ? "bg-slate-900/95" : "bg-white/95"}
+            ${isDarkMode ? "bg-zinc-900/95" : "bg-white/95"}
             backdrop-blur-md
           `}
         >
@@ -577,7 +577,7 @@ const MobileMenu = ({ isOpen, onClose, navigationSections }) => {
           <div
             className={`
             flex justify-between items-center p-6
-            ${isDarkMode ? "bg-slate-900 text-white" : "bg-white text-black"}
+            ${isDarkMode ? "bg-zinc-900 text-slate-300" : "bg-white text-slate-700"}
           `}
           >
             <div className="flex items-center space-x-4">
@@ -595,7 +595,7 @@ const MobileMenu = ({ isOpen, onClose, navigationSections }) => {
               onClick={onClose}
               className={`
                 p-3 rounded-xl transition-all duration-300 hover:scale-105
-                ${isDarkMode ? "hover:bg-slate-800 text-slate-300" : "hover:bg-gray-100 text-gray-600"}
+                ${isDarkMode ? "hover:bg-zinc-800/50 text-slate-400" : "hover:bg-gray-100/50 text-slate-600"}
               `}
             >
               <X size={24} />
@@ -659,15 +659,15 @@ const MobileMenu = ({ isOpen, onClose, navigationSections }) => {
                           flex items-center justify-between p-3 rounded-lg
                           cursor-pointer transition-all duration-300 group no-underline
                           ${isDarkMode 
-                            ? "text-slate-300 hover:bg-slate-800 hover:text-white" 
-                            : "text-gray-700 hover:bg-gray-50 hover:text-gray-900"}
-                          border ${isDarkMode ? "border-slate-700/50" : "border-gray-200/50"}
+                            ? "text-slate-300 hover:bg-zinc-800/50 hover:text-slate-300" 
+                            : "text-slate-700 hover:bg-gray-100/50 hover:text-slate-700"}
+                          border ${isDarkMode ? "border-zinc-700/50" : "border-gray-200/50"}
                         `}
                       >
                         <div className="flex items-center space-x-3">
                           <subSection.icon
                             className={`
-                              ${isDarkMode ? "text-slate-400" : "text-gray-600"}
+                              ${isDarkMode ? "text-slate-400" : "text-slate-600"}
                               group-hover:scale-110 transition-transform
                             `}
                             size={20}
@@ -676,7 +676,7 @@ const MobileMenu = ({ isOpen, onClose, navigationSections }) => {
                         </div>
                         <ChevronRight
                           className={`
-                            ${isDarkMode ? "text-slate-500" : "text-gray-400"}
+                            ${isDarkMode ? "text-slate-500" : "text-slate-400"}
                             group-hover:translate-x-1 transition-transform
                           `}
                           size={18}
@@ -720,35 +720,35 @@ const Navigation = () => {
   const getSectionStyling = (sectionName) => {
     const styles = {
       "Contest": {
-        bgHover: isDarkMode ? "hover:bg-transparent" : "hover:bg-indigo-50/60",
-        bg: isDarkMode ? "bg-transparent" : "bg-indigo-50/30",
-        text: isDarkMode ? "text-indigo-300" : "text-indigo-700",
-        accent: isDarkMode ? "from-transparent to-transparent" : "from-indigo-500/20 to-purple-500/20"
+        bgHover: isDarkMode ? "hover:bg-zinc-800/50" : "hover:bg-gray-100/50",
+        bg: isDarkMode ? "bg-zinc-800/30" : "bg-gray-100/30",
+        text: isDarkMode ? "text-slate-300" : "text-slate-700",
+        accent: isDarkMode ? "from-transparent to-transparent" : "from-gray-500/10 to-slate-500/10"
       },
       "Courses": {
-        bgHover: isDarkMode ? "hover:bg-transparent" : "hover:bg-blue-50/60",
-        bg: isDarkMode ? "bg-transparent" : "bg-blue-50/30",
-        text: isDarkMode ? "text-blue-300" : "text-blue-700",
-        accent: isDarkMode ? "from-transparent to-transparent" : "from-blue-500/20 to-cyan-500/20"
+        bgHover: isDarkMode ? "hover:bg-zinc-800/50" : "hover:bg-gray-100/50",
+        bg: isDarkMode ? "bg-zinc-800/30" : "bg-gray-100/30",
+        text: isDarkMode ? "text-slate-300" : "text-slate-700",
+        accent: isDarkMode ? "from-transparent to-transparent" : "from-gray-500/10 to-slate-500/10"
       },
-      "Interview Series": {
-        bgHover: isDarkMode ? "hover:bg-transparent" : "hover:bg-purple-50/60",
-        bg: isDarkMode ? "bg-transparent" : "bg-purple-50/30",
-        text: isDarkMode ? "text-purple-300" : "text-purple-700",
-        accent: isDarkMode ? "from-transparent to-transparent" : "from-purple-500/20 to-pink-500/20"
+      "Technical Articles": {
+        bgHover: isDarkMode ? "hover:bg-zinc-800/50" : "hover:bg-gray-100/50",
+        bg: isDarkMode ? "bg-zinc-800/30" : "bg-gray-100/30",
+        text: isDarkMode ? "text-slate-300" : "text-slate-700",
+        accent: isDarkMode ? "from-transparent to-transparent" : "from-gray-500/10 to-slate-500/10"
       },
       "Collaboration": {
-        bgHover: isDarkMode ? "hover:bg-transparent" : "hover:bg-emerald-50/60",
-        bg: isDarkMode ? "bg-transparent" : "bg-emerald-50/30",
-        text: isDarkMode ? "text-emerald-300" : "text-emerald-700",
-        accent: isDarkMode ? "from-transparent to-transparent" : "from-emerald-500/20 to-teal-500/20"
+        bgHover: isDarkMode ? "hover:bg-zinc-800/50" : "hover:bg-gray-100/50",
+        bg: isDarkMode ? "bg-zinc-800/30" : "bg-gray-100/30",
+        text: isDarkMode ? "text-slate-300" : "text-slate-700",
+        accent: isDarkMode ? "from-transparent to-transparent" : "from-gray-500/10 to-slate-500/10"
       }
     }
     return styles[sectionName] || {
-      bgHover: isDarkMode ? "hover:bg-transparent" : "hover:bg-gray-50/60",
-      bg: isDarkMode ? "bg-transparent" : "bg-gray-50/30",
-      text: isDarkMode ? "text-gray-300" : "text-gray-700",
-      accent: isDarkMode ? "from-transparent to-transparent" : "from-gray-500/20 to-slate-500/20"
+      bgHover: isDarkMode ? "hover:bg-zinc-800/50" : "hover:bg-gray-100/50",
+      bg: isDarkMode ? "bg-zinc-800/30" : "bg-gray-100/30",
+      text: isDarkMode ? "text-slate-300" : "text-slate-700",
+      accent: isDarkMode ? "from-transparent to-transparent" : "from-gray-500/10 to-slate-500/10"
     }
   }
 
@@ -767,26 +767,21 @@ const Navigation = () => {
     <nav
       className={`
         hidden lg:flex fixed top-0 left-0 right-0 z-40
-        bg-transparent
         items-center justify-between px-8 py-2
         transition-all duration-300
+        ${isDarkMode ? 'bg-zinc-900/95' : 'bg-white/95'}
       `}
       style={{
-        backgroundColor: isDarkMode ? 'transparent' : 'rgba(255, 255, 255, 0.05)',
-        backdropFilter: isDarkMode ? 'none' : 'blur(10px) saturate(180%)',
+        backdropFilter: 'blur(10px) saturate(180%)',
       }}
     >
       {/* Enhanced Logo */}
       <div className="flex items-center space-x-4">
-        <div
-          className={`rounded-xl flex items-center justify-center transition-all duration-300 hover:scale-105
-`}         
-        >
-            <Link to="/" className={`text-xl font-bold tracking-tight pl-4 ${isDarkMode ? 'text-white' : 'text-gray-900'}`}>
+        <div className="rounded-xl flex items-center justify-center transition-all duration-300 hover:scale-105">
+            <Link to="/" className={`text-xl font-bold tracking-tight pl-4 ${isDarkMode ? 'text-slate-300' : 'text-slate-700'}`}>
               <img src={prepmateLogo} alt="Prepmate Logo" className="h-[50px] w-[50px] sm:h-15" />
             </Link>
         </div>
-        
       </div>
 
       {/* Navigation Sections with Enhanced Dropdowns */}
@@ -828,9 +823,9 @@ const Navigation = () => {
               <div
                 className={`
                   absolute top-full left-0 w-72 rounded-2xl overflow-hidden z-50
-                  ${isDarkMode ? 'bg-slate-800/90' : 'bg-white/90'} backdrop-blur-md
+                  ${isDarkMode ? 'bg-zinc-900/95' : 'bg-white/95'} backdrop-blur-md
                   shadow-xl border
-                  ${isDarkMode ? 'border-slate-700/50' : 'border-gray-200/50'}
+                  ${isDarkMode ? 'border-zinc-700/50' : 'border-gray-200/50'}
                 `}
                 style={{
                   boxShadow: isDarkMode 
@@ -846,14 +841,14 @@ const Navigation = () => {
                       flex items-center justify-between p-4
                       cursor-pointer transition-all duration-300 group no-underline
                       ${isDarkMode 
-                        ? "text-slate-300 hover:bg-slate-700/50 hover:text-white" 
-                        : "text-gray-700 hover:bg-gray-50 hover:text-gray-900"}
+                        ? "text-slate-300 hover:bg-zinc-800/50 hover:text-slate-300" 
+                        : "text-slate-700 hover:bg-gray-100/50 hover:text-slate-700"}
                     `}
                   >
                     <div className="flex items-center space-x-4">
                       <subSection.icon
                         className={`
-                          ${isDarkMode ? "text-slate-400" : "text-gray-600"}
+                          ${isDarkMode ? "text-slate-400" : "text-slate-600"}
                           group-hover:scale-110 transition-transform
                         `}
                         size={22}
@@ -862,7 +857,7 @@ const Navigation = () => {
                     </div>
                     <ChevronRight
                       className={`
-                        ${isDarkMode ? "text-slate-500" : "text-gray-400"}
+                        ${isDarkMode ? "text-slate-500" : "text-slate-400"}
                         group-hover:translate-x-1 transition-transform
                       `}
                       size={18}
@@ -884,11 +879,11 @@ const Navigation = () => {
         <button
           onClick={toggleTheme}
           className={`
-            p-3 rounded-xl transition-all duration-300 transform hover:scale-110 ${isDarkMode ? '' : 'backdrop-blur-sm'}
+            p-3 rounded-xl transition-all duration-300 transform hover:scale-110
             ${
               isDarkMode
-                ? "text-yellow-400 hover:bg-transparent"
-                : "text-orange-500 hover:bg-orange-500/10"
+                ? "text-slate-400 hover:bg-zinc-800/50 hover:text-slate-300"
+                : "text-slate-600 hover:bg-gray-100/50 hover:text-slate-700"
             }
           `}
         >
@@ -908,10 +903,10 @@ const Navigation = () => {
         className={`
           lg:hidden fixed top-0 left-0 right-0 z-40
           px-6 py-4
+          ${isDarkMode ? 'bg-zinc-900/95' : 'bg-white/95'}
         `}
         style={{
-          backgroundColor: isDarkMode ? 'transparent' : 'rgba(255, 255, 255, 0.05)',
-          backdropFilter: isDarkMode ? 'none' : 'blur(10px) saturate(180%)',
+          backdropFilter: 'blur(10px) saturate(180%)',
         }}
       >
         <div className="flex justify-between items-center">
@@ -921,7 +916,7 @@ const Navigation = () => {
             `}
              
             >
-              <Link to="/" className={`text-xl font-bold tracking-tight pl-4 ${isDarkMode ? 'text-white' : 'text-gray-900'}`}>
+            <Link to="/" className={`text-xl font-bold tracking-tight pl-4 ${isDarkMode ? 'text-slate-300' : 'text-slate-700'}`}>
               <img src={prepmateLogo} alt="Prepmate Logo" className="h-[50px] w-[50px] sm:h-15" />
             </Link>
             </div>
@@ -935,8 +930,8 @@ const Navigation = () => {
             <button
               onClick={toggleTheme}
               className={`
-                p-2 rounded-xl transition-all duration-300 ${isDarkMode ? '' : 'backdrop-blur-sm'}
-                ${isDarkMode ? "text-yellow-400 hover:bg-transparent" : "text-orange-500 hover:bg-orange-500/10"}
+                p-2 rounded-xl transition-all duration-300
+                ${isDarkMode ? "text-slate-400 hover:bg-zinc-800/50" : "text-slate-600 hover:bg-gray-100/50"}
               `}
             >
               {isDarkMode ? <Sun size={22} /> : <Moon size={22} />}
@@ -945,8 +940,8 @@ const Navigation = () => {
             <button
               onClick={() => setIsMobileMenuOpen(true)}
               className={`
-                p-2 rounded-xl transition-all duration-300 ${isDarkMode ? '' : 'backdrop-blur-sm'}
-                ${isDarkMode ? "text-white hover:bg-transparent" : "text-gray-900 hover:bg-gray-900/10"}
+                p-2 rounded-xl transition-all duration-300
+                ${isDarkMode ? "text-slate-300 hover:bg-zinc-800/50" : "text-slate-700 hover:bg-gray-100/50"}
               `}
             >
               <Menu size={24} />
@@ -964,7 +959,7 @@ const Navigation = () => {
   )
 
   return (
-    <div className={`${isDarkMode ? "dark bg-slate-900 text-gray-100" : "bg-white text-gray-900"}`}>
+    <div className={`${isDarkMode ? "dark bg-zinc-900 text-slate-300" : "bg-white text-slate-700"}`}>
       {isMobile ? renderMobileNavigation() : renderDesktopNavigation()}
     </div>
   )

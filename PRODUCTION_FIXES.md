@@ -3,7 +3,7 @@
 ## Current Issues Identified:
 
 ### 1. CORS Error
-- **Error**: `Access-Control-Allow-Origin` header has value 'http://localhost:5173' but origin is 'https://www.prepmate.site'
+- **Error**: `Access-Control-Allow-Origin` header has value 'http://172.20.10.3:5173' but origin is 'https://www.prepmate.site'
 - **Root Cause**: Backend CORS configuration might not be properly reading production domain
 - **Fix**: Already configured in server.js line 95-99, but may need verification
 
@@ -22,7 +22,7 @@
 ### Backend CORS Configuration (Already Fixed)
 ```javascript
 app.use(cors({
-  origin: ["https://www.prepmate.site", "http://localhost:5173"],
+  origin: ["https://www.prepmate.site", "http://172.20.10.3:5173"],
   credentials: true,
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS']
 }));
@@ -46,4 +46,4 @@ app.use("/api/profile", profileRoutes);
 
 ## Frontend URL Configuration:
 - Production: `https://www.prepmate.site`
-- Development: `http://localhost:5173`
+- Development: `http://172.20.10.3:5173`

@@ -2299,11 +2299,11 @@ const ComputerNetworks = () => {
       <div className="w-full">
         {/* Header for expanded view */}
         <div className={`mb-8 p-6 rounded-xl border ${
-          isDarkMode ? "bg-gray-800/50 border-gray-700" : "bg-white/70 border-gray-200"
+          isDarkMode ? bg-zinc-900 : "bg-white/70 border-gray-200"
         }`}>
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-4">
-              <div className={`p-3 rounded-lg bg-gradient-to-br ${color} text-white shadow-lg`}>
+              <div className={`p-3 rounded-lg bg-gradient-to-br ${color} text-slate-300 shadow-lg`}>
                 <Icon size={24} />
               </div>
               <div>
@@ -2318,7 +2318,7 @@ const ComputerNetworks = () => {
             <button
               onClick={() => setSelectedCategory(null)}
               className={`p-2 rounded-lg transition-all ${
-                isDarkMode ? "hover:bg-gray-700 text-gray-400" : "hover:bg-gray-100 text-gray-600"
+                isDarkMode ? "hover:bg-zinc-900 text-gray-400" : "hover:bg-gray-100 text-gray-600"
               }`}
             >
               <ChevronDown size={20} />
@@ -2330,13 +2330,13 @@ const ComputerNetworks = () => {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
           {Object.entries(content).map(([subTitle, subContent]) => (
             <div key={subTitle} className={`border rounded-xl overflow-hidden ${
-              isDarkMode ? "border-gray-700 bg-gray-800/30" : "border-gray-200 bg-white/50"
+              isDarkMode ? "border-gray-700 bg-zinc-900/30" : "border-gray-200 bg-white/50"
             }`}>
               <div className="flex items-center justify-between">
                 <button
                   onClick={() => toggleAccordion(`${categoryKey}-${subTitle}`)}
                   className={`w-full text-left p-6 flex items-center justify-between transition-all ${
-                    isDarkMode ? "hover:bg-gray-700/50 text-gray-200" : "hover:bg-gray-50 text-gray-800"
+                    isDarkMode ? "hover:bg-zinc-900/50 text-gray-200" : "hover:bg-gray-50 text-gray-800"
                   }`}
                 >
                   <div className="flex items-center gap-3">
@@ -2354,7 +2354,7 @@ const ComputerNetworks = () => {
                       className={`p-2 rounded-lg transition-all ${
                         completedTopics.has(`${categoryKey}-${subTitle}`)
                           ? "text-green-500 bg-green-100 dark:bg-green-900/30"
-                          : isDarkMode ? "text-gray-400 hover:text-green-400 hover:bg-gray-700" : "text-gray-500 hover:text-green-600 hover:bg-gray-100"
+                          : isDarkMode ? "text-gray-400 hover:text-green-400 hover:bg-zinc-900" : "text-gray-500 hover:text-green-600 hover:bg-gray-100"
                       }`}
                     >
                       <CheckCircle size={18} />
@@ -2369,7 +2369,7 @@ const ComputerNetworks = () => {
               {openAccordion === `${categoryKey}-${subTitle}` && (
                 <div className={`p-6 border-t ${
                   isDarkMode 
-                    ? "bg-gray-800/50 border-gray-700 text-gray-300" 
+                    ? "bg-zinc-900/50 border-gray-700 text-gray-300" 
                     : "bg-gray-50/50 border-gray-200 text-gray-700"
                 }`}>
                   {renderSubContent(subContent, color)}
@@ -2406,13 +2406,13 @@ const ComputerNetworks = () => {
 
         <div className={`relative backdrop-blur-sm border rounded-xl p-6 transition-all duration-300 ${
           isDarkMode 
-            ? "bg-gray-800/80 border-gray-700/50 hover:bg-gray-800/90" 
+            ? "bg-zinc-900/80 border-gray-700/50 hover:bg-zinc-900" 
             : "bg-white/80 border-gray-200/50 hover:bg-white/90"
         }`}>
           {/* Header */}
           <div className="flex items-center justify-between mb-4">
             <div className="flex items-center gap-3">
-              <div className={`p-2 rounded-lg bg-gradient-to-br ${color} text-white shadow-lg`}>
+              <div className={`p-2 rounded-lg bg-gradient-to-br ${color} text-slate-300 shadow-lg`}>
                 <Icon size={20} />
               </div>
               <h3 className={`text-xl font-bold bg-gradient-to-r ${color} bg-clip-text text-transparent`}>
@@ -2432,14 +2432,14 @@ const ComputerNetworks = () => {
             <div className="mt-3 flex flex-wrap gap-2">
               {Object.keys(content).slice(0, 3).map((topic, idx) => (
                 <span key={idx} className={`text-xs px-2 py-1 rounded-full ${
-                  isDarkMode ? "bg-gray-700 text-gray-300" : "bg-gray-100 text-gray-600"
+                  isDarkMode ? "bg-zinc-900 text-gray-300" : "bg-gray-100 text-gray-600"
                 }`}>
                   {topic}
                 </span>
               ))}
               {Object.keys(content).length > 3 && (
                 <span className={`text-xs px-2 py-1 rounded-full ${
-                  isDarkMode ? "bg-gray-700 text-gray-400" : "bg-gray-100 text-gray-500"
+                  isDarkMode ? "bg-zinc-900 text-gray-400" : "bg-gray-100 text-gray-500"
                 }`}>
                   +{Object.keys(content).length - 3} more
                 </span>
@@ -2466,7 +2466,7 @@ const ComputerNetworks = () => {
               Definition
             </h5>
             <div className={`p-4 rounded-lg border ${
-              isDarkMode ? "bg-gray-700/30 border-gray-600" : "bg-gray-50 border-gray-200"
+              isDarkMode ? "bg-zinc-900/30 border-gray-600" : "bg-gray-50 border-gray-200"
             }`}>
               <p className="text-sm leading-relaxed">{content.definition}</p>
             </div>
@@ -2484,13 +2484,13 @@ const ComputerNetworks = () => {
               isDarkMode ? "border-gray-600" : "border-gray-200"
             }`}>
               <table className="w-full">
-                <thead className={`${isDarkMode ? "bg-gray-700" : "bg-gray-100"}`}>
+                <thead className={`${isDarkMode ? "bg-zinc-900" : "bg-gray-100"}`}>
                   <tr>
                     <th className={`px-4 py-3 text-left text-sm font-medium ${isDarkMode ? "text-gray-200" : "text-gray-700"}`}>#</th>
                     <th className={`px-4 py-3 text-left text-sm font-medium ${isDarkMode ? "text-gray-200" : "text-gray-700"}`}>Key Point</th>
                   </tr>
                 </thead>
-                <tbody className={isDarkMode ? "bg-gray-800/30" : "bg-white"}>
+                <tbody className={isDarkMode ? "bg-zinc-900/30" : "bg-white"}>
                   {content.keyPoints.map((point, idx) => (
                     <tr key={idx} className={`border-t ${isDarkMode ? "border-gray-600" : "border-gray-200"}`}>
                       <td className={`px-4 py-3 text-sm ${isDarkMode ? "text-gray-300" : "text-gray-600"}`}>{idx + 1}</td>
@@ -2514,14 +2514,14 @@ const ComputerNetworks = () => {
               isDarkMode ? "border-gray-600" : "border-gray-200"
             }`}>
               <table className="w-full">
-                <thead className={`${isDarkMode ? "bg-gray-700" : "bg-gray-100"}`}>
+                <thead className={`${isDarkMode ? "bg-zinc-900" : "bg-gray-100"}`}>
                   <tr>
                     <th className={`px-4 py-3 text-left text-sm font-medium ${isDarkMode ? "text-gray-200" : "text-gray-700"}`}>Type</th>
                     <th className={`px-4 py-3 text-left text-sm font-medium ${isDarkMode ? "text-gray-200" : "text-gray-700"}`}>Range</th>
                     <th className={`px-4 py-3 text-left text-sm font-medium ${isDarkMode ? "text-gray-200" : "text-gray-700"}`}>Description</th>
                   </tr>
                 </thead>
-                <tbody className={isDarkMode ? "bg-gray-800/30" : "bg-white"}>
+                <tbody className={isDarkMode ? "bg-zinc-900/30" : "bg-white"}>
                   {content.types.map((type, idx) => (
                     <tr key={idx} className={`border-t ${isDarkMode ? "border-gray-600" : "border-gray-200"}`}>
                       <td className={`px-4 py-3 text-sm font-medium ${isDarkMode ? "text-gray-200" : "text-gray-800"}`}>{type.name}</td>
@@ -2546,14 +2546,14 @@ const ComputerNetworks = () => {
               isDarkMode ? "border-gray-600" : "border-gray-200"
             }`}>
               <table className="w-full">
-                <thead className={`${isDarkMode ? "bg-gray-700" : "bg-gray-100"}`}>
+                <thead className={`${isDarkMode ? "bg-zinc-900" : "bg-gray-100"}`}>
                   <tr>
                     <th className={`px-4 py-3 text-left text-sm font-medium ${isDarkMode ? "text-gray-200" : "text-gray-700"}`}>Topology</th>
                     <th className={`px-4 py-3 text-left text-sm font-medium ${isDarkMode ? "text-gray-200" : "text-gray-700"}`}>Description</th>
                     <th className={`px-4 py-3 text-left text-sm font-medium ${isDarkMode ? "text-gray-200" : "text-gray-700"}`}>Key Characteristics</th>
                   </tr>
                 </thead>
-                <tbody className={isDarkMode ? "bg-gray-800/30" : "bg-white"}>
+                <tbody className={isDarkMode ? "bg-zinc-900/30" : "bg-white"}>
                   {content.topologies.map((topology, idx) => (
                     <tr key={idx} className={`border-t ${isDarkMode ? "border-gray-600" : "border-gray-200"}`}>
                       <td className={`px-4 py-3 text-sm font-medium ${isDarkMode ? "text-gray-200" : "text-gray-800"}`}>
@@ -2597,7 +2597,7 @@ const ComputerNetworks = () => {
               isDarkMode ? "border-gray-600" : "border-gray-200"
             }`}>
               <table className="w-full">
-                <thead className={`${isDarkMode ? "bg-gray-700" : "bg-gray-100"}`}>
+                <thead className={`${isDarkMode ? "bg-zinc-900" : "bg-gray-100"}`}>
                   <tr>
                     {content.layers[0]?.layer && <th className={`px-4 py-3 text-left text-sm font-medium ${isDarkMode ? "text-gray-200" : "text-gray-700"}`}>Layer</th>}
                     <th className={`px-4 py-3 text-left text-sm font-medium ${isDarkMode ? "text-gray-200" : "text-gray-700"}`}>Name</th>
@@ -2605,7 +2605,7 @@ const ComputerNetworks = () => {
                     <th className={`px-4 py-3 text-left text-sm font-medium ${isDarkMode ? "text-gray-200" : "text-gray-700"}`}>Examples</th>
                   </tr>
                 </thead>
-                <tbody className={isDarkMode ? "bg-gray-800/30" : "bg-white"}>
+                <tbody className={isDarkMode ? "bg-zinc-900/30" : "bg-white"}>
                   {content.layers.map((layer, idx) => (
                     <tr key={idx} className={`border-t ${isDarkMode ? "border-gray-600" : "border-gray-200"}`}>
                       {layer.layer && (
@@ -2641,14 +2641,14 @@ const ComputerNetworks = () => {
               isDarkMode ? "border-gray-600" : "border-gray-200"
             }`}>
               <table className="w-full">
-                <thead className={`${isDarkMode ? "bg-gray-700" : "bg-gray-100"}`}>
+                <thead className={`${isDarkMode ? "bg-zinc-900" : "bg-gray-100"}`}>
                   <tr>
                     <th className={`px-4 py-3 text-left text-sm font-medium ${isDarkMode ? "text-gray-200" : "text-gray-700"}`}>Feature</th>
                     <th className={`px-4 py-3 text-left text-sm font-medium text-green-600`}>TCP</th>
                     <th className={`px-4 py-3 text-left text-sm font-medium text-blue-600`}>UDP</th>
                   </tr>
                 </thead>
-                <tbody className={isDarkMode ? "bg-gray-800/30" : "bg-white"}>
+                <tbody className={isDarkMode ? "bg-zinc-900/30" : "bg-white"}>
                   <tr className={`border-t ${isDarkMode ? "border-gray-600" : "border-gray-200"}`}>
                     <td className={`px-4 py-3 text-sm font-medium ${isDarkMode ? "text-gray-200" : "text-gray-800"}`}>Connection Type</td>
                     <td className={`px-4 py-3 text-sm ${isDarkMode ? "text-gray-300" : "text-gray-600"}`}>{content.tcp.connectionType}</td>
@@ -2686,7 +2686,7 @@ const ComputerNetworks = () => {
               isDarkMode ? "border-gray-600" : "border-gray-200"
             }`}>
               <table className="w-full">
-                <thead className={`${isDarkMode ? "bg-gray-700" : "bg-gray-100"}`}>
+                <thead className={`${isDarkMode ? "bg-zinc-900" : "bg-gray-100"}`}>
                   <tr>
                     <th className={`px-4 py-3 text-left text-sm font-medium ${isDarkMode ? "text-gray-200" : "text-gray-700"}`}>Class</th>
                     <th className={`px-4 py-3 text-left text-sm font-medium ${isDarkMode ? "text-gray-200" : "text-gray-700"}`}>Start Address</th>
@@ -2694,7 +2694,7 @@ const ComputerNetworks = () => {
                     <th className={`px-4 py-3 text-left text-sm font-medium ${isDarkMode ? "text-gray-200" : "text-gray-700"}`}>Usage</th>
                   </tr>
                 </thead>
-                <tbody className={isDarkMode ? "bg-gray-800/30" : "bg-white"}>
+                <tbody className={isDarkMode ? "bg-zinc-900/30" : "bg-white"}>
                   {content.classes.map((ipClass, idx) => (
                     <tr key={idx} className={`border-t ${isDarkMode ? "border-gray-600" : "border-gray-200"}`}>
                       <td className={`px-4 py-3 text-sm font-bold text-indigo-500`}>Class {ipClass.class}</td>
@@ -2720,13 +2720,13 @@ const ComputerNetworks = () => {
               isDarkMode ? "border-gray-600" : "border-gray-200"
             }`}>
               <table className="w-full">
-                <thead className={`${isDarkMode ? "bg-gray-700" : "bg-gray-100"}`}>
+                <thead className={`${isDarkMode ? "bg-zinc-900" : "bg-gray-100"}`}>
                   <tr>
                     <th className={`px-4 py-3 text-left text-sm font-medium ${isDarkMode ? "text-gray-200" : "text-gray-700"}`}>Element</th>
                     <th className={`px-4 py-3 text-left text-sm font-medium ${isDarkMode ? "text-gray-200" : "text-gray-700"}`}>Description</th>
                   </tr>
                 </thead>
-                <tbody className={isDarkMode ? "bg-gray-800/30" : "bg-white"}>
+                <tbody className={isDarkMode ? "bg-zinc-900/30" : "bg-white"}>
                   {content.elements.map((element, idx) => (
                     <tr key={idx} className={`border-t ${isDarkMode ? "border-gray-600" : "border-gray-200"}`}>
                       <td className={`px-4 py-3 text-sm font-medium ${isDarkMode ? "text-gray-200" : "text-gray-800"}`}>{element.name}</td>
@@ -2750,7 +2750,7 @@ const ComputerNetworks = () => {
               isDarkMode ? "border-gray-600" : "border-gray-200"
             }`}>
               <table className="w-full">
-                <thead className={`${isDarkMode ? "bg-gray-700" : "bg-gray-100"}`}>
+                <thead className={`${isDarkMode ? "bg-zinc-900" : "bg-gray-100"}`}>
                   <tr>
                     <th className={`px-4 py-3 text-left text-sm font-medium ${isDarkMode ? "text-gray-200" : "text-gray-700"}`}>Protocol</th>
                     <th className={`px-4 py-3 text-left text-sm font-medium ${isDarkMode ? "text-gray-200" : "text-gray-700"}`}>Full Name</th>
@@ -2758,7 +2758,7 @@ const ComputerNetworks = () => {
                     <th className={`px-4 py-3 text-left text-sm font-medium ${isDarkMode ? "text-gray-200" : "text-gray-700"}`}>Layer</th>
                   </tr>
                 </thead>
-                <tbody className={isDarkMode ? "bg-gray-800/30" : "bg-white"}>
+                <tbody className={isDarkMode ? "bg-zinc-900/30" : "bg-white"}>
                   {content.protocols.map((protocol, idx) => (
                     <tr key={idx} className={`border-t ${isDarkMode ? "border-gray-600" : "border-gray-200"}`}>
                       <td className={`px-4 py-3 text-sm font-bold ${isDarkMode ? "text-gray-200" : "text-gray-800"}`}>
@@ -2770,14 +2770,14 @@ const ComputerNetworks = () => {
                       <td className={`px-4 py-3 text-sm ${isDarkMode ? "text-gray-300" : "text-gray-600"}`}>{protocol.fullName || "N/A"}</td>
                       <td className={`px-4 py-3 text-sm`}>
                         {protocol.port ? (
-                          <span className="px-2 py-1 bg-blue-500 text-white text-xs rounded">{protocol.port}</span>
+                          <span className="px-2 py-1 bg-blue-500 text-slate-300 text-xs rounded">{protocol.port}</span>
                         ) : (
                           <span className={isDarkMode ? "text-gray-500" : "text-gray-400"}>N/A</span>
                         )}
                       </td>
                       <td className={`px-4 py-3 text-sm`}>
                         {protocol.layer ? (
-                          <span className="px-2 py-1 bg-purple-500 text-white text-xs rounded">{protocol.layer}</span>
+                          <span className="px-2 py-1 bg-purple-500 text-slate-300 text-xs rounded">{protocol.layer}</span>
                         ) : (
                           <span className={isDarkMode ? "text-gray-500" : "text-gray-400"}>N/A</span>
                         )}
@@ -2804,13 +2804,13 @@ const ComputerNetworks = () => {
                 isDarkMode ? "border-gray-600" : "border-gray-200"
               }`}>
                 <table className="w-full">
-                  <thead className={`${isDarkMode ? "bg-gray-700" : "bg-gray-100"}`}>
+                  <thead className={`${isDarkMode ? "bg-zinc-900" : "bg-gray-100"}`}>
                     <tr>
                       <th className={`px-4 py-3 text-left text-sm font-medium ${isDarkMode ? "text-gray-200" : "text-gray-700"}`}>#</th>
                       <th className={`px-4 py-3 text-left text-sm font-medium ${isDarkMode ? "text-gray-200" : "text-gray-700"}`}>Item</th>
                     </tr>
                   </thead>
-                  <tbody className={isDarkMode ? "bg-gray-800/30" : "bg-white"}>
+                  <tbody className={isDarkMode ? "bg-zinc-900/30" : "bg-white"}>
                     {value.map((item, idx) => (
                       <tr key={idx} className={`border-t ${isDarkMode ? "border-gray-600" : "border-gray-200"}`}>
                         <td className={`px-4 py-3 text-sm ${isDarkMode ? "text-gray-300" : "text-gray-600"}`}>{idx + 1}</td>
@@ -2824,7 +2824,7 @@ const ComputerNetworks = () => {
               </div>
             ) : (
               <div className={`p-4 rounded-lg border ${
-                isDarkMode ? "bg-gray-700/30 border-gray-600" : "bg-gray-50 border-gray-200"
+                isDarkMode ? "bg-zinc-900/30 border-gray-600" : "bg-gray-50 border-gray-200"
               }`}>
                 <p className="text-sm leading-relaxed">{typeof value === 'string' ? value : JSON.stringify(value)}</p>
               </div>
@@ -2838,16 +2838,16 @@ const ComputerNetworks = () => {
   return (
     <div className={`min-h-screen transition-all duration-500 relative overflow-hidden ${
       isDarkMode 
-        ? "bg-gradient-to-br from-slate-900 via-slate-900 to-slate-900" 
+        ? "bg-zinc-900" 
         : "bg-gradient-to-br from-gray-50 via-white to-gray-100"
     }`}>
       {/* Header */}
       <div className={`relative z-10 pt-20 pb-12 ${
-        isDarkMode ? "bg-slate-900/80 backdrop-blur-sm" : "bg-white/80 backdrop-blur-sm"
+        isDarkMode ? "bg-zinc-900/80 backdrop-blur-sm" : "bg-white/80 backdrop-blur-sm"
       }`}>
         <div className="text-center max-w-6xl mx-auto px-6">
           <div className="inline-flex items-center justify-center w-20 h-20 rounded-full bg-gradient-to-r from-blue-500 to-cyan-500 mb-6 shadow-2xl">
-            <Network className="w-10 h-10 text-white" />
+            <Network className="w-10 h-10 text-slate-300" />
           </div>
           <h1 className="text-6xl md:text-7xl font-black mb-6 bg-gradient-to-r from-blue-500 via-cyan-500 to-teal-500 bg-clip-text text-transparent">
             Computer Networks
@@ -2859,13 +2859,13 @@ const ComputerNetworks = () => {
           {/* Stats Section */}
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-8 max-w-4xl mx-auto">
             <div className={`p-4 rounded-xl border ${
-              isDarkMode ? "bg-gray-800/50 border-gray-700" : "bg-white/70 border-gray-200"
+              isDarkMode ? bg-zinc-900 : "bg-white/70 border-gray-200"
             }`}>
               <div className="text-2xl font-bold text-blue-500">{Object.keys(computerNetworkingData).length}</div>
               <div className={`text-sm ${isDarkMode ? "text-gray-400" : "text-gray-600"}`}>Categories</div>
             </div>
             <div className={`p-4 rounded-xl border ${
-              isDarkMode ? "bg-gray-800/50 border-gray-700" : "bg-white/70 border-gray-200"
+              isDarkMode ? bg-zinc-900 : "bg-white/70 border-gray-200"
             }`}>
               <div className="text-2xl font-bold text-green-500">
                 {Object.values(computerNetworkingData).reduce((total, category) => 
@@ -2875,13 +2875,13 @@ const ComputerNetworks = () => {
               <div className={`text-sm ${isDarkMode ? "text-gray-400" : "text-gray-600"}`}>Topics</div>
             </div>
             <div className={`p-4 rounded-xl border ${
-              isDarkMode ? "bg-gray-800/50 border-gray-700" : "bg-white/70 border-gray-200"
+              isDarkMode ? bg-zinc-900 : "bg-white/70 border-gray-200"
             }`}>
               <div className="text-2xl font-bold text-purple-500">{completedTopics.size}</div>
               <div className={`text-sm ${isDarkMode ? "text-gray-400" : "text-gray-600"}`}>Completed</div>
             </div>
             <div className={`p-4 rounded-xl border ${
-              isDarkMode ? "bg-gray-800/50 border-gray-700" : "bg-white/70 border-gray-200"
+              isDarkMode ? bg-zinc-900 : "bg-white/70 border-gray-200"
             }`}>
               <div className="text-2xl font-bold text-orange-500">
                 {Math.round((completedTopics.size / Object.values(computerNetworkingData).reduce((total, category) => 
@@ -2894,7 +2894,7 @@ const ComputerNetworks = () => {
           
           {/* Progress Bar */}
           <div className="max-w-md mx-auto">
-            <div className={`w-full h-3 rounded-full ${isDarkMode ? "bg-gray-700" : "bg-gray-200"}`}>
+            <div className={`w-full h-3 rounded-full ${isDarkMode ? "bg-zinc-900" : "bg-gray-200"}`}>
               <div 
                 className="h-3 bg-gradient-to-r from-blue-500 to-cyan-500 rounded-full transition-all duration-500"
                 style={{ 
@@ -2918,7 +2918,7 @@ const ComputerNetworks = () => {
       {/* Quick Navigation */}
       <div className="relative z-10 max-w-7xl mx-auto px-6 mb-8">
         <div className={`p-6 rounded-xl border ${
-          isDarkMode ? "bg-gray-800/50 border-gray-700" : "bg-white/70 border-gray-200"
+          isDarkMode ? bg-zinc-900 : "bg-white/70 border-gray-200"
         }`}>
           <h3 className={`text-lg font-semibold mb-4 flex items-center gap-2 ${isDarkMode ? "text-gray-200" : "text-gray-800"}`}>
             <Search size={20} className="text-blue-500" />
@@ -2934,13 +2934,13 @@ const ComputerNetworks = () => {
                   onClick={() => setSelectedCategory(isActive ? null : title)}
                   className={`p-3 rounded-lg border transition-all duration-300 ${
                     isActive
-                      ? `bg-gradient-to-br ${color} text-white border-transparent shadow-lg`
+                      ? `bg-gradient-to-br ${color} text-slate-300 border-transparent shadow-lg`
                       : isDarkMode 
-                        ? "bg-gray-700/50 border-gray-600 hover:bg-gray-700 text-gray-300" 
+                        ? "bg-zinc-900/50 border-gray-600 hover:bg-zinc-900 text-gray-300" 
                         : "bg-gray-50 border-gray-200 hover:bg-gray-100 text-gray-700"
                   }`}
                 >
-                  <Icon size={20} className={`mx-auto mb-2 ${isActive ? 'text-white' : ''}`} />
+                  <Icon size={20} className={`mx-auto mb-2 ${isActive ? 'text-slate-300' : ''}`} />
                   <div className="text-xs font-medium text-center">{title.split(' ')[0]}</div>
                 </button>
               )
@@ -2976,7 +2976,7 @@ const ComputerNetworks = () => {
       {/* Footer */}
       <div className="relative z-10 text-center pb-10">
         <div className={`max-w-4xl mx-auto p-6 rounded-xl border ${
-          isDarkMode ? "bg-gray-800/50 border-gray-700" : "bg-white/70 border-gray-200"
+          isDarkMode ? bg-zinc-900 : "bg-white/70 border-gray-200"
         }`}>
           <div className="flex items-center justify-center gap-4 mb-4">
             <BookOpen size={20} className="text-blue-500" />

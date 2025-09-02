@@ -342,18 +342,18 @@ const ObjectOrientedProgramming = () => {
     
     return (
       <div className={`border rounded-xl overflow-hidden ${
-        isDarkMode ? "border-gray-700 bg-gray-800/50" : "border-gray-200 bg-white/50"
+        isDarkMode ? "border-gray-700 bg-zinc-900/50" : "border-gray-200 bg-white/50"
       }`}>
         {/* Category Header */}
         <div className={`p-6 bg-gradient-to-br ${color}`}>
-          <div className="flex items-center justify-between text-white">
+          <div className="flex items-center justify-between text-slate-300">
             <div className="flex items-center gap-4">
               <div className="p-3 bg-white/20 rounded-lg backdrop-blur-sm">
                 <Icon size={24} />
               </div>
               <div>
                 <h2 className="text-2xl font-bold">{title}</h2>
-                <p className="text-white/80">Explore {Object.keys(content).length} key concepts</p>
+                <p className="text-slate-300/80">Explore {Object.keys(content).length} key concepts</p>
               </div>
             </div>
             <button
@@ -369,13 +369,13 @@ const ObjectOrientedProgramming = () => {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
           {Object.entries(content).map(([subTitle, subContent]) => (
             <div key={subTitle} className={`border rounded-xl overflow-hidden ${
-              isDarkMode ? "border-gray-700 bg-gray-800/30" : "border-gray-200 bg-white/50"
+              isDarkMode ? "border-gray-700 bg-zinc-900/30" : "border-gray-200 bg-white/50"
             }`}>
               <div className="flex items-center justify-between">
                 <button
                   onClick={() => toggleAccordion(`${categoryKey}-${subTitle}`)}
                   className={`w-full text-left p-6 flex items-center justify-between transition-all ${
-                    isDarkMode ? "hover:bg-gray-700/50 text-gray-200" : "hover:bg-gray-50 text-gray-800"
+                    isDarkMode ? "hover:bg-zinc-900/50 text-gray-200" : "hover:bg-gray-50 text-gray-800"
                   }`}
                 >
                   <div className="flex items-center gap-3">
@@ -393,7 +393,7 @@ const ObjectOrientedProgramming = () => {
                       className={`p-2 rounded-lg transition-all ${
                         completedTopics.has(`${categoryKey}-${subTitle}`)
                           ? "text-green-500 bg-green-100 dark:bg-green-900/30"
-                          : isDarkMode ? "text-gray-400 hover:text-green-400 hover:bg-gray-700" : "text-gray-500 hover:text-green-600 hover:bg-gray-100"
+                          : isDarkMode ? "text-gray-400 hover:text-green-400 hover:bg-zinc-900" : "text-gray-500 hover:text-green-600 hover:bg-gray-100"
                       }`}
                     >
                       <CheckCircle size={18} />
@@ -408,7 +408,7 @@ const ObjectOrientedProgramming = () => {
               {openAccordion === `${categoryKey}-${subTitle}` && (
                 <div className={`p-6 border-t ${
                   isDarkMode 
-                    ? "bg-gray-800/50 border-gray-700 text-gray-300" 
+                    ? "bg-zinc-900/50 border-gray-700 text-gray-300" 
                     : "bg-gray-50/50 border-gray-200 text-gray-700"
                 }`}>
                   {renderSubContent(subContent, color)}
@@ -445,13 +445,13 @@ const ObjectOrientedProgramming = () => {
 
         <div className={`relative backdrop-blur-sm border rounded-xl p-6 transition-all duration-300 ${
           isDarkMode 
-            ? "bg-gray-800/80 border-gray-700/50 hover:bg-gray-800/90" 
+            ? "bg-zinc-900/80 border-gray-700/50 hover:bg-zinc-900" 
             : "bg-white/80 border-gray-200/50 hover:bg-white/90"
         }`}>
           {/* Header */}
           <div className="flex items-center justify-between mb-4">
             <div className="flex items-center gap-3">
-              <div className={`p-2 rounded-lg bg-gradient-to-br ${color} text-white shadow-lg`}>
+              <div className={`p-2 rounded-lg bg-gradient-to-br ${color} text-slate-300 shadow-lg`}>
                 <Icon size={20} />
               </div>
               <h3 className={`text-xl font-bold bg-gradient-to-r ${color} bg-clip-text text-transparent`}>
@@ -471,14 +471,14 @@ const ObjectOrientedProgramming = () => {
             <div className="mt-3 flex flex-wrap gap-2">
               {Object.keys(content).slice(0, 3).map((topic, idx) => (
                 <span key={idx} className={`text-xs px-2 py-1 rounded-full ${
-                  isDarkMode ? "bg-gray-700 text-gray-300" : "bg-gray-100 text-gray-600"
+                  isDarkMode ? "bg-zinc-900 text-gray-300" : "bg-gray-100 text-gray-600"
                 }`}>
                   {topic}
                 </span>
               ))}
               {Object.keys(content).length > 3 && (
                 <span className={`text-xs px-2 py-1 rounded-full ${
-                  isDarkMode ? "bg-gray-700 text-gray-400" : "bg-gray-100 text-gray-500"
+                  isDarkMode ? "bg-zinc-900 text-gray-400" : "bg-gray-100 text-gray-500"
                 }`}>
                   +{Object.keys(content).length - 3} more
                 </span>
@@ -505,7 +505,7 @@ const ObjectOrientedProgramming = () => {
               Definition
             </h5>
             <div className={`p-4 rounded-lg border ${
-              isDarkMode ? "bg-gray-700/30 border-gray-600" : "bg-gray-50 border-gray-200"
+              isDarkMode ? "bg-zinc-900/30 border-gray-600" : "bg-gray-50 border-gray-200"
             }`}>
               <p className="text-sm leading-relaxed">{content.definition}</p>
             </div>
@@ -520,7 +520,7 @@ const ObjectOrientedProgramming = () => {
               Example Analogy
             </h5>
             <div className={`p-4 rounded-lg border ${
-              isDarkMode ? "bg-gray-700/30 border-gray-600" : "bg-gray-50 border-gray-200"
+              isDarkMode ? "bg-zinc-900/30 border-gray-600" : "bg-gray-50 border-gray-200"
             }`}>
               <p className="text-sm leading-relaxed">{content.exampleAnalogy}</p>
             </div>
@@ -535,7 +535,7 @@ const ObjectOrientedProgramming = () => {
               Syntax ({content.syntax.language || "Code"})
             </h5>
             <div className={`p-4 rounded-lg border font-mono text-sm ${
-              isDarkMode ? "bg-gray-900/50 border-gray-600 text-green-400" : "bg-gray-900 border-gray-200 text-green-400"
+              isDarkMode ? ""bg-zinc-900"/50 border-gray-600 text-green-400" : ""bg-zinc-900" border-gray-200 text-green-400"
             }`}>
               {Array.isArray(content.syntax.code) ? (
                 content.syntax.code.map((line, idx) => (
@@ -556,7 +556,7 @@ const ObjectOrientedProgramming = () => {
               Memory Allocation
             </h5>
             <div className={`p-4 rounded-lg border ${
-              isDarkMode ? "bg-gray-700/30 border-gray-600" : "bg-gray-50 border-gray-200"
+              isDarkMode ? "bg-zinc-900/30 border-gray-600" : "bg-gray-50 border-gray-200"
             }`}>
               <p className="text-sm leading-relaxed">{content.memoryAllocationNote}</p>
             </div>
@@ -574,13 +574,13 @@ const ObjectOrientedProgramming = () => {
               isDarkMode ? "border-gray-600" : "border-gray-200"
             }`}>
               <table className="w-full">
-                <thead className={`${isDarkMode ? "bg-gray-700" : "bg-gray-100"}`}>
+                <thead className={`${isDarkMode ? "bg-zinc-900" : "bg-gray-100"}`}>
                   <tr>
                     <th className={`px-4 py-3 text-left text-sm font-medium ${isDarkMode ? "text-gray-200" : "text-gray-700"}`}>#</th>
                     <th className={`px-4 py-3 text-left text-sm font-medium ${isDarkMode ? "text-gray-200" : "text-gray-700"}`}>Key Point</th>
                   </tr>
                 </thead>
-                <tbody className={isDarkMode ? "bg-gray-800/30" : "bg-white"}>
+                <tbody className={isDarkMode ? "bg-zinc-900/30" : "bg-white"}>
                   {content.keyPoints.map((point, idx) => (
                     <tr key={idx} className={`border-t ${isDarkMode ? "border-gray-600" : "border-gray-200"}`}>
                       <td className={`px-4 py-3 text-sm ${isDarkMode ? "text-gray-300" : "text-gray-600"}`}>{idx + 1}</td>
@@ -604,13 +604,13 @@ const ObjectOrientedProgramming = () => {
               isDarkMode ? "border-gray-600" : "border-gray-200"
             }`}>
               <table className="w-full">
-                <thead className={`${isDarkMode ? "bg-gray-700" : "bg-gray-100"}`}>
+                <thead className={`${isDarkMode ? "bg-zinc-900" : "bg-gray-100"}`}>
                   <tr>
                     <th className={`px-4 py-3 text-left text-sm font-medium ${isDarkMode ? "text-gray-200" : "text-gray-700"}`}>Type</th>
                     <th className={`px-4 py-3 text-left text-sm font-medium ${isDarkMode ? "text-gray-200" : "text-gray-700"}`}>Description</th>
                   </tr>
                 </thead>
-                <tbody className={isDarkMode ? "bg-gray-800/30" : "bg-white"}>
+                <tbody className={isDarkMode ? "bg-zinc-900/30" : "bg-white"}>
                   {content.types.map((type, idx) => (
                     <tr key={idx} className={`border-t ${isDarkMode ? "border-gray-600" : "border-gray-200"}`}>
                       <td className={`px-4 py-3 text-sm font-medium ${isDarkMode ? "text-gray-200" : "text-gray-800"}`}>{type.name}</td>
@@ -634,13 +634,13 @@ const ObjectOrientedProgramming = () => {
               isDarkMode ? "border-gray-600" : "border-gray-200"
             }`}>
               <table className="w-full">
-                <thead className={`${isDarkMode ? "bg-gray-700" : "bg-gray-100"}`}>
+                <thead className={`${isDarkMode ? "bg-zinc-900" : "bg-gray-100"}`}>
                   <tr>
                     <th className={`px-4 py-3 text-left text-sm font-medium ${isDarkMode ? "text-gray-200" : "text-gray-700"}`}>#</th>
                     <th className={`px-4 py-3 text-left text-sm font-medium ${isDarkMode ? "text-gray-200" : "text-gray-700"}`}>Use Case</th>
                   </tr>
                 </thead>
-                <tbody className={isDarkMode ? "bg-gray-800/30" : "bg-white"}>
+                <tbody className={isDarkMode ? "bg-zinc-900/30" : "bg-white"}>
                   {content.uses.map((use, idx) => (
                     <tr key={idx} className={`border-t ${isDarkMode ? "border-gray-600" : "border-gray-200"}`}>
                       <td className={`px-4 py-3 text-sm ${isDarkMode ? "text-gray-300" : "text-gray-600"}`}>{idx + 1}</td>
@@ -664,13 +664,13 @@ const ObjectOrientedProgramming = () => {
               isDarkMode ? "border-gray-600" : "border-gray-200"
             }`}>
               <table className="w-full">
-                <thead className={`${isDarkMode ? "bg-gray-700" : "bg-gray-100"}`}>
+                <thead className={`${isDarkMode ? "bg-zinc-900" : "bg-gray-100"}`}>
                   <tr>
                     <th className={`px-4 py-3 text-left text-sm font-medium ${isDarkMode ? "text-gray-200" : "text-gray-700"}`}>#</th>
                     <th className={`px-4 py-3 text-left text-sm font-medium ${isDarkMode ? "text-gray-200" : "text-gray-700"}`}>Note</th>
                   </tr>
                 </thead>
-                <tbody className={isDarkMode ? "bg-gray-800/30" : "bg-white"}>
+                <tbody className={isDarkMode ? "bg-zinc-900/30" : "bg-white"}>
                   {content.notes.map((note, idx) => (
                     <tr key={idx} className={`border-t ${isDarkMode ? "border-gray-600" : "border-gray-200"}`}>
                       <td className={`px-4 py-3 text-sm ${isDarkMode ? "text-gray-300" : "text-gray-600"}`}>{idx + 1}</td>
@@ -694,13 +694,13 @@ const ObjectOrientedProgramming = () => {
               isDarkMode ? "border-gray-600" : "border-gray-200"
             }`}>
               <table className="w-full">
-                <thead className={`${isDarkMode ? "bg-gray-700" : "bg-gray-100"}`}>
+                <thead className={`${isDarkMode ? "bg-zinc-900" : "bg-gray-100"}`}>
                   <tr>
                     <th className={`px-4 py-3 text-left text-sm font-medium ${isDarkMode ? "text-gray-200" : "text-gray-700"}`}>#</th>
                     <th className={`px-4 py-3 text-left text-sm font-medium ${isDarkMode ? "text-gray-200" : "text-gray-700"}`}>Property</th>
                   </tr>
                 </thead>
-                <tbody className={isDarkMode ? "bg-gray-800/30" : "bg-white"}>
+                <tbody className={isDarkMode ? "bg-zinc-900/30" : "bg-white"}>
                   {content.properties.map((property, idx) => (
                     <tr key={idx} className={`border-t ${isDarkMode ? "border-gray-600" : "border-gray-200"}`}>
                       <td className={`px-4 py-3 text-sm ${isDarkMode ? "text-gray-300" : "text-gray-600"}`}>{idx + 1}</td>
@@ -721,7 +721,7 @@ const ObjectOrientedProgramming = () => {
               Code Example ({content.example.language})
             </h5>
             <div className={`p-4 rounded-lg border font-mono text-sm ${
-              isDarkMode ? "bg-gray-900/50 border-gray-600 text-green-400" : "bg-gray-900 border-gray-200 text-green-400"
+              isDarkMode ? ""bg-zinc-900"/50 border-gray-600 text-green-400" : ""bg-zinc-900" border-gray-200 text-green-400"
             }`}>
               {content.example.code.map((line, idx) => (
                 <div key={idx}>{line}</div>
@@ -731,7 +731,7 @@ const ObjectOrientedProgramming = () => {
               <div className="mt-2">
                 <p className={`text-sm font-medium mb-2 ${isDarkMode ? "text-gray-200" : "text-gray-800"}`}>Output:</p>
                 <div className={`p-3 rounded-lg border font-mono text-sm ${
-                  isDarkMode ? "bg-gray-700/30 border-gray-600 text-blue-400" : "bg-gray-50 border-gray-200 text-blue-600"
+                  isDarkMode ? "bg-zinc-900/30 border-gray-600 text-blue-400" : "bg-gray-50 border-gray-200 text-blue-600"
                 }`}>
                   {Array.isArray(content.example.output) ? (
                     content.example.output.map((line, idx) => (
@@ -754,7 +754,7 @@ const ObjectOrientedProgramming = () => {
               Method Overloading
             </h5>
             <div className={`p-4 rounded-lg border ${
-              isDarkMode ? "bg-gray-700/30 border-gray-600" : "bg-gray-50 border-gray-200"
+              isDarkMode ? "bg-zinc-900/30 border-gray-600" : "bg-gray-50 border-gray-200"
             }`}>
               <p className="text-sm leading-relaxed mb-4">{content.methodOverloading.definition}</p>
               
@@ -775,7 +775,7 @@ const ObjectOrientedProgramming = () => {
                     Code Example ({content.methodOverloading.codeExample.language}):
                   </p>
                   <div className={`p-4 rounded-lg border font-mono text-sm ${
-                    isDarkMode ? "bg-gray-900/50 border-gray-600 text-green-400" : "bg-gray-900 border-gray-200 text-green-400"
+                    isDarkMode ? ""bg-zinc-900"/50 border-gray-600 text-green-400" : ""bg-zinc-900" border-gray-200 text-green-400"
                   }`}>
                     {content.methodOverloading.codeExample.code.map((line, idx) => (
                       <div key={idx}>{line}</div>
@@ -785,7 +785,7 @@ const ObjectOrientedProgramming = () => {
                     <div className="mt-2">
                       <p className={`text-sm font-medium mb-2 ${isDarkMode ? "text-gray-200" : "text-gray-800"}`}>Output:</p>
                       <div className={`p-3 rounded-lg border font-mono text-sm ${
-                        isDarkMode ? "bg-gray-700/30 border-gray-600 text-blue-400" : "bg-gray-50 border-gray-200 text-blue-600"
+                        isDarkMode ? "bg-zinc-900/30 border-gray-600 text-blue-400" : "bg-gray-50 border-gray-200 text-blue-600"
                       }`}>
                         {content.methodOverloading.codeExample.output}
                       </div>
@@ -805,7 +805,7 @@ const ObjectOrientedProgramming = () => {
               Function Overriding
             </h5>
             <div className={`p-4 rounded-lg border ${
-              isDarkMode ? "bg-gray-700/30 border-gray-600" : "bg-gray-50 border-gray-200"
+              isDarkMode ? "bg-zinc-900/30 border-gray-600" : "bg-gray-50 border-gray-200"
             }`}>
               <p className="text-sm leading-relaxed mb-4">{content.functionOverriding.definition}</p>
               
@@ -815,7 +815,7 @@ const ObjectOrientedProgramming = () => {
                     Code Example ({content.functionOverriding.codeExample.language}):
                   </p>
                   <div className={`p-4 rounded-lg border font-mono text-sm ${
-                    isDarkMode ? "bg-gray-900/50 border-gray-600 text-green-400" : "bg-gray-900 border-gray-200 text-green-400"
+                    isDarkMode ? ""bg-zinc-900"/50 border-gray-600 text-green-400" : ""bg-zinc-900" border-gray-200 text-green-400"
                   }`}>
                     {content.functionOverriding.codeExample.code.map((line, idx) => (
                       <div key={idx}>{line}</div>
@@ -825,7 +825,7 @@ const ObjectOrientedProgramming = () => {
                     <div className="mt-2">
                       <p className={`text-sm font-medium mb-2 ${isDarkMode ? "text-gray-200" : "text-gray-800"}`}>Output:</p>
                       <div className={`p-3 rounded-lg border font-mono text-sm ${
-                        isDarkMode ? "bg-gray-700/30 border-gray-600 text-blue-400" : "bg-gray-50 border-gray-200 text-blue-600"
+                        isDarkMode ? "bg-zinc-900/30 border-gray-600 text-blue-400" : "bg-gray-50 border-gray-200 text-blue-600"
                       }`}>
                         {content.functionOverriding.codeExample.output}
                       </div>
@@ -861,13 +861,13 @@ const ObjectOrientedProgramming = () => {
                   isDarkMode ? "border-gray-600" : "border-gray-200"
                 }`}>
                   <table className="w-full">
-                    <thead className={`${isDarkMode ? "bg-gray-700" : "bg-gray-100"}`}>
+                    <thead className={`${isDarkMode ? "bg-zinc-900" : "bg-gray-100"}`}>
                       <tr>
                         <th className={`px-4 py-3 text-left text-sm font-medium ${isDarkMode ? "text-gray-200" : "text-gray-700"}`}>#</th>
                         <th className={`px-4 py-3 text-left text-sm font-medium ${isDarkMode ? "text-gray-200" : "text-gray-700"}`}>Value</th>
                       </tr>
                     </thead>
-                    <tbody className={isDarkMode ? "bg-gray-800/30" : "bg-white"}>
+                    <tbody className={isDarkMode ? "bg-zinc-900/30" : "bg-white"}>
                       {value.map((item, idx) => (
                         <tr key={idx} className={`border-t ${isDarkMode ? "border-gray-600" : "border-gray-200"}`}>
                           <td className={`px-4 py-3 text-sm ${isDarkMode ? "text-gray-300" : "text-gray-600"}`}>{idx + 1}</td>
@@ -881,7 +881,7 @@ const ObjectOrientedProgramming = () => {
                 </div>
               ) : (
                 <div className={`p-4 rounded-lg border ${
-                  isDarkMode ? "bg-gray-700/30 border-gray-600" : "bg-gray-50 border-gray-200"
+                  isDarkMode ? "bg-zinc-900/30 border-gray-600" : "bg-gray-50 border-gray-200"
                 }`}>
                   <p className="text-sm leading-relaxed">{typeof value === 'string' ? value : JSON.stringify(value)}</p>
                 </div>
@@ -896,16 +896,16 @@ const ObjectOrientedProgramming = () => {
   return (
     <div className={`min-h-screen transition-all duration-500 relative overflow-hidden ${
       isDarkMode 
-        ? "bg-gradient-to-br from-slate-900 via-slate-900 to-slate-900" 
+        ? ""bg-zinc-900"" 
         : "bg-gradient-to-br from-gray-50 via-white to-gray-100"
     }`}>
       {/* Header */}
       <div className={`relative z-10 pt-20 pb-12 ${
-        isDarkMode ? "bg-slate-900/80 backdrop-blur-sm" : "bg-white/80 backdrop-blur-sm"
+        isDarkMode ? "bg-zinc-900/80 backdrop-blur-sm" : "bg-white/80 backdrop-blur-sm"
       }`}>
         <div className="max-w-7xl mx-auto px-6 text-center">
           <div className="inline-flex items-center gap-3 mb-6">
-            <div className="p-3 bg-gradient-to-br from-blue-500 to-purple-600 rounded-xl text-white shadow-lg">
+            <div className="p-3 bg-gradient-to-br from-blue-500 to-purple-600 rounded-xl text-slate-300 shadow-lg">
               <Box size={32} />
             </div>
             <h1 className={`text-4xl md:text-5xl font-bold bg-gradient-to-r from-blue-600 via-purple-600 to-blue-800 bg-clip-text text-transparent`}>
@@ -924,7 +924,7 @@ const ObjectOrientedProgramming = () => {
       {/* Quick Navigation */}
       <div className="relative z-10 max-w-7xl mx-auto px-6 mb-8">
         <div className={`p-6 rounded-xl border ${
-          isDarkMode ? "bg-gray-800/50 border-gray-700" : "bg-white/70 border-gray-200"
+          isDarkMode ? "bg-zinc-900" : "bg-white/70 border-gray-200"
         }`}>
           <h3 className={`text-lg font-semibold mb-4 flex items-center gap-2 ${isDarkMode ? "text-gray-200" : "text-gray-800"}`}>
             <Search size={20} className="text-blue-500" />
@@ -940,13 +940,13 @@ const ObjectOrientedProgramming = () => {
                   onClick={() => setSelectedCategory(isActive ? null : title)}
                   className={`p-3 rounded-lg border transition-all duration-300 ${
                     isActive
-                      ? `bg-gradient-to-br ${color} text-white border-transparent shadow-lg`
+                      ? `bg-gradient-to-br ${color} text-slate-300 border-transparent shadow-lg`
                       : isDarkMode 
-                        ? "bg-gray-700/50 border-gray-600 hover:bg-gray-700 text-gray-300" 
+                        ? "bg-zinc-900/50 border-gray-600 hover:bg-zinc-900 text-gray-300" 
                         : "bg-gray-50 border-gray-200 hover:bg-gray-100 text-gray-700"
                   }`}
                 >
-                  <Icon size={20} className={`mx-auto mb-2 ${isActive ? 'text-white' : ''}`} />
+                  <Icon size={20} className={`mx-auto mb-2 ${isActive ? 'text-slate-300' : ''}`} />
                   <div className="text-xs font-medium text-center">{title.split(' ')[0]}</div>
                 </button>
               )
@@ -982,7 +982,7 @@ const ObjectOrientedProgramming = () => {
       {/* Footer */}
       <div className="relative z-10 text-center pb-10">
         <div className={`max-w-4xl mx-auto p-6 rounded-xl border ${
-          isDarkMode ? "bg-gray-800/50 border-gray-700" : "bg-white/70 border-gray-200"
+          isDarkMode ? "bg-zinc-900" : "bg-white/70 border-gray-200"
         }`}>
           <div className="flex items-center justify-center gap-4 mb-4">
             <BookOpen size={20} className="text-blue-500" />

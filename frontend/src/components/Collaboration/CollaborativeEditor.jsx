@@ -643,15 +643,15 @@ const CollaborativeEditor = ({ sessionId, userId, userName, initialRole = 'viewe
   const canEdit = role === 'owner' || role === 'editor';
 
   return (
-    <div className={`h-screen flex flex-col ${isDarkMode ? 'bg-gray-900' : 'bg-gray-50'}`}>
+    <div className={`h-screen flex flex-col ${isDarkMode ? 'bg-zinc-900' : 'bg-gray-50'}`}>
       {/* Header */}
       <div className={`h-14 border-b flex items-center justify-between px-4 ${
-        isDarkMode ? 'bg-gray-800 border-gray-700' : 'bg-white border-gray-200'
+        isDarkMode ? 'bg-zinc-900 border-gray-700' : 'bg-white border-gray-200'
       }`}>
         <div className="flex items-center space-x-4">
           <div className="flex items-center space-x-2">
             <div className={`w-3 h-3 rounded-full ${isConnected ? 'bg-green-500' : 'bg-red-500'}`} />
-            <span className={`text-sm font-medium ${isDarkMode ? 'text-white' : 'text-gray-900'}`}>
+            <span className={`text-sm font-medium ${isDarkMode ? 'text-slate-300' : 'text-gray-900'}`}>
               Session: {sessionId}
             </span>
           </div>
@@ -670,7 +670,7 @@ const CollaborativeEditor = ({ sessionId, userId, userName, initialRole = 'viewe
             disabled={!canEdit || isExecuting || !activeFile}
             className={`px-3 py-1.5 rounded text-sm font-medium flex items-center space-x-1 ${
               canEdit && activeFile && !isExecuting
-                ? 'bg-green-600 hover:bg-green-700 text-white'
+                ? 'bg-green-600 hover:bg-green-700 text-slate-300'
                 : 'bg-gray-400 text-gray-200 cursor-not-allowed'
             }`}
           >
@@ -680,14 +680,14 @@ const CollaborativeEditor = ({ sessionId, userId, userName, initialRole = 'viewe
 
           <button
             onClick={() => setShowTerminal(!showTerminal)}
-            className={`p-2 rounded ${isDarkMode ? 'hover:bg-gray-700' : 'hover:bg-gray-200'}`}
+            className={`p-2 rounded ${isDarkMode ? 'hover:bg-zinc-900' : 'hover:bg-gray-200'}`}
           >
             <TerminalIcon className="w-4 h-4" />
           </button>
 
           <button
             onClick={() => {/* Implement share functionality */}}
-            className={`p-2 rounded ${isDarkMode ? 'hover:bg-gray-700' : 'hover:bg-gray-200'}`}
+            className={`p-2 rounded ${isDarkMode ? 'hover:bg-zinc-900' : 'hover:bg-gray-200'}`}
           >
             <Share2 className="w-4 h-4" />
           </button>
@@ -697,19 +697,19 @@ const CollaborativeEditor = ({ sessionId, userId, userName, initialRole = 'viewe
       <div className="flex-1 flex">
         {/* Sidebar */}
         <div className={`w-64 border-r flex flex-col ${
-          isDarkMode ? 'bg-gray-800 border-gray-700' : 'bg-white border-gray-200'
+          isDarkMode ? 'bg-zinc-900 border-gray-700' : 'bg-white border-gray-200'
         }`}>
           {/* Files */}
           <div className="flex-1">
             <div className="p-3 border-b border-gray-700">
               <div className="flex items-center justify-between">
-                <h3 className={`font-medium ${isDarkMode ? 'text-white' : 'text-gray-900'}`}>
+                <h3 className={`font-medium ${isDarkMode ? 'text-slate-300' : 'text-gray-900'}`}>
                   Files
                 </h3>
                 {canEdit && (
                   <button
                     onClick={createNewFile}
-                    className={`p-1 rounded ${isDarkMode ? 'hover:bg-gray-700' : 'hover:bg-gray-200'}`}
+                    className={`p-1 rounded ${isDarkMode ? 'hover:bg-zinc-900' : 'hover:bg-gray-200'}`}
                   >
                     <Plus className="w-4 h-4" />
                   </button>
@@ -724,13 +724,13 @@ const CollaborativeEditor = ({ sessionId, userId, userName, initialRole = 'viewe
                   className={`flex items-center justify-between p-2 rounded cursor-pointer ${
                     activeFile?.name === file.name
                       ? isDarkMode ? 'bg-blue-900' : 'bg-blue-100'
-                      : isDarkMode ? 'hover:bg-gray-700' : 'hover:bg-gray-100'
+                      : isDarkMode ? 'hover:bg-zinc-900' : 'hover:bg-gray-100'
                   }`}
                   onClick={() => setActiveFile(file)}
                 >
                   <div className="flex items-center space-x-2">
                     <FileText className="w-4 h-4" />
-                    <span className={`text-sm ${isDarkMode ? 'text-white' : 'text-gray-900'}`}>
+                    <span className={`text-sm ${isDarkMode ? 'text-slate-300' : 'text-gray-900'}`}>
                       {file.name}
                     </span>
                   </div>
@@ -752,7 +752,7 @@ const CollaborativeEditor = ({ sessionId, userId, userName, initialRole = 'viewe
 
           {/* Users */}
           <div className={`border-t p-3 ${isDarkMode ? 'border-gray-700' : 'border-gray-200'}`}>
-            <h3 className={`font-medium mb-2 ${isDarkMode ? 'text-white' : 'text-gray-900'}`}>
+            <h3 className={`font-medium mb-2 ${isDarkMode ? 'text-slate-300' : 'text-gray-900'}`}>
               Active Users
             </h3>
             <div className="space-y-2">
@@ -782,9 +782,9 @@ const CollaborativeEditor = ({ sessionId, userId, userName, initialRole = 'viewe
           {activeFile ? (
             <>
               <div className={`h-10 border-b flex items-center px-4 ${
-                isDarkMode ? 'bg-gray-800 border-gray-700' : 'bg-gray-50 border-gray-200'
+                isDarkMode ? 'bg-zinc-900 border-gray-700' : 'bg-gray-50 border-gray-200'
               }`}>
-                <span className={`text-sm ${isDarkMode ? 'text-white' : 'text-gray-900'}`}>
+                <span className={`text-sm ${isDarkMode ? 'text-slate-300' : 'text-gray-900'}`}>
                   {activeFile.name}
                 </span>
                 {!canEdit && (
@@ -817,7 +817,7 @@ const CollaborativeEditor = ({ sessionId, userId, userName, initialRole = 'viewe
             <div className="flex-1 flex items-center justify-center">
               <div className="text-center">
                 <FileText className={`w-16 h-16 mx-auto mb-4 ${isDarkMode ? 'text-gray-600' : 'text-gray-400'}`} />
-                <p className={`text-lg font-medium ${isDarkMode ? 'text-white' : 'text-gray-900'}`}>
+                <p className={`text-lg font-medium ${isDarkMode ? 'text-slate-300' : 'text-gray-900'}`}>
                   No file selected
                 </p>
                 <p className={`text-sm ${isDarkMode ? 'text-gray-400' : 'text-gray-500'}`}>
@@ -831,12 +831,12 @@ const CollaborativeEditor = ({ sessionId, userId, userName, initialRole = 'viewe
         {/* Output Panel */}
         {(output || showTerminal) && (
           <div className={`w-80 border-l flex flex-col ${
-            isDarkMode ? 'bg-gray-800 border-gray-700' : 'bg-white border-gray-200'
+            isDarkMode ? 'bg-zinc-900 border-gray-700' : 'bg-white border-gray-200'
           }`}>
             <div className={`h-10 border-b flex items-center px-4 ${
               isDarkMode ? 'border-gray-700' : 'border-gray-200'
             }`}>
-              <span className={`text-sm font-medium ${isDarkMode ? 'text-white' : 'text-gray-900'}`}>
+              <span className={`text-sm font-medium ${isDarkMode ? 'text-slate-300' : 'text-gray-900'}`}>
                 {showTerminal ? 'Terminal' : 'Output'}
               </span>
             </div>
@@ -845,20 +845,20 @@ const CollaborativeEditor = ({ sessionId, userId, userName, initialRole = 'viewe
               {showTerminal ? (
                 <div>
                   <div className={`mb-4 p-3 rounded font-mono text-sm ${
-                    isDarkMode ? 'bg-gray-900 text-green-400' : 'bg-gray-100 text-gray-800'
+                    isDarkMode ? 'bg-zinc-900 text-green-400' : 'bg-gray-100 text-gray-800'
                   }`}>
                     <pre className="whitespace-pre-wrap">{terminalOutput}</pre>
                   </div>
                   <button
                     onClick={sendTerminalCommand}
-                    className="px-3 py-1 bg-blue-600 text-white rounded text-sm hover:bg-blue-700"
+                    className="px-3 py-1 bg-blue-600 text-slate-300 rounded text-sm hover:bg-blue-700"
                   >
                     Run Command
                   </button>
                 </div>
               ) : (
                 <div className={`p-3 rounded font-mono text-sm ${
-                  isDarkMode ? 'bg-gray-900 text-white' : 'bg-gray-100 text-gray-800'
+                  isDarkMode ? 'bg-zinc-900 text-slate-300' : 'bg-gray-100 text-gray-800'
                 }`}>
                   <pre className="whitespace-pre-wrap">{output}</pre>
                 </div>

@@ -103,7 +103,7 @@ const Streak = () => {
   return (
     <motion.div
       className={`w-full max-w-md mx-auto rounded-2xl shadow-xl overflow-hidden
-        ${isDarkMode ? "bg-slate-800/70 border border-slate-700/50" : "bg-white/80 border border-gray-200/50"}
+        ${isDarkMode ? "bg-slate-800/70 border bg-zinc-900" : "bg-white/80 border border-gray-200/50"}
         transition-colors duration-500`}
       variants={cardVariants}
       initial="hidden"
@@ -119,7 +119,7 @@ const Streak = () => {
     >
       <div
         className={`px-6 py-4 flex items-center justify-between
-          ${isDarkMode ? "bg-slate-700/50 border-b border-slate-600/50" : "bg-gray-100/50 border-b border-gray-200/50"}`}
+          ${isDarkMode ? "bg-zinc-900 border-b border-slate-600/50" : "bg-gray-100/50 border-b border-gray-200/50"}`}
       >
         <h2
           className={`text-2xl font-bold
@@ -145,7 +145,7 @@ const Streak = () => {
             </p>
             <div className="flex flex-col items-center">
               <Zap className="text-orange-500 mb-2" size={32} />
-              <span className={`text-4xl font-extrabold ${isDarkMode ? "text-white" : "text-gray-900"}`}>
+              <span className={`text-4xl font-extrabold ${isDarkMode ? "text-slate-300" : "text-gray-900"}`}>
                 {streak.currentStreak}
               </span>
               <span className={`text-sm ${isDarkMode ? "text-slate-400" : "text-gray-500"}`}>days</span>
@@ -164,7 +164,7 @@ const Streak = () => {
             </p>
             <div className="flex flex-col items-center">
               <Award className="text-yellow-500 mb-2" size={32} />
-              <span className={`text-4xl font-extrabold ${isDarkMode ? "text-white" : "text-gray-900"}`}>
+              <span className={`text-4xl font-extrabold ${isDarkMode ? "text-slate-300" : "text-gray-900"}`}>
                 {streak.longestStreak}
               </span>
               <span className={`text-sm ${isDarkMode ? "text-slate-400" : "text-gray-500"}`}>days</span>
@@ -174,7 +174,7 @@ const Streak = () => {
 
         <motion.button
           onClick={handleUpdateStreak}
-          className={`w-full py-3 rounded-xl text-white font-semibold text-lg
+          className={`w-full py-3 rounded-xl text-slate-300 font-semibold text-lg
             transition-all duration-300 transform hover:scale-[1.02]
             ${isDarkMode ? "bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700" : "bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700"}
             shadow-lg ${isDarkMode ? "shadow-purple-900/30" : "shadow-purple-600/30"}`}

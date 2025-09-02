@@ -160,11 +160,11 @@ const CollaborationPage = () => {
   if (!isLoggedIn) {
     return (
       <div className={`min-h-screen flex items-center justify-center ${
-        isDarkMode ? 'bg-gray-900' : 'bg-gray-50'
+        isDarkMode ? 'bg-zinc-900' : 'bg-gray-50'
       }`}>
         <div className="text-center">
           <Users className={`w-16 h-16 mx-auto mb-4 ${isDarkMode ? 'text-gray-600' : 'text-gray-400'}`} />
-          <h2 className={`text-2xl font-bold mb-2 ${isDarkMode ? 'text-white' : 'text-gray-900'}`}>
+          <h2 className={`text-2xl font-bold mb-2 ${isDarkMode ? 'text-slate-300' : 'text-gray-900'}`}>
             Login Required
           </h2>
           <p className={`text-lg mb-6 ${isDarkMode ? 'text-gray-300' : 'text-gray-600'}`}>
@@ -172,7 +172,7 @@ const CollaborationPage = () => {
           </p>
           <button
             onClick={() => navigate('/login')}
-            className="px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-medium"
+            className="px-6 py-3 bg-blue-600 hover:bg-blue-700 text-slate-300 rounded-lg font-medium"
           >
             Go to Login
           </button>
@@ -191,16 +191,16 @@ const CollaborationPage = () => {
   }
 
   return (
-    <div className={`h-screen flex flex-col ${isDarkMode ? 'bg-gray-900' : 'bg-gray-50'}`}>
+    <div className={`h-screen flex flex-col ${isDarkMode ? 'bg-zinc-900' : 'bg-gray-50'}`}>
       {/* Header */}
       <div className={`h-14 border-b flex items-center justify-between px-4 ${
-        isDarkMode ? 'bg-gray-800 border-gray-700' : 'bg-white border-gray-200'
+        isDarkMode ? 'bg-zinc-900 border-gray-700' : 'bg-white border-gray-200'
       }`}>
         <div className="flex items-center space-x-4">
           <button
             onClick={handleLeaveSession}
             className={`px-3 py-1 rounded text-sm ${
-              isDarkMode ? 'hover:bg-gray-700 text-gray-300' : 'hover:bg-gray-100 text-gray-600'
+              isDarkMode ? 'hover:bg-zinc-900 text-gray-300' : 'hover:bg-gray-100 text-gray-600'
             }`}
           >
             ← Back to Sessions
@@ -209,7 +209,7 @@ const CollaborationPage = () => {
           <div className="h-6 border-l border-gray-300" />
           
           <div>
-            <h1 className={`text-lg font-semibold ${isDarkMode ? 'text-white' : 'text-gray-900'}`}>
+            <h1 className={`text-lg font-semibold ${isDarkMode ? 'text-slate-300' : 'text-gray-900'}`}>
               {currentSession?.name || 'Collaborative Session'}
             </h1>
             <div className="flex items-center space-x-2 text-sm">
@@ -239,8 +239,8 @@ const CollaborationPage = () => {
               onClick={toggleMicrophone}
               className={`p-2 rounded ${
                 isMicOn 
-                  ? 'bg-green-600 hover:bg-green-700 text-white' 
-                  : isDarkMode ? 'hover:bg-gray-700 text-gray-400' : 'hover:bg-gray-200 text-gray-500'
+                  ? 'bg-green-600 hover:bg-green-700 text-slate-300' 
+                  : isDarkMode ? 'hover:bg-zinc-900 text-gray-400' : 'hover:bg-gray-200 text-gray-500'
               }`}
               title={isMicOn ? 'Mute microphone' : 'Unmute microphone'}
             >
@@ -251,8 +251,8 @@ const CollaborationPage = () => {
               onClick={toggleCamera}
               className={`p-2 rounded ${
                 isCameraOn 
-                  ? 'bg-green-600 hover:bg-green-700 text-white' 
-                  : isDarkMode ? 'hover:bg-gray-700 text-gray-400' : 'hover:bg-gray-200 text-gray-500'
+                  ? 'bg-green-600 hover:bg-green-700 text-slate-300' 
+                  : isDarkMode ? 'hover:bg-zinc-900 text-gray-400' : 'hover:bg-gray-200 text-gray-500'
               }`}
               title={isCameraOn ? 'Turn off camera' : 'Turn on camera'}
             >
@@ -263,8 +263,8 @@ const CollaborationPage = () => {
               onClick={toggleScreenShare}
               className={`p-2 rounded ${
                 isScreenSharing 
-                  ? 'bg-blue-600 hover:bg-blue-700 text-white' 
-                  : isDarkMode ? 'hover:bg-gray-700 text-gray-400' : 'hover:bg-gray-200 text-gray-500'
+                  ? 'bg-blue-600 hover:bg-blue-700 text-slate-300' 
+                  : isDarkMode ? 'hover:bg-zinc-900 text-gray-400' : 'hover:bg-gray-200 text-gray-500'
               }`}
               title={isScreenSharing ? 'Stop screen sharing' : 'Start screen sharing'}
             >
@@ -278,7 +278,7 @@ const CollaborationPage = () => {
             onChange={(e) => setLayout(e.target.value)}
             className={`px-3 py-1 rounded text-sm border ${
               isDarkMode 
-                ? 'bg-gray-700 border-gray-600 text-white' 
+                ? 'bg-zinc-900 border-gray-600 text-slate-300' 
                 : 'bg-white border-gray-300 text-gray-900'
             }`}
           >
@@ -291,8 +291,8 @@ const CollaborationPage = () => {
             onClick={() => setShowChat(!showChat)}
             className={`p-2 rounded ${
               showChat 
-                ? 'bg-blue-600 text-white' 
-                : isDarkMode ? 'hover:bg-gray-700 text-gray-400' : 'hover:bg-gray-200 text-gray-500'
+                ? 'bg-blue-600 text-slate-300' 
+                : isDarkMode ? 'hover:bg-zinc-900 text-gray-400' : 'hover:bg-gray-200 text-gray-500'
             }`}
           >
             <MessageSquare className="w-4 h-4" />
@@ -300,7 +300,7 @@ const CollaborationPage = () => {
 
           <button
             onClick={shareSession}
-            className={`p-2 rounded ${isDarkMode ? 'hover:bg-gray-700 text-gray-400' : 'hover:bg-gray-200 text-gray-500'}`}
+            className={`p-2 rounded ${isDarkMode ? 'hover:bg-zinc-900 text-gray-400' : 'hover:bg-gray-200 text-gray-500'}`}
           >
             <Share2 className="w-4 h-4" />
           </button>
@@ -309,8 +309,8 @@ const CollaborationPage = () => {
             onClick={() => setShowSettings(!showSettings)}
             className={`p-2 rounded ${
               showSettings 
-                ? 'bg-gray-600 text-white' 
-                : isDarkMode ? 'hover:bg-gray-700 text-gray-400' : 'hover:bg-gray-200 text-gray-500'
+                ? 'bg-gray-600 text-slate-300' 
+                : isDarkMode ? 'hover:bg-zinc-900 text-gray-400' : 'hover:bg-gray-200 text-gray-500'
             }`}
           >
             <Settings className="w-4 h-4" />
@@ -331,7 +331,7 @@ const CollaborationPage = () => {
           <>
             {/* Sidebar */}
             <div className={`w-64 border-r flex flex-col ${
-              isDarkMode ? 'bg-gray-800 border-gray-700' : 'bg-white border-gray-200'
+              isDarkMode ? 'bg-zinc-900 border-gray-700' : 'bg-white border-gray-200'
             }`}>
               <FileManager
                 files={[
@@ -376,10 +376,10 @@ const CollaborationPage = () => {
             {/* Chat Panel */}
             {showChat && (
               <div className={`w-80 border-l flex flex-col ${
-                isDarkMode ? 'bg-gray-800 border-gray-700' : 'bg-white border-gray-200'
+                isDarkMode ? 'bg-zinc-900 border-gray-700' : 'bg-white border-gray-200'
               }`}>
                 <div className={`p-3 border-b ${isDarkMode ? 'border-gray-700' : 'border-gray-200'}`}>
-                  <h3 className={`font-medium ${isDarkMode ? 'text-white' : 'text-gray-900'}`}>
+                  <h3 className={`font-medium ${isDarkMode ? 'text-slate-300' : 'text-gray-900'}`}>
                     Chat
                   </h3>
                 </div>
@@ -396,11 +396,11 @@ const CollaborationPage = () => {
 
       {/* Settings Panel */}
       {showSettings && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
+        <div className="fixed inset-0 bg-zinc-900 bg-opacity-50 flex items-center justify-center p-4 z-50">
           <div className={`rounded-xl p-6 w-full max-w-md ${
-            isDarkMode ? 'bg-gray-800' : 'bg-white'
+            isDarkMode ? 'bg-zinc-900' : 'bg-white'
           }`}>
-            <h2 className={`text-xl font-bold mb-4 ${isDarkMode ? 'text-white' : 'text-gray-900'}`}>
+            <h2 className={`text-xl font-bold mb-4 ${isDarkMode ? 'text-slate-300' : 'text-gray-900'}`}>
               Session Settings
             </h2>
             
@@ -414,7 +414,7 @@ const CollaborationPage = () => {
                   value={currentSession?.name || ''}
                   className={`w-full px-3 py-2 rounded border ${
                     isDarkMode 
-                      ? 'bg-gray-700 border-gray-600 text-white' 
+                      ? 'bg-zinc-900 border-gray-600 text-slate-300' 
                       : 'bg-white border-gray-300 text-gray-900'
                   }`}
                   disabled={userRole !== 'owner'}
@@ -430,7 +430,7 @@ const CollaborationPage = () => {
                   defaultValue="10"
                   className={`w-full px-3 py-2 rounded border ${
                     isDarkMode 
-                      ? 'bg-gray-700 border-gray-600 text-white' 
+                      ? 'bg-zinc-900 border-gray-600 text-slate-300' 
                       : 'bg-white border-gray-300 text-gray-900'
                   }`}
                   disabled={userRole !== 'owner'}
@@ -455,14 +455,14 @@ const CollaborationPage = () => {
                 onClick={() => setShowSettings(false)}
                 className={`flex-1 px-4 py-2 rounded ${
                   isDarkMode 
-                    ? 'bg-gray-700 hover:bg-gray-600 text-gray-300' 
+                    ? 'bg-zinc-900 hover:bg-gray-600 text-gray-300' 
                     : 'bg-gray-200 hover:bg-gray-300 text-gray-700'
                 }`}
               >
                 Close
               </button>
               {userRole === 'owner' && (
-                <button className="flex-1 px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded">
+                <button className="flex-1 px-4 py-2 bg-blue-600 hover:bg-blue-700 text-slate-300 rounded">
                   Save Changes
                 </button>
               )}
@@ -477,9 +477,9 @@ const CollaborationPage = () => {
           <div
             key={notification.id}
             className={`px-4 py-2 rounded-lg shadow-lg ${
-              notification.type === 'success' ? 'bg-green-600 text-white' :
-              notification.type === 'error' ? 'bg-red-600 text-white' :
-              isDarkMode ? 'bg-gray-800 text-white border border-gray-700' : 'bg-white text-gray-900 border border-gray-200'
+              notification.type === 'success' ? 'bg-green-600 text-slate-300' :
+              notification.type === 'error' ? 'bg-red-600 text-slate-300' :
+              isDarkMode ? 'bg-zinc-900 text-slate-300 border border-gray-700' : 'bg-white text-gray-900 border border-gray-200'
             }`}
           >
             {notification.message}

@@ -55,7 +55,7 @@ const Dashboard = () => {
   return (
     <div
       className={`relative min-h-screen w-full overflow-hidden flex flex-col justify-center items-center py-20 px-4 sm:px-6 lg:px-8
-        ${isDarkMode ? "bg-slate-950 text-white" : "bg-gray-50 text-gray-900"}
+        ${isDarkMode ? "bg-slate-950 text-slate-300" : "bg-gray-50 text-gray-900"}
         transition-colors duration-500`}
     >
       <div className="w-full max-w-7xl mb-8">
@@ -123,7 +123,7 @@ const Dashboard = () => {
                         ? "bg-slate-800/70 border-purple-600 shadow-lg shadow-purple-900/40"
                         : "bg-white/90 border-purple-500 shadow-xl shadow-purple-300/40"
                       : isDarkMode
-                        ? "bg-slate-800/40 border-slate-700/50 hover:border-purple-700/50"
+                        ? "bg-slate-800/40 bg-zinc-900 hover:border-purple-700/50"
                         : "bg-gray-100/70 border-gray-200/50 hover:border-purple-200/50"
                   }`}
               >
@@ -133,8 +133,8 @@ const Dashboard = () => {
                       ${
                         activeFeature === index
                           ? isDarkMode
-                            ? "bg-purple-700 text-white shadow-lg shadow-purple-900/50"
-                            : "bg-purple-500 text-white shadow-lg shadow-purple-300/50"
+                            ? "bg-purple-700 text-slate-300 shadow-lg shadow-purple-900/50"
+                            : "bg-purple-500 text-slate-300 shadow-lg shadow-purple-300/50"
                           : isDarkMode
                             ? "bg-slate-700 text-purple-400"
                             : "bg-gray-200 text-purple-600"
@@ -149,7 +149,7 @@ const Dashboard = () => {
                         ${
                           activeFeature === index
                             ? isDarkMode
-                              ? "text-white"
+                              ? "text-slate-300"
                               : "text-gray-900"
                             : isDarkMode
                               ? "text-gray-200"
@@ -190,8 +190,8 @@ const Dashboard = () => {
                 transition-all duration-300
                 ${
                   isDarkMode
-                    ? "bg-gradient-to-r from-purple-600 to-blue-600 text-white hover:from-purple-500 hover:to-blue-500"
-                    : "bg-gradient-to-r from-purple-600 to-blue-600 text-white hover:from-purple-700 hover:to-blue-700"
+                    ? "bg-gradient-to-r from-purple-600 to-blue-600 text-slate-300 hover:from-purple-500 hover:to-blue-500"
+                    : "bg-gradient-to-r from-purple-600 to-blue-600 text-slate-300 hover:from-purple-700 hover:to-blue-700"
                 }`}
             >
               Get Started
@@ -207,7 +207,7 @@ const Dashboard = () => {
                 backdrop-blur-sm transition-all duration-300
                 ${
                   isDarkMode
-                    ? "border-slate-600 text-slate-300 hover:border-purple-400 hover:text-purple-300 hover:bg-slate-800/60"
+                    ? "border-slate-600 text-slate-300 hover:border-purple-400 hover:text-purple-300 hover:bg-zinc-900/60"
                     : "border-gray-300 text-gray-700 hover:border-purple-500 hover:text-purple-700 hover:bg-white/80"
                 }`}
             >
@@ -228,7 +228,7 @@ const Dashboard = () => {
             className={`w-full max-w-[550px] h-[550px] rounded-3xl overflow-hidden shadow-2xl transform transition-all duration-500
               ${
                 isDarkMode
-                  ? "bg-slate-900 border border-slate-700/50 hover:shadow-[0_0_40px_rgba(168,85,247,0.4)]"
+                  ? "bg-zinc-900 border bg-zinc-900 hover:shadow-[0_0_40px_rgba(168,85,247,0.4)]"
                   : "bg-white border border-gray-200/50 hover:shadow-[0_0_40px_rgba(168,85,247,0.3)]"
               }
               hover:ring-2 hover:ring-purple-500/30`}
@@ -244,7 +244,7 @@ const Dashboard = () => {
               </div>
               <div
                 className={`flex-1 rounded-lg p-4 relative overflow-hidden font-mono text-sm
-                  ${isDarkMode ? "bg-slate-900 text-green-400" : "bg-white text-green-700"}`}
+                  ${isDarkMode ? "bg-zinc-900 text-green-400" : "bg-white text-green-700"}`}
               >
                 <div
                   className="absolute inset-0 bg-gradient-to-r from-transparent via-purple-500/10 to-transparent opacity-50 animate-pulse"

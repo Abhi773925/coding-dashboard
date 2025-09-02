@@ -87,7 +87,7 @@ export default function InterviewSeriesOverview() {
   return (
     <div
       className={`w-full min-h-screen flex flex-col items-center justify-start py-12 px-4 transition-all duration-500 ${
-        isDarkMode ? "bg-slate-900 text-gray-100" : "bg-gray-50 text-gray-900"
+        isDarkMode ? "bg-zinc-900 text-gray-100" : "bg-gray-50 text-gray-900"
       }`}
       style={{
         backgroundImage: `
@@ -100,7 +100,7 @@ export default function InterviewSeriesOverview() {
       {/* Header Section */}
       <div className="text-center mb-16 max-w-4xl">
         <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-gradient-to-r from-blue-500 to-purple-500 mb-6">
-          <BookOpen className="w-8 h-8 text-white" />
+          <BookOpen className="w-8 h-8 text-slate-300" />
         </div>
         <h1 className="text-5xl md:text-6xl font-black mb-6 bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 bg-clip-text text-transparent">
           Interview Series
@@ -122,10 +122,10 @@ export default function InterviewSeriesOverview() {
           const Icon = stat.icon
           return (
             <div key={index} className={`text-center p-6 rounded-xl border ${
-              isDarkMode ? "bg-gray-800/50 border-gray-700" : "bg-white/80 border-gray-200"
+              isDarkMode ? bg-zinc-900 : "bg-white/80 border-gray-200"
             }`}>
               <Icon className={`w-8 h-8 mx-auto mb-3 ${isDarkMode ? "text-blue-400" : "text-blue-600"}`} />
-              <div className={`text-3xl font-bold mb-1 ${isDarkMode ? "text-white" : "text-gray-900"}`}>
+              <div className={`text-3xl font-bold mb-1 ${isDarkMode ? "text-slate-300" : "text-gray-900"}`}>
                 {stat.value}
               </div>
               <div className={`text-sm ${isDarkMode ? "text-gray-400 " : "text-gray-600"}`}>
@@ -146,10 +146,10 @@ export default function InterviewSeriesOverview() {
             <>
               <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                 <div className="flex items-center space-x-3">
-                  <div className={`p-3 rounded-lg bg-gradient-to-r ${series.color} text-white shadow-lg`}>
+                  <div className={`p-3 rounded-lg bg-gradient-to-r ${series.color} text-slate-300 shadow-lg`}>
                     <Icon className="h-6 w-6" />
                   </div>
-                  <CardTitle className={isDarkMode ? "text-white" : "text-gray-900"}>
+                  <CardTitle className={isDarkMode ? "text-slate-300" : "text-gray-900"}>
                     {series.title}
                   </CardTitle>
                 </div>
@@ -180,7 +180,7 @@ export default function InterviewSeriesOverview() {
                         key={index}
                         className={`px-2 py-1 text-xs rounded-md ${
                           isDarkMode 
-                            ? "bg-gray-700 text-gray-300" 
+                            ? "bg-zinc-900 text-gray-300" 
                             : "bg-gray-100 text-gray-700"
                         }`}
                       >
@@ -214,7 +214,7 @@ export default function InterviewSeriesOverview() {
                   ? "hover:scale-105 cursor-pointer" 
                   : "cursor-not-allowed opacity-75"
               } ${
-                isDarkMode ? "bg-gray-800/80 border-gray-700 hover:bg-gray-800" : "bg-white/80 border-gray-200 hover:bg-white"
+                isDarkMode ? "bg-zinc-900/80 border-gray-700 hover:bg-zinc-900" : "bg-white/80 border-gray-200 hover:bg-white"
               }`}
             >
               {/* Gradient Background */}
@@ -235,9 +235,9 @@ export default function InterviewSeriesOverview() {
 
               {/* Coming Soon Overlay */}
               {!isAvailable && (
-                <div className="absolute inset-0 bg-black bg-opacity-10 flex items-center justify-center">
+                <div className="absolute inset-0 bg-zinc-900 bg-opacity-10 flex items-center justify-center">
                   <div className={`px-4 py-2 rounded-lg ${
-                    isDarkMode ? "bg-gray-800 text-gray-300" : "bg-white text-gray-700"
+                    isDarkMode ? "bg-zinc-900 text-gray-300" : "bg-white text-gray-700"
                   } shadow-lg border`}>
                     <span className="text-sm font-medium">Coming Soon</span>
                   </div>
@@ -250,7 +250,7 @@ export default function InterviewSeriesOverview() {
 
       {/* Call to Action */}
       <div className="mt-16 text-center max-w-2xl">
-        <h2 className={`text-2xl font-bold mb-4 ${isDarkMode ? "text-white" : "text-gray-900"}`}>
+        <h2 className={`text-2xl font-bold mb-4 ${isDarkMode ? "text-slate-300" : "text-gray-900"}`}>
           Start Your Interview Preparation
         </h2>
         <p className={`text-lg mb-6 ${isDarkMode ? "text-gray-300" : "text-gray-600"}`}>
@@ -259,7 +259,7 @@ export default function InterviewSeriesOverview() {
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
           <Link
             to="/interview-series/computer-networks"
-            className="px-8 py-3 bg-gradient-to-r from-blue-500 to-purple-500 text-white rounded-lg font-semibold hover:from-blue-600 hover:to-purple-600 transition-all duration-300 transform hover:scale-105"
+            className="px-8 py-3 bg-gradient-to-r from-blue-500 to-purple-500 text-slate-300 rounded-lg font-semibold hover:from-blue-600 hover:to-purple-600 transition-all duration-300 transform hover:scale-105"
           >
             Start with Networking
           </Link>
@@ -267,7 +267,7 @@ export default function InterviewSeriesOverview() {
             to="/allcourse"
             className={`px-8 py-3 border-2 rounded-lg font-semibold transition-all duration-300 transform hover:scale-105 ${
               isDarkMode 
-                ? "border-gray-600 text-gray-300 hover:bg-gray-800" 
+                ? "border-gray-600 text-gray-300 hover:bg-zinc-900" 
                 : "border-gray-300 text-gray-700 hover:bg-gray-50"
             }`}
           >

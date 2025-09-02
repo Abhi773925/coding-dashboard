@@ -300,15 +300,15 @@ README.md`,
 
   return (
     <div className={`h-full flex flex-col ${
-      isDarkMode ? 'bg-gray-900 text-green-400' : 'bg-gray-100 text-gray-900'
+      isDarkMode ? 'bg-zinc-900 text-green-400' : 'bg-gray-100 text-gray-900'
     }`}>
       {/* Terminal Header */}
       <div className={`flex items-center justify-between px-4 py-2 border-b ${
-        isDarkMode ? 'bg-gray-800 border-gray-700' : 'bg-white border-gray-200'
+        isDarkMode ? 'bg-zinc-900 border-gray-700' : 'bg-white border-gray-200'
       }`}>
         <div className="flex items-center space-x-2">
           <Terminal className="w-4 h-4" />
-          <span className={`text-sm font-medium ${isDarkMode ? 'text-white' : 'text-gray-900'}`}>
+          <span className={`text-sm font-medium ${isDarkMode ? 'text-slate-300' : 'text-gray-900'}`}>
             Terminal
           </span>
           {isExecuting && (
@@ -322,28 +322,28 @@ README.md`,
         <div className="flex items-center space-x-1">
           <button
             onClick={clearTerminal}
-            className={`p-1 rounded ${isDarkMode ? 'hover:bg-gray-700' : 'hover:bg-gray-200'}`}
+            className={`p-1 rounded ${isDarkMode ? 'hover:bg-zinc-900' : 'hover:bg-gray-200'}`}
             title="Clear terminal"
           >
             <Trash2 className="w-4 h-4" />
           </button>
           <button
             onClick={copyOutput}
-            className={`p-1 rounded ${isDarkMode ? 'hover:bg-gray-700' : 'hover:bg-gray-200'}`}
+            className={`p-1 rounded ${isDarkMode ? 'hover:bg-zinc-900' : 'hover:bg-gray-200'}`}
             title="Copy output"
           >
             <Copy className="w-4 h-4" />
           </button>
           <button
             onClick={downloadLog}
-            className={`p-1 rounded ${isDarkMode ? 'hover:bg-gray-700' : 'hover:bg-gray-200'}`}
+            className={`p-1 rounded ${isDarkMode ? 'hover:bg-zinc-900' : 'hover:bg-gray-200'}`}
             title="Download log"
           >
             <Download className="w-4 h-4" />
           </button>
           <button
             onClick={() => setShowSettings(!showSettings)}
-            className={`p-1 rounded ${isDarkMode ? 'hover:bg-gray-700' : 'hover:bg-gray-200'}`}
+            className={`p-1 rounded ${isDarkMode ? 'hover:bg-zinc-900' : 'hover:bg-gray-200'}`}
             title="Terminal settings"
           >
             <Settings className="w-4 h-4" />
@@ -354,7 +354,7 @@ README.md`,
       {/* Terminal Settings Panel */}
       {showSettings && (
         <div className={`px-4 py-2 border-b space-y-2 ${
-          isDarkMode ? 'bg-gray-800 border-gray-700' : 'bg-gray-50 border-gray-200'
+          isDarkMode ? 'bg-zinc-900 border-gray-700' : 'bg-gray-50 border-gray-200'
         }`}>
           <div className="flex items-center space-x-4">
             <label className={`text-xs ${isDarkMode ? 'text-gray-300' : 'text-gray-600'}`}>
@@ -475,7 +475,7 @@ README.md`,
       {/* Command Suggestions (if typing) */}
       {currentCommand && (
         <div className={`px-4 py-2 border-t text-xs ${
-          isDarkMode ? 'bg-gray-800 border-gray-700 text-gray-400' : 'bg-gray-50 border-gray-200 text-gray-600'
+          isDarkMode ? 'bg-zinc-900 border-gray-700 text-gray-400' : 'bg-gray-50 border-gray-200 text-gray-600'
         }`}>
           <div className="flex flex-wrap gap-2">
             {Object.keys(builtinCommands)
@@ -486,7 +486,7 @@ README.md`,
                   key={cmd}
                   onClick={() => setCurrentCommand(cmd)}
                   className={`px-2 py-1 rounded ${
-                    isDarkMode ? 'bg-gray-700 hover:bg-gray-600' : 'bg-gray-200 hover:bg-gray-300'
+                    isDarkMode ? 'bg-zinc-900 hover:bg-gray-600' : 'bg-gray-200 hover:bg-gray-300'
                   }`}
                 >
                   {cmd}
