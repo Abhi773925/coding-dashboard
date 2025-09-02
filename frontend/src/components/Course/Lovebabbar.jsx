@@ -29,7 +29,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import config from "../../config/api";
 
 // Backend URL Configuration
-const BACKEND_URL = `${config.API_URL}/api`;
+const BACKEND_URL = `${config.API_URL}`;
 
 const Lovebabbar = () => {
   const { isDarkMode } = useTheme();
