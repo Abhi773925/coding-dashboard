@@ -355,7 +355,7 @@ const ProfileDropdown = ({ onLogin, onLogout, isMobile = false }) => {
           <div
             onClick={() => setIsProfileMenuOpen(!isProfileMenuOpen)}
             className={`
-              flex items-center space-x-3 p-3 rounded-xl cursor-pointer
+              flex items-center ${isMobile ? 'space-x-2 p-2' : 'space-x-3 p-3'} rounded-xl cursor-pointer
               transition-all duration-300 group backdrop-blur-sm
               ${
                 isDarkMode
@@ -371,20 +371,19 @@ const ProfileDropdown = ({ onLogin, onLogout, isMobile = false }) => {
               <img
                 src={user?.avatar || "/default-avatar.png"}
                 alt="User Avatar"
-                className="w-8 h-8 rounded-full border-2 transition-all duration-300 group-hover:scale-105 border-indigo-500"
+                className={`${isMobile ? 'w-6 h-6' : 'w-8 h-8'} rounded-full border-2 transition-all duration-300 group-hover:scale-105 border-indigo-500`}
               />
-              <div className="absolute bottom-0 right-0 w-3 h-3 bg-emerald-500 rounded-full border-2 border-white" />
+              <div className={`absolute bottom-0 right-0 ${isMobile ? 'w-2 h-2' : 'w-3 h-3'} bg-emerald-500 rounded-full border-2 border-white`} />
             </div>
-            <div className="flex flex-col">
-              <span className={`font-semibold text-sm ${isDarkMode ? "text-white" : "text-gray-900"}`}>
-                {user?.name}
-              </span>
-              {isMobile && (
-                <span className={`text-xs ${isDarkMode ? "text-slate-400" : "text-gray-500"}`}>{user?.email}</span>
-              )}
-            </div>
+            {!isMobile && (
+              <div className="flex flex-col">
+                <span className={`font-semibold text-sm ${isDarkMode ? "text-white" : "text-gray-900"}`}>
+                  {user?.name}
+                </span>
+              </div>
+            )}
             <ChevronDown
-              size={16}
+              size={isMobile ? 12 : 16}
               className={`transition-transform ${isProfileMenuOpen ? "rotate-180" : ""} ${
                 isDarkMode ? "text-slate-400" : "text-gray-500"
               }`}
@@ -494,7 +493,7 @@ const ProfileDropdown = ({ onLogin, onLogout, isMobile = false }) => {
         <button
           onClick={login}
           className={`
-            flex items-center space-x-3 px-6 py-3 rounded-xl font-semibold text-lg
+            flex items-center space-x-2 px-4 py-2 rounded-xl font-semibold ${isMobile ? 'text-sm' : 'text-lg'}
             transition-all duration-300 transform hover:scale-105 backdrop-blur-sm
             ${
               isDarkMode
@@ -506,7 +505,7 @@ const ProfileDropdown = ({ onLogin, onLogout, isMobile = false }) => {
             boxShadow: isDarkMode ? "0 8px 25px rgba(139, 92, 246, 0.3)" : "0 8px 25px rgba(139, 92, 246, 0.2)",
           }}
         >
-          <LogIn size={20} />
+          <LogIn size={isMobile ? 16 : 20} />
           <span>Login</span>
         </button>
       )}
@@ -927,15 +926,8 @@ const Navigation = () => {
             {/* Mobile Streak Display */}
             {isLoggedIn && <StreakDisplay />}
 
-            {/* <button
-              onClick={toggleTheme}
-              className={`
-                p-2 rounded-xl transition-all duration-300
-                ${isDarkMode ? "text-slate-400 hover:bg-zinc-800/50" : "text-slate-600 hover:bg-gray-100/50"}
-              `}
-            >
-              {isDarkMode ? <Sun size={22} /> : <Moon size={22} />}
-            </button>
+            {/* Profile Section for Mobile */}
+            <ProfileDropdown onLogin={() => {}} onLogout={() => {}} isMobile={true} />
 
             <button
               onClick={() => setIsMobileMenuOpen(true)}
@@ -945,7 +937,7 @@ const Navigation = () => {
               `}
             >
               <Menu size={24} />
-            </button> */}
+            </button>
           </div>
         </div>
       </nav>
