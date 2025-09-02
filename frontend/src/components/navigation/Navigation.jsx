@@ -927,7 +927,7 @@ const Navigation = () => {
             {isLoggedIn && <StreakDisplay />}
 
             {/* Profile Section for Mobile */}
-            <ProfileDropdown onLogin={() => {}} onLogout={() => {}} isMobile={true} />
+            {/* <ProfileDropdown onLogin={() => {}} onLogout={() => {}} isMobile={true} /> */}
 
             <button
               onClick={() => setIsMobileMenuOpen(true)}
