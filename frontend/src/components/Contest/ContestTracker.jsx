@@ -298,7 +298,7 @@ const ContestTracker = () => {
       <div className="flex overflow-hidden"
            style={{ 
              height: 'calc(100vh - 70px)',
-             marginTop: '70px'
+             
            }}>
         
         {/* Left Sidebar - Contest List */}
