@@ -291,14 +291,13 @@ const ContestTracker = () => {
   }
 
   return (
-    <div className={`min-h-screen transition-colors duration-300 pt-0 mt-0 ${
+    <div className={`min-h-screen transition-colors duration-300 ${
       isDarkMode ? 'bg-zinc-900' : 'bg-white'
     }`}>
       {/* Main Content Container - positioned directly below navbar */}
-      <div className="flex overflow-hidden"
+      <div className="flex overflow-hidden pt-[70px]"
            style={{ 
-             height: 'calc(100vh - 70px)',
-             marginTop: '70px'
+             height: '100vh'
            }}>
         
         {/* Left Sidebar - Contest List */}
