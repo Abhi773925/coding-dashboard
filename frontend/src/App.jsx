@@ -26,8 +26,6 @@ import DebugProfile from "./components/Profile/DebugProfile";
 import Sql from "./components/interview/Sql";
 import NotesOverview from "./components/interview/NotesOverview";
 import JavaScriptLearning from "./components/learning/JavaScriptLearning";
-import InterviewMode from "./components/Collaboration/InterviewMode";
-import ModernCollaborationPage from "./components/Collaboration/ModernCollaborationPage";
 import ThemeDemo from "./components/ThemeDemo";
 import ThemeShowcase from "./pages/ThemeShowcase";
 import { Analytics } from "@vercel/analytics/react"
@@ -61,10 +59,10 @@ const TrackedOOPArticle = withTracking(OOPArticle);
 const TrackedComputerNetworksArticle = withTracking(ComputerNetworksArticle);
 const TrackedOperatingSystemsArticle = withTracking(OperatingSystemsArticle);
 const TrackedArticlesOverview = withTracking(ArticlesOverview);
-const TrackedModernCollaborationPage = withTracking(ModernCollaborationPage);
+
 const AppContent = () => {
   const location = useLocation();
-  const hideNavigationRoutes = ['/collaborate', '/interview','/terminal', '/coding-advanced'];
+  const hideNavigationRoutes = ['/interview','/terminal', '/coding-advanced'];
   const isCollaborationRoute = hideNavigationRoutes.some(route => location.pathname.startsWith(route));
 
   const MAX_RETRY_COUNT = 3;
@@ -456,34 +454,7 @@ const AppContent = () => {
           </>
         } />
         
-        <Route path="/collaborate" element={
-          <>
-            <SEO page="collaboration" />
-            <TrackedModernCollaborationPage onMount={() => trackComponentView('collaborative-editor')} />
-          </>
-        } />
         
-        <Route path="/collaborate/:sessionId" element={
-          <>
-            <SEO 
-              page="collaboration" 
-              title="Live Collaboration Session - Real-time Code Sharing"
-              description="Join a live coding collaboration session with video chat and real-time code editing."
-            />
-            <TrackedModernCollaborationPage onMount={() => trackComponentView('collaborative-editor')} />
-          </>
-        } />
-        
-        <Route path="/interview" element={
-          <>
-            <SEO 
-              title="Mock Interview - Practice Coding Interviews"
-              description="Practice coding interviews in a realistic environment with timer, whiteboard, and interview questions."
-              keywords="mock interview, coding interview practice, interview simulation, technical interview"
-            />
-            <InterviewMode onMount={() => trackComponentView('interview')} />
-          </>
-        } />
         
         <Route path="*" element={
           <>

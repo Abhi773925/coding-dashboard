@@ -10,8 +10,6 @@ const cookieParser = require('cookie-parser');
 const http = require('http');
 const { Server } = require('socket.io');
 
-// Collaboration imports
-const CollaborationServer = require('./socketServer');
 const CodeExecutionEngine = require('./codeExecutionEngine');
 
 // Models
@@ -42,9 +40,8 @@ const app = express();
 // Create HTTP server for Socket.IO
 const server = http.createServer(app);
 
-// Initialize collaboration features
+// Initialize code execution engine
 const codeExecutionEngine = new CodeExecutionEngine();
-let collaborationServer;
 
 // Enhanced and corrected MongoDB Connection Function
 const connectDB = async () => {
@@ -390,19 +387,6 @@ const setupRoutes = () => {
   app.use('/api/analytics', analyticsRoutes);
   app.use('/api/code', codeRoutes);
 
-  // Collaboration routes
-  app.get('/api/collaboration/sessions', (req, res) => {
-    if (collaborationServer) {
-      res.json({
-        success: true,
-        sessions: collaborationServer.getActiveSessions(),
-        presence: collaborationServer.getUserPresence()
-      });
-    } else {
-      res.status(503).json({ success: false, message: 'Collaboration server not initialized' });
-    }
-  });
-
   app.post('/api/code/execute', async (req, res) => {
     try {
       const { code, language, fileName, input, userId } = req.body;
@@ -505,11 +489,7 @@ const startServer = async () => {
     console.log(`🚀 CodingKaro Backend running on port ${PORT}`);
     console.log(`🌐 Environment: ${process.env.NODE_ENV}`);
     console.log(`🔐 Authentication: Google OAuth configured`);
-    console.log(`🤝 Collaboration: Socket.IO server initialized`);
   });
-  
-  // Initialize collaboration server after HTTP server starts
-  collaborationServer = new CollaborationServer(server);
   
   // Setup keep-alive mechanism to prevent server and DB from idling
   setupKeepAlive(serverInstance);

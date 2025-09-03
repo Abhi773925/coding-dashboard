@@ -74,17 +74,6 @@ const navigationSections = [
     ],
   },
  
-  {
-    name: "Collaboration",
-    icon: Users,
-    bgColor: "bg-purple-100",
-    color: "text-purple-600",
-    subSections: [
-      { name: "Code Together", icon: Code2, route: "/collaborate" },
-      { name: "Interview Mode", icon: MessageSquare, route: "/ss" },
-    ],
-  },
- 
   
 ]
 
