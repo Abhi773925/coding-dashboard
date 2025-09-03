@@ -26,6 +26,7 @@ import DebugProfile from "./components/Profile/DebugProfile";
 import Sql from "./components/interview/Sql";
 import NotesOverview from "./components/interview/NotesOverview";
 import JavaScriptLearning from "./components/learning/JavaScriptLearning";
+import Collab from "./components/Collaboration/Collab";
 import ThemeDemo from "./components/ThemeDemo";
 import ThemeShowcase from "./pages/ThemeShowcase";
 import { Analytics } from "@vercel/analytics/react"
@@ -428,6 +429,13 @@ const AppContent = () => {
                 <p className="text-gray-600 dark:text-gray-400">Compiler component will be available soon.</p>
               </div>
             </div>
+          </>
+        } />
+
+        <Route path="/collaborate" element={
+          <>
+            <SEO page="collaboration" />
+            <Collab />
           </>
         } />
 
