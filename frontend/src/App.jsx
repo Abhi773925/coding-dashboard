@@ -25,10 +25,9 @@ import { ProfileDashboard } from "./components/Profile";
 import DebugProfile from "./components/Profile/DebugProfile";
 import Sql from "./components/interview/Sql";
 import NotesOverview from "./components/interview/NotesOverview";
-import CodeCompiler from "./components/Compiler/CodeCompiler";
-import CollaborativeCodeCompilerPage from "./components/Compiler/CollaborativeCodeCompilerPage";
 import JavaScriptLearning from "./components/learning/JavaScriptLearning";
 import InterviewMode from "./components/Collaboration/InterviewMode";
+import ModernCollaborationPage from "./components/Collaboration/ModernCollaborationPage";
 import ThemeDemo from "./components/ThemeDemo";
 import ThemeShowcase from "./pages/ThemeShowcase";
 import { Analytics } from "@vercel/analytics/react"
@@ -52,8 +51,6 @@ import faqStructuredData from './config/faqStructuredData';
 import Lovebabbar from "./components/Course/Lovebabbar";
 
 // Wrap components with tracking
-const TrackedCodeCompiler = withTracking(CodeCompiler);
-const TrackedCollaborativeCodeCompilerPage = withTracking(CollaborativeCodeCompilerPage);
 const TrackedNotesOverview = withTracking(NotesOverview);
 const TrackedSql = withTracking(Sql);
 const TrackedJavaScriptLearning = withTracking(JavaScriptLearning);
@@ -64,6 +61,7 @@ const TrackedOOPArticle = withTracking(OOPArticle);
 const TrackedComputerNetworksArticle = withTracking(ComputerNetworksArticle);
 const TrackedOperatingSystemsArticle = withTracking(OperatingSystemsArticle);
 const TrackedArticlesOverview = withTracking(ArticlesOverview);
+const TrackedModernCollaborationPage = withTracking(ModernCollaborationPage);
 const AppContent = () => {
   const location = useLocation();
   const hideNavigationRoutes = ['/collaborate', '/interview','/terminal', '/coding-advanced'];
@@ -426,9 +424,15 @@ const AppContent = () => {
         <Route path="/terminal" element={
           <>
             <SEO page="compiler" />
-            <TrackedCodeCompiler onMount={() => trackComponentView('compiler')} />
+            <div className="min-h-screen flex items-center justify-center bg-gray-100 dark:bg-gray-900">
+              <div className="text-center">
+                <h1 className="text-2xl font-bold mb-4">Code Compiler</h1>
+                <p className="text-gray-600 dark:text-gray-400">Compiler component will be available soon.</p>
+              </div>
+            </div>
           </>
         } />
+
         
         <Route path="/theme-demo" element={
           <>
@@ -455,7 +459,7 @@ const AppContent = () => {
         <Route path="/collaborate" element={
           <>
             <SEO page="collaboration" />
-            <TrackedCollaborativeCodeCompilerPage onMount={() => trackComponentView('collaborative-compiler')} />
+            <TrackedModernCollaborationPage onMount={() => trackComponentView('collaborative-editor')} />
           </>
         } />
         
@@ -466,7 +470,7 @@ const AppContent = () => {
               title="Live Collaboration Session - Real-time Code Sharing"
               description="Join a live coding collaboration session with video chat and real-time code editing."
             />
-            <TrackedCollaborativeCodeCompilerPage onMount={() => trackComponentView('collaborative-compiler')} />
+            <TrackedModernCollaborationPage onMount={() => trackComponentView('collaborative-editor')} />
           </>
         } />
         

@@ -2,7 +2,6 @@
 
 import { useState, useCallback, useEffect } from "react"
 import syllabus from "../../data/javascriptSyllabus.json";
-import ModernCodeCompiler from "../Compiler/CodeCompiler"
 import { useTheme } from "../context/ThemeContext";
 const JavaScriptLearning = () => {
   const [expandedTopic, setExpandedTopic] = useState(null)
@@ -273,12 +272,30 @@ const JavaScriptLearning = () => {
                   </p>
                 </div>
                 <div className="flex-1 min-h-0">
-                  <ModernCodeCompiler
-                    initialCode={selectedQuestion.starterCode || "// Write your code here"}
-                    language="javascript"
-                    className="w-full h-full"
-                    style={{ height: 'calc(100vh - 12rem)' }}
-                  />
+                  <div className={`w-full h-full flex items-center justify-center ${
+                    isDarkMode ? 'bg-gray-800 border-gray-700' : 'bg-gray-100 border-gray-300'
+                  } border rounded-lg`}>
+                    <div className="text-center">
+                      <div className="text-4xl mb-4">⚙️</div>
+                      <h3 className={`text-lg font-semibold mb-2 ${
+                        isDarkMode ? 'text-gray-300' : 'text-gray-700'
+                      }`}>
+                        Code Compiler
+                      </h3>
+                      <p className={`text-sm ${
+                        isDarkMode ? 'text-gray-400' : 'text-gray-600'
+                      }`}>
+                        Interactive code editor will be available soon
+                      </p>
+                      <div className={`mt-4 p-3 rounded ${
+                        isDarkMode ? 'bg-gray-700' : 'bg-gray-200'
+                      }`}>
+                        <p className="text-xs font-mono">
+                          {selectedQuestion.starterCode || "// Write your code here"}
+                        </p>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </>
             ) : (

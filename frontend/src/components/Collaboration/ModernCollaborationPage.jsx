@@ -2,8 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useTheme } from '../context/ThemeContext';
 import { useAuth } from '../navigation/Navigation';
-import ModernSessionManager from './ModernSessionManager';
-import ModernCollaborativeEditor from './ModernCollaborativeEditor';
+import EnhancedSessionManager from './EnhancedSessionManager';
+import EnhancedCollaborativeEditor from './EnhancedCollaborativeEditor';
 import LoadingScreen from './LoadingScreen';
 
 const ModernCollaborationPage = ({ onMount }) => {
@@ -177,7 +177,7 @@ const ModernCollaborationPage = ({ onMount }) => {
   // Show session manager if no active session
   if (showSessionManager || !currentSession) {
     return (
-      <ModernSessionManager
+      <EnhancedSessionManager
         onJoinSession={handleJoinSession}
         onCreateSession={handleCreateSession}
       />
@@ -187,7 +187,7 @@ const ModernCollaborationPage = ({ onMount }) => {
   // Show collaborative editor
   return (
     <div className="h-screen overflow-hidden relative">
-      <ModernCollaborativeEditor
+      <EnhancedCollaborativeEditor
         sessionId={currentSession.id}
         userId={user?.id || 'anonymous'}
         userName={user?.name || 'Anonymous User'}

@@ -45,7 +45,13 @@ import {
   PanelLeft,
   PanelRight,
   Split,
-  ExternalLink
+  ExternalLink,
+  Menu,
+  ChevronDown,
+  ChevronRight,
+  Sidebar,
+  Layout,
+  MoreHorizontal
 } from 'lucide-react';
 import { useTheme } from '../context/ThemeContext';
 import { safeToISOString } from '../../utils/dateUtils';
@@ -128,14 +134,12 @@ const EnhancedCollaborativeEditor = ({ sessionId, userId, userName, initialRole 
   
   // Code Snippets & Templates
   const [snippets, setSnippets] = useState([]);
-  const [showSnippets, setShowSnippets] = useState(false);
-  const [showTemplates, setShowTemplates] = useState(false);
-  const [templates, setTemplates] = useState([]);
   
   // UI Layout
   const [layout, setLayout] = useState('default'); // default, focus, split
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
   const [rightPanelCollapsed, setRightPanelCollapsed] = useState(true);
+  const [showUserList, setShowUserList] = useState(false);
   
   // Package Management
   const [packages, setPackages] = useState([]);
@@ -205,7 +209,6 @@ const EnhancedCollaborativeEditor = ({ sessionId, userId, userName, initialRole 
       setChatMessages(data.chatHistory || []);
       setSessionHistory(data.sessionHistory || []);
       setSnippets(data.snippets || []);
-      setPackages(data.packages || []);
       
       if (data.files && data.files.length > 0) {
         setActiveFile(data.files[0]);
@@ -332,6 +335,40 @@ const EnhancedCollaborativeEditor = ({ sessionId, userId, userName, initialRole 
       newSocket.close();
     };
   }, [sessionId, userId, userName, initialRole, activeFile?.name, editor, userId]);
+
+  // Keyboard shortcuts
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      if (e.ctrlKey || e.metaKey) {
+        switch (e.key) {
+          case 's':
+            e.preventDefault();
+            saveFile();
+            break;
+          case 'Enter':
+            if (e.ctrlKey || e.metaKey) {
+              e.preventDefault();
+              executeCode();
+            }
+            break;
+        }
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, []);
+
+  // Auto-save functionality
+  useEffect(() => {
+    if (autoSave && activeFile && editor) {
+      const autoSaveInterval = setInterval(() => {
+        saveFile();
+      }, 30000); // Auto-save every 30 seconds
+
+      return () => clearInterval(autoSaveInterval);
+    }
+  }, [autoSave, activeFile, editor]);
 
   // Editor setup and configuration
   const handleEditorDidMount = useCallback((editorInstance) => {
@@ -543,62 +580,233 @@ const EnhancedCollaborativeEditor = ({ sessionId, userId, userName, initialRole 
   const saveFile = () => {
     if (editor && activeFile && socket) {
       const content = editor.getValue();
+      
+      // Update the file content locally
+      setFiles(prevFiles => 
+        prevFiles.map(file => 
+          file.name === activeFile.name 
+            ? { ...file, content } 
+            : file
+        )
+      );
+      
+      // Update active file content
+      setActiveFile(prev => ({ ...prev, content }));
+      
       socket.emit('save-file', {
         sessionId,
         fileName: activeFile.name,
         content
       });
+      
       setLastSaved(new Date());
+      
+      // Show save confirmation (you can add a toast notification here)
+      console.log(`File ${activeFile.name} saved successfully`);
     }
   };
 
   const getFileTemplate = (type) => {
     const templates = {
-      javascript: 'console.log("Hello, World!");',
-      python: 'print("Hello, World!")',
-      html: '<!DOCTYPE html>\n<html>\n<head>\n  <title>Document</title>\n</head>\n<body>\n  <h1>Hello, World!</h1>\n</body>\n</html>',
-      css: 'body {\n  margin: 0;\n  padding: 0;\n  font-family: Arial, sans-serif;\n}',
-      json: '{\n  "name": "example",\n  "version": "1.0.0"\n}'
+      javascript: `// Welcome to CodeConnecto
+console.log("Hello, World!");
+
+// Write your JavaScript code here
+function greet(name) {
+    return \`Hello, \${name}!\`;
+}
+
+greet("Coder");`,
+      python: `# Welcome to CodeConnecto
+print("Hello, World!")
+
+# Write your Python code here
+def greet(name):
+    return f"Hello, {name}!"
+
+greet("Coder")`,
+      html: `<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CodeConnecto</title>
+</head>
+<body>
+    <h1>Welcome to CodeConnecto</h1>
+    <p>Real-time collaborative coding</p>
+</body>
+</html>`,
+      css: `/* Welcome to CodeConnecto */
+body {
+    margin: 0;
+    padding: 20px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+}`,
+      json: `{
+  "name": "codeconnecto-project",
+  "version": "1.0.0",
+  "description": "Real-time collaborative coding",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "keywords": ["collaboration", "coding", "realtime"]
+}`,
+      java: `// Welcome to CodeConnecto
+public class Main {
+    public static void main(String[] args) {
+        System.out.println("Hello, World!");
+        
+        String name = "Coder";
+        System.out.println("Hello, " + name + "!");
+    }
+}`,
+      cpp: `// Welcome to CodeConnecto
+#include <iostream>
+#include <string>
+using namespace std;
+
+int main() {
+    cout << "Hello, World!" << endl;
+    
+    string name = "Coder";
+    cout << "Hello, " << name << "!" << endl;
+    
+    return 0;
+}`,
+      typescript: `// Welcome to CodeConnecto
+console.log("Hello, World!");
+
+// Write your TypeScript code here
+function greet(name: string): string {
+    return \`Hello, \${name}!\`;
+}
+
+greet("Coder");`
     };
-    return templates[type] || '';
+    return templates[type] || '// Start coding...';
   };
 
   const canEdit = role === 'owner' || role === 'editor';
 
+  const getRoleColor = (userRole) => {
+    switch (userRole) {
+      case 'owner': return 'bg-yellow-500';
+      case 'editor': return 'bg-green-500';
+      default: return 'bg-blue-500';
+    }
+  };
+
+  const getUserInitials = (name) => {
+    return name?.split(' ').map(n => n[0]).join('').toUpperCase() || '?';
+  };
+
   return (
-    <div className={`h-screen flex flex-col ${isDarkMode ? 'bg-zinc-900 text-slate-300' : 'bg-white text-gray-900'}`}>
+    <div className={`h-screen flex flex-col ${
+      isDarkMode ? 'bg-gray-900 text-gray-100' : 'bg-white text-gray-900'
+    }`}>
       {/* Header */}
       <div className={`h-12 border-b flex items-center justify-between px-4 ${
-        isDarkMode ? 'bg-zinc-900 border-gray-700' : 'bg-gray-50 border-gray-200'
+        isDarkMode ? 'bg-gray-900 border-gray-700' : 'bg-gray-50 border-gray-200'
       }`}>
-        <div className="flex items-center space-x-4">
-          <div className="flex items-center space-x-2">
-            <div className={`w-3 h-3 rounded-full ${isConnected ? 'bg-green-500' : 'bg-red-500'}`} />
-            <span className="text-sm font-medium">Session: {sessionId}</span>
-          </div>
+        {/* Left section */}
+        <div className="flex items-center space-x-3">
+          <button
+            onClick={() => setSidebarCollapsed(!sidebarCollapsed)}
+            className={`p-1.5 rounded hover:bg-gray-200 ${
+              isDarkMode ? 'hover:bg-gray-700' : 'hover:bg-gray-200'
+            }`}
+            title="Toggle Sidebar"
+          >
+            <Menu className="w-4 h-4" />
+          </button>
           
           <div className="flex items-center space-x-2">
-            <Users className="w-4 h-4" />
-            <span className="text-sm">{users.length} users</span>
+            <div className={`w-2 h-2 rounded-full ${isConnected ? 'bg-green-500' : 'bg-red-500'}`} />
+            <span className="text-sm font-medium">CodeConnecto</span>
           </div>
+          
+          <div className="text-xs text-gray-500">Room: {sessionId}</div>
+        </div>
 
-          {lastSaved && (
-            <div className="flex items-center space-x-1 text-sm text-gray-500">
-              <Clock className="w-3 h-3" />
-              <span>Saved {lastSaved.toLocaleTimeString()}</span>
+        {/* Center section */}
+        <div className="flex items-center space-x-2">
+          {/* File tabs */}
+          {activeFile && (
+            <div className={`px-3 py-1 rounded text-sm font-medium flex items-center space-x-2 ${
+              isDarkMode ? 'bg-gray-800' : 'bg-gray-100'
+            }`}>
+              <span>{getFileIcon(activeFile.name)}</span>
+              <span>{activeFile.name}</span>
+              {lastSaved && (
+                <span className="text-xs text-green-500">
+                  ✓ {lastSaved.toLocaleTimeString()}
+                </span>
+              )}
             </div>
           )}
         </div>
 
+        {/* Right section */}
         <div className="flex items-center space-x-2">
-          {/* Quick actions */}
+          {/* Users */}
+          <div className="relative">
+            <button
+              onClick={() => setShowUserList(!showUserList)}
+              className={`flex items-center space-x-1 px-2 py-1 rounded text-sm ${
+                isDarkMode ? 'hover:bg-gray-700' : 'hover:bg-gray-200'
+              }`}
+            >
+              <Users className="w-4 h-4" />
+              <span>{users.length}</span>
+              <ChevronDown className="w-3 h-3" />
+            </button>
+            
+            {showUserList && (
+              <div className={`absolute right-0 top-full mt-1 w-64 rounded-lg shadow-lg border z-50 ${
+                isDarkMode ? 'bg-gray-800 border-gray-700' : 'bg-white border-gray-200'
+              }`}>
+                <div className="p-3">
+                  <h3 className="font-semibold mb-2">Active Users ({users.length})</h3>
+                  <div className="space-y-2 max-h-40 overflow-y-auto">
+                    {users.map((user) => (
+                      <div key={user.id} className="flex items-center space-x-2">
+                        <div className={`w-6 h-6 rounded-full flex items-center justify-center text-xs text-white ${
+                          getRoleColor(user.role)
+                        }`}>
+                          {getUserInitials(user.name)}
+                        </div>
+                        <div className="flex-1 min-w-0">
+                          <div className="text-sm font-medium truncate">{user.name}</div>
+                          <div className="text-xs text-gray-500 capitalize">{user.role}</div>
+                        </div>
+                        {user.id === userId && (
+                          <span className="text-xs text-green-500">You</span>
+                        )}
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            )}
+          </div>
+
+          {/* Action buttons */}
           <button
             onClick={saveFile}
             disabled={!canEdit || !activeFile}
-            className={`p-2 rounded text-sm font-medium flex items-center space-x-1 ${
+            className={`p-1.5 rounded text-sm ${
               canEdit && activeFile
-                ? 'bg-blue-600 hover:bg-blue-700 text-slate-300'
-                : 'bg-gray-400 text-gray-200 cursor-not-allowed'
+                ? 'bg-blue-600 hover:bg-blue-700 text-white'
+                : 'bg-gray-300 text-gray-500 cursor-not-allowed'
             }`}
             title="Save (Ctrl+S)"
           >
@@ -608,10 +816,10 @@ const EnhancedCollaborativeEditor = ({ sessionId, userId, userName, initialRole 
           <button
             onClick={executeCode}
             disabled={!canEdit || isExecuting || !activeFile}
-            className={`p-2 rounded text-sm font-medium flex items-center space-x-1 ${
+            className={`p-1.5 rounded text-sm ${
               canEdit && activeFile && !isExecuting
-                ? 'bg-green-600 hover:bg-green-700 text-slate-300'
-                : 'bg-gray-400 text-gray-200 cursor-not-allowed'
+                ? 'bg-green-600 hover:bg-green-700 text-white'
+                : 'bg-gray-300 text-gray-500 cursor-not-allowed'
             }`}
             title="Run Code (Ctrl+Enter)"
           >
@@ -620,27 +828,61 @@ const EnhancedCollaborativeEditor = ({ sessionId, userId, userName, initialRole 
 
           <button
             onClick={() => setShowChat(!showChat)}
-            className={`p-2 rounded ${showChat ? 'bg-blue-600 text-slate-300' : 'bg-gray-200 text-gray-700'}`}
+            className={`p-1.5 rounded ${
+              showChat 
+                ? 'bg-blue-600 text-white' 
+                : isDarkMode ? 'hover:bg-gray-700' : 'hover:bg-gray-200'
+            }`}
             title="Toggle Chat"
           >
             <MessageCircle className="w-4 h-4" />
           </button>
 
           <button
-            onClick={() => setShowLivePreview(!showLivePreview)}
-            className={`p-2 rounded ${showLivePreview ? 'bg-blue-600 text-slate-300' : 'bg-gray-200 text-gray-700'}`}
-            title="Toggle Live Preview"
+            onClick={() => setShowTerminal(!showTerminal)}
+            className={`p-1.5 rounded ${
+              showTerminal 
+                ? 'bg-blue-600 text-white' 
+                : isDarkMode ? 'hover:bg-gray-700' : 'hover:bg-gray-200'
+            }`}
+            title="Toggle Terminal"
           >
-            <Monitor className="w-4 h-4" />
+            <TerminalIcon className="w-4 h-4" />
           </button>
 
-          <button
-            onClick={() => setShowSettings(!showSettings)}
-            className="p-2 rounded bg-gray-200 text-gray-700 hover:bg-gray-300"
-            title="Settings"
-          >
-            <Settings className="w-4 h-4" />
-          </button>
+          {/* More options */}
+          <div className="relative group">
+            <button
+              className={`p-1.5 rounded ${isDarkMode ? 'hover:bg-gray-700' : 'hover:bg-gray-200'}`}
+              title="More Options"
+            >
+              <MoreHorizontal className="w-4 h-4" />
+            </button>
+            <div className={`absolute right-0 top-full mt-1 w-40 rounded-lg shadow-lg border opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all z-50 ${
+              isDarkMode ? 'bg-gray-800 border-gray-700' : 'bg-white border-gray-200'
+            }`}>
+              <div className="p-1">
+                <button
+                  onClick={() => setShowSettings(true)}
+                  className={`w-full flex items-center space-x-2 px-3 py-2 text-sm rounded hover:bg-gray-100 ${
+                    isDarkMode ? 'hover:bg-gray-700' : 'hover:bg-gray-100'
+                  }`}
+                >
+                  <Settings className="w-4 h-4" />
+                  <span>Settings</span>
+                </button>
+                <button
+                  onClick={() => navigator.clipboard.writeText(window.location.href)}
+                  className={`w-full flex items-center space-x-2 px-3 py-2 text-sm rounded hover:bg-gray-100 ${
+                    isDarkMode ? 'hover:bg-gray-700' : 'hover:bg-gray-100'
+                  }`}
+                >
+                  <Share2 className="w-4 h-4" />
+                  <span>Share Link</span>
+                </button>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
 
@@ -648,53 +890,60 @@ const EnhancedCollaborativeEditor = ({ sessionId, userId, userName, initialRole 
         {/* Sidebar */}
         {!sidebarCollapsed && (
           <div className={`w-64 border-r flex flex-col ${
-            isDarkMode ? 'bg-zinc-900 border-gray-700' : 'bg-gray-50 border-gray-200'
+            isDarkMode ? 'bg-gray-900 border-gray-700' : 'bg-gray-50 border-gray-200'
           }`}>
             {/* File Explorer */}
             <div className="flex-1 overflow-y-auto">
               <div className="p-3">
-                <div className="flex items-center justify-between mb-2">
-                  <h3 className="font-semibold">Files</h3>
-                  <div className="flex space-x-1">
-                    <button
-                      onClick={createNewFile}
-                      disabled={!canEdit}
-                      className="p-1 rounded hover:bg-gray-200 disabled:opacity-50"
-                      title="New File"
-                    >
-                      <Plus className="w-4 h-4" />
-                    </button>
-                    <button
-                      onClick={createNewFolder}
-                      disabled={!canEdit}
-                      className="p-1 rounded hover:bg-gray-200 disabled:opacity-50"
-                      title="New Folder"
-                    >
-                      <FolderPlus className="w-4 h-4" />
-                    </button>
-                  </div>
+                <div className="flex items-center justify-between mb-3">
+                  <h3 className="text-sm font-semibold">Files</h3>
+                  <button
+                    onClick={createNewFile}
+                    disabled={!canEdit}
+                    className={`p-1 rounded ${
+                      canEdit 
+                        ? isDarkMode ? 'hover:bg-gray-700' : 'hover:bg-gray-200'
+                        : 'opacity-50 cursor-not-allowed'
+                    }`}
+                    title="New File"
+                  >
+                    <Plus className="w-4 h-4" />
+                  </button>
                 </div>
 
                 <div className="space-y-1">
                   {files.map((file) => (
                     <div
                       key={file.name}
-                      className={`flex items-center justify-between p-2 rounded cursor-pointer hover:bg-gray-200 ${
-                        activeFile?.name === file.name ? 'bg-blue-100' : ''
+                      className={`flex items-center justify-between p-2 rounded cursor-pointer transition-colors group ${
+                        activeFile?.name === file.name 
+                          ? 'bg-blue-600 text-white' 
+                          : isDarkMode 
+                            ? 'hover:bg-gray-800' 
+                            : 'hover:bg-gray-200'
                       }`}
-                      onClick={() => setActiveFile(file)}
+                      onClick={() => {
+                        setActiveFile(file);
+                        setDocumentContent(file.content);
+                      }}
                     >
-                      <div className="flex items-center space-x-2">
-                        <span>{getFileIcon(file.name)}</span>
-                        <span className="text-sm">{file.name}</span>
+                      <div className="flex items-center space-x-2 flex-1 min-w-0">
+                        <span className="text-sm">{getFileIcon(file.name)}</span>
+                        <span className="text-sm truncate">{file.name}</span>
                       </div>
-                      {canEdit && (
+                      {canEdit && files.length > 1 && (
                         <button
                           onClick={(e) => {
                             e.stopPropagation();
                             deleteFile(file.name);
                           }}
-                          className="p-1 rounded hover:bg-red-200 text-red-600"
+                          className={`p-1 rounded opacity-0 group-hover:opacity-100 transition-opacity ${
+                            activeFile?.name === file.name
+                              ? 'hover:bg-blue-500'
+                              : isDarkMode
+                                ? 'hover:bg-gray-700'
+                                : 'hover:bg-gray-300'
+                          }`}
                           title="Delete"
                         >
                           <Trash2 className="w-3 h-3" />
@@ -705,28 +954,6 @@ const EnhancedCollaborativeEditor = ({ sessionId, userId, userName, initialRole 
                 </div>
               </div>
             </div>
-
-            {/* Users Panel */}
-            <div className={`border-t p-3 ${isDarkMode ? 'border-gray-700' : 'border-gray-200'}`}>
-              <h3 className="font-semibold mb-2">Online Users</h3>
-              <div className="space-y-2">
-                {users.map((user) => (
-                  <div key={user.id} className="flex items-center space-x-2">
-                    <div className={`w-2 h-2 rounded-full ${
-                      user.id === userId ? 'bg-green-500' : 'bg-blue-500'
-                    }`} />
-                    <span className="text-sm">{user.name}</span>
-                    <span className={`text-xs px-1 rounded ${
-                      user.role === 'owner' ? 'bg-yellow-200 text-yellow-800' :
-                      user.role === 'editor' ? 'bg-green-200 text-green-800' :
-                      'bg-gray-200 text-gray-800'
-                    }`}>
-                      {user.role}
-                    </span>
-                  </div>
-                ))}
-              </div>
-            </div>
           </div>
         )}
 
@@ -735,64 +962,85 @@ const EnhancedCollaborativeEditor = ({ sessionId, userId, userName, initialRole 
           {/* Editor */}
           <div className="flex-1 relative">
             {activeFile ? (
-              <Editor
-                height="100%"
-                defaultLanguage={getFileType(activeFile.name)}
-                value={documentContent}
-                onChange={handleEditorChange}
-                onMount={handleEditorDidMount}
-                theme={editorTheme}
-                options={{
-                  readOnly: !canEdit,
-                  fontSize,
-                  minimap: { enabled: showMinimap },
-                  wordWrap: wordWrap ? 'on' : 'off',
-                  lineNumbers: 'on'
-                }}
-              />
+              <>
+                <Editor
+                  height="100%"
+                  defaultLanguage={getFileType(activeFile.name)}
+                  language={getFileType(activeFile.name)}
+                  value={documentContent}
+                  onChange={handleEditorChange}
+                  onMount={handleEditorDidMount}
+                  theme={editorTheme}
+                  options={{
+                    readOnly: !canEdit,
+                    fontSize,
+                    minimap: { enabled: showMinimap },
+                    wordWrap: wordWrap ? 'on' : 'off',
+                    lineNumbers: 'on',
+                    automaticLayout: true,
+                    scrollBeyondLastLine: false,
+                    tabSize: 2,
+                    insertSpaces: true,
+                    bracketPairColorization: { enabled: true },
+                    contextmenu: true,
+                    mouseWheelZoom: true
+                  }}
+                />
+                
+                {/* Editor overlay info */}
+                {!canEdit && (
+                  <div className="absolute top-2 right-2 px-2 py-1 bg-yellow-500 text-yellow-900 text-xs rounded flex items-center space-x-1">
+                    <Eye className="w-3 h-3" />
+                    <span>Read Only</span>
+                  </div>
+                )}
+
+                {/* Code Quality Indicators */}
+                {showLinting && (errors.length > 0 || warnings.length > 0) && (
+                  <div className="absolute top-2 left-2 space-y-1">
+                    {errors.length > 0 && (
+                      <div className="bg-red-100 text-red-800 px-2 py-1 rounded text-xs flex items-center space-x-1">
+                        <AlertTriangle className="w-3 h-3" />
+                        <span>{errors.length} errors</span>
+                      </div>
+                    )}
+                    {warnings.length > 0 && (
+                      <div className="bg-yellow-100 text-yellow-800 px-2 py-1 rounded text-xs flex items-center space-x-1">
+                        <AlertTriangle className="w-3 h-3" />
+                        <span>{warnings.length} warnings</span>
+                      </div>
+                    )}
+                  </div>
+                )}
+              </>
             ) : (
               <div className="flex items-center justify-center h-full">
                 <div className="text-center">
                   <FileText className="w-16 h-16 mx-auto mb-4 text-gray-400" />
-                  <h3 className="text-lg font-semibold mb-2">No file selected</h3>
-                  <p className="text-gray-500">Select a file from the sidebar or create a new one</p>
+                  <h3 className="text-lg font-semibold mb-2">Welcome to CodeConnecto</h3>
+                  <p className="text-gray-500">Select a file from the sidebar or create a new one to start coding</p>
                 </div>
-              </div>
-            )}
-
-            {/* Code Quality Indicators */}
-            {showLinting && (errors.length > 0 || warnings.length > 0) && (
-              <div className="absolute top-4 right-4 space-y-1">
-                {errors.length > 0 && (
-                  <div className="bg-red-100 text-red-800 px-2 py-1 rounded text-sm flex items-center space-x-1">
-                    <AlertTriangle className="w-3 h-3" />
-                    <span>{errors.length} errors</span>
-                  </div>
-                )}
-                {warnings.length > 0 && (
-                  <div className="bg-yellow-100 text-yellow-800 px-2 py-1 rounded text-sm flex items-center space-x-1">
-                    <AlertTriangle className="w-3 h-3" />
-                    <span>{warnings.length} warnings</span>
-                  </div>
-                )}
               </div>
             )}
           </div>
 
           {/* Terminal */}
           {showTerminal && (
-            <div className={`h-64 border-t ${isDarkMode ? 'bg-zinc-900 border-gray-700' : 'bg-zinc-900 border-gray-200'}`}>
-              <div className="flex items-center justify-between p-2 bg-zinc-900 text-slate-300">
-                <span className="font-semibold">Terminal</span>
+            <div className="h-64 border-t bg-black text-green-400 font-mono text-sm flex flex-col">
+              <div className="flex items-center justify-between px-4 py-2 bg-gray-800 text-gray-300">
+                <div className="flex items-center space-x-2">
+                  <TerminalIcon className="w-4 h-4" />
+                  <span className="text-sm font-semibold">Terminal</span>
+                </div>
                 <button
                   onClick={() => setShowTerminal(false)}
-                  className="text-gray-400 hover:text-slate-300"
+                  className="text-gray-400 hover:text-gray-200"
                 >
                   <X className="w-4 h-4" />
                 </button>
               </div>
-              <div className="p-4 text-green-400 font-mono text-sm overflow-y-auto h-48">
-                <pre>{terminalOutput}</pre>
+              <div className="flex-1 p-4 overflow-y-auto">
+                <pre className="whitespace-pre-wrap">{terminalOutput}</pre>
                 <div className="flex items-center mt-2">
                   <span className="text-blue-400">$ </span>
                   <input
@@ -802,6 +1050,7 @@ const EnhancedCollaborativeEditor = ({ sessionId, userId, userName, initialRole 
                     onKeyPress={(e) => e.key === 'Enter' && sendTerminalCommand()}
                     className="bg-transparent border-none outline-none flex-1 ml-2 text-green-400"
                     placeholder="Enter command..."
+                    autoFocus
                   />
                 </div>
               </div>
@@ -810,11 +1059,11 @@ const EnhancedCollaborativeEditor = ({ sessionId, userId, userName, initialRole 
 
           {/* Output Panel */}
           {output && (
-            <div className={`h-32 border-t p-4 overflow-y-auto ${
-              isDarkMode ? 'bg-zinc-900 border-gray-700' : 'bg-gray-50 border-gray-200'
+            <div className={`border-t p-4 overflow-y-auto max-h-32 ${
+              isDarkMode ? 'bg-gray-800 border-gray-700' : 'bg-gray-50 border-gray-200'
             }`}>
               <div className="flex items-center justify-between mb-2">
-                <span className="font-semibold">Output</span>
+                <span className="text-sm font-semibold">Output</span>
                 <button
                   onClick={() => setOutput('')}
                   className="text-gray-400 hover:text-gray-600"
@@ -822,122 +1071,88 @@ const EnhancedCollaborativeEditor = ({ sessionId, userId, userName, initialRole 
                   <X className="w-4 h-4" />
                 </button>
               </div>
-              <pre className="text-sm font-mono">{output}</pre>
+              <pre className="text-sm font-mono whitespace-pre-wrap">{output}</pre>
             </div>
           )}
         </div>
 
-        {/* Right Panel */}
-        {!rightPanelCollapsed && (
+        {/* Chat Panel */}
+        {showChat && (
           <div className={`w-80 border-l flex flex-col ${
-            isDarkMode ? 'bg-zinc-900 border-gray-700' : 'bg-gray-50 border-gray-200'
+            isDarkMode ? 'bg-gray-900 border-gray-700' : 'bg-gray-50 border-gray-200'
           }`}>
-            {/* Tab Headers */}
-            <div className="flex border-b">
-              <button
-                onClick={() => setShowChat(true)}
-                className={`flex-1 p-2 text-sm ${showChat ? 'bg-blue-600 text-slate-300' : 'hover:bg-gray-200'}`}
-              >
-                <MessageCircle className="w-4 h-4 mx-auto" />
-              </button>
-              <button
-                onClick={() => setShowLivePreview(true)}
-                className={`flex-1 p-2 text-sm ${showLivePreview ? 'bg-blue-600 text-slate-300' : 'hover:bg-gray-200'}`}
-              >
-                <Monitor className="w-4 h-4 mx-auto" />
-              </button>
+            <div className="p-3 border-b">
+              <div className="flex items-center justify-between">
+                <h3 className="font-semibold">Chat</h3>
+                <button
+                  onClick={() => setShowChat(false)}
+                  className={`p-1 rounded ${isDarkMode ? 'hover:bg-gray-700' : 'hover:bg-gray-200'}`}
+                >
+                  <X className="w-4 h-4" />
+                </button>
+              </div>
             </div>
 
-            {/* Chat Panel */}
-            {showChat && (
-              <div className="flex-1 flex flex-col">
-                <div className="flex-1 overflow-y-auto p-4 space-y-3">
-                  {chatMessages.map((msg) => (
-                    <div key={msg.id} className={`${msg.isSystem ? 'text-center text-gray-500 text-sm' : ''}`}>
-                      {!msg.isSystem && (
-                        <div className="flex items-start space-x-2">
-                          <div className="w-8 h-8 rounded-full bg-blue-500 flex items-center justify-center text-slate-300 text-sm">
-                            {msg.userName[0].toUpperCase()}
-                          </div>
-                          <div className="flex-1">
-                            <div className="flex items-center space-x-2 mb-1">
-                              <span className="font-semibold text-sm">{msg.userName}</span>
-                              <span className="text-xs text-gray-500">
-                                {msg.timestamp.toLocaleTimeString()}
-                              </span>
-                            </div>
-                            <div className="text-sm">{msg.message}</div>
-                          </div>
+            <div className="flex-1 overflow-y-auto p-3 space-y-3">
+              {chatMessages.map((msg) => (
+                <div key={msg.id} className={`${msg.isSystem ? 'text-center text-gray-500 text-sm' : ''}`}>
+                  {!msg.isSystem ? (
+                    <div className="flex items-start space-x-2">
+                      <div className={`w-8 h-8 rounded-full flex items-center justify-center text-white text-sm ${
+                        getRoleColor(users.find(u => u.id === msg.userId)?.role || 'viewer')
+                      }`}>
+                        {getUserInitials(msg.userName)}
+                      </div>
+                      <div className="flex-1 min-w-0">
+                        <div className="flex items-center space-x-2 mb-1">
+                          <span className="font-semibold text-sm truncate">{msg.userName}</span>
+                          <span className="text-xs text-gray-500">
+                            {msg.timestamp.toLocaleTimeString()}
+                          </span>
                         </div>
-                      )}
-                      {msg.isSystem && <div>{msg.message}</div>}
-                    </div>
-                  ))}
-                </div>
-                <div className="border-t p-3">
-                  <div className="flex space-x-2">
-                    <input
-                      type="text"
-                      value={newMessage}
-                      onChange={(e) => setNewMessage(e.target.value)}
-                      onKeyPress={(e) => e.key === 'Enter' && sendChatMessage()}
-                      placeholder="Type a message..."
-                      className="flex-1 px-3 py-2 border rounded-lg text-sm"
-                    />
-                    <button
-                      onClick={sendChatMessage}
-                      disabled={!newMessage.trim()}
-                      className="px-3 py-2 bg-blue-600 text-slate-300 rounded-lg disabled:opacity-50"
-                    >
-                      <Send className="w-4 h-4" />
-                    </button>
-                  </div>
-                </div>
-              </div>
-            )}
-
-            {/* Live Preview Panel */}
-            {showLivePreview && (
-              <div className="flex-1 flex flex-col">
-                <div className="p-3 border-b">
-                  <div className="flex items-center justify-between">
-                    <span className="font-semibold">Live Preview</span>
-                    <button
-                      onClick={() => window.open(previewUrl, '_blank')}
-                      className="text-blue-600 hover:text-blue-800"
-                      title="Open in new tab"
-                    >
-                      <ExternalLink className="w-4 h-4" />
-                    </button>
-                  </div>
-                </div>
-                <div className="flex-1">
-                  {previewUrl ? (
-                    <iframe
-                      src={previewUrl}
-                      className="w-full h-full border-none"
-                      title="Live Preview"
-                    />
-                  ) : (
-                    <div className="flex items-center justify-center h-full text-gray-500">
-                      <div className="text-center">
-                        <Monitor className="w-12 h-12 mx-auto mb-2" />
-                        <p>No preview available</p>
-                        <p className="text-sm">Run your code to see live preview</p>
+                        <div className="text-sm break-words">{msg.message}</div>
                       </div>
                     </div>
+                  ) : (
+                    <div className="italic">{msg.message}</div>
                   )}
                 </div>
+              ))}
+            </div>
+
+            <div className="border-t p-3">
+              <div className="flex space-x-2">
+                <input
+                  type="text"
+                  value={newMessage}
+                  onChange={(e) => setNewMessage(e.target.value)}
+                  onKeyPress={(e) => e.key === 'Enter' && sendChatMessage()}
+                  placeholder="Type a message..."
+                  className={`flex-1 px-3 py-2 border rounded-lg text-sm ${
+                    isDarkMode 
+                      ? 'bg-gray-800 border-gray-600 text-gray-100 placeholder-gray-400' 
+                      : 'bg-white border-gray-300 placeholder-gray-500'
+                  }`}
+                />
+                <button
+                  onClick={sendChatMessage}
+                  disabled={!newMessage.trim()}
+                  className="px-3 py-2 bg-blue-600 text-white rounded-lg disabled:opacity-50 disabled:cursor-not-allowed hover:bg-blue-700"
+                >
+                  <Send className="w-4 h-4" />
+                </button>
               </div>
-            )}
+            </div>
           </div>
         )}
       </div>
 
       {/* Settings Modal */}
       {showSettings && (
-        <div className="fixed inset-0 bg-zinc-900 bg-opacity-50 flex items-center justify-center z-50">
-          <div className={`w-96 p-6 rounded-lg ${isDarkMode ? 'bg-zinc-900' : 'bg-white'}`}>
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+          <div className={`w-96 p-6 rounded-lg shadow-xl ${
+            isDarkMode ? 'bg-gray-800' : 'bg-white'
+          }`}>
             <div className="flex items-center justify-between mb-4">
               <h3 className="text-lg font-semibold">Editor Settings</h3>
               <button
@@ -954,7 +1169,11 @@ const EnhancedCollaborativeEditor = ({ sessionId, userId, userName, initialRole 
                 <select
                   value={editorTheme}
                   onChange={(e) => setEditorTheme(e.target.value)}
-                  className="w-full p-2 border rounded"
+                  className={`w-full p-2 border rounded ${
+                    isDarkMode 
+                      ? 'bg-gray-700 border-gray-600 text-gray-100' 
+                      : 'bg-white border-gray-300'
+                  }`}
                 >
                   <option value="vs-light">Light</option>
                   <option value="vs-dark">Dark</option>
@@ -963,7 +1182,7 @@ const EnhancedCollaborativeEditor = ({ sessionId, userId, userName, initialRole 
               </div>
               
               <div>
-                <label className="block text-sm font-medium mb-1">Font Size</label>
+                <label className="block text-sm font-medium mb-1">Font Size: {fontSize}px</label>
                 <input
                   type="range"
                   min="10"
@@ -972,7 +1191,6 @@ const EnhancedCollaborativeEditor = ({ sessionId, userId, userName, initialRole 
                   onChange={(e) => setFontSize(parseInt(e.target.value))}
                   className="w-full"
                 />
-                <span className="text-sm text-gray-500">{fontSize}px</span>
               </div>
               
               <div className="flex items-center justify-between">
@@ -1005,27 +1223,35 @@ const EnhancedCollaborativeEditor = ({ sessionId, userId, userName, initialRole 
                 />
               </div>
             </div>
+
+            <div className="flex justify-end mt-6">
+              <button
+                onClick={() => setShowSettings(false)}
+                className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
+              >
+                Done
+              </button>
+            </div>
           </div>
         </div>
       )}
 
-      {/* Bottom Status Bar */}
+      {/* Status Bar */}
       <div className={`h-6 border-t flex items-center justify-between px-4 text-xs ${
-        isDarkMode ? 'bg-zinc-900 border-gray-700 text-gray-400' : 'bg-gray-100 border-gray-200 text-gray-600'
+        isDarkMode ? 'bg-gray-900 border-gray-700 text-gray-400' : 'bg-gray-100 border-gray-200 text-gray-600'
       }`}>
         <div className="flex items-center space-x-4">
-          <span>{activeFile ? `${getFileType(activeFile.name)} • ${activeFile.name}` : 'No file'}</span>
-          {errors.length > 0 && (
-            <span className="text-red-500">{errors.length} errors</span>
+          <span>{isConnected ? 'Connected' : 'Disconnected'}</span>
+          {activeFile && (
+            <span>{getFileType(activeFile.name)} • {activeFile.name}</span>
           )}
-          {warnings.length > 0 && (
-            <span className="text-yellow-500">{warnings.length} warnings</span>
+          {lastSaved && (
+            <span>Saved at {lastSaved.toLocaleTimeString()}</span>
           )}
         </div>
         <div className="flex items-center space-x-4">
-          <span>Line 1, Column 1</span>
+          <span>Role: {role}</span>
           <span>UTF-8</span>
-          <span>{role}</span>
         </div>
       </div>
     </div>
