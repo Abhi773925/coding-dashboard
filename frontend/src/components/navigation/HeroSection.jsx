@@ -98,36 +98,43 @@ const HeroSection = () => {
           <div className={`w-full overflow-hidden rounded-xl border ${
             isDarkMode ? 'border-gray-700' : 'border-gray-300'
           }`}>
-            <div className={`aspect-[16/9] h-auto w-full bg-gradient-to-br flex items-center justify-center ${
-              isDarkMode 
-                ? 'from-gray-800 to-gray-900' 
-                : 'from-indigo-50 to-purple-50'
-            }`}>
-              {/* Feature grid overlay */}
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-6 p-8 w-full max-w-4xl">
-                {[
-                  { icon: Code, title: "Interactive Coding", color: isDarkMode ? "text-blue-400" : "text-blue-600" },
-                  { icon: BookOpen, title: "Rich Content", color: isDarkMode ? "text-green-400" : "text-green-600" },
-                  { icon: Users, title: "Community", color: isDarkMode ? "text-purple-400" : "text-purple-600" },
-                  { icon: TrendingUp, title: "Progress Tracking", color: isDarkMode ? "text-pink-400" : "text-pink-600" }
-                ].map((feature, index) => (
-                  <motion.div
-                    key={index}
-                    initial={{ opacity: 0, scale: 0.8 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    transition={{ duration: 0.3, delay: 1.4 + index * 0.1 }}
-                    className={`flex flex-col items-center text-center p-4 rounded-lg backdrop-blur-sm ${
-                      isDarkMode ? 'bg-zinc-900/50' : 'bg-white/50'
-                    }`}
-                  >
-                    <feature.icon className={`w-8 h-8 mb-2 ${feature.color}`} />
-                    <span className={`text-sm font-medium ${
-                      isDarkMode ? 'text-slate-300' : 'text-slate-700'
-                    }`}>
-                      {feature.title}
-                    </span>
-                  </motion.div>
-                ))}
+            <div className="aspect-[16/9] h-auto w-full relative">
+              {/* Embedded Vimeo Video */}
+              <iframe
+                src="https://player.vimeo.com/video/1115805461?autoplay=1&muted=1&loop=1&background=1&quality=auto&title=0&byline=0&portrait=0&controls=0"
+                className="w-full h-full"
+                allow="autoplay; fullscreen; picture-in-picture"
+                allowFullScreen
+                title="Platform Demo"
+                loading="eager"
+                style={{ border: 'none' }}
+                width="100%"
+                height="100%"
+              />
+              
+              {/* Feature grid overlay - positioned at bottom */}
+              <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 via-black/50 to-transparent p-6">
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                  {[
+                    { icon: Code, title: "Interactive Coding", color: "text-blue-400" },
+                    { icon: BookOpen, title: "Rich Content", color: "text-green-400" },
+                    { icon: Users, title: "Community", color: "text-purple-400" },
+                    { icon: TrendingUp, title: "Progress Tracking", color: "text-pink-400" }
+                  ].map((feature, index) => (
+                    <motion.div
+                      key={index}
+                      initial={{ opacity: 0, scale: 0.8 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      transition={{ duration: 0.3, delay: 1.4 + index * 0.1 }}
+                      className="flex flex-col items-center text-center p-3 rounded-lg backdrop-blur-sm bg-black/30"
+                    >
+                      <feature.icon className={`w-6 h-6 mb-1 ${feature.color}`} />
+                      <span className="text-xs font-medium text-white">
+                        {feature.title}
+                      </span>
+                    </motion.div>
+                  ))}
+                </div>
               </div>
             </div>
           </div>
