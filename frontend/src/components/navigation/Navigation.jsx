@@ -3,9 +3,11 @@
 import React, { useState, useEffect } from "react"
 import { Link } from "react-router-dom"
 import { useTheme } from "../context/ThemeContext"
+import { useAuth } from "../../contexts/AuthContext"
 import axios from "axios"
 import prepmateLogo from "../../assets/prepmate-logo.png"
 import {
+  Globe,
   Moon,
   Sun,
   Menu,
@@ -31,6 +33,7 @@ import {
   Zap,
   Code2,
   MessageSquare,
+  
   Brain,
   Network,
   Cpu,
@@ -70,93 +73,13 @@ const navigationSections = [
       { name: "Computer Networks", icon: Network, route: "/articles/computer-networks" },
       { name: "Operating Systems", icon: Cpu, route: "/articles/operating-systems" },
       { name: "OOP Concepts", icon: Box, route: "/articles/oops" },
-      { name: "All Articles", icon: BookOpen, route: "/interview-series" },
+  
+      {name: "SQL Basics", icon: Terminal, route: "/sql-notes" },
+       { name: "All Articles", icon: BookOpen, route: "/interview-series" },
     ],
-  },
- 
+  }
   
 ]
-
-// Create an AuthContext to manage authentication state
-const AuthContext = React.createContext({
-  isLoggedIn: false,
-  user: null,
-  login: () => {},
-  logout: () => {},
-})
-
-export const AuthProvider = ({ children }) => {
-  const [isLoggedIn, setIsLoggedIn] = useState(false)
-  const [user, setUser] = useState(null)
-
-  useEffect(() => {
-    // Check if user is already logged in
-    const checkAuthStatus = async () => {
-      try {
-        const sessionToken = localStorage.getItem("sessionToken")
-        if (sessionToken) {
-          // Send token as both cookie and Authorization header
-          const response = await axios.get(`${BACKEND_URL}/api/auth/current-user`, {
-            withCredentials: true, // Important for sending cookies
-            headers: {
-              Authorization: `Bearer ${sessionToken}`,
-            },
-          })
-
-          if (response.data) {
-            setIsLoggedIn(true)
-            setUser(response.data)
-          }
-          if (response.data.email) {
-            localStorage.setItem("userEmail", response.data.email);
-            localStorage.setItem("userName", response.data.name);
-          }
-        }
-      } catch (error) {
-        console.error("Auth check failed:", error)
-        setIsLoggedIn(false)
-        setUser(null)
-        // Clear token if invalid
-        localStorage.removeItem("sessionToken")
-      }
-    }
-
-    checkAuthStatus()
-  }, [])
-
-  const login = () => {
-    // Redirect to Google OAuth login
-    window.location.href = `${BACKEND_URL}/api/auth/google`
-  }
-
-  const logout = async () => {
-    try {
-      await axios.post(
-        `${BACKEND_URL}/api/auth/logout`,
-        {},
-        {
-          withCredentials: true,
-        },
-      )
-      setIsLoggedIn(false)
-      setUser(null)
-      localStorage.removeItem("sessionToken")
-    } catch (error) {
-      console.error("Logout failed", error)
-    }
-  }
-
-  return <AuthContext.Provider value={{ isLoggedIn, user, login, logout }}>{children}</AuthContext.Provider>
-}
-
-// Custom hook to use auth context
-export const useAuth = () => {
-  const context = React.useContext(AuthContext)
-  if (context === undefined) {
-    throw new Error("useAuth must be used within an AuthProvider")
-  }
-  return context
-}
 
 // Enhanced Streak Component for Navigation
 const StreakDisplay = () => {
@@ -322,7 +245,7 @@ const StreakDisplay = () => {
 
 const ProfileDropdown = ({ onLogin, onLogout, isMobile = false }) => {
   const { isDarkMode } = useTheme()
-  const { isLoggedIn, user, login, logout } = useAuth()
+  const { user, login, logout, isLoggedIn } = useAuth()
   const [isProfileMenuOpen, setIsProfileMenuOpen] = useState(false)
 
   const profileMenuItems = [
@@ -504,7 +427,7 @@ const ProfileDropdown = ({ onLogin, onLogout, isMobile = false }) => {
 
 const MobileMenu = ({ isOpen, onClose, navigationSections }) => {
   const { isDarkMode } = useTheme()
-  const { isLoggedIn, user, login, logout } = useAuth()
+  const { user, login, logout, isLoggedIn } = useAuth()
   const [openSection, setOpenSection] = useState(null)
 
   const toggleSection = (sectionName) => {
@@ -687,7 +610,7 @@ const Navigation = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
   const [isMobile, setIsMobile] = useState(false)
   const [openSection, setOpenSection] = useState(null)
-  const { isLoggedIn } = useAuth()
+  const { user, isLoggedIn } = useAuth()
 
   // Screen Size Detection
   useEffect(() => {
@@ -878,7 +801,7 @@ const Navigation = () => {
         </Link>
 
         {/* Streak Display - Only show when user is logged in */}
-        {isLoggedIn && <StreakDisplay />}
+        {!!user && <StreakDisplay />}
 
         {/* Enhanced Theme Toggle */}
         {/* <button
@@ -947,7 +870,7 @@ const Navigation = () => {
             </Link>
 
             {/* Mobile Streak Display */}
-            {isLoggedIn && <StreakDisplay />}
+            {!!user && <StreakDisplay />}
 
             {/* Profile Section for Mobile */}
             {/* <ProfileDropdown onLogin={() => {}} onLogout={() => {}} isMobile={true} /> */}

@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { BrowserRouter as Router, Route, Routes, useLocation } from "react-router-dom";
 import { ThemeProvider } from "./components/context/ThemeContext";
+import { AuthProvider } from "./contexts/AuthContext";
 import './App.css';
 import './accessibility.css';
 import HeroSection from "./components/navigation/HeroSection";
@@ -8,7 +9,6 @@ import axios from "axios";
 import Navigation from "./components/navigation/Navigation";
 import Toast from './components/notification/Toast';
 import Dsacard from "./components/Card/Dsacard";
-import { AuthProvider } from "./components/navigation/Navigation";
 import CourseProgress from "./components/Course/CourseProgress";
 import Profile from "./components/Dashboard/Profile";
 import Default from "./components/Card/Default";
@@ -430,7 +430,12 @@ const AppContent = () => {
 
         <Route path="/collaborate" element={
           <>
-            <SEO page="collaboration" />
+            <SEO 
+              page="collaboration" 
+              title="Live Code Collaboration - Code Together in Real-time"
+              description="Collaborate on code in real-time with multiple developers. Features live editing, chat, video calls, and code execution in 40+ languages."
+              keywords="live collaboration, real-time coding, pair programming, code sharing, remote development"
+            />
             <Collab />
           </>
         } />

@@ -27,6 +27,7 @@
     "monaco-editor": "^0.52.2",
     "motion": "^12.23.12",
     "multer-storage-cloudinary": "^4.0.0",
+    "re-resizable": "^6.11.2",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "react-feather": "^2.0.10",

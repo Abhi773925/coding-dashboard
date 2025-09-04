@@ -24,7 +24,7 @@ import {
   AlertCircle,
   LogIn
 } from 'lucide-react';
-import { useAuth } from '../navigation/Navigation';
+import { useAuth } from '../../contexts/AuthContext';
 import { fetchWithWakeUp } from '../../utils/serverWakeUp';
 import { useTheme } from '../context/ThemeContext';
 import ProfileCard from './ProfileCard';

@@ -5,6 +5,7 @@
     "clsx": "^2.1.1",
     "multer-storage-cloudinary": "^4.0.0",
     "path": "^0.12.7",
+    "re-resizable": "^6.11.2",
     "react-router-dom": "^7.3.0",
     "sonner": "^2.0.2",
     "tailwind-merge": "^3.3.1"

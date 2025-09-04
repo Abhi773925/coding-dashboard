@@ -24,10 +24,9 @@ import {
   AlertCircle,
 } from "lucide-react";
 import { useTheme } from "../context/ThemeContext";
-import { useAuth } from "../navigation/Navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import config from "../../config/api";
-
+import { useAuth } from "../../contexts/AuthContext";
 // Backend URL Configuration
 const BACKEND_URL = `${config.API_URL}`;
 
@@ -59,10 +58,10 @@ const Lovebabbar = () => {
       try {
         const endpoint =
           isLoggedIn && user?.email
-            ? `${BACKEND_URL}/codingkaro/courses/Love Babbar DSA Sheet?userEmail=${encodeURIComponent(
+            ? `${BACKEND_URL}/api/codingkaro/courses/Love Babbar DSA Sheet?userEmail=${encodeURIComponent(
                 user.email
               )}`
-            : `${BACKEND_URL}/codingkaro/courses/Love Babbar DSA Sheet`;
+            : `${BACKEND_URL}/api/codingkaro/courses/Love Babbar DSA Sheet`;
 
         const headers = isLoggedIn
           ? {
@@ -185,7 +184,7 @@ const Lovebabbar = () => {
     try {
       const updateData = { ...updates, userEmail };
       const response = await axios.put(
-        `${BACKEND_URL}/codingkaro/courses/${courseId}/days/${dayNumber}/questions/${questionId}`,
+        `${BACKEND_URL}/api/codingkaro/courses/${courseId}/days/${dayNumber}/questions/${questionId}`,
         updateData,
         {
           withCredentials: true,

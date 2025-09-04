@@ -111,7 +111,7 @@ const useSEO = ({
     // Update canonical URL - use provided canonical or generate one
     const finalCanonicalUrl = canonicalUrl || url || (() => {
       // Generate canonical URL based on current environment
-      const baseUrl = process.env.NODE_ENV === 'production' 
+      const baseUrl = (process.env.NODE_ENV === 'production' && window.location.hostname !== 'localhost' && !window.location.hostname.includes('172.20.10.3'))
         ? 'https://www.prepmate.site' 
         : window.location.origin;
       return `${baseUrl}${window.location.pathname}`;

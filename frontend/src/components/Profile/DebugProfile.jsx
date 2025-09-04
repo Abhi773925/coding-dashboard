@@ -1,7 +1,6 @@
 // Debug Profile Component
 import React, { useEffect } from 'react';
-import { useAuth } from '../navigation/Navigation';
-
+import { useAuth } from '../../contexts/AuthContext';
 const DebugProfile = () => {
   const { user, isLoggedIn } = useAuth();
 

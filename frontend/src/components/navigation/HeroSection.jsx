@@ -100,8 +100,8 @@ const HeroSection = () => {
           }`}>
             <div className="aspect-[16/9] h-auto w-full relative">
               {/* Embedded Vimeo Video */}
-              <iframe
-                src="https://player.vimeo.com/video/1115805461?autoplay=1&muted=1&loop=1&background=1&quality=auto&title=0&byline=0&portrait=0&controls=0"
+              <iframe   
+                src="https://player.vimeo.com/video/1115958246?autoplay=1&muted=1&loop=1&background=1&quality=auto&title=0&byline=0&portrait=0&controls=0"
                 className="w-full h-full"
                 allow="autoplay; fullscreen; picture-in-picture"
                 allowFullScreen
@@ -114,6 +114,7 @@ const HeroSection = () => {
               
               
             </div>
+            
           </div>
         </motion.div>
 
