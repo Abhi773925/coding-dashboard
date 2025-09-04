@@ -112,30 +112,7 @@ const HeroSection = () => {
                 height="100%"
               />
               
-              {/* Feature grid overlay - positioned at bottom */}
-              <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 via-black/50 to-transparent p-6">
-                <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                  {[
-                    { icon: Code, title: "Interactive Coding", color: "text-blue-400" },
-                    { icon: BookOpen, title: "Rich Content", color: "text-green-400" },
-                    { icon: Users, title: "Community", color: "text-purple-400" },
-                    { icon: TrendingUp, title: "Progress Tracking", color: "text-pink-400" }
-                  ].map((feature, index) => (
-                    <motion.div
-                      key={index}
-                      initial={{ opacity: 0, scale: 0.8 }}
-                      animate={{ opacity: 1, scale: 1 }}
-                      transition={{ duration: 0.3, delay: 1.4 + index * 0.1 }}
-                      className="flex flex-col items-center text-center p-3 rounded-lg backdrop-blur-sm bg-black/30"
-                    >
-                      <feature.icon className={`w-6 h-6 mb-1 ${feature.color}`} />
-                      <span className="text-xs font-medium text-white">
-                        {feature.title}
-                      </span>
-                    </motion.div>
-                  ))}
-                </div>
-              </div>
+              
             </div>
           </div>
         </motion.div>
