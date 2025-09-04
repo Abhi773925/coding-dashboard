@@ -154,7 +154,7 @@ const AppContent = () => {
     if (typeof window !== 'undefined') {
       window.runSEOTest = runSEOTest;
       window.seoAnalytics = seoAnalytics;
-    }
+    } 
     
     // Add FAQ structured data for better search results
     const addFAQStructuredData = () => {
@@ -185,7 +185,7 @@ const AppContent = () => {
       <PerformanceOptimizer />
       
       {!isCollaborationRoute && <Navigation />}
-      <Toast />
+     
       
       <main role="main" id="main-content" className="pt-20">
         <Routes>
