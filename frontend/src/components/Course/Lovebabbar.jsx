@@ -58,10 +58,10 @@ const Lovebabbar = () => {
       try {
         const endpoint =
           isLoggedIn && user?.email
-            ? `${BACKEND_URL}/api/codingkaro/courses/Love Babbar DSA Sheet?userEmail=${encodeURIComponent(
+            ? `${BACKEND_URL}/codingkaro/courses/Love Babbar DSA Sheet?userEmail=${encodeURIComponent(
                 user.email
               )}`
-            : `${BACKEND_URL}/api/codingkaro/courses/Love Babbar DSA Sheet`;
+            : `${BACKEND_URL}/codingkaro/courses/Love Babbar DSA Sheet`;
 
         const headers = isLoggedIn
           ? {
@@ -184,7 +184,7 @@ const Lovebabbar = () => {
     try {
       const updateData = { ...updates, userEmail };
       const response = await axios.put(
-        `${BACKEND_URL}/api/codingkaro/courses/${courseId}/days/${dayNumber}/questions/${questionId}`,
+        `${BACKEND_URL}/codingkaro/courses/${courseId}/days/${dayNumber}/questions/${questionId}`,
         updateData,
         {
           withCredentials: true,

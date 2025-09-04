@@ -59,10 +59,10 @@ const MinimalCourseProgress = () => {
       try {
         const endpoint =
           isLoggedIn && user?.email
-            ? `${BACKEND_URL}/api/codingkaro/courses/DSA Placement Preparation?userEmail=${encodeURIComponent(
+            ? `${BACKEND_URL}/codingkaro/courses/DSA Placement Preparation?userEmail=${encodeURIComponent(
                 user.email
               )}`
-            : `${BACKEND_URL}/api/codingkaro/courses/DSA Placement Preparation`;
+            : `${BACKEND_URL}/codingkaro/courses/DSA Placement Preparation`;
 
         const headers = isLoggedIn
           ? {
@@ -185,7 +185,7 @@ const MinimalCourseProgress = () => {
     try {
       const updateData = { ...updates, userEmail };
       const response = await axios.put(
-        `${BACKEND_URL}/api/codingkaro/courses/${courseId}/days/${dayNumber}/questions/${questionId}`,
+        `${BACKEND_URL}/codingkaro/courses/${courseId}/days/${dayNumber}/questions/${questionId}`,
         updateData,
         {
           withCredentials: true,
