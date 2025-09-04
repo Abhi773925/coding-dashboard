@@ -482,7 +482,7 @@ const ProfileDropdown = ({ onLogin, onLogout, isMobile = false }) => {
         <button
           onClick={login}
           className={`
-            flex items-center space-x-2 px-4 py-2 rounded-xl font-semibold ${isMobile ? 'text-sm' : 'text-lg'}
+            flex items-center space-x-2 h-1 px-4 py-2  rounded-xl  ${isMobile ? 'text-sm' : 'text-sm'}
             transition-all duration-300 transform hover:scale-105 backdrop-blur-sm
             ${
               isDarkMode
@@ -494,8 +494,8 @@ const ProfileDropdown = ({ onLogin, onLogout, isMobile = false }) => {
             boxShadow: isDarkMode ? "0 8px 25px rgba(139, 92, 246, 0.3)" : "0 8px 25px rgba(139, 92, 246, 0.2)",
           }}
         >
-          <LogIn size={isMobile ? 16 : 20} />
-          <span>Login</span>
+          <LogIn size={isMobile ? 16 : 12} />
+          <span >Login</span>
         </button>
       )}
     </div>
@@ -860,6 +860,23 @@ const Navigation = () => {
 
       {/* Enhanced Right Side Actions */}
       <div className="flex items-center space-x-6">
+        {/* Terminal/Compiler Button */}
+        <Link
+          to="/terminal"
+          className={`
+            flex items-center gap-2 px-4 py-2 rounded-lg
+            bg-gradient-to-r from-purple-500 to-blue-500
+            text-white font-medium text-sm
+            transition-all duration-300 transform hover:scale-105 hover:shadow-lg
+            hover:from-purple-600 hover:to-blue-600
+            active:scale-95
+          `}
+          title="Open Code Compiler"
+        >
+          <Terminal size={16} />
+          <span>Go to Terminal</span>
+        </Link>
+
         {/* Streak Display - Only show when user is logged in */}
         {isLoggedIn && <StreakDisplay />}
 
@@ -912,6 +929,23 @@ const Navigation = () => {
           </div>
 
           <div className="flex items-center space-x-4">
+            {/* Terminal/Compiler Button for Mobile */}
+            <Link
+              to="/terminal"
+              className={`
+                flex items-center gap-1.5 px-3 py-1.5 rounded-lg
+                bg-gradient-to-r from-purple-500 to-blue-500
+                text-white font-medium text-xs
+                transition-all duration-300 transform hover:scale-105 hover:shadow-lg
+                hover:from-purple-600 hover:to-blue-600
+                active:scale-95
+              `}
+              title="Open Code Compiler"
+            >
+              <Terminal size={14} />
+              <span>Terminal</span>
+            </Link>
+
             {/* Mobile Streak Display */}
             {isLoggedIn && <StreakDisplay />}
 

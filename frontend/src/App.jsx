@@ -64,7 +64,7 @@ const TrackedArticlesOverview = withTracking(ArticlesOverview);
 
 const AppContent = () => {
   const location = useLocation();
-  const hideNavigationRoutes = ['/interview','/terminal', '/coding-advanced'];
+  const hideNavigationRoutes = ['/interview', '/coding-advanced'];
   const isCollaborationRoute = hideNavigationRoutes.some(route => location.pathname.startsWith(route));
 
   const MAX_RETRY_COUNT = 3;
