@@ -4,10 +4,13 @@
 		{
 			"label": "Start Frontend Development Server",
 			"type": "shell",
-			"command": "npm start",
+			"command": "npm run dev",
 			"group": "build",
 			"isBackground": true,
-			"problemMatcher": []
+			"problemMatcher": [],
+			"options": {
+				"cwd": "${workspaceFolder}/frontend"
+			}
 		}
 	]
 }

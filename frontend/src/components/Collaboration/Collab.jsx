@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useTheme } from '../context/ThemeContext';
+import { Link, useNavigate } from 'react-router-dom';
 import { 
   Users, 
   Code2, 
@@ -21,13 +22,18 @@ import {
   Rocket,
   Terminal,
   Heart,
-  TrendingUp
+  TrendingUp,
+  ArrowRight,
+  ExternalLink
 } from 'lucide-react';
+import Compiler from './Compiler';
 
 const Collab = () => {
   const { isDarkMode } = useTheme();
+  const navigate = useNavigate();
   const [activeFeature, setActiveFeature] = useState(0);
   const [isAnimating, setIsAnimating] = useState(true);
+  const [showCompiler, setShowCompiler] = useState(false);
 
   const features = [
     {
@@ -206,10 +212,11 @@ const Collab = () => {
                 }`}
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
+                onClick={() => setShowCompiler(true)}
               >
                 <div className="flex items-center justify-center gap-2">
-                  <Rocket className="w-5 h-5" />
-                  Get Early Access
+                  <Terminal className="w-5 h-5" />
+                  Try Compiler
                 </div>
               </motion.button>
 
@@ -295,13 +302,31 @@ const Collab = () => {
                   {/* Status Badge */}
                   <div className="absolute top-4 right-4">
                     <span className={`px-3 py-1 text-xs font-medium rounded-full ${
-                      isDarkMode 
-                        ? 'bg-indigo-500 text-white' 
-                        : 'bg-indigo-600 text-white'
+                      feature.title === "Advanced Code Compiler"
+                        ? (isDarkMode ? 'bg-green-500 text-white' : 'bg-green-600 text-white')
+                        : (isDarkMode ? 'bg-indigo-500 text-white' : 'bg-indigo-600 text-white')
                     }`}>
-                      Soon
+                      {feature.title === "Advanced Code Compiler" ? "Available" : "Soon"}
                     </span>
                   </div>
+
+                  {/* Try Now Button for Compiler */}
+                  {feature.title === "Advanced Code Compiler" && (
+                    <motion.button
+                      onClick={() => setShowCompiler(true)}
+                      className={`mt-4 flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-all hover:scale-105 ${
+                        isDarkMode 
+                          ? 'bg-green-600 text-white hover:bg-green-700' 
+                          : 'bg-green-600 text-white hover:bg-green-700'
+                      }`}
+                      whileHover={{ scale: 1.05 }}
+                      whileTap={{ scale: 0.95 }}
+                    >
+                      <Play className="w-4 h-4" />
+                      Try Now
+                      <ArrowRight className="w-4 h-4" />
+                    </motion.button>
+                  )}
                 </motion.div>
               );
             })}
@@ -397,10 +422,11 @@ const Collab = () => {
                 }`}
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
+                onClick={() => setShowCompiler(true)}
               >
                 <div className="flex items-center justify-center gap-2">
-                  <Bell className="w-5 h-5" />
-                  Notify Me
+                  <Terminal className="w-5 h-5" />
+                  Try Compiler
                 </div>
               </motion.button>
               
@@ -419,6 +445,44 @@ const Collab = () => {
           </motion.div>
         </div>
       </motion.section>
+
+      {/* Compiler Modal/Overlay */}
+      <AnimatePresence>
+        {showCompiler && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-50 bg-black bg-opacity-50 flex items-center justify-center p-4"
+            onClick={() => setShowCompiler(false)}
+          >
+            <motion.div
+              initial={{ scale: 0.9, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.9, opacity: 0 }}
+              className="w-full max-w-7xl h-[90vh] bg-white dark:bg-zinc-900 rounded-xl overflow-hidden shadow-2xl"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <div className="flex items-center justify-between p-4 border-b border-gray-200 dark:border-gray-700">
+                <h2 className="text-xl font-bold text-gray-900 dark:text-green-400">
+                  PrepMate Compiler
+                </h2>
+                <button
+                  onClick={() => setShowCompiler(false)}
+                  className="p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-zinc-800 transition-colors"
+                >
+                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                  </svg>
+                </button>
+              </div>
+              <div className="h-[calc(90vh-80px)]">
+                <Compiler />
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 };

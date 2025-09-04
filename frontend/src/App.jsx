@@ -27,6 +27,7 @@ import Sql from "./components/interview/Sql";
 import NotesOverview from "./components/interview/NotesOverview";
 import JavaScriptLearning from "./components/learning/JavaScriptLearning";
 import Collab from "./components/Collaboration/Collab";
+import Compiler from "./components/Collaboration/Compiler";
 import ThemeDemo from "./components/ThemeDemo";
 import ThemeShowcase from "./pages/ThemeShowcase";
 import { Analytics } from "@vercel/analytics/react"
@@ -423,12 +424,7 @@ const AppContent = () => {
         <Route path="/terminal" element={
           <>
             <SEO page="compiler" />
-            <div className="min-h-screen flex items-center justify-center bg-gray-100 dark:bg-gray-900">
-              <div className="text-center">
-                <h1 className="text-2xl font-bold mb-4">Code Compiler</h1>
-                <p className="text-gray-600 dark:text-gray-400">Compiler component will be available soon.</p>
-              </div>
-            </div>
+            <Compiler />
           </>
         } />
 
@@ -436,6 +432,18 @@ const AppContent = () => {
           <>
             <SEO page="collaboration" />
             <Collab />
+          </>
+        } />
+
+        <Route path="/compiler" element={
+          <>
+            <SEO 
+              page="compiler"
+              title="Online Code Compiler - Execute Code in 40+ Languages"
+              description="Powerful online code compiler supporting JavaScript, Python, Java, C++, and 40+ programming languages. Real-time collaboration, instant execution, and comprehensive debugging tools."
+              keywords="online compiler, code execution, programming languages, javascript compiler, python compiler, real-time collaboration"
+            />
+            <Compiler />
           </>
         } />
 

@@ -1,5 +1,224 @@
 @import "tailwindcss";
 
+/* Mobile-first responsive design improvements */
+@media (max-width: 768px) {
+  .mobile-stack {
+    flex-direction: column !important;
+  }
+  
+  .mobile-full-width {
+    width: 100% !important;
+  }
+  
+  .mobile-text-center {
+    text-align: center !important;
+  }
+  
+  .mobile-px-4 {
+    padding-left: 1rem !important;
+    padding-right: 1rem !important;
+  }
+  
+  .mobile-py-2 {
+    padding-top: 0.5rem !important;
+    padding-bottom: 0.5rem !important;
+  }
+  
+  .mobile-text-sm {
+    font-size: 0.875rem !important;
+  }
+  
+  .mobile-gap-2 {
+    gap: 0.5rem !important;
+  }
+}
+
+/* Enhanced scrollbar for compiler */
+.compiler-scrollbar {
+  /* Fallback for older browsers */
+  overflow: auto;
+}
+
+.compiler-scrollbar::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+.compiler-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.compiler-scrollbar::-webkit-scrollbar-thumb {
+  background: rgba(99, 102, 241, 0.3);
+  border-radius: 4px;
+  transition: background-color 0.2s ease;
+}
+
+.compiler-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: rgba(99, 102, 241, 0.5);
+}
+
+/* Modern browsers with scrollbar styling support */
+@supports (scrollbar-width: thin) {
+  .compiler-scrollbar {
+    scrollbar-width: thin;
+    scrollbar-color: rgba(99, 102, 241, 0.3) transparent;
+  }
+}
+
+.dark .compiler-scrollbar::-webkit-scrollbar-thumb {
+  background: rgba(139, 92, 246, 0.3);
+}
+
+.dark .compiler-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: rgba(139, 92, 246, 0.5);
+}
+
+@supports (scrollbar-color: rgba(139, 92, 246, 0.3) transparent) {
+  .dark .compiler-scrollbar {
+    scrollbar-color: rgba(139, 92, 246, 0.3) transparent;
+  }
+}
+
+/* Code editor enhancements */
+.code-editor {
+  font-family: 'JetBrains Mono', 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+  line-height: 1.5;
+  tab-size: 2;
+}
+
+.code-editor:focus {
+  outline: 2px solid rgba(99, 102, 241, 0.5);
+  outline-offset: -2px;
+}
+
+/* Collaborative cursor animations */
+.collaborative-cursor {
+  animation: blink 1.5s infinite;
+}
+
+@keyframes blink {
+  0%, 50% { opacity: 1; }
+  51%, 100% { opacity: 0.3; }
+}
+
+/* Status indicator animations */
+.status-pulse {
+  animation: statusPulse 2s ease-in-out infinite;
+}
+
+@keyframes statusPulse {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.1);
+    opacity: 0.8;
+  }
+}
+
+/* Enhanced hero section animations */
+.hero-gradient {
+  background: linear-gradient(135deg, 
+    rgba(99, 102, 241, 0.1) 0%, 
+    rgba(139, 92, 246, 0.1) 25%, 
+    rgba(59, 130, 246, 0.1) 50%, 
+    rgba(16, 185, 129, 0.1) 75%, 
+    rgba(245, 158, 11, 0.1) 100%
+  );
+}
+
+.dark .hero-gradient {
+  background: linear-gradient(135deg, 
+    rgba(99, 102, 241, 0.05) 0%, 
+    rgba(139, 92, 246, 0.05) 25%, 
+    rgba(59, 130, 246, 0.05) 50%, 
+    rgba(16, 185, 129, 0.05) 75%, 
+    rgba(245, 158, 11, 0.05) 100%
+  );
+}
+
+/* Glassmorphism effects */
+.glass-effect {
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.dark .glass-effect {
+  background: rgba(0, 0, 0, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Button hover effects */
+.btn-hover-scale {
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.btn-hover-scale:hover {
+  transform: translateY(-2px) scale(1.02);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
+
+.dark .btn-hover-scale:hover {
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+}
+
+/* Loading animations */
+.loading-dots {
+  display: inline-block;
+  position: relative;
+  width: 80px;
+  height: 80px;
+}
+
+.loading-dots div {
+  position: absolute;
+  top: 33px;
+  width: 13px;
+  height: 13px;
+  border-radius: 50%;
+  background: currentColor;
+  animation-timing-function: cubic-bezier(0, 1, 1, 0);
+}
+
+.loading-dots div:nth-child(1) {
+  left: 8px;
+  animation: loading-dots1 0.6s infinite;
+}
+
+.loading-dots div:nth-child(2) {
+  left: 8px;
+  animation: loading-dots2 0.6s infinite;
+}
+
+.loading-dots div:nth-child(3) {
+  left: 32px;
+  animation: loading-dots2 0.6s infinite;
+}
+
+.loading-dots div:nth-child(4) {
+  left: 56px;
+  animation: loading-dots3 0.6s infinite;
+}
+
+@keyframes loading-dots1 {
+  0% { transform: scale(0); }
+  100% { transform: scale(1); }
+}
+
+@keyframes loading-dots3 {
+  0% { transform: scale(1); }
+  100% { transform: scale(0); }
+}
+
+@keyframes loading-dots2 {
+  0% { transform: translate(0, 0); }
+  100% { transform: translate(24px, 0); }
+}
+
 .logo {
   height: 6em;
   padding: 1.5em;
@@ -91,8 +310,8 @@
 
 /* Custom Scrollbar Styles */
 .custom-scrollbar {
-  scrollbar-width: thin;
-  scrollbar-color: rgba(156, 163, 175, 0.5) transparent;
+  /* Fallback for older browsers */
+  overflow: auto;
 }
 
 .custom-scrollbar::-webkit-scrollbar {
@@ -113,15 +332,80 @@
   background-color: rgba(156, 163, 175, 0.8);
 }
 
-/* Dark mode scrollbar */
-.dark .custom-scrollbar {
-  scrollbar-color: rgba(71, 85, 105, 0.5) transparent;
+/* Modern browsers with scrollbar styling support */
+@supports (scrollbar-width: thin) {
+  .custom-scrollbar {
+    scrollbar-width: thin;
+    scrollbar-color: rgba(156, 163, 175, 0.5) transparent;
+  }
 }
 
+/* Dark mode scrollbar */
 .dark .custom-scrollbar::-webkit-scrollbar-thumb {
   background-color: rgba(71, 85, 105, 0.5);
 }
 
 .dark .custom-scrollbar::-webkit-scrollbar-thumb:hover {
   background-color: rgba(71, 85, 105, 0.8);
+}
+
+@supports (scrollbar-color: rgba(71, 85, 105, 0.5) transparent) {
+  .dark .custom-scrollbar {
+    scrollbar-color: rgba(71, 85, 105, 0.5) transparent;
+  }
+}
+
+/* Responsive grid improvements */
+@media (max-width: 640px) {
+  .responsive-grid {
+    grid-template-columns: 1fr !important;
+    gap: 1rem !important;
+  }
+  
+  .responsive-text {
+    font-size: 1.5rem !important;
+    line-height: 2rem !important;
+  }
+  
+  .responsive-padding {
+    padding: 1rem !important;
+  }
+}
+
+@media (min-width: 641px) and (max-width: 768px) {
+  .responsive-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
+}
+
+/* Accessibility improvements */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Focus visible improvements */
+.focus-visible {
+  outline: 2px solid rgba(99, 102, 241, 0.6) !important;
+  outline-offset: 2px !important;
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  .contrast-border {
+    border: 2px solid currentColor !important;
+  }
+  
+  .contrast-bg {
+    background: white !important;
+    color: black !important;
+  }
+  
+  .dark .contrast-bg {
+    background: black !important;
+    color: white !important;
+  }
 }
