@@ -1,0 +1,91 @@
+/* Dark theme styles for highlight.js */
+.hljs-dark {
+  background: transparent !important;
+  color: #d4d4d4;
+}
+
+.hljs-dark .hljs-keyword {
+  color: #569cd6;
+}
+
+.hljs-dark .hljs-string {
+  color: #ce9178;
+}
+
+.hljs-dark .hljs-comment {
+  color: #6a9955;
+}
+
+.hljs-dark .hljs-number {
+  color: #b5cea8;
+}
+
+.hljs-dark .hljs-function {
+  color: #dcdcaa;
+}
+
+.hljs-dark .hljs-variable {
+  color: #9cdcfe;
+}
+
+.hljs-dark .hljs-class {
+  color: #4ec9b0;
+}
+
+.hljs-dark .hljs-title {
+  color: #dcdcaa;
+}
+
+.hljs-dark .hljs-built_in {
+  color: #4ec9b0;
+}
+
+.hljs-dark .hljs-literal {
+  color: #569cd6;
+}
+
+/* Light theme styles for highlight.js */
+.hljs-light {
+  background: transparent !important;
+  color: #24292e;
+}
+
+.hljs-light .hljs-keyword {
+  color: #d73a49;
+}
+
+.hljs-light .hljs-string {
+  color: #032f62;
+}
+
+.hljs-light .hljs-comment {
+  color: #6f42c1;
+}
+
+.hljs-light .hljs-number {
+  color: #005cc5;
+}
+
+.hljs-light .hljs-function {
+  color: #6f42c1;
+}
+
+.hljs-light .hljs-variable {
+  color: #e36209;
+}
+
+.hljs-light .hljs-class {
+  color: #6f42c1;
+}
+
+.hljs-light .hljs-title {
+  color: #6f42c1;
+}
+
+.hljs-light .hljs-built_in {
+  color: #005cc5;
+}
+
+.hljs-light .hljs-literal {
+  color: #005cc5;
+}

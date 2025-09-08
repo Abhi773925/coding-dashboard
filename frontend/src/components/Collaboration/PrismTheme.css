@@ -1,0 +1,197 @@
+/**
+ * Custom Prism syntax highlighting theme
+ * Light and Dark mode compatible
+ */
+
+/* Base code styles */
+code[class*="language-"],
+pre[class*="language-"] {
+  color: #383a42;
+  background: none;
+  font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+  text-align: left;
+  white-space: pre;
+  word-spacing: normal;
+  word-break: normal;
+  word-wrap: normal;
+  line-height: 1.5;
+  tab-size: 4;
+  -webkit-hyphens: none;
+  hyphens: none;
+}
+
+/* Code blocks */
+pre[class*="language-"] {
+  padding: 1em;
+  margin: .5em 0;
+  overflow: auto;
+  border-radius: 0.3em;
+}
+
+/* Dark mode adjustments */
+.dark-theme code[class*="language-"],
+.dark-theme pre[class*="language-"] {
+  color: #abb2bf;
+}
+
+/* Tokens */
+
+/* Keywords */
+.token.keyword {
+  color: #a626a4;
+}
+
+.dark-theme .token.keyword {
+  color: #c678dd;
+}
+
+/* Strings */
+.token.string {
+  color: #50a14f;
+}
+
+.dark-theme .token.string {
+  color: #98c379;
+}
+
+/* Numbers */
+.token.number {
+  color: #e45649;
+}
+
+.dark-theme .token.number {
+  color: #d19a66;
+}
+
+/* Comments */
+.token.comment,
+.token.prolog,
+.token.doctype,
+.token.cdata {
+  color: #a0a1a7;
+  font-style: italic;
+}
+
+.dark-theme .token.comment,
+.dark-theme .token.prolog,
+.dark-theme .token.doctype,
+.dark-theme .token.cdata {
+  color: #5c6370;
+}
+
+/* Punctuation */
+.token.punctuation {
+  color: #383a42;
+}
+
+.dark-theme .token.punctuation {
+  color: #abb2bf;
+}
+
+/* Operators */
+.token.operator {
+  color: #0184bc;
+}
+
+.dark-theme .token.operator {
+  color: #56b6c2;
+}
+
+/* Functions */
+.token.function {
+  color: #4078f2;
+}
+
+.dark-theme .token.function {
+  color: #61afef;
+}
+
+/* Classes */
+.token.class-name {
+  color: #c18401;
+}
+
+.dark-theme .token.class-name {
+  color: #e5c07b;
+}
+
+/* Predefined symbols (like cout, cin, etc.) */
+.token.builtin,
+.token.symbol,
+.token.namespace,
+.token.constant {
+  color: #c678dd;
+}
+
+.dark-theme .token.builtin,
+.dark-theme .token.symbol,
+.dark-theme .token.namespace,
+.dark-theme .token.constant {
+  color: #e06c75;
+}
+
+/* Variables */
+.token.variable {
+  color: #e45649;
+}
+
+.dark-theme .token.variable {
+  color: #e06c75;
+}
+
+/* Regex */
+.token.regex {
+  color: #50a14f;
+}
+
+.dark-theme .token.regex {
+  color: #98c379;
+}
+
+/* Important */
+.token.important,
+.token.bold {
+  font-weight: bold;
+}
+
+.token.italic {
+  font-style: italic;
+}
+
+/* Line highlighting */
+.line-highlight {
+  background: rgba(184, 184, 184, 0.2);
+  box-shadow: inset 5px 0 0 rgba(184, 184, 184, 0.5);
+}
+
+.dark-theme .line-highlight {
+  background: rgba(184, 184, 184, 0.1);
+  box-shadow: inset 5px 0 0 rgba(184, 184, 184, 0.3);
+}
+
+/* Line numbers */
+.line-numbers .line-numbers-rows {
+  border-right: 1px solid #ddd;
+}
+
+.dark-theme .line-numbers .line-numbers-rows {
+  border-right: 1px solid #444;
+}
+
+/* Editor Selection */
+.code-editor-selection {
+  background-color: rgba(135, 135, 135, 0.2);
+}
+
+.dark-theme .code-editor-selection {
+  background-color: rgba(135, 135, 135, 0.3);
+}
+
+/* Active line */
+.active-line {
+  background: rgba(184, 184, 184, 0.2);
+}
+
+.dark-theme .active-line {
+  background: rgba(184, 184, 184, 0.1);
+}

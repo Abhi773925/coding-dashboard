@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useCallback, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useTheme } from '../context/ThemeContext';
 import { 
@@ -21,6 +21,17 @@ import {
   GripVertical
 } from 'lucide-react';
 import axios from 'axios';
+import Editor from '@monaco-editor/react';
+import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
+import {
+  atomDark,
+  oneDark,
+  oneLight,
+  prism,
+  tomorrow,
+  vs,
+  vscDarkPlus
+} from 'react-syntax-highlighter/dist/esm/styles/prism';
 
 const Compiler = () => {
   const { isDarkMode } = useTheme();
@@ -35,37 +46,36 @@ const Compiler = () => {
   const [fontSize, setFontSize] = useState(14);
   const [isMobileView, setIsMobileView] = useState(false);
   const [activeTab, setActiveTab] = useState('output');
-  const [syntaxHighlight, setSyntaxHighlight] = useState(true);
+  
+  // Editor refs
+  const editorRef = useRef(null);
+  const monacoRef = useRef(null);
   
   // Draggable panel states
   const [isDragging, setIsDragging] = useState(false);
   const [isVerticalDragging, setIsVerticalDragging] = useState(false);
   const [leftPanelWidth, setLeftPanelWidth] = useState(65); // percentage for horizontal split
   const [topPanelHeight, setTopPanelHeight] = useState(50); // percentage for vertical split
-  const [dragStartX, setDragStartX] = useState(0);
-  const [dragStartY, setDragStartY] = useState(0);
   
   // Refs for dragging
   const containerRef = useRef(null);
-  const horizontalDragRef = useRef(null);
-  const verticalDragRef = useRef(null);
 
-  // Supported languages
-  const languages = [
-    { id: 'javascript', name: 'JavaScript', version: '18.15.0', extension: 'js' },
-    { id: 'python', name: 'Python', version: '3.10.0', extension: 'py' },
-    { id: 'java', name: 'Java', version: '15.0.2', extension: 'java' },
-    { id: 'cpp', name: 'C++', version: '10.2.0', extension: 'cpp' },
-    { id: 'c', name: 'C', version: '10.2.0', extension: 'c' },
-    { id: 'go', name: 'Go', version: '1.16.2', extension: 'go' },
-    { id: 'rust', name: 'Rust', version: '1.68.2', extension: 'rs' },
-    { id: 'typescript', name: 'TypeScript', version: '5.0.3', extension: 'ts' },
-    { id: 'php', name: 'PHP', version: '8.2.3', extension: 'php' },
-    { id: 'ruby', name: 'Ruby', version: '3.0.1', extension: 'rb' }
-  ];
+  // Supported languages - Static to prevent re-renders
+  const languages = useMemo(() => [
+    { id: 'javascript', name: 'JavaScript', version: '18.15.0', extension: 'js', monacoId: 'javascript' },
+    { id: 'python', name: 'Python', version: '3.10.0', extension: 'py', monacoId: 'python' },
+    { id: 'java', name: 'Java', version: '15.0.2', extension: 'java', monacoId: 'java' },
+    { id: 'cpp', name: 'C++', version: '10.2.0', extension: 'cpp', monacoId: 'cpp' },
+    { id: 'c', name: 'C', version: '10.2.0', extension: 'c', monacoId: 'c' },
+    { id: 'go', name: 'Go', version: '1.16.2', extension: 'go', monacoId: 'go' },
+    { id: 'rust', name: 'Rust', version: '1.68.2', extension: 'rs', monacoId: 'rust' },
+    { id: 'typescript', name: 'TypeScript', version: '5.0.3', extension: 'ts', monacoId: 'typescript' },
+    { id: 'php', name: 'PHP', version: '8.2.3', extension: 'php', monacoId: 'php' },
+    { id: 'ruby', name: 'Ruby', version: '3.0.1', extension: 'rb', monacoId: 'ruby' }
+  ], []);
 
-  // Simple code templates
-  const codeTemplates = {
+  // Simple code templates - Static to prevent re-renders
+  const codeTemplates = useMemo(() => ({
     javascript: 'console.log("Hello, World!");',
     python: 'print("Hello, World!")',
     java: 'public class Main {\n    public static void main(String[] args) {\n        System.out.println("Hello, World!");\n    }\n}',
@@ -76,7 +86,7 @@ const Compiler = () => {
     typescript: 'console.log("Hello, World!");',
     php: '<?php\necho "Hello, World!\\n";\n?>',
     ruby: 'puts "Hello, World!"'
-  };
+  }), []);
 
   // Auto-detect mobile view and handle responsive breakpoints
   useEffect(() => {
@@ -103,14 +113,13 @@ const Compiler = () => {
   }, []);
 
   // Horizontal drag handlers (code editor vs input/output)
-  const handleHorizontalMouseDown = (e) => {
+  const handleHorizontalMouseDown = useCallback((e) => {
     if (isMobileView) return;
     setIsDragging(true);
-    setDragStartX(e.clientX);
     e.preventDefault();
-  };
+  }, [isMobileView]);
 
-  const handleHorizontalMouseMove = (e) => {
+  const handleHorizontalMouseMove = useCallback((e) => {
     if (!isDragging || !containerRef.current || isMobileView) return;
     
     const containerRect = containerRef.current.getBoundingClientRect();
@@ -119,21 +128,20 @@ const Compiler = () => {
     // Constrain between 30% and 80%
     const constrainedWidth = Math.min(Math.max(newWidth, 30), 80);
     setLeftPanelWidth(constrainedWidth);
-  };
+  }, [isDragging, isMobileView]);
 
-  const handleHorizontalMouseUp = () => {
+  const handleHorizontalMouseUp = useCallback(() => {
     setIsDragging(false);
-  };
+  }, []);
 
   // Vertical drag handlers (input vs output)
-  const handleVerticalMouseDown = (e) => {
+  const handleVerticalMouseDown = useCallback((e) => {
     if (isMobileView) return;
     setIsVerticalDragging(true);
-    setDragStartY(e.clientY);
     e.preventDefault();
-  };
+  }, [isMobileView]);
 
-  const handleVerticalMouseMove = (e) => {
+  const handleVerticalMouseMove = useCallback((e) => {
     if (!isVerticalDragging || !containerRef.current || isMobileView) return;
     
     const containerRect = containerRef.current.getBoundingClientRect();
@@ -146,11 +154,11 @@ const Compiler = () => {
     // Constrain between 20% and 80%
     const constrainedHeight = Math.min(Math.max(newHeight, 20), 80);
     setTopPanelHeight(constrainedHeight);
-  };
+  }, [isVerticalDragging, isMobileView]);
 
-  const handleVerticalMouseUp = () => {
+  const handleVerticalMouseUp = useCallback(() => {
     setIsVerticalDragging(false);
-  };
+  }, []);
 
   // Global mouse event listeners
   useEffect(() => {
@@ -172,7 +180,7 @@ const Compiler = () => {
       document.body.style.cursor = '';
       document.body.style.userSelect = '';
     };
-  }, [isDragging]);
+  }, [isDragging, handleHorizontalMouseMove, handleHorizontalMouseUp]);
 
   useEffect(() => {
     if (isVerticalDragging) {
@@ -193,10 +201,10 @@ const Compiler = () => {
       document.body.style.cursor = '';
       document.body.style.userSelect = '';
     };
-  }, [isVerticalDragging]);
+  }, [isVerticalDragging, handleVerticalMouseMove, handleVerticalMouseUp]);
 
   // Execute code using Piston API
-  const executeCode = async () => {
+  const executeCode = useCallback(async () => {
     if (!code.trim()) return;
     
     setIsRunning(true);
@@ -240,60 +248,161 @@ const Compiler = () => {
     } finally {
       setIsRunning(false);
     }
-  };
+  }, [code, input, language, languages]);
 
   // Handle language change
-  const handleLanguageChange = (newLanguage) => {
+  const handleLanguageChange = useCallback((newLanguage) => {
     setLanguage(newLanguage);
     setCode(codeTemplates[newLanguage] || '');
     setInput('');
     setOutput('');
     setStatus('ready');
     setExecutionTime(null);
-  };
+  }, [codeTemplates]);
 
   // Copy code to clipboard
-  const copyCode = async () => {
+  const copyCode = useCallback(async () => {
     try {
       await navigator.clipboard.writeText(code);
     } catch (err) {
       console.error('Failed to copy code:', err);
     }
-  };
+  }, [code]);
 
-  // Syntax highlighting function
-  const applySyntaxHighlight = (text) => {
-    if (!syntaxHighlight) return text;
-    
-    const keywords = {
-      javascript: ['const', 'let', 'var', 'function', 'if', 'else', 'for', 'while', 'return', 'console'],
-      python: ['def', 'if', 'else', 'elif', 'for', 'while', 'return', 'import', 'from', 'print'],
-      java: ['public', 'private', 'class', 'static', 'void', 'int', 'String', 'if', 'else', 'for'],
-      cpp: ['#include', 'int', 'void', 'class', 'public', 'private', 'if', 'else', 'for', 'while'],
-      c: ['#include', 'int', 'void', 'char', 'if', 'else', 'for', 'while', 'return'],
+  // Format code using Monaco Editor
+  const formatCode = useCallback(() => {
+    if (editorRef.current) {
+      editorRef.current.getAction('editor.action.formatDocument').run();
+    }
+  }, []);
+
+  // Stable code change handler - no unnecessary re-renders
+  const handleCodeChange = useCallback((newCode) => {
+    setCode(newCode || '');
+  }, []);
+
+  // Get Monaco Editor language ID - memoized
+  const getMonacoLanguage = useCallback(() => {
+    const selectedLang = languages.find(lang => lang.id === language);
+    return selectedLang?.monacoId || 'javascript';
+  }, [language, languages]);
+
+  // Monaco Editor options - memoized to prevent re-renders
+  const monacoOptions = useMemo(() => ({
+    minimap: { enabled: !isMobileView },
+    fontSize: fontSize,
+    lineNumbers: 'on',
+    roundedSelection: false,
+    scrollBeyondLastLine: false,
+    automaticLayout: true,
+    wordWrap: isMobileView ? 'on' : 'off',
+    folding: true,
+    autoIndent: 'advanced',
+    formatOnPaste: true,
+    formatOnType: true,
+    bracketPairColorization: { enabled: true },
+    suggestOnTriggerCharacters: true,
+    acceptSuggestionOnEnter: 'on',
+    tabCompletion: 'on',
+    quickSuggestions: {
+      other: true,
+      comments: false,
+      strings: false
+    },
+    parameterHints: { enabled: true },
+    hover: { enabled: true },
+    contextmenu: true,
+    selectOnLineNumbers: true,
+    glyphMargin: false,
+    lineDecorationsWidth: 0,
+    lineNumbersMinChars: 3,
+    overviewRulerBorder: false,
+    hideCursorInOverviewRuler: true,
+    scrollbar: {
+      verticalScrollbarSize: isMobileView ? 8 : 12,
+      horizontalScrollbarSize: isMobileView ? 8 : 12,
+      alwaysConsumeMouseWheel: false
+    },
+    renderLineHighlight: 'all',
+    occurrencesHighlight: true,
+    selectionHighlight: true,
+    matchBrackets: 'always',
+    find: {
+      addExtraSpaceOnTop: false,
+      autoFindInSelection: 'never',
+      seedSearchStringFromSelection: 'always'
+    },
+    // Additional mobile optimizations
+    ...(isMobileView && {
+      wordWrapColumn: 80,
+      fontLigatures: false,
+      cursorBlinking: 'smooth',
+      cursorSmoothCaretAnimation: true,
+      smoothScrolling: true,
+      mouseWheelZoom: false,
+      accessibilitySupport: 'auto'
+    })
+  }), [isMobileView, fontSize]);
+  
+  // Monaco Editor component - stable without unnecessary re-renders
+  const MonacoCodeEditor = useMemo(() => {
+    const handleEditorDidMount = (editor, monaco) => {
+      editorRef.current = editor;
+      monacoRef.current = monaco;
+      
+      // Configure editor for better mobile experience
+      if (isMobileView) {
+        editor.updateOptions({
+          minimap: { enabled: false },
+          scrollbar: {
+            verticalScrollbarSize: 8,
+            horizontalScrollbarSize: 8
+          }
+        });
+      }
+
+      // Add custom keyboard shortcuts
+      editor.addCommand(monaco.KeyMod.CtrlCmd | monaco.KeyCode.Enter, () => {
+        executeCode();
+      });
+
+      // Add formatting command
+      editor.addCommand(monaco.KeyMod.CtrlCmd | monaco.KeyMod.Shift | monaco.KeyCode.KeyF, () => {
+        editor.getAction('editor.action.formatDocument').run();
+      });
+
+      // Focus the editor
+      editor.focus();
     };
 
-    const langKeywords = keywords[language] || [];
-    let highlightedText = text;
-    
-    langKeywords.forEach(keyword => {
-      const regex = new RegExp(`\\b${keyword}\\b`, 'g');
-      highlightedText = highlightedText.replace(regex, `<span class="text-blue-500 font-semibold">${keyword}</span>`);
-    });
-    
-    // Highlight strings
-    highlightedText = highlightedText.replace(/"([^"]*)"/g, '<span class="text-green-500">"$1"</span>');
-    highlightedText = highlightedText.replace(/'([^']*)'/g, '<span class="text-green-500">\'$1\'</span>');
-    
-    // Highlight comments
-    if (language === 'javascript' || language === 'java' || language === 'cpp' || language === 'c') {
-      highlightedText = highlightedText.replace(/\/\/.*$/gm, '<span class="text-gray-500 italic">$&</span>');
-    } else if (language === 'python') {
-      highlightedText = highlightedText.replace(/#.*$/gm, '<span class="text-gray-500 italic">$&</span>');
-    }
-    
-    return highlightedText;
-  };
+    // Memoize theme and language to prevent re-renders
+    const theme = isDarkMode ? 'vs-dark' : 'light';
+    const monacoLanguage = getMonacoLanguage();
+
+    return (
+      <div className="w-full h-full">
+        <Editor
+          height="100%"
+          language={monacoLanguage}
+          value={code}
+          onChange={handleCodeChange}
+          onMount={handleEditorDidMount}
+          theme={theme}
+          options={monacoOptions}
+          loading={
+            <div className={`flex items-center justify-center h-full ${
+              isDarkMode ? 'bg-zinc-900 text-gray-300' : 'bg-white text-gray-600'
+            }`}>
+              <div className="flex items-center gap-2">
+                <RefreshCw className="w-4 h-4 animate-spin" />
+                <span>Loading Editor...</span>
+              </div>
+            </div>
+          }
+        />
+      </div>
+    );
+  }, [code, handleCodeChange, isDarkMode, monacoOptions, getMonacoLanguage, executeCode, isMobileView]);
 
   return (
     <div className={`min-h-screen transition-all duration-300 ${
@@ -314,8 +423,9 @@ const Compiler = () => {
               <h1 className={`text-lg sm:text-xl font-bold truncate ${
                 isDarkMode ? 'text-white' : 'text-gray-900'
               }`}>
-                {isMobileView ? 'IDE' : 'Compiler'}
+                {isMobileView ? 'PrepMate' : 'PrepMate'}
               </h1>
+             
             </div>
 
             {/* Language Selector */}
@@ -401,8 +511,21 @@ const Compiler = () => {
                   ? 'bg-zinc-800 text-gray-300 hover:bg-zinc-700' 
                   : 'bg-gray-200 text-gray-600 hover:bg-gray-300'
               }`}
+              title="Copy Code"
             >
               <Copy className="w-3 h-3 sm:w-4 sm:h-4" />
+            </button>
+
+            <button
+              onClick={formatCode}
+              className={`p-1.5 sm:p-2 rounded-lg transition-all hover:scale-105 active:scale-95 ${
+                isDarkMode 
+                  ? 'bg-zinc-800 text-gray-300 hover:bg-zinc-700' 
+                  : 'bg-gray-200 text-gray-600 hover:bg-gray-300'
+              }`}
+              title="Format Code (Ctrl+Shift+F)"
+            >
+              <Settings className="w-3 h-3 sm:w-4 sm:h-4" />
             </button>
 
             {!isMobileView && (
@@ -467,21 +590,13 @@ const Compiler = () => {
                   </div>
                 </div>
 
-                <textarea
-                  value={code}
-                  onChange={(e) => setCode(e.target.value)}
-                  className={`flex-1 p-3 font-mono resize-none focus:outline-none transition-all ${
-                    isDarkMode 
-                      ? 'bg-zinc-900 text-gray-100' 
-                      : 'bg-white text-gray-900'
-                  }`}
-                  style={{ 
-                    fontSize: `${fontSize}px`,
-                    lineHeight: '1.4'
-                  }}
-                  placeholder="Write your code here..."
-                  spellCheck={false}
-                />
+                <div className={`flex-1 ${
+                  isDarkMode 
+                    ? 'bg-zinc-900' 
+                    : 'bg-white'
+                }`}>
+                  {MonacoCodeEditor}
+                </div>
               </div>
 
               {/* Input/Output Tabs */}
@@ -639,26 +754,17 @@ const Compiler = () => {
                   </div>
                 </div>
 
-                <textarea
-                  value={code}
-                  onChange={(e) => setCode(e.target.value)}
-                  className={`flex-1 p-4 font-mono resize-none focus:outline-none transition-all ${
-                    isDarkMode 
-                      ? 'bg-zinc-900 text-gray-100' 
-                      : 'bg-white text-gray-900'
-                  }`}
-                  style={{ 
-                    fontSize: `${fontSize}px`,
-                    lineHeight: '1.5'
-                  }}
-                  placeholder="Write your code here..."
-                  spellCheck={false}
-                />
+                <div className={`flex-1 ${
+                  isDarkMode 
+                    ? 'bg-zinc-900' 
+                    : 'bg-white'
+                }`}>
+                  {MonacoCodeEditor}
+                </div>
               </div>
 
               {/* Horizontal Drag Handle */}
               <div
-                ref={horizontalDragRef}
                 onMouseDown={handleHorizontalMouseDown}
                 className={`w-1 cursor-col-resize transition-all hover:w-2 group relative ${
                   isDarkMode ? 'bg-gray-600 hover:bg-indigo-500' : 'bg-gray-300 hover:bg-indigo-500'
@@ -722,7 +828,6 @@ const Compiler = () => {
 
                 {/* Vertical Drag Handle */}
                 <div
-                  ref={verticalDragRef}
                   onMouseDown={handleVerticalMouseDown}
                   className={`h-1 cursor-row-resize transition-all hover:h-2 group relative ${
                     isDarkMode ? 'bg-gray-600 hover:bg-indigo-500' : 'bg-gray-300 hover:bg-indigo-500'
