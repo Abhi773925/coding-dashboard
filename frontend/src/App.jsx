@@ -1,3 +1,4 @@
+// Project Management MCQ imports
 import React, { useEffect } from "react";
 import { BrowserRouter as Router, Route, Routes, useLocation } from "react-router-dom";
 import { ThemeProvider } from "./components/context/ThemeContext";
@@ -13,6 +14,7 @@ import CourseProgress from "./components/Course/CourseProgress";
 import Profile from "./components/Dashboard/Profile";
 import Default from "./components/Card/Default";
 import Testimonials from "./components/Dashboard/Testimonials";
+import Features from "./components/Dashboard/Features";
 import Footer from "./components/Dashboard/Footer";
 import ContestTracker from "./components/Contest/ContestTracker";
 import Learning from "./components/Card/Learning";
@@ -49,6 +51,7 @@ import seoAnalytics from './utils/seoAnalytics';
 import { runSEOTest } from './utils/seoTester';
 import faqStructuredData from './config/faqStructuredData';
 import Lovebabbar from "./components/Course/Lovebabbar";
+import ProjectManagement from "./components/coursera/ProjectManagement";
 
 // Wrap components with tracking
 const TrackedNotesOverview = withTracking(NotesOverview);
@@ -187,14 +190,17 @@ const AppContent = () => {
       {!isCollaborationRoute && <Navigation />}
      
       
-      <main role="main" id="main-content" className="pt-20">
+      <main role="main" id="main-content" className="pt-16">
         <Routes>
         <Route path="/" element={
           <>
             <SEO page="home" />
+            {/* <ProjectManagement/> */}
             <HeroSection />
             <Analytics />
+            
             <Dsacard />
+            <Features />
             <Footer />
           </>
         } />
@@ -464,6 +470,18 @@ const AppContent = () => {
           </>
         } />
         
+        {/* Project Management MCQ Route */}
+        <Route path="/courses/project-management-mcqs" element={
+          <>
+            <SEO 
+              title="Project Management MCQs"
+              description="Practice project management multiple-choice questions."
+              keywords="project management, mcq, quiz, practice"
+            />
+            
+          </>
+        } />
+
         <Route path="/theme-showcase" element={
           <>
             <SEO 
@@ -472,6 +490,18 @@ const AppContent = () => {
               keywords="theme showcase, codeconnecto, color scheme, modern design, glassmorphism"
             />
             <ThemeShowcase />
+          </>
+        } />
+
+        <Route path="/features" element={
+          <>
+            <SEO 
+              title="Platform Features - Interactive Coding Tools & Learning Resources"
+              description="Explore our comprehensive coding platform features including interactive compiler, real-time collaboration, and advanced learning resources."
+              keywords="coding features, interactive compiler, real-time collaboration, programming tools, learning platform"
+            />
+            <Features />
+            <Footer />
           </>
         } />
         

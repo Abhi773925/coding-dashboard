@@ -804,7 +804,7 @@ const Navigation = () => {
         {!!user && <StreakDisplay />}
 
         {/* Enhanced Theme Toggle */}
-        {/* <button
+        <button
           onClick={toggleTheme}
           className={`
             p-3 rounded-xl transition-all duration-300 transform hover:scale-110
@@ -816,7 +816,7 @@ const Navigation = () => {
           `}
         >
           {isDarkMode ? <Sun size={24} /> : <Moon size={24} />}
-        </button> */}
+        </button>
 
         {/* Profile Section */}
         <ProfileDropdown onLogin={() => {}} onLogout={() => {}} />

@@ -1,0 +1,2402 @@
+[
+    {
+        "id": 1,
+        "unit": "Unit 1",
+        "question": "Which of the following best defines Project Management?",
+        "options": [
+            "Temporary effort to create a unique product, service, or result",
+            "Continuous process of manufacturing goods",
+            "Permanent function of the organization",
+            "Random set of activities without goal"
+        ],
+        "correct_answer": "Temporary effort to create a unique product, service, or result"
+    },
+    {
+        "id": 2,
+        "unit": "Unit 1",
+        "question": "Who is primarily responsible for planning, executing, and closing a project?",
+        "options": [
+            "Functional Manager",
+            "Project Sponsor",
+            "Project Manager",
+            "Stakeholder"
+        ],
+        "correct_answer": "Project Manager"
+    },
+    {
+        "id": 3,
+        "unit": "Unit 1",
+        "question": "Which of the following is NOT a characteristic of a project?",
+        "options": [
+            "Temporary nature",
+            "Unique deliverable",
+            "Ongoing repetitive process",
+            "Defined start and end date"
+        ],
+        "correct_answer": "Ongoing repetitive process"
+    },
+    {
+        "id": 4,
+        "unit": "Unit 1",
+        "question": "In Agile methodology, client involvement is:",
+        "options": [
+            "Minimal, only at the end",
+            "Continuous and active throughout the project",
+            "Only at requirement gathering stage",
+            "Not required at all"
+        ],
+        "correct_answer": "Continuous and active throughout the project"
+    },
+    {
+        "id": 5,
+        "unit": "Unit 1",
+        "question": "What does WBS stand for in project management?",
+        "options": [
+            "Work Breakdown Structure",
+            "Workflow Balanced Schedule",
+            "Work Baseline Summary",
+            "Weighted Business Schedule"
+        ],
+        "correct_answer": "Work Breakdown Structure"
+    },
+    {
+        "id": 6,
+        "unit": "Unit 1",
+        "question": "Which process includes identifying and prioritizing stakeholders?",
+        "options": [
+            "Communication Management",
+            "Stakeholder Analysis",
+            "Risk Management",
+            "Scope Verification"
+        ],
+        "correct_answer": "Stakeholder Analysis"
+    },
+    {
+        "id": 7,
+        "unit": "Unit 1",
+        "question": "Which estimating technique uses historical data from similar past projects?",
+        "options": [
+            "Parametric Estimating",
+            "Bottom-Up Estimating",
+            "Analogous Estimating",
+            "PERT Estimating"
+        ],
+        "correct_answer": "Analogous Estimating"
+    },
+    {
+        "id": 8,
+        "unit": "Unit 1",
+        "question": "What does 'Lead' in project scheduling mean?",
+        "options": [
+            "Delay before starting next task",
+            "Overlap between tasks to start earlier",
+            "Skipping tasks to save time",
+            "Adding extra resources"
+        ],
+        "correct_answer": "Overlap between tasks to start earlier"
+    },
+    {
+        "id": 9,
+        "unit": "Unit 1",
+        "question": "Which document formally authorizes a project?",
+        "options": [
+            "Project Scope Statement",
+            "Project Plan",
+            "Project Charter",
+            "Stakeholder Register"
+        ],
+        "correct_answer": "Project Charter"
+    },
+    {
+        "id": 10,
+        "unit": "Unit 1",
+        "question": "Which of the following techniques is used for schedule compression by adding resources?",
+        "options": [
+            "Fast Tracking",
+            "Crashing",
+            "PERT",
+            "Rolling Wave Planning"
+        ],
+        "correct_answer": "Crashing"
+    },
+    {
+        "id": 11,
+        "unit": "Unit 2",
+        "question": "Which of the following best defines Project Management?",
+        "options": [
+            "Temporary effort to create a unique product, service, or result",
+            "Continuous process of manufacturing goods",
+            "Permanent function of the organization",
+            "Random set of activities without goal"
+        ],
+        "correct_answer": "Temporary effort to create a unique product, service, or result"
+    },
+    {
+        "id": 12,
+        "unit": "Unit 2",
+        "question": "Who is primarily responsible for planning, executing, and closing a project?",
+        "options": [
+            "Functional Manager",
+            "Project Sponsor",
+            "Project Manager",
+            "Stakeholder"
+        ],
+        "correct_answer": "Project Manager"
+    },
+    {
+        "id": 13,
+        "unit": "Unit 2",
+        "question": "Which of the following is NOT a characteristic of a project?",
+        "options": [
+            "Temporary nature",
+            "Unique deliverable",
+            "Ongoing repetitive process",
+            "Defined start and end date"
+        ],
+        "correct_answer": "Ongoing repetitive process"
+    },
+    {
+        "id": 14,
+        "unit": "Unit 2",
+        "question": "In Agile methodology, client involvement is:",
+        "options": [
+            "Minimal, only at the end",
+            "Continuous and active throughout the project",
+            "Only at requirement gathering stage",
+            "Not required at all"
+        ],
+        "correct_answer": "Continuous and active throughout the project"
+    },
+    {
+        "id": 15,
+        "unit": "Unit 2",
+        "question": "What does WBS stand for in project management?",
+        "options": [
+            "Work Breakdown Structure",
+            "Workflow Balanced Schedule",
+            "Work Baseline Summary",
+            "Weighted Business Schedule"
+        ],
+        "correct_answer": "Work Breakdown Structure"
+    },
+    {
+        "id": 16,
+        "unit": "Unit 2",
+        "question": "Which process includes identifying and prioritizing stakeholders?",
+        "options": [
+            "Communication Management",
+            "Stakeholder Analysis",
+            "Risk Management",
+            "Scope Verification"
+        ],
+        "correct_answer": "Stakeholder Analysis"
+    },
+    {
+        "id": 17,
+        "unit": "Unit 2",
+        "question": "Which estimating technique uses historical data from similar past projects?",
+        "options": [
+            "Parametric Estimating",
+            "Bottom-Up Estimating",
+            "Analogous Estimating",
+            "PERT Estimating"
+        ],
+        "correct_answer": "Analogous Estimating"
+    },
+    {
+        "id": 18,
+        "unit": "Unit 2",
+        "question": "What does 'Lead' in project scheduling mean?",
+        "options": [
+            "Delay before starting next task",
+            "Overlap between tasks to start earlier",
+            "Skipping tasks to save time",
+            "Adding extra resources"
+        ],
+        "correct_answer": "Overlap between tasks to start earlier"
+    },
+    {
+        "id": 19,
+        "unit": "Unit 2",
+        "question": "Which document formally authorizes a project?",
+        "options": [
+            "Project Scope Statement",
+            "Project Plan",
+            "Project Charter",
+            "Stakeholder Register"
+        ],
+        "correct_answer": "Project Charter"
+    },
+    {
+        "id": 20,
+        "unit": "Unit 2",
+        "question": "Which of the following techniques is used for schedule compression by adding resources?",
+        "options": [
+            "Fast Tracking",
+            "Crashing",
+            "PERT",
+            "Rolling Wave Planning"
+        ],
+        "correct_answer": "Crashing"
+    },
+    {
+        "id": 21,
+        "unit": "Unit 3",
+        "question": "Which of the following best defines Project Management?",
+        "options": [
+            "Temporary effort to create a unique product, service, or result",
+            "Continuous process of manufacturing goods",
+            "Permanent function of the organization",
+            "Random set of activities without goal"
+        ],
+        "correct_answer": "Temporary effort to create a unique product, service, or result"
+    },
+    {
+        "id": 22,
+        "unit": "Unit 3",
+        "question": "Who is primarily responsible for planning, executing, and closing a project?",
+        "options": [
+            "Functional Manager",
+            "Project Sponsor",
+            "Project Manager",
+            "Stakeholder"
+        ],
+        "correct_answer": "Project Manager"
+    },
+    {
+        "id": 23,
+        "unit": "Unit 3",
+        "question": "Which of the following is NOT a characteristic of a project?",
+        "options": [
+            "Temporary nature",
+            "Unique deliverable",
+            "Ongoing repetitive process",
+            "Defined start and end date"
+        ],
+        "correct_answer": "Ongoing repetitive process"
+    },
+    {
+        "id": 24,
+        "unit": "Unit 3",
+        "question": "In Agile methodology, client involvement is:",
+        "options": [
+            "Minimal, only at the end",
+            "Continuous and active throughout the project",
+            "Only at requirement gathering stage",
+            "Not required at all"
+        ],
+        "correct_answer": "Continuous and active throughout the project"
+    },
+    {
+        "id": 25,
+        "unit": "Unit 3",
+        "question": "What does WBS stand for in project management?",
+        "options": [
+            "Work Breakdown Structure",
+            "Workflow Balanced Schedule",
+            "Work Baseline Summary",
+            "Weighted Business Schedule"
+        ],
+        "correct_answer": "Work Breakdown Structure"
+    },
+    {
+        "id": 26,
+        "unit": "Unit 3",
+        "question": "Which process includes identifying and prioritizing stakeholders?",
+        "options": [
+            "Communication Management",
+            "Stakeholder Analysis",
+            "Risk Management",
+            "Scope Verification"
+        ],
+        "correct_answer": "Stakeholder Analysis"
+    },
+    {
+        "id": 27,
+        "unit": "Unit 3",
+        "question": "Which estimating technique uses historical data from similar past projects?",
+        "options": [
+            "Parametric Estimating",
+            "Bottom-Up Estimating",
+            "Analogous Estimating",
+            "PERT Estimating"
+        ],
+        "correct_answer": "Analogous Estimating"
+    },
+    {
+        "id": 28,
+        "unit": "Unit 3",
+        "question": "What does 'Lead' in project scheduling mean?",
+        "options": [
+            "Delay before starting next task",
+            "Overlap between tasks to start earlier",
+            "Skipping tasks to save time",
+            "Adding extra resources"
+        ],
+        "correct_answer": "Overlap between tasks to start earlier"
+    },
+    {
+        "id": 29,
+        "unit": "Unit 3",
+        "question": "Which document formally authorizes a project?",
+        "options": [
+            "Project Scope Statement",
+            "Project Plan",
+            "Project Charter",
+            "Stakeholder Register"
+        ],
+        "correct_answer": "Project Charter"
+    },
+    {
+        "id": 30,
+        "unit": "Unit 3",
+        "question": "Which of the following techniques is used for schedule compression by adding resources?",
+        "options": [
+            "Fast Tracking",
+            "Crashing",
+            "PERT",
+            "Rolling Wave Planning"
+        ],
+        "correct_answer": "Crashing"
+    },
+    {
+        "id": 31,
+        "unit": "Unit 1",
+        "question": "Which of the following best defines Project Management?",
+        "options": [
+            "Temporary effort to create a unique product, service, or result",
+            "Continuous process of manufacturing goods",
+            "Permanent function of the organization",
+            "Random set of activities without goal"
+        ],
+        "correct_answer": "Temporary effort to create a unique product, service, or result"
+    },
+    {
+        "id": 32,
+        "unit": "Unit 1",
+        "question": "Who is primarily responsible for planning, executing, and closing a project?",
+        "options": [
+            "Functional Manager",
+            "Project Sponsor",
+            "Project Manager",
+            "Stakeholder"
+        ],
+        "correct_answer": "Project Manager"
+    },
+    {
+        "id": 33,
+        "unit": "Unit 1",
+        "question": "Which of the following is NOT a characteristic of a project?",
+        "options": [
+            "Temporary nature",
+            "Unique deliverable",
+            "Ongoing repetitive process",
+            "Defined start and end date"
+        ],
+        "correct_answer": "Ongoing repetitive process"
+    },
+    {
+        "id": 34,
+        "unit": "Unit 1",
+        "question": "In Agile methodology, client involvement is:",
+        "options": [
+            "Minimal, only at the end",
+            "Continuous and active throughout the project",
+            "Only at requirement gathering stage",
+            "Not required at all"
+        ],
+        "correct_answer": "Continuous and active throughout the project"
+    },
+    {
+        "id": 35,
+        "unit": "Unit 1",
+        "question": "What does WBS stand for in project management?",
+        "options": [
+            "Work Breakdown Structure",
+            "Workflow Balanced Schedule",
+            "Work Baseline Summary",
+            "Weighted Business Schedule"
+        ],
+        "correct_answer": "Work Breakdown Structure"
+    },
+    {
+        "id": 36,
+        "unit": "Unit 1",
+        "question": "Which process includes identifying and prioritizing stakeholders?",
+        "options": [
+            "Communication Management",
+            "Stakeholder Analysis",
+            "Risk Management",
+            "Scope Verification"
+        ],
+        "correct_answer": "Stakeholder Analysis"
+    },
+    {
+        "id": 37,
+        "unit": "Unit 1",
+        "question": "Which estimating technique uses historical data from similar past projects?",
+        "options": [
+            "Parametric Estimating",
+            "Bottom-Up Estimating",
+            "Analogous Estimating",
+            "PERT Estimating"
+        ],
+        "correct_answer": "Analogous Estimating"
+    },
+    {
+        "id": 38,
+        "unit": "Unit 1",
+        "question": "What does 'Lead' in project scheduling mean?",
+        "options": [
+            "Delay before starting next task",
+            "Overlap between tasks to start earlier",
+            "Skipping tasks to save time",
+            "Adding extra resources"
+        ],
+        "correct_answer": "Overlap between tasks to start earlier"
+    },
+    {
+        "id": 39,
+        "unit": "Unit 1",
+        "question": "Which document formally authorizes a project?",
+        "options": [
+            "Project Scope Statement",
+            "Project Plan",
+            "Project Charter",
+            "Stakeholder Register"
+        ],
+        "correct_answer": "Project Charter"
+    },
+    {
+        "id": 40,
+        "unit": "Unit 1",
+        "question": "Which of the following techniques is used for schedule compression by adding resources?",
+        "options": [
+            "Fast Tracking",
+            "Crashing",
+            "PERT",
+            "Rolling Wave Planning"
+        ],
+        "correct_answer": "Crashing"
+    },
+    {
+        "id": 41,
+        "unit": "Unit 2",
+        "question": "Which of the following best defines Project Management?",
+        "options": [
+            "Temporary effort to create a unique product, service, or result",
+            "Continuous process of manufacturing goods",
+            "Permanent function of the organization",
+            "Random set of activities without goal"
+        ],
+        "correct_answer": "Temporary effort to create a unique product, service, or result"
+    },
+    {
+        "id": 42,
+        "unit": "Unit 2",
+        "question": "Who is primarily responsible for planning, executing, and closing a project?",
+        "options": [
+            "Functional Manager",
+            "Project Sponsor",
+            "Project Manager",
+            "Stakeholder"
+        ],
+        "correct_answer": "Project Manager"
+    },
+    {
+        "id": 43,
+        "unit": "Unit 2",
+        "question": "Which of the following is NOT a characteristic of a project?",
+        "options": [
+            "Temporary nature",
+            "Unique deliverable",
+            "Ongoing repetitive process",
+            "Defined start and end date"
+        ],
+        "correct_answer": "Ongoing repetitive process"
+    },
+    {
+        "id": 44,
+        "unit": "Unit 2",
+        "question": "In Agile methodology, client involvement is:",
+        "options": [
+            "Minimal, only at the end",
+            "Continuous and active throughout the project",
+            "Only at requirement gathering stage",
+            "Not required at all"
+        ],
+        "correct_answer": "Continuous and active throughout the project"
+    },
+    {
+        "id": 45,
+        "unit": "Unit 2",
+        "question": "What does WBS stand for in project management?",
+        "options": [
+            "Work Breakdown Structure",
+            "Workflow Balanced Schedule",
+            "Work Baseline Summary",
+            "Weighted Business Schedule"
+        ],
+        "correct_answer": "Work Breakdown Structure"
+    },
+    {
+        "id": 46,
+        "unit": "Unit 2",
+        "question": "Which process includes identifying and prioritizing stakeholders?",
+        "options": [
+            "Communication Management",
+            "Stakeholder Analysis",
+            "Risk Management",
+            "Scope Verification"
+        ],
+        "correct_answer": "Stakeholder Analysis"
+    },
+    {
+        "id": 47,
+        "unit": "Unit 2",
+        "question": "Which estimating technique uses historical data from similar past projects?",
+        "options": [
+            "Parametric Estimating",
+            "Bottom-Up Estimating",
+            "Analogous Estimating",
+            "PERT Estimating"
+        ],
+        "correct_answer": "Analogous Estimating"
+    },
+    {
+        "id": 48,
+        "unit": "Unit 2",
+        "question": "What does 'Lead' in project scheduling mean?",
+        "options": [
+            "Delay before starting next task",
+            "Overlap between tasks to start earlier",
+            "Skipping tasks to save time",
+            "Adding extra resources"
+        ],
+        "correct_answer": "Overlap between tasks to start earlier"
+    },
+    {
+        "id": 49,
+        "unit": "Unit 2",
+        "question": "Which document formally authorizes a project?",
+        "options": [
+            "Project Scope Statement",
+            "Project Plan",
+            "Project Charter",
+            "Stakeholder Register"
+        ],
+        "correct_answer": "Project Charter"
+    },
+    {
+        "id": 50,
+        "unit": "Unit 2",
+        "question": "Which of the following techniques is used for schedule compression by adding resources?",
+        "options": [
+            "Fast Tracking",
+            "Crashing",
+            "PERT",
+            "Rolling Wave Planning"
+        ],
+        "correct_answer": "Crashing"
+    },
+    {
+        "id": 51,
+        "unit": "Unit 3",
+        "question": "Which of the following best defines Project Management?",
+        "options": [
+            "Temporary effort to create a unique product, service, or result",
+            "Continuous process of manufacturing goods",
+            "Permanent function of the organization",
+            "Random set of activities without goal"
+        ],
+        "correct_answer": "Temporary effort to create a unique product, service, or result"
+    },
+    {
+        "id": 52,
+        "unit": "Unit 3",
+        "question": "Who is primarily responsible for planning, executing, and closing a project?",
+        "options": [
+            "Functional Manager",
+            "Project Sponsor",
+            "Project Manager",
+            "Stakeholder"
+        ],
+        "correct_answer": "Project Manager"
+    },
+    {
+        "id": 53,
+        "unit": "Unit 3",
+        "question": "Which of the following is NOT a characteristic of a project?",
+        "options": [
+            "Temporary nature",
+            "Unique deliverable",
+            "Ongoing repetitive process",
+            "Defined start and end date"
+        ],
+        "correct_answer": "Ongoing repetitive process"
+    },
+    {
+        "id": 54,
+        "unit": "Unit 3",
+        "question": "In Agile methodology, client involvement is:",
+        "options": [
+            "Minimal, only at the end",
+            "Continuous and active throughout the project",
+            "Only at requirement gathering stage",
+            "Not required at all"
+        ],
+        "correct_answer": "Continuous and active throughout the project"
+    },
+    {
+        "id": 55,
+        "unit": "Unit 3",
+        "question": "What does WBS stand for in project management?",
+        "options": [
+            "Work Breakdown Structure",
+            "Workflow Balanced Schedule",
+            "Work Baseline Summary",
+            "Weighted Business Schedule"
+        ],
+        "correct_answer": "Work Breakdown Structure"
+    },
+    {
+        "id": 56,
+        "unit": "Unit 3",
+        "question": "Which process includes identifying and prioritizing stakeholders?",
+        "options": [
+            "Communication Management",
+            "Stakeholder Analysis",
+            "Risk Management",
+            "Scope Verification"
+        ],
+        "correct_answer": "Stakeholder Analysis"
+    },
+    {
+        "id": 57,
+        "unit": "Unit 3",
+        "question": "Which estimating technique uses historical data from similar past projects?",
+        "options": [
+            "Parametric Estimating",
+            "Bottom-Up Estimating",
+            "Analogous Estimating",
+            "PERT Estimating"
+        ],
+        "correct_answer": "Analogous Estimating"
+    },
+    {
+        "id": 58,
+        "unit": "Unit 3",
+        "question": "What does 'Lead' in project scheduling mean?",
+        "options": [
+            "Delay before starting next task",
+            "Overlap between tasks to start earlier",
+            "Skipping tasks to save time",
+            "Adding extra resources"
+        ],
+        "correct_answer": "Overlap between tasks to start earlier"
+    },
+    {
+        "id": 59,
+        "unit": "Unit 3",
+        "question": "Which document formally authorizes a project?",
+        "options": [
+            "Project Scope Statement",
+            "Project Plan",
+            "Project Charter",
+            "Stakeholder Register"
+        ],
+        "correct_answer": "Project Charter"
+    },
+    {
+        "id": 60,
+        "unit": "Unit 3",
+        "question": "Which of the following techniques is used for schedule compression by adding resources?",
+        "options": [
+            "Fast Tracking",
+            "Crashing",
+            "PERT",
+            "Rolling Wave Planning"
+        ],
+        "correct_answer": "Crashing"
+    },
+    {
+        "id": 61,
+        "unit": "Unit 1",
+        "question": "Which of the following best defines Project Management?",
+        "options": [
+            "Temporary effort to create a unique product, service, or result",
+            "Continuous process of manufacturing goods",
+            "Permanent function of the organization",
+            "Random set of activities without goal"
+        ],
+        "correct_answer": "Temporary effort to create a unique product, service, or result"
+    },
+    {
+        "id": 62,
+        "unit": "Unit 1",
+        "question": "Who is primarily responsible for planning, executing, and closing a project?",
+        "options": [
+            "Functional Manager",
+            "Project Sponsor",
+            "Project Manager",
+            "Stakeholder"
+        ],
+        "correct_answer": "Project Manager"
+    },
+    {
+        "id": 63,
+        "unit": "Unit 1",
+        "question": "Which of the following is NOT a characteristic of a project?",
+        "options": [
+            "Temporary nature",
+            "Unique deliverable",
+            "Ongoing repetitive process",
+            "Defined start and end date"
+        ],
+        "correct_answer": "Ongoing repetitive process"
+    },
+    {
+        "id": 64,
+        "unit": "Unit 1",
+        "question": "In Agile methodology, client involvement is:",
+        "options": [
+            "Minimal, only at the end",
+            "Continuous and active throughout the project",
+            "Only at requirement gathering stage",
+            "Not required at all"
+        ],
+        "correct_answer": "Continuous and active throughout the project"
+    },
+    {
+        "id": 65,
+        "unit": "Unit 1",
+        "question": "What does WBS stand for in project management?",
+        "options": [
+            "Work Breakdown Structure",
+            "Workflow Balanced Schedule",
+            "Work Baseline Summary",
+            "Weighted Business Schedule"
+        ],
+        "correct_answer": "Work Breakdown Structure"
+    },
+    {
+        "id": 66,
+        "unit": "Unit 1",
+        "question": "Which process includes identifying and prioritizing stakeholders?",
+        "options": [
+            "Communication Management",
+            "Stakeholder Analysis",
+            "Risk Management",
+            "Scope Verification"
+        ],
+        "correct_answer": "Stakeholder Analysis"
+    },
+    {
+        "id": 67,
+        "unit": "Unit 1",
+        "question": "Which estimating technique uses historical data from similar past projects?",
+        "options": [
+            "Parametric Estimating",
+            "Bottom-Up Estimating",
+            "Analogous Estimating",
+            "PERT Estimating"
+        ],
+        "correct_answer": "Analogous Estimating"
+    },
+    {
+        "id": 68,
+        "unit": "Unit 1",
+        "question": "What does 'Lead' in project scheduling mean?",
+        "options": [
+            "Delay before starting next task",
+            "Overlap between tasks to start earlier",
+            "Skipping tasks to save time",
+            "Adding extra resources"
+        ],
+        "correct_answer": "Overlap between tasks to start earlier"
+    },
+    {
+        "id": 69,
+        "unit": "Unit 1",
+        "question": "Which document formally authorizes a project?",
+        "options": [
+            "Project Scope Statement",
+            "Project Plan",
+            "Project Charter",
+            "Stakeholder Register"
+        ],
+        "correct_answer": "Project Charter"
+    },
+    {
+        "id": 70,
+        "unit": "Unit 1",
+        "question": "Which of the following techniques is used for schedule compression by adding resources?",
+        "options": [
+            "Fast Tracking",
+            "Crashing",
+            "PERT",
+            "Rolling Wave Planning"
+        ],
+        "correct_answer": "Crashing"
+    },
+    {
+        "id": 71,
+        "unit": "Unit 2",
+        "question": "Which of the following best defines Project Management?",
+        "options": [
+            "Temporary effort to create a unique product, service, or result",
+            "Continuous process of manufacturing goods",
+            "Permanent function of the organization",
+            "Random set of activities without goal"
+        ],
+        "correct_answer": "Temporary effort to create a unique product, service, or result"
+    },
+    {
+        "id": 72,
+        "unit": "Unit 2",
+        "question": "Who is primarily responsible for planning, executing, and closing a project?",
+        "options": [
+            "Functional Manager",
+            "Project Sponsor",
+            "Project Manager",
+            "Stakeholder"
+        ],
+        "correct_answer": "Project Manager"
+    },
+    {
+        "id": 73,
+        "unit": "Unit 2",
+        "question": "Which of the following is NOT a characteristic of a project?",
+        "options": [
+            "Temporary nature",
+            "Unique deliverable",
+            "Ongoing repetitive process",
+            "Defined start and end date"
+        ],
+        "correct_answer": "Ongoing repetitive process"
+    },
+    {
+        "id": 74,
+        "unit": "Unit 2",
+        "question": "In Agile methodology, client involvement is:",
+        "options": [
+            "Minimal, only at the end",
+            "Continuous and active throughout the project",
+            "Only at requirement gathering stage",
+            "Not required at all"
+        ],
+        "correct_answer": "Continuous and active throughout the project"
+    },
+    {
+        "id": 75,
+        "unit": "Unit 2",
+        "question": "What does WBS stand for in project management?",
+        "options": [
+            "Work Breakdown Structure",
+            "Workflow Balanced Schedule",
+            "Work Baseline Summary",
+            "Weighted Business Schedule"
+        ],
+        "correct_answer": "Work Breakdown Structure"
+    },
+    {
+        "id": 76,
+        "unit": "Unit 2",
+        "question": "Which process includes identifying and prioritizing stakeholders?",
+        "options": [
+            "Communication Management",
+            "Stakeholder Analysis",
+            "Risk Management",
+            "Scope Verification"
+        ],
+        "correct_answer": "Stakeholder Analysis"
+    },
+    {
+        "id": 77,
+        "unit": "Unit 2",
+        "question": "Which estimating technique uses historical data from similar past projects?",
+        "options": [
+            "Parametric Estimating",
+            "Bottom-Up Estimating",
+            "Analogous Estimating",
+            "PERT Estimating"
+        ],
+        "correct_answer": "Analogous Estimating"
+    },
+    {
+        "id": 78,
+        "unit": "Unit 2",
+        "question": "What does 'Lead' in project scheduling mean?",
+        "options": [
+            "Delay before starting next task",
+            "Overlap between tasks to start earlier",
+            "Skipping tasks to save time",
+            "Adding extra resources"
+        ],
+        "correct_answer": "Overlap between tasks to start earlier"
+    },
+    {
+        "id": 79,
+        "unit": "Unit 2",
+        "question": "Which document formally authorizes a project?",
+        "options": [
+            "Project Scope Statement",
+            "Project Plan",
+            "Project Charter",
+            "Stakeholder Register"
+        ],
+        "correct_answer": "Project Charter"
+    },
+    {
+        "id": 80,
+        "unit": "Unit 2",
+        "question": "Which of the following techniques is used for schedule compression by adding resources?",
+        "options": [
+            "Fast Tracking",
+            "Crashing",
+            "PERT",
+            "Rolling Wave Planning"
+        ],
+        "correct_answer": "Crashing"
+    },
+    {
+        "id": 81,
+        "unit": "Unit 3",
+        "question": "Which of the following best defines Project Management?",
+        "options": [
+            "Temporary effort to create a unique product, service, or result",
+            "Continuous process of manufacturing goods",
+            "Permanent function of the organization",
+            "Random set of activities without goal"
+        ],
+        "correct_answer": "Temporary effort to create a unique product, service, or result"
+    },
+    {
+        "id": 82,
+        "unit": "Unit 3",
+        "question": "Who is primarily responsible for planning, executing, and closing a project?",
+        "options": [
+            "Functional Manager",
+            "Project Sponsor",
+            "Project Manager",
+            "Stakeholder"
+        ],
+        "correct_answer": "Project Manager"
+    },
+    {
+        "id": 83,
+        "unit": "Unit 3",
+        "question": "Which of the following is NOT a characteristic of a project?",
+        "options": [
+            "Temporary nature",
+            "Unique deliverable",
+            "Ongoing repetitive process",
+            "Defined start and end date"
+        ],
+        "correct_answer": "Ongoing repetitive process"
+    },
+    {
+        "id": 84,
+        "unit": "Unit 3",
+        "question": "In Agile methodology, client involvement is:",
+        "options": [
+            "Minimal, only at the end",
+            "Continuous and active throughout the project",
+            "Only at requirement gathering stage",
+            "Not required at all"
+        ],
+        "correct_answer": "Continuous and active throughout the project"
+    },
+    {
+        "id": 85,
+        "unit": "Unit 3",
+        "question": "What does WBS stand for in project management?",
+        "options": [
+            "Work Breakdown Structure",
+            "Workflow Balanced Schedule",
+            "Work Baseline Summary",
+            "Weighted Business Schedule"
+        ],
+        "correct_answer": "Work Breakdown Structure"
+    },
+    {
+        "id": 86,
+        "unit": "Unit 3",
+        "question": "Which process includes identifying and prioritizing stakeholders?",
+        "options": [
+            "Communication Management",
+            "Stakeholder Analysis",
+            "Risk Management",
+            "Scope Verification"
+        ],
+        "correct_answer": "Stakeholder Analysis"
+    },
+    {
+        "id": 87,
+        "unit": "Unit 3",
+        "question": "Which estimating technique uses historical data from similar past projects?",
+        "options": [
+            "Parametric Estimating",
+            "Bottom-Up Estimating",
+            "Analogous Estimating",
+            "PERT Estimating"
+        ],
+        "correct_answer": "Analogous Estimating"
+    },
+    {
+        "id": 88,
+        "unit": "Unit 3",
+        "question": "What does 'Lead' in project scheduling mean?",
+        "options": [
+            "Delay before starting next task",
+            "Overlap between tasks to start earlier",
+            "Skipping tasks to save time",
+            "Adding extra resources"
+        ],
+        "correct_answer": "Overlap between tasks to start earlier"
+    },
+    {
+        "id": 89,
+        "unit": "Unit 3",
+        "question": "Which document formally authorizes a project?",
+        "options": [
+            "Project Scope Statement",
+            "Project Plan",
+            "Project Charter",
+            "Stakeholder Register"
+        ],
+        "correct_answer": "Project Charter"
+    },
+    {
+        "id": 90,
+        "unit": "Unit 3",
+        "question": "Which of the following techniques is used for schedule compression by adding resources?",
+        "options": [
+            "Fast Tracking",
+            "Crashing",
+            "PERT",
+            "Rolling Wave Planning"
+        ],
+        "correct_answer": "Crashing"
+    },
+    {
+        "id": 91,
+        "unit": "Unit 1",
+        "question": "Which of the following best defines Project Management?",
+        "options": [
+            "Temporary effort to create a unique product, service, or result",
+            "Continuous process of manufacturing goods",
+            "Permanent function of the organization",
+            "Random set of activities without goal"
+        ],
+        "correct_answer": "Temporary effort to create a unique product, service, or result"
+    },
+    {
+        "id": 92,
+        "unit": "Unit 1",
+        "question": "Who is primarily responsible for planning, executing, and closing a project?",
+        "options": [
+            "Functional Manager",
+            "Project Sponsor",
+            "Project Manager",
+            "Stakeholder"
+        ],
+        "correct_answer": "Project Manager"
+    },
+    {
+        "id": 93,
+        "unit": "Unit 1",
+        "question": "Which of the following is NOT a characteristic of a project?",
+        "options": [
+            "Temporary nature",
+            "Unique deliverable",
+            "Ongoing repetitive process",
+            "Defined start and end date"
+        ],
+        "correct_answer": "Ongoing repetitive process"
+    },
+    {
+        "id": 94,
+        "unit": "Unit 1",
+        "question": "In Agile methodology, client involvement is:",
+        "options": [
+            "Minimal, only at the end",
+            "Continuous and active throughout the project",
+            "Only at requirement gathering stage",
+            "Not required at all"
+        ],
+        "correct_answer": "Continuous and active throughout the project"
+    },
+    {
+        "id": 95,
+        "unit": "Unit 1",
+        "question": "What does WBS stand for in project management?",
+        "options": [
+            "Work Breakdown Structure",
+            "Workflow Balanced Schedule",
+            "Work Baseline Summary",
+            "Weighted Business Schedule"
+        ],
+        "correct_answer": "Work Breakdown Structure"
+    },
+    {
+        "id": 96,
+        "unit": "Unit 1",
+        "question": "Which process includes identifying and prioritizing stakeholders?",
+        "options": [
+            "Communication Management",
+            "Stakeholder Analysis",
+            "Risk Management",
+            "Scope Verification"
+        ],
+        "correct_answer": "Stakeholder Analysis"
+    },
+    {
+        "id": 97,
+        "unit": "Unit 1",
+        "question": "Which estimating technique uses historical data from similar past projects?",
+        "options": [
+            "Parametric Estimating",
+            "Bottom-Up Estimating",
+            "Analogous Estimating",
+            "PERT Estimating"
+        ],
+        "correct_answer": "Analogous Estimating"
+    },
+    {
+        "id": 98,
+        "unit": "Unit 1",
+        "question": "What does 'Lead' in project scheduling mean?",
+        "options": [
+            "Delay before starting next task",
+            "Overlap between tasks to start earlier",
+            "Skipping tasks to save time",
+            "Adding extra resources"
+        ],
+        "correct_answer": "Overlap between tasks to start earlier"
+    },
+    {
+        "id": 99,
+        "unit": "Unit 1",
+        "question": "Which document formally authorizes a project?",
+        "options": [
+            "Project Scope Statement",
+            "Project Plan",
+            "Project Charter",
+            "Stakeholder Register"
+        ],
+        "correct_answer": "Project Charter"
+    },
+    {
+        "id": 100,
+        "unit": "Unit 1",
+        "question": "Which of the following techniques is used for schedule compression by adding resources?",
+        "options": [
+            "Fast Tracking",
+            "Crashing",
+            "PERT",
+            "Rolling Wave Planning"
+        ],
+        "correct_answer": "Crashing"
+    },
+    {
+        "id": 101,
+        "unit": "Unit 2",
+        "question": "Which of the following best defines Project Management?",
+        "options": [
+            "Temporary effort to create a unique product, service, or result",
+            "Continuous process of manufacturing goods",
+            "Permanent function of the organization",
+            "Random set of activities without goal"
+        ],
+        "correct_answer": "Temporary effort to create a unique product, service, or result"
+    },
+    {
+        "id": 102,
+        "unit": "Unit 2",
+        "question": "Who is primarily responsible for planning, executing, and closing a project?",
+        "options": [
+            "Functional Manager",
+            "Project Sponsor",
+            "Project Manager",
+            "Stakeholder"
+        ],
+        "correct_answer": "Project Manager"
+    },
+    {
+        "id": 103,
+        "unit": "Unit 2",
+        "question": "Which of the following is NOT a characteristic of a project?",
+        "options": [
+            "Temporary nature",
+            "Unique deliverable",
+            "Ongoing repetitive process",
+            "Defined start and end date"
+        ],
+        "correct_answer": "Ongoing repetitive process"
+    },
+    {
+        "id": 104,
+        "unit": "Unit 2",
+        "question": "In Agile methodology, client involvement is:",
+        "options": [
+            "Minimal, only at the end",
+            "Continuous and active throughout the project",
+            "Only at requirement gathering stage",
+            "Not required at all"
+        ],
+        "correct_answer": "Continuous and active throughout the project"
+    },
+    {
+        "id": 105,
+        "unit": "Unit 2",
+        "question": "What does WBS stand for in project management?",
+        "options": [
+            "Work Breakdown Structure",
+            "Workflow Balanced Schedule",
+            "Work Baseline Summary",
+            "Weighted Business Schedule"
+        ],
+        "correct_answer": "Work Breakdown Structure"
+    },
+    {
+        "id": 106,
+        "unit": "Unit 2",
+        "question": "Which process includes identifying and prioritizing stakeholders?",
+        "options": [
+            "Communication Management",
+            "Stakeholder Analysis",
+            "Risk Management",
+            "Scope Verification"
+        ],
+        "correct_answer": "Stakeholder Analysis"
+    },
+    {
+        "id": 107,
+        "unit": "Unit 2",
+        "question": "Which estimating technique uses historical data from similar past projects?",
+        "options": [
+            "Parametric Estimating",
+            "Bottom-Up Estimating",
+            "Analogous Estimating",
+            "PERT Estimating"
+        ],
+        "correct_answer": "Analogous Estimating"
+    },
+    {
+        "id": 108,
+        "unit": "Unit 2",
+        "question": "What does 'Lead' in project scheduling mean?",
+        "options": [
+            "Delay before starting next task",
+            "Overlap between tasks to start earlier",
+            "Skipping tasks to save time",
+            "Adding extra resources"
+        ],
+        "correct_answer": "Overlap between tasks to start earlier"
+    },
+    {
+        "id": 109,
+        "unit": "Unit 2",
+        "question": "Which document formally authorizes a project?",
+        "options": [
+            "Project Scope Statement",
+            "Project Plan",
+            "Project Charter",
+            "Stakeholder Register"
+        ],
+        "correct_answer": "Project Charter"
+    },
+    {
+        "id": 110,
+        "unit": "Unit 2",
+        "question": "Which of the following techniques is used for schedule compression by adding resources?",
+        "options": [
+            "Fast Tracking",
+            "Crashing",
+            "PERT",
+            "Rolling Wave Planning"
+        ],
+        "correct_answer": "Crashing"
+    },
+    {
+        "id": 111,
+        "unit": "Unit 3",
+        "question": "Which of the following best defines Project Management?",
+        "options": [
+            "Temporary effort to create a unique product, service, or result",
+            "Continuous process of manufacturing goods",
+            "Permanent function of the organization",
+            "Random set of activities without goal"
+        ],
+        "correct_answer": "Temporary effort to create a unique product, service, or result"
+    },
+    {
+        "id": 112,
+        "unit": "Unit 3",
+        "question": "Who is primarily responsible for planning, executing, and closing a project?",
+        "options": [
+            "Functional Manager",
+            "Project Sponsor",
+            "Project Manager",
+            "Stakeholder"
+        ],
+        "correct_answer": "Project Manager"
+    },
+    {
+        "id": 113,
+        "unit": "Unit 3",
+        "question": "Which of the following is NOT a characteristic of a project?",
+        "options": [
+            "Temporary nature",
+            "Unique deliverable",
+            "Ongoing repetitive process",
+            "Defined start and end date"
+        ],
+        "correct_answer": "Ongoing repetitive process"
+    },
+    {
+        "id": 114,
+        "unit": "Unit 3",
+        "question": "In Agile methodology, client involvement is:",
+        "options": [
+            "Minimal, only at the end",
+            "Continuous and active throughout the project",
+            "Only at requirement gathering stage",
+            "Not required at all"
+        ],
+        "correct_answer": "Continuous and active throughout the project"
+    },
+    {
+        "id": 115,
+        "unit": "Unit 3",
+        "question": "What does WBS stand for in project management?",
+        "options": [
+            "Work Breakdown Structure",
+            "Workflow Balanced Schedule",
+            "Work Baseline Summary",
+            "Weighted Business Schedule"
+        ],
+        "correct_answer": "Work Breakdown Structure"
+    },
+    {
+        "id": 116,
+        "unit": "Unit 3",
+        "question": "Which process includes identifying and prioritizing stakeholders?",
+        "options": [
+            "Communication Management",
+            "Stakeholder Analysis",
+            "Risk Management",
+            "Scope Verification"
+        ],
+        "correct_answer": "Stakeholder Analysis"
+    },
+    {
+        "id": 117,
+        "unit": "Unit 3",
+        "question": "Which estimating technique uses historical data from similar past projects?",
+        "options": [
+            "Parametric Estimating",
+            "Bottom-Up Estimating",
+            "Analogous Estimating",
+            "PERT Estimating"
+        ],
+        "correct_answer": "Analogous Estimating"
+    },
+    {
+        "id": 118,
+        "unit": "Unit 3",
+        "question": "What does 'Lead' in project scheduling mean?",
+        "options": [
+            "Delay before starting next task",
+            "Overlap between tasks to start earlier",
+            "Skipping tasks to save time",
+            "Adding extra resources"
+        ],
+        "correct_answer": "Overlap between tasks to start earlier"
+    },
+    {
+        "id": 119,
+        "unit": "Unit 3",
+        "question": "Which document formally authorizes a project?",
+        "options": [
+            "Project Scope Statement",
+            "Project Plan",
+            "Project Charter",
+            "Stakeholder Register"
+        ],
+        "correct_answer": "Project Charter"
+    },
+    {
+        "id": 120,
+        "unit": "Unit 3",
+        "question": "Which of the following techniques is used for schedule compression by adding resources?",
+        "options": [
+            "Fast Tracking",
+            "Crashing",
+            "PERT",
+            "Rolling Wave Planning"
+        ],
+        "correct_answer": "Crashing"
+    },
+    {
+        "id": 121,
+        "unit": "Unit 1",
+        "question": "Which of the following best defines Project Management?",
+        "options": [
+            "Temporary effort to create a unique product, service, or result",
+            "Continuous process of manufacturing goods",
+            "Permanent function of the organization",
+            "Random set of activities without goal"
+        ],
+        "correct_answer": "Temporary effort to create a unique product, service, or result"
+    },
+    {
+        "id": 122,
+        "unit": "Unit 1",
+        "question": "Who is primarily responsible for planning, executing, and closing a project?",
+        "options": [
+            "Functional Manager",
+            "Project Sponsor",
+            "Project Manager",
+            "Stakeholder"
+        ],
+        "correct_answer": "Project Manager"
+    },
+    {
+        "id": 123,
+        "unit": "Unit 1",
+        "question": "Which of the following is NOT a characteristic of a project?",
+        "options": [
+            "Temporary nature",
+            "Unique deliverable",
+            "Ongoing repetitive process",
+            "Defined start and end date"
+        ],
+        "correct_answer": "Ongoing repetitive process"
+    },
+    {
+        "id": 124,
+        "unit": "Unit 1",
+        "question": "In Agile methodology, client involvement is:",
+        "options": [
+            "Minimal, only at the end",
+            "Continuous and active throughout the project",
+            "Only at requirement gathering stage",
+            "Not required at all"
+        ],
+        "correct_answer": "Continuous and active throughout the project"
+    },
+    {
+        "id": 125,
+        "unit": "Unit 1",
+        "question": "What does WBS stand for in project management?",
+        "options": [
+            "Work Breakdown Structure",
+            "Workflow Balanced Schedule",
+            "Work Baseline Summary",
+            "Weighted Business Schedule"
+        ],
+        "correct_answer": "Work Breakdown Structure"
+    },
+    {
+        "id": 126,
+        "unit": "Unit 1",
+        "question": "Which process includes identifying and prioritizing stakeholders?",
+        "options": [
+            "Communication Management",
+            "Stakeholder Analysis",
+            "Risk Management",
+            "Scope Verification"
+        ],
+        "correct_answer": "Stakeholder Analysis"
+    },
+    {
+        "id": 127,
+        "unit": "Unit 1",
+        "question": "Which estimating technique uses historical data from similar past projects?",
+        "options": [
+            "Parametric Estimating",
+            "Bottom-Up Estimating",
+            "Analogous Estimating",
+            "PERT Estimating"
+        ],
+        "correct_answer": "Analogous Estimating"
+    },
+    {
+        "id": 128,
+        "unit": "Unit 1",
+        "question": "What does 'Lead' in project scheduling mean?",
+        "options": [
+            "Delay before starting next task",
+            "Overlap between tasks to start earlier",
+            "Skipping tasks to save time",
+            "Adding extra resources"
+        ],
+        "correct_answer": "Overlap between tasks to start earlier"
+    },
+    {
+        "id": 129,
+        "unit": "Unit 1",
+        "question": "Which document formally authorizes a project?",
+        "options": [
+            "Project Scope Statement",
+            "Project Plan",
+            "Project Charter",
+            "Stakeholder Register"
+        ],
+        "correct_answer": "Project Charter"
+    },
+    {
+        "id": 130,
+        "unit": "Unit 1",
+        "question": "Which of the following techniques is used for schedule compression by adding resources?",
+        "options": [
+            "Fast Tracking",
+            "Crashing",
+            "PERT",
+            "Rolling Wave Planning"
+        ],
+        "correct_answer": "Crashing"
+    },
+    {
+        "id": 131,
+        "unit": "Unit 2",
+        "question": "Which of the following best defines Project Management?",
+        "options": [
+            "Temporary effort to create a unique product, service, or result",
+            "Continuous process of manufacturing goods",
+            "Permanent function of the organization",
+            "Random set of activities without goal"
+        ],
+        "correct_answer": "Temporary effort to create a unique product, service, or result"
+    },
+    {
+        "id": 132,
+        "unit": "Unit 2",
+        "question": "Who is primarily responsible for planning, executing, and closing a project?",
+        "options": [
+            "Functional Manager",
+            "Project Sponsor",
+            "Project Manager",
+            "Stakeholder"
+        ],
+        "correct_answer": "Project Manager"
+    },
+    {
+        "id": 133,
+        "unit": "Unit 2",
+        "question": "Which of the following is NOT a characteristic of a project?",
+        "options": [
+            "Temporary nature",
+            "Unique deliverable",
+            "Ongoing repetitive process",
+            "Defined start and end date"
+        ],
+        "correct_answer": "Ongoing repetitive process"
+    },
+    {
+        "id": 134,
+        "unit": "Unit 2",
+        "question": "In Agile methodology, client involvement is:",
+        "options": [
+            "Minimal, only at the end",
+            "Continuous and active throughout the project",
+            "Only at requirement gathering stage",
+            "Not required at all"
+        ],
+        "correct_answer": "Continuous and active throughout the project"
+    },
+    {
+        "id": 135,
+        "unit": "Unit 2",
+        "question": "What does WBS stand for in project management?",
+        "options": [
+            "Work Breakdown Structure",
+            "Workflow Balanced Schedule",
+            "Work Baseline Summary",
+            "Weighted Business Schedule"
+        ],
+        "correct_answer": "Work Breakdown Structure"
+    },
+    {
+        "id": 136,
+        "unit": "Unit 2",
+        "question": "Which process includes identifying and prioritizing stakeholders?",
+        "options": [
+            "Communication Management",
+            "Stakeholder Analysis",
+            "Risk Management",
+            "Scope Verification"
+        ],
+        "correct_answer": "Stakeholder Analysis"
+    },
+    {
+        "id": 137,
+        "unit": "Unit 2",
+        "question": "Which estimating technique uses historical data from similar past projects?",
+        "options": [
+            "Parametric Estimating",
+            "Bottom-Up Estimating",
+            "Analogous Estimating",
+            "PERT Estimating"
+        ],
+        "correct_answer": "Analogous Estimating"
+    },
+    {
+        "id": 138,
+        "unit": "Unit 2",
+        "question": "What does 'Lead' in project scheduling mean?",
+        "options": [
+            "Delay before starting next task",
+            "Overlap between tasks to start earlier",
+            "Skipping tasks to save time",
+            "Adding extra resources"
+        ],
+        "correct_answer": "Overlap between tasks to start earlier"
+    },
+    {
+        "id": 139,
+        "unit": "Unit 2",
+        "question": "Which document formally authorizes a project?",
+        "options": [
+            "Project Scope Statement",
+            "Project Plan",
+            "Project Charter",
+            "Stakeholder Register"
+        ],
+        "correct_answer": "Project Charter"
+    },
+    {
+        "id": 140,
+        "unit": "Unit 2",
+        "question": "Which of the following techniques is used for schedule compression by adding resources?",
+        "options": [
+            "Fast Tracking",
+            "Crashing",
+            "PERT",
+            "Rolling Wave Planning"
+        ],
+        "correct_answer": "Crashing"
+    },
+    {
+        "id": 141,
+        "unit": "Unit 3",
+        "question": "Which of the following best defines Project Management?",
+        "options": [
+            "Temporary effort to create a unique product, service, or result",
+            "Continuous process of manufacturing goods",
+            "Permanent function of the organization",
+            "Random set of activities without goal"
+        ],
+        "correct_answer": "Temporary effort to create a unique product, service, or result"
+    },
+    {
+        "id": 142,
+        "unit": "Unit 3",
+        "question": "Who is primarily responsible for planning, executing, and closing a project?",
+        "options": [
+            "Functional Manager",
+            "Project Sponsor",
+            "Project Manager",
+            "Stakeholder"
+        ],
+        "correct_answer": "Project Manager"
+    },
+    {
+        "id": 143,
+        "unit": "Unit 3",
+        "question": "Which of the following is NOT a characteristic of a project?",
+        "options": [
+            "Temporary nature",
+            "Unique deliverable",
+            "Ongoing repetitive process",
+            "Defined start and end date"
+        ],
+        "correct_answer": "Ongoing repetitive process"
+    },
+    {
+        "id": 144,
+        "unit": "Unit 3",
+        "question": "In Agile methodology, client involvement is:",
+        "options": [
+            "Minimal, only at the end",
+            "Continuous and active throughout the project",
+            "Only at requirement gathering stage",
+            "Not required at all"
+        ],
+        "correct_answer": "Continuous and active throughout the project"
+    },
+    {
+        "id": 145,
+        "unit": "Unit 3",
+        "question": "What does WBS stand for in project management?",
+        "options": [
+            "Work Breakdown Structure",
+            "Workflow Balanced Schedule",
+            "Work Baseline Summary",
+            "Weighted Business Schedule"
+        ],
+        "correct_answer": "Work Breakdown Structure"
+    },
+    {
+        "id": 146,
+        "unit": "Unit 3",
+        "question": "Which process includes identifying and prioritizing stakeholders?",
+        "options": [
+            "Communication Management",
+            "Stakeholder Analysis",
+            "Risk Management",
+            "Scope Verification"
+        ],
+        "correct_answer": "Stakeholder Analysis"
+    },
+    {
+        "id": 147,
+        "unit": "Unit 3",
+        "question": "Which estimating technique uses historical data from similar past projects?",
+        "options": [
+            "Parametric Estimating",
+            "Bottom-Up Estimating",
+            "Analogous Estimating",
+            "PERT Estimating"
+        ],
+        "correct_answer": "Analogous Estimating"
+    },
+    {
+        "id": 148,
+        "unit": "Unit 3",
+        "question": "What does 'Lead' in project scheduling mean?",
+        "options": [
+            "Delay before starting next task",
+            "Overlap between tasks to start earlier",
+            "Skipping tasks to save time",
+            "Adding extra resources"
+        ],
+        "correct_answer": "Overlap between tasks to start earlier"
+    },
+    {
+        "id": 149,
+        "unit": "Unit 3",
+        "question": "Which document formally authorizes a project?",
+        "options": [
+            "Project Scope Statement",
+            "Project Plan",
+            "Project Charter",
+            "Stakeholder Register"
+        ],
+        "correct_answer": "Project Charter"
+    },
+    {
+        "id": 150,
+        "unit": "Unit 3",
+        "question": "Which of the following techniques is used for schedule compression by adding resources?",
+        "options": [
+            "Fast Tracking",
+            "Crashing",
+            "PERT",
+            "Rolling Wave Planning"
+        ],
+        "correct_answer": "Crashing"
+    },
+    {
+        "id": 151,
+        "unit": "Unit 1",
+        "question": "Which of the following best defines Project Management?",
+        "options": [
+            "Temporary effort to create a unique product, service, or result",
+            "Continuous process of manufacturing goods",
+            "Permanent function of the organization",
+            "Random set of activities without goal"
+        ],
+        "correct_answer": "Temporary effort to create a unique product, service, or result"
+    },
+    {
+        "id": 152,
+        "unit": "Unit 1",
+        "question": "Who is primarily responsible for planning, executing, and closing a project?",
+        "options": [
+            "Functional Manager",
+            "Project Sponsor",
+            "Project Manager",
+            "Stakeholder"
+        ],
+        "correct_answer": "Project Manager"
+    },
+    {
+        "id": 153,
+        "unit": "Unit 1",
+        "question": "Which of the following is NOT a characteristic of a project?",
+        "options": [
+            "Temporary nature",
+            "Unique deliverable",
+            "Ongoing repetitive process",
+            "Defined start and end date"
+        ],
+        "correct_answer": "Ongoing repetitive process"
+    },
+    {
+        "id": 154,
+        "unit": "Unit 1",
+        "question": "In Agile methodology, client involvement is:",
+        "options": [
+            "Minimal, only at the end",
+            "Continuous and active throughout the project",
+            "Only at requirement gathering stage",
+            "Not required at all"
+        ],
+        "correct_answer": "Continuous and active throughout the project"
+    },
+    {
+        "id": 155,
+        "unit": "Unit 1",
+        "question": "What does WBS stand for in project management?",
+        "options": [
+            "Work Breakdown Structure",
+            "Workflow Balanced Schedule",
+            "Work Baseline Summary",
+            "Weighted Business Schedule"
+        ],
+        "correct_answer": "Work Breakdown Structure"
+    },
+    {
+        "id": 156,
+        "unit": "Unit 1",
+        "question": "Which process includes identifying and prioritizing stakeholders?",
+        "options": [
+            "Communication Management",
+            "Stakeholder Analysis",
+            "Risk Management",
+            "Scope Verification"
+        ],
+        "correct_answer": "Stakeholder Analysis"
+    },
+    {
+        "id": 157,
+        "unit": "Unit 1",
+        "question": "Which estimating technique uses historical data from similar past projects?",
+        "options": [
+            "Parametric Estimating",
+            "Bottom-Up Estimating",
+            "Analogous Estimating",
+            "PERT Estimating"
+        ],
+        "correct_answer": "Analogous Estimating"
+    },
+    {
+        "id": 158,
+        "unit": "Unit 1",
+        "question": "What does 'Lead' in project scheduling mean?",
+        "options": [
+            "Delay before starting next task",
+            "Overlap between tasks to start earlier",
+            "Skipping tasks to save time",
+            "Adding extra resources"
+        ],
+        "correct_answer": "Overlap between tasks to start earlier"
+    },
+    {
+        "id": 159,
+        "unit": "Unit 1",
+        "question": "Which document formally authorizes a project?",
+        "options": [
+            "Project Scope Statement",
+            "Project Plan",
+            "Project Charter",
+            "Stakeholder Register"
+        ],
+        "correct_answer": "Project Charter"
+    },
+    {
+        "id": 160,
+        "unit": "Unit 1",
+        "question": "Which of the following techniques is used for schedule compression by adding resources?",
+        "options": [
+            "Fast Tracking",
+            "Crashing",
+            "PERT",
+            "Rolling Wave Planning"
+        ],
+        "correct_answer": "Crashing"
+    },
+    {
+        "id": 161,
+        "unit": "Unit 2",
+        "question": "Which of the following best defines Project Management?",
+        "options": [
+            "Temporary effort to create a unique product, service, or result",
+            "Continuous process of manufacturing goods",
+            "Permanent function of the organization",
+            "Random set of activities without goal"
+        ],
+        "correct_answer": "Temporary effort to create a unique product, service, or result"
+    },
+    {
+        "id": 162,
+        "unit": "Unit 2",
+        "question": "Who is primarily responsible for planning, executing, and closing a project?",
+        "options": [
+            "Functional Manager",
+            "Project Sponsor",
+            "Project Manager",
+            "Stakeholder"
+        ],
+        "correct_answer": "Project Manager"
+    },
+    {
+        "id": 163,
+        "unit": "Unit 2",
+        "question": "Which of the following is NOT a characteristic of a project?",
+        "options": [
+            "Temporary nature",
+            "Unique deliverable",
+            "Ongoing repetitive process",
+            "Defined start and end date"
+        ],
+        "correct_answer": "Ongoing repetitive process"
+    },
+    {
+        "id": 164,
+        "unit": "Unit 2",
+        "question": "In Agile methodology, client involvement is:",
+        "options": [
+            "Minimal, only at the end",
+            "Continuous and active throughout the project",
+            "Only at requirement gathering stage",
+            "Not required at all"
+        ],
+        "correct_answer": "Continuous and active throughout the project"
+    },
+    {
+        "id": 165,
+        "unit": "Unit 2",
+        "question": "What does WBS stand for in project management?",
+        "options": [
+            "Work Breakdown Structure",
+            "Workflow Balanced Schedule",
+            "Work Baseline Summary",
+            "Weighted Business Schedule"
+        ],
+        "correct_answer": "Work Breakdown Structure"
+    },
+    {
+        "id": 166,
+        "unit": "Unit 2",
+        "question": "Which process includes identifying and prioritizing stakeholders?",
+        "options": [
+            "Communication Management",
+            "Stakeholder Analysis",
+            "Risk Management",
+            "Scope Verification"
+        ],
+        "correct_answer": "Stakeholder Analysis"
+    },
+    {
+        "id": 167,
+        "unit": "Unit 2",
+        "question": "Which estimating technique uses historical data from similar past projects?",
+        "options": [
+            "Parametric Estimating",
+            "Bottom-Up Estimating",
+            "Analogous Estimating",
+            "PERT Estimating"
+        ],
+        "correct_answer": "Analogous Estimating"
+    },
+    {
+        "id": 168,
+        "unit": "Unit 2",
+        "question": "What does 'Lead' in project scheduling mean?",
+        "options": [
+            "Delay before starting next task",
+            "Overlap between tasks to start earlier",
+            "Skipping tasks to save time",
+            "Adding extra resources"
+        ],
+        "correct_answer": "Overlap between tasks to start earlier"
+    },
+    {
+        "id": 169,
+        "unit": "Unit 2",
+        "question": "Which document formally authorizes a project?",
+        "options": [
+            "Project Scope Statement",
+            "Project Plan",
+            "Project Charter",
+            "Stakeholder Register"
+        ],
+        "correct_answer": "Project Charter"
+    },
+    {
+        "id": 170,
+        "unit": "Unit 2",
+        "question": "Which of the following techniques is used for schedule compression by adding resources?",
+        "options": [
+            "Fast Tracking",
+            "Crashing",
+            "PERT",
+            "Rolling Wave Planning"
+        ],
+        "correct_answer": "Crashing"
+    },
+    {
+        "id": 171,
+        "unit": "Unit 3",
+        "question": "Which of the following best defines Project Management?",
+        "options": [
+            "Temporary effort to create a unique product, service, or result",
+            "Continuous process of manufacturing goods",
+            "Permanent function of the organization",
+            "Random set of activities without goal"
+        ],
+        "correct_answer": "Temporary effort to create a unique product, service, or result"
+    },
+    {
+        "id": 172,
+        "unit": "Unit 3",
+        "question": "Who is primarily responsible for planning, executing, and closing a project?",
+        "options": [
+            "Functional Manager",
+            "Project Sponsor",
+            "Project Manager",
+            "Stakeholder"
+        ],
+        "correct_answer": "Project Manager"
+    },
+    {
+        "id": 173,
+        "unit": "Unit 3",
+        "question": "Which of the following is NOT a characteristic of a project?",
+        "options": [
+            "Temporary nature",
+            "Unique deliverable",
+            "Ongoing repetitive process",
+            "Defined start and end date"
+        ],
+        "correct_answer": "Ongoing repetitive process"
+    },
+    {
+        "id": 174,
+        "unit": "Unit 3",
+        "question": "In Agile methodology, client involvement is:",
+        "options": [
+            "Minimal, only at the end",
+            "Continuous and active throughout the project",
+            "Only at requirement gathering stage",
+            "Not required at all"
+        ],
+        "correct_answer": "Continuous and active throughout the project"
+    },
+    {
+        "id": 175,
+        "unit": "Unit 3",
+        "question": "What does WBS stand for in project management?",
+        "options": [
+            "Work Breakdown Structure",
+            "Workflow Balanced Schedule",
+            "Work Baseline Summary",
+            "Weighted Business Schedule"
+        ],
+        "correct_answer": "Work Breakdown Structure"
+    },
+    {
+        "id": 176,
+        "unit": "Unit 3",
+        "question": "Which process includes identifying and prioritizing stakeholders?",
+        "options": [
+            "Communication Management",
+            "Stakeholder Analysis",
+            "Risk Management",
+            "Scope Verification"
+        ],
+        "correct_answer": "Stakeholder Analysis"
+    },
+    {
+        "id": 177,
+        "unit": "Unit 3",
+        "question": "Which estimating technique uses historical data from similar past projects?",
+        "options": [
+            "Parametric Estimating",
+            "Bottom-Up Estimating",
+            "Analogous Estimating",
+            "PERT Estimating"
+        ],
+        "correct_answer": "Analogous Estimating"
+    },
+    {
+        "id": 178,
+        "unit": "Unit 3",
+        "question": "What does 'Lead' in project scheduling mean?",
+        "options": [
+            "Delay before starting next task",
+            "Overlap between tasks to start earlier",
+            "Skipping tasks to save time",
+            "Adding extra resources"
+        ],
+        "correct_answer": "Overlap between tasks to start earlier"
+    },
+    {
+        "id": 179,
+        "unit": "Unit 3",
+        "question": "Which document formally authorizes a project?",
+        "options": [
+            "Project Scope Statement",
+            "Project Plan",
+            "Project Charter",
+            "Stakeholder Register"
+        ],
+        "correct_answer": "Project Charter"
+    },
+    {
+        "id": 180,
+        "unit": "Unit 3",
+        "question": "Which of the following techniques is used for schedule compression by adding resources?",
+        "options": [
+            "Fast Tracking",
+            "Crashing",
+            "PERT",
+            "Rolling Wave Planning"
+        ],
+        "correct_answer": "Crashing"
+    },
+    {
+        "id": 181,
+        "unit": "Unit 1",
+        "question": "Which of the following best defines Project Management?",
+        "options": [
+            "Temporary effort to create a unique product, service, or result",
+            "Continuous process of manufacturing goods",
+            "Permanent function of the organization",
+            "Random set of activities without goal"
+        ],
+        "correct_answer": "Temporary effort to create a unique product, service, or result"
+    },
+    {
+        "id": 182,
+        "unit": "Unit 1",
+        "question": "Who is primarily responsible for planning, executing, and closing a project?",
+        "options": [
+            "Functional Manager",
+            "Project Sponsor",
+            "Project Manager",
+            "Stakeholder"
+        ],
+        "correct_answer": "Project Manager"
+    },
+    {
+        "id": 183,
+        "unit": "Unit 1",
+        "question": "Which of the following is NOT a characteristic of a project?",
+        "options": [
+            "Temporary nature",
+            "Unique deliverable",
+            "Ongoing repetitive process",
+            "Defined start and end date"
+        ],
+        "correct_answer": "Ongoing repetitive process"
+    },
+    {
+        "id": 184,
+        "unit": "Unit 1",
+        "question": "In Agile methodology, client involvement is:",
+        "options": [
+            "Minimal, only at the end",
+            "Continuous and active throughout the project",
+            "Only at requirement gathering stage",
+            "Not required at all"
+        ],
+        "correct_answer": "Continuous and active throughout the project"
+    },
+    {
+        "id": 185,
+        "unit": "Unit 1",
+        "question": "What does WBS stand for in project management?",
+        "options": [
+            "Work Breakdown Structure",
+            "Workflow Balanced Schedule",
+            "Work Baseline Summary",
+            "Weighted Business Schedule"
+        ],
+        "correct_answer": "Work Breakdown Structure"
+    },
+    {
+        "id": 186,
+        "unit": "Unit 1",
+        "question": "Which process includes identifying and prioritizing stakeholders?",
+        "options": [
+            "Communication Management",
+            "Stakeholder Analysis",
+            "Risk Management",
+            "Scope Verification"
+        ],
+        "correct_answer": "Stakeholder Analysis"
+    },
+    {
+        "id": 187,
+        "unit": "Unit 1",
+        "question": "Which estimating technique uses historical data from similar past projects?",
+        "options": [
+            "Parametric Estimating",
+            "Bottom-Up Estimating",
+            "Analogous Estimating",
+            "PERT Estimating"
+        ],
+        "correct_answer": "Analogous Estimating"
+    },
+    {
+        "id": 188,
+        "unit": "Unit 1",
+        "question": "What does 'Lead' in project scheduling mean?",
+        "options": [
+            "Delay before starting next task",
+            "Overlap between tasks to start earlier",
+            "Skipping tasks to save time",
+            "Adding extra resources"
+        ],
+        "correct_answer": "Overlap between tasks to start earlier"
+    },
+    {
+        "id": 189,
+        "unit": "Unit 1",
+        "question": "Which document formally authorizes a project?",
+        "options": [
+            "Project Scope Statement",
+            "Project Plan",
+            "Project Charter",
+            "Stakeholder Register"
+        ],
+        "correct_answer": "Project Charter"
+    },
+    {
+        "id": 190,
+        "unit": "Unit 1",
+        "question": "Which of the following techniques is used for schedule compression by adding resources?",
+        "options": [
+            "Fast Tracking",
+            "Crashing",
+            "PERT",
+            "Rolling Wave Planning"
+        ],
+        "correct_answer": "Crashing"
+    },
+    {
+        "id": 191,
+        "unit": "Unit 2",
+        "question": "Which of the following best defines Project Management?",
+        "options": [
+            "Temporary effort to create a unique product, service, or result",
+            "Continuous process of manufacturing goods",
+            "Permanent function of the organization",
+            "Random set of activities without goal"
+        ],
+        "correct_answer": "Temporary effort to create a unique product, service, or result"
+    },
+    {
+        "id": 192,
+        "unit": "Unit 2",
+        "question": "Who is primarily responsible for planning, executing, and closing a project?",
+        "options": [
+            "Functional Manager",
+            "Project Sponsor",
+            "Project Manager",
+            "Stakeholder"
+        ],
+        "correct_answer": "Project Manager"
+    },
+    {
+        "id": 193,
+        "unit": "Unit 2",
+        "question": "Which of the following is NOT a characteristic of a project?",
+        "options": [
+            "Temporary nature",
+            "Unique deliverable",
+            "Ongoing repetitive process",
+            "Defined start and end date"
+        ],
+        "correct_answer": "Ongoing repetitive process"
+    },
+    {
+        "id": 194,
+        "unit": "Unit 2",
+        "question": "In Agile methodology, client involvement is:",
+        "options": [
+            "Minimal, only at the end",
+            "Continuous and active throughout the project",
+            "Only at requirement gathering stage",
+            "Not required at all"
+        ],
+        "correct_answer": "Continuous and active throughout the project"
+    },
+    {
+        "id": 195,
+        "unit": "Unit 2",
+        "question": "What does WBS stand for in project management?",
+        "options": [
+            "Work Breakdown Structure",
+            "Workflow Balanced Schedule",
+            "Work Baseline Summary",
+            "Weighted Business Schedule"
+        ],
+        "correct_answer": "Work Breakdown Structure"
+    },
+    {
+        "id": 196,
+        "unit": "Unit 2",
+        "question": "Which process includes identifying and prioritizing stakeholders?",
+        "options": [
+            "Communication Management",
+            "Stakeholder Analysis",
+            "Risk Management",
+            "Scope Verification"
+        ],
+        "correct_answer": "Stakeholder Analysis"
+    },
+    {
+        "id": 197,
+        "unit": "Unit 2",
+        "question": "Which estimating technique uses historical data from similar past projects?",
+        "options": [
+            "Parametric Estimating",
+            "Bottom-Up Estimating",
+            "Analogous Estimating",
+            "PERT Estimating"
+        ],
+        "correct_answer": "Analogous Estimating"
+    },
+    {
+        "id": 198,
+        "unit": "Unit 2",
+        "question": "What does 'Lead' in project scheduling mean?",
+        "options": [
+            "Delay before starting next task",
+            "Overlap between tasks to start earlier",
+            "Skipping tasks to save time",
+            "Adding extra resources"
+        ],
+        "correct_answer": "Overlap between tasks to start earlier"
+    },
+    {
+        "id": 199,
+        "unit": "Unit 2",
+        "question": "Which document formally authorizes a project?",
+        "options": [
+            "Project Scope Statement",
+            "Project Plan",
+            "Project Charter",
+            "Stakeholder Register"
+        ],
+        "correct_answer": "Project Charter"
+    },
+    {
+        "id": 200,
+        "unit": "Unit 2",
+        "question": "Which of the following techniques is used for schedule compression by adding resources?",
+        "options": [
+            "Fast Tracking",
+            "Crashing",
+            "PERT",
+            "Rolling Wave Planning"
+        ],
+        "correct_answer": "Crashing"
+    }
+]
