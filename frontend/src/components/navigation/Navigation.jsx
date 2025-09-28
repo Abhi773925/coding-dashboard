@@ -746,7 +746,12 @@ const Navigation = () => {
                 </Link>
                 <button
                   className={`w-full text-left px-5 py-3 text-base transition-colors duration-200 ${isDarkMode ? 'text-red-300 hover:bg-red-900/30' : 'text-red-600 hover:bg-red-50/50'}`}
-                  onClick={() => { setProfileOpen(false); if (typeof logout === 'function') logout(); }}
+                  onClick={() => {
+                    setProfileOpen(false);
+                    setTimeout(() => {
+                      if (typeof logout === 'function') logout();
+                    }, 100);
+                  }}
                 >
                   Logout
                 </button>
