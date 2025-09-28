@@ -187,21 +187,7 @@ const StreakDisplay = () => {
     return () => clearInterval(intervalId)
   }, [])
 
-  // Show loading state briefly
-  if (loading && retryCount === 0) {
-    return (
-      <div
-        className={`flex items-center space-x-2 px-4 py-2 rounded-full backdrop-blur-sm transition-all duration-300 ${
-          isDarkMode
-            ? "bg-zinc-900/60 text-slate-400 border border-slate-700/50"
-            : "bg-gray-100/80 text-gray-600 border border-gray-200/50"
-        }`}
-      >
-        <div className="w-4 h-4 rounded-full bg-gray-300 animate-pulse"></div>
-        <span className="text-sm font-medium">Loading...</span>
-      </div>
-    )
-  }
+  // Remove loading state
 
   // Show error state with fallback to cached data
   if (error && streak.currentStreak === 0) {
@@ -610,7 +596,7 @@ const Navigation = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
   const [isMobile, setIsMobile] = useState(false)
   const [openSection, setOpenSection] = useState(null)
-  const { user, isLoggedIn } = useAuth()
+  const { user, isLoggedIn, login } = useAuth()
 
   // Screen Size Detection
   useEffect(() => {
@@ -674,152 +660,109 @@ const Navigation = () => {
   }, [])
 
   // Desktop Navigation Render
+  const [resourcesOpen, setResourcesOpen] = useState(false);
+  const [profileOpen, setProfileOpen] = useState(false);
+  const resourceLinks = [
+    { name: "Contest Tracker", route: "/contest" },
+    { name: "DSA Practice", route: "/courses/data-structures" },
+    { name: "Full Stack", route: "/courses/fullstack" },
+    { name: "All Courses", route: "/allcourse" },
+    { name: "Computer Networks", route: "/articles/computer-networks" },
+    { name: "Operating Systems", route: "/articles/operating-systems" },
+    { name: "OOP Concepts", route: "/articles/oops" },
+    { name: "SQL Basics", route: "/sql-notes" },
+    { name: "All Articles", route: "/interview-series" }
+  ];
+  const handleLogoClick = () => {
+    window.location.href = "/";
+  }
   const renderDesktopNavigation = () => (
     <nav
-      className={`
-        hidden lg:flex fixed top-0 left-0 right-0 z-40
-        items-center justify-between px-8 py-2
-        transition-all duration-300
-        ${isDarkMode ? 'bg-zinc-900/95' : 'bg-white/95'}
-      `}
-      style={{
-        backdropFilter: 'blur(10px) saturate(180%)',
-      }}
+      className={`hidden lg:flex fixed top-0 left-0 right-0  z-40 items-center justify-between px-8 py-2 transition-all duration-300 ${isDarkMode ? 'bg-zinc-900/95' : 'bg-white/95'}`}
+      style={{ backdropFilter: 'blur(10px) saturate(180%)' }}
     >
-      {/* Enhanced Logo */}
-      <div className="flex items-center space-x-4">
-        <div className="rounded-xl flex items-center justify-center transition-all duration-300 hover:scale-105">
-            <Link to="/" className={`text-xl font-bold tracking-tight pl-4 ${isDarkMode ? 'text-slate-300' : 'text-slate-700'}`}>
-              <img src={prepmateLogo} alt="Prepmate Logo" className="h-[50px] w-[50px] sm:h-15" />
-            </Link>
-        </div>
+      {/* Left: Logo and Title */}
+      <div className="flex items-center gap-4" onClick={handleLogoClick}>
+        <img src={prepmateLogo} alt="Logo" className="h-12 w-12 rounded-lg" />
       </div>
 
-      {/* Navigation Sections with Enhanced Dropdowns */}
-      <div className="flex items-center space-x-8 relative">
-        {navigationSections.map((section) => (
-          <div
-            key={section.name}
-            className="relative"
-            onMouseEnter={() => toggleSection(section.name)}
-            onMouseLeave={() => toggleSection(section.name)}
-          >
-            <div
-              className={`
-                flex items-center space-x-3 cursor-pointer px-5 py-3 rounded-xl
-                transition-all duration-300 transform hover:scale-105 ${isDarkMode ? '' : 'backdrop-blur-sm'}
-                ${getSectionStyling(section.name).bgHover}
-                ${getSectionStyling(section.name).text}
-                ${openSection === section.name ? getSectionStyling(section.name).bg : ''}
-              `}
-              style={{
-                background: openSection === section.name && !isDarkMode
-                  ? `linear-gradient(135deg, ${getSectionStyling(section.name).accent.replace('from-', '').replace(' to-', ', ')})` 
-                  : 'transparent'
-              }}
-            >
-              <section.icon className={section.color} size={20} />
-              <span className="font-semibold text-lg">{section.name}</span>
-              <ChevronDown
-                size={16}
-                className={`
-                  transition-transform
-                  ${openSection === section.name ? "rotate-180" : ""}
-                `}
-              />
-            </div>
-
-            {/* Enhanced Dropdown Menu */}
-            {openSection === section.name && (
-              <div
-                className={`
-                  absolute top-full left-0 w-72 rounded-2xl overflow-hidden z-50
-                  ${isDarkMode ? 'bg-zinc-900/95' : 'bg-white/95'} backdrop-blur-md
-                  shadow-xl border
-                  ${isDarkMode ? 'border-zinc-700/50' : 'border-gray-200/50'}
-                `}
-                style={{
-                  boxShadow: isDarkMode 
-                    ? '0 8px 32px rgba(0, 0, 0, 0.3)' 
-                    : '0 8px 32px rgba(0, 0, 0, 0.1)'
-                }}
-              >
-                {section.subSections.map((subSection) => (
-                  <Link
-                    key={subSection.name}
-                    to={subSection.route}
-                    className={`
-                      flex items-center justify-between p-4
-                      cursor-pointer transition-all duration-300 group no-underline
-                      ${isDarkMode 
-                        ? "text-slate-300 hover:bg-zinc-800/50 hover:text-slate-300" 
-                        : "text-slate-700 hover:bg-gray-100/50 hover:text-slate-700"}
-                    `}
-                  >
-                    <div className="flex items-center space-x-4">
-                      <subSection.icon
-                        className={`
-                          ${isDarkMode ? "text-slate-400" : "text-slate-600"}
-                          group-hover:scale-110 transition-transform
-                        `}
-                        size={22}
-                      />
-                      <span className="font-medium text-lg">{subSection.name}</span>
-                    </div>
-                    <ChevronRight
-                      className={`
-                        ${isDarkMode ? "text-slate-500" : "text-slate-400"}
-                        group-hover:translate-x-1 transition-transform
-                      `}
-                      size={18}
-                    />
-                  </Link>
-                ))}
-              </div>
-            )}
-          </div>
-        ))}
-      </div>
-
-      {/* Enhanced Right Side Actions */}
-      <div className="flex items-center space-x-6">
-        {/* Terminal/Compiler Button */}
-        <Link
-          to="/terminal"
-          className={`
-            flex items-center gap-2 px-4 py-2 rounded-lg
-            bg-gradient-to-r from-purple-500 to-blue-500
-            text-white font-medium text-sm
-            transition-all duration-300 transform hover:scale-105 hover:shadow-lg
-            hover:from-purple-600 hover:to-blue-600
-            active:scale-95
-          `}
-          title="Open Code Compiler"
-        >
-          <Terminal size={16} />
-          <span>Go to Terminal</span>
+      {/* Right: Terminal, Resources Dropdown, Theme Toggle, Profile/Login */}
+      <div className="flex items-center gap-6 relative">
+        {/* Terminal Icon and Label */}
+        <Link to="/terminal" className="flex items-center gap-2 text-lg font-medium select-none transition-colors duration-200 px-3 py-2 rounded-xl hover:bg-orange-100 dark:hover:bg-zinc-800/50">
+          <Terminal size={20} className={isDarkMode ? 'text-orange-400' : 'text-orange-600'} />
+          <span className={isDarkMode ? 'text-orange-400' : 'text-orange-600'}>Terminal</span>
         </Link>
-
-        {/* Streak Display - Only show when user is logged in */}
-        {!!user && <StreakDisplay />}
-
-        {/* Enhanced Theme Toggle */}
+        {/* Resources Dropdown */}
+        <div
+          className={`relative text-lg font-medium cursor-pointer select-none ${isDarkMode ? 'text-slate-200 hover:text-orange-400' : 'text-zinc-800 hover:text-orange-600'} transition-colors flex items-center`}
+          onMouseEnter={() => setResourcesOpen(true)}
+          onClick={() => setResourcesOpen(!resourcesOpen)}
+        >
+          <span>Resources</span>
+          <ChevronDown size={18} className="inline ml-1 align-middle" />
+          {resourcesOpen && (
+            <div className={`absolute right-0 mt-120  max-h-[70vh] overflow-y-auto w-56 rounded-xl shadow-xl z-50 ${isDarkMode ? 'bg-zinc-900/95 border border-zinc-700/50' : 'bg-white/95 border border-gray-200/50'}`}>
+              {resourceLinks.map(link => (
+                <Link
+                  key={link.name}
+                  to={link.route}
+                  className={`block px-5 py-3 text-base no-underline transition-colors duration-200 ${isDarkMode ? 'text-slate-200 hover:bg-zinc-800/50 hover:text-orange-400' : 'text-zinc-800 hover:bg-gray-100/50 hover:text-orange-600'}`}
+                >
+                  {link.name}
+                </Link>
+              ))}
+            </div>
+          )}
+        </div>
+        {/* Theme Toggle */}
         <button
           onClick={toggleTheme}
-          className={`
-            p-3 rounded-xl transition-all duration-300 transform hover:scale-110
-            ${
-              isDarkMode
-                ? "text-slate-400 hover:bg-zinc-800/50 hover:text-slate-300"
-                : "text-slate-600 hover:bg-gray-100/50 hover:text-slate-700"
-            }
-          `}
+          className={`p-3 rounded-xl transition-all duration-300 hover:scale-110 ${isDarkMode ? 'text-slate-400 hover:bg-zinc-800/50 hover:text-slate-300' : 'text-slate-600 hover:bg-gray-100/50 hover:text-slate-700'}`}
         >
           {isDarkMode ? <Sun size={24} /> : <Moon size={24} />}
         </button>
-
-        {/* Profile Section */}
-        <ProfileDropdown onLogin={() => {}} onLogout={() => {}} />
+        {/* Profile Section or Login Button */}
+        {isLoggedIn ? (
+          <div className="relative">
+            <img
+              src={user?.avatar || "/default-avatar.png"}
+              alt="User Avatar"
+              className="h-10 w-10 rounded-full border-2 border-orange-400 cursor-pointer"
+              onClick={() => setProfileOpen((open) => !open)}
+            />
+            {profileOpen && (
+              <div className={`absolute right-0 mt-2 w-56 rounded-xl shadow-xl z-50 ${isDarkMode ? 'bg-zinc-900/95 border border-zinc-700/50' : 'bg-white/95 border border-gray-200/50'}`}>
+                <div className="px-5 py-4 border-b border-gray-200 dark:border-zinc-700">
+                  <div className="font-semibold text-lg mb-1">{user?.name || 'User'}</div>
+                  <div className="text-sm text-gray-500 dark:text-slate-400">{user?.email || ''}</div>
+                </div>
+                <Link
+                  to="/profile"
+                  className={`block px-5 py-3 text-base no-underline transition-colors duration-200 ${isDarkMode ? 'text-slate-200 hover:bg-zinc-800/50 hover:text-orange-400' : 'text-zinc-800 hover:bg-gray-100/50 hover:text-orange-600'}`}
+                  onClick={() => setProfileOpen(false)}
+                >
+                  My Profile
+                </Link>
+                <button
+                  className={`w-full text-left px-5 py-3 text-base transition-colors duration-200 ${isDarkMode ? 'text-red-300 hover:bg-red-900/30' : 'text-red-600 hover:bg-red-50/50'}`}
+                  onClick={() => { setProfileOpen(false); if (typeof logout === 'function') logout(); }}
+                >
+                  Logout
+                </button>
+              </div>
+            )}
+          </div>
+        ) : (
+          <button
+            onClick={login}
+            className={`flex items-center space-x-2 px-5 py-2 rounded-xl font-medium transition-all duration-300 transform hover:scale-105 backdrop-blur-sm ${isDarkMode ? 'bg-gradient-to-r from-purple-600 to-blue-600 text-white hover:from-purple-500 hover:to-blue-500' : 'bg-gradient-to-r from-purple-600 to-blue-600 text-white hover:from-purple-700 hover:to-blue-700'}`}
+            style={{ boxShadow: isDarkMode ? '0 8px 25px rgba(139, 92, 246, 0.3)' : '0 8px 25px rgba(139, 92, 246, 0.2)' }}
+          >
+            <LogIn size={18} />
+            <span>Login</span>
+          </button>
+        )}
       </div>
     </nav>
   )
